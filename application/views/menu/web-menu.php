@@ -42,8 +42,8 @@
                                         <td><?= $m['url']; ?></td>
                                         <td><?= $m['icon']; ?></td>
                                         <td>
-                                            <a href="" data-toggle="modal" data-target="#editModal" class="badge badge-primary">Edit</a>
-                                            <a href="<?= base_url('menu/deletemenu') . '/' . $i['id'] ?>" class="badge badge-danger">Delete</a>
+                                            <a href="" data-toggle="modal" data-target="#editModal" class="badge badge-primary text-white">Edit</a>
+                                            <a href="<?= base_url('menu/delete_webmenu/') . $m['id'] ?>" class="badge badge-danger">Delete</a>
                                         </td>
                                         </>
                                         <?php $i++; ?>
