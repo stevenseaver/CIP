@@ -4,9 +4,9 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('user') ?>">
                 <div class="sidebar-brand-icon">
-                    <i class="fas fa-recycle"></i>
+                    <i class="fas fa-fw fa-cart-arrow-down"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SIP Admin</div>
+                <div class="sidebar-brand-text mx-3">Shop</div>
             </a>
 
             <!-- Divider -->

@@ -37,6 +37,17 @@ class Web extends CI_Controller
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();
+		//google maps
+		$this->load->library('googlemaps');
+		$config = array();
+		$config['center'] = "-7.3946316213901735, 112.7525410393029";
+		$config['zoom'] = 17;
+		$config['map_height'] = "400px";
+		$this->googlemaps->initialize($config);
+		$marker = array();
+		$marker['position'] = "-7.3946316213901735, 112.7525410393029";
+		$this->googlemaps->add_marker($marker);
+		$data['map'] = $this->googlemaps->create_map();
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/web-topbar', $data);

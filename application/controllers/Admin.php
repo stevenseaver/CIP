@@ -131,9 +131,10 @@ class Admin extends CI_Controller
     // function untuk delete role
     public function deleterole($itemtoDelete)
     {
-        $this->db->delete('user_role', array('id' => $itemtoDelete));
         $deleteditem = $this->db->get_where('user_role', array('id' => $itemtoDelete))->row_array();
 
+        //Delete DB
+        $this->db->delete('user_role', array('id' => $itemtoDelete));
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Role ' . $deleteditem["role"] . ' deleted!</div>');
         redirect('admin/role');
     }
