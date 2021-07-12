@@ -1,8 +1,19 @@
  <!-- Footer -->
  <footer class="sticky-footer bg-white">
-     <div class="container my-auto">
+     <div class="container-fluid my-auto">
          <div class="row">
-             <div class="col-sm-6">
+             <div class="col-lg-6">
+                 <div class="copyright text-left mb-2">
+                     <span>Copyright &copy; UD. Cakra Inti Plastik 2021</span>
+                 </div>
+                 <div class="copyright text-left mb-2">
+                     <span></span>
+                 </div>
+                 <div class="copyright text-left my-auto">
+                     <span>Telp: +6231 701-1529 | Email: cs.sbplastik@gmail.com</span>
+                 </div>
+             </div>
+             <div class="col-lg-6 text-right">
                  <a href="https://wa.me/+6282232057755" class="btn btn-success btn-circle" target="_blank">
                      <i class="fab fa-fw fa-whatsapp"></i>
                  </a>
@@ -12,17 +23,6 @@
                  <a href="https://instagram.com/sbplastik" class="btn btn-warning btn-circle" target="_blank">
                      <i class="fab fa-fw fa-instagram"></i>
                  </a>
-             </div>
-             <div class="col-sm-6">
-                 <div class="copyright text-right mb-2">
-                     <span>Copyright &copy; UD. Cakra Inti Plastik 2021 | Gedangan, Sidoarjo</span>
-                 </div>
-                 <div class="copyright text-right mb-2">
-                     <span></span>
-                 </div>
-                 <div class="copyright text-right my-auto">
-                     <span>Telp: +6231 70 11 529 | Email: cipsbp.donotreply@gmail.com</span>
-                 </div>
              </div>
          </div>
 
