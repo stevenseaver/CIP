@@ -1,12 +1,12 @@
 <!-- Begin Page Content -->
-<div class="container-fluid">
+<div class="container-fluid pt-4 mt-5">
 
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="d-sm-flex align-items-center justify-content-between mb-2">
         <h1 class="h3 mb-0 text-primary font-weight-bold"><?= $title ?></h1>
     </div>
 
-    <div class="row">
+    <div class="row align-items-center">
         <div class="col-lg-7">
             <div class="card shadow mb-3 border-left-primary">
                 <div class="card-body">
@@ -21,7 +21,7 @@
                         <div class="col-lg-5 py-3 px-0 text-center">
                             <i class="fas fa-fw fa-tty fa-3x mb-3"></i>
                             <p class="text-primary mb-0">+6231-701-1529</p>
-                            <p class="text-secondary mb-0">Business Hours</p>
+                            <p class="text-secondary mb-0">Monday - Friday</p>
                             <p class="text-secondary mb-0">08.00 - 16.00 (WIB/GMT+7)</p>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                         <div class="col py-3 px-2 text-center">
                             <i class="fas fa-fw fa-envelope fa-3x mb-3"></i>
                             <p class="text-primary mb-0">cs.sbplastik@gmail.com</p>
-                            <p class="text-secondary mb-0">Business Hours</p>
+                            <p class="text-secondary mb-0">Monday - Friday</p>
                             <p class="text-secondary mb-0">08.00 - 16.00 (WIB/GMT+7)</p>
                         </div>
                         <div class="col-lg-5 py-3 px-3 text-center">
@@ -62,16 +62,15 @@
                             </div>
                             <div class="row px-2">
                                 <!-- address first row-->
-                                <label for="address" class="text-primary mt-3">Address</label>
-                                <input type="text" class="form-control mb-2" id="street" name="street" placeholder="Street, city, anything.">
-                                <small class="text-secondary ml-2">Fill up your address so we can send you samples, etc.</small>
+                                <label for="address" class="text-primary mt-3">Email</label>
+                                <input type="text" class="form-control mb-2" id="street" name="street" placeholder="Your email here.">
                                 <?= form_error('street', '<small class="text-danger pl-3">', '</small>') ?>
                             </div>
                             <div class="row px-2">
                                 <!-- telp no -->
                                 <label for="hp" class="text-primary mt-3">Phone Number</label>
                                 <input type="text" class="form-control mb-2" id="hp" name="hp" placeholder="Phone number goes here.">
-                                <small class="text-secondary ml-2">Fill up your phone number so we can send you a feedback.</small>
+                                <small class="text-secondary ml-2">Fill up your contact details so we can send you a response.</small>
                                 <?= form_error('hp', '<small class="text-danger pl-3">', '</small>') ?>
                             </div>
                             <div class="row px-2 mb-3">

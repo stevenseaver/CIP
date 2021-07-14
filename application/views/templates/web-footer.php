@@ -1,34 +1,34 @@
  <!-- Footer -->
- <footer class="sticky-footer bg-white">
-     <div class="container-fluid my-auto">
-         <div class="row">
-             <div class="col-lg-6">
-                 <div class="copyright text-left mb-2">
-                     <span>Copyright &copy; UD. Cakra Inti Plastik 2021</span>
+ <div class="containter-fluid">
+     <footer class="sticky-footer bg-white">
+         <div class="container-fluid my-auto">
+             <div class="row align-items-center d-flex justify-content-between">
+                 <div class="col-lg-4 mb-3">
+                     <div class="copyright">
+                         <span>Copyright &copy; UD. Cakra Inti Plastik 2021</span>
+                     </div>
                  </div>
-                 <div class="copyright text-left mb-2">
-                     <span></span>
+                 <div class="col-lg-4 mb-3">
+                     <a href="<?= base_url('web/privacy_policy') ?>" class="text-secondary small">Privacy Policy | </a>
+                     <a href="<?= base_url('web/site_map') ?>" class="text-secondary small">Site Map | </a>
+                     <a href="<?= base_url('web/terms') ?>" class="text-secondary small">Terms and Condition</a>
                  </div>
-                 <div class="copyright text-left my-auto">
-                     <span>Telp: +6231 701-1529 | Email: cs.sbplastik@gmail.com</span>
+                 <div class="col-lg-4 mb-2">
+                     <a href="https://wa.me/+6282232057755" class="btn btn-success btn-circle" target="_blank">
+                         <i class="fab fa-fw fa-whatsapp"></i>
+                     </a>
+                     <a href="#" class="btn btn-danger btn-circle" target="_blank">
+                         <i class="far fa-fw fa-envelope"></i>
+                     </a>
+                     <a href="https://instagram.com/sbplastik" class="btn btn-warning btn-circle" target="_blank">
+                         <i class="fab fa-fw fa-instagram"></i>
+                     </a>
                  </div>
-             </div>
-             <div class="col-lg-6 text-right">
-                 <a href="https://wa.me/+6282232057755" class="btn btn-success btn-circle" target="_blank">
-                     <i class="fab fa-fw fa-whatsapp"></i>
-                 </a>
-                 <a href="#" class="btn btn-danger btn-circle" target="_blank">
-                     <i class="far fa-fw fa-envelope"></i>
-                 </a>
-                 <a href="https://instagram.com/sbplastik" class="btn btn-warning btn-circle" target="_blank">
-                     <i class="fab fa-fw fa-instagram"></i>
-                 </a>
              </div>
          </div>
-
-     </div>
- </footer>
- <!-- End of Footer -->
+     </footer>
+     <!-- End of Footer -->
+ </div>
 
  </div>
  <!-- End of Content Wrapper -->

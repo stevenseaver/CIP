@@ -5,13 +5,13 @@
     <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white mb-4">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary mb-4">
             <!-- Topbar - Brand -->
             <a class="navbar-brand d-flex align-items-center justify-content-center" href="<?= base_url('web') ?>">
                 <div class="navbar-brand-icon ml-2">
                     <i class="fas fa-recycle"></i>
                 </div>
-                <div class="navbar-brand-text mx-2 text-primary font-weight-bold">UD. Cakra Inti Plastik</div>
+                <div class="navbar-brand-text mx-2 text-white font-weight-bold">UD. Cakra Inti Plastik</div>
             </a>
             <!-- Toggler -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,6 +47,5 @@
                     </li>
                 </ul>
             </div>
-
         </nav>
         <!-- End of Topbar -->

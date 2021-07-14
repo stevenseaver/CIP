@@ -1,8 +1,8 @@
 <!-- Begin Page Content -->
-<div class="container-fluid">
-    <div class="row">
+<div class="container-fluid pt-4 mt-5">
+    <div class="row align-items-center">
         <div class="col-lg-6">
-            <div class="card shadow mb-3">
+            <div class="card mb-3">
                 <div class="card-body">
                     <div class="row align-items-center">
                         <div class="col text-left">
@@ -27,14 +27,6 @@
                                 </div>
                             </div>
                             <p class="text-grey-100 mb-3 text-justify">We promise to create environmentally friendly plastic, so you can use it to improve your quality of life without worrying about its impact. </p>
-                            <img class="img-fluid my-2 float-right w-25" src="<?= base_url('asset/') ?>img/profile/profile.jpg"></img>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
                             <p class="text-grey-100 text-right mb-0">Suarto</p>
                             <p class="text-grey-100 text-right">Director</p>
                         </div>
