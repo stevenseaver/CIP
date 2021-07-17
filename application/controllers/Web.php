@@ -56,7 +56,54 @@ class Web extends CI_Controller
 		$this->load->view('web/about-us', $data);
 		$this->load->view('templates/web-footer');
 	}
-	//load page about Us
+
+	//** Landing Page from Main-Page 				*/
+	//** Content:									*/
+	//** Quality, Eco-Mindful, Highly Customizable 	*/
+	//load page LP1_quality
+	public function lp1_quality()
+	{
+		$data['title'] = 'High Quality';
+		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['user'] = $this->db->get_where('user', ['nik' =>
+		$this->session->userdata('nik')])->row_array();
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/web-topbar', $data);
+		$this->load->view('web/landing_page/lp1-quality', $data);
+		$this->load->view('templates/web-footer');
+	}
+	//load page LP2_eco
+	public function lp2_eco()
+	{
+		$data['title'] = 'Eco-Mindful';
+		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['user'] = $this->db->get_where('user', ['nik' =>
+		$this->session->userdata('nik')])->row_array();
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/web-topbar', $data);
+		$this->load->view('web/landing_page/lp2-eco', $data);
+		$this->load->view('templates/web-footer');
+	}
+	//load page LP3_guideline
+	public function lp3_guideline()
+	{
+		$data['title'] = 'Highly Customizable';
+		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['user'] = $this->db->get_where('user', ['nik' =>
+		$this->session->userdata('nik')])->row_array();
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/web-topbar', $data);
+		$this->load->view('web/landing_page/lp3-guideline', $data);
+		$this->load->view('templates/web-footer');
+	}
+
+	//** Landing Page from Footer 		*/
+	//** Content: 				  		*/
+	//** Privacy Policy, Sitemap, T&C 	*/
+	//load page privacy policy
 	public function privacy_policy()
 	{
 		$data['title'] = 'Privacy Policy';
@@ -66,10 +113,10 @@ class Web extends CI_Controller
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/web-topbar', $data);
-		$this->load->view('web/privacy-policy', $data);
+		$this->load->view('web/footer_lp/privacy-policy', $data);
 		$this->load->view('templates/web-footer');
 	}
-	//load page about Us
+	//load page terms
 	public function terms()
 	{
 		$data['title'] = 'Terms and Conditions';
@@ -79,10 +126,10 @@ class Web extends CI_Controller
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/web-topbar', $data);
-		$this->load->view('web/terms', $data);
+		$this->load->view('web/footer_lp/terms', $data);
 		$this->load->view('templates/web-footer');
 	}
-	//load page about Us
+	//load page site map
 	public function site_map()
 	{
 		$data['title'] = 'Site Map';
@@ -92,7 +139,7 @@ class Web extends CI_Controller
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/web-topbar', $data);
-		$this->load->view('web/site-map', $data);
+		$this->load->view('web/footer_lp/site-map', $data);
 		$this->load->view('templates/web-footer');
 	}
 }

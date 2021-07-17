@@ -2,18 +2,20 @@
  <div class="containter-fluid">
      <footer class="sticky-footer bg-white">
          <div class="container-fluid my-auto">
-             <div class="row align-items-center d-flex justify-content-between">
+             <div class="row align-items-center">
                  <div class="col-lg-4 mb-3">
-                     <div class="copyright">
+                     <div class="copyright text-left">
                          <span>Copyright &copy; UD. Cakra Inti Plastik 2021</span>
                      </div>
                  </div>
-                 <div class="col-lg-4 mb-3">
-                     <a href="<?= base_url('web/privacy_policy') ?>" class="text-secondary small">Privacy Policy | </a>
-                     <a href="<?= base_url('web/site_map') ?>" class="text-secondary small">Site Map | </a>
+                 <div class="col-lg-4 mb-3 text-center">
+                     <a href="<?= base_url('web/privacy_policy') ?>" class="text-secondary small">Privacy Policy</a>
+                     |
+                     <a href="<?= base_url('web/site_map') ?>" class="text-secondary small">Site Map</a>
+                     |
                      <a href="<?= base_url('web/terms') ?>" class="text-secondary small">Terms and Condition</a>
                  </div>
-                 <div class="col-lg-4 mb-2">
+                 <div class="col-lg-4 mb-3 text-right">
                      <a href="https://wa.me/+6282232057755" class="btn btn-success btn-circle" target="_blank">
                          <i class="fab fa-fw fa-whatsapp"></i>
                      </a>
