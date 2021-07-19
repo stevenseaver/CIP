@@ -6,7 +6,7 @@
         <h1 class="h3 mb-0 text-primary font-weight-bold"><?= $title ?></h1>
     </div>
 
-    <div class="row align-items-center">
+    <div class="row">
         <div class="col-lg-7">
             <div class="card shadow mb-3 border-left-primary">
                 <div class="card-body">

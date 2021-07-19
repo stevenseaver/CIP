@@ -1,13 +1,6 @@
 	<!-- Begin Page Content -->
 	<div class="container-fluid pt-4 mt-5">
-		<!-- <div class="row align-items-center mb-2">
-			<div class="col text-center">
-				<div class="jumbotron jumbotron-fluid"> 
-		<img src="<?= base_url('asset/') ?>" alt="Responsive image" class="img-fluid mx-auto d-block">
-		<h1 class="">Welcome!</h1>
-		<p class="">We provide high quality and eco-mindfull plastic packaging for all your needs.</p>
-	</div>
-	</div> -->
+		<!-- Main Card -->
 		<div class="card border-primary bg-light text-grey mb-3">
 			<img class="card-img my-2" src="<?= base_url('asset/') ?>img/undraw_posting_photo.svg" alt="Welcome Image" width="200" height="400">
 			<div class="card-img-overlay d-flex flex-column justify-content-center">
@@ -16,8 +9,9 @@
 				<p class="card-text ml-3">Lorem ipsum dolores babi goreng tepung</p>
 			</div>
 		</div>
-
+		<!-- Secondary Card -->
 		<div class="row">
+			<!-- Secondary Card #1 -->
 			<div class="col-lg-4">
 				<div class="card mb-4">
 					<div class="card-body">
@@ -31,7 +25,7 @@
 					</div>
 				</div>
 			</div>
-
+			<!-- Secondary Card #2 -->
 			<div class="col-lg-4">
 				<div class="card mb-4">
 					<div class="card-body">
@@ -45,7 +39,7 @@
 					</div>
 				</div>
 			</div>
-
+			<!-- Secondary Card #3 -->
 			<div class="col-lg-4">
 				<div class="card mb-4">
 					<div class="card-body">

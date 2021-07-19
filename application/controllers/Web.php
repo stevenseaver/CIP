@@ -25,6 +25,7 @@ class Web extends CI_Controller
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();
+		$data['products'] = $this->db->get('product_list')->result_array();
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/web-topbar', $data);

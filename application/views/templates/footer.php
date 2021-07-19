@@ -4,9 +4,6 @@
          <div class="copyright text-center mb-2">
              <span>Copyright &copy; UD. Cakra Inti Plastik 2021</span>
          </div>
-         <div class="copyright text-center mb-2">
-             <span>Gedangan, Sidoarjo</span>
-         </div>
          <div class="copyright text-center my-auto">
              <span>Telp: +6231 70 11 529 | Email: cipsbp.donotreply@gmail.com</span>
          </div>

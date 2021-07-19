@@ -1,17 +1,23 @@
 <!-- Begin Page Content -->
 <div class="container-fluid pt-4 mt-5">
+    <div class="row row-cols-1 justify-content-center">
+        <?php foreach ($products as $pl) : ?>
+            <div class="card mb-3" style="max-width:720px;">
+                <div class="row no-gutters">
+                    <div class="col-lg-3">
+                        <img class="card-img" src="<?= base_url('asset/') . $pl['image']; ?>" width="170" height="200">
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary"><?= $pl['title']; ?></h5>
+                            <p class="card-text"><?= $pl['text']; ?></p>
+                            <a href="<?= base_url('') . $pl['url'];  ?>">Learn More &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
 
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-primary font-weight-bold"><?= $title ?></h1>
-    </div>
-
-    <!-- 404 Error Text -->
-    <div class="text-center">
-        <div class="error mx-auto" data-text="404">404</div>
-        <p class="lead text-gray-800 mb-5">Page Not Found</p>
-        <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
-        <a href="<?= base_url('web'); ?>"> Back to Dashboard</a>
     </div>
 
 </div>
