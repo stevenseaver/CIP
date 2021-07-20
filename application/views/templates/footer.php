@@ -81,10 +81,7 @@
              }
          });
      });
- </script>
-
- <!-- JavaScript for Edit Role Modal -->
- <script>
+     //  JavaScript for Edit Role Modal
      $('#editRoleModal').on('show.bs.modal', function(event) {
 
          //extract data from data-* attributes of modal's toggle button
@@ -95,10 +92,8 @@
          $(event.currentTarget).find('.modal-body input[name="id"]').val(roleid);
          $(event.currentTarget).find('.modal-body input[name="role"]').val(rolename);
      });
- </script>
 
- <!-- JavaScript for Edit Menu Modal -->
- <script>
+     // JavaScript for Edit Menu Modal
      $('#editmenumodal').on('show.bs.modal', function(event) {
 
          //extract data from data-* attributes of modal's toggle button
@@ -110,10 +105,7 @@
          $(event.currentTarget).find('.modal-body input[name="edit_menu_name"]').val(menuname);
 
      });
- </script>
-
- <!-- JavaScript for Edit Submenu Modal -->
- <script>
+     //  JavaScript for Edit Submenu Modal
      $('#editsubmenumodal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var submenuid = $(event.relatedTarget).data('sub_id');
@@ -129,10 +121,8 @@
          $(event.currentTarget).find('.modal-body input[name="url"]').val(submenuurl);
          $(event.currentTarget).find('.modal-body input[name="icon"]').val(submenuicon);
      });
- </script>
 
- <!-- JavaScript for Edit Web Menu Modal -->
- <script>
+     //  JavaScript for Edit Web Menu Modal
      $('#editWebMenuModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var webmenuid = $(event.relatedTarget).data('id');

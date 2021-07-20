@@ -20,20 +20,13 @@
                                 <?= $this->session->flashdata('message'); ?>
                                 <form class="user" method="post" action="<?= base_url('auth') ?>">
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" id="nik" name="nik" placeholder="Enter Registration Number" value="<?= set_value('nik'); ?>">
+                                        <input type="text" class="form-control form-control-user" id="nik" name="nik" placeholder="Username" value="<?= set_value('nik'); ?>">
                                         <?= form_error('nik', '<small class="text-danger pl-3">', '</small>') ?>
                                     </div>
                                     <div class="form-group">
                                         <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
                                         <?= form_error('password', '<small class="text-danger pl-3">', '</small>') ?>
                                     </div>
-                                    <!-- <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
-                                            </div>
-                                        </div> -->
                                     <button type="submit" class="btn btn-primary btn-user btn-block">
                                         Login
                                     </button>

@@ -3,7 +3,7 @@
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
-                <div class="row">
+                <div class="row d-flex justify-content-center align-items-center">
                     <div class="col-lg-5 d-none d-lg-block">
                         <img src="<?= base_url('asset/') ?>img/undraw_Account_re_o7id.svg" class="img-fluid mx-3 d-block mt-5">
                     </div>
@@ -18,38 +18,63 @@
                                     <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Full Name" value="<?= set_value('name'); ?>">
                                     <?= form_error('name', '<small class="text-danger pl-3">', '</small>') ?>
                                 </div>
-                                <!-- input NIK/ERN -->
-                                <div class=" form-group">
-                                    <input type="text" class="form-control form-control-user" id="nik" name="nik" placeholder="Employee Registration Number" value="<?= set_value('nik'); ?>">
-                                    <small class="text-primary ml-3">Will be used as login detail.</small>
-                                    <?= form_error('nik', '<small class="text-danger pl-3">', '</small>') ?>
-                                </div>
-                                <!-- input alamat -->
+                                <!-- input email -->
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="address" name="address" placeholder="Address" value="<?= set_value('address'); ?>">
-                                    <?= form_error('address', '<small class="text-danger pl-3">', '</small>') ?>
+                                    <input type="text" class="form-control form-control-user mb-2" id="email" name="email" placeholder="Email Address" value="<?= set_value('email'); ?>">
+                                    <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
+                                    <div class="form-check ml-3">
+                                        <input class="form-check-input" type="checkbox" id="username_email" name="username_email" onchange="aaa();" />
+                                        <label class="small" for="username_email">Use as username</label>
+                                    </div>
                                 </div>
                                 <hr>
+                                <!-- input address -->
+                                <div class="form-group row">
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control form-control-user" id="address" name="address" placeholder="Address" value="<?= set_value('address'); ?>">
+                                        <?= form_error('address', '<small class="text-danger pl-3">', '</small>') ?>
+                                    </div>
+                                    <div class="col-sm-4 pl-0">
+                                        <input type="text" class="form-control form-control-user" id="city" name="city" placeholder="City" value="<?= set_value('city'); ?>">
+                                        <?= form_error('city', '<small class="text-danger pl-3">', '</small>') ?>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control form-control-user" id="province" name="province" placeholder="Province" value="<?= set_value('province'); ?>">
+                                        <?= form_error('province', '<small class="text-danger pl-3">', '</small>') ?>
+                                    </div>
+                                    <div class="col-sm-4 pl-0">
+                                        <input type="text" class="form-control form-control-user" id="country" name="country" placeholder="Country" value="<?= set_value('country'); ?>">
+                                        <?= form_error('country', '<small class="text-danger pl-3">', '</small>') ?>
+                                    </div>
+                                    <div class="col-sm-4 pl-0">
+                                        <input type="text" class="form-control form-control-user" id="zipcode" name="zipcode" placeholder="Zipcode" value="<?= set_value("zipcode"); ?>">
+                                        <?= form_error('zipcode', '<small class="text-danger pl-3">', '</small>') ?>
+                                    </div>
+                                </div>
                                 <!-- input no hp -->
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" id="hp" name="hp" placeholder="Mobile Phone Number" value="<?= set_value('hp'); ?>">
                                     <?= form_error('hp', '<small class="text-danger pl-3">', '</small>') ?>
                                 </div>
-                                <!-- input email -->
+                                <hr>
+                                <!-- input NIK/ERN -->
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Email Address" value="<?= set_value('email'); ?>">
-                                    <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
+                                    <input type="text" class="form-control form-control-user" id="nik" name="nik" placeholder="Username" value="<?= set_value('nik'); ?>">
+                                    <small class="text-primary ml-3">Will be used as login detail.</small>
+                                    <?= form_error('nik', '<small class="text-danger pl-3">', '</small>') ?>
                                 </div>
                                 <!-- password -->
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="password" class="form-control form-control-user" id="password1" name="password1" placeholder="Password">
                                         <small class="text-primary ml-3">Min. 8 characters.</small>
-                                        <?= form_error('password1', '<small class="text-danger pl-3">', '</small>') ?>
                                     </div>
                                     <!-- repeat password -->
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user" id="password2" name="password2" placeholder="Repeat Password">
+                                        <?= form_error('password1', '<small class="text-danger pl-3">', '</small>') ?>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">

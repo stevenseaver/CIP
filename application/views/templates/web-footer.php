@@ -1,25 +1,25 @@
  <!-- Footer -->
- <div class="containter-fluid">
-     <footer class="sticky-footer bg-white">
+ <div class="containter-fluid bg-light">
+     <footer class="sticky-footer">
          <div class="container-fluid my-auto">
              <div class="row align-items-center">
-                 <div class="col-lg-4 mb-3">
+                 <div class="col-lg-4 col-xs-2 mb-3">
                      <div class="copyright text-left">
                          <span>Copyright &copy; UD. Cakra Inti Plastik 2021</span>
                      </div>
                  </div>
-                 <div class="col-lg-4 mb-3 text-center">
+                 <div class="col-lg-4 col-xs-2 mb-3 text-center">
                      <a href="<?= base_url('web/privacy_policy') ?>" class="text-secondary small">Privacy Policy</a>
                      |
                      <a href="<?= base_url('web/site_map') ?>" class="text-secondary small">Site Map</a>
                      |
                      <a href="<?= base_url('web/terms') ?>" class="text-secondary small">Terms and Condition</a>
                  </div>
-                 <div class="col-lg-4 mb-3 text-right">
+                 <div class="col-lg-4 col-xs-2 mb-3 text-right">
                      <a href="https://wa.me/+6282232057755" class="btn btn-success btn-circle" target="_blank">
                          <i class="fab fa-fw fa-whatsapp"></i>
                      </a>
-                     <a href="#" class="btn btn-danger btn-circle" target="_blank">
+                     <a href="mailto:cs.sbplastik@gmail.com" class="btn btn-danger btn-circle" target="_blank">
                          <i class="far fa-fw fa-envelope"></i>
                      </a>
                      <a href="https://instagram.com/sbplastik" class="btn btn-warning btn-circle" target="_blank">
