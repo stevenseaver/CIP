@@ -116,7 +116,10 @@ class Menu extends CI_Controller
         $data['title'] = 'Submenu Management';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['submenu'] = $this->db->get('user_sub_menu')->result_array();
+
+        $this->load->model('Menu_model', 'menu');
+        $data['subMenu'] = $this->menu->getSubMenu();
+        $data['menu'] = $this->db->get('user_menu')->result_array();
 
         $this->form_validation->set_rules('sub_id', 'menu name', 'required|trim');
         $this->form_validation->set_rules('title', 'menu name', 'required|trim');
@@ -209,6 +212,46 @@ class Menu extends CI_Controller
             ];
             $this->db->insert('web_menu', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> Web menu ' . $title . ' added!</div>');
+            redirect('menu/webmenu');
+        }
+    }
+
+    public function editwebmenu()
+    {
+        $data['title'] = 'Web Menu Management';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['webmenu'] = $this->db->get('web_menu')->result_array();
+
+        $this->form_validation->set_rules('id', 'menu name', 'required|trim');
+        $this->form_validation->set_rules('title', 'menu name', 'required|trim');
+        $this->form_validation->set_rules('url', 'menu name', 'required|trim');
+        $this->form_validation->set_rules('icon', 'menu name', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('menu/web-menu', $data);
+            $this->load->view('templates/footer');
+        } else {
+            //read from input input
+            $edit_id = $this->input->post('id');
+            $edit_title = $this->input->post('title');
+            $edit_url = $this->input->post('url');
+            $edit_icon = $this->input->post('icon');
+            //find edited submenu
+            $editedWebMenu = $this->db->get_where('web_menu', array('id' => $edit_id))->row_array();
+            // edit DB
+            $data = [
+                'id' => $edit_id,
+                'title' => $edit_title,
+                'url' => $edit_url,
+                'icon' => $edit_icon
+            ];
+            $this->db->where('id', $edit_id);
+            $this->db->update('web_menu', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert"> Web Menu ' . $editedWebMenu["title"] . ' edited into ' . $edit_title . '!</div>');
             redirect('menu/webmenu');
         }
     }

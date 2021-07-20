@@ -54,7 +54,7 @@
                                             } ?>
                                         </td>
                                         <td>
-                                            <a data-toggle="modal" data-target="#editsubmenumodal" class="badge badge-primary text-white" data-sub_id="<?= $sm['id'] ?>" data-title="<?= $sm['title'] ?>" data-menu_id="<?= $sm['menu_id'] ?>" data-url="<?= $sm['url'] ?>" data-icon="<?= $sm['icon'] ?>" ?>Edit</a>
+                                            <a data-toggle="modal" data-target="#editsubmenumodal" class="badge badge-primary text-white" data-sub_id="<?= $sm['id'] ?>" data-title="<?= $sm['title'] ?>" data-menu_id="<?= $sm['menu_id'] ?>" data-url="<?= $sm['url'] ?>" data-icon="<?= $sm['icon'] ?>">Edit</a>
                                             <a href="<?= base_url('menu/toggleactive/') . $sm['id'] . '/' . $sm['is_active'] . '/' . urldecode($sm['title']) ?>" class="badge badge-success">Toggle Active</a>
                                             <a href="<?= base_url('menu/deletesubmenu/') . $sm['id'] ?>" class="badge badge-danger">Delete</a>
                                         </td>
@@ -69,9 +69,7 @@
             </div>
         </div>
     </div>
-</div>
-<!-- /.container-fluid -->
-
+    <!-- /.container-fluid -->
 </div>
 <!-- End of Main Content -->
 
@@ -143,28 +141,28 @@
                         <!-- submenu id -->
                         <label for="sub_id" class="col-form-label">ID</label>
                         <input type="text" class="form-control" id="sub_id" name="sub_id" readonly>
-                        <?= form_error('sub_id', '<small class="text-danger pl-3">', '</small>') ?>
+                        <?= form_error('sub_id', '<small class="text-danger">', '</small><br>') ?>
                         <!-- title -->
                         <label for="title" class="col-form-label">Title</label>
                         <input type="text" class="form-control" id="title" name="title">
-                        <?= form_error('title', '<small class="text-danger pl-3">', '</small>') ?>
+                        <?= form_error('title', '<small class="text-danger">', '</small><br>') ?>
                         <!-- parent menu -->
                         <label for="menu_id" class="col-form-label">Parent Menu</label>
                         <select name="menu_id" id="menu_id" class="form-control">
                             <option value="">--Select Menu--</option>
                             <?php foreach ($menu as $m) : ?>
                                 <option value="<?= $m['id'] ?>"><?= $m['menu'] ?></option>
-                                <?= form_error('menu_id', '<small class="text-danger pl-3">', '</small>') ?>
+                                <?= form_error('menu_id', '<small class="text-danger">', '</small><br>') ?>
                             <?php endforeach; ?>
                         </select>
                         <!-- url -->
                         <label for="url" class="col-form-label">URL</label>
                         <input type="text" class="form-control" id="url" name="url">
-                        <?= form_error('url', '<small class="text-danger pl-3">', '</small>') ?>
+                        <?= form_error('url', '<small class="text-danger">', '</small><br>') ?>
                         <!-- icon -->
                         <label for="icon" class="col-form-label">Icon</label>
-                        <input type="text" class="form-control" id="icon" name="icon" placeholder="Submenu icon">
-                        <?= form_error('icon', '<small class="text-danger pl-3">', '</small>') ?>
+                        <input type="text" class="form-control" id="icon" name="icon">
+                        <?= form_error('icon', '<small class="text-danger">', '</small><br>') ?>
                     </div>
                 </div>
 

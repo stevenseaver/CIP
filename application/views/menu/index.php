@@ -98,11 +98,11 @@
                         <!-- menu id -->
                         <label for="editmenu" class="col-form-label">Menu ID</label>
                         <input type="text" class="form-control" id="edit_menu_id" name="edit_menu_id" readonly>
-                        <?= form_error('edit_menu_id', '<small class="text-danger pl-3">', '</small>') ?>
+                        <?= form_error('edit_menu_id', '<small class="text-danger">', '</small><br>') ?>
                         <!-- menu name -->
                         <label for="editmenu" class="col-form-label">Edit menu name</label>
                         <input type="text" class="form-control" id="edit_menu_name" name="edit_menu_name">
-                        <?= form_error('edit_menu_name', '<small class="text-danger pl-3">', '</small>') ?>
+                        <?= form_error('edit_menu_name', '<small class="text-danger">', '</small><br>') ?>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -113,22 +113,3 @@
         </div>
     </div>
 </div>
-
-<!-- Delete Modal-->
-<!-- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Watch out!</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Delete" below if you are sure to delete the menu.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="<?= base_url('menu/deletemenu') . '/' . $m['id'] ?>">Delete</a>
-            </div>
-        </div>
-    </div>
-</div> -->

@@ -5,7 +5,7 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
 
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
             <?= form_error('title', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
             <?= form_error('url', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
             <?= form_error('icon', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
@@ -42,10 +42,9 @@
                                         <td><?= $m['url']; ?></td>
                                         <td><?= $m['icon']; ?></td>
                                         <td>
-                                            <a href="" data-toggle="modal" data-target="#editModal" class="badge badge-primary text-white">Edit</a>
+                                            <a data-toggle="modal" data-target="#editWebMenuModal" class="badge badge-primary text-white" data-id="<?= $m['id'] ?>" data-title="<?= $m['title'] ?>" data-url="<?= $m['url'] ?>" data-icon="<?= $m['icon'] ?>">Edit</a>
                                             <a href="<?= base_url('menu/delete_webmenu/') . $m['id'] ?>" class="badge badge-danger">Delete</a>
                                         </td>
-                                        </>
                                         <?php $i++; ?>
                                     <?php endforeach; ?>
                             </tbody>
@@ -57,7 +56,6 @@
         </div>
     </div>
     <!-- /.container-fluid -->
-
 </div>
 <!-- End of Main Content -->
 
@@ -92,6 +90,46 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Webmenu Modal -->
+<div class="modal fade" id="editWebMenuModal" tabindex="-1" aria-labelledby="editWebMenuModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editWebMenuModalLabel">Edit Web Menu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('menu/editwebmenu'); ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- webmenu id -->
+                        <label for="id" class="col-form-label">ID</label>
+                        <input type="text" class="form-control" id="id" name="id" readonly>
+                        <?= form_error('id', '<small class="text-danger">', '</small><br>') ?>
+                        <!-- title -->
+                        <label for="title" class="col-form-label">Title</label>
+                        <input type="text" class="form-control" id="title" name="title">
+                        <?= form_error('title', '<small class="text-danger">', '</small><br>') ?>
+                        <!-- url -->
+                        <label for="url" class="col-form-label">URL</label>
+                        <input type="text" class="form-control" id="url" name="url">
+                        <?= form_error('url', '<small class="text-danger">', '</small><br>') ?>
+                        <!-- icon -->
+                        <label for="icon" class="col-form-label">Icon</label>
+                        <input type="text" class="form-control" id="icon" name="icon">
+                        <?= form_error('icon', '<small class="text-danger">', '</small><br>') ?>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>

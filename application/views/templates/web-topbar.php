@@ -29,7 +29,7 @@
                             <?php endif; ?>
                             <a class="nav-link" href="<?= base_url($wm['url']) ?>">
                                 <i class="<?= $wm['icon']; ?>"></i>
-                                <span class="ml-1"><?= $wm['title']; ?></span>
+                                <span><?= $wm['title']; ?></span>
                             </a>
                             </li>
                         <?php endforeach; ?>
@@ -41,8 +41,8 @@
                     <!-- Nav Item - login Button -->
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('auth'); ?>" target="_blank">
-                            <i class="fas fa-fw fa-cart-plus"></i>
-                            <span class="ml-1">Shop</span>
+                            <i class="bi bi-cart"></i>
+                            <span>Shop</span>
                         </a>
                     </li>
                 </ul>

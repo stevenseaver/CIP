@@ -1,5 +1,5 @@
 <?php
-class Lp_product extends CI_Controller
+class Products extends CI_Controller
 {
     function plasticbag()
     {

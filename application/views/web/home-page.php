@@ -1,7 +1,7 @@
 	<!-- Begin Page Content -->
 	<div class="container-fluid pt-4 mt-5">
 		<!-- Main Card -->
-		<div class="card border-primary bg-light text-grey mb-3">
+		<div class="card border-0 bg-light text-grey mb-3">
 			<img class="card-img my-2" src="<?= base_url('asset/') ?>img/undraw_posting_photo.svg" alt="Welcome Image" width="200" height="400">
 			<div class="card-img-overlay d-flex flex-column justify-content-center">
 				<!-- d-flex atur flexible positioning, justify content center/end/top atur posisi vertical object di dalam div ini -->
@@ -13,7 +13,7 @@
 		<div class="row">
 			<!-- Secondary Card #1 -->
 			<div class="col-lg-4">
-				<div class="card mb-4">
+				<div class="card border-0 mb-4">
 					<div class="card-body">
 						<div class="text-center">
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="<?= base_url('asset/') ?>img/undraw_posting_photo.svg" alt="...">
@@ -27,7 +27,7 @@
 			</div>
 			<!-- Secondary Card #2 -->
 			<div class="col-lg-4">
-				<div class="card mb-4">
+				<div class="card border-0 mb-4">
 					<div class="card-body">
 						<div class="text-center">
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="<?= base_url('asset/') ?>img/undraw_posting_photo.svg" alt="...">
@@ -41,7 +41,7 @@
 			</div>
 			<!-- Secondary Card #3 -->
 			<div class="col-lg-4">
-				<div class="card mb-4">
+				<div class="card border-0 mb-4">
 					<div class="card-body">
 						<div class="text-center">
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="<?= base_url('asset/') ?>img/undraw_posting_photo.svg" alt="...">

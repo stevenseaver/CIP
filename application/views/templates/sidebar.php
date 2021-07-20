@@ -4,9 +4,9 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('user') ?>">
                 <div class="sidebar-brand-icon">
-                    <i class="fas fa-fw fa-cart-arrow-down"></i>
+                    <i class="bi bi-cart"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Shop</div>
+                <div class="sidebar-brand-text mx-1">Shop</div>
             </a>
 
             <!-- Divider -->

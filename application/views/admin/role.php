@@ -95,15 +95,19 @@
             <form action="<?= base_url('admin/editrole') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
+                        <!-- id -->
                         <label for="id" class="col-form-label">Role ID</label>
                         <input type="text" class="form-control" id="id" name="id" readonly>
-                        <label for="id" class="col-form-label">Role Name</label>
+                        <?= form_error('id', '<small class="text-danger">', '</small><br>') ?>
+                        <!-- name -->
+                        <label for="role" class="col-form-label">Role Name</label>
                         <input type="text" class="form-control" id="role" name="role">
+                        <?= form_error('role', '<small class="text-danger">', '</small><br>') ?>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button type="submit" class="btn btn-primary">Save Edit</button>
                 </div>
             </form>
         </div>
