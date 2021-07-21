@@ -144,7 +144,6 @@ class Menu extends CI_Controller
             $editedSubmenu = $this->db->get_where('user_sub_menu', array('id' => $edit_id))->row_array();
             // edit DB
             $data = [
-                'id' => $edit_id,
                 'menu_id' => $edit_menu_id,
                 'title' => $edit_title,
                 'url' => $edit_url,
@@ -244,7 +243,6 @@ class Menu extends CI_Controller
             $editedWebMenu = $this->db->get_where('web_menu', array('id' => $edit_id))->row_array();
             // edit DB
             $data = [
-                'id' => $edit_id,
                 'title' => $edit_title,
                 'url' => $edit_url,
                 'icon' => $edit_icon
@@ -265,5 +263,88 @@ class Menu extends CI_Controller
         // send message
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Submenu ' . $deletedWebMenu["title"] . ' deleted!</div>');
         redirect('menu/webmenu');
+    }
+
+    // product page menu management
+    public function productmenu()
+    {
+        $data['title'] = 'Product Menu';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['productmenu'] = $this->db->get('product_menu')->result_array();
+
+        $this->form_validation->set_rules('title', 'title', 'required|trim');
+        $this->form_validation->set_rules('url', 'url', 'valid_url|required|trim');
+        $this->form_validation->set_rules('icon', 'icon', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('menu/productmenu', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $title = $this->input->post('title');
+            $url = $this->input->post('url');
+            $icon = $this->input->post('icon');
+            $data = [
+                'title' => $title,
+                'url' => $url,
+                'image' => $icon
+            ];
+            $this->db->insert('product_menu', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> Product menu menu ' . $title . ' added!</div>');
+            redirect('menu/productmenu');
+        }
+    }
+
+    public function editproductmenu()
+    {
+        $data['title'] = 'Product Menu';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['productmenu'] = $this->db->get('product_menu')->result_array();
+
+        $this->form_validation->set_rules('id', 'menu name', 'required|trim');
+        $this->form_validation->set_rules('title', 'menu name', 'required|trim');
+        $this->form_validation->set_rules('url', 'menu name', 'required|trim');
+        $this->form_validation->set_rules('icon', 'menu name', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('menu/productmenu', $data);
+            $this->load->view('templates/footer');
+        } else {
+            //read from input input
+            $edit_id = $this->input->post('id');
+            $edit_title = $this->input->post('title');
+            $edit_url = $this->input->post('url');
+            $edit_icon = $this->input->post('icon');
+            //find edited submenu
+            $editedWebMenu = $this->db->get_where('web_menu', array('id' => $edit_id))->row_array();
+            // edit DB
+            $data = [
+                'title' => $edit_title,
+                'url' => $edit_url,
+                'image' => $edit_icon
+            ];
+            $this->db->where('id', $edit_id);
+            $this->db->update('product_menu', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert"> Web Menu ' . $editedWebMenu["title"] . ' edited into ' . $edit_title . '!</div>');
+            redirect('menu/productmenu');
+        }
+    }
+
+    public function delete_productmenu($itemtoDelete)
+    {
+        // get data on deleted sub menu
+        $deletedWebMenu = $this->db->get_where('product_menu', array('id' => $itemtoDelete))->row_array();
+        // delete the sub menu
+        $this->db->delete('product_menu', array('id' => $itemtoDelete));
+        // send message
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Submenu ' . $deletedWebMenu["title"] . ' deleted!</div>');
+        redirect('menu/productmenu');
     }
 }

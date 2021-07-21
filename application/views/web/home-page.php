@@ -15,15 +15,15 @@
 		<div class="row px-3">
 			<!-- Secondary Card #1 -->
 			<div class="col-lg-4">
-				<div class="card border-0 mb-4 bg-gray-700 text-light">
+				<div class="card border-0 mb-4">
 					<div class="card-body">
 						<div class="text-center">
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="<?= base_url('asset/') ?>img/undraw_posting_photo.svg" alt="...">
 						</div>
-						<h5 class="text-white">High Quality</h5>
+						<h5 class="text-primary">High Quality</h5>
 						<p>Our plastic bag and packaging use high grade material with continually improved formula to achieve highest strength possible. </p>
 						<!-- arahkan ke landing page soal high quality -->
-						<a href="<?= base_url('web/lp1_quality') ?>" class="text-white">Learn More &rarr;</a>
+						<a href="<?= base_url('web/lp1_quality') ?>">Learn More &rarr;</a>
 					</div>
 				</div>
 			</div>

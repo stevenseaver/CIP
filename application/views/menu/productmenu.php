@@ -11,7 +11,7 @@
             <?= form_error('icon', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
             <?= $this->session->flashdata('message'); ?>
 
-            <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newMenuModal">
+            <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newProductMenuModal">
                 <span class="icon text-white-50">
                     <i class="fas fa-fw fa-folder-plus"></i>
                 </span>
@@ -19,7 +19,7 @@
             </a>
             <div class="card shadow border-left-primary mb-4">
                 <div class="card-header py-2">
-                    <h5 class="m-0 font-weight-bold text-primary">Web Menu</h5>
+                    <h5 class="m-0 font-weight-bold text-primary">Product Menu Menu</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -27,7 +27,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">No</th>
-                                    <th>Menu</th>
+                                    <th>Title</th>
                                     <th>URL</th>
                                     <th>Icon</th>
                                     <th>Action</th>
@@ -35,15 +35,15 @@
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
-                                <?php foreach ($webmenu as $m) : ?>
+                                <?php foreach ($productmenu as $m) : ?>
                                     <tr>
                                         <td class="text-center"><?= $i ?></td>
                                         <td><?= $m['title']; ?></td>
                                         <td><?= $m['url']; ?></td>
-                                        <td><?= $m['icon']; ?></td>
+                                        <td><?= $m['image']; ?></td>
                                         <td>
-                                            <a data-toggle="modal" data-target="#editWebMenuModal" class="badge badge-primary text-white" data-id="<?= $m['id'] ?>" data-title="<?= $m['title'] ?>" data-url="<?= $m['url'] ?>" data-icon="<?= $m['icon'] ?>">Edit</a>
-                                            <a href="<?= base_url('menu/delete_webmenu/') . $m['id'] ?>" class="badge badge-danger">Delete</a>
+                                            <a data-toggle="modal" data-target="#editProductMenu" class="badge badge-primary text-white" data-id="<?= $m['id'] ?>" data-title="<?= $m['title'] ?>" data-url="<?= $m['url'] ?>" data-icon="<?= $m['image'] ?>">Edit</a>
+                                            <a href="<?= base_url('menu/delete_productmenu/') . $m['id'] ?>" class="badge badge-danger">Delete</a>
                                         </td>
                                         <?php $i++; ?>
                                     <?php endforeach; ?>
@@ -60,30 +60,30 @@
 <!-- End of Main Content -->
 
 <!-- Modal For Add Data -->
-<div class="modal fade" id="newMenuModal" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+<div class="modal fade" id="newProductMenuModal" tabindex="-1" aria-labelledby="newProductMenuModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newMenuModalLabel">Add New Menu</h5>
+                <h5 class="modal-title" id="newProductMenuModalLabel">Add New Product Menu</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('menu/webmenu') ?>" method="post">
+            <form action="<?= base_url('menu/productmenu') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <p class="text-secondary font-weight-bold mb-0">Web Menu Title</p>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Add new web menu title">
+                        <p class="text-secondary font-weight-bold mb-0">Product Menu Title</p>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Add new product menu title">
                         <?= form_error('title', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
                     <div class="form-group">
-                        <p class="text-secondary font-weight-bold mb-0">Web Menu URL</p>
-                        <input type="text" class="form-control" id="url" name="url" placeholder="Add web menu URL">
+                        <p class="text-secondary font-weight-bold mb-0">Product Menu URL</p>
+                        <input type="text" class="form-control" id="url" name="url" placeholder="Add product menu URL">
                         <?= form_error('url', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
                     <div class="form-group">
-                        <p class="text-secondary font-weight-bold mb-0">Web Menu Icon</p>
-                        <input type="text" class="form-control" id="icon" name="icon" placeholder="Add web menu icon">
+                        <p class="text-secondary font-weight-bold mb-0">Product Menu Icon</p>
+                        <input type="text" class="form-control" id="icon" name="icon" placeholder="Add product menu icon">
                         <?= form_error('icon', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
                 </div>
@@ -97,16 +97,16 @@
 </div>
 
 <!-- Edit Webmenu Modal -->
-<div class="modal fade" id="editWebMenuModal" tabindex="-1" aria-labelledby="editWebMenuModalLabel" aria-hidden="true">
+<div class="modal fade" id="editProductMenu" tabindex="-1" aria-labelledby="editProductMenuLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editWebMenuModalLabel">Edit Web Menu</h5>
+                <h5 class="modal-title" id="editProductMenuLabel">Edit Product Menu</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('menu/editwebmenu'); ?>" method="post">
+            <form action="<?= base_url('menu/editproductmenu'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- webmenu id -->
