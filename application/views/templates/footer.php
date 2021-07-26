@@ -151,6 +151,16 @@
          $(event.currentTarget).find('.modal-body input[name="url"]').val(webmenuurl);
          $(event.currentTarget).find('.modal-body input[name="icon"]').val(webmenuicon);
      });
+
+     //  JavaScript for Reply User Message
+     $('#replyModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var email = $(event.relatedTarget).data('email');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="email"]').val(email);
+
+     });
  </script>
 
  </body>

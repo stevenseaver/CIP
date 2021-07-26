@@ -22,4 +22,4 @@
     <link href="<?= base_url('asset/'); ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-gradient-dark">
+<body class="bg-gradient-primary">

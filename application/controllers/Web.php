@@ -135,6 +135,7 @@ class Web extends CI_Controller
 	{
 		$data['title'] = 'Site Map';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();
 

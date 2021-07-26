@@ -106,7 +106,7 @@ class Auth extends CI_Controller
                 'address' => htmlspecialchars($address),
                 'image' => 'default.jpg',
                 'password' => $password,
-                'role_id' => 2,
+                'role_id' => 3,
                 'is_active' => 0,
                 'date_created' => time()
             ];

@@ -9,7 +9,27 @@ class Customer extends CI_Controller
         is_logged_in();
     }
 
-    public function order()
+    public function index()
+    {
+        //load user data per session
+        $data['title'] = 'Product List';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['leavetype'] = $this->db->get('leave_type')->result_array();
+
+        //load database for table request per user
+        // $this->db->where('user_nik', $data['user']['nik']);
+        $this->load->model('Leave_model', 'leaveType');
+        $data['leavedata'] = $this->leaveType->getLeaveType();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('customer/coming-soon', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function cart()
     {
         //load user data per session
         $data['title'] = 'Order Form';
@@ -25,7 +45,7 @@ class Customer extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('customer/leave-form', $data);
+        $this->load->view('customer/coming-soon', $data);
         $this->load->view('templates/footer');
     }
 

@@ -1,44 +1,64 @@
 <!-- Begin Page Content -->
 <div class="container-fluid pt-4 mt-5">
-    <div class="row align-items-center">
-        <div class="col-lg-6">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col text-left">
-                            <h4 class="text-primary">We come with a vision, </h4>
-                            <p class="text-grey-100 mb-3 text-justify">to create high-quality and eco-friendly plastic bag and packaging solutions using selected high-grade recycled materials. Started in 2002, we strived to renew our vision for the future ahead to be impactful in plastic recycling efforts to minimize plastic waste impact to the environment. </p>
-                            <div class="row align-items-center mb-2">
-                                <div class="col-lg-3 text-center">
-                                    <i class="fas fa-fw fa-recycle fa-2x"></i>
-                                    <h2>>90%</h2>
-                                </div>
-                                <div class="col">
-                                    <p class="text-grey-100 text-justify">Our efforts doesn't stop with materials. We reprocess our production waste into useful base material to be reused in our production line. We aim to reuse 100% of production waste by 2025. </p>
+    <div class="row justify-content-center align-items-center text-center pt-1">
+        <!-- Page Heading -->
+        <div class="col-lg-12 mx-3 mb-3">
+            <i class="bi bi-people fa-3x"></i>
+            <h2 class="h3 mb-0 text-primary font-weight-bold">Hello, it's nice to meet you!</h1>
+        </div>
+    </div>
+    <!-- Intro -->
+    <div class="row justify-content-center align-items-center text-justify pt-1">
+        <!-- Page Body -->
+        <div class="col mb-3 mx-4 text-dark">
+            <p class="mb-3">UD. Cakra Inti Plastik is a plastic manufacturing company based in Sidoarjo, East Java, Indonesia. We provide a series of recycled plastic product such as plastic bag, shopping bag, trash bag, inner, and many more to come. The plastic bag plant has started operating since 2018, while our company has been empowering plastic recycling since early 2002.
+            </p>
+            <p>We believe that recycled products are the future of plastic industry. Every month, our humble company absorbed at least 50 metric tonnes of recycled plastic materials and we aim to increase production capacity and clients by 30% before 2025. With more recycled material used, we hope to take part in minimizing plastic's environmental impact. </p>
+        </div>
+    </div>
+    <!-- Vision -->
+    <div class="row justify-content-center align-items-center text-justify pt-1">
+        <div class="col mb-3 mx-4 text-dark text-center">
+            <div class="card border-0 bg-primary">
+                <div class="card-body text-white">
+                    <i class="bi bi-arrow-up-circle fa-2x mb-5"></i>
+                    <h4 class="mb-3 font-weight-bold">Vision</h4>
+                    <p>Be a leading recycled plastic products manufacturer by giving high-quality and eco-conscious products.</p>
+                    <!-- Mission -->
+                    <div class="row justify-content-center align-items-center pt-1">
+                        <div class="col mb-3 mx-1 text-dark text-left">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <i class="bi bi-bucket fa-2x mb-5"></i>
+                                    <h5 class="mb-3">Bucket List #1</h5>
+                                    <p>Expand services to meet Indonesian and worldwide recycled plastic bag demand, using technology to deliver best possible services for our clients.</p>
                                 </div>
                             </div>
-                            <div class="row align-items-center mb-2">
-                                <div class="col-lg-3 text-center">
-                                    <p class="mb-0">WWW</p>
-                                    <i class="fas fa-fw fa-desktop fa-3x mb-4"></i>
-                                </div>
-                                <div class="col text-justify">
-                                    <p class="text-grey-100"> We create a paperless system for our corporate and office needs to further minimize out environment impact, with the use of digital employee information system, computer based database, and accounting software.</p>
+                        </div>
+                        <div class="col mb-3 mx-1 text-dark text-left">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <i class="bi bi-bucket fa-2x mb-5"></i>
+                                    <h5 class="mb-3">Bucket List #2</h5>
+                                    <p>Meet our customer expectation by delivering high-quality and reasonably priced products.</p>
                                 </div>
                             </div>
-                            <p class="text-grey-100 mb-3 text-justify">We promise to create environmentally friendly plastic, so you can use it to improve your quality of life without worrying about its impact. </p>
-                            <p class="text-grey-100 text-right mb-0">Suarto</p>
-                            <p class="text-grey-100 text-right">Director</p>
+                        </div>
+                        <div class="col mb-3 mx-1 text-dark text-left">
+                            <div class="card border-0">
+                                <div class="card-body">
+                                    <i class="bi bi-bucket fa-2x mb-5"></i>
+                                    <h5 class="mb-3">Bucket List #3</h5>
+                                    <p>Advocating plastic recycling movement as a way to sustainably save the environment while keeping anyone from beeing jobless.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 text-center mb-3">
-            <img class="img-fluid mx-3 my-3" style="width: 40rem;" src="<?= base_url('asset/') ?>img/undraw_posting_photo.svg" alt="...">
-            Contoh aja
-        </div>
     </div>
+
 </div>
 
 <!-- /.container-fluid -->

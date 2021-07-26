@@ -3,13 +3,8 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
-    <div class="text-center mb-5">
-        <div class="error mx-auto" data-text="404">404!</div>
-        <h4 class="lead text-dark">Coming soon</h4>
-        <a href="<?= base_url('user'); ?>" class="mb-5">Back to Dashboard!</a>
-    </div>
 
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-lg-12">
             <?= form_error('name', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
             <?= form_error('nik', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
@@ -19,6 +14,8 @@
             <?= form_error('password1', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
             <?= form_error('password2', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
             <?= $this->session->flashdata('approval'); ?>
+
+            <!-- <a href="" class="btn btn-primary mb-3">Add New User</a> -->
         </div>
     </div>
 
@@ -71,11 +68,11 @@
                                 <td><a href="<?= base_url('document/leave_proof/') . $ld['document'] ?>" class="badge badge-primary" target="_blank">Open</a></td>
                                 <td>
                                     <?php if ($ld['status'] == 1) {
-                                        echo '<p class="badge badge-success">Approve</p>';
+                                        echo '<p class="badge badge-success">Approved</p>';
                                     } else if ($ld['status'] == 0) {
                                         echo '<p class="badge badge-warning">Waiting</p>';
                                     } else if ($ld['status'] == 2) {
-                                        echo '<p class="badge badge-danger">Not Approved</p>';
+                                        echo '<p class="badge badge-danger">Declined</p>';
                                     } ?>
                                 </td>
                                 <td>
@@ -90,7 +87,7 @@
                 <small class="text-primary pb-1">*) Date format is in YYYY-MM-DD</small>
             </div>
         </div>
-    </div> -->
+    </div>
 
 </div>
 <!-- /.container-fluid -->

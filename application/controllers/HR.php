@@ -11,7 +11,7 @@ class HR extends CI_Controller
 
     public function leave()
     {
-        $data['title'] = 'Permission/Leave Menu';
+        $data['title'] = 'Leave Menu';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get leave type by combining database table leave_list and leave_type

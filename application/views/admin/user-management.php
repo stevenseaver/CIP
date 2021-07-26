@@ -37,7 +37,7 @@
                             <th>No</th>
                             <th>Role</th>
                             <th>Name</th>
-                            <th>ERN</th>
+                            <th>Username</th>
                             <th>Email</th>
                             <th>Address</th>
                             <th>Mobile Phone</th>
@@ -51,7 +51,7 @@
                             <th>No</th>
                             <th>Role</th>
                             <th>Name</th>
-                            <th>ERN</th>
+                            <th>Username</th>
                             <th>Email</th>
                             <th>Address</th>
                             <th>Mobile Phone</th>
@@ -114,7 +114,7 @@
                         <input type="text" class="form-control" id="name" name="name" placeholder="Full Name">
                         <?= form_error('name', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
-                    <!-- input ERN/NIK -->
+                    <!-- input Username/ERN/NIK -->
                     <div class="form-group">
                         <input type="text" class="form-control" id="nik" name="nik" placeholder="Employee Registration Number">
                         <small class="text-primary ml-2">Will be used as login detail.</small>

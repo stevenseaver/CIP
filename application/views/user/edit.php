@@ -10,6 +10,14 @@
                 <div class="card-body">
                     <?= form_open_multipart('user/edit'); ?>
                     <div class="form-group row">
+                        <!-- edit ERN -->
+                        <label for="nik" class="col-sm-3 col-form-label">Username</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="nik" name="nik" value="<?= $user['nik']; ?>" readonly>
+                            <?= form_error('nik', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <!-- edit name -->
                         <label for="fullname" class="col-sm-3 col-form-label">Full Name</label>
                         <div class="col-sm-9">
@@ -31,14 +39,6 @@
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="hp" name="hp" value="<?= $user['phone_number']; ?>">
                             <?= form_error('hp', '<small class="text-danger pl-2">', '</small>') ?>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <!-- edit ERN -->
-                        <label for="nik" class="col-sm-3 col-form-label">ERN</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="nik" name="nik" value="<?= $user['nik']; ?>" readonly>
-                            <?= form_error('nik', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     <div class="form-group row">

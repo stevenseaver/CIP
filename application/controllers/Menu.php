@@ -198,7 +198,7 @@ class Menu extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('menu/web-menu', $data);
+            $this->load->view('menu/webmenu', $data);
             $this->load->view('templates/footer');
         } else {
             $title = $this->input->post('title');
@@ -231,7 +231,7 @@ class Menu extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('menu/web-menu', $data);
+            $this->load->view('menu/webmenu', $data);
             $this->load->view('templates/footer');
         } else {
             //read from input input
