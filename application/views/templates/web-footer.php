@@ -1,113 +1,190 @@
- <!-- Footer -->
- <div class="containter-fluid bg-white">
-     <footer class="sticky-footer">
-         <div class="container-fluid my-auto">
-             <div class="row text-center text-center text-dark align-items-center justify-content-center">
-                 <div class="col mb-3">
-                     <div class="copyright">
-                         <span>Copyright &copy; UD. Cakra Inti Plastik 2021</span>
-                     </div>
-                 </div>
-                 <div class="col mb-3">
-                     <a href="<?= base_url('web/privacy_policy') ?>" class="text-secondary small">Privacy Policy</a>
-                     |
-                     <a href="<?= base_url('web/site_map') ?>" class="text-secondary small">Site Map</a>
-                     |
-                     <a href="<?= base_url('web/terms') ?>" class="text-secondary small">Terms and Condition</a>
-                 </div>
-                 <div class="col mb-3">
-                     <a href="https://wa.me/+6282232057755" class="btn btn-success btn-circle" target="_blank">
-                         <i class="fab fa-fw fa-whatsapp"></i>
-                     </a>
-                     <a href="mailto:cs.sbplastik@gmail.com" class="btn btn-danger btn-circle" target="_blank">
-                         <i class="far fa-fw fa-envelope"></i>
-                     </a>
-                     <a href="https://instagram.com/sbplastik" class="btn btn-warning btn-circle" target="_blank">
-                         <i class="fab fa-fw fa-instagram"></i>
-                     </a>
-                 </div>
-             </div>
-         </div>
-     </footer>
-     <!-- End of Footer -->
- </div>
+<!-- Footer -->
+<footer class="text-center text-lg-start bg-white">
+    <!-- Section: Social media -->
+    <section class="d-flex align-items-center justify-content-center justify-content-lg-between p-4 border-bottom mx-4">
+        <div class="container text-left text-md-start mt-1">
+            <p>1. Jemblung &trade; and Rukun &trade; are trademark of UD. Cakra Inti Plastik. Any intellectual property violation will be dealt with severely.</p>
+        </div>
+        <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+    <!-- Section: Links  -->
+    <section class="">
+        <div class="container text-left text-md-start mt-5">
+            <!-- Grid row -->
+            <div class="row mt-1">
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto">
+                    <!-- Content -->
+                    <h6 class="text-dark fw-bold mb-3">
+                        <i class="fas fa-recycle mr-2"></i>UD. Cakra Inti Plastik
+                    </h6>
+                    <p>
+                        A plastic manufacturing company focused on recycled plastic bag and packaging products.
+                    </p>
+                </div>
+                <!-- Grid column -->
 
- </div>
- <!-- End of Content Wrapper -->
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
+                    <!-- Links -->
+                    <h6 class="text-primary fw-bold mb-3">
+                        Products
+                    </h6>
+                    <p>
+                        <a href="<?= base_url('products/plasticbag') ?>" class="text-dark">Plastic Bag</a>
+                    </p>
+                    <p>
+                        <a href="<?= base_url('products/inner') ?>" class="text-dark">Inner Bag</a>
+                    </p>
+                    <p>
+                        <a href="<?= base_url('products/trashbag') ?>" class="text-dark">Trash Bag</a>
+                    </p>
+                    <p>
+                        <a href="<?= base_url('products/shoppingbag') ?>" class="text-dark">Shopping Bag</a>
+                    </p>
+                    <p>
+                        <a href="<?= base_url('products/jumbobag') ?>" class="text-dark">Jumbo Bag</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
 
- </div>
- <!-- End of Page Wrapper -->
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+                    <!-- Links -->
+                    <h6 class="text-primary fw-bold mb-3">
+                        Legal
+                    </h6>
+                    <p>
+                        <a href="<?= base_url('web/privacy_policy') ?>" class="text-dark">Privacy Policy</a>
+                    </p>
+                    <p>
+                        <a href="<?= base_url('web/site_map') ?>" class="text-dark">Site Map</a>
+                    </p>
+                    <p>
+                        <a href="<?= base_url('web/terms') ?>" class="text-dark">Terms and Condition</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
 
- <!-- Scroll to Top Button-->
- <a class="scroll-to-top rounded" href="#page-top">
-     <i class="fas fa-angle-up"></i>
- </a>
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0">
+                    <!-- Links -->
+                    <h6 class="text-small text-primary fw-bold mb-3">
+                        Contact
+                    </h6>
+                    <p>
+                        <i class="bi bi-house mr-1"></i>
+                        <span class="text-dark">Sidoarjo, Indonesia 61254</span>
+                    </p>
+                    <p>
+                        <a href="mailto:cs.sbplastik@gmail.com" class="text-dark" target="_blank">
+                            <i class="bi bi-envelope mr-1"></i>
+                            <span>cs.sbplastik@gmail.com</span>
+                        </a>
+                    </p>
+                    <a href="https://wa.me/+6282232057755" class="text-dark" target="_blank">
+                        <p>
+                            <i class="bi bi-whatsapp mr-1"></i> +62822-3205-7755
+                        </p>
+                    </a>
+                    <p>
+                        <i class="bi bi-telephone mr-2"></i>+6231-701-1529
+                    </p>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+        </div>
+    </section>
+    <!-- Section: Links  -->
 
- <!-- Logout Modal-->
- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-     <div class="modal-dialog" role="document">
-         <div class="modal-content">
-             <div class="modal-header">
-                 <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">×</span>
-                 </button>
-             </div>
-             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-             <div class="modal-footer">
-                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                 <a class="btn btn-primary" href="<?= base_url('auth/logout') ?>">Logout</a>
-             </div>
-         </div>
-     </div>
- </div>
+    <!-- Copyright -->
+    <div class="text-center bg-white p-4">
+        <div class="copyright">
+            <span>Copyright &copy; UD. Cakra Inti Plastik 2021</span>
+        </div>
+    </div>
+    <!-- Copyright -->
+</footer>
+<!-- Footer -->
 
- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</div>
+<!-- End of Content Wrapper -->
 
- <!-- Bootstrap core JavaScript
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="<?= base_url('auth/logout') ?>">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<!-- Bootstrap core JavaScript
  <script src="<?= base_url('asset/'); ?>vendor/jquery/jquery.min.js"></script>
  <script src="<?= base_url('asset/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
- <!-- Core plugin JavaScript-->
- <script src="<?= base_url('asset/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="<?= base_url('asset/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 
- <!-- Custom scripts for all pages-->
- <script src="<?= base_url('asset/'); ?>js/sb-admin-2.min.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="<?= base_url('asset/'); ?>js/sb-admin-2.min.js"></script>
 
- <!-- Page level datatables plugins -->
- <script src="<?= base_url('asset/') ?>vendor/datatables/jquery.dataTables.min.js"></script>
- <script src="<?= base_url('asset/') ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<!-- Page level datatables plugins -->
+<script src="<?= base_url('asset/') ?>vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="<?= base_url('asset/') ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
- <!-- Page level datatables custom scripts -->
- <script src="<?= base_url('asset/') ?>js/demo/datatables-demo.js"></script>
+<!-- Page level datatables custom scripts -->
+<script src="<?= base_url('asset/') ?>js/demo/datatables-demo.js"></script>
 
- <script>
-     $('.custom-file-input').on('change', function() {
-         let fileName = $(this).val().split('\\').pop();
-         $(this).next('.custom-file-label').addClass("selected").html(fileName);
-     });
+<script>
+    $('.custom-file-input').on('change', function() {
+        let fileName = $(this).val().split('\\').pop();
+        $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    });
 
 
-     $('.form-check-input').on('click', function() {
-         const menuId = $(this).data('menu');
-         const roleId = $(this).data('role');
+    $('.form-check-input').on('click', function() {
+        const menuId = $(this).data('menu');
+        const roleId = $(this).data('role');
 
-         $.ajax({
-             url: "<?= base_url('admin/changeaccess'); ?>",
-             type: 'post',
-             data: {
-                 menuId: menuId,
-                 roleId: roleId
-             },
-             success: function() {
-                 document.location.href = "<?= base_url('admin/roleaccess/')  ?>" + roleId;
-             }
-         });
-     });
- </script>
+        $.ajax({
+            url: "<?= base_url('admin/changeaccess'); ?>",
+            type: 'post',
+            data: {
+                menuId: menuId,
+                roleId: roleId
+            },
+            success: function() {
+                document.location.href = "<?= base_url('admin/roleaccess/')  ?>" + roleId;
+            }
+        });
+    });
+</script>
 
- </body>
+</body>
 
- </html>
+</html>

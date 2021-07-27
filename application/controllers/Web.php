@@ -47,7 +47,7 @@ class Web extends CI_Controller
 	//load page about Us
 	public function aboutUs()
 	{
-		$data['title'] = 'About Us';
+		$data['title'] = 'About';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();

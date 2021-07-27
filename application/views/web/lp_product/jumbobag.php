@@ -13,7 +13,18 @@
         <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
         <a href="<?= base_url('web'); ?>"> Back to Dashboard</a>
     </div>
-
+    <div class="container">
+        <dl class="row">
+            <dt class="col-sm-3">Tutorials</dt>
+            <dd class="col-sm-9">List of Tutorials.</dd>
+            <dt class="col-sm-3">Articles</dt>
+            <dd class="col-sm-9">List of Articles.</dd>
+            <dt class="col-sm-3">Tools</dt>
+            <dd class="col-sm-9">Online tools to execute the code online.</dd>
+            <dt class="col-sm-3 text-truncate">Server Side Coding Info</dt>
+            <dd class="col-sm-9">Server side coding will help to communicate with UI and databases.</dd>
+        </dl>
+    </div>
 </div>
 <!-- /.container-fluid -->
 
