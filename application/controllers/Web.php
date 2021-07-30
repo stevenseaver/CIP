@@ -10,6 +10,7 @@ class Web extends CI_Controller
 		// data['title'] will serve as title of the page
 		$data['title'] = 'Home';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();
 
@@ -18,6 +19,7 @@ class Web extends CI_Controller
 		$this->load->view('web/home-page', $data);
 		$this->load->view('templates/web-footer');
 	}
+
 	//load view product
 	public function product()
 	{
@@ -37,8 +39,10 @@ class Web extends CI_Controller
 	{
 		$data['title'] = 'Contact Us';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();
+
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/web-topbar', $data);
 		$this->load->view('web/contact-us', $data);
@@ -49,6 +53,7 @@ class Web extends CI_Controller
 	{
 		$data['title'] = 'About';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();
 
@@ -66,6 +71,7 @@ class Web extends CI_Controller
 	{
 		$data['title'] = 'High Quality';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();
 
@@ -79,6 +85,7 @@ class Web extends CI_Controller
 	{
 		$data['title'] = 'Eco-Mindful';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();
 
@@ -92,6 +99,7 @@ class Web extends CI_Controller
 	{
 		$data['title'] = 'Highly Customizable';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();
 
@@ -109,6 +117,7 @@ class Web extends CI_Controller
 	{
 		$data['title'] = 'Privacy Policy';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();
 
@@ -122,6 +131,7 @@ class Web extends CI_Controller
 	{
 		$data['title'] = 'Terms and Conditions';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();
 

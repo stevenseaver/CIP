@@ -1,14 +1,13 @@
 <?php
 class Products extends CI_Controller
 {
-    function plasticbag()
+    public function plasticbag()
     {
-        // index function, will load home-page
-        // data['title'] will serve as title of the page
-        $data['title'] = 'Plastic Bag';
+        $data['title'] = 'Products';
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['products'] = $this->db->get('product_menu')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
@@ -16,28 +15,29 @@ class Products extends CI_Controller
         $this->load->view('templates/web-footer');
     }
 
-    function inner()
+    public function inner()
     {
-        // index function, will load home-page
-        // data['title'] will serve as title of the page
-        $data['title'] = 'Inner Bag';
+        $data['title'] = 'Products';
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['products'] = $this->db->get('product_menu')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
         $this->load->view('web/lp_product/innerbag', $data);
         $this->load->view('templates/web-footer');
     }
-    function trashbag()
+
+    public function trashbag()
     {
         // index function, will load home-page
         // data['title'] will serve as title of the page
-        $data['title'] = 'Trash Bag';
+        $data['title'] = 'Products';
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['products'] = $this->db->get('product_menu')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
@@ -45,14 +45,13 @@ class Products extends CI_Controller
         $this->load->view('templates/web-footer');
     }
 
-    function shoppingbag()
+    public function shoppingbag()
     {
-        // index function, will load home-page
-        // data['title'] will serve as title of the page
-        $data['title'] = 'Shopping Bag';
+        $data['title'] = 'Products';
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['products'] = $this->db->get('product_menu')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
@@ -60,14 +59,13 @@ class Products extends CI_Controller
         $this->load->view('templates/web-footer');
     }
 
-    function jumbobag()
+    public function jumbobag()
     {
-        // index function, will load home-page
-        // data['title'] will serve as title of the page
-        $data['title'] = 'Jumbo Bag';
+        $data['title'] = 'Products';
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['products'] = $this->db->get('product_menu')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);

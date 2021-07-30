@@ -3,7 +3,7 @@
 
     <!-- Page Heading -->
     <div class="d-flex mt-4 mb-1 mx-5 px-5 text-justify">
-        <h1 class="h3 mb-0 text-green font-weight-bold"><?= $title ?></h1>
+        <h1 class="h3 mb-0 text-primary font-weight-bold"><?= $title ?></h1>
     </div>
     <div class="d-flex mb-4 mx-5 px-5 text-justify">
         <small>Last updated on 13 January 2021</small>

@@ -9,7 +9,7 @@ class HR extends CI_Controller
         is_logged_in();
     }
 
-    public function leave()
+    public function index()
     {
         $data['title'] = 'Leave Menu';
         $data['user'] = $this->db->get_where('user', ['nik' =>
@@ -34,7 +34,7 @@ class HR extends CI_Controller
         $this->db->where($array);
         $this->db->update('leave_list');
 
-        redirect('hr/leave');
+        redirect('hr');
     }
 
     public function decline($nik, $start, $finish)
@@ -47,6 +47,6 @@ class HR extends CI_Controller
         $this->db->where($array);
         $this->db->update('leave_list');
 
-        redirect('hr/leave');
+        redirect('hr');
     }
 }

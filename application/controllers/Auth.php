@@ -208,7 +208,7 @@ class Auth extends CI_Controller
         if ($user) {
             $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
             if ($user_token) {
-                if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
+                if (time() - $user_token['date_created'] < (3000)) {
                     $this->session->set_userdata('reset_email', $email);
                     $this->changePassword();
                 } else {

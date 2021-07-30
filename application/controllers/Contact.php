@@ -14,7 +14,7 @@ class Contact extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('web/message/message_view', $data);
+        $this->load->view('message/message_view', $data);
         $this->load->view('templates/footer');
     }
 

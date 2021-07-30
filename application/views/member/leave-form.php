@@ -93,6 +93,7 @@
             <h5 class="m-0 font-weight-bold text-primary">Your Request</h5>
         </div>
         <div class="card-body">
+            <a href="<?= base_url("member/leaveform"); ?>" class="btn btn-primary mb-3 text-white">Refresh</a>
             <div class="table-responsive">
                 <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>

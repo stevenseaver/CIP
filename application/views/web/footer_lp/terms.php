@@ -3,14 +3,14 @@
 
     <!-- Page Heading -->
     <div class="d-flex mt-4 mb-1 mx-5 px-5 text-justify">
-        <h1 class="h3 mb-0 text-green font-weight-bold"><?= $title ?></h1>
+        <h1 class="h3 mb-0 text-primary font-weight-bold"><?= $title ?></h1>
     </div>
     <div class="d-flex mb-4 mx-5 px-5 text-justify">
         <small>Last updated on 13 January 2021</small>
     </div>
 
     <p class="text-dark mx-5 px-5 text-justify">
-        The terms and conditions (“User Terms“) set forth by UD. Cakra Inti Plastik (“We, Our, Ours, Us“) is an inseparable part of our internet website at www.rukunplastik.com (“Website“). By accessing, downloading, using, and registering on Our Website, the User (“You, Your, Yours“) has been deemed to known, read, agreed and is therefore subject to fully and voluntarily commit to the terms and conditions that have been made by Us.
+        The terms and conditions (“User Terms“) set forth by UD. Cakra Inti Plastik (“We, Our, Ours, Us“) is an inseparable part of our internet website at www.rukun.com (“Website“). By accessing, downloading, using, and registering on Our Website, the User (“You, Your, Yours“) has been deemed to known, read, agreed and is therefore subject to fully and voluntarily commit to the terms and conditions that have been made by Us.
     </p>
     <h5 class="text-dark mx-5 px-5 text-justify font-weight-bold">
         1. Definition

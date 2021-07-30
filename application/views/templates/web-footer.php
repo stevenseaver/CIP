@@ -3,7 +3,8 @@
     <!-- Section: Social media -->
     <section class="d-flex align-items-center justify-content-center justify-content-lg-between p-4 border-bottom mx-4">
         <div class="container text-left text-md-start mt-1">
-            <p>1. Jemblung &trade; and Rukun &trade; are trademark of UD. Cakra Inti Plastik. Any intellectual property violation will be dealt with severely.</p>
+            <p class="small">Jemblung &trade; and Rukun &trade; are trademark of UD. Cakra Inti Plastik.</p>
+            <p class="small">Our products are made from select recycled materials, hence some minor differences in characteristic (such as color or clearness) may occur between production batches. This does not affect product's quality and reliability. </p>
         </div>
         <!-- Right -->
     </section>
@@ -31,21 +32,11 @@
                     <h6 class="text-primary fw-bold mb-3">
                         Products
                     </h6>
-                    <p>
-                        <a href="<?= base_url('products/plasticbag') ?>" class="text-dark">Plastic Bag</a>
-                    </p>
-                    <p>
-                        <a href="<?= base_url('products/inner') ?>" class="text-dark">Inner Bag</a>
-                    </p>
-                    <p>
-                        <a href="<?= base_url('products/trashbag') ?>" class="text-dark">Trash Bag</a>
-                    </p>
-                    <p>
-                        <a href="<?= base_url('products/shoppingbag') ?>" class="text-dark">Shopping Bag</a>
-                    </p>
-                    <p>
-                        <a href="<?= base_url('products/jumbobag') ?>" class="text-dark">Jumbo Bag</a>
-                    </p>
+                    <?php foreach ($products as $p) : ?>
+                        <p>
+                            <a href="<?= base_url($p['url']) ?>" class="text-dark"><?= $p['title']; ?></a>
+                        </p>
+                    <?php endforeach; ?>
                 </div>
                 <!-- Grid column -->
 
@@ -74,8 +65,10 @@
                         Contact
                     </h6>
                     <p>
-                        <i class="bi bi-house mr-1"></i>
-                        <span class="text-dark">Sidoarjo, Indonesia 61254</span>
+                        <a href="https://goo.gl/maps/zRBAk5gr9dujTFc48" target="_blank">
+                            <i class="bi bi-house mr-1"></i>
+                            <span class="text-dark">Sidoarjo, Indonesia 61254</span>
+                        </a>
                     </p>
                     <p>
                         <a href="mailto:cs.sbplastik@gmail.com" class="text-dark" target="_blank">
@@ -83,13 +76,18 @@
                             <span>cs.sbplastik@gmail.com</span>
                         </a>
                     </p>
+                    <a href="https://instagram.com/sbplastik" class="text-dark" target="_blank">
+                        <p>
+                            <i class="bi bi-instagram mr-1"></i> sbplastik
+                        </p>
+                    </a>
                     <a href="https://wa.me/+6282232057755" class="text-dark" target="_blank">
                         <p>
-                            <i class="bi bi-whatsapp mr-1"></i> +62822-3205-7755
+                            <i class="bi bi-whatsapp mr-1"></i>+62822-3205-7755
                         </p>
                     </a>
                     <p>
-                        <i class="bi bi-telephone mr-2"></i>+6231-701-1529
+                        <i class="bi bi-telephone mr-1"></i>+6232-701-1529
                     </p>
                 </div>
                 <!-- Grid column -->
