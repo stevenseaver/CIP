@@ -14,6 +14,12 @@
                     <h5 class="m-0 font-weight-bold text-primary">Role: <?= $role['role']; ?></h5>
                 </div>
                 <div class="card-body">
+                    <a href="<?= base_url("admin/role"); ?>" class="btn btn-primary btn-icon-split mb-3">
+                        <span class="icon text-white-50">
+                            <i class="bi bi-arrow-left"></i>
+                        </span>
+                        <span class="text">Back</span>
+                    </a>
                     <div class="table-responsive">
                         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>

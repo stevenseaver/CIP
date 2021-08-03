@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Member extends CI_Controller
+class Employee extends CI_Controller
 {
     public function __construct()
     {
@@ -25,7 +25,7 @@ class Member extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('member/leave-form', $data);
+        $this->load->view('employee/leave-form', $data);
         $this->load->view('templates/footer');
     }
 
@@ -65,7 +65,7 @@ class Member extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('member/leave-form', $data);
+            $this->load->view('employee/leave-form', $data);
             $this->load->view('templates/footer');
         } else {
             $upload_file = $_FILES['proof']['name'];
@@ -94,10 +94,10 @@ class Member extends CI_Controller
                     $this->db->insert('leave_list', $input);
                     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Request submitted!</div>');
 
-                    redirect('member/leaveform');
+                    redirect('employee/leaveform');
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
-                    redirect('member/leaveform');
+                    redirect('employee/leaveform');
                 }
             }
         }

@@ -9,7 +9,7 @@
             <?= $this->session->flashdata('message'); ?>
             <div class="card border-left-primary mb-3">
                 <div class="card-body">
-                    <?= form_open_multipart('member/submit'); ?>
+                    <?= form_open_multipart('employee/submit'); ?>
                     <div class="form-group row">
                         <!-- show ERN -->
                         <label for="nik" class="col-sm-3 col-form-label">ERN</label>
@@ -88,12 +88,12 @@
         </div>
     </div>
 
-    <div class="card shadow border-left-primary mb-4">
+    <div class="card border-left-primary mb-4">
         <div class="card-header py-2">
             <h5 class="m-0 font-weight-bold text-primary">Your Request</h5>
         </div>
         <div class="card-body">
-            <a href="<?= base_url("member/leaveform"); ?>" class="btn btn-primary mb-3 text-white">Refresh</a>
+            <a href="<?= base_url("employee/leaveform"); ?>" class="btn btn-primary mb-3 text-white">Refresh</a>
             <div class="table-responsive">
                 <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>

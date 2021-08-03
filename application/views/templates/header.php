@@ -25,7 +25,10 @@
     <link href="<?= base_url('asset/'); ?>css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom styles for user management page -->
-    <link href="<? base_url('asset/') ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/r-2.2.9/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/r-2.2.9/datatables.min.js"></script>
+    <!-- <link href="<? base_url('asset/') ?>vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+    <script href="<? base_url('asset/') ?>vendor/datatables/dataTables.bootstrap4.js"></script> -->
 
 </head>
 

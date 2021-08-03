@@ -5,7 +5,7 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-8">
             <?= form_error('menu', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
             <?= form_error('edit_menu_id', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
             <?= form_error('edit_menu_name', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
