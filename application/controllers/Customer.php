@@ -12,7 +12,7 @@ class Customer extends CI_Controller
     public function index()
     {
         //load user data per session
-        $data['title'] = 'Product List';
+        $data['title'] = 'Products List';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         $data['leavetype'] = $this->db->get('leave_type')->result_array();
@@ -32,7 +32,7 @@ class Customer extends CI_Controller
     public function cart()
     {
         //load user data per session
-        $data['title'] = 'Order Form';
+        $data['title'] = 'Cart';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         $data['leavetype'] = $this->db->get('leave_type')->result_array();

@@ -131,6 +131,16 @@
                         <input type="text" class="form-control" id="email" name="email" placeholder="Email">
                         <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
+                    <!-- input alamat noktp -->
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="noktp" name="noktp" placeholder="ID Card Number">
+                        <?= form_error('noktp', '<small class="text-danger pl-3">', '</small>') ?>
+                    </div>
+                    <!-- input alamat dob -->
+                    <div class="form-group">
+                        <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth">
+                        <?= form_error('dob', '<small class="text-danger pl-3">', '</small>') ?>
+                    </div>
                     <!-- input nomor HP -->
                     <div class="form-group">
                         <input type="text" class="form-control" id="hp" name="hp" placeholder="Mobile Phone Number">
