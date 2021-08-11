@@ -176,6 +176,8 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('email', 'email', 'required|trim|valid_email|is_unique[user.email]', [
             'is_unique' => 'This email has already been used!'
         ]);
+        $this->form_validation->set_rules('noktp', 'ID card number', 'required|trim');
+        $this->form_validation->set_rules('dob', 'date of birth', 'required|trim');
         $this->form_validation->set_rules('hp', 'phone number', 'required|trim|numeric');
         $this->form_validation->set_rules('role_id', 'role', 'required');
         $this->form_validation->set_rules('password1', 'password', 'required|trim|min_length[8]|matches[password2]', [
@@ -194,21 +196,24 @@ class Admin extends CI_Controller
             $name = $this->input->post('name', true);
             $email = $this->input->post('email', true);
             $nik = $this->input->post('nik', true);
+            $dob = $this->input->post('dob', true);
+            $noktp = $this->input->post('noktp', true);
             $hp = $this->input->post('hp', true);
             $address = $this->input->post('address');
             $password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
-            $role_id = $this->input->post('role_id');
 
             $data = [
                 'name' => htmlspecialchars($name),
                 'nik' => htmlspecialchars($nik),
                 'email' => htmlspecialchars($email),
+                'noktp' => htmlspecialchars($noktp),
+                'dob' => htmlspecialchars($dob),
                 'phone_number' => htmlspecialchars($hp),
                 'address' => htmlspecialchars($address),
                 'image' => 'default.jpg',
                 'password' => $password,
-                'role_id' => $role_id,
-                'is_active' => 1,
+                'role_id' => 3,
+                'is_active' => 0,
                 'date_created' => time()
             ];
             $this->db->insert('user', $data);

@@ -75,6 +75,8 @@ class Auth extends CI_Controller
             'is_unique' => 'This ERN has already been used!'
         ]);
         $this->form_validation->set_rules('address', 'address', 'required|trim');
+        $this->form_validation->set_rules('noktp', 'ID card number', 'required|trim');
+        $this->form_validation->set_rules('dob', 'date of birth', 'required|trim');
         $this->form_validation->set_rules('email', 'email', 'required|trim|valid_email|is_unique[user.email]', [
             'is_unique' => 'This email has already been used!'
         ]);
@@ -94,6 +96,8 @@ class Auth extends CI_Controller
             $name = $this->input->post('name', true);
             $email = $this->input->post('email', true);
             $nik = $this->input->post('nik', true);
+            $dob = $this->input->post('dob', true);
+            $noktp = $this->input->post('noktp', true);
             $hp = $this->input->post('hp', true);
             $address = $this->input->post('address');
             $password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
@@ -102,6 +106,8 @@ class Auth extends CI_Controller
                 'name' => htmlspecialchars($name),
                 'nik' => htmlspecialchars($nik),
                 'email' => htmlspecialchars($email),
+                'noktp' => htmlspecialchars($noktp),
+                'dob' => htmlspecialchars($dob),
                 'phone_number' => htmlspecialchars($hp),
                 'address' => htmlspecialchars($address),
                 'image' => 'default.jpg',

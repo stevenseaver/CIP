@@ -23,35 +23,25 @@
                                     <input type="text" class="form-control form-control-user mb-2" id="email" name="email" placeholder="Email Address" value="<?= set_value('email'); ?>">
                                     <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
                                     <div class="form-check ml-3">
-                                        <input class="form-check-input" type="checkbox" id="username_email" name="username_email" onchange="aaa();" />
+                                        <input class="form-check-input" type="checkbox" id="username_email" name="username_email" onchange="getEmailAsUserId();" />
                                         <label class="small" for="username_email">Use as username</label>
                                     </div>
                                 </div>
                                 <hr>
-                                <!-- input address -->
-                                <div class="form-group row">
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control form-control-user" id="address" name="address" placeholder="Address" value="<?= set_value('address'); ?>">
-                                        <?= form_error('address', '<small class="text-danger pl-3">', '</small>') ?>
-                                    </div>
-                                    <div class="col-sm-4 pl-0">
-                                        <input type="text" class="form-control form-control-user" id="city" name="city" placeholder="City" value="<?= set_value('city'); ?>">
-                                        <?= form_error('city', '<small class="text-danger pl-3">', '</small>') ?>
-                                    </div>
+                                <!-- Input NIK KTP -->
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="noktp" name="noktp" placeholder="ID Card Number" value="<?= set_value('noktp'); ?>">
+                                    <?= form_error('noktp', '<small class="text-danger pl-3">', '</small>') ?>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control form-control-user" id="province" name="province" placeholder="Province" value="<?= set_value('province'); ?>">
-                                        <?= form_error('province', '<small class="text-danger pl-3">', '</small>') ?>
-                                    </div>
-                                    <div class="col-sm-4 pl-0">
-                                        <input type="text" class="form-control form-control-user" id="country" name="country" placeholder="Country" value="<?= set_value('country'); ?>">
-                                        <?= form_error('country', '<small class="text-danger pl-3">', '</small>') ?>
-                                    </div>
-                                    <div class="col-sm-4 pl-0">
-                                        <input type="text" class="form-control form-control-user" id="zipcode" name="zipcode" placeholder="Zipcode" value="<?= set_value("zipcode"); ?>">
-                                        <?= form_error('zipcode', '<small class="text-danger pl-3">', '</small>') ?>
-                                    </div>
+                                <!-- Input Tanggal Lahir -->
+                                <div class="form-group">
+                                    <input type="date" class="form-control form-control-user" id="dob" name="dob" placeholder="Date of Birth" value="<?= set_value('dob'); ?>">
+                                    <?= form_error('dob', '<small class="text-danger pl-3">', '</small>') ?>
+                                </div>
+                                <!-- input address -->
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="address" name="address" placeholder="Address" value="<?= set_value('address'); ?>">
+                                    <?= form_error('address', '<small class="text-danger pl-3">', '</small>') ?>
                                 </div>
                                 <!-- input no hp -->
                                 <div class="form-group">

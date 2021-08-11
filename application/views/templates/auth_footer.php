@@ -9,7 +9,7 @@
 <script src="<?= base_url('asset/'); ?>js/sb-admin-2.min.js"></script>
 <script>
     //email as username
-    function aaa() {
+    function getEmailAsUserId() {
         var checkBox = document.getElementById("username_email");
         var email = document.getElementById("email");
         var nik = document.getElementById("nik");

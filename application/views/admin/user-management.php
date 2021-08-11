@@ -39,6 +39,8 @@
                             <th>Name</th>
                             <th>Username</th>
                             <th>Email</th>
+                            <th>Date of Birth</th>
+                            <th>ID Card No.</th>
                             <th>Address</th>
                             <th>Mobile Phone</th>
                             <th>Since</th>
@@ -53,6 +55,8 @@
                             <th>Name</th>
                             <th>Username</th>
                             <th>Email</th>
+                            <th>Date of Birth</th>
+                            <th>ID Card No.</th>
                             <th>Address</th>
                             <th>Mobile Phone</th>
                             <th>Since</th>
@@ -69,6 +73,8 @@
                                 <td><?= $u['name']; ?></td>
                                 <td><?= $u['nik']; ?></td>
                                 <td><?= $u['email']; ?></td>
+                                <td><?= $u['dob']; ?></td>
+                                <td><?= $u['noktp']; ?></td>
                                 <td><?= $u['address']; ?></td>
                                 <td><?= $u['phone_number']; ?></td>
                                 <td><?= date('d F Y', $u['date_created']); ?></td>
