@@ -64,7 +64,7 @@
          $(this).next('.custom-file-label').addClass("selected").html(fileName);
      });
 
-
+     //js for menu change access checkbox onclick
      $('.form-check-input').on('click', function() {
          const menuId = $(this).data('menu');
          const roleId = $(this).data('role');
@@ -159,8 +159,52 @@
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="email"]').val(email);
-
      });
+
+     //javascript for increment tools
+
+     var quantity = 0;
+     $('.quantity-right-plus').click(function(e) {
+
+         // Stop acting like a button
+         e.preventDefault();
+         // Get the field name
+         var quantity = parseInt($('#quantity').val());
+
+         // If is not undefined
+         // Increment
+         $('#quantity').val(quantity + 1);
+     });
+
+     $('.quantity-left-minus').click(function(e) {
+         // Stop acting like a button
+         e.preventDefault();
+         // Get the field name
+         var quantity = parseInt($('#quantity').val());
+
+         // If is not undefined
+         // Increment
+         if (quantity > 0) {
+             $('#quantity').val(quantity - 1);
+         }
+     });
+
+     //  //javascript for select roll
+     $('#rolltype').on('change', function(e) {
+         document.getElementById("code").value = e.target.value
+         document.getElementById("weight").value = e.target.value
+         document.getElementById("lipatan").value = e.target.value
+     });
+     //  $('#roll').on('change', function(event) {
+     //      var code = $(event.relatedTarget).data('code');
+     //      var weight = $(event.relatedTarget).data('weight');
+     //      var lipatan = $(event.relatedTarget).data('lipatan');
+
+     //      // input passed data using JS to object INPUT
+     //      $(event.currentTarget).find('.form-group input[name="code"]').val(code);
+     //      $(event.currentTarget).find('.form-group input[name="weight"]').val(weight);
+     //      $(event.currentTarget).find('.form-group input[name="lipatan"]').val(lipatan);
+     //  });
  </script>
 
  </body>

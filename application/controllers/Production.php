@@ -11,12 +11,15 @@ class Production extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Cost of Products';
+        $data['title'] = 'Cost of Product';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['rollType'] = $this->db->get('roll')->result_array();
 
-        $data['menu'] = $this->db->get('user_menu')->result_array();
-
-        echo 'jelo';
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('production/cops', $data);
+        $this->load->view('templates/footer');
     }
 }

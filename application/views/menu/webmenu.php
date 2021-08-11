@@ -72,17 +72,17 @@
             <form action="<?= base_url('menu/webmenu') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <p class="text-secondary font-weight-bold mb-0">Web Menu Title</p>
+                        <p class="text-secondary mb-0">Web Menu Title</p>
                         <input type="text" class="form-control" id="title" name="title" placeholder="Add new web menu title">
                         <?= form_error('title', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
                     <div class="form-group">
-                        <p class="text-secondary font-weight-bold mb-0">Web Menu URL</p>
+                        <p class="text-secondary mb-0">Web Menu URL</p>
                         <input type="text" class="form-control" id="url" name="url" placeholder="Add web menu URL">
                         <?= form_error('url', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
                     <div class="form-group">
-                        <p class="text-secondary font-weight-bold mb-0">Web Menu Icon</p>
+                        <p class="text-secondary mb-0">Web Menu Icon</p>
                         <input type="text" class="form-control" id="icon" name="icon" placeholder="Add web menu icon">
                         <?= form_error('icon', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
