@@ -9,6 +9,9 @@ class Products extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         $data['products'] = $this->db->get('product_menu')->result_array();
 
+        //get spec sheet
+        $data['spec'] = $this->db->get('spec_sheet')->result_array();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
         $this->load->view('web/lp_product/plasticbag', $data);
@@ -22,6 +25,8 @@ class Products extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         $data['products'] = $this->db->get('product_menu')->result_array();
+        //get spec sheet
+        $data['spec'] = $this->db->get('spec_sheet')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
@@ -39,6 +44,9 @@ class Products extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         $data['products'] = $this->db->get('product_menu')->result_array();
 
+        //get spec sheet
+        $data['spec'] = $this->db->get('spec_sheet')->result_array();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
         $this->load->view('web/lp_product/trashbag', $data);
@@ -53,6 +61,9 @@ class Products extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         $data['products'] = $this->db->get('product_menu')->result_array();
 
+        //get spec sheet
+        $data['spec'] = $this->db->get('spec_sheet')->result_array();
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
         $this->load->view('web/lp_product/shoppingbag', $data);
@@ -66,6 +77,9 @@ class Products extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         $data['products'] = $this->db->get('product_menu')->result_array();
+
+        //get spec sheet
+        $data['spec'] = $this->db->get('spec_sheet')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);

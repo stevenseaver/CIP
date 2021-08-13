@@ -1,5 +1,5 @@
 <!-- Begin Page Content -->
-<div class="container-fluid pt-2 mt-5">
+<div class="no-gutter pt-2 mt-5">
     <!-- sub nav bar -->
     <div class="row d-flex justify-content-center align-items-center">
         <?php foreach ($products as $pl) : ?>
@@ -9,20 +9,46 @@
             </a>
         <?php endforeach; ?>
     </div>
-
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-primary font-weight-bold">Inner</h1>
+    <div class="container">
+        <div class="row align-items-center mt-3 mx-3">
+            <div class="col-lg-12 mb-1">
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Inner Bag</h1>
+            </div>
+        </div>
+        <div class="row justify-content-left align-items-center my-1 mx-3">
+            <div class="col-lg-12 card mb-3 border-0">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-md-4 text-center">
+                        <img src="<?= base_url('asset/') ?>img/LDPE_2.jpg" width="300" class="my-4 rounded">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h4 class="card-title text-primary font-weight-bold">Inner Bag</h4>
+                            <p class="text-dark">Inner bag lining for your woven bag products, food container, or your other needs. Made from high-quality high-density polyethylene for strength and a little bit of low-density polyethylene for extra flexibility making it suitable for heavy-duty woven bag application.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
+                            <?php foreach ($spec as $s) : ?>
+                                <?php
+                                if ($s['product_name'] != "Inner Bag") {
+                                    continue;
+                                } else {
+                                }
+                                ?>
+                                <div class="row mt-3 mb-3">
+                                    <div class="col-md-3 text-left">
+                                        <?= $s["specification"] ?>
+                                    </div>
+                                    <div class="col-md-10 text-dark">
+                                        <?= $s["items"] ?>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <!-- 404 Error Text -->
-    <div class="text-center">
-        <div class="error mx-auto" data-text="404">404</div>
-        <p class="lead text-gray-800 mb-5">Page Not Found</p>
-        <p class="text-gray-500 mb-0">It looks like you found a glitch in the matrix...</p>
-        <a href="<?= base_url('web'); ?>"> Back to Dashboard</a>
-    </div>
-
 </div>
 <!-- /.container-fluid -->
 

@@ -1,7 +1,7 @@
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-white">
     <!-- Section: Social media -->
-    <section class="d-flex align-items-center justify-content-center justify-content-lg-between p-4 border-bottom mx-4">
+    <section class="d-flex align-items-center justify-content-center justify-content-lg-between p-4 border-bottom mx-2">
         <div class="container text-left text-md-start mt-1">
             <p class="small">Jemblung &trade; and Rukun &trade; are trademark of UD. Cakra Inti Plastik.</p>
             <p class="small">Our products are made from select recycled materials, hence some minor differences in characteristic (such as color or clearness) may occur between production batches. This does not affect product's quality and reliability. </p>

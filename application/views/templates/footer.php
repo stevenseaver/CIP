@@ -165,7 +165,6 @@
 
      var quantity = 0;
      $('.quantity-right-plus').click(function(e) {
-
          // Stop acting like a button
          e.preventDefault();
          // Get the field name
@@ -190,21 +189,24 @@
      });
 
      //  //javascript for select roll
-     $('#rolltype').on('change', function(e) {
-         document.getElementById("code").value = e.target.value
-         document.getElementById("weight").value = e.target.value
-         document.getElementById("lipatan").value = e.target.value
-     });
-     //  $('#roll').on('change', function(event) {
-     //      var code = $(event.relatedTarget).data('code');
-     //      var weight = $(event.relatedTarget).data('weight');
-     //      var lipatan = $(event.relatedTarget).data('lipatan');
+     $('#rolltype').on('change', function(event) {
+         var code = $(this).find(':selected').data('code');
+         var weight = $(this).find(':selected').data('weight');
+         var lipatan = $(this).find(':selected').data('lipatan');
 
-     //      // input passed data using JS to object INPUT
-     //      $(event.currentTarget).find('.form-group input[name="code"]').val(code);
-     //      $(event.currentTarget).find('.form-group input[name="weight"]').val(weight);
-     //      $(event.currentTarget).find('.form-group input[name="lipatan"]').val(lipatan);
-     //  });
+         document.getElementById("code").value = code;
+         document.getElementById("weight").value = weight;
+         document.getElementById("lipatan").value = lipatan;
+     });
+
+     $('#dataTable').dataTable({
+         "columnDefs": [{
+             "width": "2%",
+             "targets": 0,
+             "width": "45%",
+             "targets": 1
+         }]
+     });
  </script>
 
  </body>

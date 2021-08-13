@@ -10,7 +10,7 @@
     <!-- Intro -->
     <div class="row justify-content-center align-items-center text-justify pt-1">
         <!-- Page Body -->
-        <div class="col mb-3 mx-4 text-dark">
+        <div class="col-lg-8 mb-3 mx-4 text-dark">
             <p class="mb-3">UD. Cakra Inti Plastik is a plastic manufacturing company based in Sidoarjo, East Java, Indonesia. We provide a series of recycled plastic product such as plastic bag, shopping bag, trash bag, inner, and many more to come. The plastic bag plant has started operating since 2018, while our company has been empowering plastic recycling since early 2002.
             </p>
             <p>We believe that recycled products are the future of plastic industry. Every month, our humble company absorbed at least 50 metric tonnes of recycled plastic materials and we aim to increase production capacity and clients by 30% before 2025. With more recycled material used, we hope to take part in minimizing plastic's environmental impact. </p>
@@ -18,7 +18,7 @@
     </div>
     <!-- Vision -->
     <div class="row justify-content-center align-items-center text-justify pt-1">
-        <div class="col mb-3 mx-4 text-dark text-center">
+        <div class="col-lg-8 mb-3 mx-4 text-dark text-center">
             <div class="card border-0 bg-primary">
                 <div class="card-body text-white">
                     <i class="bi bi-arrow-up-circle fa-2x mb-5"></i>
