@@ -42,7 +42,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('auth'); ?>" target="_blank">
                             <i class="bi bi-cart"></i>
-                            <span>Shop</span>
+                            <span>Login</span>
                         </a>
                     </li>
                 </ul>
