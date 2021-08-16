@@ -14,7 +14,35 @@ class Production extends CI_Controller
         $data['title'] = 'Cost of Product';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['rollType'] = $this->db->get('roll')->result_array();
+        $data['rollType'] = $this->db->get('stock_roll')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('production/cops', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function material_wh()
+    {
+        $data['title'] = 'Material Warehouse';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['rollType'] = $this->db->get('stock_roll')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('production/cops', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function gbj_wh()
+    {
+        $data['title'] = 'Finished Goods Warehouse';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['rollType'] = $this->db->get('stock_roll')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
