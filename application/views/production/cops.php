@@ -52,7 +52,7 @@
         <div class="row mx-4">
             <div class="table-responsive">
                 <div class="table-responsive mb-3">
-                    <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-hover" id="cogstable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -66,32 +66,32 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <form class="user" method="post" action="<?= base_url('production/coba'); ?>">
-                                <?php for ($i = 1; $i < 5; $i++) { ?>
-                                    <tr>
-                                        <td><?= $i ?></td>
-                                        <td>
-                                            <div class="form-group">
-                                                <select name="material" id="material" class="form-control">
-                                                    <option value="">--Select Material--</option>
-                                                    <?php foreach ($materialStock as $ms) : ?>
-                                                        <option value="<?= $ms['material'] ?>"><?= $ms['material'] ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
-                                            </div>
-                                        </td>
-                                        <td><input type="text" class="form-control" id="formula" name="formula" min="1" max="100"></td>
-                                        <td>xxx</td>
-                                        <td>xxx</td>
-                                        <td><input type="text" class="form-control" id="price" name="price" min="1" max="100"></td>
-                                        <td>
+                            <!-- <form class="user" method="post" action="<?= base_url('production/coba'); ?>"> -->
+                            <?php for ($i = 1; $i < 5; $i++) { ?>
+                                <tr>
+                                    <td><?= $i ?></td>
+                                    <td>
+                                        <div class="form-group">
+                                            <select name="material" id="material" class="form-control">
+                                                <option value="">--Select Material--</option>
+                                                <?php foreach ($materialStock as $ms) : ?>
+                                                    <option value="<?= $ms['material'] ?>"><?= $ms['material'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td><input type="text" class="form-control" id="formula" name="formula" min="1" max="100"></td>
+                                    <td>xxx</td>
+                                    <td>xxx</td>
+                                    <td><input type="text" class="form-control" id="price" name="price" min="1" max="100"></td>
+                                    <td>
 
-                                        </td>
-                                        <td>xxx</td>
-                                    </tr>
-                                <?php } ?>
-                                <button type="submit" class="btn btn-primary mb-3">Submit Data</button>
-                            </form>
+                                    </td>
+                                    <td>xxx</td>
+                                </tr>
+                            <?php } ?>
+                            <button type="submit" class="btn btn-primary mb-3" id="submitButton">Submit Data</button>
+                            <!-- </form> -->
                         </tbody>
                     </table>
                 </div>

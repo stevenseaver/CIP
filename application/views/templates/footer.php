@@ -199,13 +199,27 @@
          document.getElementById("lipatan").value = lipatan;
      });
 
-     $('#dataTable').dataTable({
-         "columnDefs": [{
-             "width": "2%",
-             "targets": 0,
-             "width": "45%",
-             "targets": 1
-         }]
+     $(document).ready(function() {
+         var table = $('#cogstable').DataTable({
+             columnDefs: [{
+                 width: "2%",
+                 targets: 0,
+                 width: "45%",
+                 targets: 1,
+                 orderable: false,
+                 targets: [1]
+             }]
+         });
+
+         //  $('button').click(function() {
+         //      var data = table.$('input, select').serialize();
+         //      alert(
+         //          "The following data would have been submitted to the server: \n\n" +
+         //          data.substr(0, 120) + '...'
+         //      );
+         //      //  document.location.href = "<?= base_url('production/coba/')  ?>" + data.substr(0, 120) + '...';
+         //      return false;
+         //  });
      });
  </script>
 
