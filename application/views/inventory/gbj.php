@@ -31,7 +31,7 @@
                                     <td><?= $fs['name'] ?></td>
                                     <td><?= $fs['code'] ?></td>
                                     <td><?= $fs['in_stock'] ?></td>
-                                    <td><?= $fs['warehouse'] ?></td>
+                                    <td><?= $fs['warehouse_name'] ?></td>
                                 </tr>
                                 <?php $i++; ?>
                             <?php endforeach; ?>

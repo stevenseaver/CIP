@@ -24,6 +24,7 @@ class HR extends CI_Controller
         $this->load->view('hr/leave', $data);
         $this->load->view('templates/footer');
     }
+
     public function approve($nik, $start, $finish)
     {
         //send message
