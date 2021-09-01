@@ -8,12 +8,19 @@
             <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
+    <!-- back button -->
+    <a href="<?= base_url('inventory/prod_wh/') ?>" class="btn btn-primary btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-arrow-left"></i>
+        </span>
+        <span class="text">Back</span>
+    </a>
 
     <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newMaterial">
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
         </span>
-        <span class="text">Add New Item</span>
+        <span class="text">Add New Transaction</span>
     </a>
 
     <div class="card border-left-primary mb-3">
@@ -24,9 +31,12 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Finished Good</th>
+                                <th>Roll</th>
                                 <th>Code</th>
-                                <th>Stock(Kg)</th>
+                                <th>Date Created</th>
+                                <th>Weight (Kg)</th>
+                                <th>Lip (cm)</th>
+                                <th>Stock (Kg)</th>
                                 <th>Warehouse</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -34,25 +44,25 @@
                         </thead>
                         <tbody>
                             <?php $i = 1; ?>
-                            <?php foreach ($finishedStock as $fs) : ?>
+                            <?php foreach ($rollStock as $rs) : ?>
                                 <?php
-                                if ($fs['status'] != 7) {
+                                if ($rs['id'] != $code) {
                                     continue;
                                 } else {
                                 }
                                 ?>
                                 <tr>
                                     <td><?= $i ?></td>
-                                    <td><?= $fs['name'] ?></td>
-                                    <td><?= $fs['code'] ?></td>
-                                    <td><?= $fs['in_stock'] ?></td>
-                                    <td><?= $fs['warehouse_name'] ?></td>
-                                    <td><?= $fs['status_name'] ?></td>
+                                    <td><?= $rs['name'] ?></td>
+                                    <td><?= $rs['code'] ?></td>
+                                    <td><?= $rs['date'] ?></td>
+                                    <td><?= $rs['weight'] ?></td>
+                                    <td><?= $rs['lipatan'] ?></td>
+                                    <td><?= $rs['in_stock'] ?></td>
+                                    <td><?= $rs['warehouse_name'] ?></td>
+                                    <td><?= $rs['status_name'] ?></td>
                                     <td>
-                                        <a href="<?= base_url('inventory/gbj_details/') . $fs['code'] ?>" class="badge badge-primary">Details</a>
-                                        <a href="" class="badge badge-success">Adjust</a>
-                                        <a href="" class="badge badge-warning">Edit</a>
-                                        <a href="" class="badge badge-danger">Delete</a>
+                                        <a href="" class="badge badge-success">Transactions</a>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>

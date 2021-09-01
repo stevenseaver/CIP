@@ -11,7 +11,7 @@
 
     <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newMaterial">
         <span class="icon text-white-50">
-            <i class="bi bi-handbag"></i>
+            <i class="bi bi-plus-lg"></i>
         </span>
         <span class="text">Add New Item</span>
     </a>
@@ -26,9 +26,10 @@
                                 <th>No</th>
                                 <th>Materials</th>
                                 <th>Code</th>
-                                <th>Date</th>
+                                <th>Date Created</th>
                                 <th>Stock (Kg)</th>
                                 <th>Warehouse</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -38,7 +39,7 @@
                             ?>
                             <?php foreach ($materialStock as $ms) : ?>
                                 <?php
-                                if ($ms['status'] != 1) {
+                                if ($ms['status'] != 7) {
                                     continue;
                                 } else {
                                 }
@@ -50,8 +51,9 @@
                                     <td><?= date('d F Y H:i:s', $ms['date']); ?></td>
                                     <td><?= $ms['in_stock'] ?></td>
                                     <td><?= $ms['warehouse_name'] ?></td>
+                                    <td><?= $ms['status_name'] ?></td>
                                     <td>
-                                        <a href="" class="badge badge-primary">Details</a>
+                                        <a href="<?= base_url('inventory/material_details/') . $ms['code'] ?>" class="badge badge-primary">Details</a>
                                         <a href="" class="badge badge-success">Adjust</a>
                                         <a href="" class="badge badge-warning">Edit</a>
                                         <a href="" class="badge badge-danger">Delete</a>

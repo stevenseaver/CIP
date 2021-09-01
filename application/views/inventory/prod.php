@@ -9,6 +9,13 @@
         </div>
     </div>
 
+    <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newMaterial">
+        <span class="icon text-white-50">
+            <i class="bi bi-plus-lg"></i>
+        </span>
+        <span class="text">Add New Item</span>
+    </a>
+
     <div class="card border-left-primary mb-3">
         <div class="row mx-4 my-3">
             <div class="table-responsive">
@@ -19,16 +26,24 @@
                                 <th>No</th>
                                 <th>Roll</th>
                                 <th>Code</th>
-                                <th>Date</th>
+                                <th>Date Created</th>
                                 <th>Weight (Kg)</th>
                                 <th>Lip (cm)</th>
                                 <th>Stock (Kg)</th>
                                 <th>Warehouse</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $i = 1; ?>
                             <?php foreach ($rollStock as $rs) : ?>
+                                <?php
+                                if ($rs['status'] != 7) {
+                                    continue;
+                                } else {
+                                }
+                                ?>
                                 <tr>
                                     <td><?= $i ?></td>
                                     <td><?= $rs['name'] ?></td>
@@ -38,6 +53,13 @@
                                     <td><?= $rs['lipatan'] ?></td>
                                     <td><?= $rs['in_stock'] ?></td>
                                     <td><?= $rs['warehouse_name'] ?></td>
+                                    <td><?= $rs['status_name'] ?></td>
+                                    <td>
+                                        <a href="<?= base_url('inventory/prod_details/') . $rs['code'] ?>" class="badge badge-primary">Details</a>
+                                        <a href="" class="badge badge-success">Adjust</a>
+                                        <a href="" class="badge badge-warning">Edit</a>
+                                        <a href="" class="badge badge-danger">Delete</a>
+                                    </td>
                                 </tr>
                                 <?php $i++; ?>
                             <?php endforeach; ?>
