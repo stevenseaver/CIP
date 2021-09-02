@@ -2,12 +2,16 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-dark"><?= $title ?></h1>
+    <h1 class="h3 mb-4 text-dark font-weight-bold"><?= $title ?></h1>
     <div class="row">
         <div class="col-lg-6 mb-0">
             <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
+
+    <h6 class="mb-2 text-dark">Name : <?= $getID['name'] ?></h6>
+    <h6 class="mb-3 text-dark">Code : <?= $getID['code'] ?></h6>
+
     <!-- back button -->
     <a href="<?= base_url('inventory/prod_wh/') ?>" class="btn btn-primary btn-icon-split mb-3">
         <span class="icon text-white-50">
@@ -46,7 +50,7 @@
                             <?php $i = 1; ?>
                             <?php foreach ($rollStock as $rs) : ?>
                                 <?php
-                                if ($rs['id'] != $code) {
+                                if ($rs['code'] != $code) {
                                     continue;
                                 } else {
                                 }
@@ -55,14 +59,14 @@
                                     <td><?= $i ?></td>
                                     <td><?= $rs['name'] ?></td>
                                     <td><?= $rs['code'] ?></td>
-                                    <td><?= $rs['date'] ?></td>
+                                    <td><?= date('d F Y H:i:s', $rs['date']); ?></td>
                                     <td><?= $rs['weight'] ?></td>
                                     <td><?= $rs['lipatan'] ?></td>
                                     <td><?= $rs['in_stock'] ?></td>
                                     <td><?= $rs['warehouse_name'] ?></td>
                                     <td><?= $rs['status_name'] ?></td>
                                     <td>
-                                        <a href="" class="badge badge-success">Transactions</a>
+                                        <a href="" class="badge badge-success">Edit</a>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>

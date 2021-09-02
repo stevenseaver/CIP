@@ -2,7 +2,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-dark"><?= $title ?></h1>
+    <h1 class="h3 mb-4 text-dark font-weight-bold"><?= $title ?></h1>
     <div class="row">
         <div class="col mb-0">
             <?= $this->session->flashdata('message'); ?>
@@ -53,7 +53,7 @@
                                     <td><?= $ms['warehouse_name'] ?></td>
                                     <td><?= $ms['status_name'] ?></td>
                                     <td>
-                                        <a href="<?= base_url('inventory/material_details/') . $ms['code'] ?>" class="badge badge-primary">Details</a>
+                                        <a href="<?= base_url('inventory/material_details/') . $ms['id'] ?>" class="badge badge-primary">Details</a>
                                         <a href="" class="badge badge-success">Adjust</a>
                                         <a href="" class="badge badge-warning">Edit</a>
                                         <a href="" class="badge badge-danger">Delete</a>

@@ -95,7 +95,6 @@
 
      // JavaScript for Edit Menu Modal
      $('#editmenumodal').on('show.bs.modal', function(event) {
-
          //extract data from data-* attributes of modal's toggle button
          var menuid = $(event.relatedTarget).data('menu-id');
          var menuname = $(event.relatedTarget).data('menu-name');
@@ -103,10 +102,38 @@
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="edit_menu_id"]').val(menuid);
          $(event.currentTarget).find('.modal-body input[name="edit_menu_name"]').val(menuname);
-
      });
+
+     // JavaScript for Delete Menu Modal
+     $('#deletemenumodal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var menuid = $(event.relatedTarget).data('menu-id');
+         var menuname = $(event.relatedTarget).data('menu-name');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="delete_menu_id"]').val(menuid);
+         $(event.currentTarget).find('.modal-body input[name="delete_menu_name"]').val(menuname);
+     });
+
      //  JavaScript for Edit Submenu Modal
      $('#editsubmenumodal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var submenuid = $(event.relatedTarget).data('sub_id');
+         var submenuname = $(event.relatedTarget).data('title');
+         var parentmenu = $(event.relatedTarget).data('menu_id');
+         var submenuurl = $(event.relatedTarget).data('url');
+         var submenuicon = $(event.relatedTarget).data('icon');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="sub_id"]').val(submenuid);
+         $(event.currentTarget).find('.modal-body input[name="title"]').val(submenuname);
+         $(event.currentTarget).find('.modal-body select[name="menu_id"]').val(parentmenu);
+         $(event.currentTarget).find('.modal-body input[name="url"]').val(submenuurl);
+         $(event.currentTarget).find('.modal-body input[name="icon"]').val(submenuicon);
+     });
+
+     //  JavaScript for Delete Submenu Modal
+     $('#deleteSubMenuModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var submenuid = $(event.relatedTarget).data('sub_id');
          var submenuname = $(event.relatedTarget).data('title');
@@ -162,7 +189,6 @@
      });
 
      //javascript for increment tools
-
      var quantity = 0;
      $('.quantity-right-plus').click(function(e) {
          // Stop acting like a button
@@ -210,16 +236,6 @@
                  targets: [1]
              }]
          });
-
-         //  $('button').click(function() {
-         //      var data = table.$('input, select').serialize();
-         //      alert(
-         //          "The following data would have been submitted to the server: \n\n" +
-         //          data.substr(0, 120) + '...'
-         //      );
-         //      //  document.location.href = "<?= base_url('production/coba/')  ?>" + data.substr(0, 120) + '...';
-         //      return false;
-         //  });
      });
  </script>
 

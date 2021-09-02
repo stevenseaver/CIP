@@ -31,6 +31,11 @@
                 <select name="rolltype" id="rolltype" class="form-control">
                     <option value="">--Select [ROLL] Product--</option>
                     <?php foreach ($rollType as $rt) : ?>
+                        <?php if ($rt['status'] != 7) {
+                            continue;
+                        } else {
+                        }
+                        ?>
                         <option class="#rolltype" value="<?= $rt['id'] ?>" data-code="<?= $rt['code'] ?>" data-weight="<?= $rt['weight'] ?>" data-lipatan="<?= $rt['lipatan'] ?>"><?= $rt['name'] ?></option>
                     <?php endforeach; ?>
                 </select>

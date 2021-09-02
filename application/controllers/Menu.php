@@ -62,9 +62,10 @@ class Menu extends CI_Controller
         }
     }
 
-    public function deletemenu($itemtoDelete)
+    public function deletemenu()
     {
         // get data on deleted menu
+        $itemtoDelete = $this->input->post('delete_menu_id');
         $deletedMenu = $this->db->get_where('user_menu', array('id' => $itemtoDelete))->row_array();
         // delete menu
         $this->db->delete('user_menu', array('id' => $itemtoDelete));
@@ -171,8 +172,10 @@ class Menu extends CI_Controller
         redirect('menu/submenu');
     }
 
-    public function deletesubmenu($itemtoDelete)
+    public function deletesubmenu()
     {
+        // get data on deleted menu
+        $itemtoDelete = $this->input->post('sub_id');
         // get data on deleted sub menu
         $deletedSubMenu = $this->db->get_where('user_sub_menu', array('id' => $itemtoDelete))->row_array();
         // delete the sub menu

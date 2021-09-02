@@ -2,12 +2,15 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-dark"><?= $title ?></h1>
+    <h1 class="h3 mb-4 text-dark font-weight-bold"><?= $title ?></h1>
     <div class="row">
         <div class="col-lg-6 mb-0">
             <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
+
+    <h6 class="mb-2 text-dark">Name : <?= $getID['name'] ?></h6>
+    <h6 class="mb-3 text-dark">Code : <?= $getID['code'] ?></h6>
 
     <!-- back button -->
     <a href="<?= base_url('inventory/gbj_wh/') ?>" class="btn btn-primary btn-icon-split mb-3">
@@ -34,6 +37,7 @@
                                 <th>No</th>
                                 <th>Finished Good</th>
                                 <th>Code</th>
+                                <th>Date</th>
                                 <th>Stock(Kg)</th>
                                 <th>Warehouse</th>
                                 <th>Status</th>
@@ -44,7 +48,7 @@
                             <?php $i = 1; ?>
                             <?php foreach ($finishedStock as $fs) : ?>
                                 <?php
-                                if ($fs['id'] != $code) {
+                                if ($fs['code'] != $code) {
                                     continue;
                                 } else {
                                 }
@@ -53,11 +57,12 @@
                                     <td><?= $i ?></td>
                                     <td><?= $fs['name'] ?></td>
                                     <td><?= $fs['code'] ?></td>
+                                    <td><?= date('d F Y H:i:s', $fs['date']); ?></td>
                                     <td><?= $fs['in_stock'] ?></td>
                                     <td><?= $fs['warehouse_name'] ?></td>
                                     <td><?= $fs['status_name'] ?></td>
                                     <td>
-                                        <a href="" class="badge badge-success">Transactions</a>
+                                        <a href="" class="badge badge-success">Edits</a>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>

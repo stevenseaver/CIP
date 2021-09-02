@@ -2,12 +2,15 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-dark"><?= $title ?></h1>
+    <h3 class="mb-4 text-dark font-weight-bold"><?= $title ?></h3>
     <div class="row">
         <div class="col mb-0">
             <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
+
+    <h6 class="mb-2 text-dark">Name : <?= $getID['material'] ?></h6>
+    <h6 class="mb-3 text-dark">Code : <?= $getID['code'] ?></h6>
 
     <a href="<?= base_url('inventory/material_wh/') ?>" class="btn btn-primary btn-icon-split mb-3">
         <span class="icon text-white-50">
