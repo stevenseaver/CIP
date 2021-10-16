@@ -149,6 +149,30 @@
          $(event.currentTarget).find('.modal-body input[name="icon"]').val(submenuicon);
      });
 
+     //  JavaScript for Delete Webmenu Modal
+     $('#deleteWebMenuModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         //extract data from data-* attributes of modal's toggle button
+         var menuid = $(event.relatedTarget).data('menu-id');
+         var menuname = $(event.relatedTarget).data('menu-name');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="delete_webmenu_id"]').val(menuid);
+         $(event.currentTarget).find('.modal-body input[name="delete_webmenu_name"]').val(menuname);
+     });
+
+     //  JavaScript for Delete Product Menu Modal
+     $('#deleteProductMenuModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         //extract data from data-* attributes of modal's toggle button
+         var menuid = $(event.relatedTarget).data('menu-id');
+         var menuname = $(event.relatedTarget).data('menu-name');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="delete_productmenu_id"]').val(menuid);
+         $(event.currentTarget).find('.modal-body input[name="delete_productmenu_name"]').val(menuname);
+     });
+
      //  JavaScript for Edit Web Menu Modal
      $('#editWebMenuModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button

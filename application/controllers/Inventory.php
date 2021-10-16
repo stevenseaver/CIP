@@ -163,8 +163,8 @@ class Inventory extends CI_Controller
             $lipatan = $this->input->post('lipatan');
             $code = $this->input->post('code');
             $initial_stock = $this->input->post('initial_stock');
-            $status1 = 1;
-            $status2 = 7;
+            $status1 = 1;   //SALDO AWAL
+            $status2 = 7;   //SALDO AKHIR
             $warehouse = $this->input->post('warehouse');
             //initial stock
             $data1 = [

@@ -6,7 +6,7 @@
         <h1 class="h3 mb-0 text-primary font-weight-bold"><?= $title ?></h1>
     </div>
     <div class="d-flex mb-4 mx-2 px-2 text-justify">
-        <small>Last updated on 13 January 2021</small>
+        <small>Last updated on 16 October 2021</small>
     </div>
 
     <p class="text-dark mx-2 px-2 text-justify">
@@ -16,7 +16,7 @@
         1. Definition
     </h5>
     <p class="text-dark mx-2 px-2 text-justify">
-        a. We are a limited company that trades plastic bag products, including but not limited to plastic bag, shopping bag, inner bag, and trash bag (hereinafter referred to as “goods”), through Our Website or offline, including but not limited to our supplier or end user, to promote and pursue the sale and purchase transaction between the buyer (client) and the seller (Us)
+        a. We are a limited company that produces and trades plastic bag products, including but not limited to plastic bag, shopping bag, inner bag, and trash bag (hereinafter referred to as “goods”), through Our Website or offline, including but not limited to our supplier or end user, to promote and pursue the sale and purchase transaction between the buyer (client) and the seller (Us)
     </p>
     <p class="text-dark mx-2 px-2 text-justify">
         b. User Terms is an agreement between You and Us that contains a set of rules governing the rights, obligations, and responsibilities between You and Us, and the procedures of using Our service system.

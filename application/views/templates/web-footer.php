@@ -55,6 +55,9 @@
                     <p>
                         <a href="<?= base_url('web/terms') ?>" class="text-dark">Terms and Condition</a>
                     </p>
+                    <p>
+                        <a href="<?= base_url('web/legal') ?>" class="text-dark">Legal Standing</a>
+                    </p>
                 </div>
                 <!-- Grid column -->
 

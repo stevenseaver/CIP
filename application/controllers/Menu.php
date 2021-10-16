@@ -257,8 +257,10 @@ class Menu extends CI_Controller
         }
     }
 
-    public function delete_webmenu($itemtoDelete)
+    public function delete_webmenu()
     {
+        // get item to delete
+        $itemtoDelete = $this->input->post('delete_webmenu_id');
         // get data on deleted sub menu
         $deletedWebMenu = $this->db->get_where('web_menu', array('id' => $itemtoDelete))->row_array();
         // delete the sub menu
@@ -296,7 +298,7 @@ class Menu extends CI_Controller
                 'image' => $icon
             ];
             $this->db->insert('product_menu', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> Product menu menu ' . $title . ' added!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> Product menu ' . $title . ' added!</div>');
             redirect('menu/productmenu');
         }
     }
@@ -335,19 +337,21 @@ class Menu extends CI_Controller
             ];
             $this->db->where('id', $edit_id);
             $this->db->update('product_menu', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert"> Web Menu ' . $editedWebMenu["title"] . ' edited into ' . $edit_title . '!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert"> Product Menu ' . $editedWebMenu["title"] . ' edited into ' . $edit_title . '!</div>');
             redirect('menu/productmenu');
         }
     }
 
-    public function delete_productmenu($itemtoDelete)
+    public function delete_productmenu()
     {
+        // get deleted item
+        $itemtoDelete = $this->input->post('delete_productmenu_id');
         // get data on deleted sub menu
         $deletedWebMenu = $this->db->get_where('product_menu', array('id' => $itemtoDelete))->row_array();
         // delete the sub menu
         $this->db->delete('product_menu', array('id' => $itemtoDelete));
         // send message
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Submenu ' . $deletedWebMenu["title"] . ' deleted!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Product menu ' . $deletedWebMenu["title"] . ' deleted!</div>');
         redirect('menu/productmenu');
     }
 }

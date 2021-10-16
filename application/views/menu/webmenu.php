@@ -43,7 +43,7 @@
                                         <td><?= $m['icon']; ?></td>
                                         <td>
                                             <a data-toggle="modal" data-target="#editWebMenuModal" class="badge badge-primary text-white" data-id="<?= $m['id'] ?>" data-title="<?= $m['title'] ?>" data-url="<?= $m['url'] ?>" data-icon="<?= $m['icon'] ?>">Edit</a>
-                                            <a href="<?= base_url('menu/delete_webmenu/') . $m['id'] ?>" class="badge badge-danger">Delete</a>
+                                            <a data-toggle="modal" data-target="#deleteWebMenuModal" class="badge badge-danger text-white" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['title'] ?>">Delete</a>
                                         </td>
                                         <?php $i++; ?>
                                     <?php endforeach; ?>
@@ -130,6 +130,37 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Delete Data -->
+<div class="modal fade" id="deleteWebMenuModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Whoops!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">You're about to delete this item. Are you sure?</p>
+            <form action="<?= base_url('menu/delete_webmenu/') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- menu id -->
+                        <label for="deletemenu" class="col-form-label">Menu ID</label>
+                        <input type="text" class="form-control" id="delete_webmenu_id" name="delete_webmenu_id" readonly>
+                        <!-- webmenu name -->
+                        <label for="deletemenu" class="col-form-label">Webmenu Name</label>
+                        <input type="text" class="form-control" id="delete_webmenu_name" name="delete_webmenu_name" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </div>
             </form>
         </div>

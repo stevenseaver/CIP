@@ -154,4 +154,18 @@ class Web extends CI_Controller
 		$this->load->view('web/footer_lp/site-map', $data);
 		$this->load->view('templates/web-footer');
 	}
+	//load page legal standing
+	public function legal()
+	{
+		$data['title'] = 'Legal Standing';
+		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['products'] = $this->db->get('product_menu')->result_array();
+		$data['user'] = $this->db->get_where('user', ['nik' =>
+		$this->session->userdata('nik')])->row_array();
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/web-topbar', $data);
+		$this->load->view('web/footer_lp/legal-standing', $data);
+		$this->load->view('templates/web-footer');
+	}
 }
