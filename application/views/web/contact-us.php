@@ -36,7 +36,7 @@
                             <i class="bi bi-whatsapp fa-3x mb-3"></i>
                             <p class="text-primary mb-0">+62822-3205-7755</p>
                             <p class="text-secondary mb-0">Steven</p>
-                            <a href="https://wa.me/+6282232057755/?text=Halo,%20ada%20informasi%20soal%20produk%20kresek%20anda?" class="text-primary mb-0">Chat on WhatsApp! &rarr; </a>
+                            <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" target="_blank" class="">Chat on WhatsApp! &rarr; </a>
                         </div>
                     </div>
                     <div class="row justify-content-center">

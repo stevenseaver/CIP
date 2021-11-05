@@ -10,7 +10,7 @@
     </div>
 
     <p class="text-dark mx-2 px-2 text-justify">
-        UD. Cakra Inti Plastik is a privately owned company registered under article NIB and Industrial Business License Number 0220103452894 under Ministry of Industry of Indonesia.
+        UD. Cakra Inti Plastik is a privately owned company registered under NIB or Industrial Business License Number 0220103452894 under Ministry of Industry of Indonesia.
     </p>
 
     <p class="text-dark mx-2 px-2 text-justify">

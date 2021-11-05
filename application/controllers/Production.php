@@ -25,7 +25,7 @@ class Production extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function material_wh()
+    public function material_deploy()
     {
         $data['title'] = 'Material Warehouse';
         $data['user'] = $this->db->get_where('user', ['nik' =>
@@ -37,7 +37,7 @@ class Production extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('production/material', $data);
+        $this->load->view('production/material_deploy', $data);
         $this->load->view('templates/footer');
     }
 
