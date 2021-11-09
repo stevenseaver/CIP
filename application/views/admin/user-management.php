@@ -80,9 +80,9 @@
                                 <td><?= date('d F Y', $u['date_created']); ?></td>
                                 <td>
                                     <?php if ($u['is_active']) {
-                                        echo 'Active';
+                                        echo '<p class="badge badge-success">Active</p>';
                                     } else {
-                                        echo 'Not Active';
+                                        echo '<p class="badge badge-danger">Not Active</p>';
                                     } ?>
                                 </td>
                                 <td>

@@ -61,8 +61,8 @@ class Inventory extends CI_Controller
             $code = $this->input->post('code');
             $initial_stock = $this->input->post('initial_stock');
             $date = time();
-            $status1 = 1;
-            $status2 = 7;
+            $status1 = 1;  //stock awal
+            $status2 = 7;  //stock akhir
             $warehouse = $this->input->post('warehouse');
             //intital stock
             $data1 = [
@@ -111,6 +111,7 @@ class Inventory extends CI_Controller
     // Production warehouse //
     // Production warehouse //
     // Production warehouse //
+
     public function prod_wh()
     {
         $data['title'] = 'Production Warehouse';
@@ -217,6 +218,8 @@ class Inventory extends CI_Controller
 
     // GBJ Warehouse //
     // GBJ Warehouse //
+    // GBJ Warehouse //
+
     public function gbj_wh()
     {
         $data['title'] = 'Finished Goods Warehouse';
@@ -283,8 +286,8 @@ class Inventory extends CI_Controller
             $code = $this->input->post('code');
             $initial_stock = $this->input->post('initial_stock');
             $date = time();
-            $status1 = 1;
-            $status2 = 7;
+            $status1 = 1; //stock awal
+            $status2 = 7; //stock akhir
             $warehouse = $this->input->post('warehouse');
             //intital stock
             $data1 = [
@@ -309,6 +312,70 @@ class Inventory extends CI_Controller
             $this->db->insert('stock_finishedgoods', $data2);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New item ' . $name . ' added!</div>');
             redirect('inventory/gbj_wh');
+        }
+    }
+
+    // INVENTORY ASSET
+    // INVENTORY ASSET
+    // INVENTORY ASSET
+
+    public function assets()
+    {
+        $data['title'] = 'Asset Inventory';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //jpoin database room and asset_inventory
+        $this->load->model('Inventory_model', 'inventory_id');
+        //get invt database
+        $data['inventory'] = $this->inventory_id->getRoomName();
+        $data['room'] = $this->db->get('rooms')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('inventory/asset_invt', $data);
+        $this->load->view('templates/footer');
+    }
+
+    // INVENTORY ADD ASSET
+    public function add_asset()
+    {
+        $this->form_validation->set_rules('code', 'code', 'required|trim|is_unique[inventory_asset.code]', [
+            'is_unique' => 'This code has already been used!'
+        ]);
+        $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('position', 'position', 'required|trim');
+        $this->form_validation->set_rules('amount', 'amount', 'required|trim');
+        $this->form_validation->set_rules('value', 'value', 'required|trim');
+        $this->form_validation->set_rules('status', 'status', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $data['title'] = 'Registration - Employee Information System';
+            $this->load->view('templates/auth_header', $data);
+            $this->load->view('auth/registration');
+            $this->load->view('templates/auth_footer');
+        } else {
+            $code = $this->input->post('code', true);
+            $name = $this->input->post('name', true);
+            $amount = $this->input->post('amount', true);
+            $value = $this->input->post('amount', true);
+            $position = $this->input->post('position', true);
+            $status = $this->input->post('status', true);
+
+            $data = [
+                'code' => htmlspecialchars($code),
+                'name' => htmlspecialchars($name),
+                'date_in' => time(),
+                'position' =>  htmlspecialchars($position),
+                'amount' => htmlspecialchars($amount),
+                'value' => htmlspecialchars($value),
+                'status' => htmlspecialchars($status),
+            ];
+
+            $this->db->insert('inventory_asset', $data);
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item successfully created!</div>');
+            redirect('inventory/assets');
         }
     }
 }
