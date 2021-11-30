@@ -58,8 +58,9 @@
                                     </td>
                                     <td>
                                         <a href="" class="badge badge-primary">Transfer</a>
-                                        <a href="" class="badge badge-secondary">Edit</a>
-                                        <a href="" class="badge badge-danger">Delete</a>
+                                        <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-secondary text-white" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-amount="<?= $inv['amount'] ?>" data-value="<?= $inv['value'] ?>" data-position="<?= $inv['status'] ?>">Edit</a>
+                                        <a href="<?= base_url('inventory/toggle_asset_status/') . $inv['id'] . "/" . $inv['status'] . "/" . $inv['name'] ?>" class="badge badge-warning">Toggle Status</a>
+                                        <a data-toggle="modal" data-target="#deleteAssetModal" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" class="badge badge-danger">Delete</a>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>
@@ -91,19 +92,19 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- Asset code -->
-                        <label for="url" class="col-form-label">Item Code</label>
+                        <label for="newMaterial" class="col-form-label">Item Code</label>
                         <input type="text" class="form-control mb-1" id="code" name="code" placeholder="Add new item">
                         <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Asset name -->
-                        <label for="url" class="col-form-label">Item Name</label>
+                        <label for="newMaterial" class="col-form-label">Item Name</label>
                         <input type="text" class="form-control mb-1" id="name" name="name" placeholder="Add new item">
                         <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- asset position -->
-                        <label for="url" class="col-form-label">Position</label>
+                        <label for="newMaterial" class="col-form-label">Position</label>
                         <div class="mb-1">
                             <select name="position" id="position" class="form-control" value="<?= set_value('position') ?>">
                                 <option value="">--Select Type--</option>
@@ -116,19 +117,19 @@
                     </div>
                     <div class="form-group">
                         <!-- Asset amount stock -->
-                        <label for="url" class="col-form-label">Amount</label>
+                        <label for="newMaterial" class="col-form-label">Amount</label>
                         <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Add Amount">
                         <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Asset value -->
-                        <label for="url" class="col-form-label">Value</label>
-                        <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="IDR">
-                        <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                        <label for="newMaterial" class="col-form-label">Value</label>
+                        <input type="text" class="form-control mb-1" id="value" name="value" placeholder="IDR">
+                        <?= form_error('value', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- asset status -->
-                        <label for="url" class="col-form-label">Status</label>
+                        <label for="newMaterial" class="col-form-label">Status</label>
                         <div class="mb-1">
                             <select name="status" id="status" class="form-control" value="<?= set_value('status') ?>">
                                 <option value="">--Select Type--</option>
@@ -143,6 +144,86 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Edit Data -->
+<div class="modal fade" id="editAssetModal" tabindex="-1" aria-labelledby="editAssetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editAssetModalLabel">Edit Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('inventory/edit_asset') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- Asset code -->
+                        <label for="url" class="col-form-label">Item Code</label>
+                        <input type="text" class="form-control mb-1" readonly id="code" name="code" placeholder="Item Code">
+                        <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Asset name -->
+                        <label for="url" class="col-form-label">Item Name</label>
+                        <input type="text" class="form-control mb-1" id="name" name="name" placeholder="Item Name">
+                        <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Asset amount stock -->
+                        <label for="url" class="col-form-label">Amount</label>
+                        <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Add Amount">
+                        <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Asset value -->
+                        <label for="url" class="col-form-label">Value</label>
+                        <input type="text" class="form-control mb-1" id="value" name="value" placeholder="IDR">
+                        <?= form_error('value', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Delete Data -->
+<div class="modal fade" id="deleteAssetModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Whoops!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">You're about to delete this item. Are you sure?</p>
+            <form action="<?= base_url('inventory/delete_asset') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- asset id -->
+                        <label for="url" class="col-form-label">Menu ID</label>
+                        <input type="text" class="form-control" id="delete_asset_id" name="delete_asset_id" readonly>
+                        <!-- asset code -->
+                        <label for="url" class="col-form-label">Menu Name</label>
+                        <input type="text" class="form-control" id="delete_asset_code" name="delete_asset_code" readonly>
+                        <!-- asset name -->
+                        <label for="url" class="col-form-label">Menu Name</label>
+                        <input type="text" class="form-control" id="delete_asset_name" name="delete_asset_name" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </div>
             </form>
         </div>

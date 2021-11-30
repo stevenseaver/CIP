@@ -340,6 +340,16 @@ class Inventory extends CI_Controller
     // INVENTORY ADD ASSET
     public function add_asset()
     {
+        $data['title'] = 'Asset Inventory';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //jpoin database room and asset_inventory
+        $this->load->model('Inventory_model', 'inventory_id');
+        //get invt database
+        $data['inventory'] = $this->inventory_id->getRoomName();
+        $data['room'] = $this->db->get('rooms')->result_array();
+
+        //form validation
         $this->form_validation->set_rules('code', 'code', 'required|trim|is_unique[inventory_asset.code]', [
             'is_unique' => 'This code has already been used!'
         ]);
@@ -350,15 +360,17 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('status', 'status', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'Registration - Employee Information System';
-            $this->load->view('templates/auth_header', $data);
-            $this->load->view('auth/registration');
-            $this->load->view('templates/auth_footer');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/asset_invt', $data);
+            $this->load->view('templates/footer');
         } else {
             $code = $this->input->post('code', true);
             $name = $this->input->post('name', true);
             $amount = $this->input->post('amount', true);
-            $value = $this->input->post('amount', true);
+            $value = $this->input->post('value', true);
             $position = $this->input->post('position', true);
             $status = $this->input->post('status', true);
 
@@ -377,5 +389,80 @@ class Inventory extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item successfully created!</div>');
             redirect('inventory/assets');
         }
+    }
+
+    public function edit_asset()
+    {
+        $data['title'] = 'Asset Inventory';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //jpoin database room and asset_inventory
+        $this->load->model('Inventory_model', 'inventory_id');
+        //get invt database
+        $data['inventory'] = $this->inventory_id->getRoomName();
+        $data['room'] = $this->db->get('rooms')->result_array();
+
+        $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('amount', 'amount', 'required|trim');
+        $this->form_validation->set_rules('value', 'value', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/asset_invt', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $code = $this->input->post('code', true);
+            $name = $this->input->post('name', true);
+            $amount = $this->input->post('amount', true);
+            $value = $this->input->post('value', true);
+
+            $data = [
+                'name' => htmlspecialchars($name),
+                'amount' => htmlspecialchars($amount),
+                'value' => htmlspecialchars($value),
+            ];
+
+            $this->db->where('code', $code);
+            $this->db->update('inventory_asset', $data);
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item successfully edited!</div>');
+            redirect('inventory/assets');
+        }
+    }
+
+    public function toggle_asset_status($usertoToggle, $is_active, $name)
+    {
+        if ($is_active == 1) {
+            $this->db->set('status', 2);
+            $this->db->where('id', $usertoToggle);
+            $this->db->update('inventory_asset');
+        } else if ($is_active == 2) {
+            $this->db->set('status', 0);
+            $this->db->where('id', $usertoToggle);
+            $this->db->update('inventory_asset');
+        } else if ($is_active == 0) {
+            $this->db->set('status', 1);
+            $this->db->where('id', $usertoToggle);
+            $this->db->update('inventory_asset');
+        }
+
+        $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">' . urldecode($name) . ' status changed!</div>');
+        redirect('inventory/assets');
+    }
+
+    public function delete_asset()
+    {
+        // get item to delete
+        $itemtoDelete = $this->input->post('delete_asset_id');
+        // get data on deleted sub menu
+        $deleteAsset = $this->db->get_where('inventory_asset', array('id' => $itemtoDelete))->row_array();
+        // delete the sub menu
+        $this->db->delete('inventory_asset', array('id' => $itemtoDelete));
+        // send message
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Asset named ' . $deleteAsset["name"] . ' with code ' . $deleteAsset["code"] . ' deleted!</div>');
+        redirect('inventory/assets');
     }
 }
