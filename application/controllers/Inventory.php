@@ -453,6 +453,20 @@ class Inventory extends CI_Controller
         redirect('inventory/assets');
     }
 
+    public function transfer_asset()
+    {
+        $code = $this->input->post('transfer_asset_code');
+        $name = $this->input->post('transfer_asset_name');
+        $asset_destination = $this->input->post('asset_destination');
+
+        $this->db->set('position', $asset_destination);
+        $this->db->where('code', $code);
+        $this->db->update('inventory_asset');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . urldecode($name) . ' Location changed!</div>');
+        redirect('inventory/assets');
+    }
+
     public function delete_asset()
     {
         // get item to delete

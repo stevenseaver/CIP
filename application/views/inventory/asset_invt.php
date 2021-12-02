@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newMaterial">
+    <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newAssetModal">
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
         </span>
@@ -57,8 +57,8 @@
                                         } ?>
                                     </td>
                                     <td>
-                                        <a href="" class="badge badge-primary">Transfer</a>
-                                        <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-secondary text-white" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-amount="<?= $inv['amount'] ?>" data-value="<?= $inv['value'] ?>" data-position="<?= $inv['status'] ?>">Edit</a>
+                                        <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-primary" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Transfer</a>
+                                        <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-secondary text-white" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-amount="<?= $inv['amount'] ?>" data-value="<?= $inv['value'] ?>">Edit</a>
                                         <a href="<?= base_url('inventory/toggle_asset_status/') . $inv['id'] . "/" . $inv['status'] . "/" . $inv['name'] ?>" class="badge badge-warning">Toggle Status</a>
                                         <a data-toggle="modal" data-target="#deleteAssetModal" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" class="badge badge-danger">Delete</a>
                                     </td>
@@ -77,13 +77,66 @@
 
 </div>
 <!-- End of Main Content -->
-
-<!-- Modal For Add Data -->
-<div class="modal fade" id="newMaterial" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+<!-- Modal for Transfer Asset -->
+<div class="modal fade" id="transferAssetModal" tabindex="-1" aria-labelledby="transferAssetLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newMenuModalLabel">Add New Item</h5>
+                <h5 class="modal-title" id="transferAssetLabel">Transfer Asset</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('inventory/transfer_asset') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- Asset code -->
+                        <label for="transfer_asset_code" class="col-form-label">Item Code</label>
+                        <input readonly type="text" class="form-control mb-1" id="transfer_asset_code" name="transfer_asset_code" placeholder="Add new item">
+                        <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
+                        <!-- Asset name -->
+                        <label for="transfer_asset_name" class="col-form-label">Item Name</label>
+                        <input readonly type="text" class="form-control mb-1" id="transfer_asset_name" name="transfer_asset_name" placeholder="Add new item">
+                        <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Asset From -->
+                        <label for="asset_departure" class="col-form-label">Transfer from..</label>
+                        <input readonly type="text" class="form-control mb-1" id="asset_departure" name="asset_departure" placeholder="Add new item">
+                        <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="text-center">
+                        <icon class="bi bi-arrow-down-up text-justify"></icon>
+                    </div>
+                    <div>
+                        <!-- Asset To -->
+                        <label for="asset_destination" class="col-form-label">to..</label>
+                        <div class="mb-1">
+                            <select name="asset_destination" id="asset_destination" class="form-control" value="<?= set_value('position') ?>">
+                                <option value="">--Select Destination--</option>
+                                <?php foreach ($room as $inv) : ?>
+                                    <option value="<?= $inv['room_id'] ?>"><?= $inv['room_name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <?= form_error('position', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Transfer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Add Data -->
+<div class="modal fade" id="newAssetModal" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newAssetModalLabel">Add New Item</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

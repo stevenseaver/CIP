@@ -208,18 +208,14 @@
          //extract data from data-* attributes of modal's toggle button
          var code = $(event.relatedTarget).data('code');
          var name = $(event.relatedTarget).data('name');
-         var position = $(event.relatedTarget).data('position');
          var amount = $(event.relatedTarget).data('amount');
          var value = $(event.relatedTarget).data('value');
-         var status = $(event.relatedTarget).data('status');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
          $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
-         $(event.currentTarget).find('.modal-body input[name="position"]').val(position);
          $(event.currentTarget).find('.modal-body input[name="amount"]').val(amount);
          $(event.currentTarget).find('.modal-body input[name="value"]').val(value);
-         $(event.currentTarget).find('.modal-body input[name="status"]').val(status);
      });
 
      //  JavaScript for Delete invt. Asset Modal
@@ -235,6 +231,18 @@
          $(event.currentTarget).find('.modal-body input[name="delete_asset_name"]').val(name);
      });
 
+     //  JavaScript for Transfer invt. Asset Modal
+     $('#transferAssetModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var code = $(event.relatedTarget).data('code');
+         var name = $(event.relatedTarget).data('name');
+         var position = $(event.relatedTarget).data('position');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="transfer_asset_code"]').val(code);
+         $(event.currentTarget).find('.modal-body input[name="transfer_asset_name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="asset_departure"]').val(position);
+     });
 
      //  JavaScript for Reply User Message
      $('#replyModal').on('show.bs.modal', function(event) {

@@ -88,7 +88,7 @@ class Contact extends CI_Controller
             return true;
         } else {
             $message = $this->email->print_debugger();
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> Sorry, message failed to send. Error: ' . $message . '</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> Sorry, message failed to send. Error: ' . $message . '</div>');
             redirect('contact');
         }
     }
