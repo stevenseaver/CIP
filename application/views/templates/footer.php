@@ -203,18 +203,18 @@
          $(event.currentTarget).find('.modal-body input[name="icon"]').val(webmenuicon);
      });
 
-     //  JavaScript for Edit Asset Modal
+     //  JavaScript for Edit invt. Asset Modal
      $('#editAssetModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var code = $(event.relatedTarget).data('code');
          var name = $(event.relatedTarget).data('name');
-         var amount = $(event.relatedTarget).data('amount');
+         var user = $(event.relatedTarget).data('user');
          var value = $(event.relatedTarget).data('value');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
          $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
-         $(event.currentTarget).find('.modal-body input[name="amount"]').val(amount);
+         $(event.currentTarget).find('.modal-body input[name="user"]').val(user);
          $(event.currentTarget).find('.modal-body input[name="value"]').val(value);
      });
 

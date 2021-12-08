@@ -28,8 +28,8 @@
                                 <th>Name</th>
                                 <th>Date Acquired</th>
                                 <th>Position</th>
-                                <th>Amount</th>
                                 <th>Value (IDR)</th>
+                                <th>User</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -45,8 +45,8 @@
                                     <td><?= $inv['name'] ?></td>
                                     <td><?= date('d F Y H:i:s', $inv['date_in']); ?></td>
                                     <td><?= $inv['room_name'] ?></td>
-                                    <td><?= $inv['amount'] ?></td>
                                     <td><?= $inv['value'] ?></td>
+                                    <td><?= $inv['user'] ?></td>
                                     <td>
                                         <?php if ($inv['status'] == 1) {
                                             echo '<p class="badge badge-success">Active</p>';
@@ -58,9 +58,26 @@
                                     </td>
                                     <td>
                                         <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-primary" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Transfer</a>
-                                        <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-secondary text-white" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-amount="<?= $inv['amount'] ?>" data-value="<?= $inv['value'] ?>">Edit</a>
+                                        <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-secondary text-white" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-user="<?= $inv['user'] ?>" data-value="<?= $inv['value'] ?>">Edit</a>
                                         <a href="<?= base_url('inventory/toggle_asset_status/') . $inv['id'] . "/" . $inv['status'] . "/" . $inv['name'] ?>" class="badge badge-warning">Toggle Status</a>
                                         <a data-toggle="modal" data-target="#deleteAssetModal" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" class="badge badge-danger">Delete</a>
+                                        <?php
+                                        if (empty($inv['user'])) {
+                                            if ($user['role_id'] == '1') { ?>
+                                                <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-success" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Assign User</a>
+                                            <?php } else { ?>
+                                                <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-success" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Use Asset</a>
+                                            <?php }
+                                            ?>
+                                        <?php } else { ?>
+                                            <?php if ($user['role_id'] == '1') { ?>
+                                                <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-dark" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Delete User</a>
+                                            <?php } else if ($inv['user'] == $user['nik']) { ?>
+                                                <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-dark" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Finish Using</a>
+                                            <?php }
+                                            ?>
+                                        <?php }
+                                        ?>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>
@@ -169,12 +186,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <!-- Asset amount stock -->
-                        <label for="newMaterial" class="col-form-label">Amount</label>
-                        <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Add Amount">
-                        <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
-                    </div>
-                    <div class="form-group">
                         <!-- Asset value -->
                         <label for="newMaterial" class="col-form-label">Value</label>
                         <input type="text" class="form-control mb-1" id="value" name="value" placeholder="IDR">
@@ -229,8 +240,8 @@
                     </div>
                     <div class="form-group">
                         <!-- Asset amount stock -->
-                        <label for="url" class="col-form-label">Amount</label>
-                        <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Add Amount">
+                        <label for="url" class="col-form-label">User</label>
+                        <input type="text" class="form-control mb-1" id="user" name="user" placeholder="Add Amount">
                         <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
