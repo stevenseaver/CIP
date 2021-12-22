@@ -329,6 +329,7 @@ class Inventory extends CI_Controller
         //get invt database
         $data['inventory'] = $this->inventory_id->getRoomName();
         $data['room'] = $this->db->get('rooms')->result_array();
+        $data['user_data'] = $this->db->get('user')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -355,7 +356,6 @@ class Inventory extends CI_Controller
         ]);
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('position', 'position', 'required|trim');
-        $this->form_validation->set_rules('amount', 'amount', 'required|trim');
         $this->form_validation->set_rules('value', 'value', 'required|trim');
         $this->form_validation->set_rules('status', 'status', 'required|trim');
 
@@ -369,7 +369,6 @@ class Inventory extends CI_Controller
         } else {
             $code = $this->input->post('code', true);
             $name = $this->input->post('name', true);
-            $amount = $this->input->post('amount', true);
             $value = $this->input->post('value', true);
             $position = $this->input->post('position', true);
             $status = $this->input->post('status', true);
@@ -379,7 +378,6 @@ class Inventory extends CI_Controller
                 'name' => htmlspecialchars($name),
                 'date_in' => time(),
                 'position' =>  htmlspecialchars($position),
-                'amount' => htmlspecialchars($amount),
                 'value' => htmlspecialchars($value),
                 'status' => htmlspecialchars($status),
             ];
@@ -455,18 +453,38 @@ class Inventory extends CI_Controller
 
     public function transfer_asset()
     {
-        $code = $this->input->post('transfer_asset_code');
-        $name = $this->input->post('transfer_asset_name');
-        $asset_destination = $this->input->post('asset_destination');
+        $data['title'] = 'Asset Inventory';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //jpoin database room and asset_inventory
+        $this->load->model('Inventory_model', 'inventory_id');
+        //get invt database
+        $data['inventory'] = $this->inventory_id->getRoomName();
+        $data['room'] = $this->db->get('rooms')->result_array();
 
-        $this->db->set('position', $asset_destination);
-        $this->db->where('code', $code);
-        $this->db->update('inventory_asset');
+        $this->form_validation->set_rules('asset_destination', 'user', 'required|trim');
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . urldecode($name) . ' Location changed!</div>');
-        redirect('inventory/assets');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/asset_invt', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $code = $this->input->post('transfer_asset_code');
+            $name = $this->input->post('transfer_asset_name');
+            $asset_destination = $this->input->post('asset_destination');
+
+            $this->db->set('position', $asset_destination);
+            $this->db->where('code', $code);
+            $this->db->update('inventory_asset');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . urldecode($name) . ' Location changed!</div>');
+            redirect('inventory/assets');
+        }
     }
-
+    //delete an asset
     public function delete_asset()
     {
         // get item to delete
@@ -477,6 +495,105 @@ class Inventory extends CI_Controller
         $this->db->delete('inventory_asset', array('id' => $itemtoDelete));
         // send message
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Asset named ' . $deleteAsset["name"] . ' with code ' . $deleteAsset["code"] . ' deleted!</div>');
+        redirect('inventory/assets');
+    }
+    // assign asset to a user
+    public function assign_user()
+    {
+        $data['title'] = 'Asset Inventory';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //jpoin database room and asset_inventory
+        $this->load->model('Inventory_model', 'inventory_id');
+        //get invt database
+        $data['inventory'] = $this->inventory_id->getRoomName();
+        $data['room'] = $this->db->get('rooms')->result_array();
+        $data['user_data'] = $this->db->get('user')->result_array();
+
+        $this->form_validation->set_rules('user_assigned', 'user', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/asset_invt', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $code = $this->input->post('assign_asset_code');
+            $name = $this->input->post('assign_asset_name');
+            $userdat = $this->input->post('user_assigned');
+
+            $this->db->set('user', $userdat);
+            $this->db->where('code', $code);
+            $this->db->update('inventory_asset');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . urldecode($name) . ' is assigned to ' . urldecode($userdat) . '!</div>');
+            redirect('inventory/assets');
+        }
+    }
+
+    // assign asset to a user
+    public function use_asset()
+    {
+        $data['title'] = 'Asset Inventory';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //jpoin database room and asset_inventory
+        $this->load->model('Inventory_model', 'inventory_id');
+        //get invt database
+        $data['inventory'] = $this->inventory_id->getRoomName();
+        $data['room'] = $this->db->get('rooms')->result_array();
+        $data['user_data'] = $this->db->get('user')->result_array();
+
+        $this->form_validation->set_rules('assign_asset_user', 'User', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/asset_invt', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $code = $this->input->post('assign_asset_code');
+            $name = $this->input->post('assign_asset_name');
+            $userdat = $this->input->post('assign_asset_user');
+
+            $this->db->set('user', $userdat);
+            $this->db->where('code', $code);
+            $this->db->update('inventory_asset');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . urldecode($name) . ' is assigned to ' . urldecode($userdat) . '!</div>');
+            redirect('inventory/assets');
+        }
+    }
+
+    public function delete_asset_user()
+    {
+        $code = $this->input->post('delete_user_code');
+        $name = $this->input->post('delete_user_name');
+        $userdat = $this->input->post('delete_user_user');
+
+        $this->db->set('user', null);
+        $this->db->where('code', $code);
+        $this->db->update('inventory_asset');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . urldecode($name) . ' is no longer assigned to ' . urldecode($userdat) . '!</div>');
+        redirect('inventory/assets');
+    }
+
+    public function delete_user()
+    {
+        $code = $this->input->post('delete_user_code');
+        $name = $this->input->post('delete_user_name');
+        $userdat = $this->input->post('delete_user_user');
+
+        $this->db->set('user', null);
+        $this->db->where('code', $code);
+        $this->db->update('inventory_asset');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . urldecode($name) . ' is no longer assigned to ' . urldecode($userdat) . '!</div>');
         redirect('inventory/assets');
     }
 }

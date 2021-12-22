@@ -64,16 +64,16 @@
                                         <?php
                                         if (empty($inv['user'])) {
                                             if ($user['role_id'] == '1') { ?>
-                                                <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-success" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Assign User</a>
+                                                <a data-toggle="modal" data-target="#assignUserModal" class="badge badge-success" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Assign User</a>
                                             <?php } else { ?>
-                                                <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-success" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Use Asset</a>
+                                                <a data-toggle="modal" data-target="#useAssetModal" class="badge badge-success" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $user['name'] ?>">Use Asset</a>
                                             <?php }
                                             ?>
                                         <?php } else { ?>
                                             <?php if ($user['role_id'] == '1') { ?>
-                                                <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-dark" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Delete User</a>
-                                            <?php } else if ($inv['user'] == $user['nik']) { ?>
-                                                <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-dark" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Finish Using</a>
+                                                <a data-toggle=" modal" data-target="#deleteAssignedUser" class="badge badge-dark" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $inv['user'] ?>">Delete User</a>
+                                            <?php } else if ($inv['user'] == $user['name']) { ?>
+                                                <a data-toggle="modal" data-target="#deleteUserModal" class="badge badge-dark" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $inv['user'] ?>">Finish Using</a>
                                             <?php }
                                             ?>
                                         <?php }
@@ -135,7 +135,7 @@
                                     <option value="<?= $inv['room_id'] ?>"><?= $inv['room_name'] ?></option>
                                 <?php endforeach; ?>
                             </select>
-                            <?= form_error('position', '<small class="text-danger pl-2">', '</small>') ?>
+                            <?= form_error('asset_destination', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                 </div>
@@ -149,7 +149,7 @@
 </div>
 
 <!-- Modal For Add Data -->
-<div class="modal fade" id="newAssetModal" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+<div class="modal fade" id="newAssetModal" tabindex="-1" aria-labelledby="newAssetModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -163,7 +163,7 @@
                     <div class="form-group">
                         <!-- Asset code -->
                         <label for="newMaterial" class="col-form-label">Item Code</label>
-                        <input type="text" class="form-control mb-1" id="code" name="code" placeholder="Add new item">
+                        <input type="text" class="form-control mb-1" id="code" name="code" placeholder="Add new code">
                         <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
@@ -275,14 +275,175 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- asset id -->
-                        <label for="url" class="col-form-label">Menu ID</label>
+                        <label for="url" class="col-form-label">ID</label>
                         <input type="text" class="form-control" id="delete_asset_id" name="delete_asset_id" readonly>
                         <!-- asset code -->
-                        <label for="url" class="col-form-label">Menu Name</label>
+                        <label for="url" class="col-form-label">Code</label>
                         <input type="text" class="form-control" id="delete_asset_code" name="delete_asset_code" readonly>
                         <!-- asset name -->
-                        <label for="url" class="col-form-label">Menu Name</label>
+                        <label for="url" class="col-form-label">Name</label>
                         <input type="text" class="form-control" id="delete_asset_name" name="delete_asset_name" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Assign User -->
+<div class="modal fade" id="assignUserModal" tabindex="-1" role="dialog" aria-labelledby="assignUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignUserLabel">Heyho!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('inventory/assign_user') ?>" method="post">
+                <div class="modal-body">
+                    <p class=" mb-0">You're going to assign this asset,</p>
+                    <div class="form-group">
+                        <!-- asset id -->
+                        <label for="url" class="col-form-label">Code</label>
+                        <input type="text" class="form-control" id="assign_asset_code" name="assign_asset_code" readonly>
+                        <!-- asset code -->
+                        <label for="url" class="col-form-label">Name</label>
+                        <input type="text" class="form-control" id="assign_asset_name" name="assign_asset_name" readonly>
+                        <!-- asset name -->
+                        <label for="url" class="col-form-label">Position</label>
+                        <input type="text" class="form-control" id="assign_asset_position" name="assign_asset_position" readonly>
+                        <!-- user -->
+                        <div>
+                            <label for="user_assigned" class="col-form-label">to be used by..</label>
+                            <div class="mb-1">
+                                <select name="user_assigned" id="user_assigned" class="form-control" value="<?= set_value('user_assigned') ?>">
+                                    <option value="">--Select User--</option>
+                                    <?php foreach ($user_data as $udat) : ?>
+                                        <option value="<?= $udat['name'] ?>"><?= $udat['name'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <?= form_error('user_assigned', '<small class="text-danger pl-2">', '</small>') ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Assign</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Using Asset for User -->
+<div class="modal fade" id="useAssetModal" tabindex="-1" role="dialog" aria-labelledby="assignUserLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="assignUserLabel">Notice</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('inventory/use_asset') ?>" method="post">
+                <div class="modal-body">
+                    <p class=" mb-0">You're going to use this asset:</p>
+                    <div class="form-group">
+                        <!-- asset id -->
+                        <label for="url" class="col-form-label">Code</label>
+                        <input type="text" class="form-control" id="assign_asset_code" name="assign_asset_code" readonly>
+                        <!-- asset code -->
+                        <label for="url" class="col-form-label">Name</label>
+                        <input type="text" class="form-control" id="assign_asset_name" name="assign_asset_name" readonly>
+                        <!-- asset name -->
+                        <label for="url" class="col-form-label">Position</label>
+                        <input type="text" class="form-control" id="assign_asset_position" name="assign_asset_position" readonly>
+                        <!-- user -->
+                        <label for="url" class="col-form-label">Position</label>
+                        <input type="text" class="form-control" id="assign_asset_user" name="assign_asset_user" readonly>
+                    </div>
+                    <p class=" mb-0">Please notice:</p>
+                    <p class=" mb-0">1. Maintain the condition of the asset as if it is yours.</p>
+                    <p class=" mb-0">2. If any damage occurs, contact your supervisor.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Use</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Delete User Assigned -->
+<div class="modal fade" id="deleteAssignedUser" tabindex="-1" role="dialog" aria-labelledby="deleteAssignedUser" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteAssignedUser">Whoops!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">You're about to delete asset user. Are you sure?</p>
+            <form action="<?= base_url('inventory/delete_asset_user') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- asset id -->
+                        <label for="url" class="col-form-label">Code</label>
+                        <input type="text" class="form-control" id="delete_user_code" name="delete_user_code" readonly>
+                        <!-- asset code -->
+                        <label for="url" class="col-form-label">Name</label>
+                        <input type="text" class="form-control" id="delete_user_name" name="delete_user_name" readonly>
+                        <!-- asset pos -->
+                        <label for="url" class="col-form-label">Position</label>
+                        <input type="text" class="form-control" id="delete_user_position" name="delete_user_position" readonly>
+                        <!-- asset user -->
+                        <label for="url" class="col-form-label">User</label>
+                        <input type="text" class="form-control" id="delete_user_user" name="delete_user_user" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Delete Asset User for User  -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteUserModal">Whoops!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">You're about delete this asset from your responsibility. Are you sure?</p>
+            <form action="<?= base_url('inventory/delete_user') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- asset id -->
+                        <label for="url" class="col-form-label">Code</label>
+                        <input type="text" class="form-control" id="delete_user_code" name="delete_user_code" readonly>
+                        <!-- asset code -->
+                        <label for="url" class="col-form-label">Name</label>
+                        <input type="text" class="form-control" id="delete_user_name" name="delete_user_name" readonly>
+                        <!-- asset pos -->
+                        <label for="url" class="col-form-label">Position</label>
+                        <input type="text" class="form-control" id="delete_user_position" name="delete_user_position" readonly>
+                        <!-- asset user -->
+                        <label for="url" class="col-form-label">User</label>
+                        <input type="text" class="form-control" id="delete_user_user" name="delete_user_user" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">

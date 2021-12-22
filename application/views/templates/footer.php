@@ -244,6 +244,64 @@
          $(event.currentTarget).find('.modal-body input[name="asset_departure"]').val(position);
      });
 
+     //  JavaScript for Assign User Invt. Asset Modal
+     $('#assignUserModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var code = $(event.relatedTarget).data('code');
+         var name = $(event.relatedTarget).data('name');
+         var position = $(event.relatedTarget).data('position');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="assign_asset_code"]').val(code);
+         $(event.currentTarget).find('.modal-body input[name="assign_asset_name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="assign_asset_position"]').val(position);
+     });
+
+     //  JavaScript for Use Invt. Asset Modal
+     $('#useAssetModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var code = $(event.relatedTarget).data('code');
+         var name = $(event.relatedTarget).data('name');
+         var position = $(event.relatedTarget).data('position');
+         var user = $(event.relatedTarget).data('user');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="assign_asset_code"]').val(code);
+         $(event.currentTarget).find('.modal-body input[name="assign_asset_name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="assign_asset_position"]').val(position);
+         $(event.currentTarget).find('.modal-body input[name="assign_asset_user"]').val(user);
+     });
+
+     //  JavaScript for Delete Assign User Invt. Asset Modal
+     $('#deleteAssignedUser').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var code = $(event.relatedTarget).data('code');
+         var name = $(event.relatedTarget).data('name');
+         var position = $(event.relatedTarget).data('position');
+         var user = $(event.relatedTarget).data('user');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="delete_user_code"]').val(code);
+         $(event.currentTarget).find('.modal-body input[name="delete_user_name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="delete_user_position"]').val(position);
+         $(event.currentTarget).find('.modal-body input[name="delete_user_user"]').val(user);
+     });
+
+     //  JavaScript for Delete Assign User Invt. Asset Modal
+     $('#deleteUserModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var code = $(event.relatedTarget).data('code');
+         var name = $(event.relatedTarget).data('name');
+         var position = $(event.relatedTarget).data('position');
+         var user = $(event.relatedTarget).data('user');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="delete_user_code"]').val(code);
+         $(event.currentTarget).find('.modal-body input[name="delete_user_name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="delete_user_position"]').val(position);
+         $(event.currentTarget).find('.modal-body input[name="delete_user_user"]').val(user);
+     });
+
      //  JavaScript for Reply User Message
      $('#replyModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
