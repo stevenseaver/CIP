@@ -40,7 +40,7 @@
                 <ul class="navbar-nav">
                     <!-- Nav Item - login Button -->
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('auth'); ?>" target="_blank">
+                        <a class="nav-link" href="<?= base_url('auth'); ?>" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-cart"></i>
                             <span>Login</span>
                         </a>

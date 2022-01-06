@@ -329,7 +329,9 @@ class Inventory extends CI_Controller
         //get invt database
         $data['inventory'] = $this->inventory_id->getRoomName();
         $data['room'] = $this->db->get('rooms')->result_array();
+        //get user and invt type
         $data['user_data'] = $this->db->get('user')->result_array();
+        $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -349,11 +351,15 @@ class Inventory extends CI_Controller
         //get invt database
         $data['inventory'] = $this->inventory_id->getRoomName();
         $data['room'] = $this->db->get('rooms')->result_array();
+        //get user and invt type
+        $data['user_data'] = $this->db->get('user')->result_array();
+        $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
         //form validation
-        $this->form_validation->set_rules('code', 'code', 'required|trim|is_unique[inventory_asset.code]', [
-            'is_unique' => 'This code has already been used!'
-        ]);
+        // $this->form_validation->set_rules('code', 'code', 'trim|is_unique[inventory_asset.code]', [
+        //     'is_unique' => 'This code has already been used!'
+        // ]);
+        $this->form_validation->set_rules('type', 'type', 'required|trim');
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('position', 'position', 'required|trim');
         $this->form_validation->set_rules('value', 'value', 'required|trim');
@@ -367,22 +373,59 @@ class Inventory extends CI_Controller
             $this->load->view('inventory/asset_invt', $data);
             $this->load->view('templates/footer');
         } else {
-            $code = $this->input->post('code', true);
+            // $code = $this->input->post('code', true);
+            $type = $this->input->post('type', true);
             $name = $this->input->post('name', true);
             $value = $this->input->post('value', true);
             $position = $this->input->post('position', true);
             $status = $this->input->post('status', true);
 
-            $data = [
-                'code' => htmlspecialchars($code),
-                'name' => htmlspecialchars($name),
-                'date_in' => time(),
-                'position' =>  htmlspecialchars($position),
-                'value' => htmlspecialchars($value),
-                'status' => htmlspecialchars($status),
-            ];
+            $data['room_name'] = $this->db->get_where('rooms', ['room_id' =>
+            $position])->row_array();
+            $data['count_num'] = $this->db->get_where('inventory_type', ['code' =>
+            $type])->row_array();
 
+            $loc_code = $data['room_name']['room_code'];
+            $count = $data['count_num']['count'] + 1;
+
+            if ($count < 10) {
+                $data = [
+                    'code' => 'INV-' . htmlspecialchars($loc_code) . '/' . htmlspecialchars($type) . '-00' . htmlspecialchars($count),
+                    // 'code' => htmlspecialchars($code),
+                    'name' => htmlspecialchars($name),
+                    'date_in' => time(),
+                    'position' =>  htmlspecialchars($position),
+                    'value' => htmlspecialchars($value),
+                    'status' => htmlspecialchars($status),
+                ];
+            } else if ($count < 100) {
+                $data = [
+                    'code' => 'INV-' . htmlspecialchars($loc_code) . '/' . htmlspecialchars($type) . '-0' . htmlspecialchars($count),
+                    // 'code' => htmlspecialchars($code),
+                    'name' => htmlspecialchars($name),
+                    'date_in' => time(),
+                    'position' =>  htmlspecialchars($position),
+                    'value' => htmlspecialchars($value),
+                    'status' => htmlspecialchars($status),
+                ];
+            } else if ($count >= 100) {
+                $data = [
+                    'code' => 'INV-' . htmlspecialchars($loc_code) . '/' . htmlspecialchars($type) . '-' . htmlspecialchars($count),
+                    // 'code' => htmlspecialchars($code),
+                    'name' => htmlspecialchars($name),
+                    'date_in' => time(),
+                    'position' =>  htmlspecialchars($position),
+                    'value' => htmlspecialchars($value),
+                    'status' => htmlspecialchars($status),
+                ];
+            }
+            //update asset db
             $this->db->insert('inventory_asset', $data);
+
+            //update count
+            $this->db->set('count', $count);
+            $this->db->where('code', $loc_code);
+            $this->db->update('inventory_type');
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item successfully created!</div>');
             redirect('inventory/assets');
@@ -399,9 +442,11 @@ class Inventory extends CI_Controller
         //get invt database
         $data['inventory'] = $this->inventory_id->getRoomName();
         $data['room'] = $this->db->get('rooms')->result_array();
+        //get user and invt type
+        $data['user_data'] = $this->db->get('user')->result_array();
+        $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
         $this->form_validation->set_rules('name', 'name', 'required|trim');
-        $this->form_validation->set_rules('amount', 'amount', 'required|trim');
         $this->form_validation->set_rules('value', 'value', 'required|trim');
 
         if ($this->form_validation->run() == false) {
@@ -414,12 +459,10 @@ class Inventory extends CI_Controller
         } else {
             $code = $this->input->post('code', true);
             $name = $this->input->post('name', true);
-            $amount = $this->input->post('amount', true);
             $value = $this->input->post('value', true);
 
             $data = [
                 'name' => htmlspecialchars($name),
-                'amount' => htmlspecialchars($amount),
                 'value' => htmlspecialchars($value),
             ];
 
@@ -461,6 +504,9 @@ class Inventory extends CI_Controller
         //get invt database
         $data['inventory'] = $this->inventory_id->getRoomName();
         $data['room'] = $this->db->get('rooms')->result_array();
+        //get user and invt type
+        $data['user_data'] = $this->db->get('user')->result_array();
+        $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
         $this->form_validation->set_rules('asset_destination', 'user', 'required|trim');
 
@@ -508,7 +554,9 @@ class Inventory extends CI_Controller
         //get invt database
         $data['inventory'] = $this->inventory_id->getRoomName();
         $data['room'] = $this->db->get('rooms')->result_array();
+        //get user and invt type
         $data['user_data'] = $this->db->get('user')->result_array();
+        $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
         $this->form_validation->set_rules('user_assigned', 'user', 'required|trim');
 
@@ -544,7 +592,9 @@ class Inventory extends CI_Controller
         //get invt database
         $data['inventory'] = $this->inventory_id->getRoomName();
         $data['room'] = $this->db->get('rooms')->result_array();
+        //get user and invt type
         $data['user_data'] = $this->db->get('user')->result_array();
+        $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
         $this->form_validation->set_rules('assign_asset_user', 'User', 'required|trim');
 
@@ -595,5 +645,33 @@ class Inventory extends CI_Controller
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . urldecode($name) . ' is no longer assigned to ' . urldecode($userdat) . '!</div>');
         redirect('inventory/assets');
+    }
+
+    public function list_inventory()
+    {
+        $data['title'] = 'Asset Inventory';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //jpoin database room and asset_inventory
+        $this->load->model('Inventory_model', 'inventory_id');
+        //get invt database
+        $data['inventory'] = $this->inventory_id->getRoomName();
+        $data['room'] = $this->db->get('rooms')->result_array();
+
+        $this->load->view('inventory/view_list', $data);
+    }
+
+    public function qr_code()
+    {
+        $data['title'] = 'Asset Inventory';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //jpoin database room and asset_inventory
+        $this->load->model('Inventory_model', 'inventory_id');
+        //get invt database
+        $data['inventory'] = $this->inventory_id->getRoomName();
+        $data['room'] = $this->db->get('rooms')->result_array();
+
+        $this->load->view('inventory/view_qr', $data);
     }
 }
