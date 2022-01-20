@@ -5,7 +5,7 @@
              <span>Copyright &copy; UD. Cakra Inti Plastik 2021</span>
          </div>
          <div class="copyright text-center my-auto">
-             <span>Telp: +6231 70 11 529 | Email: cipsbp.donotreply@gmail.com</span>
+             <span>Telp: +6231 80 11 529 | Email: cs.sbplastik@gmail.com</span>
          </div>
      </div>
  </footer>
@@ -204,17 +204,28 @@
      });
 
      //  JavaScript for Edit invt. Asset Modal
+     $('#createQR').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var code = $(event.relatedTarget).data('code');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
+     });
+
+     //  JavaScript for Edit invt. Asset Modal
      $('#editAssetModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var code = $(event.relatedTarget).data('code');
          var name = $(event.relatedTarget).data('name');
          var user = $(event.relatedTarget).data('user');
+         var spec = $(event.relatedTarget).data('spec');
          var value = $(event.relatedTarget).data('value');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
          $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
          $(event.currentTarget).find('.modal-body input[name="user"]').val(user);
+         $(event.currentTarget).find('.modal-body input[name="spec"]').val(spec);
          $(event.currentTarget).find('.modal-body input[name="value"]').val(value);
      });
 

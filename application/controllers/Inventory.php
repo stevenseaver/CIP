@@ -355,13 +355,10 @@ class Inventory extends CI_Controller
         $data['user_data'] = $this->db->get('user')->result_array();
         $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
-        //form validation
-        // $this->form_validation->set_rules('code', 'code', 'trim|is_unique[inventory_asset.code]', [
-        //     'is_unique' => 'This code has already been used!'
-        // ]);
         $this->form_validation->set_rules('type', 'type', 'required|trim');
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('position', 'position', 'required|trim');
+        $this->form_validation->set_rules('spec', 'spec', 'required|trim|max_length[4096]');
         $this->form_validation->set_rules('value', 'value', 'required|trim');
         $this->form_validation->set_rules('status', 'status', 'required|trim');
 
@@ -376,6 +373,7 @@ class Inventory extends CI_Controller
             // $code = $this->input->post('code', true);
             $type = $this->input->post('type', true);
             $name = $this->input->post('name', true);
+            $spec = $this->input->post('spec', true);
             $value = $this->input->post('value', true);
             $position = $this->input->post('position', true);
             $status = $this->input->post('status', true);
@@ -390,35 +388,57 @@ class Inventory extends CI_Controller
 
             if ($count < 10) {
                 $data = [
-                    'code' => 'INV-' . htmlspecialchars($loc_code) . '/' . htmlspecialchars($type) . '-00' . htmlspecialchars($count),
+                    'code' => 'INV-' . htmlspecialchars($loc_code) . '-' . htmlspecialchars($type) . '-00' . htmlspecialchars($count),
                     // 'code' => htmlspecialchars($code),
                     'name' => htmlspecialchars($name),
                     'date_in' => time(),
                     'position' =>  htmlspecialchars($position),
+                    'spec' =>  htmlspecialchars($spec),
                     'value' => htmlspecialchars($value),
                     'status' => htmlspecialchars($status),
                 ];
             } else if ($count < 100) {
                 $data = [
-                    'code' => 'INV-' . htmlspecialchars($loc_code) . '/' . htmlspecialchars($type) . '-0' . htmlspecialchars($count),
+                    'code' => 'INV-' . htmlspecialchars($loc_code) . '-' . htmlspecialchars($type) . '-0' . htmlspecialchars($count),
                     // 'code' => htmlspecialchars($code),
                     'name' => htmlspecialchars($name),
                     'date_in' => time(),
                     'position' =>  htmlspecialchars($position),
+                    'spec' =>  htmlspecialchars($spec),
                     'value' => htmlspecialchars($value),
                     'status' => htmlspecialchars($status),
                 ];
             } else if ($count >= 100) {
                 $data = [
-                    'code' => 'INV-' . htmlspecialchars($loc_code) . '/' . htmlspecialchars($type) . '-' . htmlspecialchars($count),
+                    'code' => 'INV-' . htmlspecialchars($loc_code) . '-' . htmlspecialchars($type) . '-' . htmlspecialchars($count),
                     // 'code' => htmlspecialchars($code),
                     'name' => htmlspecialchars($name),
                     'date_in' => time(),
                     'position' =>  htmlspecialchars($position),
+                    'spec' =>  htmlspecialchars($spec),
                     'value' => htmlspecialchars($value),
                     'status' => htmlspecialchars($status),
                 ];
             }
+
+            //create QR for new item
+            $config['cacheable']    = true; //boolean, the default is true
+            $config['cachedir']     = './application/cache'; //string, the default is application/cache/
+            $config['errorlog']     = './application/logs'; //string, the default is application/logs/
+            $config['imagedir']     = './asset/img/QRCode/'; //direktori penyimpanan qr code
+            $config['quality']      = true; //boolean, the default is true
+            $config['size']         = '1024'; //interger, the default is 1024
+            $config['black']        = array(224, 255, 255); // array, default is array(255,255,255)
+            $config['white']        = array(70, 130, 180); // array, default is array(0,0,0)
+            $this->ciqrcode->initialize($config);
+
+            $image_name = $data['code'] . '.png'; //buat name dari qr code sesuai dengan nim
+
+            $params['data'] = $data['code']; //data yang akan di jadikan QR CODE
+            $params['level'] = 'H'; //H=High
+            $params['size'] = 10;
+            $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
+            $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
             //update asset db
             $this->db->insert('inventory_asset', $data);
 
@@ -428,6 +448,54 @@ class Inventory extends CI_Controller
             $this->db->update('inventory_type');
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item successfully created!</div>');
+            redirect('inventory/assets');
+        }
+    }
+
+    public function view_QR()
+    {
+        $data['title'] = 'Asset Inventory';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //jpoin database room and asset_inventory
+        $this->load->model('Inventory_model', 'inventory_id');
+        //get invt database
+        $data['inventory'] = $this->inventory_id->getRoomName();
+        $data['room'] = $this->db->get('rooms')->result_array();
+        //get user and invt type
+        $data['user_data'] = $this->db->get('user')->result_array();
+        $data['inv_type'] = $this->db->get('inventory_type')->result_array();
+
+        $code = $this->input->post('code', true);
+        $this->form_validation->set_rules('code', 'code', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/asset_invt', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $config['cacheable']    = true; //boolean, the default is true
+            $config['cachedir']     = './application/cache'; //string, the default is application/cache/
+            $config['errorlog']     = './application/logs'; //string, the default is application/logs/
+            $config['imagedir']     = './asset/img/QRCode/'; //direktori penyimpanan qr code
+            $config['quality']      = true; //boolean, the default is true
+            $config['size']         = '1024'; //interger, the default is 1024
+            $config['black']        = array(224, 255, 255); // array, default is array(255,255,255)
+            $config['white']        = array(70, 130, 180); // array, default is array(0,0,0)
+            $this->ciqrcode->initialize($config);
+
+            $image_name = $code . '.png'; //buat name dari qr code sesuai dengan nim
+
+            $params['data'] = $code; //data yang akan di jadikan QR CODE
+            $params['level'] = 'H'; //H=High
+            $params['size'] = 10;
+            $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
+            $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">QR Code successfully edited!</div>');
             redirect('inventory/assets');
         }
     }
@@ -447,6 +515,7 @@ class Inventory extends CI_Controller
         $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
         $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('spec', 'spec', 'required|trim|max_length[4096]');
         $this->form_validation->set_rules('value', 'value', 'required|trim');
 
         if ($this->form_validation->run() == false) {
@@ -459,10 +528,12 @@ class Inventory extends CI_Controller
         } else {
             $code = $this->input->post('code', true);
             $name = $this->input->post('name', true);
+            $spec = $this->input->post('spec', true);
             $value = $this->input->post('value', true);
 
             $data = [
                 'name' => htmlspecialchars($name),
+                'spec' => htmlspecialchars($spec),
                 'value' => htmlspecialchars($value),
             ];
 

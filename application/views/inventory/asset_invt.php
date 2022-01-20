@@ -35,10 +35,12 @@
                                 <th>Name</th>
                                 <th>Date Acquired</th>
                                 <th>Position</th>
-                                <th>Value (IDR)</th>
+                                <th>Specifications/Descriptions</th>
+                                <th>Value</th>
                                 <th>User</th>
                                 <th>Status</th>
                                 <th>Action</th>
+                                <th>QR</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,6 +54,7 @@
                                     <td><?= $inv['name'] ?></td>
                                     <td><?= date('d F Y H:i:s', $inv['date_in']); ?></td>
                                     <td><?= $inv['room_name'] ?></td>
+                                    <td><?= $inv['spec'] ?></td>
                                     <td><?= $inv['value'] ?></td>
                                     <td><?= $inv['user'] ?></td>
                                     <td>
@@ -64,8 +67,9 @@
                                         } ?>
                                     </td>
                                     <td>
+                                        <a data-toggle="modal" data-target="#createQR" class="badge badge-primary" data-code="<?= $inv['code'] ?>">Create QR</a>
                                         <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-primary" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Transfer</a>
-                                        <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-secondary text-white" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-user="<?= $inv['user'] ?>" data-value="<?= $inv['value'] ?>">Edit</a>
+                                        <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-secondary text-white" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-user="<?= $inv['user'] ?>" data-spec="<?= $inv['spec'] ?>" data-value="<?= $inv['value'] ?>">Edit</a>
                                         <a href="<?= base_url('inventory/toggle_asset_status/') . $inv['id'] . "/" . $inv['status'] . "/" . $inv['name'] ?>" class="badge badge-warning">Toggle Status</a>
                                         <a data-toggle="modal" data-target="#deleteAssetModal" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" class="badge badge-danger">Delete</a>
                                         <?php
@@ -85,7 +89,10 @@
                                             ?>
                                         <?php }
                                         ?>
-                                        <a href="<?= base_url('inventory/qr_code') ?>" class="badge badge-light" target="_blank" rel="noopener noreferrer">QR Code</a>
+                                        <!-- <a href="<?= base_url('inventory/qr_code') ?>" class="badge badge-light" target="_blank" rel="noopener noreferrer">QR Code</a> -->
+                                    </td>
+                                    <td>
+                                        <img style="width: 100px;" src="<?= base_url('asset/img/QRCode/') . $inv['code'] . '.png'; ?>">
                                     </td>
                                 </tr>
                                 <?php $i++; ?>
@@ -99,6 +106,13 @@
 
 </div>
 <!-- container-fluid -->
+<script>
+    $('#dataTable').dataTable({
+        "Value": {
+            render: $.fn.dataTable.render.number(',', '.', 0, 'IDR')
+        }
+    });
+</script>
 
 </div>
 <!-- End of Main Content -->
@@ -154,6 +168,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <!-- Asset Specifications -->
+                        <label for="newMaterial" class="col-form-label">Specifications</label>
+                        <input type="text" class="form-control mb-1" id="spec" name="spec" placeholder="No Special Characters">
+                        <?= form_error('spec', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
                         <!-- Asset value -->
                         <label for="newMaterial" class="col-form-label">Value</label>
                         <input type="text" class="form-control mb-1" id="value" name="value" placeholder="IDR">
@@ -176,6 +196,35 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for QR  -->
+<div class="modal fade" id="createQR" tabindex="-1" aria-labelledby="newAssetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newAssetModalLabel">QR Code Generator</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('inventory/view_QR') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- Asset code -->
+                        <p>You're about to create QR Code for this following item:</p>
+                        <label for="newMaterial" class="col-form-label">Item Code</label>
+                        <input type="text" class="form-control mb-1" id="code" name="code" placeholder="" readonly>
+                        <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Create QR</button>
                 </div>
             </form>
         </div>
@@ -260,6 +309,12 @@
                         <label for="url" class="col-form-label">Item Name</label>
                         <input type="text" class="form-control mb-1" id="name" name="name" placeholder="Item Name">
                         <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Asset Spec -->
+                        <label for="url" class="col-form-label">Specifications</label>
+                        <input type="text" class="form-control mb-1" id="spec" name="spec" placeholder="">
+                        <?= form_error('spec', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Asset value -->
