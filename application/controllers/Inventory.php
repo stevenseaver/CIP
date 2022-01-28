@@ -357,6 +357,7 @@ class Inventory extends CI_Controller
 
         $this->form_validation->set_rules('type', 'type', 'required|trim');
         $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('date_acquired', 'date acquired', 'required|trim');
         $this->form_validation->set_rules('position', 'position', 'required|trim');
         $this->form_validation->set_rules('spec', 'spec', 'required|trim|max_length[4096]');
         $this->form_validation->set_rules('value', 'value', 'required|trim');
@@ -373,6 +374,7 @@ class Inventory extends CI_Controller
             // $code = $this->input->post('code', true);
             $type = $this->input->post('type', true);
             $name = $this->input->post('name', true);
+            $date = $this->input->post('date_acquired', true);
             $spec = $this->input->post('spec', true);
             $value = $this->input->post('value', true);
             $position = $this->input->post('position', true);
@@ -391,7 +393,7 @@ class Inventory extends CI_Controller
                     'code' => 'INV-' . htmlspecialchars($loc_code) . '-' . htmlspecialchars($type) . '-00' . htmlspecialchars($count),
                     // 'code' => htmlspecialchars($code),
                     'name' => htmlspecialchars($name),
-                    'date_in' => time(),
+                    'date_in' => htmlspecialchars($date),
                     'position' =>  htmlspecialchars($position),
                     'spec' =>  htmlspecialchars($spec),
                     'value' => htmlspecialchars($value),
@@ -402,7 +404,7 @@ class Inventory extends CI_Controller
                     'code' => 'INV-' . htmlspecialchars($loc_code) . '-' . htmlspecialchars($type) . '-0' . htmlspecialchars($count),
                     // 'code' => htmlspecialchars($code),
                     'name' => htmlspecialchars($name),
-                    'date_in' => time(),
+                    'date_in' => htmlspecialchars($date),
                     'position' =>  htmlspecialchars($position),
                     'spec' =>  htmlspecialchars($spec),
                     'value' => htmlspecialchars($value),
@@ -413,7 +415,7 @@ class Inventory extends CI_Controller
                     'code' => 'INV-' . htmlspecialchars($loc_code) . '-' . htmlspecialchars($type) . '-' . htmlspecialchars($count),
                     // 'code' => htmlspecialchars($code),
                     'name' => htmlspecialchars($name),
-                    'date_in' => time(),
+                    'date_in' => htmlspecialchars($date),
                     'position' =>  htmlspecialchars($position),
                     'spec' =>  htmlspecialchars($spec),
                     'value' => htmlspecialchars($value),
@@ -444,7 +446,7 @@ class Inventory extends CI_Controller
 
             //update count
             $this->db->set('count', $count);
-            $this->db->where('code', $loc_code);
+            $this->db->where('code', $type);
             $this->db->update('inventory_type');
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item successfully created!</div>');
@@ -454,7 +456,7 @@ class Inventory extends CI_Controller
 
     public function view_QR()
     {
-        $data['title'] = 'Asset Inventory';
+        $data['title'] = 'QR Code Print';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //jpoin database room and asset_inventory
@@ -466,38 +468,15 @@ class Inventory extends CI_Controller
         $data['user_data'] = $this->db->get('user')->result_array();
         $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
-        $code = $this->input->post('code', true);
-        $this->form_validation->set_rules('code', 'code', 'required|trim');
+        //data from modal
+        $data['code'] = $this->input->post('code', true);
+        $data['name'] = $this->input->post('name', true);
+        $data['date'] = $this->input->post('date', true);
+        $data['pos'] = $this->input->post('pos', true);
 
-        if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('inventory/asset_invt', $data);
-            $this->load->view('templates/footer');
-        } else {
-            $config['cacheable']    = true; //boolean, the default is true
-            $config['cachedir']     = './application/cache'; //string, the default is application/cache/
-            $config['errorlog']     = './application/logs'; //string, the default is application/logs/
-            $config['imagedir']     = './asset/img/QRCode/'; //direktori penyimpanan qr code
-            $config['quality']      = true; //boolean, the default is true
-            $config['size']         = '1024'; //interger, the default is 1024
-            $config['black']        = array(224, 255, 255); // array, default is array(255,255,255)
-            $config['white']        = array(70, 130, 180); // array, default is array(0,0,0)
-            $this->ciqrcode->initialize($config);
-
-            $image_name = $code . '.png'; //buat name dari qr code sesuai dengan nim
-
-            $params['data'] = $code; //data yang akan di jadikan QR CODE
-            $params['level'] = 'H'; //H=High
-            $params['size'] = 10;
-            $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/images/
-            $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
-
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">QR Code successfully edited!</div>');
-            redirect('inventory/assets');
-        }
+        //load view print_qr
+        $this->load->view('templates/header', $data);
+        $this->load->view('inventory/print_qr', $data);
     }
 
     public function edit_asset()
@@ -732,17 +711,17 @@ class Inventory extends CI_Controller
         $this->load->view('inventory/view_list', $data);
     }
 
-    public function qr_code()
-    {
-        $data['title'] = 'Asset Inventory';
-        $data['user'] = $this->db->get_where('user', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
-        //jpoin database room and asset_inventory
-        $this->load->model('Inventory_model', 'inventory_id');
-        //get invt database
-        $data['inventory'] = $this->inventory_id->getRoomName();
-        $data['room'] = $this->db->get('rooms')->result_array();
+    // public function qr_code()
+    // {
+    //     $data['title'] = 'QR Code';
+    //     $data['user'] = $this->db->get_where('user', ['nik' =>
+    //     $this->session->userdata('nik')])->row_array();
+    //     //jpoin database room and asset_inventory
+    //     $this->load->model('Inventory_model', 'inventory_id');
+    //     //get invt database
+    //     $data['inventory'] = $this->inventory_id->getRoomName();
+    //     $data['room'] = $this->db->get('rooms')->result_array();
 
-        $this->load->view('inventory/view_qr', $data);
-    }
+    //     $this->load->view('inventory/view_qr', $data);
+    // }
 }

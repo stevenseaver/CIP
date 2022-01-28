@@ -28,8 +28,30 @@
     <!-- Custom styles for user management page -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/r-2.2.9/datatables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/r-2.2.9/datatables.min.js"></script>
-    <!-- <link href="<? base_url('asset/') ?>vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
-    <script href="<? base_url('asset/') ?>vendor/datatables/dataTables.bootstrap4.js"></script> -->
+    <style>
+        @media screen {
+            #printSection {
+                display: none;
+            }
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #printSection,
+            #printSection * {
+                visibility: visible;
+            }
+
+            #printSection {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    </style>
 </head>
 
 <body id="page-top">

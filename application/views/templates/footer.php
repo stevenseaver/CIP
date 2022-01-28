@@ -203,13 +203,19 @@
          $(event.currentTarget).find('.modal-body input[name="icon"]').val(webmenuicon);
      });
 
-     //  JavaScript for Edit invt. Asset Modal
+     //  JavaScript for Create QR invt. Asset Modal
      $('#createQR').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var code = $(event.relatedTarget).data('code');
+         var name = $(event.relatedTarget).data('name');
+         var date = $(event.relatedTarget).data('date');
+         var pos = $(event.relatedTarget).data('pos');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
+         $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="date"]').val(date);
+         $(event.currentTarget).find('.modal-body input[name="pos"]').val(pos);
      });
 
      //  JavaScript for Edit invt. Asset Modal
@@ -370,6 +376,12 @@
                  targets: [1]
              }]
          });
+     });
+ </script>
+
+ <script>
+     $('#btnPrint').click(function() {
+         window.print();
      });
  </script>
 

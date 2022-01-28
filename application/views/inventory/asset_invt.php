@@ -52,7 +52,7 @@
                                     <td><?= $i ?></td>
                                     <td><?= $inv['code'] ?></td>
                                     <td><?= $inv['name'] ?></td>
-                                    <td><?= date('d F Y H:i:s', $inv['date_in']); ?></td>
+                                    <td><?= $inv['date_in'] ?></td>
                                     <td><?= $inv['room_name'] ?></td>
                                     <td><?= $inv['spec'] ?></td>
                                     <td><?= $inv['value'] ?></td>
@@ -67,7 +67,7 @@
                                         } ?>
                                     </td>
                                     <td>
-                                        <a data-toggle="modal" data-target="#createQR" class="badge badge-primary" data-code="<?= $inv['code'] ?>">Create QR</a>
+                                        <a data-toggle="modal" data-target="#createQR" class="badge badge-primary" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-date="<?= $inv['date_in'] ?>" data-pos="<?= $inv['room_name'] ?>">View e-QR</a>
                                         <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-primary" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Transfer</a>
                                         <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-secondary text-white" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-user="<?= $inv['user'] ?>" data-spec="<?= $inv['spec'] ?>" data-value="<?= $inv['value'] ?>">Edit</a>
                                         <a href="<?= base_url('inventory/toggle_asset_status/') . $inv['id'] . "/" . $inv['status'] . "/" . $inv['name'] ?>" class="badge badge-warning">Toggle Status</a>
@@ -131,13 +131,13 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- Asset code -->
-                        <label for="newMaterial" class="col-form-label">Item Code</label>
-                        <input type="text" class="form-control mb-1" id="code" name="code" placeholder="Automatically Coded" readonly>
+                        <label for="code" class="col-form-label">Item Code</label>
+                        <input type="text" class="form-control" id="code" name="code" placeholder="Automatically Coded" readonly>
                         <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- asset type -->
-                        <label for="newMaterial" class="col-form-label">Type</label>
+                        <label for="type" class="col-form-label">Type</label>
                         <div class="mb-1">
                             <select name="type" id="type" class="form-control" value="<?= set_value('type') ?>">
                                 <option value="">--Select Type--</option>
@@ -150,13 +150,19 @@
                     </div>
                     <div class="form-group">
                         <!-- Asset name -->
-                        <label for="newMaterial" class="col-form-label">Item Name</label>
-                        <input type="text" class="form-control mb-1" id="name" name="name" placeholder="Add new item">
+                        <label for="name" class="col-form-label">Item Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Add new item">
                         <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
+                        <!-- Asset Date of Acquirement -->
+                        <label for="date" class="col-form-label">Date Acquired</label>
+                        <input type="date" class="form-control" id="date_acquired" name="date_acquired" placeholder="Date Acquired">
+                        <?= form_error('date_acquired', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
                         <!-- asset position -->
-                        <label for="newMaterial" class="col-form-label">Position</label>
+                        <label for="position" class="col-form-label">Position</label>
                         <div class="mb-1">
                             <select name="position" id="position" class="form-control" value="<?= set_value('position') ?>">
                                 <option value="">--Select Type--</option>
@@ -169,19 +175,19 @@
                     </div>
                     <div class="form-group">
                         <!-- Asset Specifications -->
-                        <label for="newMaterial" class="col-form-label">Specifications</label>
-                        <input type="text" class="form-control mb-1" id="spec" name="spec" placeholder="No Special Characters">
+                        <label for="spec" class="col-form-label">Specifications</label>
+                        <input type="text" class="form-control" id="spec" name="spec" placeholder="No Special Characters">
                         <?= form_error('spec', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Asset value -->
-                        <label for="newMaterial" class="col-form-label">Value</label>
-                        <input type="text" class="form-control mb-1" id="value" name="value" placeholder="IDR">
+                        <label for="value" class="col-form-label">Value</label>
+                        <input type="text" class="form-control" id="value" name="value" placeholder="IDR">
                         <?= form_error('value', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- asset status -->
-                        <label for="newMaterial" class="col-form-label">Status</label>
+                        <label for="status" class="col-form-label">Status</label>
                         <div class="mb-1">
                             <select name="status" id="status" class="form-control" value="<?= set_value('status') ?>">
                                 <option value="">--Select Type--</option>
@@ -216,15 +222,21 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- Asset code -->
-                        <p>You're about to create QR Code for this following item:</p>
-                        <label for="newMaterial" class="col-form-label">Item Code</label>
+                        <p>You're about to print QR Code for this following item:</p>
+                        <label for="code" class="col-form-label">Item Code</label>
                         <input type="text" class="form-control mb-1" id="code" name="code" placeholder="" readonly>
+                        <label for="code" class="col-form-label">Item Name</label>
+                        <input type="text" class="form-control mb-1" id="name" name="name" placeholder="" readonly>
+                        <label for="code" class="col-form-label">Date Acquired</label>
+                        <input type="text" class="form-control mb-1" id="date" name="date" placeholder="" readonly>
+                        <label for="code" class="col-form-label">Position</label>
+                        <input type="text" class="form-control mb-1" id="pos" name="pos" placeholder="" readonly>
                         <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Create QR</button>
+                    <button type="submit" class="btn btn-primary">View QR</button>
                 </div>
             </form>
         </div>
