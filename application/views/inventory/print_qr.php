@@ -1,5 +1,5 @@
 <!-- Begin Page Content -->
-<div class="container my-3">
+<div class="container my-3" style="align-items:center">
     <div class="card border-left-primary my-3" style="width: 22rem;" id="itemToPrint" name="itemToPrint">
         <div class="row align-items-center">
             <div class="col-4 ">
@@ -7,7 +7,7 @@
             </div>
             <div class="col-8">
                 <div class="row">
-                    <?= $code; ?>
+                    <label class="font-weight-bold mx-0 my-0"><?= $code; ?></label>
                 </div>
                 <div class="row">
                     <?= $name; ?>

@@ -27,7 +27,7 @@ class Production extends CI_Controller
 
     public function material_deploy()
     {
-        $data['title'] = 'Material Warehouse';
+        $data['title'] = 'Deploy Material';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         $data['rollType'] = $this->db->get('stock_roll')->result_array();

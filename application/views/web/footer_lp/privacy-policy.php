@@ -10,7 +10,7 @@
     </div>
 
     <p class="text-dark mx-2 px-2 text-justify">
-        The following Privacy Policy explains how UD. Cakra Inti Plastik (“We, Our, Ours, Us”) obtains, collects, uses, stores, discloses, and deletes User’s Information that has been registered on Our business platform, which available through Our website at www.rukunplastik.com (“Website”).
+        The following Privacy Policy explains how UD. Cakra Inti Plastik (“We, Our, Ours, Us”) obtains, collects, uses, stores, discloses, and deletes User’s Information that has been registered on Our business platform, which available through Our website at www.cakraintiplastik.com (“Website”).
     </p>
     <p class="text-dark mx-2 px-2 text-justify">
         This Privacy Policy is Our real commitment to respect and protect any Certain Personal Data (“Information”) and as a form of our compliance with the regulations applied in Indonesia. This Privacy Policy is an inseparable part of our Terms and Conditions that you have agreed to when you access, download, register, and / or use our services both on Our website and in Our applications.

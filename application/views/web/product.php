@@ -8,39 +8,46 @@
             </a>
         <?php endforeach; ?>
     </div>
+    <!-- First Tier Products -->
     <div class="no-gutter text-center">
         <div class="card rounded-0 border-0 mx-auto bg-gradient-primary text-white">
             <div class="card-body">
-                <h5 class="text-center mt-2 mb-1">Rukun&trade; Jumbo Bag</h5>
-                <h1 class="text-center mb-1">Strong and elastic</h1>
-                <h5 class="text-center mb-3">Strong enough for 18L of water</h5>
-                <a class="text-white" href=" <?= base_url() ?>products/jumbobag">Learn more &rarr;</a>
-                <img class="card-img my-3" src="<?= base_url('asset/') ?>img/undraw_posting_photo.svg" alt="Product Image #1" width="150" height="250">
+                <h5 class="mt-2 mb-1">Rukun&trade; Jumbo Bag</h5>
+                <h1 class="mb-1">Strong and elastic</h1>
+                <h5 class="mb-3">Strong enough for 18L of water</h5>
+                <p class="mb-2">
+                    <a class="text-white" href=" <?= base_url() ?>products/jumbobag">Learn more &rarr;</a>
+                </p>
+                <img class="img-fluid rounded my-3" src="<?= base_url('asset/') ?>img/products/coin.jpg" alt="Product Image #1" style="width: 20rem;">
             </div>
         </div>
     </div>
-    <!-- First Tier Product -->
+    <!-- Second Tier Product -->
     <div class="no-gutter text-center">
         <div class="card rounded-0 border-0 mt-2 mx-auto bg-white text-dark">
             <div class="card-body">
                 <h5 class="text-center mt-2 mb-1">Shopping Bag</h5>
                 <h1 class="text-center mb-1">Colorful. Splendid.</h1>
                 <h5 class="text-center mb-3">Available in 6 colorful choices.</h5>
-                <a class="" href=" <?= base_url() ?>products/shoppingbag">Learn more &rarr;</a>
-                <img class="card-img my-3" src="<?= base_url('asset/') ?>img/undraw_posting_photo.svg" alt="Product Image #2" width="150" height="250">
+                <p class="mb-2">
+                    <a class="" href=" <?= base_url() ?>products/shoppingbag">Learn more &rarr;</a>
+                </p>
+                <img class="img-fluid rounded my-3" src="<?= base_url('asset/') ?>img/products/coin.jpg" alt="Product Image #2" style="width: 20rem;">
             </div>
         </div>
     </div>
-    <!-- Second Tier Items -->
-    <div class="row text-center justify-content-center align-items-center mb-3">
+    <!-- Third Tier Items -->
+    <div class="row text-center mx-3 mx-sm-3 mb-3">
         <div class="col-lg-6">
-            <div class="card border-0 mt-3 mx-auto bg-gradient-white text-dark">
+            <div class="card border-1 mt-3 mx-auto bg-gradient-white text-dark">
                 <div class="card-body">
                     <h5 class="text-center text-primary mt-2 mb-1">Rukun&trade; Plastic Bag</h5>
                     <h3 class="text-center mb-1">Many sizes and types.</h3>
-                    <a class="text-primary" href=" <?= base_url() ?>products/plasticbag">Learn more &rarr;</a>
+                    <a class="text-primary mb-2" href=" <?= base_url() ?>products/plasticbag">Learn more &rarr;</a>
                 </div>
-                <img class="rounded mx-auto d-block mt-0 mb-4" src="<?= base_url('asset/') ?>img/undraw_posting_photo.svg" alt="Product Image #3" height="200" width="350">
+                <div class="text-center mb-3 mx-4">
+                    <img class="img-fluid rounded" src="<?= base_url('asset/') ?>img/products/coin.jpg" alt="Product Image #3" style="width: 20rem;">
+                </div>
             </div>
         </div>
         <div class="col-lg-6">
@@ -50,7 +57,9 @@
                     <h3 class="text-center mb-1">Protects what is good inside.</h3>
                     <a class="text-primary" href=" <?= base_url() ?>products/inner">Learn more &rarr;</a>
                 </div>
-                <img class="rounded mx-auto d-block mt-0 mb-4" src="<?= base_url('asset/') ?>img/undraw_posting_photo.svg" alt="Product Image #4" height="200" width="350">
+                <div class="text-center mb-3 mx-4">
+                    <img class="img-fluid rounded" src="<?= base_url('asset/') ?>img/products/coin.jpg" alt="Product Image #4" style="width: 20rem;">
+                </div>
             </div>
         </div>
     </div>

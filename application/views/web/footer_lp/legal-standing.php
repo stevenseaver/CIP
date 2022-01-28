@@ -17,12 +17,6 @@
 
     </p>
 
-
-    <p class="text-dark mx-2 px-2 text-justify">
-        <a href="<?= base_url('asset/legal/IZIN_USAHA_0220103452894.pdf'); ?>" target="blank"> Click to see NIB Document
-        </a>
-    </p>
-
     <p class=" text-dark mx-2 px-2 mb-0 text-justify">
         KLBI
     </p>

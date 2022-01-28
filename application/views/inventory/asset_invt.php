@@ -8,7 +8,7 @@
             <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
-
+    <!-- Add new asset inventory -->
     <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newAssetModal">
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
@@ -16,6 +16,7 @@
         <span class="text">Add New Item</span>
     </a>
 
+    <!-- view asset  -->
     <a href="<?= base_url('inventory/list_inventory') ?>" class="btn btn-secondary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
         <span class="icon text-white-50">
             <i class="bi bi-eye"></i>
