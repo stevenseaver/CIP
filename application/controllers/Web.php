@@ -66,6 +66,21 @@ class Web extends CI_Controller
 	//** Landing Page from Main-Page 				*/
 	//** Content:									*/
 	//** Quality, Eco-Mindful, Highly Customizable 	*/
+	//load page LP0_circulatry
+	public function lp0_circulatry()
+	{
+		$data['title'] = 'Circulatry Economics';
+		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['products'] = $this->db->get('product_menu')->result_array();
+		$data['user'] = $this->db->get_where('user', ['nik' =>
+		$this->session->userdata('nik')])->row_array();
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/web-topbar', $data);
+		$this->load->view('web/landing_page/lp0-circulatry', $data);
+		$this->load->view('templates/web-footer');
+	}
+
 	//load page LP1_quality
 	public function lp1_quality()
 	{

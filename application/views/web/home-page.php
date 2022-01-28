@@ -16,9 +16,9 @@
 			<div class="card-body">
 				<div class="text-center">
 					<img class="img-fluid px-3 px-sm-5 mt-1 mb-1" style="width: 20rem;" src="<?= base_url('asset/img/mainlogo.jpg') ?>" alt="Main Cards">
-					<h1 class="card-title text-primary">Welcome</h1>
-					<h5 class="card-text">Made. Recycled. Repeat.</h5>
-					<p class="card-text">Learn how our company manage our production waste<a href=""> here.</a></p>
+					<h1 class="card-title text-primary">Endless Loop</h1>
+					<h5 class="card-text">Made. Recycle. Repeat.</h5>
+					<p class="card-text">Learn how our company manage our production waste to achieve ciruclatry economy <a href="<?= base_url('web/lp0_circulatry') ?>"> &rarr;</a></p>
 				</div>
 			</div>
 		</div>
