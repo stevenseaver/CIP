@@ -16,16 +16,16 @@
                 <h1 class="h3 mb-0 text-primary font-weight-bold">Jumbo Bag</h1>
             </div>
         </div>
-        <div class="row justify-content-left align-items-center my-1 mx-3">
+        <div class="row justify-content-left my-1 mx-3">
             <div class="col-lg-12 card mb-3 border-0">
-                <div class="row no-gutters align-items-center">
+                <div class="row no-gutters align-items-top">
                     <div class="col-md-4 text-center">
-                        <img src="<?= base_url('asset/') ?>img/LDPE_2.jpg" width="300" class="my-4 rounded">
+                        <img src="<?= base_url('asset/') ?>img/products/coin.jpg" width="300" class="my-4 rounded">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
                             <h4 class="card-title text-primary font-weight-bold">Jumbo Bag</h4>
-                            <p class="text-dark">Inner bag lining for your woven bag products, food container, or your other needs. Made from high-quality high-density polyethylene for strength and a little bit of low-density polyethylene for extra flexibility making it suitable for heavy-duty woven bag application.</p>
+                            <p class="text-dark">Jumbo plastic bags are suitable for your shopping and packaging needs. Jumbo bag's size range from 40 cm to as large as 55 cm in width, made with a blend of HDPE and LDPE to ensure strength for heavy items.</p>
                             <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
@@ -35,7 +35,7 @@
                                 }
                                 ?>
                                 <div class="row mt-3 mb-3">
-                                    <div class="col-md-3 text-left">
+                                    <div class="col-md-3 text-left mb-2">
                                         <?= $s["specification"] ?>
                                     </div>
                                     <div class="col-md-10 text-dark">

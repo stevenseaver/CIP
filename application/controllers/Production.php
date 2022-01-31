@@ -25,9 +25,9 @@ class Production extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function material_deploy()
+    public function billofmaterial()
     {
-        $data['title'] = 'Deploy Material';
+        $data['title'] = 'Bill of Material';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         $data['rollType'] = $this->db->get('stock_roll')->result_array();
@@ -37,7 +37,7 @@ class Production extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('production/material_deploy', $data);
+        $this->load->view('production/bom', $data);
         $this->load->view('templates/footer');
     }
 

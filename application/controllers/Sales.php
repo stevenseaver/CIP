@@ -25,29 +25,51 @@ class Sales extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function approve($nik, $start, $finish)
+    public function deliveryorder()
     {
-        //send message
-        $this->session->set_flashdata('approval', '<div class="alert alert-success" role="alert">Request approved!</div>');
+        $data['title'] = 'Delivery Order';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get leave type by combining database table leave_list and leave_type
+        $this->load->model('Leave_model', 'leaveType');
+        $data['leavedata'] = $this->leaveType->getLeaveType();
 
-        $this->db->set('status', 1);
-        $array = array('user_nik' => $nik,  'start_date' => $start, 'finish_date' => $finish);
-        $this->db->where($array);
-        $this->db->update('leave_list');
-
-        redirect('hr/leave');
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('sales/deliveryorder', $data);
+        $this->load->view('templates/footer');
     }
 
-    public function decline($nik, $start, $finish)
+    public function invoice()
     {
-        //send message
-        $this->session->set_flashdata('approval', '<div class="alert alert-danger" role="alert">Request declined!</div>');
+        $data['title'] = 'Sales Invoice';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get leave type by combining database table leave_list and leave_type
+        $this->load->model('Leave_model', 'leaveType');
+        $data['leavedata'] = $this->leaveType->getLeaveType();
 
-        $this->db->set('status', 2);
-        $array = array('user_nik' => $nik,  'start_date' => $start, 'finish_date' => $finish);
-        $this->db->where($array);
-        $this->db->update('leave_list');
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('sales/invoice', $data);
+        $this->load->view('templates/footer');
+    }
 
-        redirect('hr/leave');
+    public function salesinfo()
+    {
+        $data['title'] = 'Sales Info';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get leave type by combining database table leave_list and leave_type
+        $this->load->model('Leave_model', 'leaveType');
+        $data['leavedata'] = $this->leaveType->getLeaveType();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('sales/salesinfo', $data);
+        $this->load->view('templates/footer');
     }
 }

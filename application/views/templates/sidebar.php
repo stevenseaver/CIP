@@ -6,7 +6,7 @@
                 <div class="sidebar-brand-icon">
                     <i class="bi bi-cart"></i>
                 </div>
-                <div class="sidebar-brand-text mx-1">Shop</div>
+                <div class="sidebar-brand-text mx-1">IT System</div>
             </a>
 
             <!-- Divider -->
@@ -39,6 +39,7 @@
                     ";
                 $subMenu = $this->db->query($querySubMenu)->result_array();
                 ?>
+
                 <?php foreach ($subMenu as $sm) : ?>
                     <?php if ($title == $sm['title']) : ?>
                         <li class="nav-item active">

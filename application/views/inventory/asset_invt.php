@@ -61,9 +61,9 @@
                                     <td>
                                         <?php if ($inv['status'] == 1) {
                                             echo '<p class="badge badge-success">Active</p>';
-                                        } else if ($inv['status'] == 0) {
-                                            echo '<p class="badge badge-warning">Maintenance</p>';
                                         } else if ($inv['status'] == 2) {
+                                            echo '<p class="badge badge-warning">Maintenance</p>';
+                                        } else if ($inv['status'] == 0) {
                                             echo '<p class="badge badge-danger">Decomissioned</p>';
                                         } ?>
                                     </td>
@@ -168,7 +168,7 @@
                             <select name="position" id="position" class="form-control" value="<?= set_value('position') ?>">
                                 <option value="">--Select Type--</option>
                                 <?php foreach ($room as $inv) : ?>
-                                    <option value="<?= $inv['room_id'] ?>"><?= $inv['room_name'] ?></option>
+                                    <option value="<?= $inv['id'] ?>"><?= $inv['room_name'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <?= form_error('position', '<small class="text-danger pl-2">', '</small>') ?>
@@ -282,7 +282,7 @@
                             <select name="asset_destination" id="asset_destination" class="form-control" value="<?= set_value('position') ?>">
                                 <option value="">--Select Destination--</option>
                                 <?php foreach ($room as $inv) : ?>
-                                    <option value="<?= $inv['room_id'] ?>"><?= $inv['room_name'] ?></option>
+                                    <option value="<?= $inv['id'] ?>"><?= $inv['room_name'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <?= form_error('asset_destination', '<small class="text-danger pl-2">', '</small>') ?>
