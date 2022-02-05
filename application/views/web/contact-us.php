@@ -20,7 +20,7 @@
                         </div>
                         <div class="col-lg-5 py-3 px-0 text-center">
                             <i class="bi bi-telephone fa-3x mb-3"></i>
-                            <p class="text-primary mb-0">+6231-701-1529</p>
+                            <p class="text-primary mb-0">+6231-801-1529</p>
                             <p class="text-secondary mb-0">Monday - Friday</p>
                             <p class="text-secondary mb-0">08.00 - 16.00 (WIB/GMT+7)</p>
                         </div>

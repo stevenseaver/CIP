@@ -39,7 +39,7 @@
     <!-- Third Tier Items -->
     <div class="row text-center mx-3 mx-sm-3 mb-3">
         <div class="col-lg-6">
-            <div class="card border-1 mt-3 mx-auto bg-gradient-white text-dark">
+            <div class="card border-0 mt-3 mx-auto bg-gradient-white text-dark">
                 <div class="card-body">
                     <h5 class="text-center text-primary mt-2 mb-1">Rukun&trade; Plastic Bag</h5>
                     <h3 class="text-center mb-1">Many sizes and types.</h3>

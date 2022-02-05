@@ -3,8 +3,10 @@
     <!-- Section: Social media -->
     <section class="d-flex align-items-center justify-content-center justify-content-lg-between p-4 border-bottom mx-2">
         <div class="container text-left text-md-start mt-1">
-            <p class="small">Jemblung &trade; and Rukun &trade; are trademark of UD. Cakra Inti Plastik.</p>
-            <p class="small">Our products are made from select recycled materials, hence some minor differences in characteristic (such as color or clearness) may occur between production batches. This does not affect product's quality and reliability. </p>
+            <p class="small">1. Jemblung&reg;, Rukun&reg;, and Gemah&reg; are registered trademark of UD. Cakra Inti Plastik.</p>
+            <p class="small">2. Our products are made from select recycled materials, hence some minor differences in characteristic (such as color or clearness) may occur between production batches. This does not affect product's quality and reliability. </p>
+            <p class="small">3. We may change the product's specification and price according to market situations without prior notice. Product specifications and actual products may slightly vary depending on production processes and quality enhancement. </p>
+            <p class="small">4. Custom order are available with a minimum order of 750 kg. </p>
         </div>
         <!-- Right -->
     </section>
@@ -90,7 +92,7 @@
                         </p>
                     </a>
                     <p>
-                        <i class="bi bi-telephone mr-1"></i>+6232-701-1529
+                        <i class="bi bi-telephone mr-1"></i>+6232-801-1529
                     </p>
                 </div>
                 <!-- Grid column -->

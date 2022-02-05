@@ -13,7 +13,7 @@
     <div class="container">
         <div class="row align-items-center mt-3 mx-3">
             <div class="col-lg-6 mb-1">
-                <h1 class="h3 mb-0 text-primary font-weight-bold">Rukun Jumbo Bag</h1>
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Loss Ori TM</h1>
             </div>
             <div class="col-lg-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="#" class="badge badge-primary">Buy Now</a>
@@ -28,11 +28,11 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Jumbo Bag</h4> -->
-                            <p class="text-dark">Rukun&reg; jumbo bags are suitable for your shopping and packaging needs. Jumbo bag's size range from 40 cm to as large as 55 cm in width, made with a blend of HDPE and LDPE to ensure strength for heavy items.</p>
+                            <p class="text-dark">We also provides option for you to buy our bulk products. Our Loss Ori TM are virgin and high-quality plastic bag with a glass-like properties no other company can immitate. That is because HDPE are matte colored, but with our secret materials, we can make it glass-like.</p>
                             <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
-                                if ($s['product_name'] != "Jumbo Bag") {
+                                if ($s['product_name'] != "Original TM") {
                                     continue;
                                 } else {
                                 }
@@ -53,7 +53,7 @@
         </div>
         <div class="row align-items-center mt-3 mx-3">
             <div class="col-lg-6 mb-1">
-                <h1 class="h3 mb-0 text-primary font-weight-bold">Gemah Super Jumbo Bag</h1>
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Loss Warna</h1>
             </div>
             <div class="col-lg-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="#" class="badge badge-primary">Buy Now</a>
@@ -68,11 +68,11 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Jumbo Bag</h4> -->
-                            <p class="text-dark">Gemah&reg; super jumbo bags are high quality plastic bags with vivid color and smooth surface quality. Derrived from ancient Javanese word of fertility, Gemah&reg;'s colorful hue pleases your eye for as long as you look into it.</p>
+                            <p class="text-dark">Loss Warna is high-volume colored plastic bag for every-day farmer's market usage. Loss warna is made from fully recycled plastic pellets for low-cost usage.</p>
                             <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
-                                if ($s['product_name'] != "Super Jumbo Bag") {
+                                if ($s['product_name'] != "Original TM") {
                                     continue;
                                 } else {
                                 }

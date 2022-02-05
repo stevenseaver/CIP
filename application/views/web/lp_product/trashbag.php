@@ -12,8 +12,11 @@
     <!-- Page Heading -->
     <div class="container">
         <div class="row align-items-center mt-3 mx-3">
-            <div class="col-lg-12 mb-1">
+            <div class="col-lg-6 col-sm-2 mb-1">
                 <h1 class="h3 mb-0 text-primary font-weight-bold">Trash Bag</h1>
+            </div>
+            <div class="col-lg-6 col-sm-2 mb-1 d-flex justify-content-end align-items-center">
+                <a href="#" class="badge badge-primary">Buy Now</a>
             </div>
         </div>
         <div class="row justify-content-left my-1 mx-3">
@@ -24,8 +27,8 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h4 class="card-title text-primary font-weight-bold">Trash Bag</h4>
-                            <p class="text-dark">Inner bag lining for your woven bag products, food container, or your other needs. Made from high-quality high-density polyethylene for strength and a little bit of low-density polyethylene for extra flexibility making it suitable for heavy-duty woven bag application.</p>
+                            <!-- <h4 class="card-title text-primary font-weight-bold">Trash Bag</h4> -->
+                            <p class="text-dark">Do you need to keep your trash tidy and not actually trashing your trash can? We have the solution. Our Rukun&reg; trash bag products with varying size and color can make your cleaning duty easier, whether it is domestic or medical purposes.</p>
                             <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php

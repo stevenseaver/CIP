@@ -29,27 +29,12 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/r-2.2.9/datatables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/r-2.2.9/datatables.min.js"></script>
     <style>
-        @media screen {
-            #printSection {
-                display: none;
-            }
+        text-pink {
+            color: #FF33B8;
         }
 
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-
-            #printSection,
-            #printSection * {
-                visibility: visible;
-            }
-
-            #printSection {
-                position: absolute;
-                left: 0;
-                top: 0;
-            }
+        text-orange {
+            color: #FF8333;
         }
     </style>
 </head>
