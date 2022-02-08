@@ -70,23 +70,23 @@
                         Contact
                     </h6>
                     <p>
-                        <a href="https://goo.gl/maps/zRBAk5gr9dujTFc48" target="_blank">
+                        <a href="https://goo.gl/maps/zRBAk5gr9dujTFc48" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-house mr-1"></i>
                             <span class="text-dark">Sidoarjo, Indonesia 61254</span>
                         </a>
                     </p>
                     <p>
-                        <a href="mailto:cs.sbplastik@gmail.com" class="text-dark" target="_blank">
+                        <a href="mailto:cs.sbplastik@gmail.com" class="text-dark" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-envelope mr-1"></i>
                             <span>cs.sbplastik@gmail.com</span>
                         </a>
                     </p>
-                    <a href="https://instagram.com/sbplastik" class="text-dark" target="_blank">
+                    <a href="https://instagram.com/sbplastik" class="text-dark" target="_blank" rel="noopener noreferrer">
                         <p>
                             <i class="bi bi-instagram mr-1"></i> sbplastik
                         </p>
                     </a>
-                    <a href="https://wa.me/+6282232057755" class="text-dark" target="_blank">
+                    <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" class="text-dark" target="_blank" rel="noopener noreferrer">
                         <p>
                             <i class="bi bi-whatsapp mr-1"></i>+62822-3205-7755
                         </p>

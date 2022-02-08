@@ -49,7 +49,7 @@
                                 <div class="card-body">
                                     <i class="bi bi-bucket fa-2x mb-5"></i>
                                     <h5 class="mb-3">Bucket List #3</h5>
-                                    <p>Advocating plastic recycling movement as a way to sustainably save the environment while keeping anyone from beeing jobless.</p>
+                                    <p>Advocating plastic recycling movement as a way to sustainably save the environment using circular economy.</p>
                                 </div>
                             </div>
                         </div>
