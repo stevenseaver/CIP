@@ -11,7 +11,7 @@
     </div>
     <!-- Page Heading -->
     <div class="container">
-        <div class="row mt-3 mx-3">
+        <div class="row mt-3 mx-1">
             <div class="col-lg-6 mb-1">
                 <h1 class="h3 mb-0 text-primary font-weight-bold">Shopping Bag</h1>
             </div>
@@ -29,7 +29,7 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Shopping Bag</h4> -->
-                            <p class="text-dark">Recycled shopping bag made specifically to support your online businesses anywhere. We provides colorful and cost-effective recycled shopping bag with punchhole cut or bag-handle. With minimum order, we can also provide printing for your renowned brand. Use this bag to support circulatory economy to save both the Earth and the Economy.</p>
+                            <p class="text-dark text-justify">Recycled shopping bag made specifically to support your online businesses anywhere. We provides colorful and cost-effective recycled shopping bag with punchhole cut or bag-handle. With minimum order, we can also provide printing for your renowned brand. Use this bag to support circulatory economy to save both the Earth and the Economy.</p>
                             <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php

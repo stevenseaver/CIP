@@ -69,7 +69,7 @@ class Web extends CI_Controller
 	//load page LP0_circulatry
 	public function lp0_circulatry()
 	{
-		$data['title'] = 'Circulatry Economics';
+		$data['title'] = 'Circular Economy';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>

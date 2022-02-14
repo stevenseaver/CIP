@@ -64,8 +64,8 @@
         c. We will always try our best to provide the latest information according to Our knowledge based on the data available to Us including but not limited to price changes, inventory quantity, and product specifications. However, in the event of sudden change of price or inventory quantity that occurs outside of our control and knowledge, in which You already order goods and/or already make payments, We will offer You several options as follows :
     </p>
     <ul class="text-dark mx-2 text-justify">
-        <li class="text-dark mx-4"> Transaction can be continued with the latest price adjustment accompanied by a refund of your excess payment, if the current price is lower that the last price listed on Our Website and/or Application, or it will be Your obligation to make additional payment if the current price is higher than the last price listed on Our Website and/or Application.</li>
-        <li class="text-dark mx-4">Transactions can be cancelled and We will refund Your payment.</li>
+        <li class="text-dark mx-4"> Made the transaction as pending until further notice.</li>
+        <li class="text-dark mx-4">Cancel the transactions with all down-payments not being refunded.</li>
     </ul>
     <h5 class="text-dark mx-2 px-2 text-justify font-weight-bold">
         3. Sales Transactions and Prices
@@ -134,34 +134,37 @@
         c. You are responsible for any losses incurred as a result of negligence in Your use of Our Website and/or Application, both directly and indirectly, including in the event of Your personal account being hacked.
     </p>
     <p class="text-dark mx-2 px-2 text-justify">
-        3. Maximizing business services provided by Our Website and Application, including but not limited to the addition of features, news of current events that can affect service quality, price discounts, providing recommendations, after-sales service, answers to Your complaints, and other services;
+        d. Maximizing business services provided by Our Website and Application, including but not limited to the addition of features, news of current events that can affect service quality, price discounts, providing recommendations, after-sales service, answers to Your complaints, and other services;
     </p>
     <p class="text-dark mx-2 px-2 text-justify">
-        4. Maximizing the smooth and supportive communication between Us and You, including but not limited to communication via electronic mail, telephone, online media, and so on;
+        e. Maximizing the smooth and supportive communication between Us and You, including but not limited to communication via electronic mail, telephone, online media, and so on;
     </p>
     <p class="text-dark mx-2 px-2 text-justify">
-        5. Monitoring, processing, and analyzing Your activities, behavior and demographic data including Your habits, preferences and use of various services available on the Website to improve the quality of Our services
+        f. Monitoring, processing, and analyzing Your activities, behavior and demographic data including Your habits, preferences and use of various services available on the Website to improve the quality of Our services
     </p>
     <h5 class="text-dark mx-2 px-2 text-justify font-weight-bold">
         6. Guarantee
     </h5>
     <p class="text-dark mx-2 px-2 text-justify">
-        The buyer can submit a guarantee related to the quantity of goods within 1 (one) Business Day after the goods are received and inspected by the Buyer, if the goods received does not match quantity ordered, We and/or Seller partnered with Us will send the shortage of said order.
+        The buyer can submit a guarantee related to the quantity of goods within 2 (two) days after the goods are received and inspected by the Buyer, if the goods received does not match quantity ordered, We and/or Seller partnered with Us will send the shortage of said order.
     </p>
     <p class="text-dark mx-2 px-2 text-justify">
-        Buyer can submit a guarantee related to the quality of the goods within 5 (five) Business Days after the goods are received by the Buyer, if the quality of items received does not match the quality of the goods ordered and this proves to occur due to negligence on Our part, We and/or Seller partnered with Us will replace and resend goods with quality as ordered by the Buyer.
+        We guarantee the quality of our products to match our <a href="#">Quality Assurance Standard and Guidelines</a>. In the event when quality of items received does not match the quality of the goods ordered due to our negligence, Buyer can submit a guarantee related to the quality of the goods within 7 (seven) days after the goods are received by the Buyer. We and/or Seller partnered with Us will replace and resend goods with quality as ordered by the Buyer.
     </p>
     <h5 class="text-dark mx-2 px-2 text-justify font-weight-bold">
         7. Our Intellectual Property Rights
     </h5>
     <p class="text-dark mx-2 px-2 text-justify">
-        Our Website and/or Application includes names and logos, all program codes, applications, designs, databases, business models and services, protected by copyright, trademark and other rights provided under the laws of the Republic of Indonesia so that all forms of abuse by any party other than Our party and/or without a valid and proven written permission by and from Us is actually a form of violation of the law.
+        Our Website and/or Application includes names and logos, all program codes, applications, designs, databases, business models and services, protected by copyright, trademark and other rights provided under the laws of the Republic of Indonesia so that all forms of abuse by any party other than Our party and/or without a valid and proven written permission by and from Us is a violation of the law.
     </p>
     <h5 class="text-dark mx-2 px-2 text-justify font-weight-bold">
         8. Our Discretion
     </h5>
     <p class="text-dark mx-2 px-2 text-justify">
-        We have the right to unilaterally change including but not limited to privacy policies and service fees, payment methods, business models, User Terms, the length of time your account is suspended as a result of our investigations, government, law enforcement agencies, and reports of account hacking, and/or if You have passed away.
+        a. We have the right to unilaterally change including but not limited to privacy policies and service fees, payment methods, business models, User Terms, the length of time your account is suspended as a result of our investigations, government, law enforcement agencies, and reports of account hacking, and/or if You have passed away.
+    </p>
+    <p class="text-dark mx-2 px-2 text-justify">
+        b. We have the right to change our prices and product specifications due to external causes such as materials price change or logistic fees and internal causes, without prior notice.
     </p>
     <h5 class="text-dark mx-2 px-2 text-justify font-weight-bold">
         9. Force Majeure

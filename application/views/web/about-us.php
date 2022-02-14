@@ -17,12 +17,12 @@
         </div>
     </div>
     <!-- Vision -->
-    <div class="row justify-content-center align-items-center text-justify pt-1">
+    <div class="row justify-content-center align-items-center text-justify pt-1 mb-1">
         <div class="col-lg-8 mb-3 mx-4 text-dark text-center">
             <div class="card border-0 bg-primary">
                 <div class="card-body text-white">
                     <i class="bi bi-arrow-up-circle fa-2x mb-5"></i>
-                    <h4 class="mb-3 font-weight-bold">Vision</h4>
+                    <h4 class="font-weight-bold">Vision</h4>
                     <p>Be a leading recycled plastic products manufacturer by giving high-quality and eco-conscious products.</p>
                     <!-- Mission -->
                     <div class="row justify-content-center align-items-center pt-1">
@@ -58,10 +58,41 @@
             </div>
         </div>
     </div>
+    <!-- Values -->
+    <div class="row justify-content-center align-items-center text-justify pt-1 mb-3">
+        <div class="col-lg-8 mb-3 mx-4 text-dark">
+            <div class="card border-0 bg-primary">
+                <div class="card-body text-white text-center">
+                    <i class="bi bi-emoji-laughing fa-2x"></i>
+                    <h4 class="font-weight-bold mb-2">Values</h4>
+                    <p>We upholds our core company values because we believe that what differentiates us from the rest is what we believed in.</p>
+                    <!-- value 1 -->
+                    <div class="row justify-content-tops align-items-top pt-1 mb-3">
+                        <div class="col-5">
+                            <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="rounded img-fluid mb-3">
+                        </div>
+                        <div class="col-7">
+                            <h5 class="text-left font-weight-bold">Value Number 1</h5>
+                            <p class="text-left">Value Number 1</p>
+                        </div>
+                    </div>
+                    <!-- value 2 -->
+                    <div class="row justify-content-tops align-items-top pt-1 mb-3">
+                        <div class="col-7">
+                            <h5 class="text-right font-weight-bold">Value Number 1</h5>
+                            <p class="text-right">Value Number 1</p>
+                        </div>
+                        <div class="col-5">
+                            <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="rounded img-fluid mb-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</div>
+    </div>
 
-<!-- /.container-fluid -->
+    <!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->
