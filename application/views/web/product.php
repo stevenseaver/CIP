@@ -1,5 +1,5 @@
 <!-- Begin Page Content -->
-<div class="no-gutter pt-2 mt-5 bg-light">
+<div class="no-gutter pt-4 mt-5 bg-light">
     <div class="row d-flex justify-content-center align-items-center bg-light">
         <?php foreach ($products as $pl) : ?>
             <a href="<?= base_url() . $pl['url'] ?>" class="nav-link strecthed text-dark text-center pt-3 pb-3 px-4">
@@ -10,7 +10,7 @@
     </div>
     <!-- First Tier Products -->
     <div class="no-gutter text-center">
-        <div class="card rounded-0 border-0 mx-auto bg-gradient-primary text-white">
+        <div class="card rounded border-0 mx-3 mb-3 bg-gradient-primary text-white">
             <div class="card-body">
                 <h5 class="mt-2 mb-1">Rukun&trade; Jumbo Bag</h5>
                 <h1 class="mb-1">Strong and elastic</h1>
@@ -24,7 +24,7 @@
     </div>
     <!-- Second Tier Product -->
     <div class="no-gutter text-center">
-        <div class="card rounded-0 border-0 mt-2 mx-auto bg-white text-dark">
+        <div class="card rounded border-0 mx-3 mb-3 bg-white text-dark">
             <div class="card-body">
                 <h5 class="text-center mt-2 mb-1">Shopping Bag</h5>
                 <h1 class="text-center mb-1">Colorful. Splendid.</h1>
@@ -37,9 +37,9 @@
         </div>
     </div>
     <!-- Third Tier Items -->
-    <div class="row text-center mx-3 mx-sm-3 mb-3">
+    <div class="row text-center mx-3 mx-sm-3 mb-4">
         <div class="col-lg-6">
-            <div class="card border-0 mt-3 mx-auto bg-gradient-white text-dark">
+            <div class="card border-0 bg-gradient-white text-dark">
                 <div class="card-body">
                     <h5 class="text-center text-primary mt-2 mb-1">Rukun&trade; Plastic Bag</h5>
                     <h3 class="text-center mb-1">Many sizes and types.</h3>
@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <div class="card border-0 mt-3 mx-auto bg-gradient-white text-dark">
+            <div class="card border-0 bg-gradient-white text-dark">
                 <div class="card-body">
                     <h5 class="text-center text-primary mt-2 mb-1">Inner Bag</h5>
                     <h3 class="text-center mb-1">Protects what is good inside.</h3>
@@ -63,7 +63,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <!-- /.container-fluid -->
 

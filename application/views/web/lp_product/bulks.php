@@ -1,5 +1,5 @@
 <!-- Begin Page Content -->
-<div class="no-gutter pt-2 mt-5">
+<div class="no-gutter pt-4 mt-5">
     <!-- sub nav bar -->
     <div class="row d-flex justify-content-center align-items-center">
         <?php foreach ($products as $pl) : ?>
@@ -38,14 +38,14 @@
                                 } else {
                                 }
                                 ?>
-                                <div class="row mt-3 mb-3">
-                                    <div class="col-md-3 text-left mb-2">
+                                <dl class="row my-3">
+                                    <dt class="col-md-12 text-left mb-1">
                                         <?= $s["specification"] ?>
-                                    </div>
-                                    <div class="col-md-10 text-dark">
+                                    </dt>
+                                    <dd class="col-md-12 text-dark">
                                         <?= $s["items"] ?>
-                                    </div>
-                                </div>
+                                    </dd>
+                                </dl>
                             <?php endforeach; ?>
                         </div>
                     </div>
@@ -79,14 +79,14 @@
                                 } else {
                                 }
                                 ?>
-                                <div class="row mt-3 mb-3">
-                                    <div class="col-md-3 text-left mb-2">
+                                <dl class="row my-3">
+                                    <dt class="col-md-12 text-left mb-1">
                                         <?= $s["specification"] ?>
-                                    </div>
-                                    <div class="col-md-10 text-dark">
+                                    </dt>
+                                    <dd class="col-md-12 text-dark">
                                         <?= $s["items"] ?>
-                                    </div>
-                                </div>
+                                    </dd>
+                                </dl>
                             <?php endforeach; ?>
                         </div>
                     </div>

@@ -1,5 +1,5 @@
 <!-- Begin Page Content -->
-<div class="no-gutter pt-2 mt-5">
+<div class="no-gutter pt-4 mt-5">
     <!-- sub nav bar -->
     <div class="row d-flex justify-content-center align-items-center">
         <?php foreach ($products as $pl) : ?>
@@ -30,7 +30,7 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Plastic Bag</h4> -->
-                            <p class="text-dark text-justify">Not your ordinary plastic bag, we can create a wide range of plastic bag variety. Rukun&reg; plastic bag can be black, white, red, yellow, green, blue or any other color; made from virgin plastic pellets or fully recycled, whichever suits your needs.</p>
+                            <p class="text-dark text-justify">Not your ordinary plastic bag, we can create a wide range of plastic bag variety. Rukun&reg; plastic bag can be black, white, red, yellow, green, blue or any other color; made from high-quality fully recycled materials.</p>
                             <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
@@ -39,14 +39,14 @@
                                 } else {
                                 }
                                 ?>
-                                <div class="row mt-3 mb-3">
-                                    <div class="col-md-10 text-left mb-2">
+                                <dl class="row my-3">
+                                    <dt class="col-sm-12 text-left mb-1">
                                         <?= $s["specification"] ?>
-                                    </div>
-                                    <div class="col-md-10 text-dark">
+                                    </dt>
+                                    <dd class="col-sm-12 text-dark">
                                         <?= $s["items"] ?>
-                                    </div>
-                                </div>
+                                    </dd>
+                                </dl>
                             <?php endforeach; ?>
                         </div>
                     </div>

@@ -5,7 +5,7 @@
     <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary mb-4">
+        <nav class="mx-3 my-3 navbar rounded navbar-expand-lg fixed-top navbar-dark bg-primary mb-4">
             <!-- Topbar - Brand -->
             <a class="navbar-brand d-flex align-items-center justify-content-center" href="<?= base_url('web') ?>">
                 <div class="navbar-brand-icon ml-2">

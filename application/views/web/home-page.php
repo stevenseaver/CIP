@@ -1,5 +1,5 @@
 	<!-- Begin Page Content -->
-	<div class="no-gutter pt-4 mt-5 bg-light">
+	<div class="no-gutter pt-5 mt-5 bg-light">
 		<!-- Main Card -->
 		<!-- <div class="no-gutter">
 			<div class="card rounded-0 border-0 mb-3">
@@ -12,7 +12,7 @@
 				</div>
 			</div>
 		</div> -->
-		<div class="card rounded-0 border-0 mb-4">
+		<div class="card rounded border-0 mx-3 mb-3">
 			<div class="card-body">
 				<div class="text-center">
 					<img class="img-fluid px-3 px-sm-5 mt-1 mb-1" style="width: 20rem;" src="<?= base_url('asset/img/mainlogo.jpg') ?>" alt="Main Cards">

@@ -33,15 +33,27 @@
         <h3 class="mb-3 text-primary font-weight-bold">How we implement circular economy</h3>
     </div>
     <!-- Main Content -->
-    <div class="row mb-3 justify-content-center align-items-center text-justify">
-        <div class="col-3 text-center">
+    <div class="row mb-3 justify-content-center text-justify">
+        <div class="col-lg-4 text-center align-items-start">
             <img src="<?= base_url('asset/') ?>img/circular_1.jpg" class="my-4 rounded img-fluid" style="width: 40rem;">
         </div>
-        <div class="col-4 text-dark">
+        <div class="col-lg-4 text-dark">
             <p>Our production facilities incorporate minimum waste philosophy. Every waste ever produced by our production facilities are immidiately sorted based on materials and colors to increase the likelyhood to be recycled. After that, the waste are reprocessed as raw materials to be reused. </p>
             <p class="mb-1">Using this method, we manage to recycle and reuse more than</p>
-            <h1 class="text-primary mb-1">19.5 ton</h1>
+            <h3 class="text-primary font-weight-bold mb-1">19.5 ton</h3>
             <p class="mb-3">of potential plastic waste to the landfill in 2021 alone.</p>
+            <h3 class="font-weight-bold text-primary mb-1">What's next?</h3>
+            <p class="mb-3"> We want to make sure that every plastic products are recycled again into the production line so there's no waste being disposed to our environment.</p>
+            <h5 class="text-primary font-weight-bold mb-1">Plastic Buy Back Programme</h5>
+            <p class="mb-1"> We will buy back plastic waste with the following conditions:</p>
+            <ul class="text-justify">
+                <li>All colors and sizes.</li>
+                <li>No biodegradable agent, it will degrade the plastic raw materials.</li>
+                <li>Free of contaminant such as food waste etc.</li>
+                <li>High-density polyehtylene (HDPE) based is preferable.</li>
+                <li>Other plastic type such as LDPE, PP, and PET are also acceptable.</li>
+            </ul>
+            <p class="mb-1"> We will adjust the price accordingly based on the market supply and demans.</p>
         </div>
     </div>
 </div>
