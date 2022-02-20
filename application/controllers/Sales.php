@@ -72,4 +72,19 @@ class Sales extends CI_Controller
         $this->load->view('sales/salesinfo', $data);
         $this->load->view('templates/footer');
     }
+    //customer list
+    public function customer()
+    {
+        $data['title'] = 'Customer List';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get data
+        $data['customer'] = $this->db->get('customer')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('sales/customer', $data);
+        $this->load->view('templates/footer');
+    }
 }

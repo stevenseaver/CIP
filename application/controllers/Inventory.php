@@ -359,12 +359,12 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('date_acquired', 'date acquired', 'required|trim');
         $this->form_validation->set_rules('position', 'position', 'required|trim');
-        $this->form_validation->set_rules('spec', 'spec', 'required|trim|max_length[4096]');
+        $this->form_validation->set_rules('spec', 'specification', 'required|trim|max_length[4096]');
         $this->form_validation->set_rules('value', 'value', 'required|trim');
         $this->form_validation->set_rules('status', 'status', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure fields sure is incomplete!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);

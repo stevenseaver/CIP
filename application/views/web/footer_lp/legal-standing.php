@@ -27,7 +27,7 @@
     </li>
 
     <li class=" text-dark mx-2 px-3 text-justify">
-        KBLI: 22291 - INDUSTRI BARANG PLASTIK LEMBARAN
+        22291 - INDUSTRI BARANG PLASTIK LEMBARAN
         Nomor Proyek: 202004-2914-2112-3508-770
     </li>
 
@@ -46,6 +46,12 @@
         Jawa Timur, Indonesia 61254
     </p>
 
+    <p class=" text-dark mx-2 px-2 text-justify">
+        Rukun&reg; Registered Number:
+    </p>
+    <p class="text-dark mx-2 px-2 mb-3 text-justify" p>
+        DID2022011228
+    </p>
 </div>
 <!-- /.container-fluid -->
 
