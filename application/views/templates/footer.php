@@ -319,6 +319,38 @@
          $(event.currentTarget).find('.modal-body input[name="delete_user_user"]').val(user);
      });
 
+     //  JavaScript for Edit Customer Data Modal
+     $('#editCustomerModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var id = $(event.relatedTarget).data('id');
+         var name = $(event.relatedTarget).data('name');
+         var address = $(event.relatedTarget).data('address');
+         var phone = $(event.relatedTarget).data('phone');
+         var email = $(event.relatedTarget).data('email');
+         var account = $(event.relatedTarget).data('account');
+         var terms = $(event.relatedTarget).data('terms');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="address"]').val(address);
+         $(event.currentTarget).find('.modal-body input[name="phone_number"]').val(phone);
+         $(event.currentTarget).find('.modal-body input[name="email"]').val(email);
+         $(event.currentTarget).find('.modal-body input[name="account"]').val(account);
+         $(event.currentTarget).find('.modal-body input[name="terms"]').val(terms);
+     });
+
+     //  JavaScript for Delete Customer Data Modal
+     $('#deleteCustomerModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var id = $(event.relatedTarget).data('id');
+         var name = $(event.relatedTarget).data('name');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+     });
+
      //  JavaScript for Reply User Message
      $('#replyModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button

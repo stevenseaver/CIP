@@ -364,7 +364,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('status', 'status', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure fields sure is incomplete!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure fields sure are incomplete!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
