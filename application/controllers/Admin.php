@@ -11,9 +11,10 @@ class Admin extends CI_Controller
 
     public function index()
     {
-        $data['title'] = 'Dashboard';
+        $data['title'] = 'Admin Dashboard';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['employeeLeaveCount'] = $this->db->count_all_results('leave_list');
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

@@ -11,6 +11,20 @@ class User extends CI_Controller
 
     public function index()
     {
+        $data['title'] = 'Dashboard';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['employeeLeaveCount'] = $this->db->count_all_results('leave_list');
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/index', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function my_profile()
+    {
         $data['title'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
@@ -18,7 +32,7 @@ class User extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('user/index', $data);
+        $this->load->view('user/my_profile', $data);
         $this->load->view('templates/footer');
     }
 
@@ -81,7 +95,7 @@ class User extends CI_Controller
             $this->db->update('user', $data);
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profile successfully updated!</div>');
-            redirect('user');
+            redirect('user/my_profile');
         }
     }
 
@@ -92,7 +106,7 @@ class User extends CI_Controller
         $this->session->userdata('nik')])->row_array();
 
         $this->form_validation->set_rules('current_password', 'current password', 'required|trim');
-        $this->form_validation->set_rules('new_password1', 'new password', 'required|trim|min_length[8]|matches[new_password2]');
+        $this->form_validation->set_rules('new_password1', 'new password', 'required|trim|min_length[8]');
         $this->form_validation->set_rules('new_password2', 'repeat password', 'required|trim|min_length[8]|matches[new_password1]');
 
         if ($this->form_validation->run() == false) {

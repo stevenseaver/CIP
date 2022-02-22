@@ -18,7 +18,7 @@
                             <label for="current_password" class="col-sm-4 col-form-label">Old Password</label>
                             <div class="col-sm-8">
                                 <input type="password" class="form-control" id="current_password" name="current_password">
-                                <?= form_error('current_password', '<small class="text-danger pl-3">', '</small>') ?>
+                                <?= form_error('current_password', '<small class="text-danger">', '</small>') ?>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -26,7 +26,7 @@
                             <label for="new_password1" class="col-sm-4 col-form-label">New Password</label>
                             <div class="col-sm-8">
                                 <input type="password" class="form-control" id="new_password1" name="new_password1">
-                                <?= form_error('new_password1', '<small class="text-danger pl-3">', '</small>') ?>
+                                <?= form_error('new_password1', '<small class="text-danger">', '</small>') ?>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -34,7 +34,7 @@
                             <label for="new_password2" class="col-sm-4 col-form-label">Repeat Password</label>
                             <div class="col-sm-8">
                                 <input type="password" class="form-control" id="new_password2" name="new_password2">
-                                <?= form_error('new_password2', '<small class="text-danger pl-3">', '</small>') ?>
+                                <?= form_error('new_password2', '<small class="text-danger">', '</small>') ?>
                             </div>
                         </div>
                         <div class="form-group">

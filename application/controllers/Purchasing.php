@@ -115,4 +115,136 @@ class Purchasing extends CI_Controller
     //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Menu ' . $deletedMenu["menu"] . ' and its submenu deleted!</div>');
     //     redirect('menu');
     // }
+
+    //***                **//
+    //***  Customer list **//
+    //***                **//
+    public function supplier()
+    {
+        $data['title'] = 'Supplier List';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get data
+        $this->load->model('Purchase_model', 'terms_id');
+        $data['supplier'] = $this->terms_id->getTerms();
+        $data['terms'] = $this->db->get('payment_terms')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('purchase/supplier', $data);
+        $this->load->view('templates/footer');
+    }
+    //add supplier data
+    public function add_supplier()
+    {
+        $data['title'] = 'Supplier List';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get data
+        $this->load->model('Purchase_model', 'terms_id');
+        $data['supplier'] = $this->terms_id->getTerms();
+        $data['terms'] = $this->db->get('payment_terms')->result_array();
+
+        //validation
+        $this->form_validation->set_rules('code', 'code', 'trim');
+        $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('address', 'address', 'required|trim');
+        $this->form_validation->set_rules('email', 'email', 'trim|valid_email');
+        $this->form_validation->set_rules('phone_number', 'phone number', 'required|trim');
+        $this->form_validation->set_rules('account', 'account', 'trim');
+        // $this->form_validation->set_rules('terms', 'terms', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some input fields sure are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('purchase/supplier', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $name = $this->input->post('name');
+            $address = $this->input->post('address');
+            $email = $this->input->post('email');
+            $phone_number = $this->input->post('phone_number');
+            $account = $this->input->post('account');
+            $terms = $this->input->post('terms');
+
+            $data = [
+                'name' => $name,
+                'address' => $address,
+                'email' => $email,
+                'phone' => $phone_number,
+                'bank_account' => $account,
+                'terms' => $terms,
+            ];
+            $this->db->insert('supplier', $data);
+            $lastcount = $this->db->insert_id();
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New supplier: ' . $name . ' added!</div>');
+            redirect('purchasing/supplier');
+        }
+    }
+
+    //edit customer data
+    public function edit_supplier()
+    {
+        $data['title'] = 'Supplier List';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get data
+        $this->load->model('Purchase_model', 'terms_id');
+        $data['supplier'] = $this->terms_id->getTerms();
+        $data['terms'] = $this->db->get('payment_terms')->result_array();
+
+        //validation
+        $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('address', 'address', 'required|trim');
+        $this->form_validation->set_rules('email', 'email', 'trim|valid_email');
+        $this->form_validation->set_rules('phone_number', 'phone number', 'required|trim');
+        $this->form_validation->set_rules('account', 'account', 'trim');
+        // $this->form_validation->set_rules('terms', 'terms', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some input fields sure are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('purchase/supplier', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $id = $this->input->post('id');
+            $name = $this->input->post('name');
+            $address = $this->input->post('address');
+            $email = $this->input->post('email');
+            $phone_number = $this->input->post('phone_number');
+            $account = $this->input->post('account');
+            $terms = $this->input->post('terms');
+
+            $data = [
+                'name' => $name,
+                'address' => $address,
+                'email' => $email,
+                'phone' => $phone_number,
+                'bank_account' => $account,
+                'terms' => $terms,
+            ];
+            $this->db->where('id', $id);
+            $this->db->update('supplier', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Customer: ' . $name . ' edited!</div>');
+            redirect('purchasing/supplier');
+        }
+    }
+    //delete an asset
+    public function delete_supplier()
+    {
+        // get item to delete
+        $itemtoDelete = $this->input->post('id');
+        // get data on deleted sub menu
+        $deleteSupplier = $this->db->get_where('supplier', array('id' => $itemtoDelete))->row_array();
+        // delete supplier
+        $this->db->delete('supplier', array('id' => $itemtoDelete));
+        // send message
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Supplier named ' . $deleteSupplier["name"] . ' with ID ' . $deleteSupplier["id"] . ' deleted!</div>');
+        redirect('purchasing/supplier');
+    }
 }
