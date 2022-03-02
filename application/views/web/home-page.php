@@ -18,7 +18,9 @@
 					<img class="img-fluid px-3 px-sm-5 mt-1 mb-1" style="width: 20rem;" src="<?= base_url('asset/img/mainlogo.jpg') ?>" alt="Main Cards">
 					<h1 class="card-title text-primary">Infinite Loop.</h1>
 					<h5 class="card-text">Manufactured. Recycled. Again.</h5>
-					<p class="card-text">Learn how our company manage our production waste using circular economy <a href="<?= base_url('web/lp0_circulatry') ?>"> &rarr;</a></p>
+					<a href="<?= base_url('web/lp0_circulatry') ?>" class="card-text" style="text-decoration:none">
+						<p class="card-text">Learn how our company manage our production waste using circular economy &rarr;
+					</a>
 				</div>
 			</div>
 		</div>
@@ -32,7 +34,7 @@
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 14rem;" src="<?= base_url('asset/') ?>img/stock/undraw_active_options_re_8rj3.svg" alt="High Quality">
 						</div>
 						<h5 class="text-primary">High Quality</h5>
-						<p>Our plastic bag and packaging use carefully selected recycled material with continually improved formula to achieve highest strength possible. </p>
+						<p>Our plastic bag and packaging use carefully selected recycled material with continually improved formula to achieve highest quality possible. </p>
 						<!-- arahkan ke landing page soal high quality -->
 						<a href="<?= base_url('web/lp1_quality') ?>">Learn More &rarr;</a>
 					</div>

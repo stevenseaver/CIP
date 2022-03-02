@@ -30,7 +30,7 @@
     </div>
     <div class="row-lg-12 mb-3 text-center">
         <i class="bi bi-question-circle fa-4x"></i>
-        <h3 class="mb-3 text-primary font-weight-bold">How we implement circular economy</h3>
+        <h3 class="mb-3 text-primary font-weight-bold">How do we implement circular economy?</h3>
     </div>
     <!-- Main Content -->
     <div class="row mb-3 justify-content-center text-justify">
@@ -55,6 +55,9 @@
             </ul>
             <p class="mb-1"> We will adjust the price accordingly based on the market supply and demans.</p>
         </div>
+    </div>
+    <div class="text-center mb-3">
+        <a class="small" href="<?= base_url('web') ?>"> &larr; Back to Home</a>
     </div>
 </div>
 <!-- /.container-fluid -->

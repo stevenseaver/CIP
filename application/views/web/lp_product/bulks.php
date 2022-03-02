@@ -93,6 +93,47 @@
                 </div>
             </div>
         </div>
+        <div class="row mt-3 mx-1">
+            <div class="col-lg-6 mb-1">
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Loss Hitam</h1>
+            </div>
+            <div class="col-lg-6 mb-1 d-flex justify-content-end align-items-center">
+                <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kantong%20loss%20warna%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20bulk%20colour%20bag%20products?" class="badge badge-success" target="_blank" rel="noopener noreferrer">
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now</a>
+            </div>
+        </div>
+        <div class="row justify-content-left my-1 mx-3">
+            <div class="col-lg-12 card mb-3 border-0">
+                <div class="row no-gutters align-items-top">
+                    <div class="col-md-4 text-center">
+                        <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <!-- <h4 class="card-title text-primary font-weight-bold">Jumbo Bag</h4> -->
+                            <p class="text-dark text-justify">Loss Warna is high-volume colored plastic bag for every-day Indonesian traditional market usage. Loss warna is made from fully recycled plastic pellets for low-cost usage.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
+                            <?php foreach ($spec as $s) : ?>
+                                <?php
+                                if ($s['product_name'] != "Loss Hitam") {
+                                    continue;
+                                } else {
+                                }
+                                ?>
+                                <dl class="row my-3">
+                                    <dt class="col-md-12 text-left mb-1">
+                                        <?= $s["specification"] ?>
+                                    </dt>
+                                    <dd class="col-md-12 text-dark">
+                                        <?= $s["items"] ?>
+                                    </dd>
+                                </dl>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- /.container-fluid -->

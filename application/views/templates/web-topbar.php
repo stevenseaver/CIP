@@ -3,15 +3,15 @@
 
     <!-- Main Content -->
     <div id="content">
-
         <!-- Topbar -->
+        <!-- <img class="img-fluid" style="width: 14rem;" src="<?= base_url('asset/') ?>img/blob.svg" alt="This is a blob."> -->
         <nav class="mx-3 my-3 navbar rounded navbar-expand-lg fixed-top navbar-dark bg-primary mb-4">
             <!-- Topbar - Brand -->
             <a class="navbar-brand d-flex align-items-center justify-content-center" href="<?= base_url('web') ?>">
                 <div class="navbar-brand-icon ml-2">
                     <i class="fas fa-recycle"></i>
                 </div>
-                <div class="navbar-brand-text mx-2 text-white font-weight-bold">UD. Cakra Inti Plastik</div>
+                <div class="navbar-brand-text mx-2 text-white font-weight-bold">CIP</div>
             </a>
             <!-- Toggler -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
