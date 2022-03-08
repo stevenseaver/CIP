@@ -12,15 +12,15 @@
             <p>In our current economy, we take resources from the mother nature, manufactured a product (with its corresponding wastes), people buy it and throw it as a waste eventually. Its linear, and all the waste has to go somewhere right? Well guess what, they went to the ocean. This practice is not sustainable and harming our planet. With circular economy, we thrive to revolutionize the industry for the better and made it more circular, more sustainable.
             </p>
             <div class="row justify-content-center text-center my-2">
-                <div class="col-3">
+                <div class="col-lg-3">
                     <i class="bi bi-sort-numeric-down-alt fa-3x text-danger"></i>
                     <p class="nav-label">Reducing Waste</p>
                 </div>
-                <div class="col-3 mx-2">
+                <div class="col-lg-3 mx-2">
                     <i class="bi bi-recycle fa-3x text-primary"></i>
                     <p class="nav-label">Circulate Products</p>
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3">
                     <i class="bi bi-tree fa-3x text-success"></i>
                     <p class="nav-label">Regenerate Nature</p>
                 </div>

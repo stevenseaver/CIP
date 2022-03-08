@@ -40,13 +40,13 @@
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="<?= base_url('auth/forgotpassword') ?>">Forgot Password? &rarr;</a>
+                                    <small>Don't have an account? <a href="<?= base_url('auth/registration') ?>">Create an Account! &rarr;</a></small>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="<?= base_url('auth/registration') ?>">Create an Account! &rarr;</a>
+                                    <small>Forgot your password? <a href="<?= base_url('auth/forgotpassword') ?>">Forgot Password? &rarr;</a></small>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="<?= base_url('web') ?>"> &larr; Back to Home</a>
+                                    <a class="small" href="<?= base_url('web') ?>"> &larr; Back to Web Page</a>
                                 </div>
                             </div>
                         </div>

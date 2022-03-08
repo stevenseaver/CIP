@@ -17,7 +17,7 @@ class Web extends CI_Controller
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/web-topbar', $data);
 		$this->load->view('web/home-page', $data);
-		$this->load->view('templates/web-footer');
+		$this->load->view('templates/homepage-footer');
 	}
 
 	//load view product
