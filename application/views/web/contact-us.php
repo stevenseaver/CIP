@@ -22,7 +22,7 @@
                             <i class="bi bi-telephone fa-3x mb-3"></i>
                             <p class="text-primary mb-0">+6231-801-1529</p>
                             <p class="text-secondary mb-0">Monday - Friday</p>
-                            <p class="text-secondary mb-0">08.00 - 16.00 (WIB/GMT+7)</p>
+                            <p class="text-secondary mb-0">08.30 - 16.00 (WIB/GMT+7)</p>
                         </div>
                     </div>
                     <div class="row py-3 justify-content-center">
@@ -30,12 +30,16 @@
                             <i class="bi bi-envelope fa-3x mb-3"></i>
                             <p class="text-primary mb-0">cs.sbplastik@gmail.com</p>
                             <p class="text-secondary mb-0">Monday - Friday</p>
-                            <p class="text-secondary mb-0">08.00 - 16.00 (WIB/GMT+7)</p>
+                            <p class="text-secondary mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
+                            <a href="mailto:cs.sbplastik@gmail.com" class="text-dark" target="_blank" rel="noopener noreferrer">
+                                <p class="text-primary mb-0">E-mail us &rarr; </p>
+                            </a>
                         </div>
                         <div class="col-lg-5 py-3 px-3 text-center">
                             <i class="bi bi-whatsapp fa-3x mb-3"></i>
                             <p class="text-primary mb-0">+62822-3205-7755</p>
                             <p class="text-secondary mb-0">Steven</p>
+                            <p class="text-secondary mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
                             <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" target="_blank" rel="noopener noreferer" class="">Chat on WhatsApp! &rarr; </a>
                         </div>
                     </div>
