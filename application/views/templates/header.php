@@ -36,6 +36,30 @@
         text-orange {
             color: #FF8333;
         }
+
+        @media all and (max-width: 2880px) {
+            .desktop {
+                display: block;
+            }
+
+            .mobile {
+                display: none;
+            }
+        }
+
+        @media all and (max-width: 991px) {
+            .desktop {
+                display: none;
+            }
+
+            .mobile {
+                display: block;
+            }
+        }
+
+        .clickable {
+            cursor: pointer;
+        }
     </style>
 </head>
 

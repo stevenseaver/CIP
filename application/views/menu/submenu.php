@@ -54,9 +54,9 @@
                                             } ?>
                                         </td>
                                         <td>
-                                            <a data-toggle="modal" data-target="#editsubmenumodal" class="badge badge-primary text-white" data-sub_id="<?= $sm['id'] ?>" data-title="<?= $sm['title'] ?>" data-menu_id="<?= $sm['menu_id'] ?>" data-url="<?= $sm['url'] ?>" data-icon="<?= $sm['icon'] ?>">Edit</a>
-                                            <a href="<?= base_url('menu/toggleactive/') . $sm['id'] . '/' . $sm['is_active'] . '/' . urldecode($sm['title']) ?>" class="badge badge-success">Toggle Active</a>
-                                            <a data-toggle="modal" data-target="#deleteSubMenuModal" class="badge badge-danger text-white" data-sub_id="<?= $sm['id'] ?>" data-title="<?= $sm['title'] ?>" data-menu_id="<?= $sm['menu_id'] ?>" data-url="<?= $sm['url'] ?>" data-icon="<?= $sm['icon'] ?>">Delete</a>
+                                            <a data-toggle="modal" data-target="#editsubmenumodal" class="badge badge-primary text-white clickable" data-sub_id="<?= $sm['id'] ?>" data-title="<?= $sm['title'] ?>" data-menu_id="<?= $sm['menu_id'] ?>" data-url="<?= $sm['url'] ?>" data-icon="<?= $sm['icon'] ?>">Edit</a>
+                                            <a href="<?= base_url('menu/toggleactive/') . $sm['id'] . '/' . $sm['is_active'] . '/' . urldecode($sm['title']) ?>" class="badge badge-success clickable">Toggle Active</a>
+                                            <a data-toggle="modal" data-target="#deleteSubMenuModal" class="badge badge-danger text-white clickable" data-sub_id="<?= $sm['id'] ?>" data-title="<?= $sm['title'] ?>" data-menu_id="<?= $sm['menu_id'] ?>" data-url="<?= $sm['url'] ?>" data-icon="<?= $sm['icon'] ?>">Delete</a>
                                         </td>
                                     </tr>
                                     <?php $i++; ?>

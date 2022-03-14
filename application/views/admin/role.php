@@ -37,7 +37,7 @@
                                         <td><?= $r['role']; ?></td>
                                         <td>
                                             <a href="<?= base_url('admin/roleaccess') . '/' . $r['id'] ?>" class="badge badge-warning">Access</a>
-                                            <a data-toggle="modal" data-target="#editRoleModal" class="badge badge-primary text-white" data-id="<?= $r['id']; ?>" data-role="<?= $r['role']; ?>">Edit</a>
+                                            <a data-toggle="modal" data-target="#editRoleModal" class="badge badge-primary text-white clickable" data-id="<?= $r['id']; ?>" data-role="<?= $r['role']; ?>">Edit</a>
                                             <a href=" <?= base_url('admin/deleterole') . '/' . $r['id'] ?>" class="badge badge-danger">Delete</a>
                                         </td>
                                     </tr>

@@ -142,6 +142,7 @@ class Auth extends CI_Controller
             'smtp_host' => 'ssl://smtp.googlemail.com',
             'smtp_user' => 'cipsbp.donotreply@gmail.com',
             'smtp_pass' => 'adminganteng1?',
+            // 'smtp_pass' => 'tsgzbffdmcjrmzfk',
             'smtp_port' => 465,
             'mailtype'  => 'html',
             'charset'   => 'utf-8',

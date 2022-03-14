@@ -42,8 +42,8 @@
                                         <td><?= $m['url']; ?></td>
                                         <td><?= $m['image']; ?></td>
                                         <td>
-                                            <a data-toggle="modal" data-target="#editProductMenu" class="badge badge-primary text-white" data-id="<?= $m['id'] ?>" data-title="<?= $m['title'] ?>" data-url="<?= $m['url'] ?>" data-icon="<?= $m['image'] ?>">Edit</a>
-                                            <a data-toggle="modal" data-target="#deleteProductMenuModal" class="badge badge-danger text-white" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['title'] ?>">Delete</a>
+                                            <a data-toggle="modal" data-target="#editProductMenu" class="badge badge-primary text-white clickable" data-id="<?= $m['id'] ?>" data-title="<?= $m['title'] ?>" data-url="<?= $m['url'] ?>" data-icon="<?= $m['image'] ?>">Edit</a>
+                                            <a data-toggle="modal" data-target="#deleteProductMenuModal" class="badge badge-danger text-white clickable" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['title'] ?>">Delete</a>
                                         </td>
                                         <?php $i++; ?>
                                     <?php endforeach; ?>

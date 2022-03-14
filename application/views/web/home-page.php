@@ -4,10 +4,10 @@
 		<div class="card rounded border-0 mx-3 mb-3">
 			<div class="card-body">
 				<div class="row align-items-center">
-					<div class="col-lg text-center my-3">
+					<div class="col-lg text-center mt-4">
 						<h1 class="card-title text-primary">Infinite Loop.</h1>
 						<h5 class="card-text">We manufacture. We recycle. We do it for you and Earth.</h5>
-						<a data-toggle="modal" data-target="#circulatryModal" class="card-text" style="text-decoration:none">
+						<a data-toggle="modal" data-target="#circulatryModal" class="card-text clickable">
 							<p class="card-text">Learn how our company manage our production waste using circular economy &rarr;
 						</a>
 					</div>
@@ -17,96 +17,189 @@
 				</div>
 			</div>
 		</div>
-		<!-- Product Gallery Card 1-->
-		<div class="card rounded border-0 mx-3 mb-3">
-			<div class="card-body">
-				<div class="text-center">
-					<div class="row align-items-center">
-						<div class="col-lg text-center">
-							<img class="img-fluid px-3 py-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
-						</div>
-						<div class="col-lg text-center">
-							<h1 class="card-title text-primary mb-2">Rukun Jumbo Bag</h1>
-							<h5 class="card-text mx-5">Made from selected recycled materials. 6 gorgeous colors. Smooth surface. Your perfect options for jumbo bag needs.</h5>
-							<div class="row align-items-center justify-content-center my-4">
-								<div class="col-lg-3">
-									<a href="<?= base_url('products/jumbobag') ?>" class="card-text" style="text-decoration:none">
-										<p class="card-text">Learn more &rarr;
-									</a>
-								</div>
-								<div class="col-lg-3">
-									<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
-										<p class="card-text">Shop &rarr;
-									</a>
+		<div class="desktop">
+			<!-- Product Gallery Card 1-->
+			<div class="card rounded border-0 mx-3 mb-3">
+				<div class="card-body">
+					<div class="text-center">
+						<div class="row align-items-center">
+							<div class="col-lg text-center">
+								<img class="img-fluid px-3 py-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+							</div>
+							<div class="col-lg text-center">
+								<h1 class="card-title text-primary mb-2">Rukun Jumbo Bag</h1>
+								<h5 class="card-text mx-5">Made from selected recycled materials. 6 gorgeous colors. Smooth surface. Your perfect options for jumbo bag needs.</h5>
+								<div class="row align-items-center justify-content-center my-4">
+									<div class="col-lg-4">
+										<a href="<?= base_url('products/jumbobag') ?>" class="card-text" style="text-decoration:none">
+											<p class="card-text">Learn more &rarr;
+										</a>
+									</div>
+									<div class="col-lg-3">
+										<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
+											<p class="card-text">Shop &rarr;
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- Product Gallery Card 2-->
-		<div class="card rounded border-0 mx-3 mb-3">
-			<div class="card-body">
-				<div class="text-center">
-					<div class="row align-items-center">
-						<div class="col-lg text-center my-3">
-							<h1 class="card-title text-primary mb-2">Shopping Bag</h1>
-							<h5 class="card-text mx-5">Strong and durable surface quality. 6 high saturarion colors. Your perfect options for online business shopping bag.</h5>
-							<div class="row align-items-center justify-content-center my-4">
-								<div class="col-lg-3">
-									<a href="<?= base_url('products/shoppingbag') ?>" class="card-text" style="text-decoration:none">
-										<p class="card-text">Learn more &rarr;
-									</a>
-								</div>
-								<div class="col-lg-3">
-									<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
-										<p class="card-text">Shop &rarr;
-									</a>
+			<!-- Product Gallery Card 2-->
+			<div class="card rounded border-0 mx-3 mb-3">
+				<div class="card-body">
+					<div class="text-center">
+						<div class="row align-items-center">
+							<div class="col-lg text-center my-3">
+								<h1 class="card-title text-primary mb-2">Shopping Bag</h1>
+								<h5 class="card-text mx-5">Strong and durable surface quality. 6 high saturarion colors. Your perfect options for online business shopping bag.</h5>
+								<div class="row align-items-center justify-content-center my-4">
+									<div class="col-lg-4">
+										<a href="<?= base_url('products/shoppingbag') ?>" class="card-text" style="text-decoration:none">
+											<p class="card-text">Learn more &rarr;
+										</a>
+									</div>
+									<div class="col-lg-3">
+										<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
+											<p class="card-text">Shop &rarr;
+										</a>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="col-lg text-center">
-							<img class="img-fluid px-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+							<div class="col-lg text-center">
+								<img class="img-fluid px-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- Product Gallery Card 3-->
-		<div class="card rounded border-0 mx-3 mb-3">
-			<div class="card-body">
-				<div class="text-center">
-					<div class="row align-items-center">
-						<div class="col-lg text-center">
-							<img class="img-fluid px-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
-						</div>
-						<div class="col-lg text-center my-3">
-							<h1 class="card-title text-primary mb-2">Rukun Trash Bag</h1>
-							<h5 class="card-text mx-5">Three differnet sizes. Two different colors. To keep your trash tidy.</h5>
-							<div class="row align-items-center justify-content-center my-4">
-								<div class="col-lg-3">
-									<a href="<?= base_url('products/trashbag') ?>" class="card-text" style="text-decoration:none">
-										<p class="card-text">Learn more &rarr;
-									</a>
-								</div>
-								<div class="col-lg-3">
-									<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
-										<p class="card-text">Shop &rarr;
-									</a>
+			<!-- Product Gallery Card 3-->
+			<div class="card rounded border-0 mx-3 mb-3">
+				<div class="card-body">
+					<div class="text-center">
+						<div class="row align-items-center">
+							<div class="col-lg text-center">
+								<img class="img-fluid px-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+							</div>
+							<div class="col-lg text-center my-3">
+								<h1 class="card-title text-primary mb-2">Rukun Trash Bag</h1>
+								<h5 class="card-text mx-5">Three differnet sizes. Two different colors. To keep your trash tidy.</h5>
+								<div class="row align-items-center justify-content-center my-4">
+									<div class="col-lg-4">
+										<a href="<?= base_url('products/trashbag') ?>" class="card-text" style="text-decoration:none">
+											<p class="card-text">Learn more &rarr;
+										</a>
+									</div>
+									<div class="col-lg-3">
+										<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
+											<p class="card-text">Shop &rarr;
+										</a>
+									</div>
 								</div>
 							</div>
-						</div>
 
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- For mobile layout -->
+		<div class="mobile">
+			<!-- Product Gallery Card 1-->
+			<div class="card rounded border-0 mx-3 mb-3">
+				<div class="card-body">
+					<div class="text-center">
+						<div class="row align-items-center">
+							<div class="col-lg text-center mt-4">
+								<h1 class="card-title text-primary mb-2">Rukun Jumbo Bag</h1>
+								<h5 class="card-text mx-5">Made from selected recycled materials. 6 gorgeous colors. Smooth surface. Your perfect options for jumbo bag needs.</h5>
+								<div class="row align-items-center justify-content-center my-4">
+									<div class="col-lg-3">
+										<a href="<?= base_url('products/jumbobag') ?>" class="card-text" style="text-decoration:none">
+											<p class="card-text">Learn more &rarr;
+										</a>
+									</div>
+									<div class="col-lg-3">
+										<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
+											<p class="card-text">Shop &rarr;
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg text-center">
+								<img class="img-fluid px-3 py-1" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Product Gallery Card 2-->
+			<div class="card rounded border-0 mx-3 mb-3">
+				<div class="card-body">
+					<div class="text-center">
+						<div class="row align-items-center">
+							<div class="col-lg text-center mt-4">
+								<h1 class="card-title text-primary mb-2">Shopping Bag</h1>
+								<h5 class="card-text mx-5">Strong and durable surface quality. 6 high saturarion colors. Your perfect options for online business shopping bag.</h5>
+								<div class="row align-items-center justify-content-center my-4">
+									<div class="col-lg-3">
+										<a href="<?= base_url('products/shoppingbag') ?>" class="card-text" style="text-decoration:none">
+											<p class="card-text">Learn more &rarr;
+										</a>
+									</div>
+									<div class="col-lg-3">
+										<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
+											<p class="card-text">Shop &rarr;
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg text-center">
+								<img class="img-fluid px-3 my-1" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Product Gallery Card 3-->
+			<div class="card rounded border-0 mx-3 mb-3">
+				<div class="card-body">
+					<div class="text-center">
+						<div class="row align-items-center">
+							<div class="col-lg text-center mt-4">
+								<h1 class="card-title text-primary mb-2">Rukun Trash Bag</h1>
+								<h5 class="card-text mx-5">Three differnet sizes. Two different colors. To keep your trash tidy.</h5>
+								<div class="row align-items-center justify-content-center my-4">
+									<div class="col-lg-3">
+										<a href="<?= base_url('products/trashbag') ?>" class="card-text" style="text-decoration:none">
+											<p class="card-text">Learn more &rarr;
+										</a>
+									</div>
+									<div class="col-lg-3">
+										<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
+											<p class="card-text">Shop &rarr;
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg text-center">
+								<img class="img-fluid px-3 my-1" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- Secondary Card -->
+		<div class="container justify-content-center pt-3 my-4">
+			<h3 class="text-primary text-center font-weight-bold mb-3"> Why Choose Us?</h3>
+		</div>
 		<div class="row px-3">
 			<!-- Secondary Value Prop Card #1 -->
 			<div class="col-lg-4">
-				<div class="card border-0 mb-4">
+				<div class="card border-primary mb-3 bg-light" style="border-radius: 50px 20px;">
 					<div class="card-body">
 						<div class="text-center">
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 14rem;" src="<?= base_url('asset/') ?>img/stock/undraw_active_options_re_8rj3.svg" alt="High Quality">
@@ -115,7 +208,7 @@
 						<p>Our plastic bag and packaging use carefully selected recycled material with continually improved formula to achieve highest quality possible. </p>
 						<!-- arahkan ke landing page soal high quality -->
 						<!-- <a href="<?= base_url('web/lp1_quality') ?>">Learn More &rarr;</a> -->
-						<a data-toggle="modal" data-target="#highQualityModal" class="card-text">
+						<a data-toggle="modal" data-target="#highQualityModal" class="card-text clickable">
 							<p class="card-text">Learn more &rarr;
 						</a>
 					</div>
@@ -123,21 +216,23 @@
 			</div>
 			<!-- Secondary Card #2 -->
 			<div class="col-lg-4">
-				<div class="card border-0 mb-4">
+				<div class="card border mb-3 bg-primary" style="border-radius: 50px 20px;">
 					<div class="card-body">
 						<div class="text-center">
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 16rem;" src="<?= base_url('asset/') ?>img/stock/undraw_together_re_a8x4.svg" alt="Eco-mindful">
 						</div>
-						<h5 class="text-primary">Eco-Mindful</h5>
-						<p>We use more than 95% recycled plastic materials, thus helping to reduce plastic waste and promote sustainable circulatory economic. </p>
-						<!-- arahkan ke landing page soal high quality -->
-						<a href="<?= base_url('web/lp2_eco') ?>">Learn More &rarr;</a>
+						<h5 class="text-white">Eco-Mindful</h5>
+						<p class="text-white">We use more than 95% recycled plastic materials, thus helping to reduce plastic waste and promote sustainable circulatory economic. </p>
+						<!-- <a href="<?= base_url('web/lp2_eco') ?>" class="text-white">Learn More &rarr;</a> -->
+						<a data-toggle="modal" data-target="#ecoMindfulModal" class="card-text text-white clickable">
+							<p class="card-text ">Learn more &rarr;
+						</a>
 					</div>
 				</div>
 			</div>
 			<!-- Secondary Card #3 -->
 			<div class="col-lg-4">
-				<div class="card border-0 mb-4">
+				<div class="card border-primary mb-3 bg-light" style="border-radius: 50px 20px;">
 					<div class="card-body">
 						<div class="text-center">
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="<?= base_url('asset/') ?>img/stock/undraw_specs_re_546x.svg" alt="Highly Customizable">
@@ -152,8 +247,8 @@
 		</div>
 		<!-- Value Prop 4 -->
 		<div class="container">
-			<div class="row justify-content-center">
-				<h3 class="text-primary text-center font-weight-bold mb-3"> Why Choose Us?</h3>
+			<div class="container justify-content-center my-4">
+				<h3 class="text-primary text-center font-weight-bold mb-3"> In other words...</h3>
 			</div>
 			<div class="row justify-content-center text-center mt-2 mb-3">
 				<div class="col-lg-3">
@@ -169,8 +264,8 @@
 					<p class="nav-label">Higher Quality Products<sup>1</sup></p>
 				</div>
 				<div class="col-lg-3">
-					<i class="bi bi-geo fa-3x text-warning"></i>
-					<p class="nav-label">Clients Base Across Indonesia</p>
+					<i class="bi bi-recycle fa-3x text-warning"></i>
+					<p class="nav-label">Selected Recycled Materials</p>
 				</div>
 				<div class="col-lg-3">
 					<i class="bi bi-shield-check fa-3x text-danger"></i>
@@ -180,6 +275,8 @@
 		</div>
 	</div>
 	<!-- /container-fluid -->
+
+	</div>
 	<!-- Modal for Primary Value Propostion -->
 	<div class="modal fade" id="circulatryModal" tabindex="-1" aria-labelledby="circulatryModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable modal-xl">
@@ -257,7 +354,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- Modal for Secondary Value Propostion -->
+	<!-- Modal for Secondary Value Propostion 1-->
 	<div class="modal fade" id="highQualityModal" tabindex="-1" aria-labelledby="highQualityModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable modal-xl">
 			<div class="modal-content">
@@ -291,7 +388,7 @@
 										<p class="nav-label">Recycle the Waste</p>
 									</div>
 								</div>
-								<p>Plastic market is volatile, hence a sudden rise (or drop) on material prices can affects finished product's price and/or quality. While other manufacturer reduce their quality when the material price rises, we strive to keep the same quality standards throughout our production batch. Recycled plastic materials also are not quite consistent compared to virgin materials, hence we have to had flexible manufacturing formula to create a better uniformity in our finished products quality to ensure customer's satisfaction</p>
+								<p>Plastic market is volatile, hence a sudden rise (or drop) on material prices can affects finished product's price and/or quality. While other manufacturer reduce their quality when the material price rises, we strive to keep the same quality standards throughout our production batch. Recycled plastic materials also are not quite consistent compared to virgin materials, hence we have to had flexible manufacturing formula to create a better uniformity in our finished products quality to ensure customer's satisfaction.</p>
 								<p>Maintaining product quality requires robust and cost-effective production method. In the start of production process, we formulate best possible materials based on our previous batch archive. Then we run a production trial to see if the product's quality is acceptable. During our production processes, we incorporate Kaizen, a continual improvement on product's quality and minimizing waste wherever possible. And we also have 8 series of Quality Control measures; one QC checkpoint from production trial, 3 on extrution process, 3 on cutting and packaging process, and one more on outgoing process.</p>
 								<p>With extensive production method, how are we able to maintain our cost-effective jargon? By recycling and reusing our waste of course. In 2021 alone, we manage to save more than 19.6 ton of plastic waste that otherwise would've been thrown to industrial landfill. We successfully sort all the production waste and recycle it into a usable raw materials, hence reducing both the production cost and our environmental impact.</p>
 							</div>
@@ -321,5 +418,63 @@
 			</div>
 		</div>
 	</div>
+	<!-- Modal for Secondary Value Propostion 2-->
+	<div class="modal fade" id="ecoMindfulModal" tabindex="-1" aria-labelledby="ecoMindfulModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable modal-xl">
+			<div class="modal-content">
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<div class="container-fluid mt-3">
+						<!-- Begin Page Content -->
+						<div class="row-lg-12 mb-3 text-center">
+							<i class="bi bi-tree text-success fa-4x"></i>
+							<h3 class="mb-3 text-primary font-weight-bold">Ecological. There's logic in it. </h3>
+						</div>
+						<!-- Page Body -->
+						<div class="row justify-content-center text-justify pt-1">
+							<!-- Content -->
+							<div class="col-lg-12 mb-1 text-dark">
+								<p>Unlike our biodegradable counterparts, our products are made from recycled plastic material and can be recycled perpetually. There are three main sources of our materials:
+								</p>
+								<div class="row justify-content-center text-center my-2">
+									<div class="col-lg-3">
+										<i class="bi bi-trash fa-2x text-success"></i>
+										<p class="nav-label">Our Own Waste</p>
+									</div>
+									<div class="col-lg-3 mx-2">
+										<i class="bi bi-recycle fa-2x text-success"></i>
+										<p class="nav-label">Recyled Plastic Sources</p>
+									</div>
+									<div class="col-lg-3 mx-2">
+										<i class="bi bi-grid-3x3-gap fa-2x text-primary"></i>
+										<p class="nav-label">Virgin Plastic Sources</p>
+									</div>
+								</div>
+								<!-- Donut Chart -->
+								<div class="col-xl-4 col-lg-5">
+									<div class="chart-pie pt-4">
+										<canvas id="myPieChart"></canvas>
+									</div>
+								</div>
+								<p>We actively use recycled materials for our production, creating demand for recycled plastic materials from our vicinity. Our suppliers have recycling capacities of up to 10.000 tons per month. With this effort, we hope that we can reduce the number of plastic bag thrown into the ocean in particular and our environment in general. </p>
+								<p>We also believe that recycled plastic is better than any biodegradable solution. This is because biodegradable plastics are not recycleable and break down into smaller microplastic that won't be degrade just like any other plastic.<sup>1</sup>. This will create further problems to our environment since microplastics are very small and very hard to detect with just naked eye, while basic plastic products can be recycled on and on using the correct collection and waste handling methods. Hence, the current plastic problems can be solved with proper circular economy implementation.</p>
+								<h4 class="text-primary font-weight-bold">Recycle for the environment. Be responsible and smart.</h4>
+							</div>
+						</div>
+						<div class="text-center mb-3">
+							<a class="small" href="<?= base_url('web') ?>"> &larr; Back to Home</a>
+						</div>
+						<div class="row justify-content-front mx-1">
+							<small>
+								1. Wei, Xin-Feng et al. 2021. Microplastic generated from a biodegradable plastic in freshwater and seawater. Jorunal of Water Research Vol. 198: Elsevier Ltd.
+							</small>
+						</div>
+					</div>
+					<!-- /container-fluid -->
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- End of Main Content -->
