@@ -225,7 +225,6 @@ class Inventory extends CI_Controller
         $data['title'] = 'Finished Goods Warehouse';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['rollType'] = $this->db->get('stock_roll')->result_array();
         //get finished good database
         $data['finishedStock'] = $this->db->get('stock_finishedgoods')->result_array();
         //join warehouse database 
@@ -289,6 +288,7 @@ class Inventory extends CI_Controller
             $status1 = 1; //stock awal
             $status2 = 7; //stock akhir
             $warehouse = $this->input->post('warehouse');
+
             //intital stock
             $data1 = [
                 'name' => $name,
@@ -310,9 +310,107 @@ class Inventory extends CI_Controller
 
             $this->db->insert('stock_finishedgoods', $data1);
             $this->db->insert('stock_finishedgoods', $data2);
+
+            //cek jika ada gambar yang akan di upload
+            $upload_image = $_FILES['image']['name'];
+
+            if ($upload_image) {
+                $config['upload_path']          = './asset/img/products/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 5120;
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('picture', 'asset/img/products/' . $new_image);
+                    $this->db->where('code', $code);
+                    $this->db->update('stock_finishedgoods');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
+                    redirect('inventory/gbj_wh');
+                }
+            }
+
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New item ' . $name . ' added!</div>');
             redirect('inventory/gbj_wh');
         }
+    }
+
+    public function edit_gbj()
+    {
+        $data['title'] = 'Finished Goods Warehouse';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['rollType'] = $this->db->get('stock_roll')->result_array();
+        //join warehouse database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+
+        //validation
+        $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('code', 'code', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/gbj', $data);
+            $this->load->view('templates/footer');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+        } else {
+            $name = $this->input->post('name');
+            $code = $this->input->post('code');
+
+            //cek jika ada gambar yang akan di upload
+            $upload_image = $_FILES['image']['name'];
+
+            if ($upload_image) {
+                $config['upload_path']          = './asset/img/products/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 5120;
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $old_image = $data['finishedStock']['picture'];
+                    if ($old_image != 'default.jpg') {
+                        unlink(FCPATH . 'asset/img/products/' . $old_image);
+                    }
+
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('picture', 'asset/img/products/' . $new_image);
+                    $this->db->where('code', $code);
+                    $this->db->update('stock_finishedgoods');
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
+                    redirect('inventory/gbj_wh');
+                }
+            }
+
+            //intital stock
+            $data = [
+                'name' => $name,
+                'code' => $code
+            ];
+            $this->db->where('code', $code);
+            $this->db->update('stock_finishedgoods', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $name . ' edited!</div>');
+            redirect('inventory/gbj_wh');
+        }
+    }
+
+    public function delete_gbj()
+    {
+        // get item to delete
+        $itemtoDelete = $this->input->post('delete_code');
+        // get data on deleted sub menu
+        $deletedItem = $this->db->get_where('stock_finishedgoods', array('code' => $itemtoDelete))->row_array();
+        // delete the sub menu
+        $this->db->delete('stock_finishedgoods', array('code' => $itemtoDelete));
+        // send message
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Asset named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
+        redirect('inventory/gbj_wh');
     }
 
     // INVENTORY ASSET

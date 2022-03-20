@@ -17,15 +17,16 @@ class Customer extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         $data['leavetype'] = $this->db->get('leave_type')->result_array();
 
-        //load database for table request per user
-        // $this->db->where('user_nik', $data['user']['nik']);
-        $this->load->model('Leave_model', 'leaveType');
-        $data['leavedata'] = $this->leaveType->getLeaveType();
+        //get finished good database
+        $data['finishedStock'] = $this->db->get('stock_finishedgoods')->result_array();
+        //join warehouse database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('customer/coming-soon', $data);
+        $this->load->view('customer/product_page', $data);
         $this->load->view('templates/footer');
     }
 
@@ -45,7 +46,7 @@ class Customer extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('customer/coming-soon', $data);
+        $this->load->view('customer/cart', $data);
         $this->load->view('templates/footer');
     }
 
