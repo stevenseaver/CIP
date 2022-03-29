@@ -19,7 +19,7 @@
     <!-- Vision -->
     <div class="row justify-content-center align-items-center text-justify pt-1 mb-1">
         <div class="col-lg-10 mb-3 mx-4 text-dark text-center">
-            <div class="card border-0 bg-primary">
+            <div class="card shadow border-0 bg-primary">
                 <div class="card-body text-white">
                     <i class="bi bi-arrow-up-circle fa-2x mb-5"></i>
                     <h4 class="font-weight-bold">Vision</h4>
@@ -27,7 +27,7 @@
                     <!-- Mission -->
                     <div class="row justify-content-center align-items-center pt-1">
                         <div class="col mb-3 mx-1 text-dark text-left">
-                            <div class="card border-0">
+                            <div class="card border-0 shadow">
                                 <div class="card-body">
                                     <i class="bi bi-bucket fa-2x mb-5"></i>
                                     <h5 class="mb-3">Bucket List #1</h5>
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                         <div class="col mb-3 mx-1 text-dark text-left">
-                            <div class="card border-0">
+                            <div class="card border-0 shadow">
                                 <div class="card-body">
                                     <i class="bi bi-bucket fa-2x mb-5"></i>
                                     <h5 class="mb-3">Bucket List #2</h5>
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="col mb-3 mx-1 text-dark text-left">
-                            <div class="card border-0">
+                            <div class="card border-0 shadow">
                                 <div class="card-body">
                                     <i class="bi bi-bucket fa-2x mb-5"></i>
                                     <h5 class="mb-3">Bucket List #3</h5>

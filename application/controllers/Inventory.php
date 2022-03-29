@@ -230,6 +230,7 @@ class Inventory extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        $data['cat'] = $this->db->get('product_category')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -272,6 +273,8 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('code', 'code', 'required|trim');
         $this->form_validation->set_rules('initial_stock', 'initial stock', 'required|trim');
         $this->form_validation->set_rules('warehouse', 'warehouse', 'required|trim');
+        $this->form_validation->set_rules('price', 'price', 'required|trim');
+        $this->form_validation->set_rules('category', 'category', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -284,6 +287,8 @@ class Inventory extends CI_Controller
             $name = $this->input->post('name');
             $code = $this->input->post('code');
             $initial_stock = $this->input->post('initial_stock');
+            $price = $this->input->post('price');
+            $category = $this->input->post('category');
             $date = time();
             $status1 = 1; //stock awal
             $status2 = 7; //stock akhir
@@ -295,6 +300,8 @@ class Inventory extends CI_Controller
                 'code' => $code,
                 'date' => $date,
                 'in_stock' => $initial_stock,
+                'price' => $price,
+                'categories' => $category,
                 'status' => $status1,
                 'warehouse'  => $warehouse
             ];
@@ -303,6 +310,8 @@ class Inventory extends CI_Controller
                 'name' => $name,
                 'code' => $code,
                 'date' => $date,
+                'price' => $price,
+                'categories' => $category,
                 'in_stock' => $initial_stock,
                 'status' => $status2,
                 'warehouse'  => $warehouse
@@ -331,8 +340,41 @@ class Inventory extends CI_Controller
                     redirect('inventory/gbj_wh');
                 }
             }
-
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New item ' . $name . ' added!</div>');
+            redirect('inventory/gbj_wh');
+        }
+    }
+
+    public function adjust_gbj()
+    {
+        $data['title'] = 'Finished Goods Warehouse';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['rollType'] = $this->db->get('stock_roll')->result_array();
+        //join warehouse database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+
+        //validation
+        $this->form_validation->set_rules('adjust_amount', 'stock amount', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/gbj', $data);
+            $this->load->view('templates/footer');
+            $this->session->set_flashdata('message_adjust', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+        } else {
+            $name = $this->input->post('adjust_name');
+            $code = $this->input->post('adjust_code');
+            $amount = $this->input->post('adjust_amount');
+            $data = [
+                'in_stock' => $amount
+            ];
+            $this->db->where('code', $code);
+            $this->db->update('stock_finishedgoods', $data, 'status = 7');
+            $this->session->set_flashdata('message_adjust', '<div class="alert alert-success" role="alert">Item ' . $name . ' adjusted!</div>');
             redirect('inventory/gbj_wh');
         }
     }
@@ -350,6 +392,8 @@ class Inventory extends CI_Controller
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('code', 'code', 'required|trim');
+        $this->form_validation->set_rules('price', 'price', 'required|trim');
+        $this->form_validation->set_rules('category', 'category', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -361,6 +405,8 @@ class Inventory extends CI_Controller
         } else {
             $name = $this->input->post('name');
             $code = $this->input->post('code');
+            $price = $this->input->post('price');
+            $category = $this->input->post('category');
 
             //cek jika ada gambar yang akan di upload
             $upload_image = $_FILES['image']['name'];
@@ -391,7 +437,8 @@ class Inventory extends CI_Controller
             //intital stock
             $data = [
                 'name' => $name,
-                'code' => $code
+                'price' => $price,
+                'categories' => $category
             ];
             $this->db->where('code', $code);
             $this->db->update('stock_finishedgoods', $data);

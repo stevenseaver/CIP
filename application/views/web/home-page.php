@@ -1,7 +1,7 @@
 	<!-- Begin Page Content -->
 	<div class="no-gutter pt-5 mt-5 bg-light">
 		<!-- Core Value Prop 1 -->
-		<div class="card rounded border-0 mx-3 mb-3">
+		<div class="card shadow rounded border-0 mx-3 mb-3">
 			<div class="card-body">
 				<div class="row align-items-center">
 					<div class="col-lg text-center mt-4">
@@ -19,12 +19,12 @@
 		</div>
 		<div class="desktop">
 			<!-- Product Gallery Card 1-->
-			<div class="card rounded border-0 mx-3 mb-3">
+			<div class="card shadow rounded border-0 mx-3 mb-3">
 				<div class="card-body">
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center">
-								<img class="img-fluid px-3 py-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+								<img class="img-fluid rounded px-3 py-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
 							</div>
 							<div class="col-lg text-center">
 								<h1 class="card-title text-primary mb-2">Rukun Jumbo Bag</h1>
@@ -47,7 +47,7 @@
 				</div>
 			</div>
 			<!-- Product Gallery Card 2-->
-			<div class="card rounded border-0 mx-3 mb-3">
+			<div class="card shadow rounded border-0 mx-3 mb-3">
 				<div class="card-body">
 					<div class="text-center">
 						<div class="row align-items-center">
@@ -75,7 +75,7 @@
 				</div>
 			</div>
 			<!-- Product Gallery Card 3-->
-			<div class="card rounded border-0 mx-3 mb-3">
+			<div class="card shadow rounded border-0 mx-3 mb-3">
 				<div class="card-body">
 					<div class="text-center">
 						<div class="row align-items-center">
@@ -107,7 +107,7 @@
 		<!-- For mobile layout -->
 		<div class="mobile">
 			<!-- Product Gallery Card 1-->
-			<div class="card rounded border-0 mx-3 mb-3">
+			<div class="card shadow rounded border-0 mx-3 mb-3">
 				<div class="card-body">
 					<div class="text-center">
 						<div class="row align-items-center">
@@ -128,14 +128,14 @@
 								</div>
 							</div>
 							<div class="col-lg text-center">
-								<img class="img-fluid px-3 py-1" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+								<img class="img-fluid rounded px-3 py-1" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- Product Gallery Card 2-->
-			<div class="card rounded border-0 mx-3 mb-3">
+			<div class="card shadow rounded border-0 mx-3 mb-3">
 				<div class="card-body">
 					<div class="text-center">
 						<div class="row align-items-center">
@@ -156,14 +156,14 @@
 								</div>
 							</div>
 							<div class="col-lg text-center">
-								<img class="img-fluid px-3 my-1" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+								<img class="img-fluid rounded px-3 my-1" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- Product Gallery Card 3-->
-			<div class="card rounded border-0 mx-3 mb-3">
+			<div class="card shadow rounded border-0 mx-3 mb-3">
 				<div class="card-body">
 					<div class="text-center">
 						<div class="row align-items-center">
@@ -184,7 +184,7 @@
 								</div>
 							</div>
 							<div class="col-lg text-center">
-								<img class="img-fluid px-3 my-1" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+								<img class="img-fluid rounded px-3 my-1" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
 							</div>
 						</div>
 					</div>

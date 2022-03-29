@@ -8,7 +8,7 @@
 
     <div class="row">
         <div class="col-lg-7">
-            <div class="card border-0 mb-3">
+            <div class="card shadow border-0 mb-3">
                 <div class="card-body">
                     <div class="row py-3 justify-content-center">
                         <div class="col py-3 text-center">
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="col-lg-5">
-            <div class="card border-0 mb-3">
+            <div class="card shadow border-0 mb-3">
                 <div class="card-body">
                     <h5 class="mx-0 mb-3 font-weight-bold text-primary">Or, you can just drop your inquiries here!</h5>
                     <?= $this->session->flashdata('message'); ?>

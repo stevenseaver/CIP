@@ -5,6 +5,7 @@
     <h1 class="h3 mb-4 text-dark font-weight-bold"><?= $title ?></h1>
     <div class="row">
         <div class="col mb-0">
+            <?= $this->session->flashdata('message_adjust'); ?>
             <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
@@ -18,6 +19,7 @@
 
     <div class="card border-left-primary mb-3">
         <div class="row mx-4 my-3">
+            <h5 class="mx-0 mb-3 font-weight-bold text-primary">Product List</h5>
             <div class="table-responsive">
                 <div class="table-responsive">
                     <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -27,9 +29,10 @@
                                 <th>Finished Good</th>
                                 <th>Code</th>
                                 <th>Date</th>
-                                <th>Stock(Kg)</th>
+                                <th>Price</th>
+                                <th>Category</th>
+                                <th>Stock</th>
                                 <th>Warehouse</th>
-                                <th>Status</th>
                                 <th>Picture</th>
                                 <th>Action</th>
                             </tr>
@@ -48,15 +51,21 @@
                                     <td><?= $fs['name'] ?></td>
                                     <td><?= $fs['code'] ?></td>
                                     <td><?= date('d F Y H:i:s', $fs['date']); ?></td>
-                                    <td><?= $fs['in_stock'] ?></td>
+                                    <td><?= number_format($fs['price'], 0, ',', '.'); ?></td>
+                                    <td><?= $fs['categories_name'] ?></td>
+                                    <td><?php
+                                        if ($fs['categories_name'] != 'Bulk Products') {
+                                            echo $fs['in_stock'] . ' pack';
+                                        } else {
+                                            echo $fs['in_stock'] . ' kg';
+                                        } ?></td>
                                     <td><?= $fs['warehouse_name'] ?></td>
-                                    <td><?= $fs['status_name'] ?></td>
                                     <td>
                                         <img class="img-fluid rounded" src="<?= base_url() . $fs['picture'] ?>" alt="Product Image #2" style="width: 15rem;">
                                     <td>
                                         <a href="<?= base_url('inventory/gbj_details/') . $fs['id'] ?>" class="badge badge-primary">Details</a>
-                                        <a href="" class="badge badge-success">Adjust</a>
-                                        <a data-toggle="modal" data-target="#editItemModal" class="badge badge-warning text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>">Edit</a>
+                                        <a data-toggle="modal" data-target="#adjustItemModal" class="badge badge-success text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-success">Adjust</a>
+                                        <a data-toggle="modal" data-target="#editItemModal" class="badge badge-warning text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-price="<?= $fs['price'] ?>">Edit</a>
                                         <a data-toggle="modal" data-target="#deleteItemModal" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-danger clickable">Delete</a>
                                     </td>
                                 </tr>
@@ -68,7 +77,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <!-- /.container-fluid -->
 
@@ -89,23 +97,40 @@
             <div class="modal-body">
                 <?= form_open_multipart('inventory/add_gbj'); ?>
                 <div class="form-group">
-                    <!-- Material name -->
+                    <!-- Item name -->
                     <label for="url" class="col-form-label">Item Name</label>
                     <input type="text" class="form-control mb-1" id="name" name="name" placeholder="Add new item">
                     <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
                 <div class="form-group">
-                    <!-- Material code -->
+                    <!-- Item code -->
                     <label for="url" class="col-form-label">Code</label>
-                    <input type="text" class="form-control mb-1" id="code" name="code" placeholder="Material code">
+                    <input type="text" class="form-control mb-1" id="code" name="code" placeholder="Item code">
                     <small>Item code are permanent, make sure they are correct.</small>
                     <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
                 <div class="form-group">
-                    <!-- Material initial stock -->
+                    <!-- Item initial stock -->
                     <label for="url" class="col-form-label">Initial Stock</label>
                     <input type="text" class="form-control mb-1" id="initial_stock" name="initial_stock" placeholder="Add initial stock">
                     <?= form_error('initial_stock', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class="form-group">
+                    <!-- Item price -->
+                    <label for="url" class="col-form-label">Price</label>
+                    <input type="text" class="form-control mb-1" id="price" name="price" placeholder="Add price">
+                    <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class="form-group">
+                    <!-- Item categories -->
+                    <label for="url" class="col-form-label">Categories</label>
+                    <select name="category" id="category" class="form-control" value="<?= set_value('category') ?>">
+                        <option value="">--Select Categories--</option>
+                        <?php foreach ($cat as $fs) : ?>
+                            <option value="<?= $fs['id'] ?>"><?= $fs['categories_name'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <?= form_error('category', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
                 <div class="form-group">
                     <!-- Warehouse -->
@@ -126,6 +151,46 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Add Item</button>
             </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Adjust Data -->
+<div class="modal fade" id="adjustItemModal" tabindex="-1" aria-labelledby="adjustItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adjustItemModalLabel">Adjust Item Amount</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('inventory/adjust_gbj') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- Name -->
+                        <label for="url" class="col-form-label">Item Name</label>
+                        <input type="text" readonly class="form-control mb-1" id="adjust_name" name="adjust_name" placeholder="Item Name">
+                        <?= form_error('adjust_name', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Code -->
+                        <label for="url" class="col-form-label">Item Code</label>
+                        <input type="text" readonly class="form-control mb-1" id="adjust_code" name="adjust_code" placeholder="Item Code">
+                        <?= form_error('adjust_code', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Stock -->
+                        <label for="url" class="col-form-label">Item Stock</label>
+                        <input type="text" class="form-control mb-1" id="adjust_amount" name="adjust_amount" placeholder="Item Amount">
+                        <?= form_error('adjust_amount', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Adjust</button>
+                </div>
             </form>
         </div>
     </div>
@@ -156,6 +221,23 @@
                     <input type="text" readonly class="form-control mb-1" id="code" name="code" placeholder="Item Code">
                     <small>You can only change item's name.</small>
                     <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class="form-group">
+                    <!-- Item price -->
+                    <label for="url" class="col-form-label">Price</label>
+                    <input type="text" class="form-control mb-1" id="price" name="price" placeholder="Add price">
+                    <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class="form-group">
+                    <!-- Item categories -->
+                    <label for="url" class="col-form-label">Categories</label>
+                    <select name="category" id="category" class="form-control" value="<?= set_value('category') ?>">
+                        <option value="">--Select Categories--</option>
+                        <?php foreach ($cat as $fs) : ?>
+                            <option value="<?= $fs['id'] ?>"><?= $fs['categories_name'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <?= form_error('category', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
                 <div class="form-group">
                     <label for="image" class="col-form-label">Image</label>

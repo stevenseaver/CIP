@@ -56,7 +56,7 @@
                                     <td><?= $inv['date_in'] ?></td>
                                     <td><?= $inv['room_name'] ?></td>
                                     <td><?= $inv['spec'] ?></td>
-                                    <td><?= $inv['value'] ?></td>
+                                    <td><?= number_format($inv['value'], 0, ',', '.') ?></td>
                                     <td><?= $inv['user'] ?></td>
                                     <td>
                                         <?php if ($inv['status'] == 1) {

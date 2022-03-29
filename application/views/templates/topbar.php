@@ -14,7 +14,22 @@
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="<?= base_url('customer/cart') ?>">
+                        <small>Cart</small>
+                        <i class="bi bi-cart-fill fa-fw"></i>
+                        <!-- Counter - Alerts -->
+                        <?php
+                        $cart = $this->cart->total_items();
+                        if ($cart == 0) :
+                        ?>
+                        <?php else : ?>
+                            <span class="badge badge-danger badge-counter"><?= $cart ?></span>
+                        <?php endif; ?>
+                    </a>
+                </li>
 
+                <!-- divider -->
                 <div class="topbar-divider d-none d-sm-block"></div>
 
                 <!-- Nav Item - User Information -->

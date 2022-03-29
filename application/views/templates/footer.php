@@ -406,12 +406,27 @@
      });
 
      //  JavaScript for Edit GBJ item Modal
-     $('#editItemStockModal').on('show.bs.modal', function(event) {
+     $('#editItemModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
-         var name = $(event.relatedTarget).data('amount');
+         var name = $(event.relatedTarget).data('name');
+         var code = $(event.relatedTarget).data('code');
+         var price = $(event.relatedTarget).data('price');
 
          // input passed data using JS to object INPUT inside modal #editModal
-         $(event.currentTarget).find('.modal-body input[name="amount"]').val(amount);
+         $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
+         $(event.currentTarget).find('.modal-body input[name="price"]').val(price);
+     });
+
+     //  JavaScript for Adjust GBJ item Modal
+     $('#adjustItemModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var name = $(event.relatedTarget).data('name');
+         var code = $(event.relatedTarget).data('code');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="adjust_name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="adjust_code"]').val(code);
      });
 
      //  JavaScript for Reply User Message
