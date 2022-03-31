@@ -6,7 +6,7 @@
 				<div class="row align-items-center">
 					<div class="col-lg text-center mt-4">
 						<h1 class="card-title text-primary">Infinite Loop.</h1>
-						<h5 class="card-text">We manufacture. We recycle. We do it for you and Earth.</h5>
+						<h5 class="card-text text-dark">We manufacture. We recycle. We do it for you and Earth.</h5>
 						<a data-toggle="modal" data-target="#circulatryModal" class="card-text clickable">
 							<p class="card-text">Learn how our company manage our production waste using circular economy &rarr;
 						</a>
@@ -28,7 +28,7 @@
 							</div>
 							<div class="col-lg text-center">
 								<h1 class="card-title text-primary mb-2">Rukun Jumbo Bag</h1>
-								<h5 class="card-text mx-5">Made from selected recycled materials. 6 gorgeous colors. Smooth surface. Your perfect options for jumbo bag needs.</h5>
+								<h5 class="card-text mx-5 text-dark">Made from selected recycled materials. 6 gorgeous colors. Smooth surface. Your perfect options for jumbo bag needs.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-4">
 										<a href="<?= base_url('products/jumbobag') ?>" class="card-text" style="text-decoration:none">
@@ -53,7 +53,7 @@
 						<div class="row align-items-center">
 							<div class="col-lg text-center my-3">
 								<h1 class="card-title text-primary mb-2">Shopping Bag</h1>
-								<h5 class="card-text mx-5">Strong and durable surface quality. 6 high saturarion colors. Your perfect options for online business shopping bag.</h5>
+								<h5 class="card-text mx-5 text-dark">Strong and durable surface quality. 6 high saturarion colors. Your perfect options for online business shopping bag.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-4">
 										<a href="<?= base_url('products/shoppingbag') ?>" class="card-text" style="text-decoration:none">
@@ -84,7 +84,7 @@
 							</div>
 							<div class="col-lg text-center my-3">
 								<h1 class="card-title text-primary mb-2">Rukun Trash Bag</h1>
-								<h5 class="card-text mx-5">Three differnet sizes. Two different colors. To keep your trash tidy.</h5>
+								<h5 class="card-text mx-5 text-dark">Three differnet sizes. Two different colors. To keep your trash tidy.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-4">
 										<a href="<?= base_url('products/trashbag') ?>" class="card-text" style="text-decoration:none">
@@ -113,7 +113,7 @@
 						<div class="row align-items-center">
 							<div class="col-lg text-center mt-4">
 								<h1 class="card-title text-primary mb-2">Rukun Jumbo Bag</h1>
-								<h5 class="card-text mx-5">Made from selected recycled materials. 6 gorgeous colors. Smooth surface. Your perfect options for jumbo bag needs.</h5>
+								<h5 class="card-text mx-5 text-dark">Made from selected recycled materials. 6 gorgeous colors. Smooth surface. Your perfect options for jumbo bag needs.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-3">
 										<a href="<?= base_url('products/jumbobag') ?>" class="card-text" style="text-decoration:none">
@@ -128,7 +128,7 @@
 								</div>
 							</div>
 							<div class="col-lg text-center">
-								<img class="img-fluid rounded px-3 py-1" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+								<img class="rounded img-fluid px-3 py-1" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
 							</div>
 						</div>
 					</div>
@@ -141,7 +141,7 @@
 						<div class="row align-items-center">
 							<div class="col-lg text-center mt-4">
 								<h1 class="card-title text-primary mb-2">Shopping Bag</h1>
-								<h5 class="card-text mx-5">Strong and durable surface quality. 6 high saturarion colors. Your perfect options for online business shopping bag.</h5>
+								<h5 class="card-text mx-5 text-dark">Strong and durable surface quality. 6 high saturarion colors. Your perfect options for online business shopping bag.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-3">
 										<a href="<?= base_url('products/shoppingbag') ?>" class="card-text" style="text-decoration:none">
@@ -169,7 +169,7 @@
 						<div class="row align-items-center">
 							<div class="col-lg text-center mt-4">
 								<h1 class="card-title text-primary mb-2">Rukun Trash Bag</h1>
-								<h5 class="card-text mx-5">Three differnet sizes. Two different colors. To keep your trash tidy.</h5>
+								<h5 class="card-text mx-5 text-dark">Three differnet sizes. Two different colors. To keep your trash tidy.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-3">
 										<a href="<?= base_url('products/trashbag') ?>" class="card-text" style="text-decoration:none">
@@ -205,7 +205,7 @@
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 14rem;" src="<?= base_url('asset/') ?>img/stock/undraw_active_options_re_8rj3.svg" alt="High Quality">
 						</div>
 						<h5 class="text-primary">High Quality</h5>
-						<p>Our plastic bag and packaging use carefully selected recycled material with continually improved formula to achieve highest quality possible. </p>
+						<p class="text-dark">Our plastic bag and packaging use carefully selected recycled material with continually improved formula to achieve highest quality possible. </p>
 						<!-- arahkan ke landing page soal high quality -->
 						<!-- <a href="<?= base_url('web/lp1_quality') ?>">Learn More &rarr;</a> -->
 						<a data-toggle="modal" data-target="#highQualityModal" class="card-text clickable">
@@ -238,9 +238,12 @@
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="<?= base_url('asset/') ?>img/stock/undraw_specs_re_546x.svg" alt="Highly Customizable">
 						</div>
 						<h5 class="text-primary">Highly Customizable</h5>
-						<p>Plastic comes with many shape and sizes. Be unique! Customize your own using our plastic bag and packaging design guidlines. </p>
+						<p class="text-dark">Plastic comes with many shape and sizes. Be unique! Customize your own using our plastic bag and packaging design guidlines. </p>
 						<!-- arahkan ke landing page soal high quality -->
-						<a href="<?= base_url('web/lp3_guideline') ?>">Guideline &rarr;</a>
+						<!-- <a href="<?= base_url('web/lp3_guideline') ?>">Guideline &rarr;</a> -->
+						<a data-toggle="modal" data-target="#customizableModal" class="card-text text-primary clickable">
+							<p class="card-text ">Learn more &rarr;
+						</a>
 					</div>
 				</div>
 			</div>
@@ -253,30 +256,60 @@
 			<div class="row justify-content-center text-center mt-2 mb-3">
 				<div class="col-lg-3">
 					<i class="bi bi-arrow-up-circle fa-3x text-primary"></i>
-					<p class="nav-label">Continual Quality Improvement</p>
+					<p class="nav-label text-dark">Continual Quality Improvement</p>
 				</div>
 				<div class="col-lg-3 mx-2">
 					<i class="bi bi-currency-dollar fa-3x text-success"></i>
-					<p class="nav-label">Cost-Effective Products</p>
+					<p class="nav-label text-dark">Cost-Effective Products</p>
 				</div>
 				<div class="col-lg-3">
 					<i class="bi bi-trophy fa-3x text-primary"></i>
-					<p class="nav-label">Higher Quality Products<sup>1</sup></p>
+					<p class="nav-label text-dark">Higher Quality Products<sup>1</sup></p>
 				</div>
 				<div class="col-lg-3">
 					<i class="bi bi-recycle fa-3x text-warning"></i>
-					<p class="nav-label">Selected Recycled Materials</p>
+					<p class="nav-label text-dark">Selected Recycled Materials</p>
 				</div>
 				<div class="col-lg-3">
 					<i class="bi bi-shield-check fa-3x text-danger"></i>
-					<p class="nav-label">Extensive Quality Control</p>
+					<p class="nav-label text-dark">Extensive Quality Control</p>
 				</div>
 			</div>
 		</div>
+		<div class="row justify-content-center">
+			<h3 class="text-primary text-center font-weight-bold mb-1"> So, don't hesitate to visit or contact us.</h3>
+		</div>
+		<div class="row justify-content-center mb-0 mx-3">
+			<p class="text-dark text-center">We would love to sent you our representatives. Or if you want to know us more, you can visit us at our address.</p>
+		</div>
+		<div class="row justify-content-center mb-2">
+			<div class="col-lg-3 py-3 px-3 mb-1 text-center">
+				<i class="bi bi-geo fa-3x mb-3 text-primary"></i>
+				<p class="text-primary mb-0">Pergudangan & Industri Sinar Gedangan A-20</p>
+				<p class="text-dark mb-0">Gedangan, Sidoarjo</p>
+				<p class="text-dark mb-0">East Java, Indonesia 61245</p>
+				<a href="https://goo.gl/maps/zRBAk5gr9dujTFc48" class="" target="_blank">Directions &rarr; </a>
+			</div>
+			<div class="col-lg-3 py-3 px-3 mb-1 text-center">
+				<i class="bi bi-whatsapp fa-3x mb-3 text-success"></i>
+				<p class="text-primary mb-0">+62822-3205-7755</p>
+				<p class="text-dark mb-0">Whatsapp with Steven</p>
+				<p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
+				<a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" target="_blank" rel="noopener noreferer" class="text-success">Contact Us Now <i class="bi bi-whatsapp mr-1"></i> </a>
+			</div>
+			<div class="col-lg-3 py-3 px-3 mb-1 text-center">
+				<i class="bi bi-instagram fa-3x mb-3" style="color: #962fbf"></i>
+				<p class="text-primary mb-0">@sbplastik</p>
+				<p class="text-dark mb-0">Chat on Instagram</p>
+				<p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
+				<a href="https://instagram.com/sbplastik" target="_blank" rel="noopener noreferer" style="color: #962fbf">Chat with us <i class="bi bi-instagram mr-1"></i> </a>
+			</div>
+
+		</div>
+	</div>
 	</div>
 	<!-- /container-fluid -->
 
-	</div>
 	<!-- Modal for Primary Value Propostion -->
 	<div class="modal fade" id="circulatryModal" tabindex="-1" aria-labelledby="circulatryModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable modal-xl">
@@ -321,7 +354,7 @@
 						<!-- Main Content -->
 						<div class="row mb-3 justify-content-center text-justify">
 							<div class="col-lg-4 text-center align-items-start">
-								<img src="<?= base_url('asset/') ?>img/circular_1.jpg" class="my-4 rounded img-fluid" style="width: 40rem;">
+								<img src="<?= base_url('asset/') ?>img/knowledge/circular_1.jpg" class="my-4 rounded img-fluid" style="width: 40rem;">
 							</div>
 							<div class="col-lg-8 text-dark">
 								<p>Our production facilities incorporate minimum waste philosophy. Every waste ever produced by our production facilities are immidiately sorted based on materials and colors to increase the likelyhood to be recycled. After that, the waste are reprocessed as raw materials to be reused. </p>
@@ -347,9 +380,6 @@
 						</div>
 						<!-- /container-fluid -->
 					</div>
-					<!-- <div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Go back</button>
-				</div> -->
 				</div>
 			</div>
 		</div>
@@ -452,14 +482,14 @@
 										<p class="nav-label">Virgin Plastic Sources</p>
 									</div>
 								</div>
-								<!-- Donut Chart -->
-								<div class="col-xl-4 col-lg-5">
-									<div class="chart-pie pt-4">
-										<canvas id="myPieChart"></canvas>
+								<!-- Image Chart -->
+								<div class="row text-center">
+									<div class="col">
+										<img src="<?= base_url('asset/img/knowledge/lp2_eco.png') ?>" class="mb-3 rounded img-fluid text-center" style="width: 22rem;" alt="recycled plastic usage.png">
 									</div>
 								</div>
-								<p>We actively use recycled materials for our production, creating demand for recycled plastic materials from our vicinity. Our suppliers have recycling capacities of up to 10.000 tons per month. With this effort, we hope that we can reduce the number of plastic bag thrown into the ocean in particular and our environment in general. </p>
-								<p>We also believe that recycled plastic is better than any biodegradable solution. This is because biodegradable plastics are not recycleable and break down into smaller microplastic that won't be degrade just like any other plastic.<sup>1</sup>. This will create further problems to our environment since microplastics are very small and very hard to detect with just naked eye, while basic plastic products can be recycled on and on using the correct collection and waste handling methods. Hence, the current plastic problems can be solved with proper circular economy implementation.</p>
+								<p>We actively use recycled more than 40 tons of recycled materials for our production, creating demand for recycled plastic materials from our vicinity. Our suppliers have recycling capacities of up to 10.000 tons per month. With this effort, we hope that we can reduce the number of plastic bag thrown into the ocean in particular and our environment in general. </p>
+								<p>We also believe that recycled plastic is better than any biodegradable solution. This is because biodegradable plastics are not recycleable and under UV-light, they break down into smaller microplastic and side products which are actually toxic for our watersupply<sup>1</sup>. This will create further problems to both us and the environment. On the other hand, recycled plastic products can be recycled perpetually using the correct collection and waste handling methods. Hence, the current plastic problems can be solved with proper circular economy implementation.</p>
 								<h4 class="text-primary font-weight-bold">Recycle for the environment. Be responsible and smart.</h4>
 							</div>
 						</div>
@@ -477,4 +507,46 @@
 			</div>
 		</div>
 	</div>
-	<!-- End of Main Content -->
+	<!-- Modal for Secondary Value Propostion 3-->
+	<div class="modal fade" id="customizableModal" tabindex="-1" aria-labelledby="customizableModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable modal-xl">
+			<div class="modal-content">
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<div class="container-fluid mt-3">
+						<!-- Page Heading -->
+						<div class="row-lg-8 mb-3 text-center">
+							<i class="bi bi-hand-thumbs-up fa-4x"></i>
+							<h3 class="mb-3 text-primary font-weight-bold"><?= $title ?> Products. Only for you. </h3>
+						</div>
+						<!-- Page Body -->
+						<div class="row justify-content-center text-center pt-1 mb-0">
+							<!-- Content -->
+							<div class="col-lg-8 text-dark">
+								<p>Follow our design guidelines to create your unique set of plastic packaging needs.
+								</p>
+								<a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="btn btn-success rounded-pill">
+									<i class="bi bi-whatsapp mr-1"></i>Contact Us Now
+								</a>
+							</div>
+						</div>
+						<div class="row text-center">
+							<div class="col">
+								</p>
+								<img src="<?= base_url('asset/') ?>img/knowledge/dg_1.png" class="mb-1 rounded img-fluid" style="width: 30rem;">
+								<img src="<?= base_url('asset/') ?>img/knowledge/dg_2.png" class="mb-1 rounded img-fluid" style="width: 30rem;">
+							</div>
+						</div>
+						<div class="text-center mb-3">
+							<a class="small" href="<?= base_url('web') ?>"> &larr; Back to Home</a>
+						</div>
+						<!-- /.container-fluid -->
+						<!-- /container-fluid -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End of Main Content -->
+	</div>

@@ -35,7 +35,7 @@
     <!-- Main Content -->
     <div class="row mb-3 justify-content-center text-justify">
         <div class="col-lg-4 text-center align-items-start">
-            <img src="<?= base_url('asset/') ?>img/circular_1.jpg" class="my-4 rounded img-fluid" style="width: 40rem;">
+            <img src="<?= base_url('asset/') ?>img/knowledge/circular_1.jpg" class="my-4 rounded img-fluid" style="width: 40rem;">
         </div>
         <div class="col-lg-4 text-dark">
             <p>Our production facilities incorporate minimum waste philosophy. Every waste ever produced by our production facilities are immidiately sorted based on materials and colors to increase the likelyhood to be recycled. After that, the waste are reprocessed as raw materials to be reused. </p>
@@ -59,8 +59,7 @@
     <div class="text-center mb-3">
         <a class="small" href="<?= base_url('web') ?>"> &larr; Back to Home</a>
     </div>
-</div>
-<!-- /.container-fluid -->
+    <!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->

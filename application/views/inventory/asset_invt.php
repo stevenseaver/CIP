@@ -104,16 +104,14 @@
             </div>
         </div>
     </div>
-
-</div>
-<!-- container-fluid -->
-<script>
-    $('#dataTable').dataTable({
-        "Value": {
-            render: $.fn.dataTable.render.number(',', '.', 0, 'IDR')
-        }
-    });
-</script>
+    <!-- container-fluid -->
+    <script>
+        $('#dataTable').dataTable({
+            "Value": {
+                render: $.fn.dataTable.render.number(',', '.', 0, 'IDR')
+            }
+        });
+    </script>
 
 </div>
 <!-- End of Main Content -->

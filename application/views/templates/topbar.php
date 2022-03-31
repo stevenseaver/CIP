@@ -20,11 +20,11 @@
                         <i class="bi bi-cart-fill fa-fw"></i>
                         <!-- Counter - Alerts -->
                         <?php
-                        $cart = $this->cart->total_items();
-                        if ($cart == 0) :
+                        $amount = $this->cart->total_items();
+                        if ($amount == 0) :
                         ?>
                         <?php else : ?>
-                            <span class="badge badge-danger badge-counter"><?= $cart ?></span>
+                            <span class="badge badge-danger badge-counter"><?= $amount ?></span>
                         <?php endif; ?>
                     </a>
                 </li>

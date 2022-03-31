@@ -33,7 +33,10 @@
         </div>
         <div class="col-lg-2 mb-3">
             <div class="d-sm-flex text-left ">
-                <h5 class="text-dark font-weight-bold">Info</h5>
+                <h5 class="text-dark font-weight-bold">Our Values</h5>
+            </div>
+            <div class="d-sm-flex text-left mb-2">
+                <a href="<?= base_url('web/lp0_circulatry') ?>" target="_blank" class="text-primary">Circular Economy</a>
             </div>
             <div class="d-sm-flex text-left mb-2">
                 <a href="<?= base_url('web/lp1_quality') ?>" target="_blank" class="text-primary">High Quality</a>
@@ -57,8 +60,7 @@
             </div>
         </div>
     </div>
-</div>
-<!-- /.container-fluid -->
+    <!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->

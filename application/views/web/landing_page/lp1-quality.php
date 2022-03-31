@@ -49,8 +49,7 @@
     <div class="text-center mb-3">
         <a class="small" href="<?= base_url('web') ?>"> &larr; Back to Home</a>
     </div>
-</div>
-<!-- /.container-fluid -->
+    <!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->

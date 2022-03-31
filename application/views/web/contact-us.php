@@ -12,22 +12,23 @@
                 <div class="card-body">
                     <div class="row py-3 justify-content-center">
                         <div class="col py-3 text-center">
-                            <i class="bi bi-geo fa-3x mb-3"></i>
+                            <i class="bi bi-geo fa-3x mb-3 text-primary"></i>
                             <p class="text-primary mb-0">Pergudangan dan Industri Sinar Gedangan A-20</p>
                             <p class="text-secondary mb-0">Gedangan, Sidoarjo</p>
                             <p class="text-secondary mb-0">East Java, Indonesia 61245</p>
                             <a href="https://goo.gl/maps/zRBAk5gr9dujTFc48" class="" target="_blank">Directions &rarr; </a>
                         </div>
-                        <div class="col-lg-5 py-3 px-0 text-center">
-                            <i class="bi bi-telephone fa-3x mb-3"></i>
-                            <p class="text-primary mb-0">+6231-801-1529</p>
-                            <p class="text-secondary mb-0">Monday - Friday</p>
-                            <p class="text-secondary mb-0">08.30 - 16.00 (WIB/GMT+7)</p>
+                        <div class="col-lg-5 py-3 px-3 mb-1 text-center">
+                            <i class="bi bi-instagram fa-3x mb-3" style="color: #962fbf"></i>
+                            <p class="text-primary mb-0">@sbplastik</p>
+                            <p class="text-dark mb-0">Chat on Instagram</p>
+                            <p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
+                            <a href="https://instagram.com/sbplastik" target="_blank" rel="noopener noreferer" style="color: #962fbf">Chat with us <i class="bi bi-instagram mr-1"></i> </a>
                         </div>
                     </div>
                     <div class="row py-3 justify-content-center">
                         <div class="col py-3 px-2 text-center">
-                            <i class="bi bi-envelope fa-3x mb-3"></i>
+                            <i class="bi bi-envelope fa-3x mb-3 text-primary"></i>
                             <p class="text-primary mb-0">cs.sbplastik@gmail.com</p>
                             <p class="text-secondary mb-0">Monday - Friday</p>
                             <p class="text-secondary mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
@@ -36,7 +37,7 @@
                             </a>
                         </div>
                         <div class="col-lg-5 py-3 px-3 text-center">
-                            <i class="bi bi-whatsapp fa-3x mb-3"></i>
+                            <i class="bi bi-whatsapp fa-3x mb-3 text-success"></i>
                             <p class="text-primary mb-0">+62822-3205-7755</p>
                             <p class="text-secondary mb-0">Steven</p>
                             <p class="text-secondary mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
@@ -89,8 +90,7 @@
             </div>
         </div>
     </div>
-</div>
-<!-- /.container-fluid -->
+    <!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->

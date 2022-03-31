@@ -51,16 +51,37 @@ class Customer extends CI_Controller
         $this->session->userdata('nik')])->row_array();
 
         //get finished good database
-        $data['finishedStock'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
+        $data['finishedStock'] = $this->db->get('stock_finishedgoods')->result_array();
+        //join warehouse database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
 
-        $cart_data = [
-            'id' => $id,
-            'qty' => '1',
-            'price' => $data['finishedStock']['price'],
-            'name' => $data['finishedStock']['name']
-        ];
+        //get selected item
+        $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
 
-        $this->cart->insert($cart_data);
-        redirect('customer');
+        $this->form_validation->set_rules('amount', 'amount', 'numeric|required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('customer/product_page', $data);
+            $this->load->view('templates/footer');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+        } else {
+            $amount = $this->input->post('amount');
+
+            $data_cart = array(
+                'id' => $id,
+                'qty' => $amount,
+                'price' => $data['itemselect']['price'],
+                'name' => $data['itemselect']['name']
+            );
+
+            $this->cart->insert($data_cart);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item added to cart!</div>');
+
+            redirect('customer');
+        }
     }
 }
