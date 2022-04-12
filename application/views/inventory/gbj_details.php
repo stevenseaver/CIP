@@ -37,7 +37,9 @@
                                 <th>No</th>
                                 <th>Finished Good</th>
                                 <th>Code</th>
-                                <th>Date</th>
+                                <th>Transaction Date</th>
+                                <th>Inbound(Kg)</th>
+                                <th>Outbound(Kg)</th>
                                 <th>Stock(Kg)</th>
                                 <th>Warehouse</th>
                                 <th>Status</th>
@@ -58,6 +60,8 @@
                                     <td><?= $fs['name'] ?></td>
                                     <td><?= $fs['code'] ?></td>
                                     <td><?= date('d F Y H:i:s', $fs['date']); ?></td>
+                                    <td><?= $fs['incoming'] ?></td>
+                                    <td><?= $fs['outgoing'] ?></td>
                                     <td><?= $fs['in_stock'] ?></td>
                                     <td><?= $fs['warehouse_name'] ?></td>
                                     <td><?= $fs['status_name'] ?></td>

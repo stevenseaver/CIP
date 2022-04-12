@@ -19,7 +19,7 @@
     <!-- Vision -->
     <div class="row justify-content-center align-items-center text-justify pt-1 mb-1">
         <div class="col-lg-10 mb-3 mx-4 text-dark text-center">
-            <div class="card shadow border-0 bg-primary">
+            <div class="card shadow border-0 bg-primary py-4">
                 <div class="card-body text-white">
                     <i class="bi bi-arrow-up-circle fa-2x mb-5"></i>
                     <h4 class="font-weight-bold">Vision</h4>
@@ -31,7 +31,8 @@
                                 <div class="card-body">
                                     <i class="bi bi-bucket fa-2x mb-5"></i>
                                     <h5 class="mb-3">Bucket List #1</h5>
-                                    <p>Expand services to meet Indonesian and worldwide recycled plastic bag demand, using technology to deliver best possible services for our clients.</p>
+                                    <p>Advocating plastic recycling movement as a way to sustainably save the environment using circular economy.</p>
+
                                 </div>
                             </div>
                         </div>
@@ -40,7 +41,8 @@
                                 <div class="card-body">
                                     <i class="bi bi-bucket fa-2x mb-5"></i>
                                     <h5 class="mb-3">Bucket List #2</h5>
-                                    <p>Meet our customer expectation by delivering high-quality and reasonably priced products.</p>
+                                    <p>Expand services to meet Indonesian and worldwide recycled plastic bag demand, using technology to deliver best possible services for our clients.</p>
+
                                 </div>
                             </div>
                         </div>
@@ -49,7 +51,7 @@
                                 <div class="card-body">
                                     <i class="bi bi-bucket fa-2x mb-5"></i>
                                     <h5 class="mb-3">Bucket List #3</h5>
-                                    <p>Advocating plastic recycling movement as a way to sustainably save the environment using circular economy.</p>
+                                    <p>Meet our customer expectation by delivering high-quality and reasonably priced products.</p>
                                 </div>
                             </div>
                         </div>
@@ -61,29 +63,29 @@
     <!-- Values -->
     <div class="row justify-content-center align-items-center text-justify pt-1 mb-3">
         <div class="col-lg-10 mb-3 mx-4 text-dark">
-            <div class="card border-0 bg-primary">
-                <div class="card-body text-white text-center">
-                    <i class="bi bi-emoji-laughing fa-2x"></i>
-                    <h4 class="font-weight-bold mb-2">Values</h4>
-                    <p>We upholds our core company values because we believe that what differentiates us from the rest is what we believed in.</p>
+            <div class="card shadow border-0">
+                <div class="card-body text-center py-4">
+                    <i class="bi bi-emoji-laughing fa-2x text-primary"></i>
+                    <h4 class="font-weight-bold mb-2 text-primary">Values</h4>
+                    <p class="text-dark">We upholds our core company values because we believe that what differentiates us from the rest.</p>
                     <!-- value 1 -->
-                    <div class="row justify-content-tops align-items-top pt-1 mb-3">
-                        <div class="col-5">
-                            <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="rounded img-fluid mb-3">
+                    <div class="row align-items-center pt-3 mb-3">
+                        <div class="col-lg-5">
+                            <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="rounded img-fluid mb-3" style="width: 15rem;">
                         </div>
-                        <div class="col-7">
-                            <h5 class="text-left font-weight-bold">Value Number 1</h5>
-                            <p class="text-left">Value Number 1</p>
+                        <div class="col-lg-7 text-center">
+                            <h5 class="font-weight-bold mb-2">Customer satisfaction number 1</h5>
+                            <p class="">Value Number 1</p>
                         </div>
                     </div>
-                    <!-- value 2 -->
-                    <div class="row justify-content-tops align-items-top pt-1 mb-3">
-                        <div class="col-7">
-                            <h5 class="text-right font-weight-bold">Value Number 1</h5>
-                            <p class="text-right">Value Number 1</p>
+                    <!-- value 2 s-->
+                    <div class="row align-items-center pt-3 mb-3">
+                        <div class="col-lg-5">
+                            <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="rounded img-fluid mb-3" style="width: 15rem;">
                         </div>
-                        <div class="col-5">
-                            <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="rounded img-fluid mb-3">
+                        <div class="col-lg-7 text-center">
+                            <h5 class="font-weight-bold mb-2">Value Number 2</h5>
+                            <p class="">Value Number 2</p>
                         </div>
                     </div>
                 </div>

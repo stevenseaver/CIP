@@ -62,12 +62,12 @@ class Customer extends CI_Controller
         $this->form_validation->set_rules('amount', 'amount', 'numeric|required|trim');
 
         if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('customer/product_page', $data);
             $this->load->view('templates/footer');
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
         } else {
             $amount = $this->input->post('amount');
 

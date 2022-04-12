@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col mb-0">
             <?= $this->session->flashdata('message_adjust'); ?>
-            <?= $this->session->flashdata('message'); ?>
+            <?= $this->session->flashdata('msg_failed_gbj'); ?>
         </div>
     </div>
 
@@ -28,7 +28,8 @@
                                 <th>No</th>
                                 <th>Finished Good</th>
                                 <th>Code</th>
-                                <th>Date</th>
+                                <th>Pcs/Pack</th>
+                                <th>Pack/Sack</th>
                                 <th>Price</th>
                                 <th>Category</th>
                                 <th>Stock</th>
@@ -50,7 +51,8 @@
                                     <td><?= $i ?></td>
                                     <td><?= $fs['name'] ?></td>
                                     <td><?= $fs['code'] ?></td>
-                                    <td><?= date('d F Y H:i:s', $fs['date']); ?></td>
+                                    <td><?= $fs['pcsperpack'] . ' pcs' ?></td>
+                                    <td><?= $fs['packpersack'] . ' pack' ?></td>
                                     <td><?= number_format($fs['price'], 0, ',', '.'); ?></td>
                                     <td><?= $fs['categories_name'] ?></td>
                                     <td><?php
@@ -65,7 +67,7 @@
                                     <td>
                                         <a href="<?= base_url('inventory/gbj_details/') . $fs['id'] ?>" class="badge badge-primary">Details</a>
                                         <a data-toggle="modal" data-target="#adjustItemModal" class="badge badge-success text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-success">Adjust</a>
-                                        <a data-toggle="modal" data-target="#editItemModal" class="badge badge-warning text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-price="<?= $fs['price'] ?>">Edit</a>
+                                        <a data-toggle="modal" data-target="#editItemModal" class="badge badge-warning text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-pcs="<?= $fs['pcsperpack'] ?>" data-pack="<?= $fs['packpersack'] ?>" data-price="<?= $fs['price'] ?>">Edit</a>
                                         <a data-toggle="modal" data-target="#deleteItemModal" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-danger clickable">Delete</a>
                                     </td>
                                 </tr>
@@ -108,6 +110,24 @@
                     <input type="text" class="form-control mb-1" id="code" name="code" placeholder="Item code">
                     <small>Item code are permanent, make sure they are correct.</small>
                     <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <!-- Item code -->
+                            <label for="url" class="col-form-label">Amount per pack</label>
+                            <input type="text" class="form-control mb-1" id="pcsperpack" name="pcsperpack" placeholder="Amount per pack">
+                            <?= form_error('pcsperpack', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <!-- Item code -->
+                            <label for="url" class="col-form-label">Pack per sack</label>
+                            <input type="text" class="form-control mb-1" id="packpersack" name="packpersack" placeholder="Pack per sack">
+                            <?= form_error('packpersack', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <!-- Item initial stock -->
@@ -221,6 +241,24 @@
                     <input type="text" readonly class="form-control mb-1" id="code" name="code" placeholder="Item Code">
                     <small>You can only change item's name.</small>
                     <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <!-- Item code -->
+                            <label for="url" class="col-form-label">Amount per pack</label>
+                            <input type="text" class="form-control mb-1" id="pcsperpack" name="pcsperpack" placeholder="Amount per pack">
+                            <?= form_error('pcsperpack', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <!-- Item code -->
+                            <label for="url" class="col-form-label">Pack per sack</label>
+                            <input type="text" class="form-control mb-1" id="packpersack" name="packpersack" placeholder="Pack per sack">
+                            <?= form_error('packpersack', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <!-- Item price -->

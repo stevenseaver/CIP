@@ -8,7 +8,7 @@ class Employee extends CI_Controller
         parent::__construct();
         is_logged_in();
     }
-
+    //leave form
     public function leaveform()
     {
         //load user data per session
@@ -57,7 +57,7 @@ class Employee extends CI_Controller
         $this->form_validation->set_rules('start_date', 'start date', 'trim|required');
         $this->form_validation->set_rules('finish_date', 'finish date', 'trim|required');
         $this->form_validation->set_rules('reason', 'reason', 'trim|required');
-        if ($reason == 1) {
+        if ($type == 1) {
             $this->form_validation->set_rules('proof', 'document', 'required');
         };
 
@@ -101,5 +101,97 @@ class Employee extends CI_Controller
                 }
             }
         }
+    }
+
+    //blog posts
+    public function blogpost()
+    {
+        //load user data per session
+        $data['title'] = 'Blog Posts';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $this->load->model('Blog_model', 'blog_id');
+        //get blog database
+        $data['blogdata'] = $this->blog_id->getBlogStatus();
+        $data['post_type'] = $this->db->get('blog_type')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('employee/blog-post', $data);
+        $this->load->view('templates/footer');
+    }
+
+    //add blog posts
+    public function add_post()
+    {
+        //load user data per session
+        $data['title'] = 'Blog Posts';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $this->load->model('Blog_model', 'blog_id');
+        //get blog database
+        $data['blogdata'] = $this->blog_id->getBlogStatus();
+        $data['post_type'] = $this->db->get('blog_type')->result_array();
+
+        $this->form_validation->set_rules('type', 'post type', 'trim|required');
+        $this->form_validation->set_rules('title', 'post title', 'trim|required');
+        $this->form_validation->set_rules('meta', 'meta title', 'trim|required');
+        $this->form_validation->set_rules('summary', 'summary', 'trim|required');
+        $this->form_validation->set_rules('content', 'content', 'trim|required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('employee/blog-post', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $author = $this->input->post('author_name');
+            $type = $this->input->post('type');
+            $title = $this->input->post('title');
+            $meta = $this->input->post('meta');
+            $summary = $this->input->post('summary');
+            $date_created = time();
+            $date_updated = time();
+            $content = $this->input->post('content');
+
+            $data = [
+                'author_id' => $author,
+                'parent_id' => $type,
+                'title' => $title,
+                'metaTitle' => $meta,
+                'summary' => $summary,
+                'status' => '0',
+                'date_created' => $date_created,
+                'updated_at' => $date_updated,
+                'content' => $content
+            ];
+            $this->db->insert('blogpost', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Post saved!</div>');
+
+            redirect('employee/blogpost');
+        }
+    }
+
+    //blog posts approval
+    public function approve($usertoToggle)
+    {
+        $this->db->set('status', 1);
+        $this->db->where('id', $usertoToggle);
+        $this->db->update('blogpost');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Upload approved!</div>');
+        redirect('employee/blogpost');
+    }
+
+    //blog posts decline
+    public function decline($usertoToggle)
+    {
+        $this->db->set('status', 2);
+        $this->db->where('id', $usertoToggle);
+        $this->db->update('blogpost');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Upload declined!</div>');
+        redirect('employee/blogpost');
     }
 }

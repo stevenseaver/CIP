@@ -63,6 +63,23 @@ class Web extends CI_Controller
 		$this->load->view('templates/web-footer');
 	}
 
+	//load page about Us
+	public function blogs()
+	{
+		$data['title'] = 'Blog';
+		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['blog_type'] = $this->db->get('blog_type')->result_array();
+		$data['blog_content'] = $this->db->get('blogpost')->result_array();
+		$data['products'] = $this->db->get('product_menu')->result_array();
+		$data['user'] = $this->db->get_where('user', ['nik' =>
+		$this->session->userdata('nik')])->row_array();
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/web-topbar', $data);
+		$this->load->view('web/blog', $data);
+		$this->load->view('templates/web-footer');
+	}
+
 	//** Landing Page from Main-Page 				*/
 	//** Content:									*/
 	//** Quality, Eco-Mindful, Highly Customizable 	*/

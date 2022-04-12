@@ -50,12 +50,12 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('warehouse', 'warehouse', 'required|trim');
 
         if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('inventory/material', $data);
             $this->load->view('templates/footer');
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
         } else {
             $material = $this->input->post('name');
             $code = $this->input->post('code');
@@ -150,12 +150,12 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('warehouse', 'warehouse', 'required|trim');
 
         if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('inventory/prod', $data);
             $this->load->view('templates/footer');
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
         } else {
             $name = $this->input->post('name');
             $code = $this->input->post('code');
@@ -267,25 +267,30 @@ class Inventory extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        $data['cat'] = $this->db->get('product_category')->result_array();
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('code', 'code', 'required|trim');
+        $this->form_validation->set_rules('pcsperpack', 'product amount', 'required|trim|numeric');
+        $this->form_validation->set_rules('packpersack', 'product pack/sack', 'required|trim|numeric');
         $this->form_validation->set_rules('initial_stock', 'initial stock', 'required|trim');
         $this->form_validation->set_rules('warehouse', 'warehouse', 'required|trim');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('category', 'category', 'required|trim');
 
         if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('msg_failed_gbj', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('inventory/gbj', $data);
             $this->load->view('templates/footer');
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
         } else {
             $name = $this->input->post('name');
             $code = $this->input->post('code');
+            $pcs = $this->input->post('pcsperpack');
+            $pack = $this->input->post('packpersack');
             $initial_stock = $this->input->post('initial_stock');
             $price = $this->input->post('price');
             $category = $this->input->post('category');
@@ -298,6 +303,9 @@ class Inventory extends CI_Controller
             $data1 = [
                 'name' => $name,
                 'code' => $code,
+                'pcsperpack' => $pcs,
+                'packpersack' => $pack,
+                'code' => $code,
                 'date' => $date,
                 'in_stock' => $initial_stock,
                 'price' => $price,
@@ -309,6 +317,8 @@ class Inventory extends CI_Controller
             $data2 = [
                 'name' => $name,
                 'code' => $code,
+                'pcsperpack' => $pcs,
+                'packpersack' => $pack,
                 'date' => $date,
                 'price' => $price,
                 'categories' => $category,
@@ -354,17 +364,18 @@ class Inventory extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        $data['cat'] = $this->db->get('product_category')->result_array();
 
         //validation
         $this->form_validation->set_rules('adjust_amount', 'stock amount', 'required|trim');
 
         if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message_adjust', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('inventory/gbj', $data);
             $this->load->view('templates/footer');
-            $this->session->set_flashdata('message_adjust', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
         } else {
             $name = $this->input->post('adjust_name');
             $code = $this->input->post('adjust_code');
@@ -388,23 +399,28 @@ class Inventory extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        $data['cat'] = $this->db->get('product_category')->result_array();
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('code', 'code', 'required|trim');
+        $this->form_validation->set_rules('pcsperpack', 'product amount', 'required|trim|numeric');
+        $this->form_validation->set_rules('packpersack', 'product pack/sack', 'required|trim|numeric');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('category', 'category', 'required|trim');
 
         if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('inventory/gbj', $data);
             $this->load->view('templates/footer');
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
         } else {
             $name = $this->input->post('name');
             $code = $this->input->post('code');
+            $pcs = $this->input->post('pcsperpack');
+            $pack = $this->input->post('packpersack');
             $price = $this->input->post('price');
             $category = $this->input->post('category');
 
@@ -437,6 +453,8 @@ class Inventory extends CI_Controller
             //intital stock
             $data = [
                 'name' => $name,
+                'pcsperpack' => $pcs,
+                'packpersack' => $pack,
                 'price' => $price,
                 'categories' => $category
             ];

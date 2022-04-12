@@ -45,7 +45,7 @@
                     <h3 class="text-center mb-1">Many sizes and types.</h3>
                     <a class="text-primary mb-2" href=" <?= base_url() ?>products/plasticbag">Learn more &rarr;</a>
                 </div>
-                <div class="text-center mb-3 mx-4">
+                <div class="text-center mb-4">
                     <img class="img-fluid rounded" src="<?= base_url('asset/') ?>img/products/coin.jpg" alt="Product Image #3" style="width: 20rem;">
                 </div>
             </div>
@@ -57,7 +57,7 @@
                     <h3 class="text-center mb-1">Protects what is good inside.</h3>
                     <a class="text-primary" href=" <?= base_url() ?>products/inner">Learn more &rarr;</a>
                 </div>
-                <div class="text-center mb-3 mx-4">
+                <div class="text-center mb-4">
                     <img class="img-fluid rounded" src="<?= base_url('asset/') ?>img/products/coin.jpg" alt="Product Image #4" style="width: 20rem;">
                 </div>
             </div>

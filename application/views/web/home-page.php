@@ -4,15 +4,15 @@
 		<div class="card shadow rounded border-0 mx-3 mb-3">
 			<div class="card-body">
 				<div class="row align-items-center">
-					<div class="col-lg text-center mt-4">
-						<h1 class="card-title text-primary">Infinite Loop.</h1>
+					<div class="col-lg text-center mt-4 mx-4">
+						<h1 class="card-title text-primary mb-3">Infinite Loop.</h1>
 						<h5 class="card-text text-dark">We manufacture. We recycle. We do it for you and Earth.</h5>
 						<a data-toggle="modal" data-target="#circulatryModal" class="card-text clickable">
-							<p class="card-text">Learn how our company manage our production waste using circular economy &rarr;
+							<p class="card-text mb-3">Learn how our company manage our production waste using circular economy &rarr;
 						</a>
 					</div>
-					<div class="col-lg text-center">
-						<img class="img-fluid px-3 my-0" style="width: 20rem;" src="<?= base_url('asset/img/mainlogo.jpg') ?>" alt="Main Cards">
+					<div class="col-lg text-center mx-3 my-3">
+						<img class="img-fluid rounded" style="width: 35rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
 					</div>
 				</div>
 			</div>
@@ -24,11 +24,11 @@
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center">
-								<img class="img-fluid rounded px-3 py-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+								<img class="img-fluid rounded mx-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
 							</div>
 							<div class="col-lg text-center">
 								<h1 class="card-title text-primary mb-2">Rukun Jumbo Bag</h1>
-								<h5 class="card-text mx-5 text-dark">Made from selected recycled materials. 6 gorgeous colors. Smooth surface. Your perfect options for jumbo bag needs.</h5>
+								<h5 class="card-text mx-4 text-dark">Made from selected recycled materials. 6 gorgeous colors. Smooth surface. Your perfect options for jumbo bag needs.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-4">
 										<a href="<?= base_url('products/jumbobag') ?>" class="card-text" style="text-decoration:none">
@@ -53,7 +53,7 @@
 						<div class="row align-items-center">
 							<div class="col-lg text-center my-3">
 								<h1 class="card-title text-primary mb-2">Shopping Bag</h1>
-								<h5 class="card-text mx-5 text-dark">Strong and durable surface quality. 6 high saturarion colors. Your perfect options for online business shopping bag.</h5>
+								<h5 class="card-text mx-4 text-dark">Strong and durable surface quality. 6 high saturarion colors. Your perfect options for online business shopping bag.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-4">
 										<a href="<?= base_url('products/shoppingbag') ?>" class="card-text" style="text-decoration:none">
@@ -68,7 +68,7 @@
 								</div>
 							</div>
 							<div class="col-lg text-center">
-								<img class="img-fluid px-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+								<img class="img-fluid rounded mx-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
 							</div>
 						</div>
 					</div>
@@ -80,7 +80,7 @@
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center">
-								<img class="img-fluid px-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+								<img class="img-fluid rounded mx-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
 							</div>
 							<div class="col-lg text-center my-3">
 								<h1 class="card-title text-primary mb-2">Rukun Trash Bag</h1>
@@ -112,8 +112,8 @@
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center mt-4">
-								<h1 class="card-title text-primary mb-2">Rukun Jumbo Bag</h1>
-								<h5 class="card-text mx-5 text-dark">Made from selected recycled materials. 6 gorgeous colors. Smooth surface. Your perfect options for jumbo bag needs.</h5>
+								<h1 class="card-title text-primary mb-3">Rukun Jumbo Bag</h1>
+								<h5 class="card-text mx-4 text-dark">Made from selected recycled materials. 6 gorgeous colors. Smooth surface. Your perfect options for jumbo bag needs.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-3">
 										<a href="<?= base_url('products/jumbobag') ?>" class="card-text" style="text-decoration:none">
@@ -127,8 +127,8 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg text-center">
-								<img class="rounded img-fluid px-3 py-1" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+							<div class="col-lg text-center mx-3 my-3">
+								<img class="img-fluid rounded" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
 							</div>
 						</div>
 					</div>
@@ -140,7 +140,7 @@
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center mt-4">
-								<h1 class="card-title text-primary mb-2">Shopping Bag</h1>
+								<h1 class="card-title text-primary mb-3">Shopping Bag</h1>
 								<h5 class="card-text mx-5 text-dark">Strong and durable surface quality. 6 high saturarion colors. Your perfect options for online business shopping bag.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-3">
@@ -155,8 +155,8 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg text-center">
-								<img class="img-fluid rounded px-3 my-1" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+							<div class="col-lg text-center mx-3 my-3">
+								<img class="img-fluid rounded" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
 							</div>
 						</div>
 					</div>
@@ -168,7 +168,7 @@
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center mt-4">
-								<h1 class="card-title text-primary mb-2">Rukun Trash Bag</h1>
+								<h1 class="card-title text-primary mb-3">Rukun Trash Bag</h1>
 								<h5 class="card-text mx-5 text-dark">Three differnet sizes. Two different colors. To keep your trash tidy.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-3">
@@ -183,8 +183,8 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg text-center">
-								<img class="img-fluid rounded px-3 my-1" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+							<div class="col-lg text-center mx-3 my-3">
+								<img class="img-fluid rounded" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
 							</div>
 						</div>
 					</div>
@@ -196,7 +196,7 @@
 		<div class="container justify-content-center pt-3 my-4">
 			<h3 class="text-primary text-center font-weight-bold mb-3"> Why Choose Us?</h3>
 		</div>
-		<div class="row px-3">
+		<div class="row px-3 mx-3 mb-4">
 			<!-- Secondary Value Prop Card #1 -->
 			<div class="col-lg-4">
 				<div class="card border-primary mb-3 bg-light" style="border-radius: 50px 20px;">
@@ -248,10 +248,11 @@
 				</div>
 			</div>
 		</div>
-		<!-- Value Prop 4 -->
-		<div class="container">
-			<div class="container justify-content-center my-4">
-				<h3 class="text-primary text-center font-weight-bold mb-3"> In other words...</h3>
+		<!-- Value propostion last + CTA -->
+		<div class="no-gutter bg-white shadow mt-2 mb-3">
+			<!-- Value Prop 4 -->
+			<div class="row justify-content-center">
+				<h3 class="text-primary text-center font-weight-bold mb-1 pt-2 mt-5">In other words..</h3>
 			</div>
 			<div class="row justify-content-center text-center mt-2 mb-3">
 				<div class="col-lg-3">
@@ -275,38 +276,36 @@
 					<p class="nav-label text-dark">Extensive Quality Control</p>
 				</div>
 			</div>
-		</div>
-		<div class="row justify-content-center">
-			<h3 class="text-primary text-center font-weight-bold mb-1"> So, don't hesitate to visit or contact us.</h3>
-		</div>
-		<div class="row justify-content-center mb-0 mx-3">
-			<p class="text-dark text-center">We would love to sent you our representatives. Or if you want to know us more, you can visit us at our address.</p>
-		</div>
-		<div class="row justify-content-center mb-2">
-			<div class="col-lg-3 py-3 px-3 mb-1 text-center">
-				<i class="bi bi-geo fa-3x mb-3 text-primary"></i>
-				<p class="text-primary mb-0">Pergudangan & Industri Sinar Gedangan A-20</p>
-				<p class="text-dark mb-0">Gedangan, Sidoarjo</p>
-				<p class="text-dark mb-0">East Java, Indonesia 61245</p>
-				<a href="https://goo.gl/maps/zRBAk5gr9dujTFc48" class="" target="_blank">Directions &rarr; </a>
+			<div class="row justify-content-center">
+				<h3 class="text-primary text-center font-weight-bold mb-1 mt-3"> So, don't hesitate to visit or contact us.</h3>
 			</div>
-			<div class="col-lg-3 py-3 px-3 mb-1 text-center">
-				<i class="bi bi-whatsapp fa-3x mb-3 text-success"></i>
-				<p class="text-primary mb-0">+62822-3205-7755</p>
-				<p class="text-dark mb-0">Whatsapp with Steven</p>
-				<p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
-				<a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" target="_blank" rel="noopener noreferer" class="text-success">Contact Us Now <i class="bi bi-whatsapp mr-1"></i> </a>
+			<div class="row justify-content-center mb-0 mx-3">
+				<p class="text-dark text-center">We would love to sent you our representatives. Or if you want to know us more, you can visit us at our address.</p>
 			</div>
-			<div class="col-lg-3 py-3 px-3 mb-1 text-center">
-				<i class="bi bi-instagram fa-3x mb-3" style="color: #962fbf"></i>
-				<p class="text-primary mb-0">@sbplastik</p>
-				<p class="text-dark mb-0">Chat on Instagram</p>
-				<p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
-				<a href="https://instagram.com/sbplastik" target="_blank" rel="noopener noreferer" style="color: #962fbf">Chat with us <i class="bi bi-instagram mr-1"></i> </a>
+			<div class="row justify-content-center pb-5">
+				<div class="col-lg-3 py-3 px-3 mb-1 text-center">
+					<i class="bi bi-geo fa-3x mb-3 text-primary"></i>
+					<p class="text-primary mb-0">Pergudangan & Industri Sinar Gedangan A-20</p>
+					<p class="text-dark mb-0">Gedangan, Sidoarjo</p>
+					<p class="text-dark mb-0">East Java, Indonesia 61245</p>
+					<a href="https://goo.gl/maps/zRBAk5gr9dujTFc48" class="" target="_blank">Directions &rarr; </a>
+				</div>
+				<div class="col-lg-3 py-3 px-3 mb-1 text-center">
+					<i class="bi bi-whatsapp fa-3x mb-3 text-success"></i>
+					<p class="text-primary mb-0">+62822-3205-7755</p>
+					<p class="text-dark mb-0">Whatsapp with Steven</p>
+					<p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
+					<a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" target="_blank" rel="noopener noreferer" class="text-success">Contact us now <i class="bi bi-whatsapp mr-1"></i> </a>
+				</div>
+				<div class="col-lg-3 py-3 px-3 mb-1 text-center">
+					<i class="bi bi-instagram fa-3x mb-3" style="color: #962fbf"></i>
+					<p class="text-primary mb-0">@sbplastik</p>
+					<p class="text-dark mb-0">Chat on Instagram</p>
+					<p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
+					<a href="https://instagram.com/sbplastik" target="_blank" rel="noopener noreferer" style="color: #962fbf">Chat with us <i class="bi bi-instagram mr-1"></i> </a>
+				</div>
 			</div>
-
 		</div>
-	</div>
 	</div>
 	<!-- /container-fluid -->
 
