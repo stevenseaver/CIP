@@ -36,7 +36,6 @@ class Products extends CI_Controller
 
     public function trashbag()
     {
-        // index function, will load home-page
         // data['title'] will serve as title of the page
         $data['title'] = 'Products';
         $data['webmenu'] = $this->db->get('web_menu')->result_array();

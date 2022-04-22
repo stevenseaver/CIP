@@ -433,6 +433,17 @@
          $(event.currentTarget).find('.modal-body input[name="adjust_code"]').val(code);
      });
 
+     //  JavaScript for Delete Blog Post  Modal
+     $('#deletePostModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var id = $(event.relatedTarget).data('id');
+         var title = $(event.relatedTarget).data('title');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="delete_id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="delete_title"]').val(title);
+     });
+
      //  JavaScript for Reply User Message
      $('#replyModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button

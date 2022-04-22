@@ -2,7 +2,7 @@
 <div class="no-gutter pt-4 mt-5 bg-light">
     <div class="row d-flex justify-content-center align-items-center bg-light">
         <?php foreach ($blog_type as $bt) : ?>
-            <a href="" class="nav-link strecthed text-dark text-center pt-3 pb-3 px-4">
+            <a href="<?= base_url() . $bt['url'] ?>" class="nav-link strecthed text-dark text-center pt-3 pb-3 px-4">
                 <figure class="nav-icon <?= $bt['icon']; ?>  fa-2x mb-1"></figure>
                 <span class="nav-label"><?= $bt['type_name']; ?></span>
             </a>
@@ -40,7 +40,7 @@
                                                         echo 'active';
                                                     } else {
                                                     }; ?>">
-                            <img src="<?= base_url('asset/img/blogs/foto1.jpg') ?>" class="img-fluid rounded" style="width: 60rem;" alt="Featured 1">
+                            <img src="<?= base_url('') . $bc["image"] ?>" class="img-fluid rounded" style="width: 60rem;" alt="Featured 1">
                             <div class="carousel-caption d-none d-md-block">
                                 <h4 class="text-white"><?= $bc["title"] ?></h4>
                                 <p><?= $bc["summary"] ?></p>
