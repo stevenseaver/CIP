@@ -218,6 +218,21 @@ class Menu extends CI_Controller
         }
     }
 
+    public function toggleWebMenuActive($webMenuToToggle, $is_active, $name)
+    {
+        if ($is_active == 1) {
+            $this->db->set('is_active', 0);
+            $this->db->where('id', $webMenuToToggle);
+            $this->db->update('web_menu');
+        } else if ($is_active == 0) {
+            $this->db->set('is_active', 1);
+            $this->db->where('id', $webMenuToToggle);
+            $this->db->update('web_menu');
+        }
+        $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">' . urldecode($name) . ' status changed!</div>');
+        redirect('menu/webmenu');
+    }
+
     public function editwebmenu()
     {
         $data['title'] = 'Web Menu Management';

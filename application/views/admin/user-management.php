@@ -39,7 +39,7 @@
                             <th>Name</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>Date of Birth</th>
+                            <th>Date of Birth *)</th>
                             <th>ID Card No.</th>
                             <th>Address</th>
                             <th>Mobile Phone</th>
@@ -48,22 +48,6 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>Role</th>
-                            <th>Name</th>
-                            <th>Username</th>
-                            <th>Email</th>
-                            <th>Date of Birth</th>
-                            <th>ID Card No.</th>
-                            <th>Address</th>
-                            <th>Mobile Phone</th>
-                            <th>Since</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         <?php $i = 1; ?>
                         <?php foreach ($userdata as $u) : ?>
@@ -93,6 +77,7 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <small class="text-primary pb-1">*) Date format is in YYYY-MM-DD</small>
             </div>
         </div>
     </div>

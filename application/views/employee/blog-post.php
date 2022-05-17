@@ -54,13 +54,13 @@
                                         <?php if ($bd['status'] == 1) {
                                             echo '<p class="badge badge-success">Approved</p>';
                                         } else if ($bd['status'] == 0) {
-                                            echo '<p class="badge badge-warning">Reviewed</p>';
+                                            echo '<p class="badge badge-warning">Reviewing</p>';
                                         } else if ($bd['status'] == 2) {
                                             echo '<p class="badge badge-danger">Declined</p>';
                                         } ?>
                                     </td>
                                     <td>
-                                        <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-warning text-white clickable">Edit</a>
+                                        <a data-toggle="modal" data-target="#editPostModal" data-id="<?= $bd['id'] ?>" data-title="<?= $bd['title'] ?>" data-meta="<?= $bd['metaTitle'] ?>" data-summary="<?= $bd['summary'] ?>" data-content="<?= $bd['content'] ?>" class="badge badge-warning clickable">Edit</a>
                                         <a data-toggle="modal" data-target="#deletePostModal" data-id="<?= $bd['id'] ?>" data-title="<?= $bd['title'] ?>" class="badge badge-danger clickable">Delete</a>
                                         <?php
                                         if ($user['role_id'] == '1') { ?>
@@ -92,26 +92,19 @@
                                     <td><?= date('d F Y', $bd['date_created']) ?></td>
                                     <td><?= date('d F Y', $bd['updated_at']) ?></td>
                                     <td><?= $bd['content']; ?></td>
+                                    <td><img class="img-fluid rounded" src="<?= base_url() . $bd['image'] ?>" alt="" style="width: 15rem;"></td>
                                     <td>
                                         <?php if ($bd['status'] == 1) {
                                             echo '<p class="badge badge-success">Approved</p>';
                                         } else if ($bd['status'] == 0) {
-                                            echo '<p class="badge badge-warning">Reviewed</p>';
+                                            echo '<p class="badge badge-warning">Reviewing</p>';
                                         } else if ($bd['status'] == 2) {
                                             echo '<p class="badge badge-danger">Declined</p>';
                                         } ?>
                                     </td>
                                     <td>
-                                        <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-warning text-white clickable">Edit</a>
-                                        <a data-toggle="modal" data-target="#deletePostModal" data-title="<?= $bd['id'] ?>" data-title="<?= $bd['title'] ?>" class="badge badge-danger clickable">Delete</a>
-                                        <?php
-                                        if ($user['role_id'] == '1') { ?>
-                                            <a href="<?= base_url('blog/approve/') . $bd['id'] ?>" class="badge badge-success clickable">Approve Upload</a>
-                                            <a href="<?= base_url('blog/decline/') . $bd['id'] ?>" class="badge badge-danger clickable">Decline Upload</a>
-                                        <?php } else { ?>
-
-                                        <?php }
-                                        ?>
+                                        <a data-toggle="modal" data-target="#editPostModal" data-id="<?= $bd['id'] ?>" data-title="<?= $bd['id'] ?>" data-summary="<?= $bd['summary'] ?>" data-meta="<?= $bd['metaTitle'] ?>" data-content="<?= $bd['content'] ?>" class="badge badge-warning text-white clickable">Edit</a>
+                                        <a data-toggle="modal" data-target="#deletePostModal" data-id="<?= $bd['id'] ?>" data-title="<?= $bd['title'] ?>" class="badge badge-danger clickable">Delete</a>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>
@@ -119,13 +112,13 @@
                         <? } ?>
                     </tbody>
                 </table>
-                <small class="text-primary pb-1">*) Date format is in YYYY-MM-DD</small>
             </div>
         </div>
     </div>
     <!-- /.container-fluid -->
 </div>
 <!-- End of Main Content -->
+
 <!-- Modal For Add Data -->
 <div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -195,6 +188,80 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Save Post</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Edit Data -->
+<div class="modal fade" id="editPostModal" tabindex="-1" aria-labelledby="editPostModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editPostModalLabel">Edit Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?= form_open_multipart('blog/edit_post'); ?>
+                <div class="form-group">
+                    <!-- Post Title -->
+                    <label for="title" class="col-form-label">Post ID</label>
+                    <input readonly type="text" class="form-control" id="id" name="id">
+                    <?= form_error('id', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class=" form-group">
+                    <!-- post type -->
+                    <label for="type" class="col-form-label">Post Type</label>
+                    <div class="mb-1">
+                        <select name="type" id="type" class="form-control" value="<?= set_value('type') ?>">
+                            <option value="">--Select Type--</option>
+                            <?php foreach ($post_type as $type) : ?>
+                                <option value="<?= $type['id'] ?>"><?= $type['type_name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <?= form_error('type', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <!-- Post Title -->
+                    <label for="title" class="col-form-label">Post Title</label>
+                    <input type="text" class="form-control" id="title" name="title">
+                    <?= form_error('title', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class="form-group">
+                    <!-- Meta Title -->
+                    <label for="meta" class="col-form-label">Meta Title</label>
+                    <input type="meta" class="form-control" id="meta" name="meta">
+                    <?= form_error('meta', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class="form-group">
+                    <!-- Summary -->
+                    <label for="summary" class="col-form-label">Summary</label>
+                    <input type="text" class="form-control" id="summary" name="summary">
+                    <?= form_error('summary', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class="form-group">
+                    <!-- Content -->
+                    <label for="content" class="col-form-label">Content</label>
+                    <textarea type="text" class="form-control" id="content" name="content"></textarea>
+                    <?= form_error('content', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class="form-group">
+                    <label for="image" class="col-form-label">Image</label>
+                    <div class="custom-file">
+                        <!-- Image -->
+                        <input type="file" class="custom-file-input" id="image" name="image">
+                        <label class="custom-file-label" for="image">Choose file</label>
+                        <small class="text-primary">Maximum 5 MB</small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Edit</button>
             </div>
             </form>
         </div>

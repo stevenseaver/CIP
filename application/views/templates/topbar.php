@@ -20,7 +20,7 @@
                         <i class="bi bi-cart-fill fa-fw"></i>
                         <!-- Counter - Alerts -->
                         <?php
-                        $amount = $this->cart->total_items();
+                        $amount = 0;
                         if ($amount == 0) :
                         ?>
                         <?php else : ?>

@@ -44,7 +44,7 @@
                             <div class="carousel-caption d-none d-md-block">
                                 <h4 class="text-white"><?= $bc["title"] ?></h4>
                                 <p><?= $bc["summary"] ?></p>
-                                <a href="#" class="text-white">Learn more &rarr; </a>
+                                <a href="<?= base_url('blog/content/') . $bc["id"]  ?>" class="text-white">Read more &rarr; </a>
                             </div>
                         </div>
                     <?php $i++;
@@ -64,15 +64,20 @@
     <?php foreach ($blog_content as $bc) : ?>
         <?php
         if ($bc['parent_id'] == "1") {
-            continue;
+            if ($bc['status'] == "0") {
+                continue;
+            } else {
+            }
         } else {
-        } ?>
+        }
+        ?>
         <div class="row justify-content-center my-2 mx-3">
-            <div class="col-lg-8 align-items-center card mb-3 border-0 shadow px-0">
+            <div class="col-lg-8 align-items-center  mb-3 border-0 shadow px-0">
                 <div class="card-body text-left">
-                    <h5 class="card-title font-weight-bold"><?= $bc["title"] ?></h5>
+                    <h5 class="card-title mb-1 text-primary font-weight-bold"><?= $bc["title"] ?></h5>
+                    <p class="card-subtitle mb-4 text-muted"><?= date('d F Y', $bc["date_created"]); ?></p>
                     <h6 class="card-subtitle mb-2 text-muted"><?= $bc["summary"] ?></h6>
-                    <a href="#" class="card-link">Read more &rarr; </a>
+                    <a href="<?= base_url('blog/content/') . $bc["id"]  ?>" class="card-link">Read more &rarr; </a>
                 </div>
             </div>
         </div>

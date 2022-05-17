@@ -22,6 +22,11 @@
                 <!-- Topbar Navbar Items for Menu-->
                 <ul class="navbar-nav ml-auto">
                     <?php foreach ($webmenu as $wm) : ?>
+                        <?php
+                        if ($wm['is_active'] != "1") {
+                            continue;
+                        } else {
+                        } ?>
                         <?php if ($title == $wm['title']) : ?>
                             <li class="nav-item active">
                             <?php else : ?>

@@ -35,6 +35,8 @@ class Customer extends CI_Controller
         $data['title'] = 'Cart';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        //get cart database
+        $data['dataCart'] = $this->db->get('cart')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -72,13 +74,15 @@ class Customer extends CI_Controller
             $amount = $this->input->post('amount');
 
             $data_cart = array(
-                'id' => $id,
+                'item_id' => $id,
+                'customer' => $data['user']['name'],
                 'qty' => $amount,
+                'name' => $data['itemselect']['name'],
                 'price' => $data['itemselect']['price'],
-                'name' => $data['itemselect']['name']
+                'subtotal' => $data['itemselect']['price'] * $amount
             );
 
-            $this->cart->insert($data_cart);
+            $this->db->insert('cart', $data_cart);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item added to cart!</div>');
 
             redirect('customer');

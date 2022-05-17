@@ -48,9 +48,9 @@
                                         <td><?= $sm['icon']; ?></td>
                                         <td>
                                             <?php if ($sm['is_active']) {
-                                                echo 'Active';
+                                                echo '<p class="badge badge-success">Active</p>';
                                             } else {
-                                                echo 'Not Active';
+                                                echo '<p class="badge badge-danger">Not Active</p>';
                                             } ?>
                                         </td>
                                         <td>
