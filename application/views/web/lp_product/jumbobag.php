@@ -33,13 +33,25 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                    <img src="<?= base_url('asset/img/webpage/5. Jumbo RK 40X65/1.png') ?>" class="my-4 rounded img-fluid">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                    <img src="<?= base_url('asset/img/webpage/5. Jumbo RK 40X65/merah.png') ?>" class="my-4 rounded img-fluid">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                    <img src="<?= base_url('asset/img/webpage/5. Jumbo RK 40X65/putih.png') ?>" class="my-4 rounded img-fluid">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="<?= base_url('asset/img/webpage/5. Jumbo RK 40X65/hitam.png') ?>" class="my-4 rounded img-fluid">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="<?= base_url('asset/img/webpage/5. Jumbo RK 40X65/kuning.png') ?>" class="my-4 rounded img-fluid">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="<?= base_url('asset/img/webpage/5. Jumbo RK 40X65/hijau.png') ?>" class="my-4 rounded img-fluid">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="<?= base_url('asset/img/webpage/5. Jumbo RK 40X65/biru.png') ?>" class="my-4 rounded img-fluid">
                                 </div>
                             </div>
                             <button class="carousel-control-prev border-0 bg-transparent" type="button" data-target="#carouselJumbo" data-slide="prev">
@@ -100,13 +112,16 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                    <img src="<?= base_url('asset/img/webpage/3. Gemah 55X80/12.png') ?>" class="my-4 rounded img-fluid">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                    <img src="<?= base_url('asset/img/webpage/3. Gemah 55X80/merah.png') ?>" class="my-4 rounded img-fluid">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                    <img src="<?= base_url('asset/img/webpage/3. Gemah 55X80/hijau.png') ?>" class="my-4 rounded img-fluid">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="<?= base_url('asset/img/webpage/3. Gemah 55X80/kuning.png') ?>" class="my-4 rounded img-fluid">
                                 </div>
                             </div>
                             <button class="carousel-control-prev border-0 bg-transparent" type="button" data-target="#carouselGemah" data-slide="prev">

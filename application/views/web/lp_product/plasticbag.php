@@ -35,7 +35,7 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                    <img src="<?= base_url('asset/img/webpage/2. Plastic Bag/1.png') ?>" class="my-4 rounded img-fluid">
                                 </div>
                                 <div class="carousel-item">
                                     <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
@@ -57,7 +57,7 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Plastic Bag</h4> -->
-                            <p class="text-dark text-justify">Not your ordinary plastic bag, we can create a wide range of plastic bag variety. Rukun&reg; plastic bag can be black, white, red, yellow, green, blue or any other color; made from high-quality fully recycled materials.</p>
+                            <p class="text-dark text-justify">Not your ordinary plastic bag, we can create a wide range of plastic bag variety. Rukun&reg; plastic bags are available in red, white, and black; made from high-quality fully recycled materials.</p>
                             <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php

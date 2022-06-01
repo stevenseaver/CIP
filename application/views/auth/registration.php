@@ -3,7 +3,7 @@
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
-                <div class="row d-flex justify-content-center align-items-center">
+                <div class="row d-flex justify-content-center">
                     <div class="col-lg-5 d-none d-lg-block">
                         <img src="<?= base_url('asset/') ?>img/stock/undraw_Account_re_o7id.svg" class="img-fluid mx-3 d-block mt-5">
                     </div>

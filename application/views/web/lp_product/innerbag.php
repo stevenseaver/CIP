@@ -13,7 +13,7 @@
     <div class="container">
         <div class="row mt-3 mx-1">
             <div class="col-6 mb-1">
-                <h1 class="h3 mb-0 text-primary font-weight-bold">Inner Bag</h1>
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Packing Bag</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kantong%20inner%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20inner%20bag%20products?" class="badge badge-success" target="_blank" rel="noopener noreferrer">
@@ -33,13 +33,10 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                    <img src="<?= base_url('asset/img/webpage/6. Kantong Beras 30X45/4.png') ?> " class="my-4 rounded img-fluid">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                    <img src="<?= base_url('asset/img/webpage/6. Kantong Beras 30X45/5.png') ?>" class="my-4 rounded img-fluid">
                                 </div>
                             </div>
                             <button class="carousel-control-prev border-0 bg-transparent" type="button" data-target="#innerbagCarousel" data-slide="prev">
@@ -55,11 +52,11 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Inner Bag</h4> -->
-                            <p class="text-dark text-justify">Inner lining for your woven bag products, food container, or your other needs. Made from high quality high-density polyethylene for strength mixed with low-density polyethylene for extra flexibility making it suitable for heavy-duty woven bag inner layer application.</p>
+                            <p class="text-dark text-justify">Packing bag for your products, food container, or your other needs. Made from high quality high-density polyethylene for strength mixed with low-density polyethylene for extra flexibility making it suitable for heavy-duty product packaging bag application.</p>
                             <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
-                                if ($s['product_name'] != "Inner Bag") {
+                                if ($s['product_name'] != "Packing Bag") {
                                     continue;
                                 } else {
                                 }

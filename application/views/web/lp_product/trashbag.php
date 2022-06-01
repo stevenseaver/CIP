@@ -33,13 +33,10 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                    <img src="<?= base_url('asset/img/webpage/9. Sampah/1.png') ?>" class="my-4 rounded img-fluid">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                    <img src="<?= base_url('asset/img/webpage/9. Sampah/2.png') ?>" class="my-4 rounded img-fluid">
                                 </div>
                             </div>
                             <button class="carousel-control-prev border-0 bg-transparent" type="button" data-target="#trashbagCarousel" data-slide="prev">
@@ -52,6 +49,7 @@
                             </button>
                         </div>
                     </div>
+
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Trash Bag</h4> -->

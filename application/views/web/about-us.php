@@ -13,7 +13,7 @@
         <div class="col-lg-10 mb-3 mx-4 text-dark">
             <p class="mb-3">UD. Cakra Inti Plastik is a plastic manufacturing company based in Sidoarjo, East Java, Indonesia. We provide a series of recycled plastic product such as plastic bag, shopping bag, trash bag, inner, and many more to come. The plastic bag plant has started operating since 2018, while our company has been empowering plastic recycling since early 2002.
             </p>
-            <p>We believe that recycled products are the future of plastic industry. Every month, our humble company absorbed at least 50 metric tonnes of recycled plastic materials and we aim to increase production capacity and clients by 30% before 2025. With more recycled material used, we hope to take part in minimizing plastic's environmental impact. </p>
+            <p>We believe that recycled products are the future of plastic industry. Every month, our humble company absorbed at least 50 metric ton of recycled plastic materials and we aim to increase production capacity and clients by 30% before 2025. With more recycled material used, we hope to take part in minimizing plastic's environmental impact. </p>
         </div>
     </div>
     <!-- Vision -->
@@ -26,30 +26,39 @@
                     <p>Be a leading recycled plastic products manufacturer by giving high-quality and eco-conscious products.</p>
                     <!-- Mission -->
                     <div class="row justify-content-center align-items-center pt-1">
-                        <div class="col mb-3 mx-1 text-dark text-left">
+                        <div class="col mb-1 mx-1 text-dark text-left">
                             <div class="card border-0 shadow">
                                 <div class="card-body">
-                                    <i class="bi bi-bucket fa-2x mb-5"></i>
+                                    <div class="text-center">
+                                        <img class="img-fluid px-3 " style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_begin_chat_re_v0lw.svg') ?>" alt="BL1"> <br>
+                                    </div>
+                                    <i class="bi bi-bucket fa-2x mb-2"></i>
                                     <h5 class="mb-3">Bucket List #1</h5>
                                     <p>Advocating plastic recycling movement as a way to sustainably save the environment using circular economy.</p>
 
                                 </div>
                             </div>
                         </div>
-                        <div class="col mb-3 mx-1 text-dark text-left">
+                        <div class="col mb-1 mx-1 text-dark text-left">
                             <div class="card border-0 shadow">
                                 <div class="card-body">
-                                    <i class="bi bi-bucket fa-2x mb-5"></i>
+                                    <div class="text-center">
+                                        <img class="img-fluid px-3 " style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_connected_world_wuay.svg') ?>" alt="Quality First"> <br>
+                                    </div>
+                                    <i class="bi bi-bucket fa-2x mb-2"></i>
                                     <h5 class="mb-3">Bucket List #2</h5>
                                     <p>Expand services to meet Indonesian and worldwide recycled plastic bag demand, using technology to deliver best possible services for our clients.</p>
 
                                 </div>
                             </div>
                         </div>
-                        <div class="col mb-3 mx-1 text-dark text-left">
+                        <div class="col mb-1 mx-1 text-dark text-left">
                             <div class="card border-0 shadow">
                                 <div class="card-body">
-                                    <i class="bi bi-bucket fa-2x mb-5"></i>
+                                    <div class="text-center">
+                                        <img class="img-fluid px-3 " style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_completing_re_i7ap.svg') ?>" alt="Quality First"> <br>
+                                    </div>
+                                    <i class="bi bi-bucket fa-2x mb-2"></i>
                                     <h5 class="mb-3">Bucket List #3</h5>
                                     <p>Meet our customer expectation by delivering high-quality and reasonably priced products.</p>
                                 </div>
@@ -69,23 +78,23 @@
                     <h4 class="font-weight-bold mb-2 text-primary">Values</h4>
                     <p class="text-dark">We upholds our core company values because we believe that what differentiates us from the rest.</p>
                     <!-- value 1 -->
-                    <div class="row align-items-center pt-3 mb-3">
-                        <div class="col-lg-5">
-                            <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="rounded img-fluid mb-3" style="width: 15rem;">
+                    <div class="row align-items-center pt-3 mb-0">
+                        <div class="col-lg-4">
+                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_qa_engineers_dg-5-p.svg') ?>" alt="Quality First">
                         </div>
-                        <div class="col-lg-7 text-center">
-                            <h5 class="font-weight-bold mb-2">Customer satisfaction number 1</h5>
-                            <p class="">Value Number 1</p>
+                        <div class="col-lg-8 text-left">
+                            <h5 class="font-weight-bold mb-2 mr-4">Quality Products at Reasonable Price</h5>
+                            <p class="mr-4">Our products is the back bone of the company, carefully manufactured using selected plastic materials to ensure highest quality possible for our customers. All of this are achieved while ensuring reasonable selling price so that our customers can use high quality products with reasonable costs.</p>
                         </div>
                     </div>
                     <!-- value 2 s-->
-                    <div class="row align-items-center pt-3 mb-3">
-                        <div class="col-lg-5">
-                            <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="rounded img-fluid mb-3" style="width: 15rem;">
+                    <div class="row align-items-center mb-3">
+                        <div class="col-lg-4">
+                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_winners_re_wr1l.svg') ?>" alt="Quality First">
                         </div>
-                        <div class="col-lg-7 text-center">
-                            <h5 class="font-weight-bold mb-2">Value Number 2</h5>
-                            <p class="">Value Number 2</p>
+                        <div class="col-lg-8 text-left">
+                            <h5 class="font-weight-bold mb-2">Customer Satisfaction Comes Next</h5>
+                            <p class="mr-4">Proper products at reasonable price paired with good customer service will give customers satisfaction they deserved. We aim to deliver satisfaction to all our customers so that we can create a thriving ecosystem for recycled plastic products.</p>
                         </div>
                     </div>
                 </div>

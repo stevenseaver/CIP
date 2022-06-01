@@ -3,10 +3,10 @@
     <!-- Section: Social media -->
     <section class="d-flex align-items-center justify-content-center justify-content-lg-between p-4 border-bottom mx-2">
         <div class="container text-left text-md-start mt-1">
-            <p class="small">1. Jemblung&reg;, Rukun&reg;, and Gemah&reg; are registered trademark of UD. Cakra Inti Plastik.</p>
+            <p class="small">1. Rukun&reg;, and Gemah&reg; are registered trademark of UD. Cakra Inti Plastik.</p>
             <p class="small">2. Our products are made from select recycled materials, hence some minor differences in characteristic (such as color or clearness) may occur between production batches. This does not affect product's quality and reliability. </p>
             <p class="small">3. We may change the product's specification and price according to market situations without prior notice. Product specifications and actual products may slightly vary depending on production processes and quality enhancement. </p>
-            <p class="small">4. Custom order are available with a minimum order of 750 kg. </p>
+            <p class="small">4. Custom order are available with a minimum order of 500 kg. </p>
         </div>
         <!-- Right -->
     </section>
@@ -122,25 +122,6 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="<?= base_url('auth/logout') ?>">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

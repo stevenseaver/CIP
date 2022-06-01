@@ -31,17 +31,11 @@
                                 <li data-target="#shoppingBagCarousel" data-slide-to="1"></li>
                                 <li data-target="#shoppingBagCarousel" data-slide-to="2"></li>
                             </ol>
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
-                                </div>
-                            </div>
+                            <!-- <div class="carousel-inner">
+                                <div class="carousel-item active"> -->
+                            <img src="<?= base_url('asset/img/webpage/14. Shopping Bag/1.png') ?>" class="my-4 rounded img-fluid">
+                            <!-- </div>
+                            </div> -->
                             <button class="carousel-control-prev border-0 bg-transparent" type="button" data-target="#shoppingBagCarousel" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>

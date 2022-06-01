@@ -12,7 +12,7 @@
 						</a>
 					</div>
 					<div class="col-lg text-center mx-3 my-3">
-						<img class="img-fluid rounded" style="width: 35rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+						<img class="img-fluid rounded" style="width: 35rem;" src="<?= base_url('asset/img/webpage/infinite_loop.png') ?>" alt="Main Cards">
 					</div>
 				</div>
 			</div>
@@ -24,7 +24,7 @@
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center">
-								<img class="img-fluid rounded mx-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+								<img class="img-fluid rounded mx-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/webpage/product_.png') ?>" alt="Main Cards">
 							</div>
 							<div class="col-lg text-center">
 								<h1 class="card-title text-primary mb-2">Rukun Jumbo Bag</h1>
@@ -68,7 +68,7 @@
 								</div>
 							</div>
 							<div class="col-lg text-center">
-								<img class="img-fluid rounded mx-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+								<img class="img-fluid rounded mx-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/webpage/product_2.png') ?>" alt="Main Cards">
 							</div>
 						</div>
 					</div>
@@ -80,7 +80,7 @@
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center">
-								<img class="img-fluid rounded mx-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+								<img class="img-fluid rounded mx-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/webpage/product_3.png') ?>" alt="Main Cards">
 							</div>
 							<div class="col-lg text-center my-3">
 								<h1 class="card-title text-primary mb-2">Rukun Trash Bag</h1>
@@ -128,7 +128,7 @@
 								</div>
 							</div>
 							<div class="col-lg text-center mx-3 my-3">
-								<img class="img-fluid rounded" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+								<img class="img-fluid rounded" style="width: 40rem;" src="<?= base_url('asset/img/webpage/product_.png') ?>" alt="Main Cards">
 							</div>
 						</div>
 					</div>
@@ -156,7 +156,7 @@
 								</div>
 							</div>
 							<div class="col-lg text-center mx-3 my-3">
-								<img class="img-fluid rounded" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+								<img class="img-fluid rounded" style="width: 40rem;" src="<?= base_url('asset/img/webpage/product_2.png') ?>" alt="Main Cards">
 							</div>
 						</div>
 					</div>
@@ -184,7 +184,7 @@
 								</div>
 							</div>
 							<div class="col-lg text-center mx-3 my-3">
-								<img class="img-fluid rounded" style="width: 40rem;" src="<?= base_url('asset/img/products/coin.jpg') ?>" alt="Main Cards">
+								<img class="img-fluid rounded" style="width: 40rem;" src="<?= base_url('asset/img/webpage/product_3.png') ?>" alt="Main Cards">
 							</div>
 						</div>
 					</div>
@@ -202,7 +202,7 @@
 				<div class="card border-primary mb-3 bg-light" style="border-radius: 50px 20px;">
 					<div class="card-body">
 						<div class="text-center">
-							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 14rem;" src="<?= base_url('asset/') ?>img/stock/undraw_active_options_re_8rj3.svg" alt="High Quality">
+							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="<?= base_url('asset/') ?>img/stock/undraw_upgrade_re_gano.svg" alt="High Quality">
 						</div>
 						<h5 class="text-primary">High Quality</h5>
 						<p class="text-dark">Our plastic bag and packaging use carefully selected recycled material with continually improved formula to achieve highest quality possible. </p>
@@ -222,7 +222,7 @@
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 16rem;" src="<?= base_url('asset/') ?>img/stock/undraw_together_re_a8x4.svg" alt="Eco-mindful">
 						</div>
 						<h5 class="text-white">Eco-Mindful</h5>
-						<p class="text-white">We use more than 95% recycled plastic materials, thus helping to reduce plastic waste and promote sustainable circulatory economic. </p>
+						<p class="text-white">We use more than 95% recycled plastic materials, thus helping to reduce plastic waste and promote sustainable circulatory economy. </p>
 						<!-- <a href="<?= base_url('web/lp2_eco') ?>" class="text-white">Learn More &rarr;</a> -->
 						<a data-toggle="modal" data-target="#ecoMindfulModal" class="card-text text-white clickable">
 							<p class="card-text ">Learn more &rarr;
@@ -353,7 +353,7 @@
 						<!-- Main Content -->
 						<div class="row mb-3 justify-content-center text-justify">
 							<div class="col-lg-4 text-center align-items-start">
-								<img src="<?= base_url('asset/') ?>img/knowledge/circular_1.jpg" class="my-4 rounded img-fluid" style="width: 40rem;">
+								<img src="<?= base_url('asset/img/webpage/infinite_loop.png') ?>" class=" my-4 rounded img-fluid" style="width: 40rem;">
 							</div>
 							<div class="col-lg-8 text-dark">
 								<p>Our production facilities incorporate minimum waste philosophy. Every waste ever produced by our production facilities are immidiately sorted based on materials and colors to increase the likelyhood to be recycled. After that, the waste are reprocessed as raw materials to be reused. </p>
@@ -371,7 +371,7 @@
 									<li>High-density polyehtylene (HDPE) is preferable.</li>
 									<li>Other plastic type such as LDPE, PP, and PET are also acceptable.</li>
 								</ul>
-								<p class="mb-1"> We will adjust the price accordingly based on the market supply and demans.</p>
+								<p class="mb-1"> We will adjust the price accordingly based on the market supply and demands.</p>
 							</div>
 						</div>
 						<div class="text-center mb-3">
