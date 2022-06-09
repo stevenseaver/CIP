@@ -5,6 +5,7 @@
     <h1 class="h3 mb-4 text-dark font-weight-bold"><?= $title ?></h1>
     <div class="row">
         <div class="col mb-0">
+            <?= $this->session->flashdata('message'); ?>
             <?= $this->session->flashdata('message_adjust'); ?>
             <?= $this->session->flashdata('msg_failed_gbj'); ?>
         </div>
@@ -57,9 +58,11 @@
                                     <td><?= $fs['categories_name'] ?></td>
                                     <td><?php
                                         if ($fs['categories_name'] != 'Bulk Products') {
-                                            echo $fs['in_stock'] . ' pack';
+                                            echo number_format($fs['in_stock'], 0, ',', '.') . ' pack';
+                                            echo ' or ' . ($fs['in_stock'] / $fs['packpersack']) . ' sack';
                                         } else {
-                                            echo $fs['in_stock'] . ' kg';
+                                            echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
+                                            echo ' or ' . ($fs['in_stock'] / 25) . ' sack';
                                         } ?></td>
                                     <td><?= $fs['warehouse_name'] ?></td>
                                     <td>
@@ -97,7 +100,7 @@
             </div>
             <!-- <form action="<?= base_url('inventory/add_gbj') ?>" method="post"> -->
             <div class="modal-body">
-                <?= form_open_multipart('inventory/add_gbj'); ?>
+                <?= form_open_multipart(base_url('inventory/add_gbj')); ?>
                 <div class="form-group">
                     <!-- Item name -->
                     <label for="url" class="col-form-label">Item Name</label>
@@ -228,7 +231,7 @@
             </div>
             <!-- <form action="<?= base_url('inventory/edit_gbj') ?>" method="post"> -->
             <div class="modal-body">
-                <?= form_open_multipart('inventory/edit_gbj'); ?>
+                <?= form_open_multipart(base_url('inventory/edit_gbj')); ?>
                 <div class="form-group">
                     <!-- Asset Name -->
                     <label for="url" class="col-form-label">Item Name</label>

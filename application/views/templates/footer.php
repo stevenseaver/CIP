@@ -461,6 +461,28 @@
          $(event.currentTarget).find('.modal-body input[name="delete_title"]').val(title);
      });
 
+     //  JavaScript for Adjust GBJ details transaction
+     $('#adjustStock').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var id = $(event.relatedTarget).data('id');
+         var status = $(event.relatedTarget).data('categories');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="categories"]').val(status);
+     });
+
+     //  JavaScript for Adjust GBJ details transaction
+     $('#newTransModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var name = $(event.relatedTarget).data('name');
+         var code = $(event.relatedTarget).data('code');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
+     });
+
      //  JavaScript for Reply User Message
      $('#replyModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button

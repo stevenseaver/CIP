@@ -8,7 +8,7 @@
         <div class="col-lg-8">
             <div class="card border-left-primary mb-3">
                 <div class="card-body">
-                    <?= form_open_multipart('user/edit'); ?>
+                    <?= form_open_multipart(base_url('user/edit')); ?>
                     <div class="form-group row">
                         <!-- edit ERN -->
                         <label for="nik" class="col-sm-3 col-form-label">Username</label>
@@ -73,7 +73,7 @@
                                 <span class="icon text-white-50">
                                     <i class="fas fa-fw fa-user-edit"></i>
                                 </span>
-                                <span class="text">Edit Profile</span></button>
+                                <span class="text">Save Changes</span></button>
                         </div>
                     </div>
                     </form>

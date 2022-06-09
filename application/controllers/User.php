@@ -80,7 +80,7 @@ class User extends CI_Controller
                     $this->db->update('user');
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
-                    redirect('user');
+                    redirect('user/my_profile');
                 }
             }
 

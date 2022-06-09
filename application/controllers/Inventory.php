@@ -225,8 +225,6 @@ class Inventory extends CI_Controller
         $data['title'] = 'Finished Goods Warehouse';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get finished good database
-        $data['finishedStock'] = $this->db->get('stock_finishedgoods')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
@@ -250,6 +248,7 @@ class Inventory extends CI_Controller
         //get item code by using ID as anchor
         $data['getID'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
         $data['code'] = $data['getID']['code'];
+        $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -476,6 +475,169 @@ class Inventory extends CI_Controller
         // send message
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Asset named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
         redirect('inventory/gbj_wh');
+    }
+
+    public function add_trans_gbj($id)
+    {
+        $data['title'] = 'Finished Goods Invt. Transactions';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //join warehouse database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        //get item code by using ID as anchor
+        $data['getID'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
+        $data['code'] = $data['getID']['code'];
+        $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
+
+        $this->form_validation->set_rules('code', 'code', 'required|trim');
+        $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('status', 'categories', 'required|trim');
+        $this->form_validation->set_rules('amount', 'amount', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/gbj_details', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $code = $this->input->post('code');
+            $name = $this->input->post('name');
+            $transaction_status = $this->input->post('status');
+            $amount = $this->input->post('amount');
+            $category = $data['getID']['categories'];
+            $date = time();
+            $warehouse = 3;
+
+            $in_stockOld = $data['getID']['in_stock'];;
+
+            if ($transaction_status == 3 or $transaction_status == 5) {
+                $data = [
+                    'name' => $name,
+                    'code' => $code,
+                    'status' => $transaction_status,
+                    'incoming' => $amount,
+                    'categories' => $category,
+                    'date' => $date,
+                    'warehouse' => $warehouse
+                ];
+                $data2 = [
+                    'in_stock' => $in_stockOld + $amount
+                ];
+            } else {
+                $data = [
+                    'name' => $name,
+                    'code' => $code,
+                    'status' => $transaction_status,
+                    'outgoing' => $amount,
+                    'categories' => $category,
+                    'date' => $date,
+                    'warehouse' => $warehouse
+                ];
+                $data2 = [
+                    'in_stock' => $in_stockOld - $amount
+                ];
+            }
+
+            $this->db->insert('stock_finishedgoods', $data);
+
+            $this->db->where('code', $code);
+            $this->db->update('stock_finishedgoods', $data2, 'status = 7');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Transaction for item ' . $name . ' with transaction type of ' . $transaction_status . ' adjusted!</div>');
+            redirect('inventory/gbj_details/' . $id);
+        }
+    }
+
+    public function adjust_details_gbj($id)
+    {
+        $data['title'] = 'Finished Goods Invt. Transactions';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //join warehouse database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        //get item code by using ID as anchor
+        $data['getID'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
+        $data['code'] = $data['getID']['code'];
+        $code = $data['code'];
+
+        $this->form_validation->set_rules('categories', 'categories', 'required|trim');
+        $this->form_validation->set_rules('adjust_amount', 'adjust_amount', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops, something is are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/gbj_details', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $idToEdit = $this->input->post('id');
+            $category = $this->input->post('categories');
+            $adjust_amount = $this->input->post('adjust_amount');
+
+            $data['stockOld'] = $this->db->get_where('stock_finishedgoods', ['id' => $idToEdit])->row_array();
+
+            $stock_awal_before = $data['stockOld']['in_stock']; //stock awal sebelumnya
+            $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
+
+            $data['stockAdjust'] = $this->db->get_where('stock_finishedgoods', ['id' => $idToEdit])->row_array();
+            if ($category == 'Production' or $category == 'Return Sales') {
+                $stock_adjust_before = $data['stockAdjust']['incoming']; //stock adjustment transaksi sebelum di edit
+            } else {
+                $stock_adjust_before = $data['stockAdjust']['outgoing']; //stock adjustment transaksi sebelum di edit
+            }
+
+            echo $stock_adjust_before;
+
+            if ($category == 'Saldo Akhir') {
+                $this->db->set('in_stock', $adjust_amount);
+                $this->db->where('id', $idToEdit);
+                $this->db->update('stock_finishedgoods');
+            }
+            if ($category == 'Saldo Awal') {
+                $this->db->set('in_stock', $adjust_amount);
+                $this->db->where('id', $idToEdit);
+                $this->db->update('stock_finishedgoods');
+
+                $data2 = [
+                    'in_stock' => $stock_end_before + ($adjust_amount - $stock_awal_before)
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->update('stock_finishedgoods', $data2, 'status = 7');
+            } else {
+                if ($category == 'Production' or $category == 'Return Sales') {
+                    $this->db->set('incoming', $adjust_amount);
+                    $this->db->where('id', $idToEdit);
+                    $this->db->update('stock_finishedgoods');
+
+                    $data2 = [
+                        'in_stock' => $stock_end_before + ($adjust_amount - $stock_adjust_before)
+                    ];
+
+                    $this->db->where('code', $code);
+                    $this->db->update('stock_finishedgoods', $data2, 'status = 7');
+                } else {
+                    $this->db->set('outgoing', $adjust_amount);
+                    $this->db->where('id', $idToEdit);
+                    $this->db->update('stock_finishedgoods');
+
+                    $data2 = [
+                        'in_stock' => $stock_end_before + ($adjust_amount - $stock_adjust_before)
+                    ];
+
+                    $this->db->where('code', $code);
+                    $this->db->update('stock_finishedgoods', $data2, 'status = 7');
+                }
+            }
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $code .  ' adjusted!</div>');
+            redirect('inventory/gbj_details/' . $id);
+        }
     }
 
     // INVENTORY ASSET
