@@ -68,7 +68,18 @@
                                         <td><?= $fs['warehouse_name'] ?></td>
                                         <td><?= $fs['status_name'] ?></td>
                                         <td>
-                                            <a href="" class="badge badge-success" data-toggle="modal" data-target="#adjustStock" data-categories="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>">Edit</a>
+                                            <?php
+                                            if ($fs['status_name'] == 'Saldo Awal' or $fs['status_name'] == 'Saldo Akhir') { ?>
+                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustStock" data-categories="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>">Edit</a>
+                                            <?php } else { ?>
+                                                <?php if ($fs['status_name'] == 'Production' or $fs['status_name'] == 'Return Sales') { ?>
+                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustStock" data-categories="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>">Edit</a>
+                                                    <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteTransaction" data-cat="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-amount="<?= $fs['incoming'] ?>">Delete</a>
+                                                <?php } else { ?>
+                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustStock" data-categories="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>">Edit</a>
+                                                    <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteTransaction" data-cat="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-amount="<?= $fs['outgoing'] ?>">Delete</a>
+                                                <?php } ?>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                 <?
@@ -122,7 +133,7 @@
                         <select name="status" id="status" class="form-control" value="<?= set_value('status') ?>">
                             <option value="">--Select Transactions--</option>
                             <?php foreach ($transactionStatus as $ts) : ?>
-                                <?php if ($ts['status_id'] != 1 and $ts['status_id'] != 2 and $ts['status_id'] != 7) {
+                                <?php if ($ts['status_id'] != 1 and $ts['status_id'] != 2 and $ts['status_id'] != 7 and $ts['status_id'] != 6) {
                                 ?> <option value="<?= $ts['status_id'] ?>"><?= $ts['status_name']; ?></option>
                                 <?
                                 } else {
@@ -182,6 +193,46 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Adjust</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Delete Transaction -->
+<div class="modal fade" id="deleteTransaction" tabindex="-1" role="dialog" aria-labelledby="deleteTransactionLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteTransactionLabel">Whoops!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">You're about to delete this item. Are you sure?</p>
+            <form action="<?= base_url('inventory/delete_gbj_trans/') . $getID['id']  ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- item id -->
+                        <label for="url" class="col-form-label">ID</label>
+                        <input type="text" class="form-control mb-1" id="delete_trans_id" name="delete_trans_id" readonly>
+                        <!-- item name -->
+                        <label for="url" class="col-form-label">Name</label>
+                        <input type="text" class="form-control mb-1" id="delete_trans_name" name="delete_trans_name" readonly>
+                        <!-- item code -->
+                        <label for="url" class="col-form-label">Code</label>
+                        <input type="text" class="form-control mb-1" id="delete_trans_code" name="delete_trans_code" readonly>
+                        <!-- item categories -->
+                        <label for="url" class="col-form-label">Transaction Categories</label>
+                        <input type="text" class="form-control mb-1" id="delete_trans_cat" name="delete_trans_cat" readonly>
+                        <!-- trans amount -->
+                        <label for="url" class="col-form-label">Amount</label>
+                        <input type="text" class="form-control mb-1" id="delete_amount" name="delete_amount" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </div>
             </form>
         </div>

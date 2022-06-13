@@ -591,14 +591,11 @@ class Inventory extends CI_Controller
                 $stock_adjust_before = $data['stockAdjust']['outgoing']; //stock adjustment transaksi sebelum di edit
             }
 
-            echo $stock_adjust_before;
-
             if ($category == 'Saldo Akhir') {
                 $this->db->set('in_stock', $adjust_amount);
                 $this->db->where('id', $idToEdit);
                 $this->db->update('stock_finishedgoods');
-            }
-            if ($category == 'Saldo Awal') {
+            } else if ($category == 'Saldo Awal') {
                 $this->db->set('in_stock', $adjust_amount);
                 $this->db->where('id', $idToEdit);
                 $this->db->update('stock_finishedgoods');
@@ -616,7 +613,7 @@ class Inventory extends CI_Controller
                     $this->db->update('stock_finishedgoods');
 
                     $data2 = [
-                        'in_stock' => $stock_end_before + ($adjust_amount - $stock_adjust_before)
+                        'in_stock' => ($stock_end_before - $stock_adjust_before) + $adjust_amount
                     ];
 
                     $this->db->where('code', $code);
@@ -627,7 +624,7 @@ class Inventory extends CI_Controller
                     $this->db->update('stock_finishedgoods');
 
                     $data2 = [
-                        'in_stock' => $stock_end_before + ($adjust_amount - $stock_adjust_before)
+                        'in_stock' => ($stock_end_before + $stock_adjust_before) - $adjust_amount
                     ];
 
                     $this->db->where('code', $code);
@@ -638,6 +635,51 @@ class Inventory extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $code .  ' adjusted!</div>');
             redirect('inventory/gbj_details/' . $id);
         }
+    }
+
+    public function delete_gbj_trans($id)
+    {
+        $data['title'] = 'Finished Goods Invt. Transactions';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //join warehouse database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        //get item code by using ID as anchor
+        $data['getID'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
+
+        $idToDelete = $this->input->post('delete_trans_id');
+        $name = $this->input->post('delete_trans_name');
+        $code = $this->input->post('delete_trans_code');
+        $category = $this->input->post('delete_trans_cat');
+        $amount = $this->input->post('delete_amount');
+
+        $data['stockOld'] = $this->db->get_where('stock_finishedgoods', ['id' => $idToDelete])->row_array();
+
+        $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
+
+        if ($category == 'Production' or $category == 'Return Sales') {
+            $this->db->delete('stock_finishedgoods', array('id' => $idToDelete));
+
+            $data2 = [
+                'in_stock' => $stock_end_before - $amount
+            ];
+
+            $this->db->where('code', $code);
+            $this->db->update('stock_finishedgoods', $data2, 'status = 7');
+        } else {
+            $this->db->delete('stock_finishedgoods', array('id' => $idToDelete));
+
+            $data2 = [
+                'in_stock' => $stock_end_before + $amount
+            ];
+
+            $this->db->where('code', $code);
+            $this->db->update('stock_finishedgoods', $data2, 'status = 7');
+        }
+
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Asset named ' . $name . ' with code ' . $code . ' deleted!</div>');
+        redirect('inventory/gbj_details/' . $id);
     }
 
     // INVENTORY ASSET
