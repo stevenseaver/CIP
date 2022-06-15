@@ -31,9 +31,9 @@
                                 <th>Code</th>
                                 <th>Pcs/Pack</th>
                                 <th>Pack/Sack</th>
-                                <th>Price</th>
                                 <th>Category</th>
                                 <th>Stock</th>
+                                <th>Price</th>
                                 <th>Warehouse</th>
                                 <th>Picture</th>
                                 <th>Action</th>
@@ -54,7 +54,7 @@
                                     <td><?= $fs['code'] ?></td>
                                     <td><?= $fs['pcsperpack'] . ' pcs' ?></td>
                                     <td><?= $fs['packpersack'] . ' pack' ?></td>
-                                    <td><?= number_format($fs['price'], 0, ',', '.'); ?></td>
+
                                     <td><?= $fs['categories_name'] ?></td>
                                     <td><?php
                                         if ($fs['categories_name'] != 'Bulk Products') {
@@ -64,6 +64,7 @@
                                             echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
                                             echo ' or ' . ($fs['in_stock'] / 25) . ' sack';
                                         } ?></td>
+                                    <td><?= number_format($fs['price'], 0, ',', '.'); ?></td>
                                     <td><?= $fs['warehouse_name'] ?></td>
                                     <td>
                                         <img class="img-fluid rounded" src="<?= base_url() . $fs['picture'] ?>" alt="Product Image #2" style="width: 15rem;">

@@ -57,8 +57,8 @@
                                         <td><?= $i ?></td>
                                         <td><?= $fs['name'] ?></td>
                                         <td><?= date('d F Y H:i:s', $fs['date']); ?></td>
-                                        <td><?= $fs['incoming'] ?></td>
-                                        <td><?= $fs['outgoing'] ?></td>
+                                        <td><?= number_format($fs['incoming'], 0, ',', '.') ?></td>
+                                        <td><?= number_format($fs['outgoing'], 0, ',', '.') ?></td>
                                         <td><?php
                                             if ($fs['categories'] != '5') {
                                                 echo number_format($fs['in_stock'], 0, ',', '.') . ' pack';
@@ -133,7 +133,7 @@
                         <select name="status" id="status" class="form-control" value="<?= set_value('status') ?>">
                             <option value="">--Select Transactions--</option>
                             <?php foreach ($transactionStatus as $ts) : ?>
-                                <?php if ($ts['status_id'] != 1 and $ts['status_id'] != 2 and $ts['status_id'] != 7 and $ts['status_id'] != 6) {
+                                <?php if ($ts['status_id'] != 1 and $ts['status_id'] != 7 and $ts['status_id'] != 6) {
                                 ?> <option value="<?= $ts['status_id'] ?>"><?= $ts['status_name']; ?></option>
                                 <?
                                 } else {
@@ -141,6 +141,7 @@
                                 } ?>
                             <?php endforeach; ?>
                         </select>
+                        <small class="text-danger">Stock adjustment deduct Stock Akhir.</small>
                         <?= form_error('status', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">

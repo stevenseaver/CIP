@@ -24,6 +24,8 @@ class Inventory extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
+        //get material categories
+        $data['cat'] = $this->db->get('material_category')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -48,6 +50,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('code', 'code', 'required|trim');
         $this->form_validation->set_rules('initial_stock', 'initial stock', 'required|trim');
         $this->form_validation->set_rules('warehouse', 'warehouse', 'required|trim');
+        $this->form_validation->set_rules('price', 'price', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -57,35 +60,42 @@ class Inventory extends CI_Controller
             $this->load->view('inventory/material', $data);
             $this->load->view('templates/footer');
         } else {
-            $material = $this->input->post('name');
+            $name = $this->input->post('name');
             $code = $this->input->post('code');
             $initial_stock = $this->input->post('initial_stock');
+            $price = $this->input->post('price');
             $date = time();
+            $category = $this->input->post('category');
             $status1 = 1;  //stock awal
             $status2 = 7;  //stock akhir
             $warehouse = $this->input->post('warehouse');
+
             //intital stock
             $data1 = [
-                'material' => $material,
+                'name' => $name,
                 'code' => $code,
                 'date' => $date,
                 'in_stock' => $initial_stock,
+                'categories' => $category,
+                'price' => $price,
                 'status' => $status1,
                 'warehouse'  => $warehouse
             ];
             //final stock
             $data2 = [
-                'material' => $material,
+                'name' => $name,
                 'code' => $code,
                 'date' => $date,
                 'in_stock' => $initial_stock,
+                'categories' => $category,
+                'price' => $price,
                 'status' => $status2,
                 'warehouse'  => $warehouse
             ];
 
             $this->db->insert('stock_material', $data1);
             $this->db->insert('stock_material', $data2);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New item ' . $material . ' added!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New item ' . $name . ' added!</div>');
             redirect('inventory/material_wh');
         }
     }
@@ -100,12 +110,88 @@ class Inventory extends CI_Controller
         $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
         $data['getID'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
         $data['code'] = $data['getID']['code'];
+        $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('inventory/material_details', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function add_trans_material($id)
+    {
+        $data['title'] = 'Material Invt. Transactions';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //join warehouse, material, and transaction stauts database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
+        $data['getID'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+        $data['code'] = $data['getID']['code'];
+        $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
+
+        $this->form_validation->set_rules('code', 'code', 'required|trim');
+        $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('status', 'categories', 'required|trim');
+        $this->form_validation->set_rules('amount', 'amount', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/material_details', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $code = $this->input->post('code');
+            $name = $this->input->post('name');
+            $transaction_status = $this->input->post('status');
+            $amount = $this->input->post('amount');
+            $category = $data['getID']['categories'];
+            $date = time();
+            $warehouse = 1;
+
+            $in_stockOld = $data['getID']['in_stock'];;
+
+            if ($transaction_status == 8) {
+                $data = [
+                    'name' => $name,
+                    'code' => $code,
+                    'status' => $transaction_status,
+                    'incoming' => $amount,
+                    'categories' => $category,
+                    'date' => $date,
+                    'warehouse' => $warehouse
+                ];
+                $data2 = [
+                    'in_stock' => $in_stockOld + $amount,
+                    'date' => $date
+                ];
+            } else {
+                $data = [
+                    'name' => $name,
+                    'code' => $code,
+                    'status' => $transaction_status,
+                    'outgoing' => $amount,
+                    'categories' => $category,
+                    'date' => $date,
+                    'warehouse' => $warehouse
+                ];
+                $data2 = [
+                    'in_stock' => $in_stockOld - $amount,
+                    'date' => $date
+                ];
+            }
+
+            $this->db->insert('stock_material', $data);
+
+            $this->db->where('code', $code);
+            $this->db->update('stock_material', $data2, 'status = 7');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Transaction for item ' . $name . ' with transaction type of ' . $transaction_status . ' adjusted!</div>');
+            redirect('inventory/material_details/' . $id);
+        }
     }
 
     // Production warehouse //
@@ -148,6 +234,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('lipatan', 'initial stock', 'required|trim');
         $this->form_validation->set_rules('initial_stock', 'initial stock', 'required|trim');
         $this->form_validation->set_rules('warehouse', 'warehouse', 'required|trim');
+        $this->form_validation->set_rules('category', 'category', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -524,7 +611,8 @@ class Inventory extends CI_Controller
                     'warehouse' => $warehouse
                 ];
                 $data2 = [
-                    'in_stock' => $in_stockOld + $amount
+                    'in_stock' => $in_stockOld + $amount,
+                    'date' => $date
                 ];
             } else {
                 $data = [
@@ -537,7 +625,8 @@ class Inventory extends CI_Controller
                     'warehouse' => $warehouse
                 ];
                 $data2 = [
-                    'in_stock' => $in_stockOld - $amount
+                    'in_stock' => $in_stockOld - $amount,
+                    'date' => $date
                 ];
             }
 
@@ -578,6 +667,7 @@ class Inventory extends CI_Controller
             $idToEdit = $this->input->post('id');
             $category = $this->input->post('categories');
             $adjust_amount = $this->input->post('adjust_amount');
+            $date = time();
 
             $data['stockOld'] = $this->db->get_where('stock_finishedgoods', ['id' => $idToEdit])->row_array();
 
@@ -593,15 +683,18 @@ class Inventory extends CI_Controller
 
             if ($category == 'Saldo Akhir') {
                 $this->db->set('in_stock', $adjust_amount);
+                $this->db->set('date', $date);
                 $this->db->where('id', $idToEdit);
                 $this->db->update('stock_finishedgoods');
             } else if ($category == 'Saldo Awal') {
                 $this->db->set('in_stock', $adjust_amount);
+                $this->db->set('date', $date);
                 $this->db->where('id', $idToEdit);
                 $this->db->update('stock_finishedgoods');
 
                 $data2 = [
-                    'in_stock' => $stock_end_before + ($adjust_amount - $stock_awal_before)
+                    'in_stock' => $stock_end_before + ($adjust_amount - $stock_awal_before),
+                    'date' => $date
                 ];
 
                 $this->db->where('code', $code);
@@ -609,22 +702,26 @@ class Inventory extends CI_Controller
             } else {
                 if ($category == 'Production' or $category == 'Return Sales') {
                     $this->db->set('incoming', $adjust_amount);
+                    $this->db->set('date', $date);
                     $this->db->where('id', $idToEdit);
                     $this->db->update('stock_finishedgoods');
 
                     $data2 = [
-                        'in_stock' => ($stock_end_before - $stock_adjust_before) + $adjust_amount
+                        'in_stock' => ($stock_end_before - $stock_adjust_before) + $adjust_amount,
+                        'date' => $date
                     ];
 
                     $this->db->where('code', $code);
                     $this->db->update('stock_finishedgoods', $data2, 'status = 7');
                 } else {
                     $this->db->set('outgoing', $adjust_amount);
+                    $this->db->set('date', $date);
                     $this->db->where('id', $idToEdit);
                     $this->db->update('stock_finishedgoods');
 
                     $data2 = [
-                        'in_stock' => ($stock_end_before + $stock_adjust_before) - $adjust_amount
+                        'in_stock' => ($stock_end_before + $stock_adjust_before) - $adjust_amount,
+                        'date' => $date
                     ];
 
                     $this->db->where('code', $code);

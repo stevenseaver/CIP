@@ -5,11 +5,13 @@ class Warehouse_model extends CI_Model
 {
   public function getMaterialWarehouseID()
   {
-    $query = "SELECT `stock_material`.*,`warehouse`.`warehouse_name`,`transaction_status`.`status_name`
+    $query = "SELECT `stock_material`.*,`warehouse`.`warehouse_name`,`transaction_status`.`status_name`,`material_category`.`categories_name`
                     FROM `stock_material` JOIN `warehouse`
                       ON `stock_material`.`warehouse` = `warehouse`.`warehouse_id`
                     JOIN `transaction_status`
                       ON `stock_material`.`status` = `transaction_status`.`status_id`
+                      JOIN `material_category`
+                      ON `stock_material`.`categories` = `material_category`.`id`
             ";
     return $this->db->query($query)->result_array();
   }

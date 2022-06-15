@@ -461,6 +461,17 @@
          $(event.currentTarget).find('.modal-body input[name="delete_title"]').val(title);
      });
 
+     //  JavaScript for Add new Transaction Material details transaction
+     $('#newTransMatModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var name = $(event.relatedTarget).data('name');
+         var code = $(event.relatedTarget).data('code');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
+     });
+
      //  JavaScript for Add new Transaction GBJ details transaction
      $('#newTransModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button

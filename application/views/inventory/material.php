@@ -27,9 +27,10 @@
                                 <th>Materials</th>
                                 <th>Code</th>
                                 <th>Date Created</th>
+                                <th>Category</th>
                                 <th>Stock (Kg)</th>
+                                <th>Price</th>
                                 <th>Warehouse</th>
-                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -46,12 +47,13 @@
                                 ?>
                                 <tr>
                                     <td><?= $i ?></td>
-                                    <td><?= $ms['material'] ?></td>
+                                    <td><?= $ms['name'] ?></td>
                                     <td><?= $ms['code'] ?></td>
                                     <td><?= date('d F Y H:i:s', $ms['date']); ?></td>
-                                    <td><?= $ms['in_stock'] ?></td>
+                                    <td><?= $ms['categories_name'] ?></td>
+                                    <td><?= number_format($ms['in_stock'], 0, ',', '.'); ?></td>
+                                    <td><?= number_format($ms['price'], 0, ',', '.'); ?></td>
                                     <td><?= $ms['warehouse_name'] ?></td>
-                                    <td><?= $ms['status_name'] ?></td>
                                     <td>
                                         <a href="<?= base_url('inventory/material_details/') . $ms['id'] ?>" class="badge badge-primary">Details</a>
                                         <a href="" class="badge badge-success">Adjust</a>
@@ -75,11 +77,11 @@
 <!-- End of Main Content -->
 
 <!-- Modal For Add Data -->
-<div class="modal fade" id="newMaterial" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+<div class="modal fade" id="newMaterial" tabindex="-1" aria-labelledby="newMaterialModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newMenuModalLabel">Add New Item</h5>
+                <h5 class="modal-title" id="newMaterialodalLabel">Add New Item</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -99,10 +101,27 @@
                         <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
+                        <!-- Item price -->
+                        <label for="url" class="col-form-label">Price</label>
+                        <input type="text" class="form-control mb-1" id="price" name="price" placeholder="Add price">
+                        <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
                         <!-- Material initial stock -->
                         <label for="url" class="col-form-label">Initial Stock</label>
                         <input type="text" class="form-control mb-1" id="initial_stock" name="initial_stock" placeholder="Add initial stock">
                         <?= form_error('initial_stock', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Item categories -->
+                        <label for="url" class="col-form-label">Categories</label>
+                        <select name="category" id="category" class="form-control" value="<?= set_value('category') ?>">
+                            <option value="">--Select Categories--</option>
+                            <?php foreach ($cat as $fs) : ?>
+                                <option value="<?= $fs['id'] ?>"><?= $fs['categories_name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <?= form_error('category', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Warehouse -->
