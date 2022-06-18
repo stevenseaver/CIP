@@ -41,9 +41,9 @@
                                 <th>Materials</th>
                                 <th>Code</th>
                                 <th>Date Created</th>
-                                <th>Stock (Kg)</th>
                                 <th>Incoming (Kg)</th>
                                 <th>Outgouing (Kg)</th>
+                                <th>Stock (Kg)</th>
                                 <th>Warehouse</th>
                                 <th>Status</th>
                                 <th>Action</th>
@@ -65,13 +65,24 @@
                                     <td><?= $ms['name'] ?></td>
                                     <td><?= $ms['code'] ?></td>
                                     <td><?= date('d F Y H:i:s', $ms['date']); ?></td>
-                                    <td><?= number_format($ms['in_stock'], 0, ',', '.') . ' kg' ?></td>
                                     <td><?= number_format($ms['incoming'], 0, ',', '.') ?></td>
                                     <td><?= number_format($ms['outgoing'], 0, ',', '.') ?></td>
+                                    <td><?= number_format($ms['in_stock'], 0, ',', '.') . ' kg' ?></td>
                                     <td><?= $ms['warehouse_name'] ?></td>
                                     <td><?= $ms['status_name'] ?></td>
                                     <td>
-                                        <a href="" class="badge badge-success">Edit</a>
+                                        <?php
+                                        if ($ms['status_name'] == 'Saldo Awal' or $ms['status_name'] == 'Saldo Akhir') { ?>
+                                            <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustStock" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
+                                        <?php } else { ?>
+                                            <?php if ($ms['status_name'] == 'Purchasing') { ?>
+                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustStock" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
+                                                <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMaterialTransaction" data-cat="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-amount="<?= $ms['incoming'] ?>">Delete</a>
+                                            <?php } else { ?>
+                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustStock" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
+                                                <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMaterialTransaction" data-cat="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-amount="<?= $ms['outgoing'] ?>">Delete</a>
+                                            <?php } ?>
+                                        <?php } ?>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>
@@ -119,7 +130,7 @@
                         <select name="status" id="status" class="form-control" value="<?= set_value('status') ?>">
                             <option value="">--Select Transactions--</option>
                             <?php foreach ($transactionStatus as $ts) : ?>
-                                <?php if ($ts['status_id'] != 1 and $ts['status_id'] != 3 and $ts['status_id'] != 7 and $ts['status_id'] != 4 and $ts['status_id'] != 5) {
+                                <?php if ($ts['status_id'] != 1  and $ts['status_id'] != 7 and $ts['status_id'] != 4 and $ts['status_id'] != 5) {
                                 ?> <option value="<?= $ts['status_id'] ?>"><?= $ts['status_name']; ?></option>
                                 <?
                                 } else {
@@ -140,6 +151,46 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save Transaction</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Delete Transaction -->
+<div class="modal fade" id="deleteMaterialTransaction" tabindex="-1" role="dialog" aria-labelledby="deleteMaterialTransactionLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteMaterialTransactionLabel">Whoops!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">You're about to delete this item. Are you sure?</p>
+            <form action="<?= base_url('inventory/delete_material_trans/') . $getID['id']  ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- item id -->
+                        <label for="url" class="col-form-label">ID</label>
+                        <input type="text" class="form-control mb-1" id="delete_trans_id" name="delete_trans_id" readonly>
+                        <!-- item name -->
+                        <label for="url" class="col-form-label">Name</label>
+                        <input type="text" class="form-control mb-1" id="delete_trans_name" name="delete_trans_name" readonly>
+                        <!-- item code -->
+                        <label for="url" class="col-form-label">Code</label>
+                        <input type="text" class="form-control mb-1" id="delete_trans_code" name="delete_trans_code" readonly>
+                        <!-- item categories -->
+                        <label for="url" class="col-form-label">Transaction Categories</label>
+                        <input type="text" class="form-control mb-1" id="delete_trans_cat" name="delete_trans_cat" readonly>
+                        <!-- trans amount -->
+                        <label for="url" class="col-form-label">Amount</label>
+                        <input type="text" class="form-control mb-1" id="delete_amount" name="delete_amount" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </div>
             </form>
         </div>

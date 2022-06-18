@@ -100,6 +100,19 @@ class Inventory extends CI_Controller
         }
     }
 
+    public function delete_material()
+    {
+        // get item to delete
+        $itemtoDelete = $this->input->post('delete_code');
+        // get data on deleted sub menu
+        $deletedItem = $this->db->get_where('stock_material', array('code' => $itemtoDelete))->row_array();
+        // delete the sub menu
+        $this->db->delete('stock_material', array('code' => $itemtoDelete));
+        // send message
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Item named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
+        redirect('inventory/material_wh');
+    }
+
     public function material_details($id)
     {
         $data['title'] = 'Material Invt. Transactions';
@@ -192,6 +205,54 @@ class Inventory extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Transaction for item ' . $name . ' with transaction type of ' . $transaction_status . ' adjusted!</div>');
             redirect('inventory/material_details/' . $id);
         }
+    }
+
+
+    public function delete_material_trans($id)
+    {
+        $data['title'] = 'Material Invt. Transactions';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //join warehouse, material, and transaction stauts database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
+        $data['getID'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+        // $data['code'] = $data['getID']['code'];
+        $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
+
+        $idToDelete = $this->input->post('delete_trans_id');
+        $name = $this->input->post('delete_trans_name');
+        $code = $this->input->post('delete_trans_code');
+        $category = $this->input->post('delete_trans_cat');
+        $amount = $this->input->post('delete_amount');
+
+        $data['stockOld'] = $this->db->get_where('stock_material', ['id' => $idToDelete])->row_array();
+
+        $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
+
+        if ($category == 'Purchasing') {
+            //purchasing menambah stock, jika dihapus, stock berkurang
+            $this->db->delete('stock_material', array('id' => $idToDelete));
+
+            $data2 = [
+                'in_stock' => $stock_end_before - $amount
+            ];
+
+            $this->db->where('code', $code);
+            $this->db->update('stock_material', $data2, 'status = 7');
+        } else {
+            $this->db->delete('stock_material', array('id' => $idToDelete));
+
+            $data2 = [
+                'in_stock' => $stock_end_before + $amount
+            ];
+
+            $this->db->where('code', $code);
+            $this->db->update('stock_material', $data2, 'status = 7');
+        }
+
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction ID ' . $idToDelete . ' with type ' . $category . ' deleted!</div>');
+        redirect('inventory/material_details/' . $id);
     }
 
     // Production warehouse //
@@ -315,7 +376,7 @@ class Inventory extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
-        $data['cat'] = $this->db->get('product_category')->result_array();
+        $data['cat'] = $this->db->get('product_menu')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -353,7 +414,7 @@ class Inventory extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
-        $data['cat'] = $this->db->get('product_category')->result_array();
+        $data['cat'] = $this->db->get('product_menu')->result_array();
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
@@ -441,40 +502,40 @@ class Inventory extends CI_Controller
         }
     }
 
-    public function adjust_gbj()
-    {
-        $data['title'] = 'Finished Goods Warehouse';
-        $data['user'] = $this->db->get_where('user', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
-        $data['rollType'] = $this->db->get('stock_roll')->result_array();
-        //join warehouse database 
-        $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
-        $data['cat'] = $this->db->get('product_category')->result_array();
+    // public function adjust_gbj()
+    // {
+    //     $data['title'] = 'Finished Goods Warehouse';
+    //     $data['user'] = $this->db->get_where('user', ['nik' =>
+    //     $this->session->userdata('nik')])->row_array();
+    //     $data['rollType'] = $this->db->get('stock_roll')->result_array();
+    //     //join warehouse database 
+    //     $this->load->model('Warehouse_model', 'warehouse_id');
+    //     $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+    //     $data['cat'] = $this->db->get('product_menu')->result_array();
 
-        //validation
-        $this->form_validation->set_rules('adjust_amount', 'stock amount', 'required|trim');
+    //     //validation
+    //     $this->form_validation->set_rules('adjust_amount', 'stock amount', 'required|trim');
 
-        if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('message_adjust', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('inventory/gbj', $data);
-            $this->load->view('templates/footer');
-        } else {
-            $name = $this->input->post('adjust_name');
-            $code = $this->input->post('adjust_code');
-            $amount = $this->input->post('adjust_amount');
-            $data = [
-                'in_stock' => $amount
-            ];
-            $this->db->where('code', $code);
-            $this->db->update('stock_finishedgoods', $data, 'status = 7');
-            $this->session->set_flashdata('message_adjust', '<div class="alert alert-success" role="alert">Item ' . $name . ' adjusted!</div>');
-            redirect('inventory/gbj_wh');
-        }
-    }
+    //     if ($this->form_validation->run() == false) {
+    //         $this->session->set_flashdata('message_adjust', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+    //         $this->load->view('templates/header', $data);
+    //         $this->load->view('templates/sidebar', $data);
+    //         $this->load->view('templates/topbar', $data);
+    //         $this->load->view('inventory/gbj', $data);
+    //         $this->load->view('templates/footer');
+    //     } else {
+    //         $name = $this->input->post('adjust_name');
+    //         $code = $this->input->post('adjust_code');
+    //         $amount = $this->input->post('adjust_amount');
+    //         $data = [
+    //             'in_stock' => $amount
+    //         ];
+    //         $this->db->where('code', $code);
+    //         $this->db->update('stock_finishedgoods', $data, 'status = 7');
+    //         $this->session->set_flashdata('message_adjust', '<div class="alert alert-success" role="alert">Item ' . $name . ' adjusted!</div>');
+    //         redirect('inventory/gbj_wh');
+    //     }
+    // }
 
     public function edit_gbj()
     {
@@ -485,7 +546,7 @@ class Inventory extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
-        $data['cat'] = $this->db->get('product_category')->result_array();
+        $data['cat'] = $this->db->get('product_menu')->result_array();
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
@@ -560,7 +621,7 @@ class Inventory extends CI_Controller
         // delete the sub menu
         $this->db->delete('stock_finishedgoods', array('code' => $itemtoDelete));
         // send message
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Asset named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Item named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
         redirect('inventory/gbj_wh');
     }
 
@@ -600,7 +661,7 @@ class Inventory extends CI_Controller
 
             $in_stockOld = $data['getID']['in_stock'];;
 
-            if ($transaction_status == 3 or $transaction_status == 5) {
+            if ($transaction_status == 3 or $transaction_status == 5 or $transaction_status == 8) {
                 $data = [
                     'name' => $name,
                     'code' => $code,
@@ -756,6 +817,7 @@ class Inventory extends CI_Controller
         $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
 
         if ($category == 'Production' or $category == 'Return Sales') {
+            //prod and return sales adds stocks, jika dihapus stock berkurang
             $this->db->delete('stock_finishedgoods', array('id' => $idToDelete));
 
             $data2 = [
@@ -775,7 +837,7 @@ class Inventory extends CI_Controller
             $this->db->update('stock_finishedgoods', $data2, 'status = 7');
         }
 
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Asset named ' . $name . ' with code ' . $code . ' deleted!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction id ' . $idToDelete . ' for item named ' . $name . ' with type ' . $category . ' deleted!</div>');
         redirect('inventory/gbj_details/' . $id);
     }
 

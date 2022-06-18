@@ -55,9 +55,9 @@
                                     <td><?= $fs['pcsperpack'] . ' pcs' ?></td>
                                     <td><?= $fs['packpersack'] . ' pack' ?></td>
 
-                                    <td><?= $fs['categories_name'] ?></td>
+                                    <td><?= $fs['title'] ?></td>
                                     <td><?php
-                                        if ($fs['categories_name'] != 'Bulk Products') {
+                                        if ($fs['title'] != 'Bulk Product') {
                                             echo number_format($fs['in_stock'], 0, ',', '.') . ' pack';
                                             echo ' or ' . ($fs['in_stock'] / $fs['packpersack']) . ' sack';
                                         } else {
@@ -70,7 +70,7 @@
                                         <img class="img-fluid rounded" src="<?= base_url() . $fs['picture'] ?>" alt="Product Image #2" style="width: 15rem;">
                                     <td>
                                         <a href="<?= base_url('inventory/gbj_details/') . $fs['id'] ?>" class="badge badge-primary">Details</a>
-                                        <a data-toggle="modal" data-target="#adjustItemModal" class="badge badge-success text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-success">Adjust</a>
+                                        <!-- <a data-toggle="modal" data-target="#adjustItemModal" class="badge badge-success text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-success">Adjust</a> -->
                                         <a data-toggle="modal" data-target="#editItemModal" class="badge badge-warning text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-pcs="<?= $fs['pcsperpack'] ?>" data-pack="<?= $fs['packpersack'] ?>" data-price="<?= $fs['price'] ?>">Edit</a>
                                         <a data-toggle="modal" data-target="#deleteItemModal" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-danger clickable">Delete</a>
                                     </td>
@@ -151,7 +151,7 @@
                     <select name="category" id="category" class="form-control" value="<?= set_value('category') ?>">
                         <option value="">--Select Categories--</option>
                         <?php foreach ($cat as $fs) : ?>
-                            <option value="<?= $fs['id'] ?>"><?= $fs['categories_name'] ?></option>
+                            <option value="<?= $fs['id'] ?>"><?= $fs['title'] ?></option>
                         <?php endforeach; ?>
                     </select>
                     <?= form_error('category', '<small class="text-danger pl-2">', '</small>') ?>
@@ -276,7 +276,7 @@
                     <select name="category" id="category" class="form-control" value="<?= set_value('category') ?>">
                         <option value="">--Select Categories--</option>
                         <?php foreach ($cat as $fs) : ?>
-                            <option value="<?= $fs['id'] ?>"><?= $fs['categories_name'] ?></option>
+                            <option value="<?= $fs['id'] ?>"><?= $fs['title'] ?></option>
                         <?php endforeach; ?>
                     </select>
                     <?= form_error('category', '<small class="text-danger pl-2">', '</small>') ?>

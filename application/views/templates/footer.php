@@ -405,6 +405,18 @@
          $(event.currentTarget).find('.modal-body input[name="delete_code"]').val(code);
      });
 
+     //  JavaScript for Delete GBJ item Modal
+     $('#deleteMaterialItem').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var name = $(event.relatedTarget).data('name');
+         var code = $(event.relatedTarget).data('code');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="delete_name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="delete_code"]').val(code);
+     });
+
+
      //  JavaScript for Edit GBJ item Modal
      $('#editItemModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
@@ -496,6 +508,23 @@
 
      //  JavaScript for Adjust GBJ details transaction
      $('#deleteTransaction').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var id = $(event.relatedTarget).data('id');
+         var name = $(event.relatedTarget).data('name');
+         var code = $(event.relatedTarget).data('code');
+         var cat = $(event.relatedTarget).data('cat');
+         var amount = $(event.relatedTarget).data('amount');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="delete_trans_id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="delete_trans_name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="delete_trans_code"]').val(code);
+         $(event.currentTarget).find('.modal-body input[name="delete_trans_cat"]').val(cat);
+         $(event.currentTarget).find('.modal-body input[name="delete_amount"]').val(amount);
+     });
+
+     //  JavaScript for Adjust GBJ details transaction
+     $('#deleteMaterialTransaction').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var id = $(event.relatedTarget).data('id');
          var name = $(event.relatedTarget).data('name');

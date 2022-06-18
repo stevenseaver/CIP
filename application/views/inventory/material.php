@@ -56,9 +56,8 @@
                                     <td><?= $ms['warehouse_name'] ?></td>
                                     <td>
                                         <a href="<?= base_url('inventory/material_details/') . $ms['id'] ?>" class="badge badge-primary">Details</a>
-                                        <a href="" class="badge badge-success">Adjust</a>
                                         <a href="" class="badge badge-warning">Edit</a>
-                                        <a href="" class="badge badge-danger">Delete</a>
+                                        <a data-toggle="modal" data-target="#deleteMaterialItem" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" class="badge badge-danger clickable">Delete</a>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>
@@ -132,6 +131,40 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Delete Data -->
+<div class="modal fade" id="deleteMaterialItem" tabindex="-1" aria-labelledby="deleteMaterialItemLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteMaterialItemLabel">Delete Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('inventory/delete_material') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- Asset Name -->
+                        <label for="url" class="col-form-label">Item Name</label>
+                        <input type="text" class="form-control mb-1" readonly id="delete_name" name="delete_name" placeholder="Item Name">
+                        <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Asset Code -->
+                        <label for="url" class="col-form-label">Item Code</label>
+                        <input type="text" readonly class="form-control mb-1" id="delete_code" name="delete_code" placeholder="Item Code">
+                        <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </div>
             </form>
         </div>
