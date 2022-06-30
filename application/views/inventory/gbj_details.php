@@ -12,6 +12,13 @@
         <div class="card-body mb-0">
             <p class="text-dark mb-2">Product Name : <?= $getID['name'] ?></p>
             <p class="text-dark mb-2">Product Code : <?= $getID['code'] ?></p>
+            <p class="text-dark mb-2">Price: <?php
+                                                if ($getID['categories'] != '6') {
+                                                    echo number_format($getID['price'], 0, ',', '.') . '/pack';
+                                                } else {
+                                                    echo number_format($getID['price'], 0, ',', '.') . '/kg';
+                                                } ?></p>
+
         </div>
     </div>
 
@@ -70,13 +77,13 @@
                                         <td>
                                             <?php
                                             if ($fs['status_name'] == 'Saldo Awal' or $fs['status_name'] == 'Saldo Akhir') { ?>
-                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustStock" data-categories="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>">Edit</a>
+                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-categories="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>">Edit</a>
                                             <?php } else { ?>
-                                                <?php if ($fs['status_name'] == 'Production' or $fs['status_name'] == 'Return Sales') { ?>
-                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustStock" data-categories="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>">Edit</a>
+                                                <?php if ($fs['status_name'] == 'Production' or $fs['status_name'] == 'Return Sales' or $fs['status_name'] == 'Purchasing') { ?>
+                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-categories="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>">Edit</a>
                                                     <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteTransaction" data-cat="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-amount="<?= $fs['incoming'] ?>">Delete</a>
                                                 <?php } else { ?>
-                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustStock" data-categories="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>">Edit</a>
+                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-categories="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>">Edit</a>
                                                     <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteTransaction" data-cat="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-amount="<?= $fs['outgoing'] ?>">Delete</a>
                                                 <?php } ?>
                                             <?php } ?>
@@ -161,11 +168,11 @@
 </div>
 
 <!-- Modal For Adjust Data -->
-<div class="modal fade" id="adjustStock" tabindex="-1" aria-labelledby="adjustStockLabel" aria-hidden="true">
+<div class="modal fade" id="adjustGBJTrans" tabindex="-1" aria-labelledby="adjustGBJTransLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="adjustStockLabel">Adjust Item Amount</h5>
+                <h5 class="modal-title" id="adjustGBJTransLabel">Adjust Item Amount</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -186,7 +193,7 @@
                     </div>
                     <div class="form-group">
                         <!-- Stock -->
-                        <label for="url" class="col-form-label">Item Amount Adjusted</label>
+                        <label for="url" class="col-form-label">Amount Adjusted</label>
                         <input type="text" class="form-control mb-1" id="adjust_amount" name="adjust_amount" placeholder="Item Amount">
                         <?= form_error('adjust_amount', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>

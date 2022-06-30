@@ -45,6 +45,9 @@ class Inventory extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
+        //get material categories
+        $data['cat'] = $this->db->get('material_category')->result_array();
+
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('code', 'code', 'required|trim');
@@ -96,6 +99,52 @@ class Inventory extends CI_Controller
             $this->db->insert('stock_material', $data1);
             $this->db->insert('stock_material', $data2);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New item ' . $name . ' added!</div>');
+            redirect('inventory/material_wh');
+        }
+    }
+
+    public function edit_material()
+    {
+        $data['title'] = 'Material Warehouse';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['rollType'] = $this->db->get('stock_roll')->result_array();
+        //get material database
+        $data['materialStock'] = $this->db->get('stock_material')->result_array();
+        //join warehouse database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
+        //get material categories
+        $data['cat'] = $this->db->get('material_category')->result_array();
+
+        //validation
+        $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('category', 'category', 'required|trim');
+        $this->form_validation->set_rules('price', 'price', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/material', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $name = $this->input->post('name');
+            $code = $this->input->post('code');
+            $price = $this->input->post('price');
+            $category = $this->input->post('category');
+
+            //intital stock
+            $data1 = [
+                'name' => $name,
+                'categories' => $category,
+                'price' => $price
+            ];
+
+            $this->db->where('code', $code);
+            $this->db->update('stock_material', $data1);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $name . ' edited!</div>');
             redirect('inventory/material_wh');
         }
     }
@@ -166,7 +215,7 @@ class Inventory extends CI_Controller
             $warehouse = 1;
 
             $in_stockOld = $data['getID']['in_stock'];;
-
+            // 8 is purchasing, the only transaction that adds to the final stock
             if ($transaction_status == 8) {
                 $data = [
                     'name' => $name,
@@ -207,6 +256,101 @@ class Inventory extends CI_Controller
         }
     }
 
+    public function adjust_details_material($id)
+    {
+        $data['title'] = 'Material Invt. Transactions';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //join warehouse, material, and transaction stauts database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
+        $data['getID'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+        $code = $data['getID']['code'];
+        $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
+
+        $this->form_validation->set_rules('categories', 'categories', 'required|trim');
+        $this->form_validation->set_rules('adjust_amount', 'adjust_amount', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops, something is are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/gbj_details', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $idToEdit = $this->input->post('id');
+            $category = $this->input->post('categories');
+            $adjust_amount = $this->input->post('adjust_amount');
+            $date = time();
+
+            $data['stockOld'] = $this->db->get_where('stock_material', ['id' => $idToEdit])->row_array();
+
+            $stock_awal_before = $data['stockOld']['in_stock']; //stock awal sebelumnya
+            $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
+
+            $data['stockAdjust'] = $this->db->get_where('stock_material', ['id' => $idToEdit])->row_array();
+            if ($category == 'Purchasing') {
+                $stock_adjust_before = $data['stockAdjust']['incoming']; //stock adjustment transaksi sebelum di edit
+            } else {
+                $stock_adjust_before = $data['stockAdjust']['outgoing']; //stock adjustment transaksi sebelum di edit
+            }
+
+            if ($category == 'Saldo Akhir') {
+                $this->db->set('in_stock', $adjust_amount);
+                $this->db->set('date', $date);
+                $this->db->where('id', $idToEdit);
+                $this->db->update('stock_material');
+            } else if ($category == 'Saldo Awal') {
+                $this->db->set('in_stock', $adjust_amount);
+                $this->db->set('date', $date);
+                $this->db->where('id', $idToEdit);
+                $this->db->update('stock_material');
+
+                $data2 = [
+                    'in_stock' => $stock_end_before + ($adjust_amount - $stock_awal_before),
+                    'date' => $date
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->update('stock_material', $data2, 'status = 7');
+            } else {
+                //purchasing adds to final stocks
+                if ($category == 'Purchasing') {
+                    $this->db->set('incoming', $adjust_amount);
+                    $this->db->set('date', $date);
+                    $this->db->where('id', $idToEdit);
+                    $this->db->update('stock_material');
+
+                    $data2 = [
+                        'in_stock' => ($stock_end_before - $stock_adjust_before) + $adjust_amount,
+                        'date' => $date
+                    ];
+
+                    $this->db->where('code', $code);
+                    $this->db->update('stock_material', $data2, 'status = 7');
+                }
+                //other than that, it reduces the final stocks
+                else {
+                    $this->db->set('outgoing', $adjust_amount);
+                    $this->db->set('date', $date);
+                    $this->db->where('id', $idToEdit);
+                    $this->db->update('stock_material');
+
+                    $data2 = [
+                        'in_stock' => ($stock_end_before + $stock_adjust_before) - $adjust_amount,
+                        'date' => $date
+                    ];
+
+                    $this->db->where('code', $code);
+                    $this->db->update('stock_material', $data2, 'status = 7');
+                }
+            }
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $code .  ' adjusted!</div>');
+            redirect('inventory/material_details/' . $id);
+        }
+    }
 
     public function delete_material_trans($id)
     {
@@ -221,7 +365,6 @@ class Inventory extends CI_Controller
         $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
 
         $idToDelete = $this->input->post('delete_trans_id');
-        $name = $this->input->post('delete_trans_name');
         $code = $this->input->post('delete_trans_code');
         $category = $this->input->post('delete_trans_cat');
         $amount = $this->input->post('delete_amount');
@@ -501,7 +644,7 @@ class Inventory extends CI_Controller
             redirect('inventory/gbj_wh');
         }
     }
-
+    //quick adjust
     // public function adjust_gbj()
     // {
     //     $data['title'] = 'Finished Goods Warehouse';
@@ -660,7 +803,7 @@ class Inventory extends CI_Controller
             $warehouse = 3;
 
             $in_stockOld = $data['getID']['in_stock'];;
-
+            //3 is prod, 5 is return sales, 8 is purchasing, all adds to the final stock
             if ($transaction_status == 3 or $transaction_status == 5 or $transaction_status == 8) {
                 $data = [
                     'name' => $name,
@@ -736,7 +879,7 @@ class Inventory extends CI_Controller
             $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
 
             $data['stockAdjust'] = $this->db->get_where('stock_finishedgoods', ['id' => $idToEdit])->row_array();
-            if ($category == 'Production' or $category == 'Return Sales') {
+            if ($category == 'Production' or $category == 'Return Sales' or $category == 'Purchasing') {
                 $stock_adjust_before = $data['stockAdjust']['incoming']; //stock adjustment transaksi sebelum di edit
             } else {
                 $stock_adjust_before = $data['stockAdjust']['outgoing']; //stock adjustment transaksi sebelum di edit
@@ -761,7 +904,8 @@ class Inventory extends CI_Controller
                 $this->db->where('code', $code);
                 $this->db->update('stock_finishedgoods', $data2, 'status = 7');
             } else {
-                if ($category == 'Production' or $category == 'Return Sales') {
+                //production, purchasing, and return sales adds to final stocks
+                if ($category == 'Production' or $category == 'Return Sales' or $category == 'Purchasing') {
                     $this->db->set('incoming', $adjust_amount);
                     $this->db->set('date', $date);
                     $this->db->where('id', $idToEdit);
@@ -774,7 +918,9 @@ class Inventory extends CI_Controller
 
                     $this->db->where('code', $code);
                     $this->db->update('stock_finishedgoods', $data2, 'status = 7');
-                } else {
+                }
+                //other than that, it reduce the final stocks
+                else {
                     $this->db->set('outgoing', $adjust_amount);
                     $this->db->set('date', $date);
                     $this->db->where('id', $idToEdit);
@@ -816,7 +962,7 @@ class Inventory extends CI_Controller
 
         $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
 
-        if ($category == 'Production' or $category == 'Return Sales') {
+        if ($category == 'Production' or $category == 'Return Sales' or $category == 'Purchasing') {
             //prod and return sales adds stocks, jika dihapus stock berkurang
             $this->db->delete('stock_finishedgoods', array('id' => $idToDelete));
 

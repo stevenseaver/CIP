@@ -13,6 +13,7 @@
         <div class="card-body mb-0">
             <p class="text-dark mb-2">Product Name : <?= $getID['name'] ?></p>
             <p class="text-dark mb-2">Product Code : <?= $getID['code'] ?></p>
+            <p class="text-dark mb-2">Price : <?= $getID['price'] ?></p>
         </div>
     </div>
 
@@ -73,13 +74,13 @@
                                     <td>
                                         <?php
                                         if ($ms['status_name'] == 'Saldo Awal' or $ms['status_name'] == 'Saldo Akhir') { ?>
-                                            <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustStock" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
+                                            <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
                                         <?php } else { ?>
                                             <?php if ($ms['status_name'] == 'Purchasing') { ?>
-                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustStock" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
+                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
                                                 <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMaterialTransaction" data-cat="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-amount="<?= $ms['incoming'] ?>">Delete</a>
                                             <?php } else { ?>
-                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustStock" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
+                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
                                                 <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMaterialTransaction" data-cat="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-amount="<?= $ms['outgoing'] ?>">Delete</a>
                                             <?php } ?>
                                         <?php } ?>
@@ -151,6 +152,46 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save Transaction</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Adjust Data -->
+<div class="modal fade" id="adjustMatTrans" tabindex="-1" aria-labelledby="adjustMatTransLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="adjustMatTransLabel">Adjust Item Amount</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('inventory/adjust_details_material/') . $getID['id']  ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- ID -->
+                        <label for="url" class="col-form-label">ID</label>
+                        <input type="text" readonly class="form-control mb-1" id="id" name="id">
+                        <?= form_error('id', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Categories -->
+                        <label for="url" class="col-form-label">Categories</label>
+                        <input type="text" readonly class="form-control mb-1" id="categories" name="categories">
+                        <?= form_error('categories', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Stock -->
+                        <label for="url" class="col-form-label">Amount Adjusted</label>
+                        <input type="text" class="form-control mb-1" id="adjust_amount" name="adjust_amount" placeholder="Item Amount">
+                        <?= form_error('adjust_amount', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Adjust</button>
                 </div>
             </form>
         </div>

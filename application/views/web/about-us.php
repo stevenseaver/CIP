@@ -18,8 +18,8 @@
     </div>
     <!-- Vision -->
     <div class="row justify-content-center align-items-center text-justify pt-1 mb-1">
-        <div class="col-lg-10 mb-3 mx-4 text-dark text-center">
-            <div class="card shadow border-0 bg-primary py-4">
+        <div class="col-lg-10 mb-3 mx-4 text-dark">
+            <div class="card shadow border-0 bg-primary py-3 px-3">
                 <div class="card-body text-white">
                     <i class="bi bi-arrow-up-circle fa-2x mb-5"></i>
                     <h4 class="font-weight-bold">Vision</h4>
@@ -33,7 +33,7 @@
                                         <img class="img-fluid px-3 mb-3" style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_begin_chat_re_v0lw.svg') ?>" alt="BL1"> <br>
                                     </div>
                                     <i class="bi bi-bucket fa-2x mb-2"></i>
-                                    <h5 class="mb-3">Bucket List #1</h5>
+                                    <h5 class="mb-3 font-weight-bold">Bucket List #1</h5>
                                     <p>Advocating plastic recycling movement as a way to sustainably save the environment using circular economy.</p>
 
                                 </div>
@@ -46,7 +46,7 @@
                                         <img class="img-fluid px-3 mb-3" style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_connected_world_wuay.svg') ?>" alt="Quality First"> <br>
                                     </div>
                                     <i class="bi bi-bucket fa-2x mb-2"></i>
-                                    <h5 class="mb-3">Bucket List #2</h5>
+                                    <h5 class="mb-3 font-weight-bold">Bucket List #2</h5>
                                     <p>Expand services to meet Indonesian and worldwide recycled plastic bag demand, using technology to deliver best possible services for our clients.</p>
 
                                 </div>
@@ -59,7 +59,7 @@
                                         <img class="img-fluid px-3 mb-3" style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_completing_re_i7ap.svg') ?>" alt="Quality First"> <br>
                                     </div>
                                     <i class="bi bi-bucket fa-2x mb-2"></i>
-                                    <h5 class="mb-3">Bucket List #3</h5>
+                                    <h5 class="mb-3 font-weight-bold">Bucket List #3</h5>
                                     <p>Meet our customer expectation by delivering high-quality and reasonably priced products.</p>
                                 </div>
                             </div>
@@ -70,16 +70,16 @@
         </div>
     </div>
     <!-- Values -->
-    <div class="row justify-content-center align-items-center text-justify pt-1 mb-3">
+    <div class="row justify-content-center align-items-center text-justify pt-1 mb-1">
         <div class="col-lg-10 mb-3 mx-4 text-dark">
-            <div class="card shadow border-0">
-                <div class="card-body text-center py-4">
-                    <i class="bi bi-emoji-laughing fa-2x text-primary"></i>
+            <div class="card shadow border-0 py-3 px-3">
+                <div class="card-body">
+                    <i class="bi bi-emoji-laughing fa-2x text-primary mb-5"></i>
                     <h4 class="font-weight-bold mb-2 text-primary">Values</h4>
-                    <p class="text-dark mx-3">We upholds our core company values because we believe that what differentiates us from the rest.</p>
+                    <p class="text-dark">We upholds our core company values because we believe that what differentiates us from the rest.</p>
                     <!-- value 1 -->
                     <div class="row align-items-center pt-3 mb-0">
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 text-center">
                             <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_qa_engineers_dg-5-p.svg') ?>" alt="Quality First">
                         </div>
                         <div class="col-lg-8 text-left">
@@ -89,7 +89,7 @@
                     </div>
                     <!-- value 2 s-->
                     <div class="row align-items-center mb-3">
-                        <div class="col-lg-4">
+                        <div class="col-lg-4 text-center">
                             <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_winners_re_wr1l.svg') ?>" alt="Quality First">
                         </div>
                         <div class="col-lg-8 text-left">
@@ -100,7 +100,90 @@
                 </div>
             </div>
         </div>
-
+    </div>
+    <!-- Technical Whatabouts -->
+    <div class="row justify-content-center align-items-center text-justify pt-1 mb-1">
+        <div class="col-lg-10 mb-3 mx-4">
+            <div class="card shadow border-0 bg-primary py-3 px-3">
+                <div class="card-body text-white">
+                    <i class="bi bi-gear-wide-connected fa-2x mb-5"></i>
+                    <h4 class="font-weight-bold">Technical Whatabouts</h4>
+                    <p>Our technical specifications are described as follows.</p>
+                    <!-- Mission -->
+                    <div class="row justify-content-center align-items-center pt-1">
+                        <div class="col-lg-2 mb-3 mx-0 text-dark text-left">
+                            <div class="card border-0 shadow">
+                                <div class="card-body">
+                                    <i class="bi bi-rulers fa-2x mb-2"></i>
+                                    <h5 class="mb-3 font-weight-bold">Plastic Size</h5>
+                                    <p class="mb-1">Width: 5 to 120 cm</p>
+                                    <p>Thickness: 10 to 100 µm</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-3 mx-0 text-dark text-left">
+                            <div class="card border-0 shadow">
+                                <div class="card-body">
+                                    <i class="bi bi-palette fa-2x mb-2"></i>
+                                    <h5 class="mb-3 font-weight-bold">Colors</h5>
+                                    <div class="row mx-1">
+                                        <i class="bi bi-circle-fill text-dark-900">
+                                            <p class="text-dark mb-3 mr-3">Black</p>
+                                        </i>
+                                        <i class="bi bi-circle-fill text-light">
+                                            <p class="text-dark mb-0 mr-3">White</p>
+                                        </i>
+                                        <i class="bi bi-circle-fill text-danger">
+                                            <p class="text-danger mb-0 mr-3">Red</p>
+                                        </i>
+                                        <i class="bi bi-circle-fill text-warning">
+                                            <p class="text-warning mb-0 mr-3">Yellow</p>
+                                        </i>
+                                        <i class="bi bi-circle-fill text-success">
+                                            <p class="text-success mb-0 mr-3">Green</p>
+                                        </i>
+                                        <i class="bi bi-circle-fill text-primary">
+                                            <p class="text-primary mb-0 mr-3">Blue</p>
+                                        </i>
+                                        <i class="bi bi-circle-fill" style="color:#FF8333;">
+                                            <p class=" text-orange mb-0 mr-3">Orange</p>
+                                        </i>
+                                        <i class="bi bi-circle-fill" style="color:#FF33B8;">
+                                            <p class="mb-0 mr-3">Pink</p>
+                                        </i>
+                                        <i class="bi bi-circle-fill" style="color:#962fbf;">
+                                            <p class="mb-0 mr-3">Purple</p>
+                                        </i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 mb-3 text-dark text-left">
+                            <div class="card border-0 shadow">
+                                <div class="card-body">
+                                    <i class="bi bi-view-list fa-2x mb-2"></i>
+                                    <h5 class="mb-3 font-weight-bold">Plastic Type</h5>
+                                    <p class="mb-1">HDPE, virgin and recycled</p>
+                                    <p class="mb-1">LDPE, virgin and recyled</p>
+                                    <p class="mb-1">PP, virgin and recyled</p>
+                                    <p>HDPE and LDPE blend</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 mb-3 text-dark text-left">
+                            <div class="card border-0 shadow">
+                                <div class="card-body">
+                                    <i class="bi bi-app fa-2x mb-2"></i>
+                                    <h5 class="mb-3 font-weight-bold">Plastic Surface</h5>
+                                    <p class="mb-1">Smooth</p>
+                                    <p>Embossed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- /.container-fluid -->

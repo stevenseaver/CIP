@@ -416,6 +416,18 @@
          $(event.currentTarget).find('.modal-body input[name="delete_code"]').val(code);
      });
 
+     //  JavaScript for Edit material warehouse item Modal
+     $('#editMaterial').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var name = $(event.relatedTarget).data('name');
+         var code = $(event.relatedTarget).data('code');
+         var price = $(event.relatedTarget).data('price');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
+         $(event.currentTarget).find('.modal-body input[name="price"]').val(price);
+     });
 
      //  JavaScript for Edit GBJ item Modal
      $('#editItemModal').on('show.bs.modal', function(event) {
@@ -495,8 +507,19 @@
          $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
      });
 
-     //  JavaScript for Adjust GBJ details transaction
-     $('#adjustStock').on('show.bs.modal', function(event) {
+     //  JavaScript for Adjust Material WH transaction details 
+     $('#adjustMatTrans').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var id = $(event.relatedTarget).data('id');
+         var status = $(event.relatedTarget).data('categories');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="categories"]').val(status);
+     });
+
+     //  JavaScript for Adjust GBJ WH transaction details 
+     $('#adjustGBJTrans').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var id = $(event.relatedTarget).data('id');
          var status = $(event.relatedTarget).data('categories');

@@ -518,7 +518,7 @@
 						<!-- Page Heading -->
 						<div class="row-lg-8 mb-3 text-center">
 							<i class="bi bi-hand-thumbs-up fa-4x"></i>
-							<h3 class="mb-3 text-primary font-weight-bold"><?= $title ?> Products. Only for you. </h3>
+							<h3 class="mb-3 text-primary font-weight-bold">Highly Customizable Products. Only for you. </h3>
 						</div>
 						<!-- Page Body -->
 						<div class="row justify-content-center text-center pt-1 mb-0">

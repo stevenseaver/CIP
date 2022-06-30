@@ -23,7 +23,7 @@
                             <p class="text-primary mb-0">@sbplastik</p>
                             <p class="text-dark mb-0">Chat on Instagram</p>
                             <p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
-                            <a href="https://instagram.com/sbplastik" target="_blank" rel="noopener noreferer" style="color: #962fbf">Chat with us <i class="bi bi-instagram mr-1"></i> </a>
+                            <a href="https://instagram.com/sbplastik" target="_blank" rel="noopener noreferer">Chat with us <i class="bi bi-instagram mr-1"></i> </a>
                         </div>
                     </div>
                     <div class="row py-3 justify-content-center">

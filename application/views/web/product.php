@@ -18,7 +18,7 @@
                 <p class="mb-2">
                     <a class="" href=" <?= base_url() ?>products/jumbobag">Learn more &rarr;</a>
                 </p>
-                <img class="img-fluid rounded my-3" src="<?= base_url('asset/img/webpage/product_.png') ?>" alt="Product Image #1" style="width: 20rem;">
+                <img class="img-fluid rounded my-1" src="<?= base_url('asset/img/webpage/product_.png') ?>" alt="Product Image #1" style="width: 25rem;">
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
                 <p class="mb-2">
                     <a class="" href=" <?= base_url() ?>products/shoppingbag">Learn more &rarr;</a>
                 </p>
-                <img class="img-fluid rounded my-3" src="<?= base_url('asset/img/webpage/product_2.png') ?>" alt="Product Image #2" style="width: 20rem;">
+                <img class="img-fluid rounded my-1" src="<?= base_url('asset/img/webpage/product_2.png') ?>" alt="Product Image #2" style="width: 25rem;">
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@
                     <h3 class="text-center mb-1">Many sizes and types.</h3>
                     <a class="text-primary mb-2" href=" <?= base_url() ?>products/plasticbag">Learn more &rarr;</a>
                 </div>
-                <div class="text-center mb-4">
+                <div class="text-center mb-3">
                     <img class="img-fluid rounded" src="<?= base_url('asset/img/webpage/product_5.png') ?>" alt="Product Image #3" style="width: 20rem;">
                 </div>
             </div>
@@ -57,7 +57,7 @@
                     <h3 class="text-center mb-1">Protects what is good inside.</h3>
                     <a class="text-primary" href=" <?= base_url() ?>products/inner">Learn more &rarr;</a>
                 </div>
-                <div class="text-center mb-4">
+                <div class="text-center mb-3">
                     <img class="img-fluid rounded" src="<?= base_url('asset/img/webpage/product_4.png') ?> " alt="Product Image #4" style="width: 20rem;">
                 </div>
             </div>

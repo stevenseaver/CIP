@@ -54,7 +54,6 @@
                                     <td><?= $fs['code'] ?></td>
                                     <td><?= $fs['pcsperpack'] . ' pcs' ?></td>
                                     <td><?= $fs['packpersack'] . ' pack' ?></td>
-
                                     <td><?= $fs['title'] ?></td>
                                     <td><?php
                                         if ($fs['title'] != 'Bulk Product') {
@@ -64,13 +63,18 @@
                                             echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
                                             echo ' or ' . ($fs['in_stock'] / 25) . ' sack';
                                         } ?></td>
-                                    <td><?= number_format($fs['price'], 0, ',', '.'); ?></td>
+                                    <td><?php
+                                        if ($fs['title'] != 'Bulk Product') {
+                                            echo number_format($fs['price'], 0, ',', '.') . '/pack';
+                                        } else {
+                                            echo number_format($fs['price'], 0, ',', '.') . '/kg';
+                                        } ?></td>
                                     <td><?= $fs['warehouse_name'] ?></td>
                                     <td>
                                         <img class="img-fluid rounded" src="<?= base_url() . $fs['picture'] ?>" alt="Product Image #2" style="width: 15rem;">
                                     <td>
                                         <a href="<?= base_url('inventory/gbj_details/') . $fs['id'] ?>" class="badge badge-primary">Details</a>
-                                        <!-- <a data-toggle="modal" data-target="#adjustItemModal" class="badge badge-success text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-success">Adjust</a> -->
+                                        <!-- <a data-toggle="modal" data-target="#adjustItemModal" class="badge badge-success text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-success">Quick Adjust</a> -->
                                         <a data-toggle="modal" data-target="#editItemModal" class="badge badge-warning text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-pcs="<?= $fs['pcsperpack'] ?>" data-pack="<?= $fs['packpersack'] ?>" data-price="<?= $fs['price'] ?>">Edit</a>
                                         <a data-toggle="modal" data-target="#deleteItemModal" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-danger clickable">Delete</a>
                                     </td>
@@ -243,7 +247,7 @@
                     <!-- Asset Code -->
                     <label for="url" class="col-form-label">Item Code</label>
                     <input type="text" readonly class="form-control mb-1" id="code" name="code" placeholder="Item Code">
-                    <small>You can only change item's name.</small>
+                    <small>You can't change item's code.</small>
                     <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
                 <div class="row">
