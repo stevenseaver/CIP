@@ -20,7 +20,7 @@
                 <span class="icon text-white-50">
                     <i class="fas fa-fw fa-user-plus"></i>
                 </span>
-                <span class="text">Add New User</span>
+                <span class="text">Add New Employee</span>
             </a>
         </div>
     </div>
@@ -51,30 +51,36 @@
                     <tbody>
                         <?php $i = 1; ?>
                         <?php foreach ($userdata as $u) : ?>
-                            <tr>
-                                <td><?= $i ?></td>
-                                <td><?= $u['name']; ?></td>
-                                <td><?= $u['role']; ?></td>
-                                <td><?= $u['nik']; ?></td>
-                                <td><?= $u['email']; ?></td>
-                                <td><?= $u['dob']; ?></td>
-                                <td><?= $u['noktp']; ?></td>
-                                <td><?= $u['address']; ?></td>
-                                <td><?= $u['phone_number']; ?></td>
-                                <td><?= date('d F Y', $u['date_created']); ?></td>
-                                <td>
-                                    <?php if ($u['is_active']) {
-                                        echo '<p class="badge badge-success">Active</p>';
-                                    } else {
-                                        echo '<p class="badge badge-danger">Not Active</p>';
-                                    } ?>
-                                </td>
-                                <td>
-                                    <a href="<?= base_url('admin/toggleactive/') . $u['id'] . '/' . $u['is_active'] . '/' . urldecode($u['name']) ?>" class="badge badge-warning">Toggle Active</a>
-                                    <!-- <a href="<?= base_url('admin/deleteuser/') . $u['id'] . '/' . urldecode($u['name']) ?>" class="badge badge-danger">Delete</a> -->
-                                    <a data-toggle="modal" data-target="#deleteAccount" data-id="<?= $u['id'] ?>" data-name="<?= $u['name'] ?>" class="badge badge-danger clickable">Delete</a>
-                                </td>
-                            </tr>
+                            <?php
+                            if ($u['role_id'] != '3') { ?>
+                                <tr>
+                                    <td><?= $i ?></td>
+                                    <td><?= $u['name']; ?></td>
+                                    <td><?= $u['role']; ?></td>
+                                    <td><?= $u['nik']; ?></td>
+                                    <td><?= $u['email']; ?></td>
+                                    <td><?= $u['dob']; ?></td>
+                                    <td><?= $u['noktp']; ?></td>
+                                    <td><?= $u['address']; ?></td>
+                                    <td><?= $u['phone_number']; ?></td>
+                                    <td><?= date('d F Y', $u['date_created']); ?></td>
+                                    <td>
+                                        <?php if ($u['is_active']) {
+                                            echo '<p class="badge badge-success">Active</p>';
+                                        } else {
+                                            echo '<p class="badge badge-danger">Not Active</p>';
+                                        } ?>
+                                    </td>
+                                    <td>
+                                        <a href="<?= base_url('hr/toggleactive/') . $u['id'] . '/' . $u['is_active'] . '/' . urldecode($u['name']) ?>" class="badge badge-warning">Toggle Active</a>
+                                        <!-- <a href="<?= base_url('hr/deleteuser/') . $u['id'] . '/' . urldecode($u['name']) ?>" class="badge badge-danger">Delete</a> -->
+                                        <a data-toggle="modal" data-target="#deleteEmployee" data-id="<?= $u['id'] ?>" data-name="<?= $u['name'] ?>" class="badge badge-danger clickable">Delete</a>
+                                </tr>
+                            <?
+                            } else {
+                                continue;
+                            }
+                            ?>
                             <?php $i++; ?>
                         <?php endforeach; ?>
                     </tbody>
@@ -95,12 +101,12 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newUserLabel">Add New User</h5>
+                <h5 class="modal-title" id="newUserLabel">Add New Employee</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('admin/addUser') ?>" method="post">
+            <form action="<?= base_url('hr/addEmployee') ?>" method="post">
                 <div class="modal-body">
                     <!-- input nama -->
                     <div class="form-group">
@@ -109,7 +115,7 @@
                     </div>
                     <!-- input Username/ERN/NIK -->
                     <div class="form-group">
-                        <input type="text" class="form-control" id="nik" name="nik" placeholder="User Registration Number">
+                        <input type="text" class="form-control" id="nik" name="nik" placeholder="Employee Registration Number">
                         <small class="text-primary ml-2">Will be used as login detail.</small>
                         <?= form_error('nik', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
@@ -133,20 +139,23 @@
                         <input type="text" class="form-control" id="hp" name="hp" placeholder="Mobile Phone Number">
                         <?= form_error('hp', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
-                    <!-- input alamat -->
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="address" name="address" placeholder="Address">
-                        <?= form_error('address', '<small class="text-danger pl-3">', '</small>') ?>
-                    </div>
                     <!-- input user_role -->
                     <div class="form-group">
                         <select name="role_id" id="role_id" class="form-control">
                             <option value="">--Select Role--</option>
                             <?php foreach ($role as $r) : ?>
-                                <option value="<?= $r['id'] ?>"><?= $r['role'] ?></option>
+                                <?php if ($r['id'] != '3') { ?>
+                                    <option value="<?= $r['id'] ?>"><?= $r['role'] ?></option>
+                                <?php } else {
+                                } ?>
                             <?php endforeach; ?>
                         </select>
                         <?= form_error('role_id', '<small class="text-danger pl-3">', '</small>') ?>
+                    </div>
+                    <!-- input alamat -->
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                        <?= form_error('address', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
                     <!-- password -->
                     <div class="form-group row">
@@ -171,16 +180,16 @@
 </div>
 
 <!-- Modal For Delete User Account -->
-<div class="modal fade" id="deleteAccount" tabindex="-1" aria-labelledby="deleteAccountLabel" aria-hidden="true">
+<div class="modal fade" id="deleteEmployee" tabindex="-1" aria-labelledby="deleteEmployeeLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteAccountLabel">Delete User Account</h5>
+                <h5 class="modal-title" id="deleteEmployeeLabel">Delete User Account</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('admin/deleteuser') ?>" method="post">
+            <form action="<?= base_url('hr/deleteEmployee') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- User ID -->

@@ -137,7 +137,7 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Jumbo Bag</h4> -->
-                            <p class="text-dark">Gemah&reg; super jumbo bags are high quality plastic bags with vivid color and smooth surface quality. Derrived from ancient Javanese word of fertility, Gemah&reg;'s colorful hue pleases your eye for as long as you look into it.</p>
+                            <p class="text-dark">Gemah&reg; super jumbo bags are high quality plastic bags with vivid color and smooth surface quality. Derrived from ancient Javanese word of fertility, Gemah&reg;'s colorful hue and superior plastic quality would satisfy your need for high-end super jumbo plastic bag.</p>
                             <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php

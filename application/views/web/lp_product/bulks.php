@@ -24,8 +24,8 @@
             <div class="col-lg-12 card mb-3 border-0">
                 <div class="row no-gutters align-items-top">
                     <div class="col-md-4 text-center">
-                        <!-- <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid"> -->
-                        <div id="carouselIndicatorNat" class="carousel slide" data-ride="carousel">
+                        <img src="<?= base_url('asset/img/webpage/12. Loss Ori TM/1.png') ?>" class="my-4 rounded img-fluid">
+                        <!-- <div id="carouselIndicatorNat" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                                 <li data-target="#carouselIndicatorNat" data-slide-to="0" class="active"></li>
                                 <li data-target="#carouselIndicatorNat" data-slide-to="1"></li>
@@ -40,7 +40,7 @@
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </button>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -81,8 +81,8 @@
             <div class="col-lg-12 card mb-3 border-0">
                 <div class="row no-gutters align-items-top">
                     <div class="col-md-4 text-center">
-                        <!-- <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid"> -->
-                        <div id="carouselIndicatorNat" class="carousel slide" data-ride="carousel">
+                        <img src="<?= base_url('asset/img/webpage/15. Loss Natural/1.png') ?>" class="my-4 rounded img-fluid">
+                        <!-- <div id="carouselIndicatorNat" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                                 <li data-target="#carouselIndicatorNat" data-slide-to="0" class="active"></li>
                                 <li data-target="#carouselIndicatorNat" data-slide-to="1"></li>
@@ -97,7 +97,7 @@
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </button>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -138,8 +138,8 @@
             <div class="col-lg-12 card mb-3 border-0">
                 <div class="row no-gutters align-items-top">
                     <div class="col-md-4 text-center">
-                        <!-- <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid"> -->
-                        <div id="carouselIndicatorWarna" class="carousel slide" data-ride="carousel">
+                        <img src="<?= base_url('asset/img/webpage/13. Loss Warna/1.png') ?>" class="my-4 rounded img-fluid">
+                        <!-- <div id="carouselIndicatorWarna" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                                 <li data-target="#carouselIndicatorWarna" data-slide-to="0" class="active"></li>
                                 <li data-target="#carouselIndicatorWarna" data-slide-to="1"></li>
@@ -154,7 +154,7 @@
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </button>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -195,8 +195,8 @@
             <div class="col-lg-12 card mb-3 border-0">
                 <div class="row no-gutters align-items-top">
                     <div class="col-md-4 text-center">
-                        <!-- <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid"> -->
-                        <div id="carouselIndicatorHitam" class="carousel slide" data-ride="carousel">
+                        <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                        <!-- <div id="carouselIndicatorHitam" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                                 <li data-target="#carouselIndicatorHitam" data-slide-to="0" class="active"></li>
                                 <li data-target="#carouselIndicatorHitam" data-slide-to="1"></li>
@@ -221,12 +221,12 @@
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
                             </button>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Jumbo Bag</h4> -->
-                            <p class="text-dark text-justify">Loss Warna is high-volume colored plastic bag for every-day Indonesian traditional market usage. Loss warna is made from fully recycled plastic pellets for low-cost usage.</p>
+                            <p class="text-dark text-justify">Loss Hitam is high-volume colored plastic bag for every-day Indonesian traditional market usage. Loss warna is made from fully recycled plastic pellets for low-cost usage.</p>
                             <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php

@@ -54,6 +54,7 @@
     <!-- /.container-fluid -->
 
 </div>
+</div>
 <!-- End of Main Content -->
 
 <!-- Modal For Add Data -->

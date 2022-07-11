@@ -81,6 +81,7 @@
              }
          });
      });
+
      //  JavaScript for Edit Role Modal
      $('#editRoleModal').on('show.bs.modal', function(event) {
 
@@ -91,6 +92,28 @@
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="id"]').val(roleid);
          $(event.currentTarget).find('.modal-body input[name="role"]').val(rolename);
+     });
+
+     //  JavaScript for Delete User Account modal
+     $('#deleteAccount').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var id = $(event.relatedTarget).data('id');
+         var name = $(event.relatedTarget).data('name');
+
+         // input passed data using JS to object INPUT inside modal
+         $(event.currentTarget).find('.modal-body input[name="delete_id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="delete_name"]').val(name);
+     });
+
+     //  JavaScript for Delete User Account modal
+     $('#deleteEmployee').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var id = $(event.relatedTarget).data('id');
+         var name = $(event.relatedTarget).data('name');
+
+         // input passed data using JS to object INPUT inside modal
+         $(event.currentTarget).find('.modal-body input[name="delete_id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="delete_name"]').val(name);
      });
 
      // JavaScript for Edit Menu Modal

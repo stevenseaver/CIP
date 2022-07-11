@@ -101,6 +101,6 @@ class Contact extends CI_Controller
         $this->db->delete('contact_us', array('id' => $itemtoDelete));
         // send message
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">User ' . $deletedmessage["name"] . ' message deleted!</div>');
-        redirect('contact/message');
+        redirect('contact');
     }
 }

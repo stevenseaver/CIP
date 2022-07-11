@@ -87,10 +87,10 @@
                             <p class="mx-3">Our products is the back bone of the company, carefully manufactured using selected plastic materials to ensure highest quality possible for our customers. All of this are achieved while ensuring reasonable selling price so that our customers can use high quality products with reasonable costs.</p>
                         </div>
                     </div>
-                    <!-- value 2 s-->
+                    <!-- value 2 -->
                     <div class="row align-items-center mb-3">
                         <div class="col-lg-4 text-center">
-                            <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_winners_re_wr1l.svg') ?>" alt="Quality First">
+                            <img class="img-fluid px-3 px-4 mt-3 mb-4" style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_winners_re_wr1l.svg') ?>" alt="Quality First">
                         </div>
                         <div class="col-lg-8 text-left">
                             <h5 class="font-weight-bold mx-3 mb-2">Customer Satisfaction Comes Next</h5>

@@ -71,6 +71,7 @@
     </div>
     <!-- /.container-fluid -->
 </div>
+</div>
 <!-- End of Main Content -->
 
 <!-- Add New Submenu Modal -->
