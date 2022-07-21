@@ -10,7 +10,7 @@
     </div>
 
     <div class="card border-left-primary mb-3">
-        <div class="input-group mx-3 my-3">
+        <!-- <div class="input-group mx-3 my-3">
             <text class="text-dark mr-3 mb-3">Edit number of materials:</text>
             <span class="input-group">
                 <button type="button" class="quantity-left-minus btn btn-danger btn-circle" data-type="minus" data-field="">
@@ -24,10 +24,11 @@
                     <span class="bi bi-plus-lg"></span>
                 </button>
             </span>
-        </div>
-        <div class="row input-group mx-3">
+        </div> -->
+
+        <div class="row input-group mx-3 my-3">
             <div class="form-group col-lg-5 mr-2">
-                <text class="mb-1" for="roll-type">Type</text>
+                <text class="mb-1" for="roll-type">Goods</text>
                 <select name="rolltype" id="rolltype" class="form-control">
                     <option value="">--Select [ROLL] Product--</option>
                     <?php foreach ($rollType as $rt) : ?>
@@ -80,7 +81,10 @@
                                             <select name="material" id="material" class="form-control">
                                                 <option value="">--Select Material--</option>
                                                 <?php foreach ($materialStock as $ms) : ?>
-                                                    <option value="<?= $ms['material'] ?>"><?= $ms['material'] ?></option>
+                                                    <?php if ($ms['status'] == 7) { ?>
+                                                        <option value="<?= $ms['name'] ?>"><?= $ms['name'] ?></option>
+                                                    <?php } else {
+                                                    } ?>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>

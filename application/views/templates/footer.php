@@ -595,6 +595,26 @@
          $(event.currentTarget).find('.modal-body input[name="email"]').val(email);
      });
 
+     //  JavaScript for Delete Individual cart item Message
+     $('#deleteCartIndividualItem').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var custName = $(event.relatedTarget).data('cust');
+         var itemName = $(event.relatedTarget).data('name');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="cust_name"]').val(custName);
+         $(event.currentTarget).find('.modal-body input[name="delete_ind_item"]').val(itemName);
+     });
+
+     //  JavaScript for Delete All cart item Message
+     $('#deleteCartItem').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var name = $(event.relatedTarget).data('name');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="delete_name"]').val(name);
+     });
+
      //javascript for increment tools
      var quantity = 0;
      $('.quantity-right-plus').click(function(e) {

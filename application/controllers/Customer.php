@@ -88,4 +88,41 @@ class Customer extends CI_Controller
             redirect('customer');
         }
     }
+
+    public function delete_cart_item()
+    {
+        $CustName = $this->input->post('cust_name');
+        $ItemName = $this->input->post('delete_ind_item');
+
+        $this->db->where('customer', $CustName);
+        $this->db->delete('cart', array('name' => $ItemName));
+
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $ItemName . ' on ' . $CustName . ' cart deleted!</div>');
+        redirect('customer/cart');
+    }
+
+    public function clear_cart()
+    {
+        $name = $this->input->post('delete_name');
+        $this->db->delete('cart', array('customer' => $name));
+
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $name . ' cart deleted!</div>');
+        redirect('customer/cart');
+    }
+
+    public function history()
+    {
+        //load user data per session
+        $data['title'] = 'Transaction History';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get cart database
+        $data['dataCart'] = $this->db->get('cart')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('customer/history', $data);
+        $this->load->view('templates/footer');
+    }
 }

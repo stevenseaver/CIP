@@ -101,6 +101,9 @@
         <p class="text-dark mx-2 px-2 text-justify mb-3">
             This Privacy Policy was made in accordance with Indonesian regulations and subject to the applicable regulations in Indonesia.
         </p>
+        <p class="text-dark mx-2 px-2 text-justify mb-3">
+            In the event of a dispute, differences of opinion and/or disagreement regarding the content between Indonesian and English, the Indonesian language version will prevail.
+        </p>
     </div>
 
     <!-- indonesian -->
@@ -123,7 +126,7 @@
         </button>
 
         <p class="text-dark mx-2 px-2 text-justify">
-            Kebiajakan privasi ini menjelaskan bagaimana UD. Cakra Inti Plastik (Kami, atau Kita) mendapatkan, menyimpan, menggunakan, dan membagikan data pengguna (Anda) yang telah didaftarkan kepada kami melalui salah satu kanal binis kami, yang tersedia melalui website kami di www.cakraintiplastik.com (disebut halaman web), maupun kanal lainnya.
+            Kebijakan privasi ini menjelaskan bagaimana UD. Cakra Inti Plastik (Kami, atau Kita) mendapatkan, menyimpan, menggunakan, dan membagikan data pengguna (Anda) yang telah didaftarkan kepada kami melalui salah satu kanal binis kami, yang tersedia melalui website kami di www.cakraintiplastik.com (disebut halaman web), maupun kanal lainnya.
         </p>
         <p class="text-dark mx-2 px-2 text-justify">
             Kebijakan privasi ini adalah komitmen nyata kami untuk menghargai dan melindungi data pribadi pengguna ('Informasi') dan sebagai bentuk kepatuhan kami terhadap regulasi yang berlaku di Indonesia. Kebijakan privasi ini adalah bagian tidak terpisahkan dari Syarat dan Ketentuan penggunaan yang telah anda setujui ketika anda mengkases, mengunduh, mendaftarkan, dan/atau menggunakan layanan kami baik melalui halaman web kami, aplikasi kami, atau melalui kanal lainnya.
@@ -170,7 +173,7 @@
             c. Memaksimalkan layanan bisnis yang disediakan oleh halaman web dan aplikasi kami, termasuk namun tidak terbatas pada fitur, berita / kejadian yang mungkin mempengaruhi kualitas layanan, harga, rekomendasi, layanan purna-jual, menanggapi komplain anda, dan layanan lainnya;
         </p>
         <p class="text-dark mx-2 px-2 text-justify">
-            d. Memaksimalkan komunikasi yang lancar dan suportif antara kami dan adna, melalui namun tidak terbatas penggunaan surat elektronik atau e-mail, telefon, media daring, dan lain-lain.
+            d. Memaksimalkan komunikasi yang lancar dan suportif antara anda dan kami, melalui namun tidak terbatas penggunaan surat elektronik atau e-mail, telefon, media daring, dan lain-lain.
         </p>
         <h5 class="text-dark mx-2 px-2 text-justify font-weight-bold">
             3. Penyimpanan Informasi Anda
