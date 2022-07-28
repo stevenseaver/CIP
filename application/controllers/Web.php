@@ -48,6 +48,21 @@ class Web extends CI_Controller
 		$this->load->view('web/contact-us', $data);
 		$this->load->view('templates/web-footer');
 	}
+
+	//load page contact list
+	public function contactList()
+	{
+		$data['title'] = 'Contact List';
+		$data['webmenu'] = $this->db->get('web_menu')->result_array();
+		$data['products'] = $this->db->get('product_menu')->result_array();
+		$data['user'] = $this->db->get_where('user', ['nik' =>
+		$this->session->userdata('nik')])->row_array();
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/web-topbar', $data);
+		$this->load->view('web/contact-list', $data);
+		$this->load->view('templates/web-footer');
+	}
 	//load page about Us
 	public function aboutUs()
 	{

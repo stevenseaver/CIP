@@ -18,7 +18,7 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'Login - ITS v1.1';
+            $data['title'] = 'Login';
             $this->load->view('templates/auth_header', $data);
             $this->load->view('auth/login');
             $this->load->view('templates/auth_footer');
@@ -64,6 +64,18 @@ class Auth extends CI_Controller
         }
     }
 
+    //fucntion callback for TOS and privacy
+    function accept_terms()
+    {
+        //if (isset($_POST['accept_terms_checkbox']))
+        if ($this->input->post('check_terms')) {
+            return TRUE;
+        } else {
+            $error = 'Please read and accept our terms and conditions.';
+            $this->form_validation->set_message('accept_terms', $error);
+            return FALSE;
+        }
+    }
     public function registration()
     {
         if ($this->session->userdata('nik')) {
@@ -71,7 +83,7 @@ class Auth extends CI_Controller
         }
 
         $this->form_validation->set_rules('name', 'name', 'required|trim');
-        $this->form_validation->set_rules('nik', 'ERN', 'required|trim|is_unique[user.nik]', [
+        $this->form_validation->set_rules('nik', 'username', 'required|trim|is_unique[user.nik]', [
             'is_unique' => 'This ERN has already been used!'
         ]);
         $this->form_validation->set_rules('address', 'address', 'required|trim');
@@ -86,9 +98,10 @@ class Auth extends CI_Controller
             'min_length' => 'Password too short! Min. 8 character.'
         ]);
         $this->form_validation->set_rules('password2', 'password', 'required|trim|min_length[8]|matches[password1]');
+        $this->form_validation->set_rules('check_terms', '', 'callback_accept_terms');
 
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'Registration - Employee Information System';
+            $data['title'] = 'Account Registration';
             $this->load->view('templates/auth_header', $data);
             $this->load->view('auth/registration');
             $this->load->view('templates/auth_footer');

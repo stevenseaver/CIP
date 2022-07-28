@@ -20,11 +20,20 @@
                         <i class="bi bi-cart-fill fa-fw"></i>
                         <!-- Counter - Alerts -->
                         <?php
+                        $userName = $user['name'];
                         $amount = 0;
+                        // $i = 0;
+                        // foreach ($cartData as $cd) :
+                        //     if ($cd['customer'] == $userName) {
+                        //         $i++;
+                        //         $amount = $i;
+                        //     } else {
+                        //     }
+                        // endforeach;
                         if ($amount == 0) :
                         ?>
                         <?php else : ?>
-                            <span class="badge badge-danger badge-counter"><?= $amount ?></span>
+                            <h5 class="badge badge-danger badge-counter large"><?= $amount ?></h5>
                         <?php endif; ?>
                     </a>
                 </li>

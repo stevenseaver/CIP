@@ -6,28 +6,19 @@
         <h1 class="h3 mb-1 text-primary font-weight-bold"><?= $title ?></h1>
     </div>
 
-    <div class="row">
-        <div class="col-lg-7">
+    <div class="row mb-2">
+        <div class="col">
             <div class="card shadow border-0 mb-3">
                 <div class="card-body">
-                    <div class="row py-3 justify-content-center">
-                        <div class="col py-3 text-center">
-                            <i class="bi bi-geo fa-3x mb-3 text-primary"></i>
-                            <p class="text-primary mb-0">Pergudangan dan Industri Sinar Gedangan A-20</p>
+                    <div class="row py-2 justify-content-center">
+                        <div class="col-lg py-3 mx-2 text-center">
+                            <i class="bi bi-geo fa-3x mb-3 x-2 text-primary"></i>
+                            <p class="text-primary mb-0">Pergudangan Sinar Gedangan A-20</p>
                             <p class="text-secondary mb-0">Gedangan, Sidoarjo</p>
                             <p class="text-secondary mb-0">East Java, Indonesia 61245</p>
                             <a href="https://goo.gl/maps/zRBAk5gr9dujTFc48" class="" target="_blank">Directions &rarr; </a>
                         </div>
-                        <div class="col-lg-5 py-3 px-3 mb-1 text-center">
-                            <i class="bi bi-instagram fa-3x mb-3" style="color: #962fbf"></i>
-                            <p class="text-primary mb-0">@sbplastik</p>
-                            <p class="text-dark mb-0">Chat on Instagram</p>
-                            <p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
-                            <a href="https://instagram.com/sbplastik" target="_blank" rel="noopener noreferer">Chat with us <i class="bi bi-instagram mr-1"></i> </a>
-                        </div>
-                    </div>
-                    <div class="row py-3 justify-content-center">
-                        <div class="col py-3 px-2 text-center">
+                        <div class="col-lg py-3 mx-2 text-center">
                             <i class="bi bi-envelope fa-3x mb-3 text-primary"></i>
                             <p class="text-primary mb-0">cs.sbplastik@gmail.com</p>
                             <p class="text-secondary mb-0">Monday - Friday</p>
@@ -36,22 +27,29 @@
                                 <p class="text-primary mb-0">E-mail us &rarr; </p>
                             </a>
                         </div>
-                        <div class="col-lg-5 py-3 px-3 text-center">
+                        <div class="col-lg py-3 mx-2 mb-1 text-center">
+                            <i class="bi bi-instagram fa-3x mb-3" style="color: #962fbf"></i>
+                            <p class="text-primary mb-0">@sbplastik</p>
+                            <p class="text-dark mb-0">Chat on Instagram</p>
+                            <p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
+                            <a href="https://instagram.com/sbplastik" target="_blank" rel="noopener noreferer">Chat with us <i class="bi bi-instagram mr-1"></i> </a>
+                        </div>
+                        <div class="col-lg py-3 mx-2 text-center">
                             <i class="bi bi-whatsapp fa-3x mb-3 text-success"></i>
-                            <p class="text-primary mb-0">+62822-3205-7755</p>
-                            <p class="text-secondary mb-0">Steven</p>
+                            <p class="text-primary mb-0">+62 822-3205-7755</p>
+                            <p class="text-secondary mb-0">Sales Representatives</p>
                             <p class="text-secondary mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
                             <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" target="_blank" rel="noopener noreferer" class="">Chat on WhatsApp! &rarr; </a>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
-
-                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-5">
-            <div class="card shadow border-0 mb-3">
+    </div>
+    <!-- </div> -->
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="card shadow border-0 mb-3" class="align-items-center">
                 <div class="card-body">
                     <h5 class="mx-0 mb-3 font-weight-bold text-primary">Or, you can just drop your inquiries here!</h5>
                     <?= $this->session->flashdata('message'); ?>
@@ -89,8 +87,24 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-5">
+            <div class="card shadow border-0 mb-3" class="align-items-center">
+                <div class="card-body">
+                    <h5 class="mx-0 mb-3 font-weight-bold text-primary">Do you need our help?</h5>
+                    <p class="text-dark mb-2">Contact Our Customer Service</p>
+                    <i class="bi bi-person-badge fa-3x"></i>
+                    <p class="text-primary mt-2 mb-0">+62 813-3103-0398</p>
+                    <p class="text-dark mb-0">Customer Service Officer</p>
+                    <p class="text-secondary mb-0">Monday to Saturday from 09.00 - 15.30 (WIB/GMT+7)</p>
+                    <a href="https://wa.me/+6281331030398/?text=Halo,%20boleh%20minta%20informasi%20layanan%20pelanggan%20untuk%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20customer%20services%20informations%20of%20your%20products?" target="_blank" rel="noopener noreferer" class="">Chat on WhatsApp! &rarr; </a>
+                    <p class="mx-0 my-3 text-dark">Or if you need anything other than Customer Services, you can find full list of our department's contacts you'd like to contact <a href="<?= base_url('web/contactList') ?>" rel="noopener noreferer"> here.</a></p>
+                    <p class="mx-0 my-3 text-dark">You may also obliged to read our <a href="<?= base_url('web/terms') ?>" rel="noopener noreferer"> terms and conditons</a> and also our <a href="<?= base_url('web/privacy_policy') ?>" rel="noopener noreferer"> privacy policy</a> before using our services.</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.container-fluid -->
+</div>
+<!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->

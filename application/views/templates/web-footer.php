@@ -7,6 +7,7 @@
             <p class="small">2. Our products are made from select recycled materials, hence some minor differences in characteristic (such as color or clearness) may occur between production batches. This does not affect product's quality and reliability. </p>
             <p class="small">3. We may change the product's specification and price according to market situations without prior notice. Product specifications and actual products may slightly vary depending on production processes and quality enhancement. </p>
             <p class="small">4. Custom order are available with a minimum order of 500 kg. </p>
+            <p class="small">5. Product images are for illustration purpose only, actual products may or may not vary. </p>
         </div>
         <!-- Right -->
     </section>
@@ -41,6 +42,26 @@
                     <?php endforeach; ?>
                 </div>
                 <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+                    <!-- Links -->
+                    <h6 class="text-primary fw-bold mb-3">
+                        Why Us?
+                    </h6>
+                    <p>
+                        <a href="<?= base_url('web/lp0_circulatry') ?>" target="_blank" class="text-dark">Circular Economy</a>
+                    </p>
+                    <p>
+                        <a href="<?= base_url('web/lp1_quality') ?>" target="_blank" class="text-dark">High Quality</a>
+                    </p>
+                    <p>
+                        <a href="<?= base_url('web/lp2_eco') ?>" target="_blank" class="text-dark">Eco-Mindful</a>
+                    </p>
+                    <p>
+                        <a href="<?= base_url('web/lp3_guideline') ?>" target="_blank" class="text-dark">Customization</a>
+                    </p>
+                </div>
 
                 <!-- Grid column -->
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
@@ -105,7 +126,7 @@
     <!-- Copyright -->
     <div class="text-center bg-white p-4">
         <div class="copyright">
-            <span>Copyright &copy; UD. Cakra Inti Plastik 2021</span>
+            <span class="small">Copyright &copy; UD. Cakra Inti Plastik 2021</span>
         </div>
     </div>
     <!-- Copyright -->

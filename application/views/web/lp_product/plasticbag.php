@@ -10,11 +10,11 @@
 
         <?php endforeach; ?>
     </div>
-    <!-- Page Heading -->
+    <!-- Product 1 -->
     <div class="container">
         <div class="row mt-3 mx-1">
             <div class="col-6 mb-1">
-                <h1 class="h3 mb-0 text-primary font-weight-bold">Plastic Bag</h1>
+                <h1 class="h3 mb-0 text-primary font-weight-bold">White Plastic Bag</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
@@ -26,7 +26,6 @@
             <div class="col-lg-12 card mb-3 border-0">
                 <div class="row no-gutters align-items-top">
                     <div class="col-md-4 text-center">
-                        <!-- <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid"> -->
                         <div id="plasticBagCarousel" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                                 <li data-target="#plasticBagCarousel" data-slide-to="0" class="active"></li>
@@ -38,10 +37,7 @@
                                     <img src="<?= base_url('asset/img/webpage/2. Plastic Bag/1.png') ?>" class="my-4 rounded img-fluid">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                    <img src="<?= base_url('asset/img/webpage/2. Plastic Bag/5.png') ?>" class="my-4 rounded img-fluid">
                                 </div>
                             </div>
                             <button class="carousel-control-prev border-0 bg-transparent" type="button" data-target="#plasticBagCarousel" data-slide="prev">
@@ -61,7 +57,216 @@
                             <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
-                                if ($s['product_name'] != "Plastic Bag") {
+                                if ($s['product_name'] != "White Plastic Bag") {
+                                    continue;
+                                } else {
+                                }
+                                ?>
+                                <dl class="row my-3">
+                                    <dt class="col-sm-12 text-left mb-1">
+                                        <?= $s["specification"] ?>
+                                    </dt>
+                                    <dd class="col-sm-12 text-dark">
+                                        <?= $s["items"] ?>
+                                    </dd>
+                                </dl>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Product 2 -->
+    <div class="container">
+        <div class="row mt-3 mx-1">
+            <div class="col-6 mb-1">
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Clear Plastic Bag</h1>
+            </div>
+            <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
+                <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-left my-1 mx-3">
+            <div class="col-lg-12 card mb-3 border-0">
+                <div class="row no-gutters align-items-top">
+                    <div class="col-md-4 text-center">
+                        <div id="clearplasticBagCarousel" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#clearplasticBagCarousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#clearplasticBagCarousel" data-slide-to="1"></li>
+                                <li data-target="#clearplasticBagCarousel" data-slide-to="2"></li>
+                            </ol>
+                            <!-- <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="<?= base_url('asset/img/webpage/2. Plastic Bag/1.png') ?>" class="my-4 rounded img-fluid">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                </div>
+                            </div> -->
+                            <img src="<?= base_url('asset/img/webpage/2. Plastic Bag/4.png') ?>" class="my-4 rounded img-fluid">
+                            <!-- <button class="carousel-control-prev border-0 bg-transparent" type="button" data-target="#plasticBagCarousel" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </button>
+                            <button class="carousel-control-next border-0 bg-transparent" type="button" data-target="#plasticBagCarousel" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </button> -->
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <!-- <h4 class="card-title text-primary font-weight-bold">Plastic Bag</h4> -->
+                            <p class="text-dark text-justify">Not your ordinary plastic bag, we can create a wide range of plastic bag variety. Rukun&reg; plastic bags are available in red, white, and black; made from high-quality fully recycled materials.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
+                            <?php foreach ($spec as $s) : ?>
+                                <?php
+                                if ($s['product_name'] != "Clear Plastic Bag") {
+                                    continue;
+                                } else {
+                                }
+                                ?>
+                                <dl class="row my-3">
+                                    <dt class="col-sm-12 text-left mb-1">
+                                        <?= $s["specification"] ?>
+                                    </dt>
+                                    <dd class="col-sm-12 text-dark">
+                                        <?= $s["items"] ?>
+                                    </dd>
+                                </dl>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Product 3 -->
+    <div class="container">
+        <div class="row mt-3 mx-1">
+            <div class="col-6 mb-1">
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Black Plastic Bag</h1>
+            </div>
+            <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
+                <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-left my-1 mx-3">
+            <div class="col-lg-12 card mb-3 border-0">
+                <div class="row no-gutters align-items-top">
+                    <div class="col-md-4 text-center">
+                        <div id="blackplasticBagCarousel" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#blackplasticBagCarousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#blackplasticBagCarousel" data-slide-to="1"></li>
+                                <li data-target="#blackplasticBagCarousel" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="<?= base_url('asset/img/webpage/2. Plastic Bag/2.png') ?>" class="my-4 rounded img-fluid">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="<?= base_url('asset/img/webpage/2. Plastic Bag/3.png') ?>" class="my-4 rounded img-fluid">
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev border-0 bg-transparent" type="button" data-target="#blackplasticBagCarousel" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </button>
+                            <button class="carousel-control-next border-0 bg-transparent" type="button" data-target="#blackplasticBagCarousel" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <!-- <h4 class="card-title text-primary font-weight-bold">Plastic Bag</h4> -->
+                            <p class="text-dark text-justify">Not your ordinary plastic bag, we can create a wide range of plastic bag variety. Rukun&reg; plastic bags are available in red, white, and black; made from high-quality fully recycled materials.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
+                            <?php foreach ($spec as $s) : ?>
+                                <?php
+                                if ($s['product_name'] != "Black Plastic Bag") {
+                                    continue;
+                                } else {
+                                }
+                                ?>
+                                <dl class="row my-3">
+                                    <dt class="col-sm-12 text-left mb-1">
+                                        <?= $s["specification"] ?>
+                                    </dt>
+                                    <dd class="col-sm-12 text-dark">
+                                        <?= $s["items"] ?>
+                                    </dd>
+                                </dl>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Product 4 -->
+    <div class="container">
+        <div class="row mt-3 mx-1">
+            <div class="col-6 mb-1">
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Red Plastic Bag</h1>
+            </div>
+            <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
+                <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-left my-1 mx-3">
+            <div class="col-lg-12 card mb-3 border-0">
+                <div class="row no-gutters align-items-top">
+                    <div class="col-md-4 text-center">
+                        <div id="redplasticBagCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- <ol class="carousel-indicators">
+                                <li data-target="#redplasticBagCarousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#redplasticBagCarousel" data-slide-to="1"></li>
+                                <li data-target="#redplasticBagCarousel" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="<?= base_url('asset/img/webpage/2. Plastic Bag/6.png') ?>" class="my-4 rounded img-fluid">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                </div>
+                                <div class="carousel-item">
+                                    <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                                </div>
+                            </div> -->
+                            <img src="<?= base_url('asset/img/webpage/2. Plastic Bag/6.png') ?>" class="my-4 rounded img-fluid">
+                            <!-- <button class="carousel-control-prev border-0 bg-transparent" type="button" data-target="#redplasticBagCarousel" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </button>
+                            <button class="carousel-control-next border-0 bg-transparent" type="button" data-target="#redplasticBagCarousel" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </button> -->
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <!-- <h4 class="card-title text-primary font-weight-bold">Plastic Bag</h4> -->
+                            <p class="text-dark text-justify">Not your ordinary plastic bag, we can create a wide range of plastic bag variety. Rukun&reg; plastic bags are available in red, white, and black; made from high-quality fully recycled materials.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
+                            <?php foreach ($spec as $s) : ?>
+                                <?php
+                                if ($s['product_name'] != "Red Plastic Bag") {
                                     continue;
                                 } else {
                                 }

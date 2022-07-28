@@ -36,14 +36,14 @@
                             <img src="<?= base_url('asset/img/webpage/14. Shopping Bag/1.png') ?>" class="my-4 rounded img-fluid">
                             <!-- </div>
                             </div> -->
-                            <button class="carousel-control-prev border-0 bg-transparent" type="button" data-target="#shoppingBagCarousel" data-slide="prev">
+                            <!-- <button class="carousel-control-prev border-0 bg-transparent" type="button" data-target="#shoppingBagCarousel" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Previous</span>
                             </button>
                             <button class="carousel-control-next border-0 bg-transparent" type="button" data-target="#shoppingBagCarousel" data-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">Next</span>
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                     <div class="col-md-8">

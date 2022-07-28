@@ -293,7 +293,7 @@
 				<div class="col-lg-3 py-3 px-3 mb-1 text-center">
 					<i class="bi bi-whatsapp fa-3x mb-3 text-success"></i>
 					<p class="text-primary mb-0">+62822-3205-7755</p>
-					<p class="text-dark mb-0">Whatsapp with Steven</p>
+					<p class="text-dark mb-0">Whatsapp with Customer Service</p>
 					<p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
 					<a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" target="_blank" rel="noopener noreferer" class="text-success">Contact us now <i class="bi bi-whatsapp mr-1"></i> </a>
 				</div>

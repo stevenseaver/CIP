@@ -4,9 +4,6 @@
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
                 <div class="row d-flex justify-content-center">
-                    <div class="col-lg-5 d-none d-lg-block">
-                        <img src="<?= base_url('asset/') ?>img/stock/undraw_Account_re_o7id.svg" class="img-fluid mx-3 d-block mt-5">
-                    </div>
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
@@ -22,9 +19,9 @@
                                 <!-- input email -->
                                 <div class="form-group">
                                     <label for="email" class="small ml-3">E-mail</label>
-                                    <input type="text" class="form-control form-control-user mb-2" id="email" name="email" placeholder="Email Address" value="<?= set_value('email'); ?>">
+                                    <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Email Address" value="<?= set_value('email'); ?>">
                                     <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
-                                    <div class="form-check ml-3">
+                                    <div class="form-check ml-3 mt-1">
                                         <input class="form-check-input" type="checkbox" id="username_email" name="username_email" onchange="getEmailAsUserId();" />
                                         <label class="small" for="username_email">Use as username</label>
                                     </div>
@@ -76,6 +73,11 @@
                                         <input type="password" class="form-control form-control-user" id="password2" name="password2" placeholder="Repeat Password">
                                         <?= form_error('password1', '<small class="text-danger pl-3">', '</small>') ?>
                                     </div>
+                                </div>
+                                <div class="form-check ml-3 mb-3">
+                                    <input class="form-check-input" type="checkbox" id="check_terms" name="check_terms" onchange="getEmailAsUserId();" />
+                                    <label class="small" for="check_terms">I have read and agreed to the customer's<a href="<?= base_url('web/terms') ?>" rel="noopener noreferer"> terms and conditons</a> and <a href="<?= base_url('web/privacy_policy') ?>" rel="noopener noreferer"> privacy policy.</a> </label>
+                                    <?= form_error('check_terms', '<small class="text-danger">', '</small>') ?>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Register Account
