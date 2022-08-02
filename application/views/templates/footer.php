@@ -82,6 +82,28 @@
          });
      });
 
+     //js for menu change cart quantity on input onclick
+     $('.input-qty').on('change', function() {
+         const qtyID = $(this).data('qty');
+         const itemID = $(this).data('item');
+         const id = $(this).data('id');
+         const priceID = $(this).data('price');
+
+         $.ajax({
+             url: "<?= base_url('customer/update_cart'); ?>",
+             type: 'post',
+             data: {
+                 qtyID: qtyID,
+                 itemID: itemID,
+                 id: id,
+                 priceID: priceID
+             },
+             success: function() {
+                 document.location.href = "<?= base_url('customer/cart')  ?>";
+             }
+         });
+     });
+
      //  JavaScript for Edit Role Modal
      $('#editRoleModal').on('show.bs.modal', function(event) {
 

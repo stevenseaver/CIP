@@ -89,6 +89,25 @@ class Customer extends CI_Controller
         }
     }
 
+    public function update_cart()
+    {
+        $qty = $this->input->post('qtyID');
+        $item = $this->input->post('itemID');
+        $id = $this->input->post('id');
+        $price = $this->input->post('priceID');
+
+        $data_cart = array(
+            'qty' => $qty,
+            'subtotal' => $price * $qty
+        );
+
+        $this->db->where('id', $id);
+        $this->db->update('cart', $data_cart);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">' . $item . ' quantity changed to ' . $qty . '.</div>');
+    }
+
+
     public function delete_cart_item()
     {
         $CustName = $this->input->post('cust_name');

@@ -15,6 +15,7 @@
             <div class="card-body">
                 <table cellpadding="6" cellspacing="1" style="width:100%">
                     <tr class="">
+                        <th>No</th>
                         <th>Item Description</th>
                         <th style="text-align:center">Qty</th>
                         <th style="text-align:right">Item Price</th>
@@ -35,9 +36,15 @@
                             } else { ?>
                                 <tr>
                                     <!-- <td><?php echo form_input(array('name' => $i . '[qty]', 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); ?></td> -->
+                                    <td><?= $i; ?></td>
                                     <td><?= $items['name']; ?></td>
-                                    <td class="border border rounded-lg my-5" style="text-align:center" contentEditable="true"><?= $items['qty']; ?></td>
-                                    <td style="text-align:right"><?= $this->cart->format_number($items['price'], '0', ',', '.'); ?></td>
+                                    <td class="my-3" style="text-align:center">
+                                        <div class="form-control">
+                                            <input class="input-qty" type="number" data-item="<?= $items['name']; ?>" data-id="<?= $items['id']; ?>" data-qty="10" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>">
+                                        </div>
+                                    </td>
+                                    <td style=" text-align:right"><?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
+                                    </td>
                                     <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
                                     <td style="text-align:center">
                                         <a data-toggle="modal" data-target="#deleteCartIndividualItem" data-cust="<?= $user['name'] ?>" data-name="<?= $items['name']; ?>" class="badge badge-danger clickable ml-3">Delete</a>
@@ -59,11 +66,9 @@
             </div>
         </div>
 
-        <a href="<?= base_url('customer') ?>" class="btn btn-success rounded-pill clickable"><i class="bi bi-cart-check"></i> Checkout</a>
+        <a href="<?= base_url('customer/check_out') ?>" class="btn btn-success rounded-pill clickable"><i class="bi bi-cart-check"></i> Checkout</a>
         <a href="<?= base_url('customer') ?>" class="btn btn-primary rounded-pill clickable mx-1"><i class="bi bi-plus"></i> Add More</a>
-        <button class="btn rounded-pill btn-primary mx-1" type="submit">
-            <i class="bi bi-arrow-clockwise"></i> Update
-        </button>
+        <button for="input-qty" href="<?= base_url('customer/update_cart') ?>" class="btn btn-primary rounded-pill clickable mx-1"><i class="bi bi-arrow-clockwise"></i> Update</button>
         <a data-toggle="modal" data-target="#deleteCartItem" data-name="<?= $user['name'] ?>" class="btn btn-danger rounded-pill clickable"><i class="bi bi-trash"></i> Clear All</a>
 
     <?php

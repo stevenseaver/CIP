@@ -105,9 +105,9 @@
                     <div class="row py-2 justify-content-center">
                         <div class="col-lg py-1 mx-2 text-center">
                             <i class="bi bi-node-plus fa-4x mb-3 mx-2 text-dark"></i>
-                            <h5 class="text-dark font-weight-bold mb-2">B2B Inquiry</h5>
+                            <h5 class="text-dark font-weight-bold mb-2">Supplier Inquiry</h5>
                             <a href="mailto:finance@cakrainti.com" class="text-dark" target="_blank" rel="noopener noreferrer">
-                                <p class="text-primary mb-1">b2b@cakrainti.com</p>
+                                <p class="text-primary mb-1">supplier@cakrainti.com</p>
                             </a>
                             <a href="https://wa.me/+6281330330901/?text=Hello,%20B2B%20inquiries?" target="_blank" rel="noopener noreferer" class="">
                                 <p class="text-primary mb-1">+62 81-330-330-901</p>

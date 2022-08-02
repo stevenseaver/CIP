@@ -1,11 +1,12 @@
 <!-- Begin Page Content -->
 <div class="container-fluid pt-5 mt-5">
-
-    <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-2">
-        <h1 class="h3 mb-1 text-primary font-weight-bold"><?= $title ?></h1>
+    <div class="row justify-content-center align-items-center text-center pt-1">
+        <!-- Page Heading -->
+        <div class="col-lg-12 mx-3 mb-3">
+            <i class="bi bi-telephone fa-3x"></i>
+            <h2 class="h3 mb-0 text-primary font-weight-bold"><?= $title ?></h1>
+        </div>
     </div>
-
     <div class="row mb-2">
         <div class="col">
             <div class="card shadow border-0 mb-3">

@@ -195,7 +195,7 @@
             <div class="col-lg-12 card mb-3 border-0">
                 <div class="row no-gutters align-items-top">
                     <div class="col-md-4 text-center">
-                        <img src="<?= base_url('asset/') ?>img/products/coin.jpg" class="my-4 rounded img-fluid">
+                        <img src="<?= base_url('asset/img/webpage/16. Loss Hitam/2.png') ?>" class="my-4 rounded img-fluid">
                         <!-- <div id="carouselIndicatorHitam" class="carousel slide" data-ride="carousel">
                             <ol class="carousel-indicators">
                                 <li data-target="#carouselIndicatorHitam" data-slide-to="0" class="active"></li>
