@@ -18,7 +18,7 @@ function is_logged_in()
         }
     }
 }
-
+//check wether the checkbox is checked
 function check_access($role_id, $menu_id)
 {
     $ci = get_instance();

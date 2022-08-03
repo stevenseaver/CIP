@@ -27,80 +27,78 @@
     <div class="card border-left-primary mb-3">
         <div class="row mx-4 my-3">
             <div class="table-responsive">
-                <div class="table-responsive">
-                    <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Date Acquired</th>
+                            <th>Position</th>
+                            <th>Specifications/Descriptions</th>
+                            <th>Value</th>
+                            <th>User</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                            <th>QR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $i = 1;
+                        ?>
+                        <?php foreach ($inventory as $inv) : ?>
                             <tr>
-                                <th>No</th>
-                                <th>Code</th>
-                                <th>Name</th>
-                                <th>Date Acquired</th>
-                                <th>Position</th>
-                                <th>Specifications/Descriptions</th>
-                                <th>Value</th>
-                                <th>User</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                                <th>QR</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $i = 1;
-                            ?>
-                            <?php foreach ($inventory as $inv) : ?>
-                                <tr>
-                                    <td><?= $i ?></td>
-                                    <td><?= $inv['code'] ?></td>
-                                    <td><?= $inv['name'] ?></td>
-                                    <td><?= $inv['date_in'] ?></td>
-                                    <td><?= $inv['room_name'] ?></td>
-                                    <td><?= $inv['spec'] ?></td>
-                                    <td><?= number_format($inv['value'], 0, ',', '.') ?></td>
-                                    <td><?= $inv['user'] ?></td>
-                                    <td>
-                                        <?php if ($inv['status'] == 1) {
-                                            echo '<p class="badge badge-success">Active</p>';
-                                        } else if ($inv['status'] == 2) {
-                                            echo '<p class="badge badge-warning">Maintenance</p>';
-                                        } else if ($inv['status'] == 0) {
-                                            echo '<p class="badge badge-danger">Decomissioned</p>';
-                                        } ?>
-                                    </td>
-                                    <td>
-                                        <a data-toggle="modal" data-target="#createQR" class="badge badge-primary clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-date="<?= $inv['date_in'] ?>" data-pos="<?= $inv['room_name'] ?>">View e-QR</a>
-                                        <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-primary clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Transfer</a>
-                                        <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-secondary text-white clickable" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-user="<?= $inv['user'] ?>" data-spec="<?= $inv['spec'] ?>" data-value="<?= $inv['value'] ?>">Edit</a>
-                                        <a href="<?= base_url('inventory/toggle_asset_status/') . $inv['id'] . "/" . $inv['status'] . "/" . $inv['name'] ?>" class="badge badge-warning clickable">Toggle Status</a>
-                                        <a data-toggle="modal" data-target="#deleteAssetModal" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" class="badge badge-danger clickable">Delete</a>
-                                        <?php
-                                        if (empty($inv['user'])) {
-                                            if ($user['role_id'] == '1') { ?>
-                                                <a data-toggle="modal" data-target="#assignUserModal" class="badge badge-success clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Assign User</a>
-                                            <?php } else { ?>
-                                                <a data-toggle="modal" data-target="#useAssetModal" class="badge badge-success" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $user['name'] ?>">Use Asset</a>
-                                            <?php }
-                                            ?>
+                                <td><?= $i ?></td>
+                                <td><?= $inv['code'] ?></td>
+                                <td><?= $inv['name'] ?></td>
+                                <td><?= $inv['date_in'] ?></td>
+                                <td><?= $inv['room_name'] ?></td>
+                                <td><?= $inv['spec'] ?></td>
+                                <td><?= number_format($inv['value'], 0, ',', '.') ?></td>
+                                <td><?= $inv['user'] ?></td>
+                                <td>
+                                    <?php if ($inv['status'] == 1) {
+                                        echo '<p class="badge badge-success">Active</p>';
+                                    } else if ($inv['status'] == 2) {
+                                        echo '<p class="badge badge-warning">Maintenance</p>';
+                                    } else if ($inv['status'] == 0) {
+                                        echo '<p class="badge badge-danger">Decomissioned</p>';
+                                    } ?>
+                                </td>
+                                <td>
+                                    <a data-toggle="modal" data-target="#createQR" class="badge badge-primary clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-date="<?= $inv['date_in'] ?>" data-pos="<?= $inv['room_name'] ?>">View e-QR</a>
+                                    <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-primary clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Transfer</a>
+                                    <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-secondary text-white clickable" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-user="<?= $inv['user'] ?>" data-spec="<?= $inv['spec'] ?>" data-value="<?= $inv['value'] ?>">Edit</a>
+                                    <a href="<?= base_url('inventory/toggle_asset_status/') . $inv['id'] . "/" . $inv['status'] . "/" . $inv['name'] ?>" class="badge badge-warning clickable">Toggle Status</a>
+                                    <a data-toggle="modal" data-target="#deleteAssetModal" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" class="badge badge-danger clickable">Delete</a>
+                                    <?php
+                                    if (empty($inv['user'])) {
+                                        if ($user['role_id'] == '1') { ?>
+                                            <a data-toggle="modal" data-target="#assignUserModal" class="badge badge-success clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Assign User</a>
                                         <?php } else { ?>
-                                            <?php if ($user['role_id'] == '1') { ?>
-                                                <a data-toggle="modal" data-target="#deleteAssignedUser" class="badge badge-dark clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $inv['user'] ?>">Delete User</a>
-                                            <?php } else if ($inv['user'] == $user['name']) { ?>
-                                                <a data-toggle="modal" data-target="#deleteUserModal" class="badge badge-dark" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $inv['user'] ?>">Finish Using</a>
-                                            <?php }
-                                            ?>
+                                            <a data-toggle="modal" data-target="#useAssetModal" class="badge badge-success" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $user['name'] ?>">Use Asset</a>
                                         <?php }
                                         ?>
-                                        <!-- <a href="<?= base_url('inventory/qr_code') ?>" class="badge badge-light" target="_blank" rel="noopener noreferrer">QR Code</a> -->
-                                    </td>
-                                    <td>
-                                        <img style="width: 100px;" src="<?= base_url('asset/img/QRCode/') . $inv['code'] . '.png'; ?>">
-                                    </td>
-                                </tr>
-                                <?php $i++; ?>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                                    <?php } else { ?>
+                                        <?php if ($user['role_id'] == '1') { ?>
+                                            <a data-toggle="modal" data-target="#deleteAssignedUser" class="badge badge-dark clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $inv['user'] ?>">Delete User</a>
+                                        <?php } else if ($inv['user'] == $user['name']) { ?>
+                                            <a data-toggle="modal" data-target="#deleteUserModal" class="badge badge-dark" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $inv['user'] ?>">Finish Using</a>
+                                        <?php }
+                                        ?>
+                                    <?php }
+                                    ?>
+                                    <!-- <a href="<?= base_url('inventory/qr_code') ?>" class="badge badge-light" target="_blank" rel="noopener noreferrer">QR Code</a> -->
+                                </td>
+                                <td>
+                                    <img style="width: 100px;" src="<?= base_url('asset/img/QRCode/') . $inv['code'] . '.png'; ?>">
+                                </td>
+                            </tr>
+                            <?php $i++; ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

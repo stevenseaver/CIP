@@ -14,15 +14,14 @@
         <div class="card rounded border-0 shadow mb-3">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover" id="dataTable" width="100%" cellspacing="0" cellpadding="6">
+                    <table class="table table-hover" width="100%" cellspacing="0" cellpadding="6">
                         <thead>
                             <tr class="">
                                 <th>No</th>
                                 <th>Item Description</th>
-                                <th style="text-align:center">Qty</th>
+                                <th>Qty</th>
                                 <th style="text-align:right">Item Price</th>
                                 <th style="text-align:right">Sub-Total</th>
-                                <th style="text-align:center">Action</th>
                             </tr>
                         </thead>
 
@@ -40,15 +39,11 @@
                                         <tr>
                                             <td><?= $i; ?></td>
                                             <td><?= $items['name']; ?></td>
-                                            <td style="width: 100px">
-                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty text-center form-control" data-item="<?= $items['name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>">
-                                            </td>
+                                            <td><?= $items['qty']; ?></td>
                                             <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
                                             </td>
                                             <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
-                                            <td style="text-align:left">
-                                                <a data-toggle="modal" data-target="#deleteCartIndividualItem" data-cust="<?= $user['name'] ?>" data-name="<?= $items['name']; ?>" class="badge badge-danger clickable ml-3">Delete</a>
-                                            </td>
+
                                         </tr>
                                         <?php $temp = $temp + $items['subtotal']; ?>
                                         <?php $i++; ?>
@@ -73,33 +68,9 @@
             <div class="d-flex my-2 mx-1">
                 <a href="<?= base_url('customer/check_out') ?>" class="btn btn-success rounded-pill btn-icon-split clickable">
                     <span class="icon text-white-50">
-                        <i class="bi bi-cart-check"></i>
+                        <i class="bi bi-currency-dollar"></i>
                     </span>
-                    <span class="text">Checkout<span>
-                </a>
-            </div>
-            <div class="d-flex my-2 mx-1">
-                <a href="<?= base_url('customer') ?>" class="btn btn-primary rounded-pill btn-icon-split clickable">
-                    <span class="icon text-white-50">
-                        <i class="bi bi-plus"></i>
-                    </span>
-                    <span class="text">Add More<span>
-                </a>
-            </div>
-            <div class="d-flex my-2 mx-1">
-                <button for="input-qty" href="<?= base_url('customer/cart') ?>" class="btn btn-primary rounded-pill btn-icon-split clickable">
-                    <span class="icon text-white-50">
-                        <i class="bi bi-arrow-clockwise"></i>
-                    </span>
-                    <span class="text">Update<span>
-                </button>
-            </div>
-            <div class="d-flex my-2 mx-1">
-                <a data-toggle="modal" data-target="#deleteCartItem" data-name="<?= $user['name'] ?>" class="btn btn-danger rounded-pill btn-icon-split clickable">
-                    <span class="icon text-white-50">
-                        <i class="bi bi-trash"></i>
-                    </span>
-                    <span class="text">Clear All<span>
+                    <span class="text">Pay<span>
                 </a>
             </div>
         </div>

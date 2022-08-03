@@ -82,11 +82,12 @@
          });
      });
 
-     //js for menu change cart quantity on input onclick
+     //js for menu change cart quantity on input on change
      $('.input-qty').on('change', function() {
-         const qtyID = $(this).data('qty');
+         //const qtyID = $(this).data('qty');
          const itemID = $(this).data('item');
          const id = $(this).data('id');
+         const qtyID = document.getElementById("qtyAmount-" + id).value;
          const priceID = $(this).data('price');
 
          $.ajax({

@@ -144,4 +144,20 @@ class Customer extends CI_Controller
         $this->load->view('customer/history', $data);
         $this->load->view('templates/footer');
     }
+
+    public function check_out()
+    {
+        //load user data per session
+        $data['title'] = 'Check Out Confirmation';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get cart database
+        $data['dataCart'] = $this->db->get('cart')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('customer/checkout', $data);
+        $this->load->view('templates/footer');
+    }
 }
