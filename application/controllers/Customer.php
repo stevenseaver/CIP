@@ -145,7 +145,7 @@ class Customer extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function check_out()
+    public function check_out($name, $status)
     {
         //load user data per session
         $data['title'] = 'Check Out Confirmation';
@@ -153,6 +153,22 @@ class Customer extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //get cart database
         $data['dataCart'] = $this->db->get('cart')->result_array();
+
+        $date = time();
+        $year = date('y');
+        $month = date('m');
+        $serial = rand(100, 999);
+        $ref = 'INV/' . $year . $month . '/' . $serial;
+
+        $data_db = array(
+            'ref' => $ref,
+            'date' => $date,
+            'status' => 1
+        );
+
+        $this->db->where('customer', $name);
+        $this->db->where('status', $status);
+        $this->db->update('cart', $data_db);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

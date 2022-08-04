@@ -71,7 +71,7 @@
         </div>
         <div class="row mx-1 justify-content-start align-items-center">
             <div class="d-flex my-2 mx-1">
-                <a href="<?= base_url('customer/check_out') ?>" class="btn btn-success rounded-pill btn-icon-split clickable">
+                <a href="<?= base_url('customer/check_out/') . $user['name'] . '/0' ?>" class="btn btn-success rounded-pill btn-icon-split clickable">
                     <span class="icon text-white-50">
                         <i class="bi bi-cart-check"></i>
                     </span>
