@@ -69,40 +69,6 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="row mx-1 justify-content-start align-items-center">
-            <div class="d-flex my-2 mx-1">
-                <a href="<?= base_url('customer/check_out') ?>" class="btn btn-success rounded-pill btn-icon-split clickable">
-                    <span class="icon text-white-50">
-                        <i class="bi bi-cart-check"></i>
-                    </span>
-                    <span class="text">Checkout<span>
-                </a>
-            </div>
-            <div class="d-flex my-2 mx-1">
-                <a href="<?= base_url('customer') ?>" class="btn btn-primary rounded-pill btn-icon-split clickable">
-                    <span class="icon text-white-50">
-                        <i class="bi bi-plus"></i>
-                    </span>
-                    <span class="text">Add More<span>
-                </a>
-            </div>
-            <div class="d-flex my-2 mx-1">
-                <button for="input-qty" href="<?= base_url('customer/cart') ?>" class="btn btn-primary rounded-pill btn-icon-split clickable">
-                    <span class="icon text-white-50">
-                        <i class="bi bi-arrow-clockwise"></i>
-                    </span>
-                    <span class="text">Update<span>
-                </button>
-            </div>
-            <div class="d-flex my-2 mx-1">
-                <a data-toggle="modal" data-target="#deleteCartItem" data-name="<?= $user['name'] ?>" class="btn btn-danger rounded-pill btn-icon-split clickable">
-                    <span class="icon text-white-50">
-                        <i class="bi bi-trash"></i>
-                    </span>
-                    <span class="text">Clear All<span>
-                </a>
-            </div>
-        </div> -->
 
     <?php
         echo form_close();

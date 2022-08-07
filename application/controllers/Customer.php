@@ -158,22 +158,63 @@ class Customer extends CI_Controller
         $year = date('y');
         $month = date('m');
         $serial = rand(100, 999);
-        $ref = 'INV/' . $year . $month . '/' . $serial;
+        $ref = 'INV-' . $year . $month . '-' . $serial;
 
-        $data_db = array(
-            'ref' => $ref,
-            'date' => $date,
-            'status' => 1
-        );
-
-        $this->db->where('customer', $name);
-        $this->db->where('status', $status);
-        $this->db->update('cart', $data_db);
+        $data['ref'] = $ref;
+        $data['date'] = $date;
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('customer/checkout', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function payment($ref, $name, $status)
+    {
+        //load user data per session
+        $data['title'] = 'Check Out Confirmation';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get cart database
+        $data['dataCart'] = $this->db->get('cart')->result_array();
+
+        $date = time();
+        $data['ref'] = $ref;
+        $data['date'] = $date;
+
+        //cek jika ada gambar yang akan di upload
+        $upload_image = $_FILES['image']['name'];
+
+        if ($upload_image) {
+            $config['upload_path']          = './asset/img/payment/';
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 2048;
+            //load lib
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('image')) {
+                $new_image = $this->upload->data('file_name');
+
+                $data_db = array(
+                    'ref' => $ref,
+                    'date' => $date,
+                    'status' => 1
+                );
+
+                $this->db->set('img', $new_image);
+                $this->db->where('customer', $name);
+                $this->db->where('status', $status);
+                $this->db->update('cart', $data_db);
+
+                redirect('customer/history');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger pb-0" role="alert">' . $this->upload->display_errors() . '</div>');
+                redirect('customer/check_out/' . $data['user']['name'] . '/0');
+            }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">No payment image to be uploaded!</div>');
+            redirect('customer/check_out/' . $data['user']['name'] . '/0');
+        }
     }
 }

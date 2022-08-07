@@ -8,7 +8,7 @@
             <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
-    <div class="card rounded border-0 mb-3">
+    <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">
             <p class="text-dark mb-2">Product Name : <?= $getID['name'] ?></p>
             <p class="text-dark mb-2">Product Code : <?= $getID['code'] ?></p>

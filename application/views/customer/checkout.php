@@ -7,12 +7,18 @@
             <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
+    <div class="card rounded bg-white shadow border-0 mb-3">
+        <div class="card-body pb-1">
+            <p class="text-dark mb-1">Invoice Ref. : </p>
+            <p class="text-dark font-weight-bold"> <?= $ref ?></p>
+            <p class="text-dark mb-1">Date : </p>
+            <p class="text-dark font-weight-bold"> <?= date('d F Y h:i', $date); ?></p>
+        </div>
+    </div>
 
-    <?php if ($dataCart != null) :
-        echo form_open('customer/cart'); ?>
-
+    <?php if ($dataCart != null) : ?>
         <div class="card rounded border-0 shadow mb-3">
-            <div class="card-body">
+            <div class="card-body pb-0">
                 <div class="table-responsive">
                     <table class="table table-hover" width="100%" cellspacing="0" cellpadding="6">
                         <thead>
@@ -64,19 +70,32 @@
                 </div>
             </div>
         </div>
-        <div class="row mx-1 justify-content-start align-items-center">
-            <div class="d-flex my-2 mx-1">
-                <a href="<?= base_url('customer/check_out') ?>" class="btn btn-success rounded-pill btn-icon-split clickable">
-                    <span class="icon text-white-50">
-                        <i class="bi bi-currency-dollar"></i>
-                    </span>
-                    <span class="text">Pay<span>
-                </a>
+        <div class="row mx-3 justify-content-start align-items-center">
+            <?= form_open_multipart(base_url('Customer/payment/') . $ref . '/' . $user['name'] . '/0'); ?>
+            <div class="form-group row">
+                <!-- edit profile picture -->
+                <div class="d-flex text-dark mr-3 mb-3">Upload Payment Confirmation</div>
+                <div class="col-lg-6 mb-3">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="image" name="image">
+                        <label class="custom-file-label" for="image">Choose file</label>
+                        <small class="text-primary">Maximum 2 MB of JPG, PNG, or GIF file</small>
+                        <?= form_error('image', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                </div>
+                <div class="form-group ml-2">
+                    <button type="submit" class="btn btn-success rounded-pill btn-icon-split clickable">
+                        <span class="icon text-white-50">
+                            <i class="bi bi-currency-dollar"></i>
+                        </span>
+                        <span class="text">Confirm Payment<span>
+                    </button>
+                </div>
             </div>
+            </form>
         </div>
 
     <?php
-        echo form_close();
     else : ?>
         <div class="alert alert-danger" role="alert">Your cart is empty!</div>
     <? endif;
