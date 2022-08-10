@@ -28,7 +28,7 @@
                             <div class="form-group">
                                 <!-- Item name -->
                                 <label for="amount" class="col-form-label small">Amount</label>
-                                <input type="text" value="1" class="form-control rounded-pill mb-1" id="amount" name="amount">
+                                <input type="text" value="1" max="<?= $fs['in_stock'] ?>" min="1" class="form-control rounded-pill mb-1" id="amount" name="amount">
                                 <!-- <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?> -->
                             </div>
                             <div class="">

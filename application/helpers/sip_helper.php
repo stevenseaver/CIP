@@ -31,3 +31,11 @@ function check_access($role_id, $menu_id)
         return "checked='checked'";
     }
 }
+
+function load_cart()
+{
+    $ci = get_instance();
+
+    $result = $ci->db->get('cart')->result_array();
+    return $result;
+}

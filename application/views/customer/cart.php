@@ -41,13 +41,17 @@
                                             <td><?= $i; ?></td>
                                             <td><?= $items['name']; ?></td>
                                             <td style="width: 100px">
-                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty text-center form-control" data-item="<?= $items['name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>">
+                                                <?php if ($items['prod_cat'] != '6') : ?>
+                                                    <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty text-center form-control" data-item="<?= $items['name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>"> Pack
+                                                <?php else : ?>
+                                                    <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty text-center form-control" data-item="<?= $items['name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>"> Kg
+                                                <?php endif; ?>
                                             </td>
                                             <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
                                             </td>
                                             <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
                                             <td style="text-align:left">
-                                                <a data-toggle="modal" data-target="#deleteCartIndividualItem" data-cust="<?= $user['name'] ?>" data-name="<?= $items['name']; ?>" class="badge badge-danger clickable ml-3">Delete</a>
+                                                <a data-toggle="modal" data-target="#deleteCartIndividualItem" data-id="<?= $items['id'] ?>" data-cust="<?= $user['name'] ?>" data-name="<?= $items['name']; ?>" class="badge badge-danger clickable ml-3">Delete</a>
                                             </td>
                                         </tr>
                                         <?php $temp = $temp + $items['subtotal']; ?>
@@ -127,14 +131,14 @@
             </div>
             <form action="<?= base_url('customer/delete_cart_item') ?>" method="post">
                 <div class="modal-body">
-                    Watch out folks! You're about to delete this one item! Are you sure?
+                    <p class="mb-2">Watch out! You're about to delete this item! Are you sure?</p>
                     <div class="form-group">
-                        <!-- Cust Name -->
-                        <label for="url" class="col-form-label">Item Name</label>
-                        <input type="text" class="form-control mb-1" readonly id="delete_ind_item" name="delete_ind_item" placeholder="Item Name">
-                        <!-- iTEM Name -->
-                        <label for="url" class="col-form-label" style="display:none">Item Name</label>
-                        <input type="text" class="form-control mb-1" readonly id="cust_name" name="cust_name" placeholder="Item Name" style="display:none">
+                        <!-- Item ID -->
+                        <input type="text" class="form-control mb-1" readonly id="delete_item_id" name="delete_item_id" placeholder="Item ID" style="display:none">
+                        <!-- Item Name -->
+                        <input type="text" class="form-control mb-1" readonly id="delete_item_name" name="delete_item_name" placeholder="Item Name">
+                        <!-- Customer Name -->
+                        <input type="text" class="form-control mb-1" readonly id="cust_name" name="cust_name" placeholder="Customer Name" style="display:none">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -158,9 +162,9 @@
             </div>
             <form action="<?= base_url('customer/clear_cart') ?>" method="post">
                 <div class="modal-body">
-                    Watch out folks! You're about to delete all your cart's item. We are sad and you should too! Are you sure?
+                    Watch out! You're about to delete all your cart's item. We are sad and you should too! Are you sure?
                     <div class="form-group" style="display:none">
-                        <!-- cUST Name -->
+                        <!-- Cust Name -->
                         <label for="url" class="col-form-label">Item Name</label>
                         <input type="text" class="form-control mb-1" readonly id="delete_name" name="delete_name" placeholder="Item Name">
                         <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>

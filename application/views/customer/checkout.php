@@ -7,6 +7,15 @@
             <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
+
+    <!-- back button -->
+    <a href="<?= base_url('customer/cart/') ?>" class="btn btn-primary btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-arrow-left"></i>
+        </span>
+        <span class="text">Back</span>
+    </a>
+
     <div class="card rounded bg-white shadow border-0 mb-3">
         <div class="card-body pb-1">
             <p class="text-dark mb-1">Invoice Ref. : </p>
@@ -84,7 +93,7 @@
                     </div>
                 </div>
                 <div class="form-group ml-2">
-                    <button type="submit" class="btn btn-success rounded-pill btn-icon-split clickable">
+                    <button type="submit" class="btn btn-success btn-icon-split clickable">
                         <span class="icon text-white-50">
                             <i class="bi bi-currency-dollar"></i>
                         </span>

@@ -22,9 +22,9 @@
                         <?php
                         $userName = $user['name'];
                         $amount = 0;
-                        // $i = 0;
+                        $i = 0;
                         // foreach ($cartData as $cd) :
-                        //     if ($cd['customer'] == $userName) {
+                        //     if ($cd['customer'] == $userName and $cd['status'] == '0') {
                         //         $i++;
                         //         $amount = $i;
                         //     } else {

@@ -79,6 +79,7 @@ class Customer extends CI_Controller
                 'qty' => $amount,
                 'name' => $data['itemselect']['name'],
                 'price' => $data['itemselect']['price'],
+                'prod_cat' => $data['itemselect']['categories'],
                 'subtotal' => $data['itemselect']['price'] * $amount
             );
 
@@ -110,11 +111,12 @@ class Customer extends CI_Controller
 
     public function delete_cart_item()
     {
+        $ItemID = $this->input->post('delete_item_id');
         $CustName = $this->input->post('cust_name');
-        $ItemName = $this->input->post('delete_ind_item');
+        $ItemName = $this->input->post('delete_item_name');
 
-        $this->db->where('customer', $CustName);
-        $this->db->delete('cart', array('name' => $ItemName));
+        $this->db->where('id', $ItemID);
+        $this->db->delete('cart');
 
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $ItemName . ' on ' . $CustName . ' cart deleted!</div>');
         redirect('customer/cart');
@@ -123,7 +125,7 @@ class Customer extends CI_Controller
     public function clear_cart()
     {
         $name = $this->input->post('delete_name');
-        $this->db->delete('cart', array('customer' => $name));
+        $this->db->delete('cart', array('customer' => $name, 'status' => 0));
 
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $name . ' cart deleted!</div>');
         redirect('customer/cart');
@@ -187,6 +189,7 @@ class Customer extends CI_Controller
         $upload_image = $_FILES['image']['name'];
 
         if ($upload_image) {
+            $config['file_name']            = $ref;
             $config['upload_path']          = './asset/img/payment/';
             $config['allowed_types']        = 'gif|jpg|png';
             $config['max_size']             = 2048;
@@ -194,15 +197,15 @@ class Customer extends CI_Controller
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('image')) {
-                $new_image = $this->upload->data('file_name');
+                $new_image = $ref;
 
                 $data_db = array(
                     'ref' => $ref,
                     'date' => $date,
-                    'status' => 1
+                    'status' => 1,
+                    'img' => $new_image
                 );
 
-                $this->db->set('img', $new_image);
                 $this->db->where('customer', $name);
                 $this->db->where('status', $status);
                 $this->db->update('cart', $data_db);

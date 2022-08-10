@@ -16,7 +16,7 @@ class User extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         $data['employeeLeaveCount'] = $this->db->count_all_results('leave_list');
         $data['custMessage'] = $this->db->count_all_results('contact_us');
-        $data['cartData'] = $this->db->get('cart')->result_array();
+        $data['cartData'] = load_cart();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

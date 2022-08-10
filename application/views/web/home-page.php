@@ -1,19 +1,17 @@
 	<!-- Begin Page Content -->
 	<div class="no-gutter pt-5 mt-5 bg-light">
 		<!-- Core Value Prop 1 -->
-		<div class="card shadow rounded border-0 mx-3 mb-3">
-			<div class="card-body">
-				<div class="row align-items-center">
-					<div class="col-lg text-center mt-4 mx-4">
-						<h1 class="card-title text-primary mb-3">Infinite Loop.</h1>
-						<h5 class="card-text text-dark">We manufacture. We recycle. We do it for you and Earth.</h5>
-						<a data-toggle="modal" data-target="#circulatryModal" class="card-text clickable">
-							<p class="card-text mb-3">Learn how our company manage our production waste using circular economy &rarr;
-						</a>
-					</div>
-					<div class="col-lg text-center mx-3 my-3">
-						<img class="img-fluid rounded" style="width: 35rem;" src="<?= base_url('asset/img/webpage/infinite_loop.png') ?>" alt="Main Cards">
-					</div>
+		<div class="no-gutter shadow bg-white mt-1 mb-4">
+			<div class="row align-items-center">
+				<div class="col-lg text-center mt-4 mx-4">
+					<h1 class="card-title text-primary mb-3">Infinite Loop.</h1>
+					<h5 class="card-text text-dark">We manufacture. We recycle. We do it for you and Earth.</h5>
+					<a data-toggle="modal" data-target="#circulatryModal" class="card-text clickable">
+						<p class="card-text mb-3">Learn how our company manage our production waste using circular economy &rarr;
+					</a>
+				</div>
+				<div class="col-lg text-center mx-3 my-3">
+					<img class="img-fluid rounded" style="width: 35rem;" src="<?= base_url('asset/img/webpage/infinite_loop.png') ?>" alt="Main Cards">
 				</div>
 			</div>
 		</div>

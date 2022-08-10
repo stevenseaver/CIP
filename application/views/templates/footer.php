@@ -621,12 +621,14 @@
      //  JavaScript for Delete Individual cart item Message
      $('#deleteCartIndividualItem').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
+         var id = $(event.relatedTarget).data('id');
          var custName = $(event.relatedTarget).data('cust');
          var itemName = $(event.relatedTarget).data('name');
 
          // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="delete_item_id"]').val(id);
          $(event.currentTarget).find('.modal-body input[name="cust_name"]').val(custName);
-         $(event.currentTarget).find('.modal-body input[name="delete_ind_item"]').val(itemName);
+         $(event.currentTarget).find('.modal-body input[name="delete_item_name"]').val(itemName);
      });
 
      //  JavaScript for Delete All cart item Message

@@ -31,7 +31,7 @@
                                 </form>
                                 <hr>
                                 <div class="text-center">
-                                    <a class="small" href="<?= base_url('auth') ?>"> &larr; Back to login!</a>
+                                    <a class="small" href="<?= base_url('auth') ?>"> &larr; Back to Login!</a>
                                 </div>
                                 <div class="text-center">
                                     <a class="small" href="<?= base_url('web') ?>"> &larr; Back to Home</a>
