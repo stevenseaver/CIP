@@ -45,7 +45,7 @@
                         <tbody>
                             <?php foreach ($dataCart as $items) : ?>
                                 <?php
-                                if ($items['customer'] != $user['name']) {
+                                if ($items['customer'] != $user['id']) {
                                     continue;
                                 } else {
                                     if ($items['status'] != '0') {
@@ -80,7 +80,7 @@
             </div>
         </div>
         <div class="row mx-3 justify-content-start align-items-center">
-            <?= form_open_multipart(base_url('Customer/payment/') . $ref . '/' . $user['name'] . '/0'); ?>
+            <?= form_open_multipart(base_url('Customer/payment/') . $ref . '/' . $user['id'] . '/0'); ?>
             <div class="form-group row">
                 <!-- edit profile picture -->
                 <div class="d-flex text-dark mr-3 mb-3">Upload Payment Confirmation</div>

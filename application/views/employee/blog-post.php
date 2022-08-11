@@ -41,7 +41,7 @@
                             <?php foreach ($blogdata as $bd) : ?>
                                 <tr>
                                     <td><?= $i ?></td>
-                                    <td><?= $bd['author_id'] ?></td>
+                                    <td><?= $bd['name'] ?></td>
                                     <td><?= $bd['type_name']; ?></td>
                                     <td><?= $bd['title']; ?></td>
                                     <td><?= $bd['metaTitle']; ?></td>
@@ -133,10 +133,7 @@
             <div class="modal-body">
                 <?= form_open_multipart('blog/add_post'); ?>
                 <div class="form-group">
-                    <!-- Author Name -->
-                    <label for="author_name" class="col-form-label">Author Name</label>
-                    <input type="text" class="form-control" id="author_name" name="author_name" placeholder="<?= $user['name'] ?>" value="<?= $user['name'] ?>" readonly>
-                    <?= form_error('author_name', '<small class="text-danger pl-2">', '</small>') ?>
+                    <input type="text" class="form-control" id="author_id" name="author_id" placeholder="<?= $user['id'] ?>" value="<?= $user['id'] ?>" style="display:none">
                 </div>
                 <div class=" form-group">
                     <!-- asset type -->

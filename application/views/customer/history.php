@@ -33,7 +33,7 @@
 
                             <?php foreach ($dataCart as $items) : ?>
                                 <?php
-                                if ($items['customer'] != $user['name']) {
+                                if ($items['customer'] != $user['id']) {
                                     continue;
                                 } else {
                                     if ($items['status'] != '1') {

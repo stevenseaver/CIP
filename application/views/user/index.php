@@ -203,6 +203,7 @@
                 $temp = $temp + $cd['subtotal'];
                 $grandTotal = $temp;
             } else {
+                $grandTotal = 0;
             }
         endforeach; ?>
 

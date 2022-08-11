@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Blog_model extends CI_Model
+class Cart_model extends CI_Model
 {
-    public function getBlogStatus()
+    public function getCartOwner()
     {
         $query = "SELECT `blogpost`.*,`blog_type`.`type_name`,`user`.`name`
                     FROM `blogpost` JOIN `blog_type`

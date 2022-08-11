@@ -145,7 +145,7 @@ class Blog extends CI_Controller
             $this->load->view('employee/blog-post', $data);
             $this->load->view('templates/footer');
         } else {
-            $author = $this->input->post('author_name');
+            $author = $this->input->post('author_id');
             $type = $this->input->post('type');
             $title = $this->input->post('title');
             $meta = $this->input->post('meta');

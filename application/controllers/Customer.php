@@ -75,7 +75,7 @@ class Customer extends CI_Controller
 
             $data_cart = array(
                 'item_id' => $id,
-                'customer' => $data['user']['name'],
+                'customer' => $data['user']['id'],
                 'qty' => $amount,
                 'name' => $data['itemselect']['name'],
                 'price' => $data['itemselect']['price'],
@@ -147,7 +147,7 @@ class Customer extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function check_out($name, $status)
+    public function check_out()
     {
         //load user data per session
         $data['title'] = 'Check Out Confirmation';
@@ -179,7 +179,7 @@ class Customer extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
-        $data['dataCart'] = $this->db->get('cart')->result_array();
+        // $data['dataCart'] = $this->db->get('cart')->result_array();
 
         $date = time();
         $data['ref'] = $ref;
