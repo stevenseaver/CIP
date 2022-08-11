@@ -36,7 +36,7 @@
             Your Information consists of:
         </p>
         <p class="text-dark mx-2 px-2 text-justify">
-            a. Personal information is information that includes, but is not limited to, name, address, date of birth, telephone number, e-mail address, identification (including but not limited to KTP/ID Card Number or NPWP Number or Company NPWP Number or SIM/Driving License Number or Passport Number) or other identification issued by the government;
+            a. Personal information is information that includes, but is not limited to, name, address, date of birth, telephone number, e-mail address, identification (including but not limited to KTP/ID Card Number or Passport Number) or other identification issued by the government;
         </p>
         <p class="text-dark mx-2 px-2 text-justify">
             b. Non-personal information is information that is identified (which cannot be used to identify You), including but not limited to your internet protocol (“IP”) address, geographic location data, operating system type, nationality, as well as other general data related to internet usage.
@@ -144,7 +144,7 @@
             Informasi yang dikumpulkan termasuk:
         </p>
         <p class="text-dark mx-2 px-2 text-justify">
-            a. Informasi pribadi yang termasuk, namun tidak terbatas pada, nama, alamat, tanggal lahir, nomor telepon, alamat e-mail/surel, data identifikasi (termasuk nomor KTP atau nomor NPWP Pribadi atau NPWP Perusahaan atau nomor SIM atau nomor passport) atau data identifikasi lain yang dikeluarkan oleh pemerintah;
+            a. Informasi pribadi yang termasuk, namun tidak terbatas pada, nama, alamat, tanggal lahir, nomor telepon, alamat e-mail/surel, data identifikasi (termasuk nomor KTP atau nomor passport) atau data identifikasi lain yang dikeluarkan oleh pemerintah;
         </p>
         <p class="text-dark mx-2 px-2 text-justify">
             b. Informasi non pribadi adalah informasi yang tidak dapat digunakan untuk mengidentifikasi anda, termasuk namun tidak terbatas pada: nomor/alamat IP, data lokasi geografis, sistem operasi, nasionalitas, dan data umum lain terkait penggunaan internet.

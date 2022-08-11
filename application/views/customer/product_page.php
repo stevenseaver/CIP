@@ -38,7 +38,7 @@
                                     </span>
                                     <span class="text">Add to Cart<span>
                                 </button>
-                                <a href="" class="btn rounded-pill btn-success btn-icon-split mb-3 mx-1">
+                                <a href="<?= base_url('customer/check_out/') ?>" class="btn rounded-pill btn-success btn-icon-split mb-3 mx-1">
                                     <span class="icon text-white-50">
                                         <i class="bi bi-currency-dollar"></i>
                                     </span>

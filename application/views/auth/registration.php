@@ -25,7 +25,7 @@
                                     <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
                                     <div class="form-check ml-3 mt-1">
                                         <input class="form-check-input" type="checkbox" id="username_email" name="username_email" onchange="getEmailAsUserId();" />
-                                        <label class="small" for="username_email">Use as username</label>
+                                        <label class="small text-primary" for="username_email">Use as username</label>
                                     </div>
                                 </div>
                                 <hr>
@@ -34,6 +34,7 @@
                                     <label for="noktp" class="small ml-3">ID Card Number</label>
                                     <input type="text" class="form-control form-control-user" id="noktp" name="noktp" placeholder="ID Card Number" value="<?= set_value('noktp'); ?>">
                                     <?= form_error('noktp', '<small class="text-danger pl-3">', '</small>') ?>
+                                    <small class="text-primary ml-3">Input your KTP/ID card number or passport number for foreigners.</small>
                                 </div>
                                 <!-- Input Tanggal Lahir -->
                                 <div class="form-group">
@@ -46,7 +47,7 @@
                                     <label for="address" class="small ml-3">Address</label>
                                     <input type="text" class="form-control form-control-user" id="address" name="address" placeholder="Address" value="<?= set_value('address'); ?>">
                                     <?= form_error('address', '<small class="text-danger pl-3">', '</small>') ?>
-                                    <small class="text-secondary ml-3">Will be used as shipping address. You can change this later.</small>
+                                    <small class="text-primary ml-3">Will be used as shipping address. You can change this later.</small>
                                 </div>
                                 <!-- input no hp -->
                                 <div class="form-group">
@@ -59,7 +60,7 @@
                                 <div class="form-group">
                                     <label for="hp" class="small ml-3">Username</label>
                                     <input type="text" class="form-control form-control-user" id="nik" name="nik" placeholder="Username" value="<?= set_value('nik'); ?>">
-                                    <small class="text-primary ml-3">Will be used as login detail.</small>
+                                    <small class="text-primary ml-3">Will be used as login detail. You can also use your email or anything.</small>
                                     <?= form_error('nik', '<small class="text-danger pl-3">', '</small>') ?>
                                 </div>
                                 <!-- password -->
@@ -67,7 +68,7 @@
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <label for="hp" class="small ml-3">Password</label>
                                         <input type="password" class="form-control form-control-user" id="password1" name="password1" placeholder="Password">
-                                        <small class="text-primary ml-3">Min. 8 characters.</small>
+                                        <small class="text-primary ml-3">Min. 8 characters. </small>
                                     </div>
                                     <!-- repeat password -->
                                     <div class="col-sm-6">
@@ -78,7 +79,7 @@
                                 </div>
                                 <div class="form-check ml-3 mb-3">
                                     <input class="form-check-input" type="checkbox" id="check_terms" name="check_terms" onchange="getEmailAsUserId();" />
-                                    <label class="small" for="check_terms">I have read and agreed to the customer's<a href="<?= base_url('web/terms') ?>" rel="noopener noreferer"> terms and conditons</a> and <a href="<?= base_url('web/privacy_policy') ?>" rel="noopener noreferer"> privacy policy.</a> </label>
+                                    <label class="small" for="check_terms">I have read and agreed to the customer's<a href="<?= base_url('web/terms') ?>" rel="noopener noreferer" target="_blank"> terms and conditons</a> and <a href="<?= base_url('web/privacy_policy') ?>" rel="noopener noreferer" target="_blank"> privacy policy.</a> </label>
                                     <?= form_error('check_terms', '<small class="text-danger">', '</small>') ?>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">

@@ -152,19 +152,20 @@ class Auth extends CI_Controller
     {
         $config = [
             'protocol'  => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_user' => 'cipsbp.donotreply@gmail.com',
-            'smtp_pass' => 'adminganteng1?',
+            'smtp_host' => 'smtp.office365.com',
+            'smtp_user' => 'donotreplymeorelse@outlook.com',
+            'smtp_pass' => 'adminganteng!',
             // 'smtp_pass' => 'tsgzbffdmcjrmzfk',
-            'smtp_port' => 465,
+            'smtp_port' => 587,
             'mailtype'  => 'html',
             'charset'   => 'utf-8',
-            'newline'   => "\r\n"
+            'newline'   => "\r\n",
+            'smtp_crypto' => 'tls'
         ];
 
         $this->email->initialize($config);
 
-        $this->email->from('cipsbp.donotreply@gmail.com', 'Administrator CIP/SBP');
+        $this->email->from('donotreplymeorelse@outlook.com', 'Administrator');
         $this->email->to($this->input->post('email'));
         if ($type == 'verify') {
             $this->email->subject('User Activation');

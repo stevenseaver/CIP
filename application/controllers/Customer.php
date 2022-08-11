@@ -71,16 +71,21 @@ class Customer extends CI_Controller
             $this->load->view('customer/product_page', $data);
             $this->load->view('templates/footer');
         } else {
+            $customer = $data['user']['id'];
+            $name = $data['itemselect']['name'];
+            $price = $data['itemselect']['price'];
             $amount = $this->input->post('amount');
+            $prod_cat = $data['itemselect']['categories'];
+            $subtotal = $data['itemselect']['price'] * $amount;
 
             $data_cart = array(
                 'item_id' => $id,
-                'customer' => $data['user']['id'],
+                'customer' => $customer,
                 'qty' => $amount,
-                'name' => $data['itemselect']['name'],
-                'price' => $data['itemselect']['price'],
-                'prod_cat' => $data['itemselect']['categories'],
-                'subtotal' => $data['itemselect']['price'] * $amount
+                'name' => $name,
+                'price' => $price,
+                'prod_cat' => $prod_cat,
+                'subtotal' => $subtotal
             );
 
             $this->db->insert('cart', $data_cart);
