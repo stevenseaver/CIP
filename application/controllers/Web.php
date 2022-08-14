@@ -173,6 +173,7 @@ class Web extends CI_Controller
 		$this->load->view('web/footer_lp/privacy-policy', $data);
 		$this->load->view('templates/web-footer');
 	}
+
 	//load page terms
 	public function terms()
 	{
@@ -214,5 +215,19 @@ class Web extends CI_Controller
 		$this->load->view('templates/web-topbar', $data);
 		$this->load->view('web/footer_lp/legal-standing', $data);
 		$this->load->view('templates/web-footer');
+	}
+
+	public function forgot_password()
+	{
+		$data['email'] = 'steven_seaver@me.com';
+		$data['token'] = urlencode('KP3UsVFqMVvdxgAl1latrW571LtE3x8x3AFWjFN/BOY=');
+		$this->load->view('templates/forgot_password', $data);
+	}
+
+	public function verify_account()
+	{
+		$data['email'] = 'steven_seaver@me.com';
+		$data['token'] = urlencode('KP3UsVFqMVvdxgAl1latrW571LtE3x8x3AFWjFN/BOY=');
+		$this->load->view('templates/verify_email', $data);
 	}
 }

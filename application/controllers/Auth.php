@@ -164,23 +164,32 @@ class Auth extends CI_Controller
         ];
 
         $this->email->initialize($config);
+        //message body
+        $tokenTo = urlencode($token);
+        $emailTo = $this->input->post('email');
 
         $this->email->from('donotreplymeorelse@outlook.com', 'Administrator');
-        $this->email->to($this->input->post('email'));
+        $this->email->to($emailTo);
         if ($type == 'verify') {
             $this->email->subject('User Activation');
-            $this->email->message('Click this link to activate your account : <a href="' . base_url() . 'auth/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
+            $data['token'] = $tokenTo;
+            $data['email'] = $emailTo;
+            $this->email->message($this->load->view('templates/verify_email', $data, true));
+            // $this->email->message('Click this link to activate your account : <a href="' . $base_url . 'auth/verify?email=' . $emailTo . '&token=' . $tokenTo . '">Activate</a>');
         } else if ($type == 'forgot') {
             $this->email->subject('Reset Password');
-            $this->email->message('Click this link to reset your password : <a href="' . base_url() . 'auth/resetpassword?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Reset</a>');
+            $data['token'] = $tokenTo;
+            $data['email'] = $emailTo;
+            $this->email->message($this->load->view('templates/forgot_password', $data, true));
+            // $this->email->message('Click this link to reset your password : <a href="' . $base_url . 'auth/resetpassword?email=' . $emailTo . '&token=' . $tokenTo . '">Reset</a>');
         }
 
         if ($this->email->send()) {
             return true;
         } else {
             $message = $this->email->print_debugger();
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> Sorry, message failed to send. Error: ' . $message . '</div>');
-            redirect('auth');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> Sorry, message failed to send. Error: ' . $message . '</div>');
+            redirect('auth/forgotpassword');
         }
     }
 
@@ -229,7 +238,7 @@ class Auth extends CI_Controller
         if ($user) {
             $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
             if ($user_token) {
-                if (time() - $user_token['date_created'] < (3000)) {
+                if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
                     $this->session->set_userdata('reset_email', $email);
                     $this->changePassword();
                 } else {
@@ -284,10 +293,10 @@ class Auth extends CI_Controller
                 $this->db->insert('user_token', $user_token);
                 $this->_sendEmail($token, 'forgot');
 
-                $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Please check your email to reset password!</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">All is good, check your email to reset your password!</div>');
                 redirect('auth/forgotpassword');
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Email is not registered or activated!</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Your e-mail has not been registered or activated yet!</div>');
                 redirect('auth/forgotpassword');
             }
         }
@@ -301,6 +310,7 @@ class Auth extends CI_Controller
 
         $this->form_validation->set_rules('password1', 'password', 'trim|required|min_length[8]|matches[password2]');
         $this->form_validation->set_rules('password2', 'password', 'trim|required|min_length[8]|matches[password1]');
+
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Change Password';
             $this->load->view('templates/auth_header', $data);
