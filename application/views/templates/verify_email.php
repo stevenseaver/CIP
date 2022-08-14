@@ -52,7 +52,7 @@
 
 <body id="page-top">
     <!-- Begin Page Content -->
-    <div class="container-fluid">
+    <div class="container-fluid bg-gradient-light">
         <!-- Content Row -->
         <div class="row mb-2">
             <div class="col">
@@ -60,20 +60,18 @@
                     <div class="card-body">
                         <div class="row py-2 justify-content-center">
                             <div class="col-lg py-3 mx-2 text-left">
-                                <i class="bi bi-key fa-3x mb-3 x-2 text-primary"></i>
+                                <i class="bi bi-patch-check fa-3x mb-3 x-2 text-primary"></i>
                                 <h4 class="text-primary mb-2 font-weight-bold">Verify Your Email</h4>
                                 <p class="text-secondary mb-1">We're glad you join our extended family tree.</p>
                                 <p class="text-secondary mb-1">Click this link below to activate your account. This link will self destruct in one (1) day.</p>
                                 <!-- <a href="" class="btn btn-primary mt-3" target="_blank">Directions &rarr; </a> -->
                                 <a href="<?= base_url() . 'auth/verify?email=' . $email . '&token=' . $token ?>" class="btn btn-primary mt-3">Activate Account</a>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <!-- End of Main Content -->
 </body>

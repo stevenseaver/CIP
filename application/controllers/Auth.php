@@ -155,7 +155,6 @@ class Auth extends CI_Controller
             'smtp_host' => 'smtp.office365.com',
             'smtp_user' => 'donotreplymeorelse@outlook.com',
             'smtp_pass' => 'adminganteng!',
-            // 'smtp_pass' => 'tsgzbffdmcjrmzfk',
             'smtp_port' => 587,
             'mailtype'  => 'html',
             'charset'   => 'utf-8',
@@ -165,6 +164,7 @@ class Auth extends CI_Controller
 
         $this->email->initialize($config);
         //message body
+        $base_url = base_url();
         $tokenTo = urlencode($token);
         $emailTo = $this->input->post('email');
 
@@ -223,7 +223,7 @@ class Auth extends CI_Controller
                 redirect('auth');
             }
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! E-mail is not registered.</div>');
             redirect('auth');
         }
     }
@@ -238,7 +238,7 @@ class Auth extends CI_Controller
         if ($user) {
             $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
             if ($user_token) {
-                if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
+                if (time() - $user_token['date_created'] < (3000)) {
                     $this->session->set_userdata('reset_email', $email);
                     $this->changePassword();
                 } else {

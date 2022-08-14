@@ -195,7 +195,7 @@
         <!-- Content Row for Customer-->
     <?php } else { ?>
         <?php
-        $userName = $user['name'];
+        $userName = $user['id'];
         $temp = 0;
         foreach ($cartData as $cd) :
             if ($cd['customer'] == $userName) {

@@ -52,7 +52,7 @@
 
 <body id="page-top">
     <!-- Begin Page Content -->
-    <div class="container-fluid">
+    <div class="container-fluid bg-gradient-light">
         <!-- Content Row -->
         <div class="row mb-2">
             <div class="col">
@@ -67,13 +67,11 @@
                                 <!-- <a href="" class="btn btn-primary mt-3" target="_blank">Directions &rarr; </a> -->
                                 <a href="<?= base_url() . 'auth/resetpassword?email=' . $email . '&token=' . $token ?>" class="btn btn-primary mt-3">Reset Password</a>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <!-- End of Main Content -->
 </body>

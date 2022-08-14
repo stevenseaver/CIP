@@ -16,7 +16,7 @@
                             <div class="p-5">
                                 <div class="text-left">
                                     <h1 class="h4 text-gray-900 mb-2">Forgot your password?</h1>
-                                    <p class="mb-4">We get it, stuff happens. Just enter your regiestered email address below
+                                    <p class="mb-4">We get it, stuff happens. Just enter your registered email address below
                                         and we'll send you a link to reset your password!</p>
                                 </div>
                                 <?= $this->session->flashdata('message'); ?>
