@@ -640,6 +640,15 @@
          $(event.currentTarget).find('.modal-body input[name="delete_name"]').val(name);
      });
 
+     //  JavaScript for Delete All cart item Message
+     $('#transDetail').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var inv = $(event.relatedTarget).data('inv');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="ref"]').val(inv);
+     });
+
      //javascript for increment tools
      var quantity = 0;
      $('.quantity-right-plus').click(function(e) {

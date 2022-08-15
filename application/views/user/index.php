@@ -193,17 +193,22 @@
         <!-- Content Row for Customer-->
         <!-- Content Row for Customer-->
         <!-- Content Row for Customer-->
-    <?php } else { ?>
-        <?php
-        $userName = $user['id'];
+    <?php } else {
+        $userID = $user['id'];
         $temp = 0;
+        $temp1 = 0;
+        $grandTotal = 0;
+        $grandTotalTrans = 0;
         foreach ($cartData as $cd) :
-            if ($cd['customer'] == $userName) {
-
+            if ($cd['status'] == 0) {
                 $temp = $temp + $cd['subtotal'];
                 $grandTotal = $temp;
+            } else if ($cd['status'] == 1) {
+                $temp1 = $temp1 + $cd['subtotal'];
+                $grandTotalTrans = $temp1;
             } else {
                 $grandTotal = 0;
+                $grandTotalTrans = 0;
             }
         endforeach; ?>
 
@@ -245,7 +250,8 @@
                 </div>
             </div>
 
-            <!-- Earnings (Monthly) Card Example -->
+            <!-- Transaction History Card -->
+
             <a href="<?= base_url('customer/history') ?>" class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
@@ -254,36 +260,11 @@
                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Transactions History
                                 </div>
                                 <div class="row no-gutters align-items-center">
-                                    <div class="col-auto">
-                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">5</div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="progress progress-sm mr-2">
-                                            <div class="progress-bar bg-info" role="progressbar" style="width: 90%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">Rp <?= number_format($grandTotalTrans, 0, ',', '.'); ?></div>
                                 </div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Employee Leave Card -->
-            <a href="" class="col-xl-3 col-md-6 mb-4" style="text-decoration:none">
-                <div class="card border-left-warning shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                    Invoices and Stuffs</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $employeeLeaveCount ?></div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-comments fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
@@ -317,33 +298,6 @@
                     <div class="card-body">
                         <div class="chart-area">
                             <canvas id="myAreaChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-                <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Finished Goods Stock</h6>
-                    </div>
-                    <!-- Card Body -->
-                    <div class="card-body">
-                        <div class="chart-pie pt-4 pb-2">
-                            <canvas id="myPieChart"></canvas>
-                        </div>
-                        <div class="mt-4 text-center small">
-                            <span class="mr-2">
-                                <i class="bi bi-circle-fill text-success"></i> Overflow
-                            </span>
-                            <span class="mr-2">
-                                <i class="bi bi-circle-fill text-primary"></i> Good
-                            </span>
-                            <span class="mr-2">
-                                <i class="bi bi-circle-fill text-danger"></i> Low
-                            </span>
                         </div>
                     </div>
                 </div>

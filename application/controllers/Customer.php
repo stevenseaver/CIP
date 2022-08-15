@@ -36,7 +36,7 @@ class Customer extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
-        $data['dataCart'] = $this->db->get('cart')->result_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -143,7 +143,7 @@ class Customer extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
-        $data['dataCart'] = $this->db->get('cart')->result_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -159,7 +159,7 @@ class Customer extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
-        $data['dataCart'] = $this->db->get('cart')->result_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
 
         $date = time();
         $year = date('y');

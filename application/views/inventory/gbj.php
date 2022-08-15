@@ -94,11 +94,11 @@
 <!-- End of Main Content -->
 
 <!-- Modal For Add Data -->
-<div class="modal fade" id="newGBJ" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+<div class="modal fade" id="newGBJ" tabindex="-1" aria-labelledby="newGBJModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newMenuModalLabel">Add New Item</h5>
+                <h5 class="modal-title" id="newGBJModalLabel">Add New Item</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

@@ -8,18 +8,81 @@
         </div>
     </div>
 
-    <?php if ($dataCart != null) :
-        echo form_open('customer/cart'); ?>
+    <?php if ($dataCart != null) {
+        $i = 0;
+        $temp = 0;
+        $before = '';
+        foreach ($dataCart as $items) : ?>
+            <?php
+            if ($items['status'] != '1') {
+                continue;
+            } else {
+                if ($before != $items['ref']) { ?>
+                    <div class="card rounded border-0 shadow mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-1">
+                                    <h1 class=""> <?= $i ?></h1>
+                                </div>
+                                <div class="col-lg-10">
+                                    <div class="row ml-3">
+                                        <h5 class="text-primary font-weight-bold"><?= $items['ref']; ?></h5>
+                                    </div>
+                                    <div class="row ml-3">
+                                        <p class="small mb-0"><?= date('d F Y H:i', $items['date']);  ?></p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <a data-toggle="modal" data-target="#transDetail" class="btn btn-light btn-circle" data-inv="<?= $items['ref'] ?>">
+                                        <i class="bi bi-list-check"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            <?php
+                    $before = $items['ref'];
+                    $i++;
+                } else {
+                }
+            }
+            ?>
+        <?php endforeach; ?>
+    <?php
+    } else { ?>
+        <div class="alert alert-danger" role="alert">Your haven't made any transaction! Let's make some <a href="<?= base_url('customer/') ?>">here. </a></div>
+    <? }
+    ?>
+</div>
 
-        <div class="card rounded border-0 shadow mb-3">
-            <div class="card-body">
+</div>
+<!-- /.container-fluid -->
+
+<!-- Modal For Add Data -->
+<div class="modal fade" id="transDetail" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newMenuModalLabel">Transaction Detail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body px-4">
+                <form name="form_invoice" action="" method="get">
+                    <label for="url" class="col-form-label">Invoice No.</label>
+                    <input type="text" class="form-control mb-3" id="ref" name="ref" readonly>
+                </form>
+                <?php
+                // if (isset($_POST['button'])) {
+                // $value = $_GET['ref'];
+                // }
+                ?>
                 <div class="table-responsive">
                     <table class="table table-hover" id="dataTable" width="100%" cellspacing="0" cellpadding="6">
                         <thead>
                             <tr class="">
                                 <th>No</th>
-                                <th>Invoice Ref</th>
-                                <th>Date</th>
                                 <th>Item Description</th>
                                 <th>Qty</th>
                                 <th style="text-align:right">Item Price</th>
@@ -30,37 +93,33 @@
                         <?php $i = 1;
                         $temp = 0; ?>
                         <tbody>
-
                             <?php foreach ($dataCart as $items) : ?>
                                 <?php
-                                if ($items['customer'] != $user['id']) {
+                                // if ($items['ref'] == $value) {
+                                if ($items['status'] != '1') {
                                     continue;
-                                } else {
-                                    if ($items['status'] != '1') {
-                                        continue;
-                                    } else { ?>
-                                        <tr>
-                                            <td><?= $i; ?></td>
-                                            <td><?= $items['ref']; ?></td>
-                                            <td><?= date('d F Y h:i', $items['date']); ?></td>
-                                            <td><?= $items['name']; ?></td>
-                                            <td><?= $items['qty']; ?></td>
-                                            <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
-                                            </td>
-                                            <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
-                                            </td>
-                                        </tr>
-                                        <?php $temp = $temp + $items['subtotal']; ?>
-                                        <?php $i++; ?>
+                                } else { ?>
+                                    <tr>
+                                        <td><?= $i; ?></td>
+                                        <td><?= $items['name']; ?></td>
+                                        <td><?= $items['qty']; ?></td>
+                                        <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
+                                        </td>
+                                        <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
+                                        </td>
+                                    </tr>
+                                    <?php $temp = $temp + $items['subtotal']; ?>
+                                    <?php $i++; ?>
                                 <? }
-                                } ?>
-
+                                // } else {
+                                // }
+                                ?>
                             <?php endforeach; ?>
                         </tbody>
                         <tfoot>
                             <tr class="text-right align-items-center">
-                                <td colspan="5"> </td>
-                                <td class="right"><strong>Total Global Transaction</strong></td>
+                                <td colspan="3"> </td>
+                                <td class="right"><strong>Total Invoice Transaction</strong></td>
                                 <?php $grandTotal = $temp; ?>
                                 <td class="right">IDR <?= $this->cart->format_number($grandTotal, '0', ',', '.'); ?></td>
                             </tr>
@@ -69,14 +128,5 @@
                 </div>
             </div>
         </div>
-
-    <?php
-        echo form_close();
-    else : ?>
-        <div class="alert alert-danger" role="alert">Your cart is empty!</div>
-    <? endif;
-    ?>
+    </div>
 </div>
-
-</div>
-<!-- /.container-fluid -->

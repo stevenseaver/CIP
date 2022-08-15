@@ -45,25 +45,21 @@
                         <tbody>
                             <?php foreach ($dataCart as $items) : ?>
                                 <?php
-                                if ($items['customer'] != $user['id']) {
+                                if ($items['status'] != '0') {
                                     continue;
-                                } else {
-                                    if ($items['status'] != '0') {
-                                        continue;
-                                    } else { ?>
-                                        <tr>
-                                            <td><?= $i; ?></td>
-                                            <td><?= $items['name']; ?></td>
-                                            <td><?= $items['qty']; ?></td>
-                                            <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
-                                            </td>
-                                            <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
+                                } else { ?>
+                                    <tr>
+                                        <td><?= $i; ?></td>
+                                        <td><?= $items['name']; ?></td>
+                                        <td><?= $items['qty']; ?></td>
+                                        <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
+                                        </td>
+                                        <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
 
-                                        </tr>
-                                        <?php $temp = $temp + $items['subtotal']; ?>
-                                        <?php $i++; ?>
-                                <? }
-                                } ?>
+                                    </tr>
+                                    <?php $temp = $temp + $items['subtotal']; ?>
+                                    <?php $i++; ?>
+                                <? } ?>
 
                             <?php endforeach; ?>
                         </tbody>
