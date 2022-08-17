@@ -17,7 +17,6 @@
             <div class="col-md-8">
                 <div class="card-body">
                     <h5 class="card-title mb-2 font-weight-bold"><?= $user['name']; ?></h5>
-                    <p class="card-text mb-1"><?= $user['nik']; ?></p>
                     <p class="card-text mb-1"><?= $user['email']; ?></p>
                     <p class="card-text mb-3"><?= $user['phone_number']; ?></p>
                     <p class="card-text"><small class="text-muted">Member since <?= date('d F Y', $user['date_created']); ?></small></p>

@@ -78,6 +78,7 @@
                 </div>
             <?php } else if ($status == 3) { ?>
                 <div class="row justify-content-center mx-3 my-2">
+                    <!-- Status = 1 payment -->
                     <span class="icon text-secondary mx-2">
                         <i class="bi bi-1-circle"></i>
                     </span>
@@ -88,7 +89,7 @@
                         <i class="bi bi-arrow-right"></i>
                     </span>
                     <!-- Separator -->
-
+                    <!-- Status = 2 delivering -->
                     <span class="icon text-secondary mx-2">
                         <i class="bi bi-2-circle"></i>
                     </span>
@@ -99,7 +100,7 @@
                         <i class="bi bi-arrow-right"></i>
                     </span>
                     <!-- Separator -->
-
+                    <!-- Status = 3 delivered -->
                     <span class="icon text-primary mx-2">
                         <i class="bi bi-3-circle"></i>
                     </span>

@@ -107,7 +107,7 @@
     <?php
         echo form_close();
     else : ?>
-        <div class="alert alert-danger" role="alert">Your cart is empty!</div>
+        <div class="alert alert-danger" role="alert">Your cart is empty! Let's fill it up <a href="<?= base_url('customer/') ?>">here. </a></div>
     <? endif;
     ?>
 </div>

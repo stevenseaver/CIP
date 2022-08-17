@@ -203,7 +203,7 @@
             if ($cd['status'] == 0) {
                 $temp = $temp + $cd['subtotal'];
                 $grandTotal = $temp;
-            } else if ($cd['status'] == 1) {
+            } else if ($cd['status'] != 0) {
                 $temp1 = $temp1 + $cd['subtotal'];
                 $grandTotalTrans = $temp1;
             } else {

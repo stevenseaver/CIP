@@ -189,7 +189,7 @@ class Customer extends CI_Controller
         $year = date('y');
         $month = date('m');
         $serial = rand(100, 999);
-        $ref = 'INV-' . $year . $month . '-' . $serial;
+        $ref = 'INV-' . $year . $month . '-' . $data['user']['id'] . $serial;
 
         $data['ref'] = $ref;
         $data['date'] = $date;

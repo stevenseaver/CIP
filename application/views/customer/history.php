@@ -20,21 +20,21 @@
                 if ($before != $items['ref']) { ?>
                     <div class="card rounded border-0 shadow mb-3">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-1">
+                            <div class="row text-left">
+                                <div class="col-1 d-flex mx-2">
                                     <h1 class=""> <?= $i ?></h1>
                                 </div>
-                                <div class="col-lg-10">
-                                    <div class="row ml-3">
-                                        <h5 class="text-primary font-weight-bold"><?= $items['ref']; ?></h5>
+                                <div class="col d-flex flex-column justify-content-center mb-0">
+                                    <div class="">
+                                        <h5 class="text-primary font-weight-bold mb-1"><?= $items['ref']; ?></h5>
                                     </div>
-                                    <div class="row ml-3">
+                                    <div class="">
                                         <p class="small mb-0"><?= date('d F Y H:i', $items['date']);  ?></p>
                                     </div>
                                 </div>
-                                <div class="d-flex align-items-center">
+                                <div class="col-1 d-flex justify-content-center align-items-center mx-3">
                                     <a href="<?= base_url('customer/history_details/') . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>">
-                                        <i class="bi bi-list-check"></i>
+                                        <i class="bi bi-list-check" style="font-size: 2rem;"></i>
                                     </a>
                                 </div>
                             </div>
