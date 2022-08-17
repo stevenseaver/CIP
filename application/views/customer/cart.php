@@ -31,7 +31,7 @@
                         <tbody>
                             <?php foreach ($dataCart as $items) : ?>
                                 <?php
-                                if ($items['status'] != '0') {
+                                if ($items['status'] != '0') { //show which status = 0
                                     continue;
                                 } else { ?>
                                     <tr>

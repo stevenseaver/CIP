@@ -16,11 +16,11 @@ class User extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         $data['employeeLeaveCount'] = $this->db->count_all_results('leave_list');
         $data['custMessage'] = $this->db->count_all_results('contact_us');
-        $data['cartData'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/topbar_cust', $data);
         $this->load->view('user/index', $data);
         $this->load->view('templates/footer');
     }
@@ -30,10 +30,11 @@ class User extends CI_Controller
         $data['title'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/topbar_cust', $data);
         $this->load->view('user/my_profile', $data);
         $this->load->view('templates/footer');
     }
@@ -43,6 +44,7 @@ class User extends CI_Controller
         $data['title'] = 'Edit Profile';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
         // set rules to input form validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('email', 'email', 'required|trim|valid_email', [
@@ -54,7 +56,7 @@ class User extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
+            $this->load->view('templates/topbar_cust', $data);
             $this->load->view('user/edit', $data);
             $this->load->view('templates/footer');
         } else {
@@ -106,6 +108,7 @@ class User extends CI_Controller
         $data['title'] = 'Change Password';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
 
         $this->form_validation->set_rules('current_password', 'current password', 'required|trim');
         $this->form_validation->set_rules('new_password1', 'new password', 'required|trim|min_length[8]');
@@ -114,7 +117,7 @@ class User extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
+            $this->load->view('templates/topbar_cust', $data);
             $this->load->view('user/changepassword', $data);
             $this->load->view('templates/footer');
         } else {

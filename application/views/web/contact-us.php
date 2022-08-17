@@ -99,7 +99,7 @@
                     <p class="text-secondary mb-0">Monday to Saturday from 09.00 - 15.30 (WIB/GMT+7)</p>
                     <a href="https://wa.me/+6281331030398/?text=Halo,%20boleh%20minta%20informasi%20layanan%20pelanggan%20untuk%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20customer%20services%20informations%20of%20your%20products?" target="_blank" rel="noopener noreferer" class="">Chat on WhatsApp! &rarr; </a>
                     <p class="mx-0 my-3 text-dark">Or if you need anything other than Customer Services, you can find full list of our department's contacts you'd like to contact <a href="<?= base_url('web/contactList') ?>" rel="noopener noreferer"> here.</a></p>
-                    <p class="mx-0 my-3 text-dark">You may also obliged to read our <a href="<?= base_url('web/terms') ?>" rel="noopener noreferer"> terms and conditons</a> and also our <a href="<?= base_url('web/privacy_policy') ?>" rel="noopener noreferer"> privacy policy</a> before using our services.</p>
+                    <p class="mx-0 my-3 text-dark">You are also obliged to read our <a href="<?= base_url('web/terms') ?>" rel="noopener noreferer"> terms and conditons</a> and also our <a href="<?= base_url('web/privacy_policy') ?>" rel="noopener noreferer"> privacy policy</a> before using our services.</p>
                 </div>
             </div>
         </div>

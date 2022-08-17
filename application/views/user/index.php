@@ -199,7 +199,7 @@
         $temp1 = 0;
         $grandTotal = 0;
         $grandTotalTrans = 0;
-        foreach ($cartData as $cd) :
+        foreach ($dataCart as $cd) :
             if ($cd['status'] == 0) {
                 $temp = $temp + $cd['subtotal'];
                 $grandTotal = $temp;

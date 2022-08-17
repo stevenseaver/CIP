@@ -647,6 +647,18 @@
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="ref"]').val(inv);
+         //  const invoiceID = $(this).data('inv');
+
+         //  $.ajax({
+         //      url: "<?= base_url('customer/history'); ?>",
+         //      type: 'post',
+         //      data: {
+         //          invoiceID: invoiceID
+         //      },
+         //      success: function() {
+         //          document.location.href = "<?= base_url('customer/history')  ?>";
+         //      }
+         //  });
      });
 
      //javascript for increment tools

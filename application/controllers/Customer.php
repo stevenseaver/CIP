@@ -21,10 +21,11 @@ class Customer extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/topbar_cust', $data);
         $this->load->view('customer/product_page', $data);
         $this->load->view('templates/footer');
     }
@@ -40,7 +41,7 @@ class Customer extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/topbar_cust', $data);
         $this->load->view('customer/cart', $data);
         $this->load->view('templates/footer');
     }
@@ -57,6 +58,7 @@ class Customer extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
 
         //get selected item
         $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
@@ -67,7 +69,7 @@ class Customer extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
+            $this->load->view('templates/topbar_cust', $data);
             $this->load->view('customer/product_page', $data);
             $this->load->view('templates/footer');
         } else {
@@ -145,10 +147,32 @@ class Customer extends CI_Controller
         //get cart database
         $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
 
+        $data['inv'] = $this->input->post('invoiceID');
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/topbar_cust', $data);
         $this->load->view('customer/history', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function history_details($inv, $date, $status)
+    {
+        //load user data per session
+        $data['title'] = 'Transaction History Details';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get cart database
+        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
+
+        $data['ref'] = $inv;
+        $data['date'] = $date;
+        $data['status'] = $status;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('customer/history_details', $data);
         $this->load->view('templates/footer');
     }
 
@@ -172,7 +196,7 @@ class Customer extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/topbar_cust', $data);
         $this->load->view('customer/checkout', $data);
         $this->load->view('templates/footer');
     }

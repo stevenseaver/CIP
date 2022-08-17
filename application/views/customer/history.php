@@ -9,12 +9,12 @@
     </div>
 
     <?php if ($dataCart != null) {
-        $i = 0;
+        $i = 1;
         $temp = 0;
         $before = '';
         foreach ($dataCart as $items) : ?>
             <?php
-            if ($items['status'] != '1') {
+            if ($items['status'] == '0') { //show other than status = 0
                 continue;
             } else {
                 if ($before != $items['ref']) { ?>
@@ -33,7 +33,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <a data-toggle="modal" data-target="#transDetail" class="btn btn-light btn-circle" data-inv="<?= $items['ref'] ?>">
+                                    <a href="<?= base_url('customer/history_details/') . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>">
                                         <i class="bi bi-list-check"></i>
                                     </a>
                                 </div>
@@ -59,7 +59,7 @@
 <!-- /.container-fluid -->
 
 <!-- Modal For Add Data -->
-<div class="modal fade" id="transDetail" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="transDetail" tabindex="-1" aria-labelledby="newMenuModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -69,15 +69,10 @@
                 </button>
             </div>
             <div class="modal-body px-4">
-                <form name="form_invoice" action="" method="get">
+                <form name="form_invoice" action="" method="post">
                     <label for="url" class="col-form-label">Invoice No.</label>
                     <input type="text" class="form-control mb-3" id="ref" name="ref" readonly>
                 </form>
-                <?php
-                // if (isset($_POST['button'])) {
-                // $value = $_GET['ref'];
-                // }
-                ?>
                 <div class="table-responsive">
                     <table class="table table-hover" id="dataTable" width="100%" cellspacing="0" cellpadding="6">
                         <thead>
@@ -95,7 +90,7 @@
                         <tbody>
                             <?php foreach ($dataCart as $items) : ?>
                                 <?php
-                                // if ($items['ref'] == $value) {
+                                // if ($items['ref'] == $inv) {
                                 if ($items['status'] != '1') {
                                     continue;
                                 } else { ?>
@@ -129,4 +124,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
