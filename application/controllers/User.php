@@ -16,7 +16,7 @@ class User extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         $data['employeeLeaveCount'] = $this->db->count_all_results('leave_list');
         $data['custMessage'] = $this->db->count_all_results('contact_us');
-        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -30,7 +30,7 @@ class User extends CI_Controller
         $data['title'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -44,14 +44,18 @@ class User extends CI_Controller
         $data['title'] = 'Edit Profile';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
         // set rules to input form validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('email', 'email', 'required|trim|valid_email', [
             'is_unique' => 'This email has already been used!'
         ]);
         $this->form_validation->set_rules('hp', 'phone number', 'required|trim|numeric');
-        $this->form_validation->set_rules('address', 'adddress', 'required|trim');
+        $this->form_validation->set_rules('address', 'address', 'required|trim');
+        $this->form_validation->set_rules('city', 'city', 'required|trim');
+        $this->form_validation->set_rules('province', 'province', 'required|trim');
+        $this->form_validation->set_rules('country', 'country', 'required|trim');
+        $this->form_validation->set_rules('postal', 'postal', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -92,6 +96,10 @@ class User extends CI_Controller
                 'name' => $this->input->post('name'),
                 'email' => $this->input->post('email'),
                 'address' => $this->input->post('address'),
+                'city' => $this->input->post('city'),
+                'province' => $this->input->post('province'),
+                'country' => $this->input->post('country'),
+                'postal' => $this->input->post('postal'),
                 'phone_number' => $this->input->post('hp')
             ];
 
@@ -108,7 +116,7 @@ class User extends CI_Controller
         $data['title'] = 'Change Password';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
 
         $this->form_validation->set_rules('current_password', 'current password', 'required|trim');
         $this->form_validation->set_rules('new_password1', 'new password', 'required|trim|min_length[8]');

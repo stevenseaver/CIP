@@ -42,11 +42,33 @@
                                     <input type="date" class="form-control form-control-user" id="dob" name="dob" placeholder="Date of Birth" value="<?= set_value('dob'); ?>">
                                     <?= form_error('dob', '<small class="text-danger pl-3">', '</small>') ?>
                                 </div>
-                                <!-- input address -->
+                                <!-- input address 1 -->
                                 <div class="form-group">
                                     <label for="address" class="small ml-3">Address</label>
-                                    <input type="text" class="form-control form-control-user" id="address" name="address" placeholder="Address" value="<?= set_value('address'); ?>">
-                                    <?= form_error('address', '<small class="text-danger pl-3">', '</small>') ?>
+                                    <input type="text" class="form-control form-control-user mb-1" id="address" name="address" placeholder="Street" value="<?= set_value('address'); ?>">
+                                    <?= form_error('address', '<small class="text-danger pl-3 mb-1">', '</small>') ?>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" id="city" name="city" placeholder="City" value="<?= set_value('city'); ?>">
+                                        <?= form_error('city', '<small class="text-danger pl-3">', '</small>') ?>
+                                    </div>
+                                    <!-- state/province -->
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" id="province" name="province" placeholder="Province or State" value="<?= set_value('province'); ?>">
+                                        <?= form_error('province', '<small class="text-danger pl-3">', '</small>') ?>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-8 mb-2">
+                                        <input type="text" class="form-control form-control-user" id="country" name="country" placeholder="Country" value="<?= set_value('country'); ?>">
+                                        <?= form_error('country', '<small class="text-danger pl-3">', '</small>') ?>
+                                    </div>
+                                    <!-- zipcode -->
+                                    <div class="col-sm-4 mb-2">
+                                        <input type="text" class="form-control form-control-user" id="postal" name="postal" placeholder="Postal Code" value="<?= set_value('postal'); ?>">
+                                        <?= form_error('postal', '<small class="text-danger pl-3">', '</small>') ?>
+                                    </div>
                                     <small class="text-primary ml-3">Will be used as shipping address. You can change this later.</small>
                                 </div>
                                 <!-- input no hp -->
@@ -74,7 +96,7 @@
                                     <div class="col-sm-6">
                                         <label for="hp" class="small ml-3">Repeat Password</label>
                                         <input type="password" class="form-control form-control-user" id="password2" name="password2" placeholder="Repeat Password">
-                                        <?= form_error('password1', '<small class="text-danger pl-3">', '</small>') ?>
+                                        <?= form_error('password2', '<small class="text-danger pl-3">', '</small>') ?>
                                     </div>
                                 </div>
                                 <div class="form-check ml-3 mb-3">

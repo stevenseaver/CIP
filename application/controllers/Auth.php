@@ -87,6 +87,10 @@ class Auth extends CI_Controller
             'is_unique' => 'This ERN has already been used!'
         ]);
         $this->form_validation->set_rules('address', 'address', 'required|trim');
+        $this->form_validation->set_rules('city', 'city', 'required|trim');
+        $this->form_validation->set_rules('province', 'province', 'required|trim');
+        $this->form_validation->set_rules('country', 'country', 'required|trim');
+        $this->form_validation->set_rules('postal', 'postal', 'required|trim');
         $this->form_validation->set_rules('noktp', 'ID card number', 'required|trim');
         $this->form_validation->set_rules('dob', 'date of birth', 'required|trim');
         $this->form_validation->set_rules('email', 'email', 'required|trim|valid_email|is_unique[user.email]', [
@@ -108,11 +112,15 @@ class Auth extends CI_Controller
         } else {
             $name = $this->input->post('name', true);
             $email = $this->input->post('email', true);
-            $nik = $this->input->post('nik', true);
+            $nik = $this->input->post('email', true);
             $dob = $this->input->post('dob', true);
             $noktp = $this->input->post('noktp', true);
             $hp = $this->input->post('hp', true);
             $address = $this->input->post('address');
+            $city = $this->input->post('city');
+            $province = $this->input->post('province');
+            $country = $this->input->post('country');
+            $postal = $this->input->post('postal');
             $password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
 
             $data = [
@@ -123,6 +131,10 @@ class Auth extends CI_Controller
                 'dob' => htmlspecialchars($dob),
                 'phone_number' => htmlspecialchars($hp),
                 'address' => htmlspecialchars($address),
+                'city' => htmlspecialchars($city),
+                'province' => htmlspecialchars($province),
+                'country' => htmlspecialchars($country),
+                'postal' => htmlspecialchars($postal),
                 'image' => 'default.jpg',
                 'password' => $password,
                 'role_id' => 3,

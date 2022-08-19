@@ -21,7 +21,7 @@ class Customer extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
-        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -37,7 +37,7 @@ class Customer extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
-        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id'], 'status' => '0'])->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -55,10 +55,9 @@ class Customer extends CI_Controller
 
         //get finished good database
         $data['finishedStock'] = $this->db->get('stock_finishedgoods')->result_array();
-        //join warehouse database 
-        $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
-        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
+        // $this->load->model('Warehouse_model', 'warehouse_id');
+        // $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
 
         //get selected item
         $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
@@ -82,9 +81,9 @@ class Customer extends CI_Controller
 
             $data_cart = array(
                 'item_id' => $id,
-                'customer' => $customer,
+                'customer_id' => $customer,
                 'qty' => $amount,
-                'name' => $name,
+                'item_name' => $name,
                 'price' => $price,
                 'prod_cat' => $prod_cat,
                 'subtotal' => $subtotal
@@ -131,49 +130,12 @@ class Customer extends CI_Controller
 
     public function clear_cart()
     {
-        $name = $this->input->post('delete_name');
-        $this->db->delete('cart', array('customer' => $name, 'status' => 0));
+        $custID = $this->input->post('delete_id');
+        $CustName = $this->input->post('cust_name');
+        $this->db->delete('cart', array('customer_id' => $custID, 'status' => 0));
 
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $name . ' cart deleted!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $CustName . ' cart deleted!</div>');
         redirect('customer/cart');
-    }
-
-    public function history()
-    {
-        //load user data per session
-        $data['title'] = 'Transaction History';
-        $data['user'] = $this->db->get_where('user', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
-        //get cart database
-        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
-
-        $data['inv'] = $this->input->post('invoiceID');
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar_cust', $data);
-        $this->load->view('customer/history', $data);
-        $this->load->view('templates/footer');
-    }
-
-    public function history_details($inv, $date, $status)
-    {
-        //load user data per session
-        $data['title'] = 'Transaction History Details';
-        $data['user'] = $this->db->get_where('user', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
-        //get cart database
-        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
-
-        $data['ref'] = $inv;
-        $data['date'] = $date;
-        $data['status'] = $status;
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar_cust', $data);
-        $this->load->view('customer/history_details', $data);
-        $this->load->view('templates/footer');
     }
 
     public function check_out()
@@ -183,16 +145,38 @@ class Customer extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
-        $data['dataCart'] = $this->db->get_where('cart', ['customer' => $data['user']['id']])->result_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
 
         $date = time();
         $year = date('y');
         $month = date('m');
         $serial = rand(100, 999);
+        //ref invoice
         $ref = 'INV-' . $year . $month . '-' . $data['user']['id'] . $serial;
+
+        $this->form_validation->set_rules('address', 'address', 'required|trim');
+        $this->form_validation->set_rules('city', 'city', 'required|trim');
+        $this->form_validation->set_rules('province', 'province', 'required|trim');
+        $this->form_validation->set_rules('country', 'country', 'required|trim');
+        $this->form_validation->set_rules('postal', 'postal', 'numeric|required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $address = $data['user']['address'] . ', ' . $data['user']['city'] . ', ' . $data['user']['province'] . ', ' . $data['user']['country'] . ', ' . $data['user']['postal'];
+        } else {
+            $address = $this->input->post('address');
+            $city = $this->input->post('city');
+            $province = $this->input->post('province');
+            $country = $this->input->post('country');
+            $postal = $this->input->post('postal');
+
+            $address = $address . ', ' . $city . ', ' . $province . ', ' . $country . ', ' . $postal;
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Delivery address changed!</div>');
+        }
 
         $data['ref'] = $ref;
         $data['date'] = $date;
+        $data['address'] = $address;
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -213,9 +197,11 @@ class Customer extends CI_Controller
         $date = time();
         $data['ref'] = $ref;
         $data['date'] = $date;
+        $address = $data['user']['address'] . ', ' . $data['user']['city'] . ', ' . $data['user']['province'] . ', ' . $data['user']['country'] . ', ' . $data['user']['postal'];
 
         //cek jika ada gambar yang akan di upload
         $upload_image = $_FILES['image']['name'];
+        $file_ext = pathinfo($upload_image, PATHINFO_EXTENSION);
 
         if ($upload_image) {
             $config['file_name']            = $ref;
@@ -226,27 +212,68 @@ class Customer extends CI_Controller
             $this->load->library('upload', $config);
 
             if ($this->upload->do_upload('image')) {
-                $new_image = $ref;
+                $new_image = $ref . '.' . $file_ext;
 
                 $data_db = array(
                     'ref' => $ref,
                     'date' => $date,
                     'status' => 1,
-                    'img' => $new_image
+                    'img' => $new_image,
+                    'deliveryTo' => $address
                 );
 
-                $this->db->where('customer', $name);
+                $this->db->where('customer_id', $name);
                 $this->db->where('status', $status);
                 $this->db->update('cart', $data_db);
 
                 redirect('customer/history');
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger pb-0" role="alert">' . $this->upload->display_errors() . '</div>');
-                redirect('customer/check_out/' . $data['user']['name'] . '/0');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger pb-0" role="alert">' . $this->upload->display_errors() . '. Double check your address, it will reset to the original address.</div>');
+                redirect('customer/check_out/' . $data['user']['name'] . '/1');
             }
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">No payment image to be uploaded!</div>');
-            redirect('customer/check_out/' . $data['user']['name'] . '/0');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">No payment image to be uploaded! Double check your address, it will reset to the original address.</div>');
+            redirect('customer/check_out/' . $data['user']['name'] . '/1');
         }
+    }
+
+
+    public function history()
+    {
+        //load user data per session
+        $data['title'] = 'Transaction History';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get cart database
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
+
+        $data['inv'] = $this->input->post('invoiceID');
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('customer/history', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function history_details($inv, $date, $status)
+    {
+        //load user data per session
+        $data['title'] = 'Transaction History Details';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get cart database
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
+
+        $data['ref'] = $inv;
+        $data['date'] = $date;
+        $data['status'] = $status;
+        $data['address'] = $data['user']['address'] . ', ' . $data['user']['city'] . ', ' . $data['user']['province'] . ', ' . $data['user']['country'] . ', ' . $data['user']['postal'];
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('customer/history_details', $data);
+        $this->load->view('templates/footer');
     }
 }

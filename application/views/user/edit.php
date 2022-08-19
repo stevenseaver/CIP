@@ -50,6 +50,30 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="address" class="col-sm-3 col-form-label">City/Province</label>
+                        <div class="col-sm-4 mb-1">
+                            <input type="text" class="form-control form-control-user" id="city" name="city" placeholder="City" value="<?= $user['city']; ?>">
+                            <?= form_error('city', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                        <!-- state/province -->
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control form-control-user" id="province" name="province" placeholder="Province or State" value="<?= $user['province']; ?>">
+                            <?= form_error('province', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="address" class="col-sm-3 col-form-label">Country/Postal</label>
+                        <div class="col-sm-6 mb-2">
+                            <input type="text" class="form-control form-control-user" id="country" name="country" placeholder="Country" value="<?= $user['country']; ?>">
+                            <?= form_error('country', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                        <!-- zipcode -->
+                        <div class="col-sm-3 mb-2">
+                            <input type="text" class="form-control form-control-user" id="postal" name="postal" placeholder="Postal Code" value="<?= $user['postal']; ?>">
+                            <?= form_error('postal', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <!-- edit profile picture -->
                         <div class="col-sm-3">Picture</div>
                         <div class="col-sm-9">

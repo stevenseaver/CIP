@@ -1,99 +1,94 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
-    <div class="text-center mb-5">
-        <div class="error mx-auto" data-text="404">404!</div>
-        <h4 class="lead text-dark">Coming soon</h4>
-        <a href="<?= base_url('user'); ?>" class="mb-5">Back to Dashboard!</a>
-    </div>
-
-    <!-- <div class="row">
-        <div class="col-lg-12">
-            <?= form_error('name', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('nik', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('address', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('hp', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('role_id', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('password1', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('password2', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= $this->session->flashdata('approval'); ?>
+    <h1 class="h3 mb-4 text-gray-900"><?= $title ?></h1>
+    <div class="row">
+        <div class="col mb-0">
+            <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
 
-    <div class="card shadow border-left-primary mb-4">
-        <div class="card-header py-2">
-            <h5 class="m-0 font-weight-bold text-primary">User Leave Data</h5>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>ERN</th>
-                            <th>Name</th>
-                            <th>Leave Type</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Reason</th>
-                            <th>Document</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>ERN</th>
-                            <th>Name</th>
-                            <th>Leave Type</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Reason</th>
-                            <th>Document</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <?php $i = 1; ?>
-                        <?php foreach ($leavedata as $ld) : ?>
-                            <tr>
-                                <td><?= $i ?></td>
-                                <td><?= $ld['user_nik']; ?></td>
-                                <td><?= $ld['user_name']; ?></td>
-                                <td><?= $ld['type']; ?></td>
-                                <td><?= $ld['start_date']; ?></td>
-                                <td><?= $ld['finish_date']; ?></td>
-                                <td><?= $ld['reason']; ?></td>
-                                <td><a href="<?= base_url('document/leave_proof/') . $ld['document'] ?>" class="badge badge-primary" target="_blank">Open</a></td>
-                                <td>
-                                    <?php if ($ld['status'] == 1) {
-                                        echo '<p class="badge badge-success">Approve</p>';
-                                    } else if ($ld['status'] == 0) {
-                                        echo '<p class="badge badge-warning">Waiting</p>';
-                                    } else if ($ld['status'] == 2) {
-                                        echo '<p class="badge badge-danger">Not Approved</p>';
-                                    } ?>
-                                </td>
-                                <td>
-                                    <a href="<?= base_url('hr/approve/') . $ld['user_nik'] . '/' . $ld['start_date'] . '/' . $ld['finish_date']; ?>" class="badge badge-success">Approve</a>
-                                    <a href="<?= base_url('hr/decline/') . $ld['user_nik'] . '/' . $ld['start_date'] . '/' . $ld['finish_date']; ?>" class="badge badge-danger">Decline</a>
-                                </td>
-                            </tr>
-                            <?php $i++; ?>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <small class="text-primary pb-1">*) Date format is in YYYY-MM-DD</small>
+    <?php if ($dataCart != null) {
+        $i = 1;
+        $temp = 0;
+        $before = '';
+    ?>
+        <div class="card rounded border-0 shadow mb-3">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Invoice Number</th>
+                                    <th>Date</th>
+                                    <th>Customer</th>
+                                    <th>Delivery Address</th>
+                                    <th>Payment Upload</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($dataCart as $items) : ?>
+                                    <?php
+                                    if ($items['status'] != '1') { //show only with status = 1
+                                        continue;
+                                    } else {
+                                        if ($before != $items['ref']) { ?>
+                                            <td><?= $i ?></td>
+                                            <td><?= $items['ref']; ?></td>
+                                            <td><?= date('d F Y H:i', $items['date']); ?></td>
+                                            <td><?= $items['name']; ?></td>
+                                            <td><?= $items['deliveryTo']; ?></td>
+                                            <td>
+                                                <img class="img-fluid rounded" src="<?= base_url('asset/img/payment/') . $items['img']  ?>" alt="Payment Invoice" style="width: 15rem;">
+                                            <td>
+                                                <a href="<?= base_url('sales/sales_detail/') . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>" class="badge badge-primary">Details</a>
+                                                <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '2' ?>" class="badge badge-success">Submit to Delivery</a>
+                                                <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '0' ?>" class="badge badge-danger">Decline</a>
+                                            </td>
+                                            </tr>
+                                    <?php
+                                            $before = $items['ref'];
+                                            $i++;
+                                        } else {
+                                        }
+                                    }
+                                    ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- <div class="row text-left">
+                                <div class="col-1 d-flex mx-2">
+                                    <h1 class=""> <?= $i ?></h1>
+                                </div>
+                                <div class="col d-flex flex-column justify-content-center mb-0">
+                                    <div class="">
+                                        <h5 class="text-primary font-weight-bold mb-1"><?= $items['ref']; ?></h5>
+                                    </div>
+                                    <div class="">
+                                        <p class="small mb-0"><?= date('d F Y H:i', $items['date']);  ?></p>
+                                    </div>
+                                </div>
+                                <div class="col-1 d-flex justify-content-center align-items-center mx-3">
+                                    <a href="<?= base_url('sales/sales_detail/') . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>">
+                                        <i class="bi bi-list-check" style="font-size: 2rem;"></i>
+                                    </a>
+                                </div>
+                            </div> -->
             </div>
         </div>
-    </div> -->
+
+    <?php
+    } else { ?>
+        <div class="alert alert-danger" role="alert">There's no transaction! </a></div>
+    <? }
+    ?>
+</div>
 
 </div>
 <!-- /.container-fluid -->
-
-</div>
-<!-- End of Main Content -->

@@ -261,6 +261,7 @@ class Admin extends CI_Controller
             redirect('admin/usermanagement');
         } else {
             $this->db->delete('user', array('id' => $itemtoDelete));
+            $this->db->delete('cart', array('customer' => $itemtoDelete));
             $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert"> ' . urldecode($name) . ' deleted!</div>');
             redirect('admin/usermanagement');
         }

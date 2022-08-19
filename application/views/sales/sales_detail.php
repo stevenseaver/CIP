@@ -9,7 +9,7 @@
     </div>
 
     <!-- back button -->
-    <a href="<?= base_url('customer/history/') ?>" class="btn btn-primary btn-icon-split mb-3">
+    <a href="<?= base_url('sales/') ?>" class="btn btn-primary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-arrow-left"></i>
         </span>
@@ -112,7 +112,7 @@
             <p class="text-dark mb-1">Date : </p>
             <p class="text-dark font-weight-bold"> <?= date('d F Y H:i', $date); ?></p>
             <p class="text-dark mb-1">Delivery Address:</p>
-            <p class="text-dark font-weight-bold"><?= $address; ?></p>
+            <p class="text-dark font-weight-bold"><?= $address['deliveryTo']; ?></p>
         </div>
     </div>
 

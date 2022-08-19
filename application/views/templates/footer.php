@@ -634,13 +634,15 @@
      //  JavaScript for Delete All cart item Message
      $('#deleteCartItem').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
-         var name = $(event.relatedTarget).data('name');
+         var id = $(event.relatedTarget).data('id');
+         var custName = $(event.relatedTarget).data('cust');
 
          // input passed data using JS to object INPUT inside modal #editModal
-         $(event.currentTarget).find('.modal-body input[name="delete_name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="delete_id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="cust_name"]').val(custName);
      });
 
-     //  JavaScript for Delete All cart item Message
+     //  JavaScript for Invoice  Checkout
      $('#transDetail').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var inv = $(event.relatedTarget).data('inv');

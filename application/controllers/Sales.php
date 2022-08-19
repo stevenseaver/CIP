@@ -11,32 +11,70 @@ class Sales extends CI_Controller
 
     public function index()
     {
+        //load user data per session
         $data['title'] = 'Sales Order';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get leave type by combining database table leave_list and leave_type
-        $this->load->model('Leave_model', 'leaveType');
-        $data['leavedata'] = $this->leaveType->getLeaveType();
+        //get cart database
+        $this->load->model('Sales_model', 'custID');
+        $data['dataCart'] = $this->custID->getCustomer();
+        // $data['dataCart'] = $this->db->get_where('cart')->result_array();
+
+        $data['inv'] = $this->input->post('invoiceID');
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/topbar_cust', $data);
         $this->load->view('sales/sales', $data);
         $this->load->view('templates/footer');
     }
 
-    public function deliveryorder()
+    public function sales_detail($inv, $date, $status)
     {
-        $data['title'] = 'Delivery Order';
+        //load user data per session
+        $data['title'] = 'Customer Transaction Details';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get leave type by combining database table leave_list and leave_type
-        $this->load->model('Leave_model', 'leaveType');
-        $data['leavedata'] = $this->leaveType->getLeaveType();
+        //get cart database
+        $data['ref'] = $inv;
+        $data['date'] = $date;
+        $data['status'] = $status;
+
+        $data['dataCart'] = $this->db->get_where('cart', ['ref' => $data['ref']])->result_array();
+        $data['address'] = $this->db->get_where('cart', ['ref' => $data['ref']])->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('sales/sales_detail', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function sales_status_change($ref, $status_change_to)
+    {
+        $this->db->where('ref', $ref);
+        $this->db->set('status', $status_change_to);
+        $this->db->update('cart');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Status changed!</div>');
+        redirect('sales');
+    }
+
+    public function deliveryorder()
+    {
+        //load user data per session
+        $data['title'] = 'Delivery Order';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get cart database
+        $this->load->model('Sales_model', 'custID');
+        $data['dataCart'] = $this->custID->getCustomer();
+
+        $data['inv'] = $this->input->post('invoiceID');
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar_cust', $data);
         $this->load->view('sales/deliveryorder', $data);
         $this->load->view('templates/footer');
     }

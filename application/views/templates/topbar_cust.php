@@ -24,7 +24,7 @@
                         $amount = 0;
                         $i = 0;
                         foreach ($dataCart as $cd) :
-                            if ($cd['customer'] == $userName and $cd['status'] == '0') {
+                            if ($cd['customer_id'] == $userName and $cd['status'] == '0') {
                                 $i++;
                                 $amount = $i;
                             } else {

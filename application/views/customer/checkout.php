@@ -17,11 +17,14 @@
     </a>
 
     <div class="card rounded bg-white shadow border-0 mb-3">
-        <div class="card-body pb-1">
+        <div class="card-body">
             <p class="text-dark mb-1">Invoice Ref. : </p>
             <p class="text-dark font-weight-bold"> <?= $ref ?></p>
             <p class="text-dark mb-1">Date : </p>
             <p class="text-dark font-weight-bold"> <?= date('d F Y h:i', $date); ?></p>
+            <p class="text-dark mb-1">Delivery Address:</p>
+            <p class="text-dark font-weight-bold"><?= $address; ?></p>
+            <a href="" data-toggle="modal" data-target="#addNewAddress" class="btn btn-light mb-1">Use another address</a>
         </div>
     </div>
 
@@ -50,12 +53,11 @@
                                 } else { ?>
                                     <tr>
                                         <td><?= $i; ?></td>
-                                        <td><?= $items['name']; ?></td>
+                                        <td><?= $items['item_name']; ?></td>
                                         <td><?= $items['qty']; ?></td>
                                         <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
                                         </td>
                                         <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
-
                                     </tr>
                                     <?php $temp = $temp + $items['subtotal']; ?>
                                     <?php $i++; ?>
@@ -73,6 +75,7 @@
                         </tfoot>
                     </table>
                 </div>
+
             </div>
         </div>
         <div class="row mx-3 justify-content-start align-items-center">
@@ -106,6 +109,62 @@
     <? endif;
     ?>
 </div>
-
 </div>
 <!-- /.container-fluid -->
+
+
+<!-- Modal For Add Data -->
+<div class="modal fade" id="addNewAddress" tabindex="-1" aria-labelledby="addNewAddressModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addNewAddressModalLabel">Transaction Detail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body px-4">
+                <form action="<?= base_url('customer/check_out/') ?>" method="post">
+                    <div class="form-group row">
+                        <!-- edit address -->
+                        <div class="col">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" name="address" value="<?= $user['address']; ?>">
+                            <?= form_error('address', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col mb-1">
+                            <label for="address" class="form-label">City</label>
+                            <input type="text" class="form-control form-control-user" id="city" name="city" placeholder="City" value="<?= $user['city']; ?>">
+                            <?= form_error('city', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                        <!-- state/province -->
+                        <div class="col mb-1">
+                            <label for="address" class="form-label">Province</label>
+                            <input type="text" class="form-control form-control-user" id="province" name="province" placeholder="Province or State" value="<?= $user['province']; ?>">
+                            <?= form_error('province', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-8 mb-2">
+                            <label for="address" class="form-label">Country</label>
+                            <input type="text" class="form-control form-control-user" id="country" name="country" placeholder="Country" value="<?= $user['country']; ?>">
+                            <?= form_error('country', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                        <!-- zipcode -->
+                        <div class="col-4 mb-2">
+                            <label for="address" class="form-label">Postal</label>
+                            <input type="text" class="form-control form-control-user" id="postal" name="postal" placeholder="Postal Code" value="<?= $user['postal']; ?>">
+                            <?= form_error('postal', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save Address</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
