@@ -1374,11 +1374,11 @@ class Inventory extends CI_Controller
         $data['title'] = 'Asset Inventory';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //jpoin database room and asset_inventory
-        $this->load->model('Inventory_model', 'inventory_id');
-        //get invt database
-        $data['inventory'] = $this->inventory_id->getRoomName();
-        $data['room'] = $this->db->get('rooms')->result_array();
+        // //jpoin database room and asset_inventory
+        // $this->load->model('Inventory_model', 'inventory_id');
+        // //get invt database
+        // $data['inventory'] = $this->inventory_id->getRoomName();
+        // $data['room'] = $this->db->get('rooms')->result_array();
 
         $this->load->view('inventory/view_list', $data);
     }

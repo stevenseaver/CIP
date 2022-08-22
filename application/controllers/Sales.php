@@ -29,13 +29,14 @@ class Sales extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function sales_detail($inv, $date, $status)
+    public function sales_detail($customer, $inv, $date, $status)
     {
         //load user data per session
         $data['title'] = 'Customer Transaction Details';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
+        $data['customer'] = $customer;
         $data['ref'] = $inv;
         $data['date'] = $date;
         $data['status'] = $status;
@@ -77,6 +78,39 @@ class Sales extends CI_Controller
         $this->load->view('templates/topbar_cust', $data);
         $this->load->view('sales/deliveryorder', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function delivery_detail($customer, $inv, $date, $status)
+    {
+        //load user data per session
+        $data['title'] = 'Delivery Order Details';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get cart database
+        $data['customer'] = $customer;
+        $data['ref'] = $inv;
+        $data['date'] = $date;
+        $data['status'] = $status;
+
+        $data['dataCart'] = $this->db->get_where('cart', ['ref' => $data['ref']])->result_array();
+        $data['address'] = $this->db->get_where('cart', ['ref' => $data['ref']])->row_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('sales/delivery_detail', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function createPDF($inv, $customer)
+    {
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+
+        $data['ref'] = $inv;
+        $data['cust_name'] = urldecode($customer);
+
+        $this->load->view('sales/make_pdf', $data);
     }
 
     public function invoice()

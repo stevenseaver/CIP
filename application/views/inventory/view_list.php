@@ -28,10 +28,10 @@ $pdf->Cell(15, 8, "Status", 1, 0, 'C');
 $pdf->Cell(8, 8, "Cek", 1, 1, 'C');
 $pdf->SetFont('', '', 8);
 $inventory = $this->db->get('inventory_asset')->result();
-//jooin database room and asset_inventory
-$this->load->model('Inventory_model', 'inventory_id');
-//get invt database
-$data['inventory'] = $this->inventory_id->getRoomName();
+// //jooin database room and asset_inventory
+// $this->load->model('Inventory_model', 'inventory_id');
+// //get invt database
+// $data['inventory'] = $this->inventory_id->getRoomName();
 $i = 0;
 foreach ($inventory as $data) {
     $i++;

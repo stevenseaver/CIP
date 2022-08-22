@@ -9,19 +9,11 @@
     </div>
 
     <!-- back button -->
-    <a href="<?= base_url('sales/') ?>" class="btn btn-primary btn-icon-split mb-3">
+    <a href="<?= base_url('deliveryorder/') ?>" class="btn btn-primary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-arrow-left"></i>
         </span>
         <span class="text">Back</span>
-    </a>
-
-    <!-- view asset  -->
-    <a href="<?= base_url('sales/createPDF/') . $ref . '/' . urldecode($customer) ?>" class="btn btn-secondary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
-        <span class="icon text-white-50">
-            <i class="bi bi-eye"></i>
-        </span>
-        <span class="text">View List Item</span>
     </a>
 
     <div class="card rounded bg-white shadow border-0 mb-3">
