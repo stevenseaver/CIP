@@ -102,13 +102,14 @@ class Sales extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function createPDF($inv, $customer)
+    public function createPDF($inv, $customer, $date)
     {
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
         $data['ref'] = $inv;
         $data['cust_name'] = urldecode($customer);
+        $data['date'] = $date;
 
         $this->load->view('sales/make_pdf', $data);
     }
