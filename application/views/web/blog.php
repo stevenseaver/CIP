@@ -31,7 +31,7 @@
                     <?php $i = 0;
                     foreach ($blog_content as $bc) : ?>
                         <?php
-                        if ($bc['parent_id'] != "1") {
+                        if ($bc['parent_id'] != "1" and $bc['status'] == 0) {
                             continue;
                         } else {
                         }
@@ -63,11 +63,12 @@
     </div>
     <?php foreach ($blog_content as $bc) : ?>
         <?php
-        if ($bc['parent_id'] == "1") {
-            if ($bc['status'] == "0") {
-                continue;
-            } else {
-            }
+        if ($bc['parent_id'] == "1" and $bc['status'] == 0) {
+            // if ($bc['status'] == "0") {
+            //     continue;
+            // } else {
+            // }
+            continue;
         } else {
         }
         ?>

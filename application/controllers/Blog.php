@@ -28,11 +28,9 @@ class Blog extends CI_Controller
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $this->load->model('Blog_model', 'blog_id');
         //get blog database
-        $data['blogdata'] = $this->blog_id->getBlogStatus();
+        $data['blogdata'] = $this->db->get_where('blogpost', ['parent_id' => 1, 'status' => 1])->result_array();
         $data['post_type'] = $this->db->get('blog_type')->result_array();
-        $data['products'] = $this->db->get('product_menu')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
@@ -47,11 +45,9 @@ class Blog extends CI_Controller
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $this->load->model('Blog_model', 'blog_id');
         //get blog database
-        $data['blogdata'] = $this->blog_id->getBlogStatus();
+        $data['blogdata'] = $this->db->get_where('blogpost', ['parent_id' => 2, 'status' => 1])->result_array();
         $data['post_type'] = $this->db->get('blog_type')->result_array();
-        $data['products'] = $this->db->get('product_menu')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
@@ -66,11 +62,9 @@ class Blog extends CI_Controller
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $this->load->model('Blog_model', 'blog_id');
         //get blog database
-        $data['blogdata'] = $this->blog_id->getBlogStatus();
+        $data['blogdata'] = $this->db->get_where('blogpost', ['parent_id' => 4, 'status' => 1])->result_array();
         $data['post_type'] = $this->db->get('blog_type')->result_array();
-        $data['products'] = $this->db->get('product_menu')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
@@ -85,11 +79,9 @@ class Blog extends CI_Controller
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $this->load->model('Blog_model', 'blog_id');
         //get blog database
-        $data['blogdata'] = $this->blog_id->getBlogStatus();
+        $data['blogdata'] = $this->db->get_where('blogpost', ['parent_id' => 3, 'status' => 1])->result_array();
         $data['post_type'] = $this->db->get('blog_type')->result_array();
-        $data['products'] = $this->db->get('product_menu')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);

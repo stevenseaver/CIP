@@ -19,7 +19,7 @@
 
     <?php foreach ($blogdata as $bc) : ?>
         <?php
-        if ($bc['parent_id'] != "1") {
+        if ($bc['parent_id'] != "1" and $bc['status'] != 1) {
             continue;
         } else {
         } ?> <div class="row justify-content-center my-2 mx-3">

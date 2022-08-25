@@ -9,7 +9,7 @@
     </div>
 
     <!-- back button -->
-    <a href="<?= base_url('sales/deliveryorder') ?>" class="btn btn-primary btn-icon-split mb-3">
+    <a href="<?= base_url('sales/deliveryorder') ?>" class="btn btn-secondarys btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-arrow-left"></i>
         </span>
