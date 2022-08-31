@@ -31,7 +31,7 @@
                     <?php $i = 0;
                     foreach ($blog_content as $bc) : ?>
                         <?php
-                        if ($bc['parent_id'] != "1" and $bc['status'] == 0) {
+                        if ($bc['parent_id'] != "1") {
                             continue;
                         } else {
                         }
@@ -63,18 +63,14 @@
     </div>
     <?php foreach ($blog_content as $bc) : ?>
         <?php
-        if ($bc['parent_id'] == "1" and $bc['status'] == 0) {
-            // if ($bc['status'] == "0") {
-            //     continue;
-            // } else {
-            // }
+        if ($bc['parent_id'] == "1") {
             continue;
         } else {
         }
         ?>
         <div class="row justify-content-center my-2 mx-3">
-            <div class="col-lg-8 align-items-center  mb-3 border-0 shadow px-0">
-                <div class="card-body text-left">
+            <div class="col-lg-8 align-items-center  mb-3 border-0 px-0">
+                <div class="card-body text-left bg-white rounded shadow-sm">
                     <h5 class="card-title mb-1 text-primary font-weight-bold"><?= $bc["title"] ?></h5>
                     <p class="card-subtitle mb-4 text-muted"><?= date('d F Y', $bc["date_created"]); ?></p>
                     <h6 class="card-subtitle mb-2 text-muted"><?= $bc["summary"] ?></h6>

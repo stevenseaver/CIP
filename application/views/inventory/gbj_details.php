@@ -3,25 +3,6 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-dark font-weight-bold"><?= $title ?></h1>
-    <div class="row">
-        <div class="col mb-0">
-            <?= $this->session->flashdata('message'); ?>
-        </div>
-    </div>
-    <div class="card rounded shadow border-0 mb-3">
-        <div class="card-body mb-0">
-            <p class="text-dark mb-2">Product Name : <?= $getID['name'] ?></p>
-            <p class="text-dark mb-2">Product Code : <?= $getID['code'] ?></p>
-            <p class="text-dark mb-2">Price: <?php
-                                                if ($getID['categories'] != '6') {
-                                                    echo number_format($getID['price'], 0, ',', '.') . '/pack';
-                                                } else {
-                                                    echo number_format($getID['price'], 0, ',', '.') . '/kg';
-                                                } ?></p>
-
-        </div>
-    </div>
-
     <!-- back button -->
     <a href="<?= base_url('inventory/gbj_wh/') ?>" class="btn btn-primary btn-icon-split mb-3">
         <span class="icon text-white-50">
@@ -36,6 +17,47 @@
         </span>
         <span class="text">Add New Transaction</span>
     </a>
+    <div class="row ">
+        <div class="col mb-0">
+            <?= $this->session->flashdata('message'); ?>
+        </div>
+    </div>
+    <div class="card rounded shadow border-0 mb-3">
+        <div class="card-body mb-0">
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <p class="text-dark mb-1">Product Name : </p>
+                    <p class="text-dark font-weight-bold"> <?= $getID['name'] ?></p>
+                    <p class="text-dark mb-1">Code : </p>
+                    <p class="text-dark font-weight-bold"> <?= $getID['code'] ?></p>
+                    <p class="text-dark mb-1">Stock : </p>
+                    <p class="text-dark font-weight-bold"> <?php
+                                                            if ($getID['categories'] != '6') {
+                                                                echo number_format($getID['in_stock'], 0, ',', '.') . ' pack or ' . ($getID['in_stock'] / $getID['packpersack']) . ' sack';
+                                                            } else {
+                                                                echo number_format($getID['in_stock'], 0, ',', '.') . ' kg or ' . ($getID['in_stock'] / 25) . ' sack';
+                                                            } ?></p>
+                </div>
+                <div class="col-lg-4">
+                    <p class="text-dark mb-1">Quantity/pack:</p>
+                    <p class="text-dark font-weight-bold"><?= $getID['pcsperpack'] . ' pcs' ?></p>
+                    <p class="text-dark mb-1">Pack/sack:</p>
+                    <p class="text-dark font-weight-bold"><?= $getID['packpersack'] . ' packs' ?></p>
+                    <p class="text-dark mb-2">Price: </p>
+                    <p class="text-dark font-weight-bold">IDR <?php
+                                                                if ($getID['categories'] != '6') {
+                                                                    echo number_format($getID['price'], 0, ',', '.') . '/pack';
+                                                                } else {
+                                                                    echo number_format($getID['price'], 0, ',', '.') . '/kg';
+                                                                } ?></p>
+                </div>
+                <div class="col-lg-4 d-flex align-items-start justify-content-center">
+                    <img src="<?= base_url($getID['picture']) ?>" alt="" style="width: 10rem;">
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="card border-left-primary mb-3">
         <div class="row mx-4 my-3">

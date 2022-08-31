@@ -25,6 +25,9 @@
     <!-- Custom styles for this template-->
     <link href="<?= base_url('asset/'); ?>css/sb-admin-2.css" rel="stylesheet">
 
+    <!-- Rich text editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
     <!-- Custom styles for user management page -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.25/r-2.2.9/datatables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.25/r-2.2.9/datatables.min.js"></script>

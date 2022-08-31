@@ -64,8 +64,8 @@
                                         <a data-toggle="modal" data-target="#deletePostModal" data-id="<?= $bd['id'] ?>" data-title="<?= $bd['title'] ?>" class="badge badge-danger clickable">Delete</a>
                                         <?php
                                         if ($user['role_id'] == '1') { ?>
-                                            <a href="<?= base_url('blog/approve/') . $bd['id'] ?>" class="badge badge-success clickable">Approve Upload</a>
-                                            <a href="<?= base_url('blog/decline/') . $bd['id'] ?>" class="badge badge-danger clickable">Decline Upload</a>
+                                            <a href="<?= base_url('employee/approve/') . $bd['id'] ?>" class="badge badge-success clickable">Approve Upload</a>
+                                            <a href="<?= base_url('employee/decline/') . $bd['id'] ?>" class="badge badge-danger clickable">Decline Upload</a>
                                         <?php } else { ?>
 
                                         <?php }
@@ -121,7 +121,7 @@
 
 <!-- Modal For Add Data -->
 <div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="newPostModalLabel">Add New Item</h5>
@@ -129,11 +129,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <!-- <form action="<?= base_url('blog/add_post') ?>" method="post"> -->
+            <!-- <form action="<?= base_url('employee/add_post') ?>" method="post" id="form_id"> -->
             <div class="modal-body">
-                <?= form_open_multipart('blog/add_post'); ?>
+                <?= form_open_multipart('employee/add_post'); ?>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="author_id" name="author_id" placeholder="<?= $user['id'] ?>" value="<?= $user['id'] ?>" style="display:none">
+                    <input type="text" class="form-control" id="author_id" name="author_id" placeholder="<?= $user['id'] ?>" value="<?= $user['id'] ?>" value="<?= set_value('author_id'); ?>" style="display:none">
                 </div>
                 <div class=" form-group">
                     <!-- asset type -->
@@ -151,26 +151,28 @@
                 <div class="form-group">
                     <!-- Post Title -->
                     <label for="title" class="col-form-label">Post Title</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="Create unique and memorable title for your post">
+                    <input type="text" class="form-control" id="title" name="title" placeholder="Create unique and memorable title for your post" value="<?= set_value('title'); ?>">
                     <?= form_error('title', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
                 <div class="form-group">
                     <!-- Meta Title -->
                     <label for="meta" class="col-form-label">Meta Title</label>
-                    <input type="meta" class="form-control" id="meta" name="meta" placeholder="Meta for SEO and stuffs">
+                    <input type="meta" class="form-control" id="meta" name="meta" placeholder="Meta for SEO and stuffs" value="<?= set_value('meta'); ?>">
                     <?= form_error('meta', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
                 <div class="form-group">
                     <!-- Summary -->
                     <label for="summary" class="col-form-label">Summary</label>
-                    <input type="text" class="form-control" id="summary" name="summary" placeholder="What's this post mainly about?">
+                    <input type="text" class="form-control" id="summary" name="summary" placeholder="What's this post mainly about?" value="<?= set_value('summary'); ?>">
                     <?= form_error('summary', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
                 <div class="form-group">
                     <!-- Content -->
                     <label for="content" class="col-form-label">Content</label>
+                    <!-- <div type="text" class="form-control" id="content_rich" name="content_rich"></div> -->
                     <textarea type="text" class="form-control" id="content" name="content" placeholder="Pour your ideas here..."></textarea>
                     <?= form_error('content', '<small class="text-danger pl-2">', '</small>') ?>
+                    <pre><code id=""></code></pre>
                 </div>
                 <div class="form-group">
                     <label for="image" class="col-form-label">Image</label>
@@ -193,7 +195,7 @@
 
 <!-- Modal For Edit Data -->
 <div class="modal fade" id="editPostModal" tabindex="-1" aria-labelledby="editPostModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editPostModalLabel">Edit Item</h5>
@@ -202,7 +204,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open_multipart('blog/edit_post'); ?>
+                <?= form_open_multipart('employee/edit_post'); ?>
                 <div class="form-group">
                     <!-- Post Title -->
                     <label for="title" class="col-form-label">Post ID</label>
@@ -267,7 +269,7 @@
 
 <!-- Modal For Delete Data -->
 <div class="modal fade" id="deletePostModal" tabindex="-1" aria-labelledby="deletePostModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="deletePostModalLabel">Delete Item</h5>
@@ -275,7 +277,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('blog/delete_post') ?>" method="post">
+            <form action="<?= base_url('employee/delete_post') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- Post ID -->
@@ -298,3 +300,44 @@
         </div>
     </div>
 </div>
+
+<!-- Rich Text Editor Quill library -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+<!-- Initialize Quill editor -->
+<script>
+    var quill = new Quill('#content_rich', {
+        theme: 'snow'
+    });
+
+
+    quill.on('text-change', function(delta, source) {
+        updateHtmlOutput()
+    })
+
+    // When the convert button is clicked, update output
+    $('#btn-convert').on('click', () => {
+        updateHtmlOutput()
+    })
+
+    // Return the HTML content of the editor
+    function getQuillHtml() {
+        return quill.root.innerHTML;
+    }
+
+    // Highlight code output
+    function updateHighlight() {
+        hljs.highlightBlock(document.querySelector('#output-html'))
+    }
+
+
+    function updateHtmlOutput() {
+        let html = getQuillHtml();
+        console.log(html);
+        document.getElementById('output-html').innerText = html;
+        updateHighlight();
+    }
+
+
+    updateHtmlOutput()
+</script>

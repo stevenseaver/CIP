@@ -30,31 +30,25 @@
                         $temp = 0; ?>
                         <tbody>
                             <?php foreach ($dataCart as $items) : ?>
-                                <?php
-                                if ($items['status'] != '0') { //show which status = 0
-                                    continue;
-                                } else { ?>
-                                    <tr>
-                                        <td><?= $i; ?></td>
-                                        <td><?= $items['item_name']; ?></td>
-                                        <td style="width: 100px">
-                                            <?php if ($items['prod_cat'] != '6') : ?>
-                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>"> Pack
-                                            <?php else : ?>
-                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>"> Kg
-                                            <?php endif; ?>
-                                        </td>
-                                        <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
-                                        </td>
-                                        <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
-                                        <td style="text-align:left">
-                                            <a data-toggle="modal" data-target="#deleteCartIndividualItem" data-id="<?= $items['id'] ?>" data-cust="<?= $user['name'] ?>" data-name="<?= $items['item_name']; ?>" class="badge badge-danger clickable ml-3">Delete</a>
-                                        </td>
-                                    </tr>
-                                    <?php $temp = $temp + $items['subtotal']; ?>
-                                    <?php $i++; ?>
-                                <? } ?>
-
+                                <tr>
+                                    <td><?= $i; ?></td>
+                                    <td><?= $items['item_name']; ?></td>
+                                    <td style="width: 100px">
+                                        <?php if ($items['prod_cat'] != '6') : ?>
+                                            <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>"> Pack
+                                        <?php else : ?>
+                                            <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>"> Kg
+                                        <?php endif; ?>
+                                    </td>
+                                    <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
+                                    </td>
+                                    <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
+                                    <td style="text-align:left">
+                                        <a data-toggle="modal" data-target="#deleteCartIndividualItem" data-id="<?= $items['id'] ?>" data-cust="<?= $user['name'] ?>" data-name="<?= $items['item_name']; ?>" class="badge badge-danger clickable ml-3">Delete</a>
+                                    </td>
+                                </tr>
+                                <?php $temp = $temp + $items['subtotal']; ?>
+                                <?php $i++; ?>
                             <?php endforeach; ?>
                         </tbody>
                         <tfoot>

@@ -84,8 +84,9 @@ class Web extends CI_Controller
 		$data['title'] = 'Blog';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['blog_type'] = $this->db->get('blog_type')->result_array();
-		$data['blog_content'] = $this->db->get('blogpost')->result_array();
+		$data['blog_content'] = $this->db->get_where('blogpost', ['status' => 1])->result_array();
 		$data['products'] = $this->db->get('product_menu')->result_array();
+		//get user data
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();
 
