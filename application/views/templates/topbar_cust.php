@@ -11,11 +11,11 @@
             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                 <i class="fa fa-bars"></i>
             </button>
-
+            <!-- href="<?= base_url('customer/cart') ?>" -->
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown no-arrow mx-1">
-                    <a class="nav-link dropdown-toggle" href="<?= base_url('customer/cart') ?>">
+                    <a class="nav-link dropdown-toggle" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <small>Cart</small>
                         <i class="bi bi-cart-fill fa-fw"></i>
                         <!-- Counter - Alerts -->
@@ -36,7 +36,39 @@
                             <h5 class="badge badge-danger badge-counter large"><?= $amount ?></h5>
                         <?php endif; ?>
                     </a>
+                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                        <h6 class="dropdown-header">
+                            Cart Items
+                        </h6>
+                        <?php $temp = 0;
+                        $grandTotal = 0;
+                        foreach ($dataCart as $cd) :
+                            if ($cd['customer_id'] == $userName and $cd['status'] == '0') { ?>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <!-- <div class="mx-1">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="bi bi-cart text-white"></i>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-lg-10">
+                                        <span class="font-weight-bold"><?= $cd['item_name'] ?></span>
+                                        <div class="small text-gray-500"><?= $cd['subtotal'] ?></div>
+                                        <?php $temp = $temp + $cd['subtotal']; ?>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <span class="font-weight-bold"> <?= $cd['qty'] ?></span>
+                                    </div>
+                                </a>
+                        <?php
+                                $grandTotal = $temp;
+                            } else {
+                            }
+                        endforeach; ?>
+                        <span class="dropdown-item text-center font-weight-bold">Total in cart: <?= 'IDR ' . $grandTotal ?></span>
+                        <a class="dropdown-item text-center text-gray-600" href="<?= base_url('customer/cart') ?>"><i class="bi bi-cart text-dark mr-2"></i>Open Cart</a>
+                    </div>
                 </li>
+
 
                 <!-- divider -->
                 <div class="topbar-divider d-none d-sm-block"></div>

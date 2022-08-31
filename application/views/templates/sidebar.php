@@ -24,10 +24,15 @@
             ?>
 
             <!-- LOOPING MENU -->
-            <?php foreach ($menu as $m) : ?>
+            <?php
+            $i = 0;
+            foreach ($menu as $m) : ?>
                 <div class="sidebar-heading">
                     <?= $m['menu']; ?>
                 </div>
+                <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#<?= $i; ?>" aria-expanded="true" aria-controls="collapseTwo">
+                    <?= $m['menu']; ?>
+                </a> -->
                 <!-- Submenu Looping according to sub-menu database -->
                 <?php
                 $menuId = $m['id'];
@@ -50,6 +55,12 @@
                             <i class="<?= $sm['icon']; ?>"></i>
                             <span><?= $sm['title']; ?></span>
                         </a>
+                        <!-- <div id="<?= $i; ?>" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <i class="<?= $sm['icon']; ?>"></i>
+                                <span><?= $sm['title']; ?></span>
+                            </div>
+                        </div> -->
                         </li>
                     <?php endforeach; ?>
                     <!-- Divider -->
