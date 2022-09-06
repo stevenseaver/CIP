@@ -249,6 +249,34 @@
          $(event.currentTarget).find('.modal-body input[name="icon"]').val(webmenuicon);
      });
 
+     //  JavaScript for Edit Product Menu Modal
+     $('#editSpecItem').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var id = $(event.relatedTarget).data('id');
+         var name = $(event.relatedTarget).data('name');
+         var spec = $(event.relatedTarget).data('spec');
+         var content = $(event.relatedTarget).data('content');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="edit_id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="edit_name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="edit_spec"]').val(spec);
+         $(event.currentTarget).find('.modal-body input[name="edit_content"]').val(content);
+     });
+
+     //  JavaScript for Edit Product Menu Modal
+     $('#deleteSpecItemModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var id = $(event.relatedTarget).data('id');
+         var name = $(event.relatedTarget).data('name');
+         var spec = $(event.relatedTarget).data('spec');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="delete_id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="delete_name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="delete_spec"]').val(spec);
+     });
+
      //  JavaScript for Create QR invt. Asset Modal
      $('#createQR').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button

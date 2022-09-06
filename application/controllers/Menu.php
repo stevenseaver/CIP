@@ -313,7 +313,7 @@ class Menu extends CI_Controller
                 'image' => $icon
             ];
             $this->db->insert('product_menu', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> Product menu ' . $title . ' added!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> Product spec item ' . $title . ' added!</div>');
             redirect('menu/productmenu');
         }
     }
@@ -367,6 +367,99 @@ class Menu extends CI_Controller
         $this->db->delete('product_menu', array('id' => $itemtoDelete));
         // send message
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Product menu ' . $deletedWebMenu["title"] . ' deleted!</div>');
+        redirect('menu/productmenu');
+    }
+
+    public function product_spec($id)
+    {
+        $data['title'] = 'Product Specification';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        // $data['productmenu'] = $this->db->get_where('product_menu', ['id' => $id])->row_array();
+        // //get product title from id value
+        $data['id'] = $id;
+        $data['productspec'] = $this->db->get_where('spec_sheet', ['prod_id' => $id])->result_array();
+
+        $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('id', 'id', 'required|trim'); //prod_name id, not database id
+        $this->form_validation->set_rules('specification', 'specification', 'required|trim');
+        $this->form_validation->set_rules('content', 'content', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('menu/product_spec', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $name = $this->input->post('name');
+            $prod_id = $this->input->post('id');
+            $specification = $this->input->post('specification');
+            $content = $this->input->post('content');
+
+            $data = [
+                'product_name' => $name,
+                'prod_id' => $prod_id,
+                'specification' => $specification,
+                'items' => $content
+            ];
+
+            $this->db->insert('spec_sheet', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> Specification for ' . $name . ' added!</div>');
+            redirect('menu/product_spec/' . $id);
+        }
+    }
+
+    public function edit_spec($id)
+    {
+        $data['title'] = 'Product Specification';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        // $data['productmenu'] = $this->db->get_where('product_menu', ['id' => $id])->row_array();
+        // //get product title from id value
+        $data['id'] = $id;
+        $data['productspec'] = $this->db->get_where('spec_sheet', ['prod_id' => $id])->result_array();
+
+        $this->form_validation->set_rules('edit_name', 'name', 'required|trim');
+        $this->form_validation->set_rules('edit_id', 'ID', 'required|trim');
+        $this->form_validation->set_rules('edit_spec', 'specification', 'required|trim');
+        $this->form_validation->set_rules('edit_content', 'content', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('menu/product_spec', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $edit_id = $this->input->post('edit_id');
+            $name = $this->input->post('edit_name');
+            $specification = $this->input->post('edit_spec');
+            $content = $this->input->post('edit_content');
+
+            $data = [
+                'product_name' => $name,
+                'specification' => $specification,
+                'items' => $content
+            ];
+
+            $this->db->where('id', $edit_id);
+            $this->db->update('spec_sheet', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> ' . $name . ' ' . $specification . ' specification edited!</div>');
+            redirect('menu/product_spec/' . $id);
+        }
+    }
+
+    public function delete_spec()
+    {
+        // get deleted item
+        $idToDelete = $this->input->post('delete_id');
+        $nameToDelete = $this->input->post('delete_name');
+        $specToDelete = $this->input->post('delete_spec');
+        // delete the sub menu
+        $this->db->delete('spec_sheet', array('id' => $idToDelete));
+        // send message
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> ' . $nameToDelete . ' item of: ' . $specToDelete . ' deleted!</div>');
         redirect('menu/productmenu');
     }
 }

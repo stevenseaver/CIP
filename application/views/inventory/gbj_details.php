@@ -4,7 +4,7 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-dark font-weight-bold"><?= $title ?></h1>
     <!-- back button -->
-    <a href="<?= base_url('inventory/gbj_wh/') ?>" class="btn btn-primary btn-icon-split mb-3">
+    <a href="<?= base_url('inventory/gbj_wh/') ?>" class="btn btn-secondary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-arrow-left"></i>
         </span>

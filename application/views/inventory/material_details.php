@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <a href="<?= base_url('inventory/material_wh/') ?>" class="btn btn-primary btn-icon-split mb-3">
+    <a href="<?= base_url('inventory/material_wh/') ?>" class="btn btn-secondary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-arrow-left"></i>
         </span>

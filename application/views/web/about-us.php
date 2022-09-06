@@ -26,7 +26,7 @@
                     <p>Be a leading recycled plastic products manufacturer by giving high-quality and eco-conscious products.</p>
                     <!-- Mission -->
                     <div class="row justify-content-center align-items-center pt-1">
-                        <div class="col mb-3 mx-1 text-dark text-left">
+                        <div class="col-lg mb-3 mx-1 text-dark text-left">
                             <div class="card border-0 shadow">
                                 <div class="card-body">
                                     <div class="text-center">
@@ -39,7 +39,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col mb-3 mx-1 text-dark text-left">
+                        <div class="col-lg mb-3 mx-1 text-dark text-left">
                             <div class="card border-0 shadow">
                                 <div class="card-body">
                                     <div class="text-center">
@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col mb-3 mx-1 text-dark text-left">
+                        <div class="col-lg mb-3 mx-1 text-dark text-left">
                             <div class="card border-0 shadow">
                                 <div class="card-body">
                                     <div class="text-center">

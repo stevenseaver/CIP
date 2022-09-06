@@ -13,7 +13,7 @@
     <h6 class="mb-3 text-dark">Code : <?= $getID['code'] ?></h6>
 
     <!-- back button -->
-    <a href="<?= base_url('inventory/prod_wh/') ?>" class="btn btn-primary btn-icon-split mb-3">
+    <a href="<?= base_url('inventory/prod_wh/') ?>" class="btn btn-secondary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-arrow-left"></i>
         </span>

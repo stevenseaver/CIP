@@ -42,6 +42,7 @@
                                         <td><?= $m['url']; ?></td>
                                         <td><?= $m['image']; ?></td>
                                         <td>
+                                            <a href="<?= base_url('menu/product_spec/') . $m['id'] ?>" class="badge badge-info text-white clickable">Details</a>
                                             <a data-toggle="modal" data-target="#editProductMenu" class="badge badge-primary text-white clickable" data-id="<?= $m['id'] ?>" data-title="<?= $m['title'] ?>" data-url="<?= $m['url'] ?>" data-icon="<?= $m['image'] ?>">Edit</a>
                                             <a data-toggle="modal" data-target="#deleteProductMenuModal" class="badge badge-danger text-white clickable" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['title'] ?>">Delete</a>
                                         </td>
@@ -73,17 +74,17 @@
             <form action="<?= base_url('menu/productmenu') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <p class="text-secondary font-weight-bold mb-0">Product Menu Title</p>
+                        <p class="text-secondary mb-1">Product Menu Title</p>
                         <input type="text" class="form-control" id="title" name="title" placeholder="Add new product menu title">
                         <?= form_error('title', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
                     <div class="form-group">
-                        <p class="text-secondary font-weight-bold mb-0">Product Menu URL</p>
+                        <p class="text-secondary mb-1">Product Menu URL</p>
                         <input type="text" class="form-control" id="url" name="url" placeholder="Add product menu URL">
                         <?= form_error('url', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
                     <div class="form-group">
-                        <p class="text-secondary font-weight-bold mb-0">Product Menu Icon</p>
+                        <p class="text-secondary mb-1">Product Menu Icon</p>
                         <input type="text" class="form-control" id="icon" name="icon" placeholder="Add product menu icon">
                         <?= form_error('icon', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
