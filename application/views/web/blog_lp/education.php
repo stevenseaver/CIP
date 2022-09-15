@@ -10,31 +10,34 @@
         <?php endforeach; ?>
     </div>
 
-    <div class="row justify-content-center align-items-center text-left pt-1">
+    <div class="row justify-content-center align-items-center text-left pt-1 ml-3">
         <!-- Page Heading -->
         <div class="col-lg-8">
             <h1 class="h3 mb-3 ml-1 font-weight-bold text-primary"><?= $title ?></h1>
         </div>
     </div>
 
-    <?php foreach ($blogdata as $bc) : ?>
-        <?php
-        if ($bc['parent_id'] != "4") {
-            continue;
-        } else {
-        } ?> <div class="row justify-content-center my-2 mx-3">
-            <div class="col-lg-8 align-items-center mb-3 border-0 shadow px-0">
-                <div class="card-body text-left  bg-white">
-                    <h5 class="card-title mb-1 font-weight-bold"><?= $bc["title"] ?></h5>
-                    <p class="card-subtitle mb-4 text-muted"><?= date('d F Y', $bc["date_created"]); ?></p>
-                    <h6 class="card-subtitle mb-2 text-muted"><?= $bc["summary"] ?></h6>
-                    <a href="<?= base_url('blog/content/') . $bc["id"]  ?>" class="card-link">Read more &rarr; </a>
+    <?php if ($blogdata != null) :
+        foreach ($blogdata as $bc) : ?>
+            <div class="row justify-content-center my-2 mx-3">
+                <div class="col-lg-8 align-items-center mb-3 border-0 shadow px-0">
+                    <div class="card-body text-left  bg-white">
+                        <h5 class="card-title mb-1 font-weight-bold"><?= $bc["title"] ?></h5>
+                        <p class="card-subtitle mb-4 text-muted"><?= date('d F Y', $bc["date_created"]); ?></p>
+                        <h6 class="card-subtitle mb-2 text-muted"><?= $bc["summary"] ?></h6>
+                        <a href="<?= base_url('blog/content/') . $bc["id"]  ?>" class="card-link">Read more &rarr; </a>
+                    </div>
                 </div>
             </div>
+        <?php endforeach ?>
+    <?php
+    else : ?>
+        <div class="row justify-content-center my-2 mx-3">
+            <div class="alert alert-primary mx-5 col-lg-8 align-items-center" role="alert">Blog is empty! Wait for new articles from us.</div>
         </div>
-    <?php endforeach ?>
-
-    <div class="text-center mb-4">
+    <? endif;
+    ?>
+    <div class="text-center">
         <a class="small" href="<?= base_url('web/blogs') ?>"> &larr; Back to Blog</a>
     </div>
 </div>
