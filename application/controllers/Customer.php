@@ -210,6 +210,7 @@ class Customer extends CI_Controller
             $config['max_size']             = 2048;
             //load lib
             $this->load->library('upload', $config);
+            $this->upload->initialize($config);
 
             if ($this->upload->do_upload('image')) {
                 $new_image = $ref . '.' . $file_ext;

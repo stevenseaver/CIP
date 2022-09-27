@@ -629,6 +629,7 @@ class Inventory extends CI_Controller
                 $config['max_size']             = 5120;
 
                 $this->load->library('upload', $config);
+                $this->upload->initialize($config);
 
                 if ($this->upload->do_upload('image')) {
                     $new_image = $this->upload->data('file_name');
@@ -723,6 +724,7 @@ class Inventory extends CI_Controller
                 $config['max_size']             = 5120;
 
                 $this->load->library('upload', $config);
+                $this->upload->initialize($config);
 
                 if ($this->upload->do_upload('image')) {
                     $old_image = $data['finishedStock']['picture'];

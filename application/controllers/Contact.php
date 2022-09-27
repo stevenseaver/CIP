@@ -47,52 +47,65 @@ class Contact extends CI_Controller
 
             $this->db->insert('contact_us', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Message sent!</div>');
-            redirect('web/contactus');
+            redirect('web/contact_us');
         }
     }
 
     public function send_message()
     {
-        $this->_sendEmail();
-
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Message sent.</div>');
-        redirect('contact');
-    }
-
-    private function _sendEmail()
-    {
-        $config = [
-            'protocol'  => 'smtp',
-            'smtp_host' => 'smtp.office365.com',
-            'smtp_user' => 'donotreplymeorelse@outlook.com',
-            'smtp_pass' => 'adminganteng!',
-            // 'smtp_pass' => 'tsgzbffdmcjrmzfk',
-            'smtp_port' => 587,
-            'mailtype'  => 'html',
-            'charset'   => 'utf-8',
-            'newline'   => "\r\n",
-            'smtp_crypto' => 'tls'
-        ];
-
-        $email = $this->input->post('email');
+        $to = $this->input->post('email');
         $subject = $this->input->post('subject');
         $message = $this->input->post('message');
 
+        $this->_sendEmail($to, $subject, $message);
+        redirect('contact');
+    }
+
+    private function _sendEmail($to, $subject, $message)
+    {
+        $config = [
+            'protocol'  => 'smtp',
+            'smtp_host' => 'smtp.hostinger.com',
+            'smtp_user' => 'email@seaverweb.com',
+            'smtp_pass' => 'Anderson25?',
+            'smtp_port' => 587,
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'starttls'  => true,
+            'newline'   => "\r\n"
+        ];
         $this->email->initialize($config);
 
-        $this->email->from('donotreplymeorelse@outlook.com', 'Administrator');
-        $this->email->to($email);
+        $this->email->from('email@seaverweb.com', 'Administrator');
+        $this->email->to($to);
 
         $this->email->subject($subject);
         $this->email->message($message);
 
         if ($this->email->send()) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Message sent.</div>');
             return true;
         } else {
             $message = $this->email->print_debugger();
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> Sorry, message failed to send. Error: ' . $message . '</div>');
             redirect('contact');
         }
+        // ini_set('display_errors', 1);
+        // error_reporting(E_ALL);
+
+        // $email = $this->input->post('email');
+        // $subject = $this->input->post('subject');
+        // $message = $this->input->post('message');
+        // $from = "email@seaverweb.com";
+
+        // $headers = "From:" . $from;
+        // if (mail($email, $subject, $message, $headers)) {
+        //     return true;
+        // } else {
+        //     $message = $this->email->print_debugger();
+        //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> Sorry, message failed to send. Error: ' . $message . '</div>');
+        //     redirect('contact');
+        // }
     }
 
     public function deletemessage($itemtoDelete)

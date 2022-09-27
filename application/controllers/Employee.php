@@ -77,6 +77,7 @@ class Employee extends CI_Controller
                 $config['file_name']        = "{$nik}" . "_" . "{$type}" . "_" . date("Ymd_His");
 
                 $this->load->library('upload', $config);
+                $this->upload->initialize($config);
 
                 if ($this->upload->do_upload('proof')) {
                     $new_file = $this->upload->data('file_name');
@@ -178,6 +179,7 @@ class Employee extends CI_Controller
                 $config['max_size'] = 5120;
 
                 $this->load->library('upload', $config);
+                $this->upload->initialize($config);
 
                 if ($this->upload->do_upload('image')) {
                     $new_image = $this->upload->data('file_name');
@@ -252,6 +254,7 @@ class Employee extends CI_Controller
                 $config['max_size'] = 5120;
 
                 $this->load->library('upload', $config);
+                $this->upload->initialize($config);
 
                 if ($this->upload->do_upload('image')) {
                     $new_image = $this->upload->data('file_name');

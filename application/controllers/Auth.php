@@ -44,11 +44,7 @@ class Auth extends CI_Controller
                         'role_id' => $user['role_id']
                     ];
                     $this->session->set_userdata($data);
-                    if ($user['role_id'] == 1) {
-                        redirect('admin');
-                    } else {
-                        redirect('user');
-                    }
+                    redirect('user');
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Password!</div>');
                     redirect('auth');
@@ -164,23 +160,23 @@ class Auth extends CI_Controller
     {
         $config = [
             'protocol'  => 'smtp',
-            'smtp_host' => 'smtp.office365.com',
-            'smtp_user' => 'donotreplymeorelse@outlook.com',
-            'smtp_pass' => 'adminganteng!',
+            'smtp_host' => 'smtp.hostinger.com',
+            'smtp_user' => 'email@seaverweb.com',
+            'smtp_pass' => 'Anderson25?',
             'smtp_port' => 587,
             'mailtype'  => 'html',
             'charset'   => 'utf-8',
-            'newline'   => "\r\n",
-            'smtp_crypto' => 'tls'
+            'starttls'  => true,
+            'newline'   => "\r\n"
         ];
-
         $this->email->initialize($config);
+
         //message body
-        $base_url = base_url();
+        // $base_url = base_url();
         $tokenTo = urlencode($token);
         $emailTo = $this->input->post('email');
 
-        $this->email->from('donotreplymeorelse@outlook.com', 'Administrator');
+        $this->email->from('email@seaverweb.com', 'Administrator');
         $this->email->to($emailTo);
         if ($type == 'verify') {
             $this->email->subject('User Activation');
