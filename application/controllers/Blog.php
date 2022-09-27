@@ -33,7 +33,7 @@ class Blog extends CI_Controller
         $data['products'] = $this->db->get('product_menu')->result_array();
         $data['post_type'] = $this->db->get('blog_type')->result_array();
 
-        $this->load->view('templates/web-header', $data);
+        $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
         $this->load->view('web/blog_lp/featured', $data);
         $this->load->view('templates/web-footer');
@@ -51,7 +51,7 @@ class Blog extends CI_Controller
         $data['products'] = $this->db->get('product_menu')->result_array();
         $data['post_type'] = $this->db->get('blog_type')->result_array();
 
-        $this->load->view('templates/web-header', $data);
+        $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
         $this->load->view('web/blog_lp/news', $data);
         $this->load->view('templates/web-footer');
@@ -69,7 +69,7 @@ class Blog extends CI_Controller
         $data['products'] = $this->db->get('product_menu')->result_array();
         $data['post_type'] = $this->db->get('blog_type')->result_array();
 
-        $this->load->view('templates/web-header', $data);
+        $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
         $this->load->view('web/blog_lp/education', $data);
         $this->load->view('templates/web-footer');
@@ -87,7 +87,7 @@ class Blog extends CI_Controller
         $data['products'] = $this->db->get('product_menu')->result_array();
         $data['post_type'] = $this->db->get('blog_type')->result_array();
 
-        $this->load->view('templates/web-header', $data);
+        $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
         $this->load->view('web/blog_lp/promotion', $data);
         $this->load->view('templates/web-footer');
@@ -109,7 +109,7 @@ class Blog extends CI_Controller
 
         $data['contentToLoad'] = $id;
 
-        $this->load->view('templates/web-header', $data);
+        $this->load->view('templates/header', $data);
         $this->load->view('templates/web-topbar', $data);
         $this->load->view('web/blog_lp/content', $data);
         $this->load->view('templates/web-footer');
