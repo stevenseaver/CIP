@@ -34,13 +34,14 @@
                                 <th>Category</th>
                                 <th>Stock</th>
                                 <th>Price</th>
-                                <th>Warehouse</th>
+                                <th>Value</th>
                                 <th>Picture</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $i = 1; ?>
+                            <?php $i = 1;
+                            $temp = 0; ?>
                             <?php foreach ($finishedStock as $fs) : ?>
                                 <?php
                                 if ($fs['status'] != 7) {
@@ -69,19 +70,29 @@
                                         } else {
                                             echo number_format($fs['price'], 0, ',', '.') . '/kg';
                                         } ?></td>
-                                    <td><?= $fs['warehouse_name'] ?></td>
+                                    <?php $value = $fs['price'] * $fs['in_stock'];
+                                    $temp = $temp + $value;  ?>
+                                    <td><?= number_format($value, 0, ',', '.') ?></td>
                                     <td>
                                         <img class="img-fluid rounded" src="<?= base_url() . $fs['picture'] ?>" alt="Product Image #2" style="width: 15rem;">
                                     <td>
                                         <a href="<?= base_url('inventory/gbj_details/') . $fs['id'] ?>" class="badge badge-primary">Details</a>
                                         <!-- <a data-toggle="modal" data-target="#adjustItemModal" class="badge badge-success text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-success">Quick Adjust</a> -->
-                                        <a data-toggle="modal" data-target="#editItemModal" class="badge badge-warning text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-pcs="<?= $fs['pcsperpack'] ?>" data-pack="<?= $fs['packpersack'] ?>" data-price="<?= $fs['price'] ?>">Edit</a>
+                                        <a data-toggle="modal" data-target="#editItemModal" class="badge badge-warning text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-cat="<?= $fs['categories'] ?>" data-pcs="<?= $fs['pcsperpack'] ?>" data-pack="<?= $fs['packpersack'] ?>" data-price="<?= $fs['price'] ?>">Edit</a>
                                         <a data-toggle="modal" data-target="#deleteItemModal" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-danger clickable">Delete</a>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>
                             <?php endforeach; ?>
                         </tbody>
+                        <tfoot>
+                            <tr class="text-right align-items-center">
+                                <td colspan="7"> </td>
+                                <td class="right"><strong>Total</strong></td>
+                                <?php $grandTotal = $temp; ?>
+                                <td class="right">IDR <?= $this->cart->format_number($grandTotal, '-', ',', '.'); ?></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

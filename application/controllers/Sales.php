@@ -57,8 +57,12 @@ class Sales extends CI_Controller
         $this->db->set('status', $status_change_to);
         $this->db->update('cart');
 
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Status changed!</div>');
-        redirect('sales');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Status changed!</div>');
+        if ($status_change_to == 2) {
+            redirect('sales/deliveryorder');
+        } else if ($status_change_to == 3) {
+            redirect('sales/invoice');
+        }
     }
 
     public function deliveryorder()
@@ -102,7 +106,7 @@ class Sales extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function createPDF($inv, $customer, $date)
+    public function createPDF($type, $inv, $customer, $date)
     {
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
@@ -110,8 +114,12 @@ class Sales extends CI_Controller
         $data['ref'] = $inv;
         $data['cust_name'] = urldecode($customer);
         $data['date'] = $date;
-
-        $this->load->view('sales/make_pdf', $data);
+        if ($type == 1) {
+            $this->load->view('sales/pdf_sales_order', $data);
+        } else if ($type == 2) {
+            $this->load->view('sales/pdf_delivery_order', $data);
+        } else if ($type == 3)
+            $this->load->view('sales/pdf_invoice', $data);
     }
 
     public function invoice()
@@ -119,14 +127,38 @@ class Sales extends CI_Controller
         $data['title'] = 'Sales Invoice';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get leave type by combining database table leave_list and leave_type
-        $this->load->model('Leave_model', 'leaveType');
-        $data['leavedata'] = $this->leaveType->getLeaveType();
+        //get cart database
+        $this->load->model('Sales_model', 'custID');
+        $data['dataCart'] = $this->custID->getCustomer();
+
+        $data['inv'] = $this->input->post('invoiceID');
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/topbar_cust', $data);
         $this->load->view('sales/invoice', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function invoice_detail($customer, $inv, $date, $status)
+    {
+        //load user data per session
+        $data['title'] = 'Invoice Order Details';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get cart database
+        $data['customer'] = $customer;
+        $data['ref'] = $inv;
+        $data['date'] = $date;
+        $data['status'] = $status;
+
+        $data['dataCart'] = $this->db->get_where('cart', ['ref' => $data['ref']])->result_array();
+        $data['address'] = $this->db->get_where('cart', ['ref' => $data['ref']])->row_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('sales/invoice_detail', $data);
         $this->load->view('templates/footer');
     }
 
@@ -145,6 +177,7 @@ class Sales extends CI_Controller
         $this->load->view('sales/salesinfo', $data);
         $this->load->view('templates/footer');
     }
+
     //***                **//
     //***  Customer list **//
     //***                **//

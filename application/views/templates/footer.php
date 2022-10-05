@@ -496,18 +496,21 @@
          var name = $(event.relatedTarget).data('name');
          var code = $(event.relatedTarget).data('code');
          var price = $(event.relatedTarget).data('price');
+         var cat = $(event.relatedTarget).data('cat');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
          $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
          $(event.currentTarget).find('.modal-body input[name="price"]').val(price);
+         $(event.currentTarget).find('.modal-body select[name="category"]').val(cat);
      });
 
-     //  JavaScript for Edit GBJ item Modal
+     //  JavaScript for Edit GBJ warehouse item Modal
      $('#editItemModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var name = $(event.relatedTarget).data('name');
          var code = $(event.relatedTarget).data('code');
+         var cat = $(event.relatedTarget).data('cat');
          var pcs = $(event.relatedTarget).data('pcs');
          var pack = $(event.relatedTarget).data('pack');
          var price = $(event.relatedTarget).data('price');
@@ -518,6 +521,7 @@
          $(event.currentTarget).find('.modal-body input[name="pcsperpack"]').val(pcs);
          $(event.currentTarget).find('.modal-body input[name="packpersack"]').val(pack);
          $(event.currentTarget).find('.modal-body input[name="price"]').val(price);
+         $(event.currentTarget).find('.modal-body select[name="category"]').val(cat);
      });
 
      //  JavaScript for Adjust GBJ item Modal

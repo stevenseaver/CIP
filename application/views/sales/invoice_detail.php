@@ -9,15 +9,14 @@
     </div>
 
     <!-- back button -->
-    <a href="<?= base_url('sales/') ?>" class="btn btn-secondary btn-icon-split mb-3">
+    <a href="<?= base_url('sales/invoice') ?>" class="btn btn-secondary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-arrow-left"></i>
         </span>
         <span class="text">Back</span>
     </a>
-
-    <!-- view pdf SO  -->
-    <a href="<?= base_url('sales/createPDF/1/') . $ref . '/' . urldecode($customer) . '/' . $date ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+    <!-- view pdf Invoice  -->
+    <a href="<?= base_url('sales/createPDF/3/') . $ref . '/' . urldecode($customer) . '/' . $date ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
         <span class="icon text-white-50">
             <i class="bi bi-eye"></i>
         </span>

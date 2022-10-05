@@ -21,7 +21,7 @@
                                 <th>Item Description</th>
                                 <th style="text-align:center">Qty</th>
                                 <th style="text-align:right">Item Price</th>
-                                <th style="text-align:right">Sub-Total</th>
+                                <th style="text-align:right">Sub Total</th>
                                 <th style="text-align:center">Action</th>
                             </tr>
                         </thead>
@@ -56,7 +56,7 @@
                                 <td colspan="3"> </td>
                                 <td class="right"><strong>Total</strong></td>
                                 <?php $grandTotal = $temp; ?>
-                                <td class="right">IDR <?= $this->cart->format_number($grandTotal, '0', ',', '.'); ?></td>
+                                <td class="right">IDR <?= $this->cart->format_number($grandTotal, '-', ',', '.'); ?></td>
                             </tr>
                         </tfoot>
                     </table>

@@ -56,7 +56,7 @@
                                         <?php $temp = $temp + $cd['subtotal']; ?>
                                     </div>
                                     <div class="col-lg-2">
-                                        <span class="font-weight-bold"> <?= $cd['qty'] ?></span>
+                                        <span class="font-weight-bold"> <?= number_format($cd['qty'], 0, ',', '.'); ?></span>
                                     </div>
                                 </a>
                         <?php
@@ -64,7 +64,7 @@
                             } else {
                             }
                         endforeach; ?>
-                        <span class="dropdown-item text-center font-weight-bold">Total in cart: <?= 'IDR ' . $grandTotal ?></span>
+                        <span class="dropdown-item text-center font-weight-bold">Total in cart: <?= 'IDR ' . number_format($grandTotal, 2, ',', '.'); ?></span>
                         <a class="dropdown-item text-center text-gray-600" href="<?= base_url('customer/cart') ?>"><i class="bi bi-cart text-dark mr-2"></i>Open Cart</a>
                     </div>
                 </li>

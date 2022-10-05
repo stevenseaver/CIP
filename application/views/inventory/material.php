@@ -29,13 +29,14 @@
                                 <th>Category</th>
                                 <th>Stock (Kg)</th>
                                 <th>Price</th>
-                                <th>Warehouse</th>
+                                <th>Value</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $i = 1;
+                            $temp = 0;
                             ?>
                             <?php foreach ($materialStock as $ms) : ?>
                                 <?php
@@ -51,16 +52,26 @@
                                     <td><?= $ms['categories_name'] ?></td>
                                     <td><?= number_format($ms['in_stock'], 0, ',', '.'); ?></td>
                                     <td><?= number_format($ms['price'], 0, ',', '.'); ?></td>
-                                    <td><?= $ms['warehouse_name'] ?></td>
+                                    <?php $value = $ms['price'] * $ms['in_stock'];
+                                    $temp = $temp + $value;  ?>
+                                    <td><?= number_format($value, 0, ',', '.') ?></td>
                                     <td>
                                         <a href="<?= base_url('inventory/material_details/') . $ms['id'] ?>" class="badge badge-primary">Details</a>
-                                        <a data-toggle="modal" data-target="#editMaterial" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-price="<?= $ms['price'] ?>" class="badge badge-warning clickable">Edit</a>
+                                        <a data-toggle="modal" data-target="#editMaterial" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-price="<?= $ms['price'] ?>" data-cat="<?= $ms['categories'] ?>" class="badge badge-warning clickable">Edit</a>
                                         <a data-toggle="modal" data-target="#deleteMaterialItem" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" class="badge badge-danger clickable">Delete</a>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>
                             <?php endforeach; ?>
                         </tbody>
+                        <tfoot>
+                            <tr class="text-right align-items-center">
+                                <td colspan="5"> </td>
+                                <td class="right"><strong>Total</strong></td>
+                                <?php $grandTotal = $temp; ?>
+                                <td class="right">IDR <?= $this->cart->format_number($grandTotal, '-', ',', '.'); ?></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

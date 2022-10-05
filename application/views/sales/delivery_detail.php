@@ -9,11 +9,19 @@
     </div>
 
     <!-- back button -->
-    <a href="<?= base_url('sales/deliveryorder') ?>" class="btn btn-secondarys btn-icon-split mb-3">
+    <a href="<?= base_url('sales/deliveryorder') ?>" class="btn btn-secondary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-arrow-left"></i>
         </span>
         <span class="text">Back</span>
+    </a>
+
+    <!-- view pdf DO  -->
+    <a href="<?= base_url('sales/createPDF/2/') . $ref . '/' . urldecode($customer) . '/' . $date ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+        <span class="icon text-white-50">
+            <i class="bi bi-eye"></i>
+        </span>
+        <span class="text">View Delivery Order Preview</span>
     </a>
 
     <div class="card rounded bg-white shadow border-0 mb-3">

@@ -11,9 +11,12 @@
 
     <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">
-            <p class="text-dark mb-2">Product Name : <?= $getID['name'] ?></p>
-            <p class="text-dark mb-2">Product Code : <?= $getID['code'] ?></p>
-            <p class="text-dark mb-2">Price : <?= $getID['price'] ?></p>
+            <p class="text-dark mb-1">Product Name : </p>
+            <p class="text-dark font-weight-bold"> <?= $getID['name'] ?></p>
+            <p class="text-dark mb-1">Code : </p>
+            <p class="text-dark font-weight-bold"> <?= $getID['code'] ?></p>
+            <p class="text-dark mb-1">Price : </p>
+            <p class="text-dark font-weight-bold"> IDR <?= number_format($getID['price'], 0, ',', '.') ?></p>
         </div>
     </div>
 
@@ -45,7 +48,6 @@
                                 <th>Incoming (Kg)</th>
                                 <th>Outgouing (Kg)</th>
                                 <th>Stock (Kg)</th>
-                                <th>Warehouse</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -69,7 +71,6 @@
                                     <td><?= number_format($ms['incoming'], 0, ',', '.') ?></td>
                                     <td><?= number_format($ms['outgoing'], 0, ',', '.') ?></td>
                                     <td><?= number_format($ms['in_stock'], 0, ',', '.') . ' kg' ?></td>
-                                    <td><?= $ms['warehouse_name'] ?></td>
                                     <td><?= $ms['status_name'] ?></td>
                                     <td>
                                         <?php
