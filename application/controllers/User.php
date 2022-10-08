@@ -17,6 +17,7 @@ class User extends CI_Controller
         $data['employeeLeaveCount'] = $this->db->count_all_results('leave_list');
         $data['custMessage'] = $this->db->count_all_results('contact_us');
         $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
+        $data['dataCartSO'] = $this->db->get_where('cart', ['status' => '1'])->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

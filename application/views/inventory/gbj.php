@@ -127,8 +127,8 @@
                     <!-- Item code -->
                     <label for="url" class="col-form-label">Code</label>
                     <input type="text" class="form-control mb-1" id="code" name="code" placeholder="Item code">
-                    <small>Item code are permanent, make sure they are correct.</small>
                     <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
+                    <small class="text-danger">Item code are permanent, make sure they are correct.</small>
                 </div>
                 <div class="row">
                     <div class="col-6">

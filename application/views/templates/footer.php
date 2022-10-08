@@ -505,6 +505,32 @@
          $(event.currentTarget).find('.modal-body select[name="category"]').val(cat);
      });
 
+     //  JavaScript for Edit production warehouse item  item Modal
+     $('#editProdModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var name = $(event.relatedTarget).data('name');
+         var code = $(event.relatedTarget).data('code');
+         var weight = $(event.relatedTarget).data('weight');
+         var lipatan = $(event.relatedTarget).data('lip');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
+         $(event.currentTarget).find('.modal-body input[name="grammage"]').val(weight);
+         $(event.currentTarget).find('.modal-body input[name="lipatan"]').val(lipatan);
+     });
+
+     //  JavaScript for Delete production warehouse item Modal
+     $('#deleteProdModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var name = $(event.relatedTarget).data('name');
+         var code = $(event.relatedTarget).data('code');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
+     });
+
      //  JavaScript for Edit GBJ warehouse item Modal
      $('#editItemModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button

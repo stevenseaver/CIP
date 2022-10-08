@@ -9,8 +9,23 @@
         </div>
     </div>
 
-    <h6 class="mb-2 text-dark">Name : <?= $getID['name'] ?></h6>
-    <h6 class="mb-3 text-dark">Code : <?= $getID['code'] ?></h6>
+    <div class="card rounded shadow border-0 mb-3">
+        <div class="card-body mb-0">
+            <div class="row justify-content-left">
+                <div class="col-lg-4">
+                    <p class="text-dark mb-1">Product Name : </p>
+                    <p class="text-dark font-weight-bold"> <?= $getID['name'] ?></p>
+                    <p class="text-dark mb-1">Code : </p>
+                    <p class="text-dark font-weight-bold"> <?= $getID['code'] ?></p>
+                    <p class="text-dark mb-1">Lipatan : </p>
+                    <p class="text-dark font-weight-bold"> <?= $getID['lipatan'] ?></p>
+                    <p class="text-dark mb-1">Gramatur : </p>
+                    <p class="text-dark font-weight-bold"> <?= $getID['weight'] ?></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- back button -->
     <a href="<?= base_url('inventory/prod_wh/') ?>" class="btn btn-secondary btn-icon-split mb-3">
@@ -38,8 +53,9 @@
                                 <th>Roll</th>
                                 <th>Code</th>
                                 <th>Date Created</th>
-                                <th>Weight (Kg)</th>
-                                <th>Lip (cm)</th>
+
+                                <th>Inbound(Kg)</th>
+                                <th>Outbound(Kg)</th>
                                 <th>Stock (Kg)</th>
                                 <th>Warehouse</th>
                                 <th>Status</th>
@@ -60,13 +76,23 @@
                                     <td><?= $rs['name'] ?></td>
                                     <td><?= $rs['code'] ?></td>
                                     <td><?= date('d F Y H:i:s', $rs['date']); ?></td>
-                                    <td><?= $rs['weight'] ?></td>
-                                    <td><?= $rs['lipatan'] ?></td>
+                                    <td><?= $rs['incoming'] ?></td>
+                                    <td><?= $rs['outgoing'] ?></td>
                                     <td><?= $rs['in_stock'] ?></td>
                                     <td><?= $rs['warehouse_name'] ?></td>
                                     <td><?= $rs['status_name'] ?></td>
                                     <td>
-                                        <a href="" class="badge badge-success">Edit</a>
+                                        <?php
+                                        if ($rs['status_name'] == 'Saldo Awal' or $rs['status_name'] == 'Saldo Akhir') { ?>
+                                            <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans">Edit</a>
+                                        <?php } else { ?>
+                                            <?php if ($rs['status_name'] == 'Production' or $rs['status_name'] == 'Return Sales' or $rs['status_name'] == 'Purchasing') { ?>
+                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans">Edit</a>
+                                                <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteTransaction">Delete</a>
+                                            <?php } else { ?>
+                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans">Delete</a>
+                                            <?php } ?>
+                                        <?php } ?>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>

@@ -57,7 +57,7 @@
                 <div class="form-group">
                     <!-- Content -->
                     <label for="content" class="col-form-label">Content</label>
-                    <textarea class="form-control" id="blog_content" name="blog_content" value="<?= $bc['content']; ?>"></textarea>
+                    <textarea class="form-control" id="blog_content" name="blog_content"><?= $bc['content']; ?></textarea>
                     <?= form_error('blog_content', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
                 <div class="form-group">

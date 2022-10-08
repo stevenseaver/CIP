@@ -50,9 +50,12 @@ class Inventory extends CI_Controller
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
-        $this->form_validation->set_rules('code', 'code', 'required|trim');
+        $this->form_validation->set_rules('code', 'code', 'required|trim|is_unique[stock_material.code]', [
+            'is_unique' => 'This code has already been used!'
+        ]);
         $this->form_validation->set_rules('initial_stock', 'initial stock', 'required|trim');
         $this->form_validation->set_rules('warehouse', 'warehouse', 'required|trim');
+        $this->form_validation->set_rules('category', 'category', 'required');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
 
         if ($this->form_validation->run() == false) {
@@ -433,12 +436,13 @@ class Inventory extends CI_Controller
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
-        $this->form_validation->set_rules('code', 'code', 'required|trim');
-        $this->form_validation->set_rules('weightperm', 'initial stock', 'required|trim');
-        $this->form_validation->set_rules('lipatan', 'initial stock', 'required|trim');
+        $this->form_validation->set_rules('code', 'code', 'required|trim|is_unique[stock_roll.code]', [
+            'is_unique' => 'This code has already been used!'
+        ]);
+        $this->form_validation->set_rules('weightperm', 'grammage', 'required|trim');
+        $this->form_validation->set_rules('lipatan', 'folding', 'required|trim');
         $this->form_validation->set_rules('initial_stock', 'initial stock', 'required|trim');
         $this->form_validation->set_rules('warehouse', 'warehouse', 'required|trim');
-        $this->form_validation->set_rules('category', 'category', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -488,6 +492,50 @@ class Inventory extends CI_Controller
         }
     }
 
+    public function edit_prod()
+    {
+        $data['title'] = 'Production Warehouse';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get roll database
+        $data['rollStock'] = $this->db->get('stock_roll')->result_array();
+        //join warehouse database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
+
+        //validation
+        $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('code', 'code', 'required|trim');
+        $this->form_validation->set_rules('grammage', 'grammage', 'required|trim');
+        $this->form_validation->set_rules('lipatan', 'folding', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/prod', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $name = $this->input->post('name');
+            $code = $this->input->post('code');
+            $grammage = $this->input->post('grammage');
+            $lipatan = $this->input->post('lipatan');
+
+            //data to be updated
+            $data = [
+                'name' => $name,
+                'weight' => $grammage,
+                'lipatan' => $lipatan
+            ];
+
+            $this->db->where('code', $code);
+            $this->db->update('stock_roll', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $name . ' edited!</div>');
+            redirect('inventory/prod_wh');
+        }
+    }
+
     public function prod_details($id)
     {
         $data['title'] = 'Production Invt. Transactions';
@@ -505,6 +553,19 @@ class Inventory extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('inventory/prod_details', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function delete_prod()
+    {
+        // get item to delete
+        $itemtoDelete = $this->input->post('code');
+        // get data on deleted sub menu
+        $deletedItem = $this->db->get_where('stock_roll', array('code' => $itemtoDelete))->row_array();
+        // delete the sub menu
+        $this->db->delete('stock_roll', array('code' => $itemtoDelete));
+        // send message
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Item named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
+        redirect('inventory/prod_wh');
     }
 
     // GBJ Warehouse //
@@ -561,7 +622,9 @@ class Inventory extends CI_Controller
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
-        $this->form_validation->set_rules('code', 'code', 'required|trim');
+        $this->form_validation->set_rules('code', 'code', 'required|trim|is_unique[stock_material.code]', [
+            'is_unique' => 'This code has already been used!'
+        ]);
         $this->form_validation->set_rules('pcsperpack', 'product amount', 'required|trim|numeric');
         $this->form_validation->set_rules('packpersack', 'product pack/sack', 'required|trim|numeric');
         $this->form_validation->set_rules('initial_stock', 'initial stock', 'required|trim');
