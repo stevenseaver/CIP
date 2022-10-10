@@ -111,7 +111,7 @@
                                             <?php } ?>
                                         </td>
                                     </tr>
-                                <?
+                                <?php
                                 } else {
                                     continue;
                                 }
@@ -162,7 +162,7 @@
                         <select name="status" id="status" class="form-control" value="<?= set_value('status') ?>">
                             <option value="">--Select Transactions--</option>
                             <?php foreach ($transactionStatus as $ts) : ?>
-                                <?php if ($ts['status_id'] != 1 and $ts['status_id'] != 7 and $ts['status_id'] != 6) {
+                                <?php if ($ts['status_id'] != 1 and $ts['status_id'] != 7 and $ts['status_id'] != 6 and $ts['status_id'] != 9 and $ts['status_id'] != 10) {
                                 ?> <option value="<?= $ts['status_id'] ?>"><?= $ts['status_name']; ?></option>
                                 <?
                                 } else {

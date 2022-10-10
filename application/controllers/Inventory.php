@@ -439,6 +439,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('code', 'code', 'required|trim|is_unique[stock_roll.code]', [
             'is_unique' => 'This code has already been used!'
         ]);
+        $this->form_validation->set_rules('cogs', 'production cost', 'required|trim');
         $this->form_validation->set_rules('weightperm', 'grammage', 'required|trim');
         $this->form_validation->set_rules('lipatan', 'folding', 'required|trim');
         $this->form_validation->set_rules('initial_stock', 'initial stock', 'required|trim');
@@ -454,6 +455,7 @@ class Inventory extends CI_Controller
         } else {
             $name = $this->input->post('name');
             $code = $this->input->post('code');
+            $cogs = $this->input->post('cogs');
             $date = time();
             $weightperm = $this->input->post('weightperm');
             $lipatan = $this->input->post('lipatan');
@@ -466,6 +468,7 @@ class Inventory extends CI_Controller
             $data1 = [
                 'name' => $name,
                 'code' => $code,
+                'price' => $cogs,
                 'date' => $date,
                 'weight' => $weightperm,
                 'lipatan' => $lipatan,
@@ -477,6 +480,7 @@ class Inventory extends CI_Controller
             $data2 = [
                 'name' => $name,
                 'code' => $code,
+                'price' => $cogs,
                 'date' => $date,
                 'weight' => $weightperm,
                 'lipatan' => $lipatan,
@@ -506,6 +510,7 @@ class Inventory extends CI_Controller
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('code', 'code', 'required|trim');
+        $this->form_validation->set_rules('cogs', 'production cost', 'required|trim');
         $this->form_validation->set_rules('grammage', 'grammage', 'required|trim');
         $this->form_validation->set_rules('lipatan', 'folding', 'required|trim');
 
@@ -519,12 +524,14 @@ class Inventory extends CI_Controller
         } else {
             $name = $this->input->post('name');
             $code = $this->input->post('code');
+            $cogs = $this->input->post('cogs');
             $grammage = $this->input->post('grammage');
             $lipatan = $this->input->post('lipatan');
 
             //data to be updated
             $data = [
                 'name' => $name,
+                'price' => $cogs,
                 'weight' => $grammage,
                 'lipatan' => $lipatan
             ];
@@ -534,25 +541,6 @@ class Inventory extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $name . ' edited!</div>');
             redirect('inventory/prod_wh');
         }
-    }
-
-    public function prod_details($id)
-    {
-        $data['title'] = 'Production Invt. Transactions';
-        $data['user'] = $this->db->get_where('user', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
-        //join trans. status, prod warehouse, and warehouse database database
-        $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
-        //get item code by using ID as anchor
-        $data['getID'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
-        $data['code'] = $data['getID']['code'];
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('inventory/prod_details', $data);
-        $this->load->view('templates/footer');
     }
 
     public function delete_prod()
@@ -566,6 +554,249 @@ class Inventory extends CI_Controller
         // send message
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Item named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
         redirect('inventory/prod_wh');
+    }
+
+    public function prod_details($id)
+    {
+        $data['title'] = 'Production Invt. Transactions';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //join trans. status, prod warehouse, and warehouse database database
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
+        //get item code by using ID as anchor
+        $data['getID'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
+        $data['code'] = $data['getID']['code'];
+        $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('inventory/prod_details', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function add_trans_prod($id)
+    {
+        $data['title'] = 'Production Invt. Transactions';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //join warehouse, material, and transaction stauts database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
+        $data['getID'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
+        $data['code'] = $data['getID']['code'];
+        $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
+
+        $this->form_validation->set_rules('code', 'code', 'required|trim');
+        $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('status', 'status', 'required|trim');
+        $this->form_validation->set_rules('amount', 'amount', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/material_details', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $code = $this->input->post('code');
+            $name = $this->input->post('name');
+            $transaction_status = $this->input->post('status');
+            $amount = $this->input->post('amount');
+            $date = time();
+            $price = $data['getID']['price'];
+            $lipatan = $data['getID']['lipatan'];
+            $weight = $data['getID']['weight'];
+            $warehouse = 1;
+
+            $in_stockOld = $data['getID']['in_stock'];
+            // 3 is production, the only transaction that adds to the final stock
+            if ($transaction_status == 3) {
+                $data = [
+                    'name' => $name,
+                    'code' => $code,
+                    'price' => $price,
+                    'status' => $transaction_status,
+                    'incoming' => $amount,
+                    'date' => $date,
+                    'weight' => $weight,
+                    'lipatan' => $lipatan,
+                    'warehouse' => $warehouse
+                ];
+                $data2 = [
+                    'in_stock' => $in_stockOld + $amount,
+                    'date' => $date
+                ];
+            } else {
+                $data = [
+                    'name' => $name,
+                    'code' => $code,
+                    'price' => $price,
+                    'status' => $transaction_status,
+                    'outgoing' => $amount,
+                    'date' => $date,
+                    'weight' => $weight,
+                    'lipatan' => $lipatan,
+                    'warehouse' => $warehouse
+                ];
+                $data2 = [
+                    'in_stock' => $in_stockOld - $amount,
+                    'date' => $date
+                ];
+            }
+
+            $this->db->insert('stock_roll', $data);
+
+            $this->db->where('code', $code);
+            $this->db->update('stock_roll', $data2, 'status = 7');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Transaction for item ' . $name . ' with transaction type of ' . $transaction_status . ' adjusted!</div>');
+            redirect('inventory/prod_details/' . $id);
+        }
+    }
+
+    public function adjust_details_prod($id)
+    {
+        $data['title'] = 'Production Invt. Transactions';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //join warehouse, material, and transaction stauts database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
+        $data['getID'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
+        $code = $data['getID']['code'];
+        $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
+
+        $this->form_validation->set_rules('categories', 'categories', 'required|trim');
+        $this->form_validation->set_rules('adjust_amount', 'adjust_amount', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops, something is are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/gbj_details', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $idToEdit = $this->input->post('id');
+            $category = $this->input->post('categories');
+            $adjust_amount = $this->input->post('adjust_amount');
+            $date = time();
+
+            $data['stockOld'] = $this->db->get_where('stock_roll', ['id' => $idToEdit])->row_array();
+
+            $stock_awal_before = $data['stockOld']['in_stock']; //stock awal sebelumnya
+            $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
+
+            $data['stockAdjust'] = $this->db->get_where('stock_roll', ['id' => $idToEdit])->row_array();
+            if ($category == 'Production') {
+                $stock_adjust_before = $data['stockAdjust']['incoming']; //stock adjustment transaksi sebelum di edit
+            } else {
+                $stock_adjust_before = $data['stockAdjust']['outgoing']; //stock adjustment transaksi sebelum di edit
+            }
+
+            if ($category == 'Saldo Akhir') {
+                $this->db->set('in_stock', $adjust_amount);
+                $this->db->set('date', $date);
+                $this->db->where('id', $idToEdit);
+                $this->db->update('stock_roll');
+            } else if ($category == 'Saldo Awal') {
+                $this->db->set('in_stock', $adjust_amount);
+                $this->db->set('date', $date);
+                $this->db->where('id', $idToEdit);
+                $this->db->update('stock_roll');
+
+                $data2 = [
+                    'in_stock' => $stock_end_before + ($adjust_amount - $stock_awal_before),
+                    'date' => $date
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->update('stock_roll', $data2, 'status = 7');
+            } else {
+                //production adds to final stocks
+                if ($category == 'Production') {
+                    $this->db->set('incoming', $adjust_amount);
+                    $this->db->set('date', $date);
+                    $this->db->where('id', $idToEdit);
+                    $this->db->update('stock_roll');
+
+                    $data2 = [
+                        'in_stock' => ($stock_end_before - $stock_adjust_before) + $adjust_amount,
+                        'date' => $date
+                    ];
+
+                    $this->db->where('code', $code);
+                    $this->db->update('stock_roll', $data2, 'status = 7');
+                }
+                //other than that, it reduces the final stocks
+                else {
+                    $this->db->set('outgoing', $adjust_amount);
+                    $this->db->set('date', $date);
+                    $this->db->where('id', $idToEdit);
+                    $this->db->update('stock_roll');
+
+                    $data2 = [
+                        'in_stock' => ($stock_end_before + $stock_adjust_before) - $adjust_amount,
+                        'date' => $date
+                    ];
+
+                    $this->db->where('code', $code);
+                    $this->db->update('stock_roll', $data2, 'status = 7');
+                }
+            }
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $code .  ' adjusted!</div>');
+            redirect('inventory/prod_details/' . $id);
+        }
+    }
+
+    public function delete_prod_trans($id)
+    {
+        $data['title'] = 'Production Invt. Transactions';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //join warehouse, material, and transaction stauts database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
+        $data['getID'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
+        $data['code'] = $data['getID']['code'];
+        $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
+
+        $idToDelete = $this->input->post('delete_trans_id');
+        $code = $this->input->post('delete_trans_code');
+        $category = $this->input->post('delete_trans_cat');
+        $amount = $this->input->post('delete_amount');
+
+        $data['stockOld'] = $this->db->get_where('stock_roll', ['id' => $idToDelete])->row_array();
+
+        $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
+
+        if ($category == 'Production') {
+            //production menambah stock, jika dihapus, stock berkurang
+            $this->db->delete('stock_roll', array('id' => $idToDelete));
+
+            $data2 = [
+                'in_stock' => $stock_end_before - $amount
+            ];
+
+            $this->db->where('code', $code);
+            $this->db->update('stock_roll', $data2, 'status = 7');
+        } else {
+            $this->db->delete('stock_roll', array('id' => $idToDelete));
+
+            $data2 = [
+                'in_stock' => $stock_end_before + $amount
+            ];
+
+            $this->db->where('code', $code);
+            $this->db->update('stock_roll', $data2, 'status = 7');
+        }
+
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction ID ' . $idToDelete . ' with type ' . $category . ' deleted!</div>');
+        redirect('inventory/prod_details/' . $id);
     }
 
     // GBJ Warehouse //

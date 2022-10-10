@@ -58,37 +58,36 @@
                             ?>
                             <?php foreach ($materialStock as $ms) : ?>
                                 <?php
-                                if ($ms['code'] != $code) {
-                                    continue;
-                                } else {
-                                }
-                                ?>
-                                <tr>
-                                    <td><?= $i ?></td>
-                                    <td><?= $ms['name'] ?></td>
-                                    <td><?= $ms['code'] ?></td>
-                                    <td><?= date('d F Y H:i:s', $ms['date']); ?></td>
-                                    <td><?= number_format($ms['incoming'], 0, ',', '.') ?></td>
-                                    <td><?= number_format($ms['outgoing'], 0, ',', '.') ?></td>
-                                    <td><?= number_format($ms['in_stock'], 0, ',', '.') . ' kg' ?></td>
-                                    <td><?= $ms['status_name'] ?></td>
-                                    <td>
-                                        <?php
-                                        if ($ms['status_name'] == 'Saldo Awal' or $ms['status_name'] == 'Saldo Akhir') { ?>
-                                            <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
-                                        <?php } else { ?>
-                                            <?php if ($ms['status_name'] == 'Purchasing') { ?>
+                                if ($ms['code'] == $code) { ?>
+                                    <tr>
+                                        <td><?= $i ?></td>
+                                        <td><?= $ms['name'] ?></td>
+                                        <td><?= $ms['code'] ?></td>
+                                        <td><?= date('d F Y H:i:s', $ms['date']); ?></td>
+                                        <td><?= number_format($ms['incoming'], 1, ',', '.') ?></td>
+                                        <td><?= number_format($ms['outgoing'], 1, ',', '.') ?></td>
+                                        <td><?= number_format($ms['in_stock'], 1, ',', '.') . ' kg' ?></td>
+                                        <td><?= $ms['status_name'] ?></td>
+                                        <td>
+                                            <?php
+                                            if ($ms['status_name'] == 'Saldo Awal' or $ms['status_name'] == 'Saldo Akhir') { ?>
                                                 <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
-                                                <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMaterialTransaction" data-cat="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-amount="<?= $ms['incoming'] ?>">Delete</a>
                                             <?php } else { ?>
-                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
-                                                <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMaterialTransaction" data-cat="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-amount="<?= $ms['outgoing'] ?>">Delete</a>
+                                                <?php if ($ms['status_name'] == 'Purchasing') { ?>
+                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
+                                                    <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMaterialTransaction" data-cat="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-amount="<?= $ms['incoming'] ?>">Delete</a>
+                                                <?php } else { ?>
+                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
+                                                    <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMaterialTransaction" data-cat="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-amount="<?= $ms['outgoing'] ?>">Delete</a>
+                                                <?php } ?>
                                             <?php } ?>
-                                        <?php } ?>
-                                    </td>
-                                </tr>
-                                <?php $i++; ?>
-                            <?php endforeach; ?>
+                                        </td>
+                                    </tr>
+                            <?php } else {
+                                    continue;
+                                }
+                                $i++;
+                            endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -132,7 +131,7 @@
                         <select name="status" id="status" class="form-control" value="<?= set_value('status') ?>">
                             <option value="">--Select Transactions--</option>
                             <?php foreach ($transactionStatus as $ts) : ?>
-                                <?php if ($ts['status_id'] != 1  and $ts['status_id'] != 7 and $ts['status_id'] != 4 and $ts['status_id'] != 5) {
+                                <?php if ($ts['status_id'] != 1  and $ts['status_id'] != 7 and $ts['status_id'] != 4 and $ts['status_id'] != 5 and $ts['status_id'] != 9 and $ts['status_id'] != 10) {
                                 ?> <option value="<?= $ts['status_id'] ?>"><?= $ts['status_name']; ?></option>
                                 <?
                                 } else {

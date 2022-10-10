@@ -26,17 +26,19 @@
                                 <th>No</th>
                                 <th>Roll</th>
                                 <th>Code</th>
-                                <th>Date Created</th>
-                                <th>Weight (Kg)</th>
+                                <th>Weight Unit</th>
                                 <th>Lip (cm)</th>
                                 <th>Stock (Kg)</th>
-                                <th>Warehouse</th>
+                                <th>Price</th>
+                                <th>Value</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $i = 1; ?>
+                            <?php $i = 1;
+                            $temp = 0;
+                            ?>
                             <?php foreach ($rollStock as $rs) : ?>
                                 <?php
                                 if ($rs['status'] != 7) {
@@ -48,21 +50,31 @@
                                     <td><?= $i ?></td>
                                     <td><?= $rs['name'] ?></td>
                                     <td><?= $rs['code'] ?></td>
-                                    <td><?= date('d F Y H:i:s', $rs['date']); ?></td>
                                     <td><?= $rs['weight'] ?></td>
                                     <td><?= $rs['lipatan'] ?></td>
                                     <td><?= number_format($rs['in_stock'], 2, ',', '.') ?></td>
-                                    <td><?= $rs['warehouse_name'] ?></td>
+                                    <td><?= number_format($rs['price'], 0, ',', '.') ?></td>
+                                    <?php $value = $rs['price'] * $rs['in_stock'];
+                                    $temp = $temp + $value;  ?>
+                                    <td><?= number_format($value, 0, ',', '.') ?></td>
                                     <td><?= $rs['status_name'] ?></td>
                                     <td>
                                         <a href="<?= base_url('inventory/prod_details/') . $rs['id'] ?>" class="badge badge-primary">Details</a>
-                                        <a data-toggle="modal" data-target="#editProdModal" data-name="<?= $rs['name'] ?>" data-code="<?= $rs['code'] ?>" data-weight="<?= $rs['weight'] ?>" data-lip="<?= $rs['lipatan'] ?>" class="badge badge-warning">Edit</a>
+                                        <a data-toggle="modal" data-target="#editProdModal" data-name="<?= $rs['name'] ?>" data-code="<?= $rs['code'] ?>" data-weight="<?= $rs['weight'] ?>" data-cogs="<?= $rs['price'] ?>" data-lip="<?= $rs['lipatan'] ?>" class="badge badge-warning">Edit</a>
                                         <a data-toggle="modal" data-target="#deleteProdModal" data-name="<?= $rs['name'] ?>" data-code="<?= $rs['code'] ?>" class="badge badge-danger">Delete</a>
                                     </td>
                                 </tr>
                                 <?php $i++; ?>
                             <?php endforeach; ?>
                         </tbody>
+                        <tfoot>
+                            <tr class="text-right align-items-center">
+                                <td colspan="6"> </td>
+                                <td class="right"><strong>Total</strong></td>
+                                <?php $grandTotal = $temp; ?>
+                                <td class="right">IDR <?= $this->cart->format_number($grandTotal, '-', ',', '.'); ?></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -101,21 +113,27 @@
                         <small class="text-danger">Item code are permanent, make sure they are correct.</small>
                     </div>
                     <div class="form-group">
+                        <!-- Material code -->
+                        <label for="cogs" class="col-form-label">Production Cost</label>
+                        <input type="text" class="form-control mb-1" id="cogs" name="cogs" placeholder="Production cost">
+                        <?= form_error('cogs', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
                         <!-- Material weight/m -->
                         <label for="url" class="col-form-label">Grammage</label>
-                        <input type="text" class="form-control mb-1" id="weightperm" name="weightperm" placeholder="Add weight per meter">
+                        <input type="text" class="form-control mb-1" id="weightperm" name="weightperm" placeholder="Add weight per unit">
                         <?= form_error('weightperm', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Lipatan -->
                         <label for="url" class="col-form-label">Folding</label>
-                        <input type="text" class="form-control mb-1" id="lipatan" name="lipatan" placeholder="Add lipatan">
+                        <input type="text" class="form-control mb-1" id="lipatan" name="lipatan" placeholder="Add plastic folding">
                         <?= form_error('lipatan', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Material initial stock -->
                         <label for="url" class="col-form-label">Initial Stock</label>
-                        <input type="text" class="form-control mb-1" id="initial_stock" name="initial_stock" placeholder="Add initial stock">
+                        <input type="text" class="form-control mb-1" id="initial_stock" name="initial_stock" placeholder="Add initial stock in kilograms">
                         <?= form_error('initial_stock', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
@@ -157,6 +175,12 @@
                         <input type="text" class="form-control mb-1" id="code" name="code" readonly>
                         <small>You can't change item's code.</small>
                         <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Material code -->
+                        <label for="cogs" class="col-form-label">Production Cost</label>
+                        <input type="text" class="form-control mb-1" id="cogs" name="cogs" placeholder="Production cost">
+                        <?= form_error('cogs', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Material weight/m -->
