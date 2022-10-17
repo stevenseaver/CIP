@@ -712,11 +712,13 @@
          var id = $(event.relatedTarget).data('id');
          var custName = $(event.relatedTarget).data('cust');
          var itemName = $(event.relatedTarget).data('name');
+         var amount = $(event.relatedTarget).data('amount');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="delete_item_id"]').val(id);
          $(event.currentTarget).find('.modal-body input[name="cust_name"]').val(custName);
          $(event.currentTarget).find('.modal-body input[name="delete_item_name"]').val(itemName);
+         $(event.currentTarget).find('.modal-body input[name="item_amount"]').val(amount);
      });
 
      //  JavaScript for Delete All cart item Message

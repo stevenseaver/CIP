@@ -32,18 +32,18 @@
                                 <!-- <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?> -->
                             </div>
                             <div class="">
-                                <button type="submit" class="btn rounded-pill border-secondary btn-white btn-icon-split mb-3">
-                                    <span class="icon bg-gray-500 text-white-50">
+                                <button type="submit" class="btn rounded-pill border-secondary btn-primary btn-icon-split mb-3">
+                                    <span class="icon text-white-50">
                                         <i class="bi bi-cart"></i>
                                     </span>
                                     <span class="text">Add to Cart<span>
                                 </button>
-                                <a href="<?= base_url('customer/check_out/') ?>" class="btn rounded-pill btn-success btn-icon-split mb-3 mx-1">
+                                <!-- <a href="<?= base_url('customer/check_out/') ?>" class="btn rounded-pill btn-success btn-icon-split mb-3 mx-1">
                                     <span class="icon text-white-50">
                                         <i class="bi bi-currency-dollar"></i>
                                     </span>
                                     <span class="text">Buy<span>
-                                </a>
+                                </a> -->
                         </form>
                     </div>
                 </div>

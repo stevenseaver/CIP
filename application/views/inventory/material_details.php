@@ -17,6 +17,13 @@
             <p class="text-dark font-weight-bold"> <?= $getID['code'] ?></p>
             <p class="text-dark mb-1">Price : </p>
             <p class="text-dark font-weight-bold"> IDR <?= number_format($getID['price'], 0, ',', '.') ?></p>
+            <?php if ($getID['categories'] == 6 or $getID['categories'] == 7 or $getID['categories'] == 8) { ?>
+                <p class="text-dark mb-1">In Stock : </p>
+                <p class="text-dark font-weight-bold"> <?= number_format($getID['in_stock'], 0, ',', '.') ?></p>
+            <?php } else { ?>
+                <p class="text-dark mb-1">In Stock : </p>
+                <p class="text-dark font-weight-bold"> <?= number_format($getID['in_stock'], 0, ',', '.') . ' kg' ?></p>
+            <? } ?>
         </div>
     </div>
 

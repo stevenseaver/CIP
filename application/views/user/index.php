@@ -104,7 +104,49 @@
                 </div>
             </a>
         </div>
+        <?php
+        $i = 1;
+        $temp = 0;
+        foreach ($materialStock as $ms) :
+            if ($ms['status'] != 7) {
+                continue;
+            } else {
+            }
 
+            $value = $ms['price'] * $ms['in_stock'];
+            $temp = $temp + $value;
+        endforeach;
+        $materialValue = $temp;
+
+        $temp = 0;
+        foreach ($rollStock as $rs) :
+            if ($rs['status'] != 7) {
+                continue;
+            } else {
+            }
+
+            $value = $rs['price'] * $rs['in_stock'];
+            $temp = $temp + $value;
+        endforeach;
+        $prodValue = $temp;
+
+        $temp = 0;
+        foreach ($fgStock as $fg) :
+            if ($fg['status'] != 7) {
+                continue;
+            } else {
+            }
+
+            $value = $fg['price'] * $fg['in_stock'];
+            $temp = $temp + $value;
+        endforeach;
+        $gbjValue = $temp;
+
+        $totalWarehouseValue = $materialValue + $prodValue + $gbjValue;
+        $percentMaterial = ($materialValue / $totalWarehouseValue) * 100;
+        $percentProd = ($prodValue / $totalWarehouseValue) * 100;
+        $percentGBJ = ($gbjValue / $totalWarehouseValue) * 100;
+        ?>
         <!-- Content Row -->
         <!-- Content Row -->
         <div class="row">
@@ -116,26 +158,19 @@
                         <h6 class="m-0 font-weight-bold text-primary">Inventory Value</h6>
                     </div>
                     <div class="card-body">
-                        <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span></h4>
+                        <p class="font-weight-bold">Material Warehouse <span class="float-right">IDR <?= number_format($materialValue, 2, ',', '.'); ?></span></p>
                         <div class="progress mb-4">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: <?= $percentMaterial ?>%" aria-valuenow="<?= $percentMaterial ?>" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>
+                        <p class="font-weight-bold">Production Warehouse <span class="float-right">IDR <?= number_format($prodValue, 2, ',', '.'); ?></span></p>
                         <div class="progress mb-4">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: <?= $percentProd ?>%" aria-valuenow="<?= $percentProd ?>" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
+                        <p class="font-weight-bold">Finished Good Warehouse <span class="float-right">IDR <?= number_format($gbjValue, 2, ',', '.'); ?></span></p>
                         <div class="progress mb-4">
-                            <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-success" role="progressbar" style="width: <?= $percentGBJ ?>%" aria-valuenow="<?= $percentGBJ ?>" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h4 class="small font-weight-bold">Account Setup <span class="float-right">Complete!</span></h4>
-                        <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                        <p class="font-weight-bold text-primary">Total Warehouse Value <span class="float-right">IDR <?= number_format($totalWarehouseValue, 2, ',', '.'); ?></span></p>
                     </div>
                 </div>
             </div>

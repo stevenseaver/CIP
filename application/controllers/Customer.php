@@ -89,8 +89,40 @@ class Customer extends CI_Controller
                 'subtotal' => $subtotal
             );
 
+            //update cart
             $this->db->insert('cart', $data_cart);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item added to cart!</div>');
+
+            //get item selected to cart
+            $data['getItem'] = $this->db->get_where('stock_finishedgoods', ['name' => $name, 'status' => 7])->row_array();
+
+            //data to update inventory database
+            $transaction_status = 4;
+            $code = $data['getItem']['code'];
+            $category = $data['getItem']['categories'];
+            $date = time();
+            $warehouse = 3;
+            $in_stockOld = $data['getItem']['in_stock'];
+
+            $data_warehouse = [
+                'name' => $name,
+                'code' => $code,
+                'status' => $transaction_status,
+                'outgoing' => $amount,
+                'categories' => $category,
+                'date' => $date,
+                'warehouse' => $warehouse
+            ];
+            $data2_warehouse = [
+                'in_stock' => $in_stockOld - $amount,
+                'date' => $date
+            ];
+
+            //update inventory
+            $this->db->insert('stock_finishedgoods', $data_warehouse);
+
+            $this->db->where('code', $code);
+            $this->db->update('stock_finishedgoods', $data2_warehouse, 'status = 7');
 
             redirect('customer');
         }
@@ -107,7 +139,7 @@ class Customer extends CI_Controller
             'qty' => $qty,
             'subtotal' => $price * $qty
         );
-
+        //to do: update inventory database due to amount change
         $this->db->where('id', $id);
         $this->db->update('cart', $data_cart);
 
@@ -120,9 +152,25 @@ class Customer extends CI_Controller
         $ItemID = $this->input->post('delete_item_id');
         $CustName = $this->input->post('cust_name');
         $ItemName = $this->input->post('delete_item_name');
+        $amount = $this->input->post('item_amount');
 
         $this->db->where('id', $ItemID);
         $this->db->delete('cart');
+
+        //get item selected to cart
+        $data['getItem'] = $this->db->get_where('stock_finishedgoods', ['name' => $ItemName, 'status' => 7])->row_array();
+
+        //data to update inventory database
+        $code = $data['getItem']['code'];
+        $stock_end_before = $data['getItem']['in_stock'];
+
+        $data2 = [
+            'in_stock' => $stock_end_before + $amount
+        ];
+
+        // $this->db->delete('stock_finishedgoods', array('id' => $idToDelete));
+        $this->db->where('code', $code);
+        $this->db->update('stock_finishedgoods', $data2, 'status = 7');
 
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $ItemName . ' on ' . $CustName . ' cart deleted!</div>');
         redirect('customer/cart');
@@ -185,7 +233,7 @@ class Customer extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function payment($ref, $name, $status)
+    public function payment($ref, $id_cust, $status)
     {
         //load user data per session
         $data['title'] = 'Check Out Confirmation';
@@ -223,7 +271,7 @@ class Customer extends CI_Controller
                     'deliveryTo' => $address
                 );
 
-                $this->db->where('customer_id', $name);
+                $this->db->where('customer_id', $id_cust);
                 $this->db->where('status', $status);
                 $this->db->update('cart', $data_db);
 

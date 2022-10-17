@@ -16,8 +16,15 @@ class User extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         $data['employeeLeaveCount'] = $this->db->count_all_results('leave_list');
         $data['custMessage'] = $this->db->count_all_results('contact_us');
+        //get cart database
         $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
         $data['dataCartSO'] = $this->db->get_where('cart', ['status' => '1'])->result_array();
+        //get material database
+        $data['materialStock'] = $this->db->get('stock_material')->result_array();
+        //get roll database
+        $data['rollStock'] = $this->db->get('stock_roll')->result_array();
+        //get roll database
+        $data['fgStock'] = $this->db->get('stock_finishedgoods')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

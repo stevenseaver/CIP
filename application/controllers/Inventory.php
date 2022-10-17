@@ -1098,7 +1098,7 @@ class Inventory extends CI_Controller
             $date = time();
             $warehouse = 3;
 
-            $in_stockOld = $data['getID']['in_stock'];;
+            $in_stockOld = $data['getID']['in_stock'];
             //3 is prod, 5 is return sales, 8 is purchasing, all adds to the final stock
             if ($transaction_status == 3 or $transaction_status == 5 or $transaction_status == 8) {
                 $data = [
