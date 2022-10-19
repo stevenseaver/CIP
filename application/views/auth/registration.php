@@ -2,9 +2,13 @@
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <!-- Nested Row within Card Body -->
-                <div class="row d-flex justify-content-center">
+                <div class="row d-flex justify-content-center align-items-center">
                     <div class="col-lg-5 d-none d-lg-block">
-                        <img src="<?= base_url('asset/img/registration.png') ?>" class="img-fluid mx-auto d-block">
+                        <h3 class="font-weight-bold text-primary mx-5">User Registration</h3>
+                        <span class="h5 mx-5">support</span>
+                        <p class="text-primary mx-5 mb-0">email@cakraintiplastik.com</p>
+                        <p class="text-primary mx-5">phone +62 822 3205 7755</p>
+                        <!-- <img src="<?= base_url('asset/img/registration.png') ?>" class="img-fluid mx-auto d-block"> -->
                     </div>
                     <div class="col-lg-7">
                         <div class="p-5">
@@ -21,7 +25,7 @@
                                 <!-- input email -->
                                 <div class="form-group">
                                     <label for="email" class="small ml-3">E-mail</label>
-                                    <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Email Address" value="<?= set_value('email'); ?>">
+                                    <input type="text" class="form-control form-control-user mb-2" id="email" name="email" placeholder="Email Address" value="<?= set_value('email'); ?>">
                                     <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
                                     <div class="form-check ml-3 mt-1">
                                         <input class="form-check-input" type="checkbox" id="username_email" name="username_email" onchange="getEmailAsUserId();" />
@@ -32,7 +36,7 @@
                                 <!-- Input NIK KTP -->
                                 <div class="form-group">
                                     <label for="noktp" class="small ml-3">ID Card Number</label>
-                                    <input type="text" class="form-control form-control-user" id="noktp" name="noktp" placeholder="ID Card Number" value="<?= set_value('noktp'); ?>">
+                                    <input type="text" class="form-control form-control-user mb-2" id="noktp" name="noktp" placeholder="ID Card Number" value="<?= set_value('noktp'); ?>">
                                     <?= form_error('noktp', '<small class="text-danger pl-3">', '</small>') ?>
                                     <small class="text-primary ml-3">Input your KTP/ID card number or passport number for foreigners.</small>
                                 </div>
@@ -66,7 +70,7 @@
                                     </div>
                                     <!-- zipcode -->
                                     <div class="col-sm-4 mb-2">
-                                        <input type="text" class="form-control form-control-user" id="postal" name="postal" placeholder="Postal Code" value="<?= set_value('postal'); ?>">
+                                        <input type="text" class="form-control form-control-user mb-2" id="postal" name="postal" placeholder="Postal Code" value="<?= set_value('postal'); ?>">
                                         <?= form_error('postal', '<small class="text-danger pl-3">', '</small>') ?>
                                     </div>
                                     <small class="text-primary ml-3">Will be used as shipping address. You can change this later.</small>
@@ -81,22 +85,26 @@
                                 <!-- input NIK/ERN -->
                                 <div class="form-group">
                                     <label for="hp" class="small ml-3">Username</label>
-                                    <input type="text" class="form-control form-control-user" id="nik" name="nik" placeholder="Username" value="<?= set_value('nik'); ?>">
+                                    <input type="text" class="form-control form-control-user mb-2" id="nik" name="nik" placeholder="Username" value="<?= set_value('nik'); ?>">
                                     <small class="text-primary ml-3">Will be used as login detail. You can also use your email or anything.</small>
                                     <?= form_error('nik', '<small class="text-danger pl-3">', '</small>') ?>
                                 </div>
                                 <!-- password -->
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                <div class="form-group row mb-0">
+                                    <div class="col-sm-6 mb-3">
                                         <label for="hp" class="small ml-3">Password</label>
-                                        <input type="password" class="form-control form-control-user" id="password1" name="password1" placeholder="Password">
+                                        <input type="password" class="form-control form-control-user mb-2" id="password1" name="password1" placeholder="Password">
                                         <small class="text-primary ml-3">Min. 8 characters. </small>
                                     </div>
                                     <!-- repeat password -->
                                     <div class="col-sm-6">
                                         <label for="hp" class="small ml-3">Repeat Password</label>
-                                        <input type="password" class="form-control form-control-user" id="password2" name="password2" placeholder="Repeat Password">
+                                        <input type="password" class="form-control form-control-user mb-2" id="password2" name="password2" placeholder="Repeat Password">
                                         <?= form_error('password2', '<small class="text-danger pl-3">', '</small>') ?>
+                                        <div class="form-check ml-3 mb-3">
+                                            <input class="form-check-input" type="checkbox" id="show_pass" name="show_pass" onclick="visibilePassword()" />
+                                            <label class="small" for="show_pass">Show password</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-check ml-3 mb-3">
@@ -130,5 +138,4 @@
                 </div>
             </div>
         </div>
-
     </div>

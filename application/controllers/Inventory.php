@@ -51,7 +51,7 @@ class Inventory extends CI_Controller
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('code', 'code', 'required|trim|is_unique[stock_material.code]', [
-            'is_unique' => 'This code has already been used!'
+            'is_unique' => 'Code used, choose a unique code!'
         ]);
         $this->form_validation->set_rules('initial_stock', 'initial stock', 'required|trim');
         $this->form_validation->set_rules('warehouse', 'warehouse', 'required|trim');
@@ -437,7 +437,7 @@ class Inventory extends CI_Controller
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('code', 'code', 'required|trim|is_unique[stock_roll.code]', [
-            'is_unique' => 'This code has already been used!'
+            'is_unique' => 'Code used, choose a unique code!'
         ]);
         $this->form_validation->set_rules('cogs', 'production cost', 'required|trim');
         $this->form_validation->set_rules('weightperm', 'grammage', 'required|trim');
@@ -853,8 +853,8 @@ class Inventory extends CI_Controller
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
-        $this->form_validation->set_rules('code', 'code', 'required|trim|is_unique[stock_material.code]', [
-            'is_unique' => 'This code has already been used!'
+        $this->form_validation->set_rules('code', 'code', 'required|trim|is_unique[stock_finishedgoods.code]', [
+            'is_unique' => 'Code used, choose a unique code!'
         ]);
         $this->form_validation->set_rules('pcsperpack', 'product amount', 'required|trim|numeric');
         $this->form_validation->set_rules('packpersack', 'product pack/sack', 'required|trim|numeric');

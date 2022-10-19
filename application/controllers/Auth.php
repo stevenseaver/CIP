@@ -80,7 +80,7 @@ class Auth extends CI_Controller
 
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('nik', 'username', 'required|trim|is_unique[user.nik]', [
-            'is_unique' => 'This ERN has already been used!'
+            'is_unique' => 'This username has already been used!'
         ]);
         $this->form_validation->set_rules('address', 'address', 'required|trim');
         $this->form_validation->set_rules('city', 'city', 'required|trim');
@@ -97,7 +97,7 @@ class Auth extends CI_Controller
             'matches' => 'Password do not match!',
             'min_length' => 'Password too short! Min. 8 character.'
         ]);
-        $this->form_validation->set_rules('password2', 'password', 'required|trim|min_length[8]|matches[password1]');
+        $this->form_validation->set_rules('password2', 'repeat password', 'required|trim|min_length[8]|matches[password1]');
         $this->form_validation->set_rules('check_terms', '', 'callback_accept_terms');
 
         if ($this->form_validation->run() == false) {

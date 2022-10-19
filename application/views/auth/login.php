@@ -7,6 +7,7 @@
                     <!-- Nested Row within Card Body -->
                     <div class="row">
                         <div class="col-lg-6 d-none d-lg-block">
+                            <!-- <h1 class="text-center text-light font-weight-bold">Login</h1> -->
                             <img src="<?= base_url('asset/') ?>img/stock/undraw_authentication_fsn5.svg" alt="Responsive image" class="img-fluid mt-5 ml-4 mb-0 d-block">
                         </div>
                         <div class="col-lg-6">
@@ -21,8 +22,12 @@
                                         <?= form_error('nik', '<small class="text-danger pl-3">', '</small>') ?>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
+                                        <input type="password" class="form-control form-control-user mb-2" id="password" name="password" placeholder="Password">
                                         <?= form_error('password', '<small class="text-danger pl-3">', '</small>') ?>
+                                        <div class="form-check ml-3 mb-3">
+                                            <input class="form-check-input" type="checkbox" id="show_pass" name="show_pass" onclick="visibilePasswordLogin()" />
+                                            <label class="small" for="show_pass">Show password</label>
+                                        </div>
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-user btn-block">
                                         Login

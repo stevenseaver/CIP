@@ -54,7 +54,8 @@
                 <input type="text" class="form-control" id="lipatan" name="lipatan" readonly>
             </div>
         </div>
-
+        <button type="submit" class="btn btn-primary mb-3 mx-3" id="addRow">Submit Data</button>
+        <?php $i = 1; ?>
         <div class="row mx-4">
             <div class="table-responsive">
                 <div class="table-responsive mb-3">
@@ -67,39 +68,33 @@
                                 <th>Total Weight (Kg)</th>
                                 <th>Stock</th>
                                 <th>Price/Kg (IDR)</th>
-                                <th>Total Price/Item (IDR)</th>
-                                <th>COGS (IDR)</th>
+                                <th>Total Price/kg (IDR)</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <form class="user" method="post" action="<?= base_url('production/coba'); ?>"> -->
-                            <?php for ($i = 1; $i < 5; $i++) { ?>
-                                <tr>
-                                    <td><?= $i ?></td>
-                                    <td>
-                                        <div class="form-group">
-                                            <select name="material" id="material" class="form-control">
-                                                <option value="">--Select Material--</option>
-                                                <?php foreach ($materialStock as $ms) : ?>
-                                                    <?php if ($ms['status'] == 7) { ?>
-                                                        <option value="<?= $ms['name'] ?>"><?= $ms['name'] ?></option>
-                                                    <?php } else {
-                                                    } ?>
-                                                <?php endforeach; ?>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td><input type="text" class="form-control" id="formula" name="formula" min="1" max="100"></td>
-                                    <td>xxx</td>
-                                    <td>xxx</td>
-                                    <td><input type="text" class="form-control" id="price" name="price" min="1" max="100"></td>
-                                    <td>
+                            <tr>
+                                <td><?= $i ?> </td>
+                                <td>
+                                    <div class="form-group">
+                                        <select name="materialSelect" id="materialSelect" class="form-control">
+                                            <option value="">--Select Material--</option>
+                                            <?php foreach ($materialStock as $ms) : ?>
+                                                <?php if ($ms['status'] == 7) { ?>
+                                                    <!-- <option value="<?= $ms['name'] ?>"><?= $ms['name'] ?></option> -->
+                                                    <option class="#materialSelect" value="<?= $ms['name'] ?>" data-price="<?= $ms['price'] ?>" data-stock="<?= $ms['in_stock'] ?>"><?= $ms['name'] ?></option>
+                                                <?php } else {
+                                                } ?>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td><input type="text" class="form-control" id="inputFormula" name="inputFormula"></td>
+                                <td><input type="text" class="form-control" id="weight" name="weight" readonly></td>
+                                <td><input type="text" class="form-control" id="stock" name="stock" readonly></td>
+                                <td><input type="text" class="form-control" id="price" name="price" readonly></td>
+                                <td><input type="text" class="form-control" id="subtotal" name="subtotal" readonly></td>
+                            </tr>
 
-                                    </td>
-                                    <td>xxx</td>
-                                </tr>
-                            <?php } ?>
-                            <button type="submit" class="btn btn-primary mb-3" id="submitButton">Submit Data</button>
                             <!-- </form> -->
                         </tbody>
                     </table>

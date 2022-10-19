@@ -94,35 +94,36 @@ class Customer extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item added to cart!</div>');
 
             //get item selected to cart
-            $data['getItem'] = $this->db->get_where('stock_finishedgoods', ['name' => $name, 'status' => 7])->row_array();
+            // $data['getItem'] = $this->db->get_where('stock_finishedgoods', ['name' => $name, 'status' => 7])->row_array();
 
             //data to update inventory database
-            $transaction_status = 4;
-            $code = $data['getItem']['code'];
-            $category = $data['getItem']['categories'];
-            $date = time();
-            $warehouse = 3;
-            $in_stockOld = $data['getItem']['in_stock'];
+            // $transaction_status = 4;
+            // $code = $data['getItem']['code'];
+            // $category = $data['getItem']['categories'];
+            // $date = time();
+            // $warehouse = 3;
+            // $in_stockOld = $data['getItem']['in_stock'];
 
-            $data_warehouse = [
-                'name' => $name,
-                'code' => $code,
-                'status' => $transaction_status,
-                'outgoing' => $amount,
-                'categories' => $category,
-                'date' => $date,
-                'warehouse' => $warehouse
-            ];
-            $data2_warehouse = [
-                'in_stock' => $in_stockOld - $amount,
-                'date' => $date
-            ];
+            // $data_warehouse = [
+            //     'name' => $name,
+            //     'code' => $code,
+            //     'status' => $transaction_status,
+            //     'outgoing' => $amount,
+            //     'categories' => $category,
+            //     'date' => $date,
+            //     'warehouse' => $warehouse
+            //     // 'transaction' => 
+            // ];
+            // $data2_warehouse = [
+            //     'in_stock' => $in_stockOld - $amount,
+            //     'date' => $date
+            // ];
 
             //update inventory
-            $this->db->insert('stock_finishedgoods', $data_warehouse);
+            // $this->db->insert('stock_finishedgoods', $data_warehouse);
 
-            $this->db->where('code', $code);
-            $this->db->update('stock_finishedgoods', $data2_warehouse, 'status = 7');
+            // $this->db->where('code', $code);
+            // $this->db->update('stock_finishedgoods', $data2_warehouse, 'status = 7');
 
             redirect('customer');
         }
@@ -158,19 +159,19 @@ class Customer extends CI_Controller
         $this->db->delete('cart');
 
         //get item selected to cart
-        $data['getItem'] = $this->db->get_where('stock_finishedgoods', ['name' => $ItemName, 'status' => 7])->row_array();
+        // $data['getItem'] = $this->db->get_where('stock_finishedgoods', ['name' => $ItemName, 'status' => 7])->row_array();
 
         //data to update inventory database
-        $code = $data['getItem']['code'];
-        $stock_end_before = $data['getItem']['in_stock'];
+        // $code = $data['getItem']['code'];
+        // $stock_end_before = $data['getItem']['in_stock'];
 
-        $data2 = [
-            'in_stock' => $stock_end_before + $amount
-        ];
+        // $data2 = [
+        //     'in_stock' => $stock_end_before + $amount
+        // ];
 
-        // $this->db->delete('stock_finishedgoods', array('id' => $idToDelete));
-        $this->db->where('code', $code);
-        $this->db->update('stock_finishedgoods', $data2, 'status = 7');
+        // // $this->db->delete('stock_finishedgoods', array('id' => $idToDelete));
+        // $this->db->where('code', $code);
+        // $this->db->update('stock_finishedgoods', $data2, 'status = 7');
 
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $ItemName . ' on ' . $CustName . ' cart deleted!</div>');
         redirect('customer/cart');
