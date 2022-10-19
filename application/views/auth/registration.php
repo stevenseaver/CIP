@@ -5,9 +5,10 @@
                 <div class="row d-flex justify-content-center align-items-center">
                     <div class="col-lg-5 d-none d-lg-block">
                         <h3 class="font-weight-bold text-primary mx-5">User Registration</h3>
-                        <span class="h5 mx-5">support</span>
-                        <p class="text-primary mx-5 mb-0">email@cakraintiplastik.com</p>
-                        <p class="text-primary mx-5">phone +62 822 3205 7755</p>
+                        <p class="h5 mx-5">support</p>
+                        <a href="mailto:cs.sbplastik@gmail.com" class="text-primary mx-5" target="_blank" rel="noopener noreferrer">
+                            <span>cs.sbplastik@gmail.com</span>
+                        </a>
                         <!-- <img src="<?= base_url('asset/img/registration.png') ?>" class="img-fluid mx-auto d-block"> -->
                     </div>
                     <div class="col-lg-7">
@@ -19,7 +20,7 @@
                                 <!-- input nama -->
                                 <div class="form-group">
                                     <label for="name" class="small ml-3">Full Name</label>
-                                    <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Full Name" value="<?= set_value('name'); ?>">
+                                    <input type="text" class="form-control form-control-user mb-2" id="name" name="name" placeholder="Full Name" value="<?= set_value('name'); ?>">
                                     <?= form_error('name', '<small class="text-danger pl-3">', '</small>') ?>
                                 </div>
                                 <!-- input email -->
@@ -43,29 +44,29 @@
                                 <!-- Input Tanggal Lahir -->
                                 <div class="form-group">
                                     <label for="dob" class="small ml-3">Date of Birth</label>
-                                    <input type="date" class="form-control form-control-user" id="dob" name="dob" placeholder="Date of Birth" value="<?= set_value('dob'); ?>">
+                                    <input type="date" class="form-control form-control-user mb-2" id="dob" name="dob" placeholder="Date of Birth" value="<?= set_value('dob'); ?>">
                                     <?= form_error('dob', '<small class="text-danger pl-3">', '</small>') ?>
                                 </div>
                                 <!-- input address 1 -->
                                 <div class="form-group">
                                     <label for="address" class="small ml-3">Address</label>
-                                    <input type="text" class="form-control form-control-user mb-1" id="address" name="address" placeholder="Street" value="<?= set_value('address'); ?>">
+                                    <input type="text" class="form-control form-control-user mb-2" id="address" name="address" placeholder="Street" value="<?= set_value('address'); ?>">
                                     <?= form_error('address', '<small class="text-danger pl-3 mb-1">', '</small>') ?>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="city" name="city" placeholder="City" value="<?= set_value('city'); ?>">
+                                        <input type="text" class="form-control form-control-user mb-2" id="city" name="city" placeholder="City" value="<?= set_value('city'); ?>">
                                         <?= form_error('city', '<small class="text-danger pl-3">', '</small>') ?>
                                     </div>
                                     <!-- state/province -->
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="province" name="province" placeholder="Province or State" value="<?= set_value('province'); ?>">
+                                        <input type="text" class="form-control form-control-user mb-2" id="province" name="province" placeholder="Province or State" value="<?= set_value('province'); ?>">
                                         <?= form_error('province', '<small class="text-danger pl-3">', '</small>') ?>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-8 mb-2">
-                                        <input type="text" class="form-control form-control-user" id="country" name="country" placeholder="Country" value="<?= set_value('country'); ?>">
+                                        <input type="text" class="form-control form-control-user mb-2" id="country" name="country" placeholder="Country" value="<?= set_value('country'); ?>">
                                         <?= form_error('country', '<small class="text-danger pl-3">', '</small>') ?>
                                     </div>
                                     <!-- zipcode -->
@@ -78,7 +79,7 @@
                                 <!-- input no hp -->
                                 <div class="form-group">
                                     <label for="hp" class="small ml-3">Phone Number</label>
-                                    <input type="text" class="form-control form-control-user" id="hp" name="hp" placeholder="Mobile Phone Number" value="<?= set_value('hp'); ?>">
+                                    <input type="text" class="form-control form-control-user mb-2" id="hp" name="hp" placeholder="Mobile Phone Number" value="<?= set_value('hp'); ?>">
                                     <?= form_error('hp', '<small class="text-danger pl-3">', '</small>') ?>
                                 </div>
                                 <hr>
@@ -100,11 +101,11 @@
                                     <div class="col-sm-6">
                                         <label for="hp" class="small ml-3">Repeat Password</label>
                                         <input type="password" class="form-control form-control-user mb-2" id="password2" name="password2" placeholder="Repeat Password">
-                                        <?= form_error('password2', '<small class="text-danger pl-3">', '</small>') ?>
-                                        <div class="form-check ml-3 mb-3">
+                                        <div class="form-check ml-3 mb-0">
                                             <input class="form-check-input" type="checkbox" id="show_pass" name="show_pass" onclick="visibilePassword()" />
                                             <label class="small" for="show_pass">Show password</label>
                                         </div>
+                                        <?= form_error('password2', '<small class="text-danger pl-3">', '</small>') ?>
                                     </div>
                                 </div>
                                 <div class="form-check ml-3 mb-3">
