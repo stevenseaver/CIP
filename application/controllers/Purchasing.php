@@ -14,9 +14,11 @@ class Purchasing extends CI_Controller
         $data['title'] = 'Purchase Order';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get leave type by combining database table leave_list and leave_type
-        $this->load->model('Leave_model', 'leaveType');
-        $data['leavedata'] = $this->leaveType->getLeaveType();
+        //get supplier data
+        $data['supplier'] = $this->db->get('supplier')->result_array();
+        //get inventory warehouse data
+        $data['inventory_wh'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+        $data['inventory_item'] = $this->db->get_where('stock_material')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -25,14 +27,40 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function add_po()
+    {
+        $data['title'] = 'Add Purchase Order';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get supplier data
+        $data['supplier'] = $this->db->get('supplier')->result_array();
+        //get inventory warehouse data
+        $data['inventory_wh'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+        $data['inventory_item'] = $this->db->get_where('stock_material')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('purchase/add_purchaseorder', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function add_item_po()
+    {
+        $po_id = $this->input->post('po_id');
+
+        $data1 = [
+            'transaction_id' => $po_id
+        ];
+
+        // $this->db->insert('stock_material', $data1);
+    }
+
     public function receiveorder()
     {
         $data['title'] = 'Receive Order';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get leave type by combining database table leave_list and leave_type
-        $this->load->model('Leave_model', 'leaveType');
-        $data['leavedata'] = $this->leaveType->getLeaveType();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -46,9 +74,6 @@ class Purchasing extends CI_Controller
         $data['title'] = 'Order Invoice';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get leave type by combining database table leave_list and leave_type
-        $this->load->model('Leave_model', 'leaveType');
-        $data['leavedata'] = $this->leaveType->getLeaveType();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -62,9 +87,6 @@ class Purchasing extends CI_Controller
         $data['title'] = 'Purchase Info';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get leave type by combining database table leave_list and leave_type
-        $this->load->model('Leave_model', 'leaveType');
-        $data['leavedata'] = $this->leaveType->getLeaveType();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -72,49 +94,6 @@ class Purchasing extends CI_Controller
         $this->load->view('purchase/purchaseinfo', $data);
         $this->load->view('templates/footer');
     }
-
-    // public function editmenu()
-    // {
-    //     $data['title'] = 'Menu Management';
-    //     $data['user'] = $this->db->get_where('user', ['nik' =>
-    //     $this->session->userdata('nik')])->row_array();
-    //     $data['menu'] = $this->db->get('user_menu')->result_array();
-
-    //     $this->form_validation->set_rules('edit_menu_id', 'menu id', 'required|trim');
-    //     $this->form_validation->set_rules('edit_menu_name', 'menu name', 'required|trim');
-
-    //     if ($this->form_validation->run() == false) {
-    //         $this->load->view('templates/header', $data);
-    //         $this->load->view('templates/sidebar', $data);
-    //         $this->load->view('templates/topbar', $data);
-    //         $this->load->view('menu/index', $data);
-    //         $this->load->view('templates/footer');
-    //     } else {
-    //         //read from input input
-    //         $edit_id = $this->input->post('edit_menu_id');
-    //         $edit_name = $this->input->post('edit_menu_name');
-    //         $editedMenu = $this->db->get_where('user_menu', array('id' => $edit_id))->row_array();
-    //         // edit DB
-    //         $this->db->where('id', $edit_id);
-    //         $this->db->update('user_menu', array('menu' => $edit_name));
-    //         $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Menu ' . $editedMenu["menu"] . ' edited into ' . $edit_name . '!</div>');
-    //         redirect('menu');
-    //     }
-    // }
-
-    // public function deletemenu()
-    // {
-    //     // get data on deleted menu
-    //     $itemtoDelete = $this->input->post('delete_menu_id');
-    //     $deletedMenu = $this->db->get_where('user_menu', array('id' => $itemtoDelete))->row_array();
-    //     // delete menu
-    //     $this->db->delete('user_menu', array('id' => $itemtoDelete));
-    //     // delete its submenu
-    //     $this->db->delete('user_sub_menu', array('menu_id' => $itemtoDelete));
-    //     // send message
-    //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Menu ' . $deletedMenu["menu"] . ' and its submenu deleted!</div>');
-    //     redirect('menu');
-    // }
 
     //***                **//
     //***  Customer list **//
@@ -171,7 +150,7 @@ class Purchasing extends CI_Controller
             $terms = $this->input->post('terms');
 
             $data = [
-                'name' => $name,
+                'supplier_name' => $name,
                 'address' => $address,
                 'email' => $email,
                 'phone' => $phone_number,
@@ -221,7 +200,7 @@ class Purchasing extends CI_Controller
             $terms = $this->input->post('terms');
 
             $data = [
-                'name' => $name,
+                'supplier_name' => $name,
                 'address' => $address,
                 'email' => $email,
                 'phone' => $phone_number,
@@ -244,7 +223,7 @@ class Purchasing extends CI_Controller
         // delete supplier
         $this->db->delete('supplier', array('id' => $itemtoDelete));
         // send message
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Supplier named ' . $deleteSupplier["name"] . ' with ID ' . $deleteSupplier["id"] . ' deleted!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Supplier named ' . $deleteSupplier["supplier_name"] . ' with ID ' . $deleteSupplier["id"] . ' deleted!</div>');
         redirect('purchasing/supplier');
     }
 }

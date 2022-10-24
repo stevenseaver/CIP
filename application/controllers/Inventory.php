@@ -26,6 +26,8 @@ class Inventory extends CI_Controller
         $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
         //get material categories
         $data['cat'] = $this->db->get('material_category')->result_array();
+        //get supplier data
+        $data['supplier'] = $this->db->get('supplier')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -47,6 +49,8 @@ class Inventory extends CI_Controller
         $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
         //get material categories
         $data['cat'] = $this->db->get('material_category')->result_array();
+        //get supplier data
+        $data['supplier'] = $this->db->get('supplier')->result_array();
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
@@ -57,6 +61,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('warehouse', 'warehouse', 'required|trim');
         $this->form_validation->set_rules('category', 'category', 'required');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
+        $this->form_validation->set_rules('supplier', 'supplier', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -72,6 +77,7 @@ class Inventory extends CI_Controller
             $price = $this->input->post('price');
             $date = time();
             $category = $this->input->post('category');
+            $supplier = $this->input->post('supplier');
             $status1 = 1;  //stock awal
             $status2 = 7;  //stock akhir
             $warehouse = $this->input->post('warehouse');
@@ -85,7 +91,8 @@ class Inventory extends CI_Controller
                 'categories' => $category,
                 'price' => $price,
                 'status' => $status1,
-                'warehouse'  => $warehouse
+                'warehouse'  => $warehouse,
+                'supplier' => $supplier
             ];
             //final stock
             $data2 = [
@@ -96,7 +103,8 @@ class Inventory extends CI_Controller
                 'categories' => $category,
                 'price' => $price,
                 'status' => $status2,
-                'warehouse'  => $warehouse
+                'warehouse'  => $warehouse,
+                'supplier' => $supplier
             ];
 
             $this->db->insert('stock_material', $data1);
@@ -119,11 +127,14 @@ class Inventory extends CI_Controller
         $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
         //get material categories
         $data['cat'] = $this->db->get('material_category')->result_array();
+        //get supplier data
+        $data['supplier'] = $this->db->get('supplier')->result_array();
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('category', 'category', 'required|trim');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
+        $this->form_validation->set_rules('supplier', 'supplier', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -137,10 +148,12 @@ class Inventory extends CI_Controller
             $code = $this->input->post('code');
             $price = $this->input->post('price');
             $category = $this->input->post('category');
+            $supplier = $this->input->post('supplier');
 
             //intital stock
             $data1 = [
                 'name' => $name,
+                'supplier' => $supplier,
                 'categories' => $category,
                 'price' => $price
             ];

@@ -20,7 +20,7 @@
         <span class="icon text-white-50">
             <i class="bi bi-eye"></i>
         </span>
-        <span class="text">View Sales Order Preview</span>
+        <span class="text">View Invoice Preview</span>
     </a>
 
     <div class="card rounded bg-white shadow border-0 mb-3">

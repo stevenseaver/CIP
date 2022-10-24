@@ -25,6 +25,44 @@ class Production extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function calculateCOGS()
+    {
+        $data['title'] = 'Cost of Product';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['rollType'] = $this->db->get('stock_roll')->result_array();
+        //get material database
+        $data['materialStock'] = $this->db->get('stock_material')->result_array();
+
+        $this->form_validation->set_rules('inputFormula', 'formula', 'trim|required');
+        $this->form_validation->set_rules('price', 'price', 'trim|required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('production/cops', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $formula = $this->input->post('inputFormula');
+            $price = $this->input->post('price');
+
+            //calculate item subtotal
+            $weight = $formula / 10;
+            $subtotal = $weight * $price;
+
+            $data['weight'] = $weight;
+            $data['subtotal'] = $subtotal;
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('production/cops', $data);
+            $this->load->view('templates/footer');
+        }
+    }
+
     public function billofmaterial()
     {
         $data['title'] = 'Bill of Material';

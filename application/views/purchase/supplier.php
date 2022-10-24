@@ -106,7 +106,7 @@
                     <div class="form-group">
                         <!-- Asset Specifications -->
                         <label for="account" class="col-form-label">Bank Account</label>
-                        <input type="text" class="form-control" id="account" name="account" placeholder="Customer bank account">
+                        <input type="text" class="form-control" id="account" name="account" placeholder="Supplier bank account">
                         <?= form_error('spec', '<small class="text-danger pl-2">', '</small>') ?>
                         <small>Not Compulsory</small>
                     </div>

@@ -105,6 +105,78 @@
          });
      });
 
+     //js for menu change cart quantity on input on change
+     $('.input-qty').on('change', function() {
+         //const qtyID = $(this).data('qty');
+         const itemID = $(this).data('item');
+         const id = $(this).data('id');
+         const qtyID = document.getElementById("qtyAmount-" + id).value;
+         const priceID = $(this).data('price');
+
+         $.ajax({
+             url: "<?= base_url('customer/update_cart'); ?>",
+             type: 'post',
+             data: {
+                 qtyID: qtyID,
+                 itemID: itemID,
+                 id: id,
+                 priceID: priceID
+             },
+             success: function() {
+                 document.location.href = "<?= base_url('customer/cart')  ?>";
+             }
+         });
+     });
+
+     $('.btn-add-item').on('click', function() {
+         //const qtyID = $(this).data('qty');
+         const po_id = $(this).data('po');
+
+         $.ajax({
+             url: "<?= base_url('purchasing/add_item_po'); ?>",
+             type: 'post',
+             data: {
+                 po_id: po_id
+             },
+             success: function() {
+                 document.location.href = "<?= base_url('purchasing/add_po')  ?>";
+             }
+         });
+     });
+
+     //  function add_po_item() {
+     //      const po_id = $(this).data('po');
+
+     //      $.ajax({
+     //          url: "<?= base_url('purchasing/add_item_po'); ?>",
+     //          type: 'post',
+     //          data: {
+     //              po_id: po_id
+     //          },
+     //          success: function() {
+     //              document.location.href = "<?= base_url('purchasing/add_item_po')  ?>";
+     //          }
+     //      });
+     //  }
+
+     //js for menu change access checkbox onclick
+     $('.form-check-input').on('click', function() {
+         const menuId = $(this).data('menu');
+         const roleId = $(this).data('role');
+
+         $.ajax({
+             url: "<?= base_url('admin/changeaccess'); ?>",
+             type: 'post',
+             data: {
+                 menuId: menuId,
+                 roleId: roleId
+             },
+             success: function() {
+                 document.location.href = "<?= base_url('admin/roleaccess/')  ?>" + roleId;
+             }
+         });
+     });
+
      //  JavaScript for Edit Role Modal
      $('#editRoleModal').on('show.bs.modal', function(event) {
 
@@ -495,11 +567,13 @@
          //extract data from data-* attributes of modal's toggle button
          var name = $(event.relatedTarget).data('name');
          var code = $(event.relatedTarget).data('code');
+         var supplier = $(event.relatedTarget).data('supplier');
          var price = $(event.relatedTarget).data('price');
          var cat = $(event.relatedTarget).data('cat');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+         $(event.currentTarget).find('.modal-body select[name="supplier"]').val(supplier);
          $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
          $(event.currentTarget).find('.modal-body input[name="price"]').val(price);
          $(event.currentTarget).find('.modal-body select[name="category"]').val(cat);

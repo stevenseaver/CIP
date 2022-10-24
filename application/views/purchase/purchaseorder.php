@@ -3,97 +3,137 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
-    <div class="text-center mb-5">
-        <div class="error mx-auto" data-text="404">404!</div>
-        <h4 class="lead text-dark">Coming soon</h4>
-        <a href="<?= base_url('user'); ?>" class="mb-5">Back to Dashboard!</a>
-    </div>
-
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-lg-12">
-            <?= form_error('name', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('nik', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('address', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('hp', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('role_id', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('password1', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('password2', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
             <?= $this->session->flashdata('approval'); ?>
         </div>
     </div>
 
-    <div class="card shadow border-left-primary mb-4">
-        <div class="card-header py-2">
-            <h5 class="m-0 font-weight-bold text-primary">User Leave Data</h5>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>ERN</th>
-                            <th>Name</th>
-                            <th>Leave Type</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Reason</th>
-                            <th>Document</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>ERN</th>
-                            <th>Name</th>
-                            <th>Leave Type</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Reason</th>
-                            <th>Document</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <?php $i = 1; ?>
-                        <?php foreach ($leavedata as $ld) : ?>
-                            <tr>
-                                <td><?= $i ?></td>
-                                <td><?= $ld['user_nik']; ?></td>
-                                <td><?= $ld['user_name']; ?></td>
-                                <td><?= $ld['type']; ?></td>
-                                <td><?= $ld['start_date']; ?></td>
-                                <td><?= $ld['finish_date']; ?></td>
-                                <td><?= $ld['reason']; ?></td>
-                                <td><a href="<?= base_url('document/leave_proof/') . $ld['document'] ?>" class="badge badge-primary" target="_blank">Open</a></td>
-                                <td>
-                                    <?php if ($ld['status'] == 1) {
-                                        echo '<p class="badge badge-success">Approve</p>';
-                                    } else if ($ld['status'] == 0) {
-                                        echo '<p class="badge badge-warning">Waiting</p>';
-                                    } else if ($ld['status'] == 2) {
-                                        echo '<p class="badge badge-danger">Not Approved</p>';
-                                    } ?>
-                                </td>
-                                <td>
-                                    <a href="<?= base_url('hr/approve/') . $ld['user_nik'] . '/' . $ld['start_date'] . '/' . $ld['finish_date']; ?>" class="badge badge-success">Approve</a>
-                                    <a href="<?= base_url('hr/decline/') . $ld['user_nik'] . '/' . $ld['start_date'] . '/' . $ld['finish_date']; ?>" class="badge badge-danger">Decline</a>
-                                </td>
-                            </tr>
-                            <?php $i++; ?>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <small class="text-primary pb-1">*) Date format is in YYYY-MM-DD</small>
-            </div>
-        </div>
-    </div> -->
-
+    <a href="<?= base_url('purchasing/add_po') ?>" class="btn btn-primary btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-plus-lg"></i>
+        </span>
+        <span class="text">Add New Purchase Order</span>
+    </a>
 </div>
 <!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->
+<!-- Modal For Add Data -->
+<div class="modal fade" id="newPO" tabindex="-1" aria-labelledby="newPOModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newPOModalLabel">Add New Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <?php
+            $date = time();
+            $year = date('y');
+            $month = date('m');
+            $serial = rand(1000, 9990);
+            //ref invoice
+            $po_id = 'PO-' . $year . $month . '-' . $serial;
+            // $po_id = 'PO-2210-2586';
+            ?>
+
+            <!-- <form action="<?= base_url('purchasing/add_gbj') ?>" method="post"> -->
+            <div class="modal-body">
+                <!-- <?= form_open_multipart(base_url('purchasing/add_po')); ?> -->
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="po_id" class="col-form-label">Purchase Order ID</label>
+                    <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
+                    <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class="form-group">
+                    <!-- Item name -->
+                    <label for="supplier" class="col-form-label">Supplier</label>
+                    <select name="supplier" id="supplier" class="form-control" value="<?= set_value('supplier') ?>">
+                        <option value="">--Select Supplier--</option>
+                        <?php foreach ($supplier as $sup) : ?>
+                            <option value="<?= $sup['id'] ?>"><?= $sup['supplier_name'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <?= form_error('supplier', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <!-- Item categories -->
+                            <label for="material" class="col-form-label">Add Item</label>
+                            <select name="material" id="material" class="form-control" value="<?= set_value('material') ?>">
+                                <option value="">--Select Categories--</option>
+                                <?php foreach ($inventory_wh as $mt) : ?>
+                                    <option value="<?= $mt['id'] ?>"><?= $mt['name'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                            <?= form_error('material', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group">
+                            <!-- Item code -->
+                            <label for="price" class="col-form-label">Price</label>
+                            <input type="currency" class="form-control mb-1" id="price" name="price" placeholder="Input price">
+                            <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <!-- Item code -->
+                            <label for="amount" class="col-form-label">Amount</label>
+                            <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount..">
+                            <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn-add-item btn btn-primary mb-3" onclick=" add_po_item();" data-po="<?= $po_id; ?>">Add Item</button>
+                <div class="table-responsive">
+                    <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Item</th>
+                                <th>Amount</th>
+                                <th>Price</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $i = 1;
+                            $temp = 0;
+                            ?>
+                            <?php foreach ($inventory_item as $ms) : ?>
+                                <?php
+                                if ($ms['transaction_id'] != $po_id) {
+                                    continue;
+                                } else {
+                                }
+                                ?>
+                                <tr>
+                                    <td><?= $i ?></td>
+                                    <td><?= $ms['name'] ?></td>
+                                    <td><?= $ms['incoming'] ?></td>
+                                    <td><?= $ms['price'] ?></td>
+                                    <?php $subtotal = $ms['incoming'] * $ms['price'] ?>
+                                    <td><?= $subtotal ?></td>
+                                </tr>
+                                <?php $i++; ?>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save PO</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

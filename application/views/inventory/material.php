@@ -19,61 +19,61 @@
     <div class="card border-left-primary mb-3">
         <div class="row mx-4 my-3">
             <div class="table-responsive">
-                <div class="table-responsive">
-                    <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Materials</th>
-                                <th>Code</th>
-                                <th>Category</th>
-                                <th>Stock (Kg)</th>
-                                <th>Price</th>
-                                <th>Value</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Materials</th>
+                            <th>Code</th>
+                            <th>Category</th>
+                            <th>Stock (Kg)</th>
+                            <th>Price</th>
+                            <th>Value</th>
+                            <th>Supplier</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $i = 1;
+                        $temp = 0;
+                        ?>
+                        <?php foreach ($materialStock as $ms) : ?>
                             <?php
-                            $i = 1;
-                            $temp = 0;
+                            if ($ms['status'] != 7) {
+                                continue;
+                            } else {
+                            }
                             ?>
-                            <?php foreach ($materialStock as $ms) : ?>
-                                <?php
-                                if ($ms['status'] != 7) {
-                                    continue;
-                                } else {
-                                }
-                                ?>
-                                <tr>
-                                    <td><?= $i ?></td>
-                                    <td><?= $ms['name'] ?></td>
-                                    <td><?= $ms['code'] ?></td>
-                                    <td><?= $ms['categories_name'] ?></td>
-                                    <td><?= number_format($ms['in_stock'], 0, ',', '.'); ?></td>
-                                    <td><?= number_format($ms['price'], 0, ',', '.'); ?></td>
-                                    <?php $value = $ms['price'] * $ms['in_stock'];
-                                    $temp = $temp + $value;  ?>
-                                    <td><?= number_format($value, 0, ',', '.') ?></td>
-                                    <td>
-                                        <a href="<?= base_url('inventory/material_details/') . $ms['id'] ?>" class="badge badge-primary">Details</a>
-                                        <a data-toggle="modal" data-target="#editMaterial" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-price="<?= $ms['price'] ?>" data-cat="<?= $ms['categories'] ?>" class="badge badge-warning clickable">Edit</a>
-                                        <a data-toggle="modal" data-target="#deleteMaterialItem" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" class="badge badge-danger clickable">Delete</a>
-                                    </td>
-                                </tr>
-                                <?php $i++; ?>
-                            <?php endforeach; ?>
-                        </tbody>
-                        <tfoot>
-                            <tr class="text-right align-items-center">
-                                <td colspan="5"> </td>
-                                <td class="right"><strong>Total</strong></td>
-                                <?php $grandTotal = $temp; ?>
-                                <td class="right">IDR <?= $this->cart->format_number($grandTotal, '-', ',', '.'); ?></td>
+                            <tr>
+                                <td><?= $i ?></td>
+                                <td><?= $ms['name'] ?></td>
+                                <td><?= $ms['code'] ?></td>
+                                <td><?= $ms['categories_name'] ?></td>
+                                <td><?= number_format($ms['in_stock'], 0, ',', '.'); ?></td>
+                                <td><?= number_format($ms['price'], 0, ',', '.'); ?></td>
+                                <?php $value = $ms['price'] * $ms['in_stock'];
+                                $temp = $temp + $value;  ?>
+                                <td><?= number_format($value, 0, ',', '.') ?></td>
+                                <td><?= $ms['supplier_name'] ?></td>
+                                <td>
+                                    <a href="<?= base_url('inventory/material_details/') . $ms['id'] ?>" class="badge badge-primary">Details</a>
+                                    <a data-toggle="modal" data-target="#editMaterial" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-price="<?= $ms['price'] ?>" data-cat="<?= $ms['categories'] ?>" data-supplier="<?= $ms['supplier'] ?>" class="badge badge-warning clickable">Edit</a>
+                                    <a data-toggle="modal" data-target="#deleteMaterialItem" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" class="badge badge-danger clickable">Delete</a>
+                                </td>
                             </tr>
-                        </tfoot>
-                    </table>
-                </div>
+                            <?php $i++; ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                    <tfoot>
+                        <tr class="text-right align-items-center">
+                            <td colspan="5"> </td>
+                            <td class="right"><strong>Total</strong></td>
+                            <?php $grandTotal = $temp; ?>
+                            <td class="right">IDR <?= $this->cart->format_number($grandTotal, '-', ',', '.'); ?></td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
     </div>
@@ -98,16 +98,27 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- Material name -->
-                        <label for="url" class="col-form-label">Item Name</label>
+                        <label for="name" class="col-form-label">Item Name</label>
                         <input type="text" class="form-control mb-1" id="name" name="name" placeholder="Add new item">
                         <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Material code -->
-                        <label for="url" class="col-form-label">Code</label>
+                        <label for="code" class="col-form-label">Code</label>
                         <input type="text" class="form-control mb-1" id="code" name="code" placeholder="Material code">
                         <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
                         <small class="text-danger">Item code are permanent, make sure they are correct.</small>
+                    </div>
+                    <div class="form-group">
+                        <!-- Supplier name -->
+                        <label for="supplier" class="col-form-label">Supplier</label>
+                        <select name="supplier" id="supplier" class="form-control" value="<?= set_value('supplier') ?>">
+                            <option value="">--Select Supplier--</option>
+                            <?php foreach ($supplier as $sup) : ?>
+                                <option value="<?= $sup['id'] ?>"><?= $sup['supplier_name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <?= form_error('supplier', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Item price -->
@@ -165,6 +176,17 @@
                         <label for="url" class="col-form-label">Item Name</label>
                         <input type="text" class="form-control mb-1" id="name" name="name" placeholder="Add new item">
                         <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Supplier name -->
+                        <label for="supplier" class="col-form-label">Supplier</label>
+                        <select name="supplier" id="supplier" class="form-control" value="<?= set_value('supplier') ?>">
+                            <option value="">--Select Supplier--</option>
+                            <?php foreach ($supplier as $sup) : ?>
+                                <option value="<?= $sup['id'] ?>"><?= $sup['supplier_name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <?= form_error('supplier', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Material code -->
