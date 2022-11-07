@@ -35,7 +35,7 @@ class Web extends CI_Controller
 		$this->load->view('templates/web-footer');
 	}
 	//load page contact us
-	public function contactUs()
+	public function contact_us()
 	{
 		$data['title'] = 'Contact Us';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();

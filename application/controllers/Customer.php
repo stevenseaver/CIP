@@ -158,21 +158,6 @@ class Customer extends CI_Controller
         $this->db->where('id', $ItemID);
         $this->db->delete('cart');
 
-        //get item selected to cart
-        // $data['getItem'] = $this->db->get_where('stock_finishedgoods', ['name' => $ItemName, 'status' => 7])->row_array();
-
-        //data to update inventory database
-        // $code = $data['getItem']['code'];
-        // $stock_end_before = $data['getItem']['in_stock'];
-
-        // $data2 = [
-        //     'in_stock' => $stock_end_before + $amount
-        // ];
-
-        // // $this->db->delete('stock_finishedgoods', array('id' => $idToDelete));
-        // $this->db->where('code', $code);
-        // $this->db->update('stock_finishedgoods', $data2, 'status = 7');
-
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $ItemName . ' on ' . $CustName . ' cart deleted!</div>');
         redirect('customer/cart');
     }
@@ -244,7 +229,7 @@ class Customer extends CI_Controller
         // $data['dataCart'] = $this->db->get('cart')->result_array();
 
         $date = time();
-        $data['ref'] = $ref;
+        // $data['ref'] = $ref;
         $data['date'] = $date;
         $address = $data['user']['address'] . ', ' . $data['user']['city'] . ', ' . $data['user']['province'] . ', ' . $data['user']['country'] . ', ' . $data['user']['postal'];
 

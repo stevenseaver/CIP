@@ -27,16 +27,16 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function add_po()
+    public function add_po($id)
     {
         $data['title'] = 'Add Purchase Order';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get supplier data
-        $data['supplier'] = $this->db->get('supplier')->result_array();
         //get inventory warehouse data
         $data['inventory_wh'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
         $data['inventory_item'] = $this->db->get_where('stock_material')->result_array();
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
+        $data['po_id'] = $id;
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -45,15 +45,58 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function add_item_po()
+    public function add_item_po($id, $status, $warehouse)
     {
-        $po_id = $this->input->post('po_id');
+        $data['title'] = 'Add Purchase Order';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get inventory warehouse data
+        $data['inventory_wh'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+        $data['inventory_item'] = $this->db->get_where('stock_material')->result_array();
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
+        $data['po_id'] = $id;
 
-        $data1 = [
-            'transaction_id' => $po_id
-        ];
+        $this->form_validation->set_rules('po_id', 'PO ID', 'required|trim');
+        $this->form_validation->set_rules('material', 'material', 'required|trim');
+        $this->form_validation->set_rules('price', 'price', 'required|trim');
+        $this->form_validation->set_rules('amount', 'amount', 'required|trim');
 
-        // $this->db->insert('stock_material', $data1);
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('purchase/add_purchaseorder', $data);
+            $this->load->view('templates/footer');
+        } else {
+            //get data to be inserted to inventory stock_material warehouse
+            $po_id = $id;
+            $materialID = $this->input->post('material');
+            $price = $this->input->post('price');
+            $amount = $this->input->post('amount');
+
+            $material_selected = $this->db->get_where('stock_material', ['id' => $materialID])->row_array();
+            $materialName = $material_selected["name"];
+            $materialCode = $material_selected["code"];
+            $materialCat = $material_selected["categories"];
+            $supplier = $material_selected["supplier"];
+
+            $data = [
+                'transaction_id' => $po_id,
+                'code' => $materialCode,
+                'name' => $materialName,
+                'categories' => $materialCat,
+                'date' => time(),
+                'price' => $price,
+                'incoming' => $amount,
+                'status' => $status,
+                'warehouse' => $warehouse,
+                'supplier' => $supplier
+            ];
+
+            $this->db->insert('stock_material', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material added!</div>');
+            redirect('purchasing/add_item_po/' . $po_id . '/8/1');
+        }
     }
 
     public function receiveorder()

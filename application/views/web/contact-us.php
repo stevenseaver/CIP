@@ -54,7 +54,7 @@
                 <div class="card-body">
                     <h5 class="mx-0 mb-3 font-weight-bold text-primary">Or, you can just drop your inquiries here!</h5>
                     <?= $this->session->flashdata('message'); ?>
-                    <form class="user" method="post" action="<?= base_url('contact/add_message'); ?>">
+                    <form class="user" method="post" action="<?= base_url('contact/validate'); ?>">
                         <!-- input nama -->
                         <div class="form-group">
                             <div class="row mx-0">
@@ -76,14 +76,16 @@
                                 <?= form_error('message', '<small class="text-danger mt-2 ml-2">', '</small>') ?>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-icon-split">
+                        <form action="?" method="POST">
+                            <div class="g-recaptcha" data-sitekey="6LfDc9ciAAAAAOvs9TRP8ISo26wwrdQkg3Ln1ih7"></div>
+                            <button type="submit" class="btn btn-primary btn-icon-split mt-3">
                                 <span class="icon text-white-60">
                                     <i class="fas fa-fw fa-arrow-right"></i>
                                 </span>
                                 <span class="text">Submit</span>
                             </button>
-                        </div>
+                        </form>
+                        </body>
                     </form>
                 </div>
             </div>

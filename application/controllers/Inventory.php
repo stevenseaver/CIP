@@ -229,6 +229,7 @@ class Inventory extends CI_Controller
             $category = $data['getID']['categories'];
             $date = time();
             $warehouse = 1;
+            $supplier = $data['getID']['supplier'];
 
             $in_stockOld = $data['getID']['in_stock'];;
             // 8 is purchasing, the only transaction that adds to the final stock
@@ -239,6 +240,7 @@ class Inventory extends CI_Controller
                     'status' => $transaction_status,
                     'incoming' => $amount,
                     'categories' => $category,
+                    'supplier' => $supplier,
                     'date' => $date,
                     'warehouse' => $warehouse
                 ];
@@ -253,6 +255,7 @@ class Inventory extends CI_Controller
                     'status' => $transaction_status,
                     'outgoing' => $amount,
                     'categories' => $category,
+                    'supplier' => $supplier,
                     'date' => $date,
                     'warehouse' => $warehouse
                 ];

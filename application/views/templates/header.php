@@ -11,6 +11,9 @@
 
     <title><?= $title ?></title>
 
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
     <!-- Bootstrap CSS -->
     <link href="<?= base_url('asset/'); ?>css/bootstrap.css" rel="stylesheet" type="text/css">
 
@@ -35,14 +38,9 @@
     <script>
         tinymce.init({
             selector: '#blog_content',
-            plugins: [
-                'a11ychecker', 'advlist', 'advcode', 'advtable', 'autolink', 'checklist', 'export',
-                'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks',
-                'powerpaste', 'fullscreen', 'formatpainter', 'insertdatetime', 'media', 'table', 'help', 'wordcount'
-            ],
-            toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify |' +
-                'bullist numlist checklist outdent indent | removeformat | code table help'
-        })
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        });
     </script>
 
     <style>
