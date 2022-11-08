@@ -103,13 +103,6 @@
         </div>
     </div>
     <!-- container-fluid -->
-    <script>
-        $('#dataTable').dataTable({
-            "Value": {
-                render: $.fn.dataTable.render.number(',', '.', 0, 'IDR')
-            }
-        });
-    </script>
 
 </div>
 <!-- End of Main Content -->
@@ -342,11 +335,11 @@
 </div>
 
 <!-- Modal For Delete Data -->
-<div class="modal fade" id="deleteAssetModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteAssetModal" tabindex="-1" role="dialog" aria-labelledby="deleteAssetLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Whoops!</h5>
+                <h5 class="modal-title" id="deleteAssetLabel">Whoops!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

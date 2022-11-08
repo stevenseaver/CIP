@@ -16,6 +16,17 @@
             <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
             <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
         </div>
+        <div class="form-group">
+            <!-- Item name -->
+            <label for="supplier" class="col-form-label">Supplier</label>
+            <select name="supplier" id="supplier" class="form-control" value="<?= set_value('supplier') ?>">
+                <option value="">--Select Supplier--</option>
+                <?php foreach ($supplier as $sup) : ?>
+                    <option value="<?= $sup['id'] ?>"><?= $sup['supplier_name'] ?></option>
+                <?php endforeach; ?>
+            </select>
+            <?= form_error('supplier', '<small class="text-danger pl-2">', '</small>') ?>
+        </div>
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
@@ -50,7 +61,7 @@
         <input class="btn-add-item btn btn-primary mb-3" type="submit"></input>
     </form>
 
-    <div class="table-responsive">
+    <div class="table-responsive my-3">
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
@@ -58,7 +69,8 @@
                     <th>Item</th>
                     <th>Amount</th>
                     <th>Price</th>
-                    <th>Subtotal</th>
+                    <th class="text-right">Subtotal</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,19 +91,82 @@
                         <td><?= number_format($ms['incoming'], 2, ',', '.'); ?></td>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php $subtotal = $ms['incoming'] * $ms['price'] ?>
-                        <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
+                        <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
+                        <td>
+                            <a data-toggle="modal" data-target="#deleteItemPOModal" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
+                        </td>
                     </tr>
+                    <?php $temp = $temp + $subtotal; ?>
                     <?php $i++; ?>
                 <?php endforeach; ?>
             </tbody>
+            <tfoot class="text-right">
+                <tr class="align-items-center">
+                    <td colspan="3"> </td>
+                    <td class="right"><strong>Total</strong></td>
+                    <?php $total = $temp; ?>
+                    <td class="right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
+                </tr>
+                <tr class="align-items-center">
+                    <?php $tax = 11; ?>
+                    <td colspan="3"> </td>
+                    <td class="right"><strong>Tax <?= $tax ?>%</strong></td>
+                    <?php
+                    $total_tax = $tax / 100 * $total;
+                    $grandTotal = $total + $total_tax; ?>
+                    <td class="right">IDR <?= $this->cart->format_number($total_tax, '2', ',', '.'); ?></td>
+                </tr>
+                <tr class="align-items-center">
+                    <td colspan="3"> </td>
+                    <td class="right"><strong>Grand Total</strong></td>
+                    <td class="right">IDR <?= $this->cart->format_number($grandTotal, '2', ',', '.'); ?></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save PO</button>
+    <div class="footer text-right">
+        <a href="<?= base_url('purchasing/') ?>" class="btn btn-primary">Save PO</a>
+        <a href="<?= base_url('purchasing/delete_all_po/') . $po_id ?>" class="btn text-danger">Close</a>
     </div>
 </div>
 <!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->
+
+<!-- Modal For Delete Data -->
+<div class="modal fade" id="deleteItemPOModal" tabindex="-1" role="dialog" aria-labelledby="deleteItemPOModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteItemPOModalLabel">Whoops!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">You're about to delete this item. Are you sure?</p>
+            <form action="<?= base_url('purchasing/delete_item') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- item id -->
+                        <label for="url" class="col-form-label">PO ID</label>
+                        <input type="text" class="form-control" id="delete_po_id" name="delete_po_id" readonly>
+                        <!-- item id -->
+                        <label for="url" class="col-form-label" style="display:none">ID</label>
+                        <input type="text" class="form-control" id="delete_id" name="delete_id" style="display:none" readonly>
+                        <!-- item name -->
+                        <label for="url" class="col-form-label">Item</label>
+                        <input type="text" class="form-control" id="delete_name" name="delete_name" readonly>
+                        <!-- item amount -->
+                        <label for="url" class="col-form-label">Amount</label>
+                        <input type="text" class="form-control" id="delete_amount" name="delete_amount" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

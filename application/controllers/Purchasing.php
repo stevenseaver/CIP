@@ -32,6 +32,8 @@ class Purchasing extends CI_Controller
         $data['title'] = 'Add Purchase Order';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        //get supplier data
+        $data['supplier'] = $this->db->get('supplier')->result_array();
         //get inventory warehouse data
         $data['inventory_wh'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
         $data['inventory_item'] = $this->db->get_where('stock_material')->result_array();
@@ -50,13 +52,15 @@ class Purchasing extends CI_Controller
         $data['title'] = 'Add Purchase Order';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        //get supplier data
+        $data['supplier'] = $this->db->get('supplier')->result_array();
         //get inventory warehouse data
         $data['inventory_wh'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
         $data['inventory_item'] = $this->db->get_where('stock_material')->result_array();
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
 
-        $this->form_validation->set_rules('po_id', 'PO ID', 'required|trim');
+        $this->form_validation->set_rules('supplier', 'supplier', 'required|trim');
         $this->form_validation->set_rules('material', 'material', 'required|trim');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('amount', 'amount', 'required|trim');
@@ -73,12 +77,13 @@ class Purchasing extends CI_Controller
             $materialID = $this->input->post('material');
             $price = $this->input->post('price');
             $amount = $this->input->post('amount');
+            $supplier = $this->input->post('supplier');
 
             $material_selected = $this->db->get_where('stock_material', ['id' => $materialID])->row_array();
             $materialName = $material_selected["name"];
             $materialCode = $material_selected["code"];
             $materialCat = $material_selected["categories"];
-            $supplier = $material_selected["supplier"];
+            // $supplier = $material_selected["supplier"];
 
             $data = [
                 'transaction_id' => $po_id,
@@ -97,6 +102,27 @@ class Purchasing extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material added!</div>');
             redirect('purchasing/add_item_po/' . $po_id . '/8/1');
         }
+    }
+
+    public function delete_item()
+    {
+        $po_id = $this->input->post('delete_po_id');
+        $id = $this->input->post('delete_id');
+        $name = $this->input->post('delete_name');
+        $amount = $this->input->post('delete_amount');
+
+        $this->db->where('id', $id);
+        $this->db->delete('stock_material');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $name . ' with amount ' . $amount . '  deleted!</div>');
+        redirect('purchasing/add_po/' . $po_id);
+    }
+
+    public function delete_all_po($id)
+    {
+        $this->db->where('transaction_id', $id);
+        $this->db->delete('stock_material');
+        $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">PO unsaved, unsaved item are deleted!</div>');
+        redirect('purchasing/');
     }
 
     public function receiveorder()
