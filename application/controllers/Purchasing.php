@@ -18,7 +18,10 @@ class Purchasing extends CI_Controller
         $data['supplier'] = $this->db->get('supplier')->result_array();
         //get inventory warehouse data
         $data['inventory_wh'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
-        $data['inventory_item'] = $this->db->get_where('stock_material')->result_array();
+        // $data['inventory_item'] = $this->db->get_where('stock_material')->result_array();
+        //join warehouse database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['inventory_item'] = $this->warehouse_id->getMaterialWarehouseID();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -117,9 +120,11 @@ class Purchasing extends CI_Controller
         redirect('purchasing/add_po/' . $po_id);
     }
 
-    public function delete_all_po($id)
+    public function delete_all_po()
     {
-        $this->db->where('transaction_id', $id);
+        $po_id = $this->input->post('delete_po_id');
+
+        $this->db->where('transaction_id', $po_id);
         $this->db->delete('stock_material');
         $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">PO unsaved, unsaved item are deleted!</div>');
         redirect('purchasing/');

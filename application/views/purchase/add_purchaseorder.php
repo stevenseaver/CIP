@@ -9,6 +9,14 @@
         </div>
     </div>
 
+    <!-- back button -->
+    <a href="<?= base_url('purchasing/') ?>" class="btn btn-secondary btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-arrow-left"></i>
+        </span>
+        <span class="text">Back</span>
+    </a>
+
     <form action="<?= base_url('purchasing/add_item_po/') . $po_id . '/8/1' ?>" method="post">
         <div class="form-group">
             <!-- Item code -->
@@ -59,6 +67,7 @@
             </div>
         </div>
         <input class="btn-add-item btn btn-primary mb-3" type="submit"></input>
+        <p class="align-items-center">Data input are automatically saved.</p>
     </form>
 
     <div class="table-responsive my-3">
@@ -125,8 +134,9 @@
         </table>
     </div>
     <div class="footer text-right">
+        <!-- <a href="<?= base_url('purchasing/delete_all_po/') . $po_id ?>" class="btn text-danger">Close and delete data</a> -->
+        <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $po_id ?>" class="btn text-danger">Close and delete data</a>
         <a href="<?= base_url('purchasing/') ?>" class="btn btn-primary">Save PO</a>
-        <a href="<?= base_url('purchasing/delete_all_po/') . $po_id ?>" class="btn text-danger">Close</a>
     </div>
 </div>
 <!-- /.container-fluid -->
@@ -160,6 +170,34 @@
                         <!-- item amount -->
                         <label for="url" class="col-form-label">Amount</label>
                         <input type="text" class="form-control" id="delete_amount" name="delete_amount" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Delete Data -->
+<div class="modal fade" id="deletePOModal" tabindex="-1" role="dialog" aria-labelledby="deletePOModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deletePOModalLabel">Whoops!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">Closing this window will delete all PO data you've entered. Are you sure?</p>
+            <form action="<?= base_url('purchasing/delete_all_po/') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- item id -->
+                        <label for="url" class="col-form-label">PO ID</label>
+                        <input type="text" class="form-control" id="delete_po_id" name="delete_po_id" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">
