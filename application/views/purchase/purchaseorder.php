@@ -33,7 +33,6 @@
     ?>
         <div class="card border-left-primary mb-3">
             <div class="row mx-4 my-3">
-                <h5 class="mx-0 mb-3 font-weight-bold text-primary">Product List</h5>
                 <div class="table-responsive">
                     <div class="table-responsive">
                         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -60,7 +59,9 @@
                                             $temp = $temp + $value;  ?>
                                             <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
                                             <td>
-                                                <a href="<?= base_url('purchasing/add_po/') . $inv['transaction_id'] ?>" class="badge badge-primary">Details</a>
+                                                <a href="<?= base_url('purchasing/po_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary">Details</a>
+                                                <a href="<?= base_url('purchasing/transaction_status_change/') . $inv['transaction_id'] . '/2' ?>" class="badge badge-success">Receive Item</a>
+                                                <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger">Delete PO</a>
                                             </td>
                                         </tr>
                                     <?php
@@ -93,3 +94,31 @@
 
 </div>
 <!-- End of Main Content -->
+
+<!-- Modal For Delete Data -->
+<div class="modal fade" id="deletePOModal" tabindex="-1" role="dialog" aria-labelledby="deletePOModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deletePOModalLabel">Whoops!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">Closing this window will delete all PO data you've entered. Are you sure?</p>
+            <form action="<?= base_url('purchasing/delete_all_po/') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- item id -->
+                        <label for="url" class="col-form-label">PO ID</label>
+                        <input type="text" class="form-control" id="delete_po_id" name="delete_po_id" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

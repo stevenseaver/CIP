@@ -65,6 +65,24 @@
                     <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="description" class="col-form-label">PO Description</label>
+                    <input type="text" class="form-control mb-1" id="description" name="description" placeholder="Input description..">
+                    <?= form_error('description', '<small class="text-danger pl-2">', '</small>') ?>
+                    <small>Weighting Document Number. Optional</small>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="item_desc" class="col-form-label">Item Descripstion</label>
+                    <input type="text" class="form-control mb-1" id="item_desc" name="item_desc" placeholder="Input item description..">
+                    <?= form_error('item_desc', '<small class="text-danger pl-2">', '</small>') ?>
+                    <small>Sack Number. Optional</small>
+                </div>
+            </div>
         </div>
         <input class="btn-add-item btn btn-primary mb-3" type="submit"></input>
         <p class="align-items-center">Data input are automatically saved.</p>

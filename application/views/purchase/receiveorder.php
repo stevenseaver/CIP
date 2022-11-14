@@ -3,97 +3,105 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
-    <div class="text-center mb-5">
-        <div class="error mx-auto" data-text="404">404!</div>
-        <h4 class="lead text-dark">Coming soon</h4>
-        <a href="<?= base_url('user'); ?>" class="mb-5">Back to Dashboard!</a>
-    </div>
-
-    <!-- <div class="row">
+    <div class="row">
         <div class="col-lg-12">
-            <?= form_error('name', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('nik', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('address', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('hp', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('role_id', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('password1', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('password2', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= $this->session->flashdata('approval'); ?>
+            <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
 
-    <div class="card shadow border-left-primary mb-4">
-        <div class="card-header py-2">
-            <h5 class="m-0 font-weight-bold text-primary">User Leave Data</h5>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>ERN</th>
-                            <th>Name</th>
-                            <th>Leave Type</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Reason</th>
-                            <th>Document</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>ERN</th>
-                            <th>Name</th>
-                            <th>Leave Type</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Reason</th>
-                            <th>Document</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <?php $i = 1; ?>
-                        <?php foreach ($leavedata as $ld) : ?>
-                            <tr>
-                                <td><?= $i ?></td>
-                                <td><?= $ld['user_nik']; ?></td>
-                                <td><?= $ld['user_name']; ?></td>
-                                <td><?= $ld['type']; ?></td>
-                                <td><?= $ld['start_date']; ?></td>
-                                <td><?= $ld['finish_date']; ?></td>
-                                <td><?= $ld['reason']; ?></td>
-                                <td><a href="<?= base_url('document/leave_proof/') . $ld['document'] ?>" class="badge badge-primary" target="_blank">Open</a></td>
-                                <td>
-                                    <?php if ($ld['status'] == 1) {
-                                        echo '<p class="badge badge-success">Approve</p>';
-                                    } else if ($ld['status'] == 0) {
-                                        echo '<p class="badge badge-warning">Waiting</p>';
-                                    } else if ($ld['status'] == 2) {
-                                        echo '<p class="badge badge-danger">Not Approved</p>';
+    <?php if ($inventory_item != null) {
+        $i = 1;
+        $temp = 0;
+        $before = '';
+    ?>
+        <div class="card border-left-primary mb-3">
+            <div class="row mx-4 my-3">
+                <div class="table-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>PO Number</th>
+                                    <th>Date</th>
+                                    <th>Supplier</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1;
+                                $temp = 0; ?>
+                                <?php foreach ($inventory_item as $inv) :
+                                    if ($before != $inv['transaction_id']) { ?>
+                                        <tr>
+                                            <td><?= $i ?></td>
+                                            <td><?= $inv['transaction_id'] ?></td>
+                                            <td><?= date('d F Y H:i:s', $inv['date']); ?></td>
+                                            <td><?= $inv['supplier_name'] ?></td>
+                                            <?php $value = $inv['price'] * $inv['in_stock'];
+                                            $temp = $temp + $value;  ?>
+                                            <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
+                                            <td>
+                                                <a href="<?= base_url('purchasing/po_details/') . $inv['transaction_id'] ?>" class="badge badge-primary">Details</a>
+                                                <!-- <a class="badge badge-success">Receive Item</a> -->
+                                                <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger">Delete PO</a>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                        $before = $inv['transaction_id'];
+                                        $i++;
+                                    } else {
                                     } ?>
-                                </td>
-                                <td>
-                                    <a href="<?= base_url('hr/approve/') . $ld['user_nik'] . '/' . $ld['start_date'] . '/' . $ld['finish_date']; ?>" class="badge badge-success">Approve</a>
-                                    <a href="<?= base_url('hr/decline/') . $ld['user_nik'] . '/' . $ld['start_date'] . '/' . $ld['finish_date']; ?>" class="badge badge-danger">Decline</a>
-                                </td>
+                                <?php endforeach; ?>
+                            </tbody>
+                            <!-- <tfoot>
+                            <tr class="text-right align-items-center">
+                                <td colspan="7"> </td>
+                                <td class="right"><strong>Total</strong></td>
+                                <?php $grandTotal = $temp; ?>
+                                <td class="right">IDR <?= $this->cart->format_number($grandTotal, '-', ',', '.'); ?></td>
                             </tr>
-                            <?php $i++; ?>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <small class="text-primary pb-1">*) Date format is in YYYY-MM-DD</small>
+                        </tfoot> -->
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div> -->
-
+    <?php
+    } else { ?>
+        <div class="alert alert-danger" role="alert">There's no transaction! </a></div>
+    <? }
+    ?>
 </div>
 <!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->
+
+<!-- Modal For Delete Data -->
+<div class="modal fade" id="deletePOModal" tabindex="-1" role="dialog" aria-labelledby="deletePOModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deletePOModalLabel">Whoops!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">Closing this window will delete all PO data you've entered. Are you sure?</p>
+            <form action="<?= base_url('purchasing/delete_all_po/') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- item id -->
+                        <label for="url" class="col-form-label">PO ID</label>
+                        <input type="text" class="form-control" id="delete_po_id" name="delete_po_id" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
