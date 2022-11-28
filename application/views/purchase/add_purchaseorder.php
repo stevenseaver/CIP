@@ -10,12 +10,12 @@
     </div>
 
     <!-- back button -->
-    <a href="<?= base_url('purchasing/') ?>" class="btn btn-secondary btn-icon-split mb-3">
+    <!-- <a href="<?= base_url('purchasing/') ?>" class="btn btn-secondary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-arrow-left"></i>
         </span>
         <span class="text">Back</span>
-    </a>
+    </a> -->
 
     <form action="<?= base_url('purchasing/add_item_po/') . $po_id . '/8/1' ?>" method="post">
         <div class="form-group">
@@ -97,6 +97,7 @@
                     <th>Amount</th>
                     <th>Price</th>
                     <th class="text-right">Subtotal</th>
+                    <th>Description</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -119,6 +120,7 @@
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php $subtotal = $ms['incoming'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
+                        <td><?= $ms['item_desc'] ?></td>
                         <td>
                             <a data-toggle="modal" data-target="#deleteItemPOModal" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
                         </td>
@@ -135,7 +137,7 @@
                     <td class="right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
                 </tr>
                 <tr class="align-items-center">
-                    <?php $tax = 11; ?>
+                    <?php $tax = 0; ?>
                     <td colspan="3"> </td>
                     <td class="right"><strong>Tax <?= $tax ?>%</strong></td>
                     <?php

@@ -44,7 +44,7 @@
                                 <?php } else if ($sup['id'] >= 100) { ?>
                                     <td>SUP-0<?= $sup['id']; ?></td>
                                 <?php }; ?>
-                                <td><?= $sup['name']; ?></td>
+                                <td><?= $sup['supplier_name']; ?></td>
                                 <td><?= $sup['address']; ?></td>
                                 <td><?= $sup['phone']; ?></td>
                                 <td><?= $sup['email']; ?></td>
@@ -52,8 +52,8 @@
                                 <td><?= $sup['terms']; ?></td>
                                 </td>
                                 <td>
-                                    <a data-toggle="modal" data-target="#editSupplierModal" data-id="<?= $sup['id'] ?>" data-name="<?= $sup['name'] ?>" data-address="<?= $sup['address'] ?>" data-phone="<?= $sup['phone'] ?>" data-email="<?= $sup['email'] ?>" data-account="<?= $sup['bank_account'] ?>" data-terms="<?= $sup['terms'] ?>" class="badge badge-success clickable">Edit</a>
-                                    <a data-toggle="modal" data-target="#deleteSupplierModal" data-id="<?= $sup['id'] ?>" data-name="<?= $sup['name'] ?>" class="badge badge-danger clickable">Delete</a>
+                                    <a data-toggle="modal" data-target="#editSupplierModal" data-id="<?= $sup['id'] ?>" data-name="<?= $sup['supplier_name'] ?>" data-address="<?= $sup['address'] ?>" data-phone="<?= $sup['phone'] ?>" data-email="<?= $sup['email'] ?>" data-account="<?= $sup['bank_account'] ?>" data-terms="<?= $sup['terms'] ?>" class="badge badge-success clickable">Edit</a>
+                                    <a data-toggle="modal" data-target="#deleteSupplierModal" data-id="<?= $sup['id'] ?>" data-name="<?= $sup['supplier_name'] ?>" class="badge badge-danger clickable">Delete</a>
                                 </td>
                             </tr>
                             <?php $i++; ?>

@@ -134,7 +134,7 @@
                     </div>
                     <div class="form-group">
                         <!-- Item categories -->
-                        <label for="url" class="col-form-label">Categories</label>
+                        <label for="url" class="col-form-label">Transaction Categories</label>
                         <select name="status" id="status" class="form-control" value="<?= set_value('status') ?>">
                             <option value="">--Select Transactions--</option>
                             <?php foreach ($transactionStatus as $ts) : ?>
