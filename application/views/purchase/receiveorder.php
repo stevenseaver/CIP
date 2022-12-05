@@ -42,9 +42,8 @@
                                             $temp = $temp + $value;  ?>
                                             <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
                                             <td>
-                                                <a href="<?= base_url('purchasing/po_details/') . $inv['transaction_id'] ?>" class="badge badge-primary">Details</a>
-                                                <!-- <a class="badge badge-success">Receive Item</a> -->
-                                                <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger">Delete PO</a>
+                                                <a href="<?= base_url('purchasing/receive_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary">Details</a>
+                                                <!-- <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger">Delete PO</a> -->
                                             </td>
                                         </tr>
                                     <?php

@@ -10,7 +10,7 @@ $pdf->SetKeywords('invoice, sales, transaction');
 
 $pdf->AddPage('L', 'mm', 'A4');
 $pdf->SetFont('', 'B', 20);
-$pdf->Cell(0, 15, "Purchase Order", 0, 1, 'L');
+$pdf->Cell(0, 15, "Purchase Order Invoice", 0, 1, 'L');
 $pdf->SetAutoPageBreak(true, 0);
 
 //CUST NAME

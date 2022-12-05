@@ -47,7 +47,7 @@ class Purchasing extends CI_Controller
         $this->load->view('purchase/add_purchaseorder', $data);
         $this->load->view('templates/footer');
     }
-
+    //get PO details
     public function po_details($id, $supplier_id, $date)
     {
         $data['title'] = 'Purchase Order Details';
@@ -152,12 +152,15 @@ class Purchasing extends CI_Controller
     {
         $po_id = $this->input->post('delete_po_id');
 
+        //delete related PO items
         $this->db->where('transaction_id', $po_id);
         $this->db->delete('stock_material');
+
         $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">PO unsaved, unsaved item are deleted!</div>');
         redirect('purchasing/');
     }
 
+    //receive order page displays all to be received items from PO
     public function receiveorder()
     {
         $data['title'] = 'Receive Order';
@@ -178,6 +181,29 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function receive_details($id, $supplier_id, $date)
+    {
+        $data['title'] = 'Receive Order Details';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get supplier data from ID
+        $data['supplier'] = $this->db->get_where('supplier', ['id' => $supplier_id])->row_array();
+        //get inventory warehouse data
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+        $data['poID'] = $id;
+        //get data
+        $data['sup_name'] = $data['supplier']['supplier_name'];
+        $data['date'] = $date;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('purchase/receiveorder_details', $data);
+        $this->load->view('templates/footer');
+    }
+
+    //change trans status
     public function transaction_status_change($po_id, $change_to, $supplier_id, $date)
     {
         if ($change_to == 2) {
@@ -197,10 +223,8 @@ class Purchasing extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('purchase/receive_po', $data);
+            $this->load->view('purchase/add_receiveorder', $data);
             $this->load->view('templates/footer');
-        } else if ($change_to == 3) {
-            redirect('purchasing/invoice');
         }
     }
 
@@ -233,8 +257,19 @@ class Purchasing extends CI_Controller
         $this->db->where('status', '7');
         $this->db->where('code', $code);
         $this->db->update('stock_material', $data2);
-        // $id, $change_to, $supplier_id, $date
-        redirect('purchasing/transaction_status_change/' . $poID . '/' . 2 . '/' . $supplier_id . '/' . $date);
+        //redirect to receive_details
+        redirect('purchasing/receive_details/' . $poID . '/' . $supplier_id . '/' . $date);
+    }
+
+    //update received item quantity on database
+    public function update_amount()
+    {
+        $id = $this->input->post('id');
+        $amount = $this->input->post('qtyID');
+
+        $this->db->where('id', $id);
+        $this->db->set('incoming', $amount);
+        $this->db->update('stock_material');
     }
 
     public function createPDF($type, $po_id, $supplier, $date)
@@ -249,9 +284,8 @@ class Purchasing extends CI_Controller
         if ($type == 1) {
             $this->load->view('purchase/pdf_purchase_order', $data);
         } else if ($type == 2) {
-            $this->load->view('purchase/pdf_receive', $data);
-        } else if ($type == 3)
-            $this->load->view('purchase/pdf_invoice', $data);
+            $this->load->view('purchase/pdf_invoice_po', $data);
+        }
     }
 
     public function invoice()

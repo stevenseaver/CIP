@@ -105,6 +105,24 @@
          });
      });
 
+     //js for amount change on receive order quantity on input on change
+     $('.receive-qty').on('change', function() {
+         const id = $(this).data('id');
+         const qtyID = document.getElementById("receiveAmount-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('purchasing/update_amount'); ?>",
+             type: 'post',
+             data: {
+                 id: id,
+                 qtyID: qtyID
+             },
+             success: function() {
+                 //  document.location.href = "<?= base_url('purchasing/receiveItem/') ?>";
+             }
+         });
+     });
+
      $('.btn-add-item').on('click', function() {
          //const qtyID = $(this).data('qty');
          const po_id = $(this).data('po');

@@ -10,7 +10,7 @@
     </div>
 
     <!-- back button -->
-    <a href="<?= base_url('purchasing/') ?>" class="btn btn-secondary btn-icon-split mb-3">
+    <a href="<?= base_url('purchasing/receiveorder') ?>" class="btn btn-secondary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-arrow-left"></i>
         </span>
@@ -18,11 +18,11 @@
     </a>
 
     <!-- view pdf PO  -->
-    <a href="<?= base_url('purchasing/createPDF/1/') . $poID . '/' . urldecode($sup_name) . '/' . $date ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+    <a href="<?= base_url('purchasing/createPDF/2/') . $poID . '/' . urldecode($sup_name) . '/' . $date ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
         <span class="icon text-white-50">
             <i class="bi bi-eye"></i>
         </span>
-        <span class="text">View Purchase Order Preview</span>
+        <span class="text">View Purchase Order Invoice</span>
     </a>
 
     <div class="card rounded shadow border-0 mb-3">
@@ -37,7 +37,8 @@
             <p class="text-dark font-weight-bold"> <?= $sup_name ?></p>
         </div>
     </div>
-
+    <!-- <?= form_open_multipart('purchasing/tes'); ?> -->
+    <!-- <form action="<?= base_url('purchasing/tes') ?>" method="post"> -->
     <div class="table-responsive my-3">
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
             <thead>
@@ -67,7 +68,7 @@
                     <tr>
                         <td><?= $i ?></td>
                         <td><?= $ms['name'] ?></td>
-                        <td><input id="receiveAmount" class="receiveAmount text-left form-control" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
+                        <td><input id="receiveAmount-<?= $ms['id'] ?>" class="receive-qty text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php $subtotal = $ms['incoming'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
@@ -117,7 +118,9 @@
     <div class="footer text-right">
         <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $poID ?>" class="btn text-danger">Close and delete data</a>
         <a href="<?= base_url('purchasing/receiveorder') ?>" class="btn btn-primary">Save PO</a>
+        <!-- <button type="submit" class="btn btn-primary">Save PO</button> -->
     </div>
+    <!-- </form> -->
 </div>
 <!-- /.container-fluid -->
 
