@@ -57,7 +57,7 @@ foreach ($dataPO as $data) {
 }
 
 $total = $temp;
-$tax = 11; //tax percentage
+$tax = $data->tax; //tax percentage
 
 $pdf->SetFont('', 'B', 12);
 $pdf->Cell(195, 7, "Total", 1, 0, 'R');

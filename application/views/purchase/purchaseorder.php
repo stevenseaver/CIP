@@ -13,7 +13,7 @@
     $date = time();
     $year = date('y');
     $month = date('m');
-    $serial = rand(1000, 9990);
+    $serial = rand(1000, 9999);
     //ref invoice
     $po_id = 'PO-' . $year . $month . '-' . $serial;
     ?>
@@ -60,7 +60,8 @@
                                             <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
                                             <td>
                                                 <a href="<?= base_url('purchasing/po_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary">Details</a>
-                                                <a href="<?= base_url('purchasing/transaction_status_change/') . $inv['transaction_id'] . '/2/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-success">Receive Item</a>
+                                                <a href="<?= base_url('purchasing/add_po/') . $inv['transaction_id'] ?>" class="badge badge-warning">Edit</a>
+                                                <a href="<?= base_url('purchasing/transaction_status_change/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-success">Receive Item</a>
                                                 <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger">Delete PO</a>
                                             </td>
                                         </tr>

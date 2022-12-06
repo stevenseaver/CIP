@@ -47,6 +47,7 @@ class Purchasing extends CI_Controller
         $this->load->view('purchase/add_purchaseorder', $data);
         $this->load->view('templates/footer');
     }
+
     //get PO details
     public function po_details($id, $supplier_id, $date)
     {
@@ -70,6 +71,7 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    //ADD ITEM PO
     public function add_item_po($id, $status, $warehouse)
     {
         $data['title'] = 'Add Purchase Order';
@@ -89,6 +91,7 @@ class Purchasing extends CI_Controller
         $this->form_validation->set_rules('amount', 'amount', 'required|trim');
         $this->form_validation->set_rules('description', 'description', 'trim');
         $this->form_validation->set_rules('item_desc', 'item description', 'trim');
+        $this->form_validation->set_rules('tax', 'tax', 'trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -106,6 +109,7 @@ class Purchasing extends CI_Controller
             $supplier = $this->input->post('supplier');
             $description = $this->input->post('description');
             $item_desc = $this->input->post('item_desc');
+            $tax = $this->input->post('tax');
 
             $material_selected = $this->db->get_where('stock_material', ['id' => $materialID])->row_array();
             $materialName = $material_selected["name"];
@@ -126,7 +130,8 @@ class Purchasing extends CI_Controller
                 'supplier' => $supplier,
                 'transaction_status' => $po_status,
                 'description' => $description,
-                'item_desc' => $item_desc
+                'item_desc' => $item_desc,
+                'tax' => $tax
             ];
 
             $this->db->insert('stock_material', $data);
@@ -181,6 +186,29 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    //change trans status
+    public function transaction_status_change($po_id, $supplier_id, $date)
+    {
+        $data['title'] = 'Receive Purchase Order Confirmation';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get supplier data from ID
+        $data['supplier'] = $this->db->get_where('supplier', ['id' => $supplier_id])->row_array();
+        //get inventory warehouse data
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $po_id])->result_array();
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $po_id])->row_array();
+        $data['poID'] = $po_id;
+        //get data
+        $data['sup_name'] = $data['supplier']['supplier_name'];
+        $data['date'] = $date;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('purchase/add_receiveorder', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function receive_details($id, $supplier_id, $date)
     {
         $data['title'] = 'Receive Order Details';
@@ -201,31 +229,6 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('purchase/receiveorder_details', $data);
         $this->load->view('templates/footer');
-    }
-
-    //change trans status
-    public function transaction_status_change($po_id, $change_to, $supplier_id, $date)
-    {
-        if ($change_to == 2) {
-            $data['title'] = 'Receive Purchase Order Confirmation';
-            $data['user'] = $this->db->get_where('user', ['nik' =>
-            $this->session->userdata('nik')])->row_array();
-            //get supplier data from ID
-            $data['supplier'] = $this->db->get_where('supplier', ['id' => $supplier_id])->row_array();
-            //get inventory warehouse data
-            $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $po_id])->result_array();
-            $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $po_id])->row_array();
-            $data['poID'] = $po_id;
-            //get data
-            $data['sup_name'] = $data['supplier']['supplier_name'];
-            $data['date'] = $date;
-
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('purchase/add_receiveorder', $data);
-            $this->load->view('templates/footer');
-        }
     }
 
     public function receiveItem($id)
@@ -258,7 +261,7 @@ class Purchasing extends CI_Controller
         $this->db->where('code', $code);
         $this->db->update('stock_material', $data2);
         //redirect to receive_details
-        redirect('purchasing/receive_details/' . $poID . '/' . $supplier_id . '/' . $date);
+        redirect('purchasing/transaction_status_change/' . $poID . '/' . $supplier_id . '/' . $date);
     }
 
     //update received item quantity on database
@@ -272,7 +275,7 @@ class Purchasing extends CI_Controller
         $this->db->update('stock_material');
     }
 
-    public function createPDF($type, $po_id, $supplier, $date)
+    public function createPDF($type, $po_id, $supplier, $date, $tax)
     {
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
@@ -280,6 +283,7 @@ class Purchasing extends CI_Controller
         $data['ref'] = $po_id;
         $data['sup_name'] = urldecode($supplier);
         $data['date'] = $date;
+        $data['tax'] = $tax;
 
         if ($type == 1) {
             $this->load->view('purchase/pdf_purchase_order', $data);

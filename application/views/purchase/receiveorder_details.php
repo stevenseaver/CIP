@@ -17,8 +17,16 @@
         <span class="text">Back</span>
     </a>
 
+    <!-- assign tax -->
+    <?php if ($getID['tax'] == 1) {
+        $tax = 11;
+    } else {
+        $tax = 0;
+    }
+    ?>
+
     <!-- view pdf PO  -->
-    <a href="<?= base_url('purchasing/createPDF/2/') . $poID . '/' . urldecode($sup_name) . '/' . $date ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+    <a href="<?= base_url('purchasing/createPDF/2/') . $poID . '/' . urldecode($sup_name) . '/' . $date . '/' . $tax ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
         <span class="icon text-white-50">
             <i class="bi bi-eye"></i>
         </span>
@@ -35,6 +43,8 @@
             <p class="text-dark font-weight-bold"> <?= date('d F Y H:i:s', $getID['date']) ?></p>
             <p class="text-dark mb-1">Supplier : </p>
             <p class="text-dark font-weight-bold"> <?= $sup_name ?></p>
+            <p class="text-dark mb-1">Tax : </p>
+            <p class="text-dark font-weight-bold"> <?= $tax ?>% </p>
         </div>
     </div>
     <!-- <?= form_open_multipart('purchasing/tes'); ?> -->
@@ -50,7 +60,6 @@
                     <th class="text-right">Subtotal</th>
                     <th>Description</th>
                     <th>Status</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -83,9 +92,6 @@
                             </td>
                         <? } else {
                         } ?>
-                        <td>
-                            <a href=" <?= base_url('purchasing/receiveItem/') . $ms['id'] ?>" class="badge badge-success clickable">Confirm</a>
-                        </td>
                     </tr>
                     <?php $temp = $temp + $subtotal; ?>
                     <?php $i++; ?>
@@ -99,7 +105,6 @@
                     <td class="right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
                 </tr>
                 <tr class="align-items-center">
-                    <?php $tax = 0; ?>
                     <td colspan="3"> </td>
                     <td class="right"><strong>Tax <?= $tax ?>%</strong></td>
                     <?php

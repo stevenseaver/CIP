@@ -10,12 +10,12 @@
     </div>
 
     <!-- back button -->
-    <!-- <a href="<?= base_url('purchasing/') ?>" class="btn btn-secondary btn-icon-split mb-3">
+    <a href="<?= base_url('purchasing/') ?>" class="btn btn-secondary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-arrow-left"></i>
         </span>
         <span class="text">Back</span>
-    </a> -->
+    </a>
 
     <form action="<?= base_url('purchasing/add_item_po/') . $po_id . '/8/1' ?>" method="post">
         <div class="form-group">
@@ -57,12 +57,24 @@
                     <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-2">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="amount" class="col-form-label">Amount</label>
                     <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount..">
                     <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="tax" class="col-form-label">Tax</label>
+                    <select name="tax" id="tax" class="form-control" value="<?= set_value('tax') ?>">
+                        <option value="">--Select Categories--</option>
+                        <option value="0">No Tax</option>
+                        <option value="1">With Tax</option>
+                    </select>
+                    <?= form_error('tax', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
             <div class="col-6">
@@ -105,6 +117,8 @@
                 <?php
                 $i = 1;
                 $temp = 0;
+                $isTax = 0;
+                $tax = 0;
                 ?>
                 <?php foreach ($inventory_selected as $ms) : ?>
                     <?php
@@ -125,8 +139,13 @@
                             <a data-toggle="modal" data-target="#deleteItemPOModal" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
                         </td>
                     </tr>
-                    <?php $temp = $temp + $subtotal; ?>
-                    <?php $i++; ?>
+                    <?php $temp = $temp + $subtotal;
+                    $i++;
+                    if ($ms['tax'] == 1) {
+                        $tax = 11;
+                    } else {
+                        $tax = 0;
+                    } ?>
                 <?php endforeach; ?>
             </tbody>
             <tfoot class="text-right">
@@ -137,7 +156,6 @@
                     <td class="right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
                 </tr>
                 <tr class="align-items-center">
-                    <?php $tax = 0; ?>
                     <td colspan="3"> </td>
                     <td class="right"><strong>Tax <?= $tax ?>%</strong></td>
                     <?php

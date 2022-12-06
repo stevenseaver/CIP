@@ -50,7 +50,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Materials</th>
-                                <th>Code</th>
+                                <th>Transaction Ref</th>
                                 <th>Date Created</th>
                                 <th>Incoming (Kg)</th>
                                 <th>Outgouing (Kg)</th>
@@ -69,7 +69,7 @@
                                     <tr>
                                         <td><?= $i ?></td>
                                         <td><?= $ms['name'] ?></td>
-                                        <td><?= $ms['code'] ?></td>
+                                        <td><?= $ms['transaction_id'] ?></td>
                                         <td><?= date('d F Y H:i:s', $ms['date']); ?></td>
                                         <td><?= number_format($ms['incoming'], 1, ',', '.') ?></td>
                                         <td><?= number_format($ms['outgoing'], 1, ',', '.') ?></td>

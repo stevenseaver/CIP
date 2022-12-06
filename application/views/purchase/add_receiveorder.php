@@ -17,13 +17,21 @@
         <span class="text">Back</span>
     </a>
 
+    <?php if ($getID['tax'] == 1) {
+        $tax = 11;
+    } else {
+        $tax = 0;
+    }
+    ?>
+
     <!-- view pdf PO  -->
-    <a href="<?= base_url('purchasing/createPDF/2/') . $poID . '/' . urldecode($sup_name) . '/' . $date ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+    <a href="<?= base_url('purchasing/createPDF/2/') . $poID . '/' . urldecode($sup_name) . '/' . $date . '/' . $tax ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
         <span class="icon text-white-50">
             <i class="bi bi-eye"></i>
         </span>
         <span class="text">View Purchase Order Invoice</span>
     </a>
+
 
     <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">
@@ -35,6 +43,8 @@
             <p class="text-dark font-weight-bold"> <?= date('d F Y H:i:s', $getID['date']) ?></p>
             <p class="text-dark mb-1">Supplier : </p>
             <p class="text-dark font-weight-bold"> <?= $sup_name ?></p>
+            <p class="text-dark mb-1">Tax : </p>
+            <p class="text-dark font-weight-bold"> <?= $tax ?>% </p>
         </div>
     </div>
     <!-- <?= form_open_multipart('purchasing/tes'); ?> -->
@@ -57,6 +67,7 @@
                 <?php
                 $i = 1;
                 $temp = 0;
+                $received = 0;
                 ?>
                 <?php foreach ($inventory_selected as $ms) : ?>
                     <?php
@@ -81,14 +92,24 @@
                             <td>
                                 <p class="badge badge-primary">Confirmed</p>
                             </td>
-                        <? } else {
-                        } ?>
-                        <td>
-                            <a href=" <?= base_url('purchasing/receiveItem/') . $ms['id'] ?>" class="badge badge-success clickable">Confirm</a>
-                        </td>
+                        <? } ?>
+                        <?php if ($ms['transaction_status'] == 1) { ?>
+                            <td>
+                                <a href=" <?= base_url('purchasing/receiveItem/') . $ms['id'] ?>" class="badge badge-success clickable">Confirm</a>
+                            </td>
+                        <? } else if ($ms['transaction_status'] == 2) { ?>
+                            <td>
+                                <!-- <a href=" <?= base_url('purchasing/receiveItem/') . $ms['id'] ?>" class="badge badge-success" style="disable:true">Confirm</a> -->
+                            </td>
+                        <? } ?>
                     </tr>
-                    <?php $temp = $temp + $subtotal; ?>
-                    <?php $i++; ?>
+                    <?php $temp = $temp + $subtotal;
+                    $i++;
+                    if ($ms['transaction_status'] == 2) {
+                        $received = 1;
+                    } else {
+                        $received = 0;
+                    } ?>
                 <?php endforeach; ?>
             </tbody>
             <tfoot class="text-right">
@@ -99,7 +120,6 @@
                     <td class="right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
                 </tr>
                 <tr class="align-items-center">
-                    <?php $tax = 0; ?>
                     <td colspan="3"> </td>
                     <td class="right"><strong>Tax <?= $tax ?>%</strong></td>
                     <?php
@@ -115,11 +135,16 @@
             </tfoot>
         </table>
     </div>
-    <div class="footer text-right">
-        <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $poID ?>" class="btn text-danger">Close and delete data</a>
-        <a href="<?= base_url('purchasing/receiveorder') ?>" class="btn btn-primary">Save PO</a>
-        <!-- <button type="submit" class="btn btn-primary">Save PO</button> -->
-    </div>
+    <?php if ($received == 1) { ?>
+        <div class="footer text-right">
+            <a href="<?= base_url('purchasing/receiveorder') ?>" class="btn btn-primary">Save PO</a>
+        </div>
+    <? } else { ?>
+        <div class="footer text-right">
+            <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $poID ?>" class="btn text-danger">Close and delete data</a>
+            <a href="<?= base_url('purchasing/receiveorder') ?>" class="btn btn-primary">Save PO</a>
+        </div>
+    <? } ?>
     <!-- </form> -->
 </div>
 <!-- /.container-fluid -->
