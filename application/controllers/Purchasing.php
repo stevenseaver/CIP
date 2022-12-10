@@ -17,7 +17,6 @@ class Purchasing extends CI_Controller
         //get supplier data
         $data['supplier'] = $this->db->get('supplier')->result_array();
         //get inventory warehouse data
-        $data['inventory_wh'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
         $this->load->model('Warehouse_model', 'warehouse_id');
         $transaction_query = 1; //purchase order data
         $data['inventory_item'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query);
@@ -173,8 +172,7 @@ class Purchasing extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //get supplier data
         $data['supplier'] = $this->db->get('supplier')->result_array();
-        //get inventory warehouse data
-        $data['inventory_wh'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+        //load inventory item of trans status = 2
         $this->load->model('Warehouse_model', 'warehouse_id');
         $transaction_query = 2; //receive order data
         $data['inventory_item'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query);
@@ -305,11 +303,23 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    //***                **//
+    //***  Purchase Info **//
+    //***                **//
     public function purchaseinfo()
     {
         $data['title'] = 'Purchase Info';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        //get supplier data
+        $data['supplier'] = $this->db->get('supplier')->result_array();
+        $this->load->model('Warehouse_model', 'warehouse_id');
+
+        $transaction_query = 1; //purchase order only order
+        $data['inventory_item'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query);
+
+        $transaction_query = 2; //received order
+        $data['inventory_item_received'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -404,7 +414,7 @@ class Purchasing extends CI_Controller
         $this->form_validation->set_rules('email', 'email', 'trim|valid_email');
         $this->form_validation->set_rules('phone_number', 'phone number', 'required|trim');
         $this->form_validation->set_rules('account', 'account', 'trim');
-        // $this->form_validation->set_rules('terms', 'terms', 'required|trim');
+        $this->form_validation->set_rules('terms', 'terms', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some input fields sure are missing!</div>');

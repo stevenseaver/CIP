@@ -445,7 +445,7 @@
          $(event.currentTarget).find('.modal-body input[name="phone_number"]').val(phone);
          $(event.currentTarget).find('.modal-body input[name="email"]').val(email);
          $(event.currentTarget).find('.modal-body input[name="account"]').val(account);
-         $(event.currentTarget).find('.modal-body input[name="terms"]').val(terms);
+         $(event.currentTarget).find('.modal-body select[name="terms"]').val(terms);
      });
 
      //  JavaScript for Delete Customer Data Modal
@@ -470,14 +470,14 @@
          var account = $(event.relatedTarget).data('account');
          var terms = $(event.relatedTarget).data('terms');
 
-         // input passed data using JS to object INPUT inside modal #editModal
+         // input passed data using JS to object INPUT inside modal #editSupplierModal
          $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
          $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
          $(event.currentTarget).find('.modal-body input[name="address"]').val(address);
          $(event.currentTarget).find('.modal-body input[name="phone_number"]').val(phone);
          $(event.currentTarget).find('.modal-body input[name="email"]').val(email);
          $(event.currentTarget).find('.modal-body input[name="account"]').val(account);
-         $(event.currentTarget).find('.modal-body input[name="terms"]').val(terms);
+         $(event.currentTarget).find('.modal-body select[name="terms"]').val(terms);
      });
 
      //  JavaScript for Delete Supploer Data Modal

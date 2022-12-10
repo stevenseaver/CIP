@@ -2,96 +2,118 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
-    <div class="text-center mb-5">
-        <div class="error mx-auto" data-text="404">404!</div>
-        <h4 class="lead text-dark">Coming soon</h4>
-        <a href="<?= base_url('user'); ?>" class="mb-5">Back to Dashboard!</a>
-    </div>
-
-    <!-- <div class="row">
+    <p class="h3 mb-4 text-gray-800"><?= $title ?></p>
+    <div class="row">
         <div class="col-lg-12">
-            <?= form_error('name', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('nik', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('address', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('hp', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('role_id', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('password1', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('password2', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= $this->session->flashdata('approval'); ?>
+            <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
 
-    <div class="card shadow border-left-primary mb-4">
-        <div class="card-header py-2">
-            <h5 class="m-0 font-weight-bold text-primary">User Leave Data</h5>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>ERN</th>
-                            <th>Name</th>
-                            <th>Leave Type</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Reason</th>
-                            <th>Document</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>ERN</th>
-                            <th>Name</th>
-                            <th>Leave Type</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Reason</th>
-                            <th>Document</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <?php $i = 1; ?>
-                        <?php foreach ($leavedata as $ld) : ?>
+    <!-- show uncompleted purchase order -->
+    <p class="h5 text-gray-800">Standing Purchase Order</p>
+    <?php if ($inventory_item != null) {
+        $i = 1;
+        $temp = 0;
+        $before = '';
+    ?>
+        <div class="card border-left-primary mb-3">
+            <div class="row mx-4 my-3">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
                             <tr>
-                                <td><?= $i ?></td>
-                                <td><?= $ld['user_nik']; ?></td>
-                                <td><?= $ld['user_name']; ?></td>
-                                <td><?= $ld['type']; ?></td>
-                                <td><?= $ld['start_date']; ?></td>
-                                <td><?= $ld['finish_date']; ?></td>
-                                <td><?= $ld['reason']; ?></td>
-                                <td><a href="<?= base_url('document/leave_proof/') . $ld['document'] ?>" class="badge badge-primary" target="_blank">Open</a></td>
-                                <td>
-                                    <?php if ($ld['status'] == 1) {
-                                        echo '<p class="badge badge-success">Approve</p>';
-                                    } else if ($ld['status'] == 0) {
-                                        echo '<p class="badge badge-warning">Waiting</p>';
-                                    } else if ($ld['status'] == 2) {
-                                        echo '<p class="badge badge-danger">Not Approved</p>';
-                                    } ?>
-                                </td>
-                                <td>
-                                    <a href="<?= base_url('hr/approve/') . $ld['user_nik'] . '/' . $ld['start_date'] . '/' . $ld['finish_date']; ?>" class="badge badge-success">Approve</a>
-                                    <a href="<?= base_url('hr/decline/') . $ld['user_nik'] . '/' . $ld['start_date'] . '/' . $ld['finish_date']; ?>" class="badge badge-danger">Decline</a>
-                                </td>
+                                <th>No</th>
+                                <th>PO Number</th>
+                                <th>Date</th>
+                                <th>Supplier</th>
+                                <th>Action</th>
                             </tr>
-                            <?php $i++; ?>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-                <small class="text-primary pb-1">*) Date format is in YYYY-MM-DD</small>
+                        </thead>
+                        <tbody>
+                            <?php $i = 1;
+                            $temp = 0; ?>
+                            <?php foreach ($inventory_item as $inv) :
+                                if ($before != $inv['transaction_id']) { ?>
+                                    <tr>
+                                        <td><?= $i ?></td>
+                                        <td><?= $inv['transaction_id'] ?></td>
+                                        <td><?= date('d F Y H:i:s', $inv['date']); ?></td>
+                                        <td><?= $inv['supplier_name'] ?></td>
+                                        <?php $value = $inv['price'] * $inv['in_stock'];
+                                        $temp = $temp + $value;  ?>
+                                        <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
+                                        <td>
+                                            <a href="<?= base_url('purchasing/po_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary">Details</a>
+                                        </td>
+                                    </tr>
+                                <?php
+                                    $before = $inv['transaction_id'];
+                                    $i++;
+                                } else {
+                                } ?>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div> -->
-
+    <?php
+    } else { ?>
+        <div class="alert alert-primary mb-3" role="alert">There's no standing purchase order at the moment!</div>
+    <? }
+    ?>
+    <p class="h5 text-gray-800">Received Purchase Order</p>
+    <?php if ($inventory_item_received != null) {
+        $i = 1;
+        $temp = 0;
+        $before = '';
+    ?>
+        <div class="card border-left-primary mb-3">
+            <div class="row mx-4 my-3">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>PO Number</th>
+                                <th>Date</th>
+                                <th>Supplier</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i = 1;
+                            $temp = 0; ?>
+                            <?php foreach ($inventory_item_received as $inv_rcv) :
+                                if ($before != $inv_rcv['transaction_id']) { ?>
+                                    <tr>
+                                        <td><?= $i ?></td>
+                                        <td><?= $inv_rcv['transaction_id'] ?></td>
+                                        <td><?= date('d F Y H:i:s', $inv_rcv['date']); ?></td>
+                                        <td><?= $inv_rcv['supplier_name'] ?></td>
+                                        <?php $value = $inv_rcv['price'] * $inv_rcv['in_stock'];
+                                        $temp = $temp + $value;  ?>
+                                        <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
+                                        <td>
+                                            <a href="<?= base_url('purchasing/receive_details/') . $inv_rcv['transaction_id'] . '/' . $inv_rcv['supplier'] . '/' . $inv_rcv['date'] ?>" class="badge badge-primary">Details</a>
+                                        </td>
+                                    </tr>
+                                <?php
+                                    $before = $inv_rcv['transaction_id'];
+                                    $i++;
+                                } else {
+                                } ?>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    <?php
+    } else { ?>
+        <div class="alert alert-primary mb-3" role="alert">There's no received purchase order at the moment!</div>
+    <? }
+    ?>
 </div>
 <!-- /.container-fluid -->
 
