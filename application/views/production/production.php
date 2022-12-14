@@ -16,18 +16,18 @@
     $day = date('d');
     $serial = rand(1000, 9999);
     //ref invoice
-    $po_id = 'PO-' . $year . $month . $day . '-' . $serial;
+    $po_id = 'PROD-' . $year . $month . $day . '-' . $serial;
     ?>
 
-    <a href="<?= base_url('purchasing/add_po/') . $po_id ?>" class="btn btn-primary btn-icon-split mb-3">
+    <a href="<?= base_url('production/add_prod/') . $po_id ?>" class="btn btn-primary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
         </span>
-        <span class="text">Add New Purchase Order</span>
+        <span class="text">Add New Production Order</span>
     </a>
 
 
-    <?php if ($inventory_item != null) {
+    <?php if ($materialStock != null) {
         $i = 1;
         $temp = 0;
         $before = '';
@@ -40,29 +40,26 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>PO Number</th>
+                                    <th>Production ID</th>
                                     <th>Date</th>
-                                    <th>Supplier</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 1;
                                 $temp = 0; ?>
-                                <?php foreach ($inventory_item as $inv) :
+                                <?php foreach ($materialStock as $inv) :
                                     if ($before != $inv['transaction_id']) { ?>
                                         <tr>
                                             <td><?= $i ?></td>
                                             <td><?= $inv['transaction_id'] ?></td>
                                             <td><?= date('d F Y H:i:s', $inv['date']); ?></td>
-                                            <td><?= $inv['supplier_name'] ?></td>
                                             <?php $value = $inv['price'] * $inv['in_stock'];
                                             $temp = $temp + $value;  ?>
-                                            <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
                                             <td>
-                                                <a href="<?= base_url('purchasing/po_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary">Details</a>
-                                                <a href="<?= base_url('purchasing/add_po/') . $inv['transaction_id'] ?>" class="badge badge-warning">Edit</a>
-                                                <a href="<?= base_url('purchasing/transaction_status_change/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-success">Receive Item</a>
+                                                <a href="<?= base_url('production/prod_details/') . $inv['transaction_id'] . '/' . $inv['date'] ?>" class="badge badge-primary">Details</a>
+                                                <!-- <a href="<?= base_url('production/add_po/') . $inv['transaction_id'] ?>" class="badge badge-warning">Edit</a>
+                                                <a href="<?= base_url('production/transaction_status_change/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-success">Receive Item</a> -->
                                                 <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger">Delete PO</a>
                                             </td>
                                         </tr>
@@ -108,11 +105,11 @@
                 </button>
             </div>
             <p class="mx-3 mt-3 mb-0">Closing this window will delete all PO data you've entered. Are you sure?</p>
-            <form action="<?= base_url('purchasing/delete_all_po/') ?>" method="post">
+            <form action="<?= base_url('production/delete_all_po/') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- item id -->
-                        <label for="url" class="col-form-label">PO ID</label>
+                        <label for="url" class="col-form-label">Production Order ID</label>
                         <input type="text" class="form-control" id="delete_po_id" name="delete_po_id" readonly>
                     </div>
                 </div>

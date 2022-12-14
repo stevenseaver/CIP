@@ -18,7 +18,7 @@ class Warehouse_model extends CI_Model
     return $this->db->query($query)->result_array();
   }
 
-  public function purchaseOrderMaterialWH($trans_id)
+  public function purchaseOrderMaterialWH($trans_id, $status)
   {
     $query = "SELECT `stock_material`.*,`warehouse`.`warehouse_name`,`transaction_status`.`status_name`,`material_category`.`categories_name`,`supplier`.`supplier_name`
                     FROM `stock_material` JOIN `warehouse`
@@ -29,7 +29,7 @@ class Warehouse_model extends CI_Model
                       ON `stock_material`.`categories` = `material_category`.`id`
                       JOIN `supplier`
                       ON `stock_material`.`supplier` = `supplier`.`id`
-            WHERE `transaction_status` = $trans_id        
+            WHERE `transaction_status` = $trans_id  AND `status` = $status 
             ";
     return $this->db->query($query)->result_array();
   }

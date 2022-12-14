@@ -55,8 +55,6 @@ class Customer extends CI_Controller
 
         //get finished good database
         $data['finishedStock'] = $this->db->get('stock_finishedgoods')->result_array();
-        // $this->load->model('Warehouse_model', 'warehouse_id');
-        // $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
         $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
 
         //get selected item
@@ -93,37 +91,39 @@ class Customer extends CI_Controller
             $this->db->insert('cart', $data_cart);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item added to cart!</div>');
 
-            //get item selected to cart
-            // $data['getItem'] = $this->db->get_where('stock_finishedgoods', ['name' => $name, 'status' => 7])->row_array();
+            // data to update inventory database
+            $transaction_status = 4;
+            $code = $data['itemselect']['code'];
+            $category = $data['itemselect']['categories'];
+            $date = time();
+            $warehouse = 3;
+            $pcsperpack = $data['itemselect']['pcsperpack'];
+            $packpersack = $data['itemselect']['packpersack'];
+            $in_stockOld = $data['itemselect']['in_stock'];
 
-            //data to update inventory database
-            // $transaction_status = 4;
-            // $code = $data['getItem']['code'];
-            // $category = $data['getItem']['categories'];
-            // $date = time();
-            // $warehouse = 3;
-            // $in_stockOld = $data['getItem']['in_stock'];
+            $data_warehouse = [
+                'name' => $name,
+                'code' => $code,
+                'pcsperpack' => $pcsperpack,
+                'packpersack' => $packpersack,
+                'date' => $date,
+                'price' => $price,
+                'categories' => $category,
+                'outgoing' => $amount,
+                'status' => $transaction_status,
+                'warehouse' => $warehouse
+                // 'transaction' => 
+            ];
+            $data2_warehouse = [
+                'in_stock' => $in_stockOld - $amount,
+                'date' => $date
+            ];
 
-            // $data_warehouse = [
-            //     'name' => $name,
-            //     'code' => $code,
-            //     'status' => $transaction_status,
-            //     'outgoing' => $amount,
-            //     'categories' => $category,
-            //     'date' => $date,
-            //     'warehouse' => $warehouse
-            //     // 'transaction' => 
-            // ];
-            // $data2_warehouse = [
-            //     'in_stock' => $in_stockOld - $amount,
-            //     'date' => $date
-            // ];
+            // update inventory
+            $this->db->insert('stock_finishedgoods', $data_warehouse);
 
-            //update inventory
-            // $this->db->insert('stock_finishedgoods', $data_warehouse);
-
-            // $this->db->where('code', $code);
-            // $this->db->update('stock_finishedgoods', $data2_warehouse, 'status = 7');
+            $this->db->where('code', $code);
+            $this->db->update('stock_finishedgoods', $data2_warehouse, 'status = 7');
 
             redirect('customer');
         }

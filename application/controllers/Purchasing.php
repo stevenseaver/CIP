@@ -19,7 +19,8 @@ class Purchasing extends CI_Controller
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
         $transaction_query = 1; //purchase order data
-        $data['inventory_item'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query);
+        $status = 8; //purchase order data only
+        $data['inventory_item'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -44,29 +45,6 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('purchase/add_purchaseorder', $data);
-        $this->load->view('templates/footer');
-    }
-
-    //get PO details
-    public function po_details($id, $supplier_id, $date)
-    {
-        $data['title'] = 'Purchase Order Details';
-        $data['user'] = $this->db->get_where('user', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
-        //get supplier data from ID
-        $data['supplier'] = $this->db->get_where('supplier', ['id' => $supplier_id])->row_array();
-        //get inventory warehouse data
-        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
-        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
-        $data['po_id'] = $id;
-        //get data
-        $data['sup_name'] = $data['supplier']['supplier_name'];
-        $data['date'] = $date;
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('purchase/purchaseorder_details', $data);
         $this->load->view('templates/footer');
     }
 
@@ -139,6 +117,29 @@ class Purchasing extends CI_Controller
         }
     }
 
+    //get PO details
+    public function po_details($id, $supplier_id, $date)
+    {
+        $data['title'] = 'Purchase Order Details';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get supplier data from ID
+        $data['supplier'] = $this->db->get_where('supplier', ['id' => $supplier_id])->row_array();
+        //get inventory warehouse data
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+        $data['po_id'] = $id;
+        //get data
+        $data['sup_name'] = $data['supplier']['supplier_name'];
+        $data['date'] = $date;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('purchase/purchaseorder_details', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function delete_item()
     {
         $po_id = $this->input->post('delete_po_id');
@@ -175,7 +176,8 @@ class Purchasing extends CI_Controller
         //load inventory item of trans status = 2
         $this->load->model('Warehouse_model', 'warehouse_id');
         $transaction_query = 2; //receive order data
-        $data['inventory_item'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query);
+        $status = 8; //purchase order data only
+        $data['inventory_item'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

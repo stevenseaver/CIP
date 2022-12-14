@@ -839,6 +839,15 @@
          }
      });
 
+     //javascript for select material for production order
+     $('#materialSelect').on('change', function(event) {
+         var price = $(this).find(':selected').data('price');
+         var stock = $(this).find(':selected').data('stock');
+
+         document.getElementById("stock").value = stock;
+         document.getElementById("price").value = price;
+     });
+
      //javascript for select roll
      $('#rolltype').on('change', function(event) {
          var code = $(this).find(':selected').data('code');
@@ -848,15 +857,6 @@
          document.getElementById("code").value = code;
          document.getElementById("weight").value = weight;
          document.getElementById("lipatan").value = lipatan;
-     });
-
-     //javascript for select roll
-     $('#materialSelect').on('change', function(event) {
-         var price = $(this).find(':selected').data('price');
-         var stock = $(this).find(':selected').data('stock');
-
-         document.getElementById("stock").value = stock;
-         document.getElementById("price").value = price;
      });
 
      $(document).ready(function() {
