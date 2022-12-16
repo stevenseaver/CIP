@@ -56,7 +56,7 @@ class Production extends CI_Controller
         $data['title'] = 'Add Purchase Order';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get material data
+        //get all stock akhir material data
         $data['material'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
 
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
@@ -78,23 +78,23 @@ class Production extends CI_Controller
             $po_status = 1;
             $materialID = $this->input->post('materialSelect');
             $price = $this->input->post('price');
+            $date = time();
             $amount = $this->input->post('amount');
             $description = $this->input->post('description');
             $item_desc = $this->input->post('item_desc');
 
-            $material_selected = $this->db->get_where('stock_material', ['id' => $materialID])->row_array();
+            $material_selected = $this->db->get_where('stock_material', ['id' => $materialID, 'status' => 7])->row_array();
             $materialName = $material_selected["name"];
             $materialCode = $material_selected["code"];
             $materialCat = $material_selected["categories"];
             $supplier = $material_selected["supplier"];
-            // $supplier = $material_selected["supplier"];
 
             $data = [
                 'transaction_id' => $po_id,
                 'code' => $materialCode,
                 'name' => $materialName,
                 'categories' => $materialCat,
-                'date' => time(),
+                'date' => $date,
                 'price' => $price,
                 'outgoing' => $amount,
                 'status' => $status,
@@ -105,9 +105,20 @@ class Production extends CI_Controller
                 'item_desc' => $item_desc
             ];
 
-            // var_dump($data);
-
             $this->db->insert('stock_material', $data);
+
+            $stock_old = $material_selected["in_stock"];
+
+            $data2 = [
+                'in_stock' => $stock_old - $amount,
+                'date' => $date,
+                'price' => $price
+            ];
+
+            $this->db->where('status', '7');
+            $this->db->where('code', $materialCode);
+            $this->db->update('stock_material', $data2);
+
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material added!</div>');
             redirect('production/add_item_prod/' . $po_id . '/3/1');
         }
@@ -155,7 +166,7 @@ class Production extends CI_Controller
         $this->db->delete('stock_material');
 
         $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">PO unsaved, unsaved item are deleted!</div>');
-        redirect('purchasing/');
+        redirect('production/');
     }
 
     public function calculateCOGS()
@@ -196,9 +207,9 @@ class Production extends CI_Controller
         }
     }
 
-    public function billofmaterial()
+    public function inputRoll()
     {
-        $data['title'] = 'Bill of Material';
+        $data['title'] = 'Roll Input';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         $data['rollType'] = $this->db->get('stock_roll')->result_array();
