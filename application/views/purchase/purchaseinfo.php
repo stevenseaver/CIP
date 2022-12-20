@@ -26,6 +26,7 @@
                                 <th>PO Number</th>
                                 <th>Date</th>
                                 <th>Supplier</th>
+                                <!-- <th>Value</th> -->
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -39,9 +40,9 @@
                                         <td><?= $inv['transaction_id'] ?></td>
                                         <td><?= date('d F Y H:i:s', $inv['date']); ?></td>
                                         <td><?= $inv['supplier_name'] ?></td>
-                                        <?php $value = $inv['price'] * $inv['in_stock'];
-                                        $temp = $temp + $value;  ?>
-                                        <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
+                                        <?php $value = $inv['price'] * $inv['incoming'];
+                                        $temp = $temp + $value; ?>
+                                        <!-- <td><?= number_format($temp, 0, ',', '.') ?></td> -->
                                         <td>
                                             <a href="<?= base_url('purchasing/po_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary">Details</a>
                                         </td>
@@ -62,6 +63,7 @@
         <div class="alert alert-primary mb-3" role="alert">There's no standing purchase order at the moment!</div>
     <? }
     ?>
+
     <p class="h5 text-gray-800">Received Purchase Order</p>
     <?php if ($inventory_item_received != null) {
         $i = 1;

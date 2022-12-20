@@ -131,6 +131,7 @@
                         <td><?= $i ?></td>
                         <td><?= $ms['name'] ?></td>
                         <td><?= number_format($ms['incoming'], 2, ',', '.'); ?></td>
+                        <!-- <td><input id="receiveAmount-<?= $ms['id'] ?>" class="edit-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-transID="<?= $ms['transaction_id']; ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> -->
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php $subtotal = $ms['incoming'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>

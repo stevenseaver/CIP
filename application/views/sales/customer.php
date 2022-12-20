@@ -52,7 +52,7 @@
                                 <td><?= $cust['terms']; ?></td>
                                 </td>
                                 <td>
-                                    <a data-toggle="modal" data-target="#editCustomerModal" class="badge badge-success clickable" data-id="<?= $cust['id'] ?>" data-name="<?= $cust['name'] ?>" data-address="<?= $cust['address'] ?>" data-phone="<?= $cust['phone'] ?>" data-email="<?= $cust['email'] ?>" data-account="<?= $cust['bank_account'] ?>" data-terms="<?= $cust['terms'] ?>">Edit</a>
+                                    <a data-toggle="modal" data-target="#editCustomerModal" class="badge badge-success clickable" data-id="<?= $cust['id'] ?>" data-name="<?= $cust['name'] ?>" data-address="<?= $cust['address'] ?>" data-phone="<?= $cust['phone'] ?>" data-email="<?= $cust['email'] ?>" data-account="<?= $cust['bank_account'] ?>" data-terms="<?= $cust['terms_id'] ?>">Edit</a>
                                     <a data-toggle="modal" data-target="#deleteCustomerModal" data-id="<?= $cust['id'] ?>" data-name="<?= $cust['name'] ?>" class="badge badge-danger clickable">Delete</a>
                                 </td>
                             </tr>

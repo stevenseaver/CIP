@@ -109,19 +109,6 @@
                             <th>Status</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>ERN</th>
-                            <th>Name</th>
-                            <th>Leave Type</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Reason</th>
-                            <th>Document</th>
-                            <th>Status</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         <?php $i = 1; ?>
                         <?php foreach ($leavedata as $ld) : ?>

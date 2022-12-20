@@ -219,6 +219,7 @@ class Admin extends CI_Controller
                 'password' => $password,
                 'role_id' => $role_id,
                 'is_active' => 1,
+                'leave_count' => 12,
                 'date_created' => time()
             ];
             $this->db->insert('user', $data);

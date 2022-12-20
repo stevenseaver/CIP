@@ -69,7 +69,6 @@
                     </div>
                 </li>
 
-
                 <!-- divider -->
                 <div class="topbar-divider d-none d-sm-block"></div>
 

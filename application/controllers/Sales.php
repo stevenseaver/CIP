@@ -238,7 +238,7 @@ class Sales extends CI_Controller
                 'email' => $email,
                 'phone' => $phone_number,
                 'bank_account' => $account,
-                'terms' => $terms,
+                'terms_id' => $terms,
             ];
             $this->db->insert('customer', $data);
             $lastcount = $this->db->insert_id();
@@ -288,7 +288,7 @@ class Sales extends CI_Controller
                 'email' => $email,
                 'phone' => $phone_number,
                 'bank_account' => $account,
-                'terms' => $terms,
+                'terms_id' => $terms,
             ];
             $this->db->where('id', $id);
             $this->db->update('customer', $data);

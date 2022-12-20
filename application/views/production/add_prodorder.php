@@ -66,9 +66,9 @@
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="description" class="col-form-label">Description</label>
-                    <input type="text" class="form-control mb-1" id="description" name="description" placeholder="Input description such as batch number etc..">
+                    <input type="text" class="form-control mb-1" id="description" name="description" placeholder="Product name/batch number">
                     <?= form_error('description', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Batch Number</small>
+                    <small>Product name and batch number. Mandatory</small>
                 </div>
             </div>
             <div class="col-6">
@@ -172,7 +172,7 @@
     <div class="footer text-right">
         <!-- <a href="<?= base_url('production/delete_all_po/') . $po_id ?>" class="btn text-danger">Close and delete data</a> -->
         <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $po_id ?>" class="btn text-danger">Close and delete data</a>
-        <a href="<?= base_url('production/') ?>" class="btn btn-primary">Save PO</a>
+        <a href="<?= base_url('production/') ?>" class="btn btn-primary">Save Order</a>
     </div>
 </div>
 <!-- /.container-fluid -->

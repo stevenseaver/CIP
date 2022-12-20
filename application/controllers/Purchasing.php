@@ -317,11 +317,12 @@ class Purchasing extends CI_Controller
         $data['supplier'] = $this->db->get('supplier')->result_array();
         $this->load->model('Warehouse_model', 'warehouse_id');
 
-        $transaction_query = 1; //purchase order only order
-        $data['inventory_item'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query);
+        $transaction_query = 1; //unreceived purchase order only
+        $status = 8; //purchase order data only
+        $data['inventory_item'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
 
-        $transaction_query = 2; //received order
-        $data['inventory_item_received'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query);
+        $transaction_query = 2; //received order only
+        $data['inventory_item_received'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -390,7 +391,7 @@ class Purchasing extends CI_Controller
                 'email' => $email,
                 'phone' => $phone_number,
                 'bank_account' => $account,
-                'terms' => $terms,
+                'terms_id' => $terms,
             ];
             $this->db->insert('supplier', $data);
             $lastcount = $this->db->insert_id();
@@ -440,7 +441,7 @@ class Purchasing extends CI_Controller
                 'email' => $email,
                 'phone' => $phone_number,
                 'bank_account' => $account,
-                'terms' => $terms,
+                'terms_id' => $terms,
             ];
             $this->db->where('id', $id);
             $this->db->update('supplier', $data);

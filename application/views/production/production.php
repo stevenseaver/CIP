@@ -42,6 +42,7 @@
                                     <th>No</th>
                                     <th>Production ID</th>
                                     <th>Date</th>
+                                    <th>Description</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -54,13 +55,13 @@
                                             <td><?= $i ?></td>
                                             <td><?= $inv['transaction_id'] ?></td>
                                             <td><?= date('d F Y H:i:s', $inv['date']); ?></td>
+                                            <td><?= $inv['description'] ?></td>
                                             <?php $value = $inv['price'] * $inv['in_stock'];
                                             $temp = $temp + $value;  ?>
                                             <td>
-                                                <a href="<?= base_url('production/prod_details/') . $inv['transaction_id'] . '/' . $inv['date'] ?>" class="badge badge-primary">Details</a>
-                                                <!-- <a href="<?= base_url('production/add_po/') . $inv['transaction_id'] ?>" class="badge badge-warning">Edit</a>
-                                                <a href="<?= base_url('production/transaction_status_change/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-success">Receive Item</a> -->
-                                                <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger">Delete PO</a>
+                                                <a href="<?= base_url('production/prod_details/') . $inv['transaction_id'] ?>" class="badge badge-primary">Details</a>
+                                                <a href="<?= base_url('production/add_prod/') . $inv['transaction_id'] ?>" class="badge badge-warning">Edit</a>
+                                                <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger">Delete Production Order</a>
                                             </td>
                                         </tr>
                                     <?php

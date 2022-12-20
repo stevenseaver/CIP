@@ -7,7 +7,7 @@ class Sales_model extends CI_Model
     {
         $query = "SELECT `customer`.*,`payment_terms`.`terms`
                     FROM `customer` JOIN `payment_terms`
-                      ON `payment_terms`.`id` = `customer`.`terms`
+                      ON `payment_terms`.`id` = `customer`.`terms_id`
             ";
         return $this->db->query($query)->result_array();
     }

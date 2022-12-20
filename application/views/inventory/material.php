@@ -203,7 +203,7 @@
                     </div>
                     <div class="form-group">
                         <!-- Item categories -->
-                        <label for="url" class="col-form-label">Categories</label>
+                        <label for="category" class="col-form-label">Categories</label>
                         <select name="category" id="category" class="form-control" value="<?= set_value('category') ?>">
                             <option value="">--Select Categories--</option>
                             <?php foreach ($cat as $fs) : ?>

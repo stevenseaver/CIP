@@ -125,7 +125,7 @@ class Production extends CI_Controller
     }
 
     //get PO details
-    public function prod_details($id, $date)
+    public function prod_details($id)
     {
         $data['title'] = 'Production Order Details';
         $data['user'] = $this->db->get_where('user', ['nik' =>
@@ -135,7 +135,7 @@ class Production extends CI_Controller
         $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
         $data['po_id'] = $id;
         //get data
-        $data['date'] = $date;
+        $data['date'] = $data['getID']['date'];
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

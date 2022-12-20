@@ -44,6 +44,7 @@
                             <th>Address</th>
                             <th>Mobile Phone</th>
                             <th>Since</th>
+                            <th>Leave Count Left</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -51,36 +52,30 @@
                     <tbody>
                         <?php $i = 1; ?>
                         <?php foreach ($userdata as $u) : ?>
-                            <?php
-                            if ($u['role_id'] != '3') { ?>
-                                <tr>
-                                    <td><?= $i ?></td>
-                                    <td><?= $u['name']; ?></td>
-                                    <td><?= $u['role']; ?></td>
-                                    <td><?= $u['nik']; ?></td>
-                                    <td><?= $u['email']; ?></td>
-                                    <td><?= $u['dob']; ?></td>
-                                    <td><?= $u['noktp']; ?></td>
-                                    <td><?= $u['address']; ?></td>
-                                    <td><?= $u['phone_number']; ?></td>
-                                    <td><?= date('d F Y', $u['date_created']); ?></td>
-                                    <td>
-                                        <?php if ($u['is_active']) {
-                                            echo '<p class="badge badge-success">Active</p>';
-                                        } else {
-                                            echo '<p class="badge badge-danger">Not Active</p>';
-                                        } ?>
-                                    </td>
-                                    <td>
-                                        <a href="<?= base_url('hr/toggleactive/') . $u['id'] . '/' . $u['is_active'] . '/' . urldecode($u['name']) ?>" class="badge badge-warning">Toggle Active</a>
-                                        <!-- <a href="<?= base_url('hr/deleteuser/') . $u['id'] . '/' . urldecode($u['name']) ?>" class="badge badge-danger">Delete</a> -->
-                                        <a data-toggle="modal" data-target="#deleteEmployee" data-id="<?= $u['id'] ?>" data-name="<?= $u['name'] ?>" class="badge badge-danger clickable">Delete</a>
-                                </tr>
-                            <?
-                            } else {
-                                continue;
-                            }
-                            ?>
+                            <tr>
+                                <td><?= $i ?></td>
+                                <td><?= $u['name']; ?></td>
+                                <td><?= $u['role']; ?></td>
+                                <td><?= $u['nik']; ?></td>
+                                <td><?= $u['email']; ?></td>
+                                <td><?= $u['dob']; ?></td>
+                                <td><?= $u['noktp']; ?></td>
+                                <td><?= $u['address']; ?></td>
+                                <td><?= $u['phone_number']; ?></td>
+                                <td><?= date('d F Y', $u['date_created']); ?></td>
+                                <td><?= $u['leave_count']; ?></td>
+                                <td>
+                                    <?php if ($u['is_active']) {
+                                        echo '<p class="badge badge-success">Active</p>';
+                                    } else {
+                                        echo '<p class="badge badge-danger">Not Active</p>';
+                                    } ?>
+                                </td>
+                                <td>
+                                    <a href="<?= base_url('hr/toggleactive/') . $u['id'] . '/' . $u['is_active'] . '/' . urldecode($u['name']) ?>" class="badge badge-warning">Toggle Active</a>
+                                    <!-- <a href="<?= base_url('hr/deleteuser/') . $u['id'] . '/' . urldecode($u['name']) ?>" class="badge badge-danger">Delete</a> -->
+                                    <a data-toggle="modal" data-target="#deleteEmployee" data-id="<?= $u['id'] ?>" data-name="<?= $u['name'] ?>" class="badge badge-danger clickable">Delete</a>
+                            </tr>
                             <?php $i++; ?>
                         <?php endforeach; ?>
                     </tbody>

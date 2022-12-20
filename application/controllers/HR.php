@@ -58,7 +58,7 @@ class HR extends CI_Controller
         $this->session->userdata('nik')])->row_array();
 
         $this->load->model('Admin_model', 'role_id');
-        $data['userdata'] = $this->role_id->getUserRole();
+        $data['userdata'] = $this->role_id->getEmployeeRole();
         $data['role'] = $this->db->get('user_role')->result_array();
 
         // $data['userdata'] = $this->db->get('user')->result_array();
@@ -129,6 +129,7 @@ class HR extends CI_Controller
                 'password' => $password,
                 'role_id' => $role,
                 'is_active' => 1,
+                'leave_count' => 12,
                 'date_created' => time()
             ];
             $this->db->insert('user', $data);
