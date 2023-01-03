@@ -47,14 +47,14 @@ class Warehouse_model extends CI_Model
 
   public function getGBJWarehouseID()
   {
-    $query = "SELECT `stock_finishedgoods`.*,`warehouse`.`warehouse_name`,`transaction_status`.`status_name`,`product_menu`.`title`
+    $query = "SELECT `stock_finishedgoods`.*,`warehouse`.`warehouse_name`,`transaction_status`.`status_name`,`product_category`.`title`
                     FROM `stock_finishedgoods` 
                     JOIN `warehouse`
                       ON `stock_finishedgoods`.`warehouse` = `warehouse`.`warehouse_id`
                     JOIN `transaction_status`
                       ON `stock_finishedgoods`.`status` = `transaction_status`.`status_id`
-                    JOIN `product_menu`
-                      ON `stock_finishedgoods`.`categories` = `product_menu`.`id`
+                    JOIN `product_category`
+                      ON `stock_finishedgoods`.`categories` = `product_category`.`id`
             ";
     return $this->db->query($query)->result_array();
   }

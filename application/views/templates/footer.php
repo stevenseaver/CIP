@@ -64,6 +64,24 @@
          $(this).next('.custom-file-label').addClass("selected").html(fileName);
      });
 
+     //js for check prod_category
+     function category_check(category) {
+         if (category.value == "6") {
+             document.getElementById("packing_product").style.display = "none";
+             document.getElementById("weighted_product").style.display = "none";
+             document.getElementById("pcsperpack").value = 0;
+             document.getElementById("packpersack").value = 0;
+             document.getElementById("conversion").value = 0;
+         } else if (category.value == "7") {
+             document.getElementById("packing_product").style.display = "";
+             document.getElementById("weighted_product").style.display = "";
+         } else {
+             document.getElementById("packing_product").style.display = "";
+             document.getElementById("weighted_product").style.display = "none";
+             document.getElementById("conversion").value = 0;
+         }
+     }
+
      //js for menu change access checkbox onclick
      $('.form-check-input').on('click', function() {
          const menuId = $(this).data('menu');

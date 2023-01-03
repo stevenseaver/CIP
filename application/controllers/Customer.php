@@ -261,6 +261,15 @@ class Customer extends CI_Controller
                 $this->db->where('status', $status);
                 $this->db->update('cart', $data_db);
 
+                // $data_wh = array(
+                //     'transaction_id' => $ref,
+                //     'transaction_status' => 1,
+                // );
+
+                // $this->db->where('customer_id', $id_cust);
+                // $this->db->where('status', $status);
+                // $this->db->update('cart', $data_db);
+
                 redirect('customer/history');
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger pb-0" role="alert">' . $this->upload->display_errors() . '. Double check your address, it will reset to the original address.</div>');

@@ -835,7 +835,7 @@ class Inventory extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
-        $data['cat'] = $this->db->get('product_menu')->result_array();
+        $data['cat'] = $this->db->get('product_category')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -882,6 +882,7 @@ class Inventory extends CI_Controller
         ]);
         $this->form_validation->set_rules('pcsperpack', 'product amount', 'required|trim|numeric');
         $this->form_validation->set_rules('packpersack', 'product pack/sack', 'required|trim|numeric');
+        $this->form_validation->set_rules('conversion', 'conversion', 'required|trim|numeric');
         $this->form_validation->set_rules('initial_stock', 'initial stock', 'required|trim');
         $this->form_validation->set_rules('warehouse', 'warehouse', 'required|trim');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
@@ -899,6 +900,7 @@ class Inventory extends CI_Controller
             $code = $this->input->post('code');
             $pcs = $this->input->post('pcsperpack');
             $pack = $this->input->post('packpersack');
+            $conv = $this->input->post('conversion');
             $initial_stock = $this->input->post('initial_stock');
             $price = $this->input->post('price');
             $category = $this->input->post('category');
@@ -913,6 +915,7 @@ class Inventory extends CI_Controller
                 'code' => $code,
                 'pcsperpack' => $pcs,
                 'packpersack' => $pack,
+                'conversion' => $conv,
                 'code' => $code,
                 'date' => $date,
                 'in_stock' => $initial_stock,
@@ -927,6 +930,7 @@ class Inventory extends CI_Controller
                 'code' => $code,
                 'pcsperpack' => $pcs,
                 'packpersack' => $pack,
+                'conversion' => $conv,
                 'date' => $date,
                 'price' => $price,
                 'categories' => $category,
@@ -1716,4 +1720,81 @@ class Inventory extends CI_Controller
 
     //     $this->load->view('inventory/view_qr', $data);
     // }
+
+    // Product category
+    // Product category
+    // Product category
+    public function product_category()
+    {
+        $data['title'] = 'Product Category';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['prod_cat'] = $this->db->get('product_category')->result_array();
+
+        $this->form_validation->set_rules('title', 'title', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/prod_cat', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $title = $this->input->post('title');
+            $url = $this->input->post('url');
+            $icon = $this->input->post('icon');
+            $data = [
+                'title' => $title,
+            ];
+            $this->db->insert('product_category', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> Product spec item ' . $title . ' added!</div>');
+            redirect('inventory/product_category');
+        }
+    }
+
+    public function editproductmenu()
+    {
+        $data['title'] = 'Product Menu';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['prod_cat'] = $this->db->get('product_category')->result_array();
+
+        $this->form_validation->set_rules('id', 'menu name', 'required|trim');
+        $this->form_validation->set_rules('title', 'menu name', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/prod_cat', $data);
+            $this->load->view('templates/footer');
+        } else {
+            //read from input input
+            $edit_id = $this->input->post('id');
+            $edit_title = $this->input->post('title');
+            //find edited submenu
+            $editedWebMenu = $this->db->get_where('product_category', array('id' => $edit_id))->row_array();
+            // edit DB
+            $data = [
+                'title' => $edit_title
+            ];
+            $this->db->where('id', $edit_id);
+            $this->db->update('product_category', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert"> Product Menu ' . $editedWebMenu["title"] . ' edited into ' . $edit_title . '!</div>');
+            redirect('inventory/product_category');
+        }
+    }
+
+    public function delete_productmenu()
+    {
+        // get deleted item
+        $itemtoDelete = $this->input->post('delete_productmenu_id');
+        // get data on deleted sub menu
+        $deletedWebMenu = $this->db->get_where('product_category', array('id' => $itemtoDelete))->row_array();
+        // delete the sub menu
+        $this->db->delete('product_category', array('id' => $itemtoDelete));
+        // send message
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Product menu ' . $deletedWebMenu["title"] . ' deleted!</div>');
+        redirect('inventory/product_category');
+    }
 }

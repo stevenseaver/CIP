@@ -343,7 +343,7 @@ class Menu extends CI_Controller
             $edit_url = $this->input->post('url');
             $edit_icon = $this->input->post('icon');
             //find edited submenu
-            $editedWebMenu = $this->db->get_where('web_menu', array('id' => $edit_id))->row_array();
+            $editedWebMenu = $this->db->get_where('product_menu', array('id' => $edit_id))->row_array();
             // edit DB
             $data = [
                 'title' => $edit_title,

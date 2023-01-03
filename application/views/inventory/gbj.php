@@ -11,16 +11,21 @@
         </div>
     </div>
 
-    <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newGBJ">
+    <a href="" class="btn btn-primary btn-icon-split mb-3 mr-1" data-toggle="modal" data-target="#newGBJ">
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
         </span>
         <span class="text">Add New Item</span>
     </a>
+    <a href="<?= base_url('inventory/product_category') ?>" class="btn btn-light btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-gear-wide-connected"></i>
+        </span>
+        <span class="text">Product Category Setting</span>
+    </a>
 
     <div class="card border-left-primary mb-3">
         <div class="row mx-4 my-3">
-            <h5 class="mx-0 mb-3 font-weight-bold text-primary">Product List</h5>
             <div class="table-responsive">
                 <div class="table-responsive">
                     <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -57,15 +62,18 @@
                                     <td><?= $fs['packpersack'] . ' pack' ?></td>
                                     <td><?= $fs['title'] ?></td>
                                     <td><?php
-                                        if ($fs['title'] != 'Bulk Product') {
-                                            echo number_format($fs['in_stock'], 0, ',', '.') . ' pack';
-                                            echo ' or ' . ($fs['in_stock'] / $fs['packpersack']) . ' sack';
-                                        } else {
+                                        if ($fs['categories'] == '6') {
                                             echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
                                             echo ' or ' . ($fs['in_stock'] / 25) . ' sack';
+                                        } else if ($fs['categories'] == '7') {
+                                            echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
+                                            echo ' or ' . ($fs['in_stock'] / $fs['conversion']) . ' sack';
+                                        } else {
+                                            echo number_format($fs['in_stock'], 0, ',', '.') . ' pack';
+                                            echo ' or ' . ($fs['in_stock'] / $fs['packpersack']) . ' sack';
                                         } ?></td>
                                     <td><?php
-                                        if ($fs['title'] != 'Bulk Product') {
+                                        if ($fs['categories'] != '6' and $fs['categories'] != '7') {
                                             echo number_format($fs['price'], 0, ',', '.') . '/pack';
                                         } else {
                                             echo number_format($fs['price'], 0, ',', '.') . '/kg';
@@ -128,9 +136,20 @@
                     <label for="url" class="col-form-label">Code</label>
                     <input type="text" class="form-control mb-1" id="code" name="code" placeholder="Item code">
                     <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small class="text-danger">Item code are permanent, make sure they are correct.</small>
+                    <small class="text-primary">Item code are permanent, make sure they are correct.</small>
                 </div>
-                <div class="row">
+                <div class="form-group">
+                    <!-- Item categories -->
+                    <label for="url" class="col-form-label">Categories</label>
+                    <select name="category" id="category" class="form-control" value="<?= set_value('category') ?>" onchange="category_check(this);">
+                        <option value="">--Select Categories--</option>
+                        <?php foreach ($cat as $fs) : ?>
+                            <option value="<?= $fs['id'] ?>"><?= $fs['title'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <?= form_error('category', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div id="packing_product" class="row" style="display:none">
                     <div class="col-6">
                         <div class="form-group">
                             <!-- Item code -->
@@ -148,6 +167,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group" id="weighted_product" style="display:none">
+                    <!-- Item code -->
+                    <label for="url" class="col-form-label">Weight Conversion</label>
+                    <input type="text" class="form-control mb-1" id="conversion" name="conversion" placeholder="Weight per sack">
+                    <?= form_error('conversion', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
                 <div class="form-group">
                     <!-- Item initial stock -->
                     <label for="url" class="col-form-label">Initial Stock</label>
@@ -159,17 +184,6 @@
                     <label for="url" class="col-form-label">Price</label>
                     <input type="text" class="form-control mb-1" id="price" name="price" placeholder="Add price">
                     <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
-                </div>
-                <div class="form-group">
-                    <!-- Item categories -->
-                    <label for="url" class="col-form-label">Categories</label>
-                    <select name="category" id="category" class="form-control" value="<?= set_value('category') ?>">
-                        <option value="">--Select Categories--</option>
-                        <?php foreach ($cat as $fs) : ?>
-                            <option value="<?= $fs['id'] ?>"><?= $fs['title'] ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                    <?= form_error('category', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
                 <div class="form-group">
                     <!-- Warehouse -->

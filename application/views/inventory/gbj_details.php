@@ -32,23 +32,36 @@
                     <p class="text-dark font-weight-bold"> <?= $getID['code'] ?></p>
                     <p class="text-dark mb-1">Stock : </p>
                     <p class="text-dark font-weight-bold"> <?php
-                                                            if ($getID['categories'] != '6') {
-                                                                echo number_format($getID['in_stock'], 0, ',', '.') . ' pack or ' . ($getID['in_stock'] / $getID['packpersack']) . ' sack';
-                                                            } else {
+                                                            if ($getID['categories'] == '6') {
                                                                 echo number_format($getID['in_stock'], 0, ',', '.') . ' kg or ' . ($getID['in_stock'] / 25) . ' sack';
+                                                            } else if ($getID['categories'] == '7') {
+                                                                echo number_format($getID['in_stock'], 0, ',', '.') . ' kg or ' . ($getID['in_stock'] / $getID['conversion']) . ' sack';
+                                                            } else {
+                                                                echo number_format($getID['in_stock'], 0, ',', '.') . ' pack or ' . ($getID['in_stock'] / $getID['packpersack']) . ' sack';
                                                             } ?></p>
                 </div>
                 <div class="col-lg-4">
-                    <p class="text-dark mb-1">Quantity/pack:</p>
-                    <p class="text-dark font-weight-bold"><?= $getID['pcsperpack'] . ' pcs' ?></p>
-                    <p class="text-dark mb-1">Pack/sack:</p>
-                    <p class="text-dark font-weight-bold"><?= $getID['packpersack'] . ' packs' ?></p>
+                    <?php if ($getID['categories'] != 6) { ?>
+                        <p class="text-dark mb-1">Quantity/pack:</p>
+                        <p class="text-dark font-weight-bold"><?= $getID['pcsperpack'] . ' pcs' ?></p>
+                        <p class="text-dark mb-1">Pack/sack:</p>
+                        <p class="text-dark font-weight-bold"><?= $getID['packpersack'] . ' packs' ?></p>
+                    <?php } else { ?>
+                        <p class="text-dark mb-1">Pack/sack:</p>
+                        <p class="text-dark font-weight-bold"><?= 25 . ' packs' ?></p>
+                    <?php } ?>
+                    <?php if ($getID['categories'] == 7) { ?>
+                        <p class="text-dark mb-1">Conversion:</p>
+                        <p class="text-dark font-weight-bold"><?= $getID['conversion'] . ' kg/sack' ?></p>
+                    <?php } else {
+                    }
+                    ?>
                     <p class="text-dark mb-2">Price: </p>
                     <p class="text-dark font-weight-bold">IDR <?php
-                                                                if ($getID['categories'] != '6') {
-                                                                    echo number_format($getID['price'], 0, ',', '.') . '/pack';
-                                                                } else {
+                                                                if ($getID['categories'] == '6' or $getID['categories'] == '7') {
                                                                     echo number_format($getID['price'], 0, ',', '.') . '/kg';
+                                                                } else {
+                                                                    echo number_format($getID['price'], 0, ',', '.') . '/pack';
                                                                 } ?></p>
                 </div>
                 <div class="col-lg-4 d-flex align-items-start justify-content-center">
