@@ -18,12 +18,12 @@
     </a>
 
     <!-- view pdf PO  -->
-    <!-- <a href="<?= base_url('purchasing/createPDF/1/') . $po_id . '/' . urldecode($sup_name) . '/' . $date . '/' . $tax ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+    <a href="<?= base_url('production/createPDF/1/') . $getID['transaction_id'] ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
         <span class="icon text-white-50">
             <i class="bi bi-eye"></i>
         </span>
-        <span class="text">View Purchase Order Preview</span>
-    </a> -->
+        <span class="text">View Production Order</span>
+    </a>
 
     <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">

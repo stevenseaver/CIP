@@ -145,13 +145,14 @@
                     <tr>
                         <td><?= $i ?></td>
                         <td><?= $ms['name'] ?></td>
-                        <td><?= number_format($ms['outgoing'], 2, ',', '.'); ?></td>
+                        <!-- <td><?= number_format($ms['outgoing'], 2, ',', '.'); ?></td> -->
+                        <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['outgoing'], 2, ',', '.'); ?>"></td>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php $subtotal = $ms['outgoing'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><?= $ms['item_desc'] ?></td>
                         <td>
-                            <a data-toggle="modal" data-target="#deleteItemPOModal" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['outgoing'] ?>" class="badge badge-danger clickable">Delete</a>
+                            <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['outgoing'] ?>" class="badge badge-danger clickable">Delete</a>
                         </td>
                     </tr>
                     <?php $temp = $temp + $subtotal;
@@ -181,11 +182,11 @@
 <!-- End of Main Content -->
 
 <!-- Modal For Delete Data -->
-<div class="modal fade" id="deleteItemPOModal" tabindex="-1" role="dialog" aria-labelledby="deleteItemPOModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteItemProdOrder" tabindex="-1" role="dialog" aria-labelledby="deleteItemProdOrderLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteItemPOModalLabel">Whoops!</h5>
+                <h5 class="modal-title" id="deleteItemProdOrderLabel">Whoops!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -194,7 +195,7 @@
             <form action="<?= base_url('production/delete_item') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <!-- item id -->
+                        <!-- prod id -->
                         <label for="url" class="col-form-label">Production Order ID</label>
                         <input type="text" class="form-control" id="delete_po_id" name="delete_po_id" readonly>
                         <!-- item id -->

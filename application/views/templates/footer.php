@@ -157,6 +157,27 @@
          });
      });
 
+     //js for amount change on production order quantity per item input on change
+     $('.material-qty').on('change', function() {
+         const id = $(this).data('id');
+         const prodID = $(this).data('prodID');
+
+         const qtyID = document.getElementById("materialAmount-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('production/update_amount'); ?>",
+             type: 'post',
+             data: {
+                 id: id,
+                 qtyID: qtyID,
+                 prodID: prodID
+             },
+             success: function() {
+                 //  document.location.href = "<?= base_url('production/add_prod/') ?>";
+             }
+         });
+     });
+
      //  JavaScript for Edit Role Modal
      $('#editRoleModal').on('show.bs.modal', function(event) {
 
@@ -751,8 +772,24 @@
          $(event.currentTarget).find('.modal-body input[name="delete_amount"]').val(amount);
      });
 
-     //  JavaScript for Adjust GBJ details transaction
+     //  JavaScript for delete PO per item transaction
      $('#deleteItemPOModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var po_id = $(event.relatedTarget).data('po');
+         var id = $(event.relatedTarget).data('id');
+         var name = $(event.relatedTarget).data('name');
+         var amount = $(event.relatedTarget).data('amount');
+
+         // input passed data using JS to object INPUT inside modal #deleteItemPOModal
+         $(event.currentTarget).find('.modal-body input[name="delete_po_id"]').val(po_id);
+         $(event.currentTarget).find('.modal-body input[name="delete_id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="delete_name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="delete_amount"]').val(amount);
+     });
+
+
+     //  JavaScript for delete Production Order per item transaction
+     $('#deleteItemProdOrder').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var po_id = $(event.relatedTarget).data('po');
          var id = $(event.relatedTarget).data('id');

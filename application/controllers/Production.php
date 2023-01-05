@@ -37,8 +37,6 @@ class Production extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //get material data
         $data['material'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
-        //get stock_roll warehouse data
-        // $data['rollType'] = $this->db->get('stock_roll')->result_array();
 
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
@@ -50,10 +48,44 @@ class Production extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    //update amount
+    public function update_amount()
+    {
+        $id = $this->input->post('id');
+        $prodID = $this->input->post('prodID');
+        $amount = $this->input->post('qtyID');
+
+        $date = time();
+
+        $data['material_edited'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+        $materialID = $data['material_edited']['code'];
+        $adjust_old = $data['material_edited']['outgoing'];
+
+        //get selected material stock_akhir or stock akhir from id = 7
+        $data['material_selected'] = $this->db->get_where('stock_material', ['code' => $materialID, 'status' => 7])->row_array();
+        $stock_akhir = $data['material_selected']['in_stock'];
+
+        $update_stock = ($stock_akhir + $adjust_old) - $amount;
+
+        $data2 = [
+            'in_stock' => $update_stock,
+            'date' => $date
+        ];
+
+        //update transaksi
+        $this->db->where('id', $id);
+        $this->db->set('outgoing', $amount);
+        $this->db->update('stock_material');
+        //update stock akhir
+        $this->db->where('status', '7');
+        $this->db->where('code', $materialID);
+        $this->db->update('stock_material', $data2);
+    }
+
     //ADD ITEM PO
     public function add_item_prod($id, $status, $warehouse)
     {
-        $data['title'] = 'Add Purchase Order';
+        $data['title'] = 'Add Production Order';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get all stock akhir material data
@@ -151,9 +183,30 @@ class Production extends CI_Controller
         $name = $this->input->post('delete_name');
         $amount = $this->input->post('delete_amount');
 
+        $date = time();
+
+        $data['material_edited'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+        $materialID = $data['material_edited']['code'];
+
+        //get selected material stock_akhir or stock akhir from id = 7
+        $data['material_selected'] = $this->db->get_where('stock_material', ['code' => $materialID, 'status' => 7])->row_array();
+        $stock_akhir = $data['material_selected']['in_stock'];
+
+        $update_stock = ($stock_akhir + $amount);
+
+        $data2 = [
+            'in_stock' => $update_stock,
+            'date' => $date
+        ];
+
+        //update stock akhir
+        $this->db->where('status', '7');
+        $this->db->where('code', $materialID);
+        $this->db->update('stock_material', $data2);
+        //delete_item
         $this->db->where('id', $id);
         $this->db->delete('stock_material');
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $name . ' with amount ' . $amount . '  deleted!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material ' . $name . ' with amount ' . $amount . '  deleted!</div>');
         redirect('production/add_prod/' . $po_id);
     }
 
@@ -165,7 +218,7 @@ class Production extends CI_Controller
         $this->db->where('transaction_id', $po_id);
         $this->db->delete('stock_material');
 
-        $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">PO unsaved, unsaved item are deleted!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Production order unsaved, item(s) are deleted!</div>');
         redirect('production/');
     }
 

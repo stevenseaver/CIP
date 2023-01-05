@@ -319,11 +319,13 @@ class Inventory extends CI_Controller
 
             if ($category == 'Saldo Akhir') {
                 // $this->db->set('in_stock', $adjust_amount);
-                $this->db->set('date', $date);
-                $this->db->where('id', $idToEdit);
-                $this->db->update('stock_material');
+                // $this->db->set('date', $date);
+                // $this->db->where('id', $idToEdit);
+                // $this->db->update('stock_material');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Saldo Akhir can not be adjusted!</div>');
+                redirect('inventory/material_details/' . $id);
             } else if ($category == 'Saldo Awal') {
-                // $this->db->set('in_stock', $adjust_amount);
+                $this->db->set('in_stock', $adjust_amount);
                 $this->db->set('date', $date);
                 $this->db->where('id', $idToEdit);
                 $this->db->update('stock_material');
@@ -335,6 +337,9 @@ class Inventory extends CI_Controller
 
                 $this->db->where('code', $code);
                 $this->db->update('stock_material', $data2, 'status = 7');
+
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $code .  ' adjusted!</div>');
+                redirect('inventory/material_details/' . $id);
             } else {
                 //purchasing adds to final stocks
                 if ($category == 'Purchasing') {
@@ -353,6 +358,9 @@ class Inventory extends CI_Controller
 
                     $this->db->where('code', $code);
                     $this->db->update('stock_material', $data2, 'status = 7');
+
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $code .  ' adjusted!</div>');
+                    redirect('inventory/material_details/' . $id);
                 }
                 //other than that, it reduces the final stocks
                 else {
@@ -371,11 +379,11 @@ class Inventory extends CI_Controller
 
                     $this->db->where('code', $code);
                     $this->db->update('stock_material', $data2, 'status = 7');
+
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $code .  ' adjusted!</div>');
+                    redirect('inventory/material_details/' . $id);
                 }
             }
-
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $code .  ' adjusted!</div>');
-            redirect('inventory/material_details/' . $id);
         }
     }
 
