@@ -48,40 +48,6 @@ class Production extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    //update amount
-    public function update_amount()
-    {
-        $id = $this->input->post('id');
-        $prodID = $this->input->post('prodID');
-        $amount = $this->input->post('qtyID');
-
-        $date = time();
-
-        $data['material_edited'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
-        $materialID = $data['material_edited']['code'];
-        $adjust_old = $data['material_edited']['outgoing'];
-
-        //get selected material stock_akhir or stock akhir from id = 7
-        $data['material_selected'] = $this->db->get_where('stock_material', ['code' => $materialID, 'status' => 7])->row_array();
-        $stock_akhir = $data['material_selected']['in_stock'];
-
-        $update_stock = ($stock_akhir + $adjust_old) - $amount;
-
-        $data2 = [
-            'in_stock' => $update_stock,
-            'date' => $date
-        ];
-
-        //update transaksi
-        $this->db->where('id', $id);
-        $this->db->set('outgoing', $amount);
-        $this->db->update('stock_material');
-        //update stock akhir
-        $this->db->where('status', '7');
-        $this->db->where('code', $materialID);
-        $this->db->update('stock_material', $data2);
-    }
-
     //ADD ITEM PO
     public function add_item_prod($id, $status, $warehouse)
     {
@@ -155,6 +121,41 @@ class Production extends CI_Controller
             redirect('production/add_item_prod/' . $po_id . '/3/1');
         }
     }
+
+    //update amount
+    public function update_amount()
+    {
+        $id = $this->input->post('id');
+        $prodID = $this->input->post('prodID');
+        $amount = $this->input->post('qtyID');
+
+        $date = time();
+
+        $data['material_edited'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+        $materialID = $data['material_edited']['code'];
+        $adjust_old = $data['material_edited']['outgoing'];
+
+        //get selected material stock_akhir or stock akhir from id = 7
+        $data['material_selected'] = $this->db->get_where('stock_material', ['code' => $materialID, 'status' => 7])->row_array();
+        $stock_akhir = $data['material_selected']['in_stock'];
+
+        $update_stock = ($stock_akhir + $adjust_old) - $amount;
+
+        $data2 = [
+            'in_stock' => $update_stock,
+            'date' => $date
+        ];
+
+        //update transaksi
+        $this->db->where('id', $id);
+        $this->db->set('outgoing', $amount);
+        $this->db->update('stock_material');
+        //update stock akhir
+        $this->db->where('status', '7');
+        $this->db->where('code', $materialID);
+        $this->db->update('stock_material', $data2);
+    }
+
 
     //get PO details
     public function prod_details($id)
@@ -272,7 +273,7 @@ class Production extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('production/bom', $data);
+        $this->load->view('production/input_roll', $data);
         $this->load->view('templates/footer');
     }
 
@@ -292,8 +293,56 @@ class Production extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function coba($input)
+    public function cogs_calculator()
     {
-        echo $input;
+        $data['title'] = 'COGS Calculator';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get material data
+        $data['material'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+
+        // $data['material_selected'] = $this->db->get('cogs_calculator')->result_array();
+        $this->load->model('Calculator_model', 'calculator');
+        $data['material_selected'] = $this->calculator->getMaterialName();
+
+        $this->form_validation->set_rules('materialSelect', 'material', 'required');
+        $this->form_validation->set_rules('amount', 'amount', 'required|trim');
+        $this->form_validation->set_rules('price', 'price', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('production/cogs_calc', $data);
+            $this->load->view('templates/footer');
+        } else {
+            //get data to be inserted to inventory stock_material warehouse
+            $materialName = $this->input->post('materialSelect');
+            $amount = $this->input->post('amount');
+            $price = $this->input->post('price');
+
+            $data = [
+                'material_id' => $materialName,
+                'amount_used' => $amount,
+                'price_per_unit' => $price
+            ];
+
+            $this->db->insert('cogs_calculator', $data);
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material added!</div>');
+            redirect('production/cogs_calculator/');
+        }
+    }
+
+    //update amount
+    public function update_cogs_amount()
+    {
+        $id = $this->input->post('id');
+        $amount = $this->input->post('qtyID');
+
+        //update transaksi
+        $this->db->where('id', $id);
+        $this->db->set('amount_used', $amount);
+        $this->db->update('cogs_calculator');
     }
 }
