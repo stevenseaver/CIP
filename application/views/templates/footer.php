@@ -196,6 +196,24 @@
          });
      });
 
+     //js for amount change on production order quantity per item input on change
+     $('.cogs-price').on('change', function() {
+         const id = $(this).data('id');
+         const price = document.getElementById("materialPrice-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('production/update_cogs_price'); ?>",
+             type: 'post',
+             data: {
+                 id: id,
+                 price: price
+             },
+             success: function() {
+                 document.location.href = "<?= base_url('production/cogs_calculator/') ?>";
+             }
+         });
+     });
+
      //  JavaScript for Edit Role Modal
      $('#editRoleModal').on('show.bs.modal', function(event) {
 

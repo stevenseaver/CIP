@@ -345,4 +345,32 @@ class Production extends CI_Controller
         $this->db->set('amount_used', $amount);
         $this->db->update('cogs_calculator');
     }
+
+    //update price
+    public function update_cogs_price()
+    {
+        $id = $this->input->post('id');
+        $price = $this->input->post('price');
+
+        //update transaksi
+        $this->db->where('id', $id);
+        $this->db->set('price_per_unit', $price);
+        $this->db->update('cogs_calculator');
+    }
+
+    //delete all cogs
+    public function delete_cogs_data()
+    {
+        $this->db->empty_table('cogs_calculator');
+        redirect('production/cogs_calculator/');
+    }
+
+    //delete data per id
+    public function delete_cogs_item($id)
+    {
+        //delete item
+        $this->db->where('id', $id);
+        $this->db->delete('cogs_calculator');
+        redirect('production/cogs_calculator/');
+    }
 }

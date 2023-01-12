@@ -52,7 +52,7 @@
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="amount" class="col-form-label">Amount</label>
-                    <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount in kg..">
+                    <input type="number" step=".01" min="0" max="10" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount in kg..">
                     <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
@@ -69,6 +69,7 @@
                     <th>Amount</th>
                     <th>Price</th>
                     <th>Subtotal</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,10 +83,11 @@
                     <tr>
                         <td><?= $i ?></td>
                         <td><?= $ms['name'] ?></td>
-                        <td><input id="materialAmount-<?= $ms['id'] ?>" class="cogs-qty text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['amount_used'], 2, ',', '.'); ?>"></td>
-                        <td><?= number_format($ms['price_per_unit'], 2, ',', '.'); ?></td>
+                        <td><input id="materialAmount-<?= $ms['id'] ?>" class="cogs-qty text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['amount_used'], 2, '.', ','); ?>"></td>
+                        <td><input id="materialPrice-<?= $ms['id'] ?>" class="cogs-price text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['price_per_unit'], 0, '.', ','); ?>"></td>
                         <?php $subtotal = $ms['amount_used'] * $ms['price_per_unit'] ?>
-                        <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
+                        <td class=" text-right"><?= number_format($subtotal, 2, '.', ','); ?></td>
+                        <td><a href="<?= base_url('production/delete_cogs_item/') . $ms['id'] ?>" class="badge badge-danger clickable">Delete</a></td>
                     </tr>
                     <?php $temp = $temp + $subtotal;
                     $i++;
@@ -94,19 +96,20 @@
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="3"> </td>
-                    <td class="right"><strong>Total</strong></td>
+                    <td colspan="4"> </td>
+                    <td class="right"><strong>Total Price</strong></td>
                     <?php $total = $temp; ?>
-                    <td class="right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
+                    <td class="right">IDR <?= $this->cart->format_number($total, '2', '.', ','); ?></td>
+                </tr>
+                <tr class="align-items-center text-primary font-weight-bold">
+                    <td colspan="4"> </td>
+                    <td class="right"><strong>COGS/Kg</strong></td>
+                    <?php $cogs = $total / 10; ?>
+                    <td class="right">IDR <?= $this->cart->format_number($cogs, '2', '.', ','); ?></td>
                 </tr>
             </tfoot>
         </table>
     </div>
-    <!-- <div class="footer text-right">
-        <a href="<?= base_url('production/delete_all_po/') . $po_id ?>" class="btn text-danger">Close and delete data</a>
-        <a data-toggle="modal" data-target="#deletePOModal" class=" btn text-danger">Close and delete data</a>
-        <a href="<?= base_url('production/') ?>" class="btn btn-primary">Save Order</a>
-    </div> -->
 </div>
 <!-- /.container-fluid -->
 
