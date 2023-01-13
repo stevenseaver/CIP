@@ -17,7 +17,7 @@
         <span class="text">Back</span>
     </a>
 
-    <form action="<?= base_url('production/add_item_prod/') . $po_id . '/3/2' ?>" method="post">
+    <form action="<?= base_url('production/add_roll_item/') . $po_id . '/2/2' ?>" method="post">
         <div class="form-group">
             <!-- Item code -->
             <label for="po_id" class="col-form-label">Production Order ID</label>
@@ -29,29 +29,29 @@
             <div class="col-6">
                 <div class="form-group">
                     <!-- Item categories -->
-                    <label for="materialSelect" class="col-form-label">Add Material</label>
-                    <select name="materialSelect" id="materialSelect" class="form-control" value="<?= set_value('materialSelect') ?>">
+                    <label for="rollType" class="col-form-label">Add Material</label>
+                    <select name="rollType" id="rollType" class="form-control" value="<?= set_value('rollType') ?>">
                         <option value="">--Select Categories--</option>
-                        <?php foreach ($material as $mt) : ?>
-                            <option value="<?= $mt['id'] ?>" data-price="<?= $mt['price'] ?>" data-stock="<?= $mt['in_stock'] ?>"><?= $mt['name'] ?></option>
+                        <?php foreach ($rollType as $rt) : ?>
+                            <option value="<?= $rt['id'] ?>" data-weight="<?= $rt['weight'] ?>" data-lipatan="<?= $rt['lipatan'] ?>"><?= $rt['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
-                    <?= form_error('materialSelect', '<small class="text-danger pl-2">', '</small>') ?>
+                    <?= form_error('rollType', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
             <div class="col-2">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="price" class="col-form-label">Price</label>
-                    <input type="currency" class="form-control" id="price" name="price" value="<?= set_value('price'); ?>" readonly>
-                    <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
+                    <label for="weight" class="col-form-label">Weight</label>
+                    <input type="text" class="form-control" id="weight" name="weight" value="<?= set_value('weight'); ?>" readonly>
+                    <?= form_error('weight', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
             <div class="col-2">
                 <div class="form-group">
                     <!-- Material in stock -->
-                    <label for="stock" class="col-form-label">In Stock</label>
-                    <input type="text" class="form-control" id="stock" name="stock" readonly value="<?= set_value('stock'); ?>">
+                    <label for="lipatan" class="col-form-label">Lipatan</label>
+                    <input type="text" class="form-control" id="lipatan" name="lipatan" readonly value="<?= set_value('lipatan'); ?>">
                 </div>
             </div>
             <div class="col-2">
@@ -65,18 +65,18 @@
             <div class="col-6">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="description" class="col-form-label">Description</label>
-                    <input type="text" class="form-control mb-1" id="description" name="description" placeholder="Product name/batch number">
-                    <?= form_error('description', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Product name and batch number. Mandatory</small>
+                    <label for="batch" class="col-form-label">Batch</label>
+                    <input type="text" class="form-control mb-1" id="batch" name="batch" placeholder="Product name/batch number">
+                    <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
+                    <small>Batch number. Mandatory</small>
                 </div>
             </div>
             <div class="col-6">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="item_desc" class="col-form-label">Item Description</label>
-                    <input type="text" class="form-control mb-1" id="item_desc" name="item_desc" placeholder="Input description such as mix amount etc..">
-                    <?= form_error('item_desc', '<small class="text-danger pl-2">', '</small>') ?>
+                    <label for="roll_no" class="col-form-label">Roll Number</label>
+                    <input type="text" class="form-control mb-1" id="roll_no" name="roll_no" placeholder="Input description such as mix amount etc..">
+                    <?= form_error('roll_no', '<small class="text-danger pl-2">', '</small>') ?>
                     <small>Optional</small>
                 </div>
             </div>
@@ -135,7 +135,7 @@
                 $isTax = 0;
                 $tax = 0;
                 ?>
-                <?php foreach ($material_selected as $ms) : ?>
+                <?php foreach ($rollType as $ms) : ?>
                     <?php
                     if ($ms['transaction_id'] != $po_id) {
                         continue;

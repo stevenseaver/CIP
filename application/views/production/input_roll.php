@@ -3,15 +3,65 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
-
-    <!-- 404 Error Text -->
-    <div class="text-center mb-5">
-        <div class="error mx-auto" data-text="404">404!</div>
-        <h4 class="lead text-dark">Coming soon</h4>
-        <p class="lead text-secondary">Please contact us through <a href="mailto:cs.sbplastik@gmail.com" target="_blank">email</a> or <a href="https://wa.me/+6282232057755" target="_blank">phone (WhatsApp)</a> in the moment.</p>
-        <a href="<?= base_url('user'); ?>" class="mb-5">Back to Dashboard!</a>
+    <div class="row">
+        <div class="col-lg-12">
+            <?= $this->session->flashdata('message'); ?>
+        </div>
     </div>
 
+    <?php if ($materialStock != null) {
+        $i = 1;
+        $temp = 0;
+        $before = '';
+    ?>
+        <div class="card border-left-primary mb-3">
+            <div class="row mx-4 my-3">
+                <div class="table-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Production ID</th>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1;
+                                $temp = 0; ?>
+                                <?php foreach ($materialStock as $inv) :
+                                    if ($before != $inv['transaction_id']) { ?>
+                                        <tr>
+                                            <td><?= $i ?></td>
+                                            <td><?= $inv['transaction_id'] ?></td>
+                                            <td><?= date('d F Y H:i:s', $inv['date']); ?></td>
+                                            <td><?= $inv['description'] ?></td>
+                                            <?php $value = $inv['price'] * $inv['in_stock'];
+                                            $temp = $temp + $value;  ?>
+                                            <td>
+                                                <a href="<?= base_url('production/prod_details/') . $inv['transaction_id'] ?>" class="badge badge-secondary">Details</a>
+                                                <a href="<?= base_url('production/add_roll/') . $inv['transaction_id'] ?>" class="badge badge-primary">Input Roll</a>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                        $before = $inv['transaction_id'];
+                                        $i++;
+                                    } else {
+                                    } ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php
+    } else { ?>
+        <div class="alert alert-danger" role="alert">There's no transaction! </a></div>
+    <? }
+    ?>
 </div>
 <!-- /.container-fluid -->
 

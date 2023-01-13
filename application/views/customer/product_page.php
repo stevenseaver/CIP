@@ -23,12 +23,16 @@
                         <img class="img-fluid rounded mb-3" src="<?= base_url() . $fs['picture'] ?>" alt="Product Image" style="width: 25rem;">
                         <h5 class="card-title text-primary font-weight-bold mb-1"><?= $fs['name'] ?></h5>
                         <small class="mb-3"><?= $fs['code'] ?></small>
-                        <p class="card-text mt-3">Available stocks: <?= $fs['in_stock'] ?></p>
+                        <?php if ($fs['categories'] == 6 or $fs['categories'] == 7) { ?>
+                            <p class="card-text mt-3">Available stocks: <?= $fs['in_stock'] ?> kg</p>
+                        <?php } else { ?>
+                            <p class="card-text mt-3">Available stocks: <?= $fs['in_stock'] ?> packs</p>
+                        <?php } ?>
                         <form action="<?= base_url('customer/add_to_cart/') . $fs['id'] ?>" method="post">
                             <div class="form-group">
                                 <!-- Item name -->
                                 <label for="amount" class="col-form-label small">Amount</label>
-                                <input type="text" value="1" max="<?= $fs['in_stock'] ?>" min="1" class="form-control rounded-pill mb-1" id="amount" name="amount">
+                                <input type="number" step="1" value="1" max="<?= $fs['in_stock'] ?>" min="1" class="form-control rounded-pill mb-1" id="amount" name="amount">
                                 <!-- <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?> -->
                             </div>
                             <div class="">

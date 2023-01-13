@@ -15,8 +15,6 @@ class Production extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
-        //get PROD ORDER database
-        // $data['materialStock'] = $this->db->get_where('stock_material', ['status' => 3])->result_array();
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
         $transaction_query = 1; //unprocessed purchase order data
@@ -266,15 +264,58 @@ class Production extends CI_Controller
         $data['title'] = 'Roll Input';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['rollType'] = $this->db->get('stock_roll')->result_array();
-        //get material database
-        $data['materialStock'] = $this->db->get('stock_material')->result_array();
+        //get inventory warehouse data
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $transaction_query = 1; //unprocessed purchase order data
+        $status = 3; //purchase order data only
+        $data['materialStock'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('production/input_roll', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function add_roll($prodID)
+    {
+        $data['title'] = 'Add Roll Input';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['rollType'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
+        //get inventory warehouse data
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $transaction_query = 1; //unprocessed purchase order data
+        $status = 3; //purchase order data only
+        $data['materialStock'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
+        $data['po_id'] = $prodID;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('production/add_input_roll', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function add_roll_item($prodID, $status, $warehouse)
+    {
+        echo 'prod ID:' . $prodID . ' ';
+        echo 'status:' . $status . ' ';
+        echo 'warehouse:' . $warehouse . ' ';
+
+        $item = $this->input->post('rollType');
+        $weight = $this->input->post('weight');
+        $lipatan = $this->input->post('lipatan');
+        $amount = $this->input->post('amount');
+        $batch = $this->input->post('batch');
+        $roll_no = $this->input->post('roll_no');
+
+        echo 'ITEM:' . $item . ' ';
+        echo 'weight:' . $weight . ' ';
+        echo 'lipatan:' . $lipatan . ' ';
+        echo 'amount:' . $amount . ' ';
+        echo 'batch:' . $batch . ' ';
+        echo 'roll-no:' . $roll_no . ' ';
     }
 
     public function gbj_report()

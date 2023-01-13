@@ -88,44 +88,43 @@ class Customer extends CI_Controller
             );
 
             //update cart
-            $this->db->insert('cart', $data_cart);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item added to cart!</div>');
+            // $this->db->insert('cart', $data_cart);
+            // $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item added to cart!</div>');
 
-            // data to update inventory database
-            $transaction_status = 4;
-            $code = $data['itemselect']['code'];
-            $category = $data['itemselect']['categories'];
-            $date = time();
-            $warehouse = 3;
-            $pcsperpack = $data['itemselect']['pcsperpack'];
-            $packpersack = $data['itemselect']['packpersack'];
-            $in_stockOld = $data['itemselect']['in_stock'];
+            // // data to update inventory database
+            // $transaction_status = 4;
+            // $code = $data['itemselect']['code'];
+            // $category = $data['itemselect']['categories'];
+            // $date = time();
+            // $warehouse = 3;
+            // $pcsperpack = $data['itemselect']['pcsperpack'];
+            // $packpersack = $data['itemselect']['packpersack'];
+            // $in_stockOld = $data['itemselect']['in_stock'];
 
-            $data_warehouse = [
-                'name' => $name,
-                'code' => $code,
-                'pcsperpack' => $pcsperpack,
-                'packpersack' => $packpersack,
-                'date' => $date,
-                'price' => $price,
-                'categories' => $category,
-                'outgoing' => $amount,
-                'status' => $transaction_status,
-                'warehouse' => $warehouse
-                // 'transaction' => 
-            ];
-            $data2_warehouse = [
-                'in_stock' => $in_stockOld - $amount,
-                'date' => $date
-            ];
+            // $data_warehouse = [
+            //     'name' => $name,
+            //     'code' => $code,
+            //     'pcsperpack' => $pcsperpack,
+            //     'packpersack' => $packpersack,
+            //     'date' => $date,
+            //     'price' => $price,
+            //     'categories' => $category,
+            //     'outgoing' => $amount,
+            //     'status' => $transaction_status,
+            //     'warehouse' => $warehouse
+            // ];
+            // $data2_warehouse = [
+            //     'in_stock' => $in_stockOld - $amount,
+            //     'date' => $date
+            // ];
 
             // update inventory
-            $this->db->insert('stock_finishedgoods', $data_warehouse);
+            // $this->db->insert('stock_finishedgoods', $data_warehouse);
 
-            $this->db->where('code', $code);
-            $this->db->update('stock_finishedgoods', $data2_warehouse, 'status = 7');
+            // $this->db->where('code', $code);
+            // $this->db->update('stock_finishedgoods', $data2_warehouse, 'status = 7');
 
-            redirect('customer');
+            // redirect('customer');
         }
     }
 

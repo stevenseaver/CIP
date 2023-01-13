@@ -939,6 +939,15 @@
          document.getElementById("price").value = price;
      });
 
+     //javascript for select material for roll input form
+     $('#rollType').on('change', function(event) {
+         var weight = $(this).find(':selected').data('weight');
+         var lipatan = $(this).find(':selected').data('lipatan');
+
+         document.getElementById("weight").value = weight;
+         document.getElementById("lipatan").value = lipatan;
+     });
+
      //javascript for select roll
      $('#rolltype').on('change', function(event) {
          var code = $(this).find(':selected').data('code');
