@@ -30,6 +30,7 @@ class Warehouse_model extends CI_Model
                       JOIN `supplier`
                       ON `stock_material`.`supplier` = `supplier`.`id`
             WHERE `transaction_status` = $trans_id  AND `status` = $status 
+            ORDER BY `transaction_id`
             ";
     return $this->db->query($query)->result_array();
   }

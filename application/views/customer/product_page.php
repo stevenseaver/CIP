@@ -3,6 +3,7 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-900"><?= $title ?></h1>
+    <h1 class="h3 mb-4 text-gray-900"><?= $ref ?></h1>
     <div class="row">
         <div class="col mb-0">
             <?= $this->session->flashdata('message'); ?>
@@ -28,7 +29,7 @@
                         <?php } else { ?>
                             <p class="card-text mt-3">Available stocks: <?= $fs['in_stock'] ?> packs</p>
                         <?php } ?>
-                        <form action="<?= base_url('customer/add_to_cart/') . $fs['id'] ?>" method="post">
+                        <form action="<?= base_url('customer/add_to_cart/') . $fs['id'] . '/' . $ref ?>" method="post">
                             <div class="form-group">
                                 <!-- Item name -->
                                 <label for="amount" class="col-form-label small">Amount</label>

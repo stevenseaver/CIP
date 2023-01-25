@@ -16,8 +16,14 @@ class Customer extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
-        //get finished good database
-        // $data['finishedStock'] = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+        // get trans ID
+        $year = date('y');
+        $month = date('m');
+        $serial = rand(100, 999);
+        //ref invoice
+        $ref = 'INV-' . $year . $month . '-' . $data['user']['id'] . $serial;
+
+        $data['ref'] = $ref;
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
@@ -46,7 +52,7 @@ class Customer extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function add_to_cart($id)
+    public function add_to_cart($id, $ref)
     {
         //load user data per session
         $data['title'] = 'Products List';
@@ -77,19 +83,23 @@ class Customer extends CI_Controller
             $prod_cat = $data['itemselect']['categories'];
             $subtotal = $data['itemselect']['price'] * $amount;
 
+            $date = time();
+
             $data_cart = array(
+                'ref' => $ref,
+                'date' => $date,
                 'item_id' => $id,
                 'customer_id' => $customer,
-                'qty' => $amount,
                 'item_name' => $name,
-                'price' => $price,
                 'prod_cat' => $prod_cat,
+                'qty' => $amount,
+                'price' => $price,
                 'subtotal' => $subtotal
             );
 
-            //update cart
-            // $this->db->insert('cart', $data_cart);
-            // $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item added to cart!</div>');
+            // update cart
+            $this->db->insert('cart', $data_cart);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item added to cart!</div>');
 
             // // data to update inventory database
             // $transaction_status = 4;
@@ -124,7 +134,7 @@ class Customer extends CI_Controller
             // $this->db->where('code', $code);
             // $this->db->update('stock_finishedgoods', $data2_warehouse, 'status = 7');
 
-            // redirect('customer');
+            redirect('customer');
         }
     }
 
@@ -152,7 +162,6 @@ class Customer extends CI_Controller
         $ItemID = $this->input->post('delete_item_id');
         $CustName = $this->input->post('cust_name');
         $ItemName = $this->input->post('delete_item_name');
-        $amount = $this->input->post('item_amount');
 
         $this->db->where('id', $ItemID);
         $this->db->delete('cart');
@@ -267,7 +276,7 @@ class Customer extends CI_Controller
 
                 // $this->db->where('customer_id', $id_cust);
                 // $this->db->where('status', $status);
-                // $this->db->update('cart', $data_db);
+                // $this->db->update('stock_finishedgoods', $data_db);
 
                 redirect('customer/history');
             } else {

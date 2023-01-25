@@ -17,8 +17,8 @@ class Production extends CI_Controller
 
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $transaction_query = 1; //unprocessed purchase order data
-        $status = 3; //purchase order data only
+        $transaction_query = 1; //unprocessed production order data
+        $status = 3; //production order data only
         $data['materialStock'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
 
         $this->load->view('templates/header', $data);
