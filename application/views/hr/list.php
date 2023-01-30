@@ -6,21 +6,19 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <?= form_error('name', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('nik', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('address', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('hp', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('role_id', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('password1', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('password2', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
             <?= $this->session->flashdata('message'); ?>
 
-            <!-- <a href="" class="btn btn-primary mb-3">Add New User</a> -->
             <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newUser">
                 <span class="icon text-white-50">
                     <i class="fas fa-fw fa-user-plus"></i>
                 </span>
                 <span class="text">Add New Employee</span>
+            </a>
+            <a href="<?= base_url('hr/restart_count/0')?>" class="btn btn-light btn-icon-split mb-3">
+                <span class="icon text-white-50">
+                    <i class="bi bi-recycle "></i>
+                </span>
+                <span class="text">Restart Leave Count</span>
             </a>
         </div>
     </div>
@@ -74,6 +72,7 @@
                                 <td>
                                     <a href="<?= base_url('hr/toggleactive/') . $u['id'] . '/' . $u['is_active'] . '/' . urldecode($u['name']) ?>" class="badge badge-warning">Toggle Active</a>
                                     <!-- <a href="<?= base_url('hr/deleteuser/') . $u['id'] . '/' . urldecode($u['name']) ?>" class="badge badge-danger">Delete</a> -->
+                                    <a href="<?= base_url('hr/restart_count/' . $u['id'])?>" class="badge badge-primary clickable">Restart Leave Count</a>
                                     <a data-toggle="modal" data-target="#deleteEmployee" data-id="<?= $u['id'] ?>" data-name="<?= $u['name'] ?>" class="badge badge-danger clickable">Delete</a>
                             </tr>
                             <?php $i++; ?>

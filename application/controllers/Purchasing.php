@@ -280,6 +280,7 @@ class Purchasing extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
+        $data['user_name'] = $data['user']['name'];
         $data['ref'] = $po_id;
         $data['sup_name'] = urldecode($supplier);
         $data['date'] = $date;

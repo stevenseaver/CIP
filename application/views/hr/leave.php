@@ -6,15 +6,8 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <?= form_error('name', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('nik', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('address', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('hp', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('role_id', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('password1', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-            <?= form_error('password2', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
+            <?= $this->session->flashdata('message'); ?>
             <?= $this->session->flashdata('approval'); ?>
-
             <!-- <a href="" class="btn btn-primary mb-3">Add New User</a> -->
         </div>
     </div>

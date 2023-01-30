@@ -25,8 +25,34 @@ class HR extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function restart_count($selector)
+    {
+        $new_leave_count = 12;
+
+        if ($selector == 0){ 
+            $this->db->set('leave_count', $new_leave_count);
+            $this->db->where('role_id !=', 3);
+            $this->db->update('user');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Leave count restarted!</div>');
+        } else {
+            $this->db->set('leave_count', $new_leave_count);
+            $this->db->where('role_id !=', 3 AND 'id' == $selector);
+            $this->db->update('user');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Leave count for user ID ' . $selector . ' restarted!</div>');
+        }
+
+
+        redirect('hr/employee');
+    }
+
     public function approve($nik, $start, $finish)
     {
+        //get data leave_count from user database
+        $data['user'] = $this->db->get_where('user', ['nik' => $nik])->row_array();
+        $leave_count = $data['user']['leave_count'];
+
         //send message
         $this->session->set_flashdata('approval', '<div class="alert alert-success" role="alert">Request approved!</div>');
 
@@ -34,6 +60,11 @@ class HR extends CI_Controller
         $array = array('user_nik' => $nik,  'start_date' => $start, 'finish_date' => $finish);
         $this->db->where($array);
         $this->db->update('leave_list');
+
+        $new_leave_count = $leave_count - 1;
+        $this->db->set('leave_count', $new_leave_count);
+        $this->db->where('nik', $nik);
+        $this->db->update('user');
 
         redirect('hr');
     }
@@ -101,10 +132,12 @@ class HR extends CI_Controller
         $this->form_validation->set_rules('password2', 'password', 'required|trim|min_length[8]|matches[password1]');
 
         if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops! Some input are missing. Please try again.</div>');
+
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('admin/user-management', $data);
+            $this->load->view('hr/list', $data);
             $this->load->view('templates/footer');
         } else {
             $name = $this->input->post('name', true);

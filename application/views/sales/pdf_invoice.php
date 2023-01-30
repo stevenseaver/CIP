@@ -2,13 +2,21 @@
 $pdf = new \TCPDF();
 
 // set document information
-$pdf->SetCreator('comp');
+$pdf->SetCreator($user_name);
 $pdf->SetAuthor('CIP Information System');
 $pdf->SetTitle('Invoice');
 $pdf->SetSubject('Transaction Details');
 $pdf->SetKeywords('invoice, sales, transaction');
 
-$pdf->AddPage('L', 'mm', 'A4');
+$pdf->AddPage('P', 'mm', 'A4');
+$pdf->SetFont('', 'B', 12);
+$pdf->Cell(0, 7, "Plastik Daur Ulang", 0, 1, 'L');
+$pdf->SetFont('', '', 8);
+$pdf->Cell(0, 0, "Pergudangan dan Industri Sinar Gedangan A-20", 0, 1, 'L');
+$pdf->Cell(0, 0, "Sidoarjo - Indonesia", 0, 1, 'L');
+$pdf->Cell(0, 0, "NIB: 0220103452894", 0, 1, 'L');
+$pdf->SetAutoPageBreak(true, 0);
+
 $pdf->SetFont('', 'B', 20);
 $pdf->Cell(0, 15, "Invoice", 0, 1, 'L');
 $pdf->SetAutoPageBreak(true, 0);
@@ -33,7 +41,7 @@ $pdf->Cell(100, 7, date('d F Y H:i', $date), 0, 1, 'L');
 $pdf->Ln(7);
 $pdf->SetFont('', 'B', 12);
 $pdf->Cell(10, 9, "No", 1, 0, 'C');
-$pdf->Cell(125, 9, "Item", 1, 0, 'C');
+$pdf->Cell(85, 9, "Item", 1, 0, 'C');
 $pdf->Cell(30, 9, "Qty", 1, 0, 'C');
 $pdf->Cell(30, 9, "Price (IDR)", 1, 0, 'C');
 $pdf->Cell(40, 9, "Subtotal (IDR)", 1, 1, 'C');
@@ -47,7 +55,7 @@ $grandTotal = 0;
 foreach ($dataCart as $data) {
     $i++;
     $pdf->Cell(10, 8, $i, 1, 0, 'C');
-    $pdf->Cell(125, 8, $data->item_name, 1, 0);
+    $pdf->Cell(85, 8, $data->item_name, 1, 0);
     if ($data->prod_cat == 6) {
         $pdf->Cell(30, 8, $data->qty . ' Kg', 1, 0, 'C');
     } else {
@@ -62,16 +70,16 @@ $total = $temp;
 $tax = 0; //tax percentage
 
 $pdf->SetFont('', 'B', 12);
-$pdf->Cell(195, 7, "Total", 1, 0, 'R');
+$pdf->Cell(155, 7, "Total", 1, 0, 'R');
 $pdf->Cell(40, 7, $this->cart->format_number($total, '0', ',', '.'), 1, 1, 'C');
 $pdf->SetFont('', 'B', 12);
-$pdf->Cell(195, 7, "Tax : " . $tax . "%", 1, 0, 'R');
+$pdf->Cell(155, 7, "Tax : " . $tax . "%", 1, 0, 'R');
 
 $taxValue = $total * ($tax / 100);
 $pdf->Cell(40, 7, $this->cart->format_number($taxValue, '0', ',', '.'), 1, 1, 'C');
 
 $grandTotal = $total + $taxValue;
-$pdf->Cell(195, 7, "Total", 1, 0, 'R');
+$pdf->Cell(155, 7, "Total", 1, 0, 'R');
 $pdf->Cell(40, 7, $this->cart->format_number($grandTotal, '0', ',', '.'), 1, 1, 'C');
 
 //ENGLISH TERMS AND CONDITIONS
@@ -98,9 +106,10 @@ $pdf->Cell(277, 1, "", 0, 1, 'L');
 $pdf->SetFont('', '', 8);
 $pdf->Cell(277, 5, "1. Nota ini dikeluarkan komputer, tidak perlu tanda tangan.", 0, 1, 'L');
 $pdf->Cell(277, 5, "2. Produk kami digaransi selama 10-hari mencakup pengerjaan las dan jumlah barang.", 0, 1, 'L');
-$pdf->Cell(277, 5, "3. Dengan menggunakan layanan, perangkat lunak, ataupun melakukan transaksi dengan kami, Anda telah menyetujui syarat dan ketetentuan yang berlaku.", 0, 1, 'L');
+$pdf->Cell(277, 5, "3. Dengan menggunakan layanan ataupun melakukan transaksi dengan kami, Anda telah menyetujui syarat dan ketetentuan yang berlaku.", 0, 1, 'L');
 $pdf->Cell(277, 5, "4. Klaim garansi diluar waktu garansi bukan tanggung jawab kami.", 0, 1, 'L');
 $pdf->Cell(277, 5, "5. Kami akan mengganti barang dengan barang sejenis atau lebih mahal, atau mengembalikan uang anda sesuai hak prerogatif kami.", 0, 1, 'L');
-$pdf->Cell(277, 5, "6. Perbedaan harga antara barang yang diganti dengan barang pengganti, atau biaya pengiriman yang timbul harus dibayarkan oleh pelanggan.", 0, 1, 'L');
+$pdf->Cell(277, 5, "6. Perbedaan harga antara barang yang diganti dengan barang pengganti, atau biaya pengiriman yang timbul ditanggung oleh pelanggan.", 0, 1, 'L');
 $pdf->Cell(277, 5, "7. Hubungi layanan pelanggan kami di +62 822 3205 7755 jika ada pertanyaan.", 0, 1, 'L');
-$pdf->Output('Invoice.pdf');
+$pdf->Cell(100, 10, "Printed by " . $user_name . ' ' . date('d-m-Y h:m:s'), 0, 1, 'L');
+$pdf->Output($ref. '.pdf');

@@ -111,6 +111,7 @@ class Sales extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
+        $data['user_name'] = $data['user']['name'];
         $data['ref'] = $inv;
         $data['cust_name'] = urldecode($customer);
         $data['date'] = $date;
