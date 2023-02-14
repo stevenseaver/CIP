@@ -10,11 +10,11 @@
     </div>
 
     <!-- back button -->
-    <a href="<?= base_url('production/') ?>" class="btn btn-secondary btn-icon-split mb-3">
+    <a href="<?= base_url('production/') ?>" class="btn btn-white btn-icon-split mb-3">
         <span class="icon text-white-50">
-            <i class="bi bi-arrow-left"></i>
+            <i class="bi bi-arrow-left text-dark"></i>
         </span>
-        <span class="text">Back</span>
+        <span class="text text-dark">Back</span>
     </a>
 
     <form action="<?= base_url('production/add_item_prod/') . $po_id . '/3/2' ?>" method="post">
@@ -74,42 +74,12 @@
             <div class="col-6">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="item_desc" class="col-form-label">Item Description</label>
-                    <input type="text" class="form-control mb-1" id="item_desc" name="item_desc" placeholder="Input description such as mix amount etc..">
+                    <label for="item_desc" class="col-form-label">Mixing Formula</label>
+                    <input type="number" min="1" max="100" class="form-control mb-1" id="campuran" name="campuran" placeholder="Mix amount">
                     <?= form_error('item_desc', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Optional</small>
                 </div>
             </div>
         </div>
-
-        <!-- <div class="row input-group mx-3 mt-3">
-            <div class="form-group col-lg-5 mr-2">
-                <text class="mb-1" for="roll-type">Goods</text>
-                <select name="rolltype" id="rolltype" class="form-control">
-                    <option value="">--Select [ROLL] Product--</option>
-                    <?php foreach ($rollType as $rt) : ?>
-                        <?php if ($rt['status'] != 7) {
-                            continue;
-                        } else {
-                        }
-                        ?>
-                        <option class="#rolltype" value="<?= $rt['id'] ?>" data-code="<?= $rt['code'] ?>" data-weight="<?= $rt['weight'] ?>" data-lipatan="<?= $rt['lipatan'] ?>"><?= $rt['name'] ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="form-group col-lg-2 mr-3">
-                <text class="mb-1" for="code">Code</text>
-                <input type="text" class="form-control" id="code" name="code" readonly>
-            </div>
-            <div class="form-group col-lg-2 mr-3">
-                <text class="mb-1" for="weight">Weight</text>
-                <input type="text" class="form-control" id="weight" name="weight" readonly>
-            </div>
-            <div class="form-group col-lg-2 mr-3">
-                <text class="mb-1" for="lipatan">Lip</text>
-                <input type="text" class="form-control" id="lipatan" name="lipatan" readonly>
-            </div>
-        </div> -->
 
         <input class="btn-add-item btn btn-primary mb-3" type="submit"></input>
         <p class="align-items-center">Data input are automatically saved.</p>
@@ -124,7 +94,8 @@
                     <th>Amount</th>
                     <th>Price</th>
                     <th class="text-right">Subtotal</th>
-                    <th>Description</th>
+                    <th>Mix Amount</th>
+                    <th>Formula</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -141,6 +112,7 @@
                         continue;
                     } else {
                     }
+                    $formula = $ms['outgoing']/($ms['item_desc']*10)
                     ?>
                     <tr>
                         <td><?= $i ?></td>
@@ -151,6 +123,7 @@
                         <?php $subtotal = $ms['outgoing'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><?= $ms['item_desc'] ?></td>
+                        <td><?= $formula ?></td>
                         <td>
                             <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['outgoing'] ?>" class="badge badge-danger clickable">Delete</a>
                         </td>
@@ -192,7 +165,7 @@
                 </button>
             </div>
             <p class="mx-3 mt-3 mb-0">You're about to delete this item. Are you sure?</p>
-            <form action="<?= base_url('production/delete_item') ?>" method="post">
+            <form action="<?= base_url('production/delete_item_prod_order') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- prod id -->
@@ -229,7 +202,7 @@
                 </button>
             </div>
             <p class="mx-3 mt-3 mb-0">Closing this window will delete all production order data you've entered. Are you sure?</p>
-            <form action="<?= base_url('production/delete_all_po/') ?>" method="post">
+            <form action="<?= base_url('production/delete_all_prod_order/') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- item id -->

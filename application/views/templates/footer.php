@@ -940,24 +940,26 @@
      });
 
      //javascript for select material for roll input form
-     $('#rollType').on('change', function(event) {
+     $('#rollSelect').on('change', function(event) {
          var weight = $(this).find(':selected').data('weight');
          var lipatan = $(this).find(':selected').data('lipatan');
+         var code = $(this).find(':selected').data('code');
 
          document.getElementById("weight").value = weight;
          document.getElementById("lipatan").value = lipatan;
+         document.getElementById("code").value = code;
      });
 
      //javascript for select roll
-     $('#rolltype').on('change', function(event) {
-         var code = $(this).find(':selected').data('code');
-         var weight = $(this).find(':selected').data('weight');
-         var lipatan = $(this).find(':selected').data('lipatan');
+    //  $('#rolltype').on('change', function(event) {
+    //      var code = $(this).find(':selected').data('code');
+    //      var weight = $(this).find(':selected').data('weight');
+    //      var lipatan = $(this).find(':selected').data('lipatan');
 
-         document.getElementById("code").value = code;
-         document.getElementById("weight").value = weight;
-         document.getElementById("lipatan").value = lipatan;
-     });
+    //      document.getElementById("code").value = code;
+    //      document.getElementById("weight").value = weight;
+    //      document.getElementById("lipatan").value = lipatan;
+    //  });
 
      $(document).ready(function() {
          var table = $('#cogstable').DataTable({

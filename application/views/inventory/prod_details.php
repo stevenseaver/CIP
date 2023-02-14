@@ -26,13 +26,12 @@
         </div>
     </div>
 
-
     <!-- back button -->
-    <a href="<?= base_url('inventory/prod_wh/') ?>" class="btn btn-secondary btn-icon-split mb-3">
+    <a href="<?= base_url('inventory/prod_wh/') ?>" class="btn btn-white btn-icon-split mb-3">
         <span class="icon text-white-50">
-            <i class="bi bi-arrow-left"></i>
+            <i class="bi bi-arrow-left text-dark"></i>
         </span>
-        <span class="text">Back</span>
+        <span class="text text-dark">Back</span>
     </a>
 
     <a href="" data-toggle="modal" data-target="#newTransModal" data-name="<?= $getID['name'] ?>" data-code=" <?= $getID['code'] ?>" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newMaterial">
@@ -51,7 +50,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Roll</th>
-                                <th>Code</th>
+                                <th>Transaction id</th>
                                 <th>Date Created</th>
                                 <th>Inbound(Kg)</th>
                                 <th>Outbound(Kg)</th>
@@ -72,7 +71,7 @@
                                 <tr>
                                     <td><?= $i ?></td>
                                     <td><?= $rs['name'] ?></td>
-                                    <td><?= $rs['code'] ?></td>
+                                    <td><?= $rs['transaction_id'] ?></td>
                                     <td><?= date('d F Y H:i:s', $rs['date']); ?></td>
                                     <td><?= number_format($rs['incoming'], 2, ',', '.') ?></td>
                                     <td><?= number_format($rs['outgoing'], 2, ',', '.') ?></td>

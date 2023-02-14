@@ -10,11 +10,11 @@
     </div>
 
     <!-- back button -->
-    <a href="<?= base_url('production/') ?>" class="btn btn-secondary btn-icon-split mb-3">
+    <a href="<?= base_url('production/') ?>" class="btn btn-white btn-icon-split mb-3">
         <span class="icon text-white-50">
-            <i class="bi bi-arrow-left"></i>
+            <i class="bi bi-arrow-left text-dark"></i>
         </span>
-        <span class="text">Back</span>
+        <span class="text text-dark">Back</span>
     </a>
 
     <!-- view pdf PO  -->
@@ -45,7 +45,8 @@
                     <th>Amount Used</th>
                     <th>Price</th>
                     <th class="text-right">Subtotal</th>
-                    <th>Description</th>
+                    <th>Mix Amount</th>
+                    <th>Formula</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,6 +60,7 @@
                         continue;
                     } else {
                     }
+                    $formula = $ms['outgoing']/($ms['item_desc']*10)
                     ?>
                     <tr>
                         <td><?= $i ?></td>
@@ -68,6 +70,7 @@
                         <?php $subtotal = $ms['outgoing'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><?= $ms['item_desc'] ?></td>
+                        <td><?= $formula ?></td>
                     </tr>
                     <?php $temp = $temp + $subtotal; ?>
                     <?php $i++; ?>

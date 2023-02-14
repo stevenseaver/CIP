@@ -61,6 +61,7 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('materialSelect', 'material', 'required');
         $this->form_validation->set_rules('amount', 'amount', 'required|trim');
         $this->form_validation->set_rules('description', 'description', 'required|trim');
+        $this->form_validation->set_rules('campuran', 'mix amount', 'required|trim|numeric');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -77,7 +78,7 @@ class Production extends CI_Controller
             $date = time();
             $amount = $this->input->post('amount');
             $description = $this->input->post('description');
-            $item_desc = $this->input->post('item_desc');
+            $campuran = $this->input->post('campuran');
 
             $material_selected = $this->db->get_where('stock_material', ['id' => $materialID, 'status' => 7])->row_array();
             $materialName = $material_selected["name"];
@@ -98,7 +99,7 @@ class Production extends CI_Controller
                 'supplier' => $supplier,
                 'transaction_status' => $po_status,
                 'description' => $description,
-                'item_desc' => $item_desc
+                'campuran' => $campuran
             ];
 
             $this->db->insert('stock_material', $data);
@@ -154,7 +155,6 @@ class Production extends CI_Controller
         $this->db->update('stock_material', $data2);
     }
 
-
     //get PO details
     public function prod_details($id)
     {
@@ -174,8 +174,9 @@ class Production extends CI_Controller
         $this->load->view('production/prodorder_details', $data);
         $this->load->view('templates/footer');
     }
-
-    public function delete_item()
+    
+    //delete Production Order per item
+    public function delete_item_prod_order()
     {
         $po_id = $this->input->post('delete_po_id');
         $id = $this->input->post('delete_id');
@@ -209,7 +210,7 @@ class Production extends CI_Controller
         redirect('production/add_prod/' . $po_id);
     }
 
-    public function delete_all_po()
+    public function delete_all_prod_order()
     {
         $po_id = $this->input->post('delete_po_id');
 
@@ -220,45 +221,9 @@ class Production extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Production order unsaved, item(s) are deleted!</div>');
         redirect('production/');
     }
-
-    public function calculateCOGS()
-    {
-        $data['title'] = 'Cost of Product';
-        $data['user'] = $this->db->get_where('user', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
-        $data['rollType'] = $this->db->get('stock_roll')->result_array();
-        //get material database
-        $data['materialStock'] = $this->db->get('stock_material')->result_array();
-
-        $this->form_validation->set_rules('inputFormula', 'formula', 'trim|required');
-        $this->form_validation->set_rules('price', 'price', 'trim|required');
-
-        if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('production/cops', $data);
-            $this->load->view('templates/footer');
-        } else {
-            $formula = $this->input->post('inputFormula');
-            $price = $this->input->post('price');
-
-            //calculate item subtotal
-            $weight = $formula / 10;
-            $subtotal = $weight * $price;
-
-            $data['weight'] = $weight;
-            $data['subtotal'] = $subtotal;
-
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('production/cops', $data);
-            $this->load->view('templates/footer');
-        }
-    }
-
+    /*** INPUT ROLL
+     * ROLL ITEM INPUT AFTER BEING EXTRUDED VIA EXTRUDER MACHINE
+     */
     public function inputRoll()
     {
         $data['title'] = 'Roll Input';
@@ -277,17 +242,35 @@ class Production extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function input_roll_details($prodID)
+    {
+        $data['title'] = 'Roll Input Details';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
+    
+        //get inventory warehouse data
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+        $data['po_id'] = $prodID;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('production/input_roll_details', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function add_roll($prodID)
     {
         $data['title'] = 'Add Roll Input';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['rollType'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
+        $data['rollSelect'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
+        $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
+        
         //get inventory warehouse data
-        $this->load->model('Warehouse_model', 'warehouse_id');
-        $transaction_query = 1; //unprocessed purchase order data
-        $status = 3; //purchase order data only
-        $data['materialStock'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
         $data['po_id'] = $prodID;
 
         $this->load->view('templates/header', $data);
@@ -299,23 +282,73 @@ class Production extends CI_Controller
 
     public function add_roll_item($prodID, $status, $warehouse)
     {
-        echo 'prod ID:' . $prodID . ' ';
-        echo 'status:' . $status . ' ';
-        echo 'warehouse:' . $warehouse . ' ';
+        $data['title'] = 'Add Roll Input';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['rollSelect'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
+        $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
+        
+        //get inventory warehouse data
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+        $data['po_id'] = $prodID;
 
-        $item = $this->input->post('rollType');
-        $weight = $this->input->post('weight');
-        $lipatan = $this->input->post('lipatan');
-        $amount = $this->input->post('amount');
-        $batch = $this->input->post('batch');
-        $roll_no = $this->input->post('roll_no');
+        $this->form_validation->set_rules('rollSelect', 'roll item', 'trim|required');
+        $this->form_validation->set_rules('code', 'code', 'trim|required');
+        $this->form_validation->set_rules('amount', 'amount', 'trim|required');
+        $this->form_validation->set_rules('batch', 'batch', 'trim|required');
+        $this->form_validation->set_rules('roll_no', 'roll number', 'trim|required');
 
-        echo 'ITEM:' . $item . ' ';
-        echo 'weight:' . $weight . ' ';
-        echo 'lipatan:' . $lipatan . ' ';
-        echo 'amount:' . $amount . ' ';
-        echo 'batch:' . $batch . ' ';
-        echo 'roll-no:' . $roll_no . ' ';
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('production/add_input_roll', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $item = $this->input->post('rollSelect');
+            $code = $this->input->post('code');
+            $weight = $this->input->post('weight');
+            $lipatan = $this->input->post('lipatan');
+            $date = time();
+            $amount = $this->input->post('amount');
+            $batch = $this->input->post('batch');
+            $roll_no = $this->input->post('roll_no');
+
+            $data = [ 
+                'name' => $item,
+                'code' => $code,
+                'price' => 0,
+                'date' => $date,
+                'weight' => $weight,
+                'lipatan' => $lipatan,
+                'in_stock' => 0,
+                'incoming' => $amount,
+                'outgoing' => 0,
+                'status' => 3,
+                'warehouse' => 2,
+                'transaction_id' => $prodID,
+                'batch' => $batch,
+                'transaction_desc' => $roll_no
+            ];
+
+            $this->db->insert('stock_roll', $data);
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Roll added!</div>');
+            redirect('production/add_roll/' . $prodID);
+        }
+    }
+
+    public function delete_all_roll()
+    {
+        $po_id = $this->input->post('delete_po_id');
+
+        //delete related PO items
+        $this->db->where('transaction_id', $po_id);
+        $this->db->delete('stock_roll');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Roll item order unsaved, item(s) are deleted!</div>');
+        redirect('production/inputRoll');
     }
 
     public function gbj_report()
@@ -334,6 +367,9 @@ class Production extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    /** COGS Calculator function */ 
+    /** COGS Calculator calculates COGS for specific material used in production */ 
+    /** COGS calculation excludes electricity and labour costs. */ 
     public function cogs_calculator()
     {
         $data['title'] = 'COGS Calculator';
@@ -375,6 +411,44 @@ class Production extends CI_Controller
         }
     }
 
+    public function calculateCOGS()
+    {
+        $data['title'] = 'Cost of Product';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['rollType'] = $this->db->get('stock_roll')->result_array();
+        //get material database
+        $data['materialStock'] = $this->db->get('stock_material')->result_array();
+
+        $this->form_validation->set_rules('inputFormula', 'formula', 'trim|required');
+        $this->form_validation->set_rules('price', 'price', 'trim|required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('production/cops', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $formula = $this->input->post('inputFormula');
+            $price = $this->input->post('price');
+
+            //calculate item subtotal
+            $weight = $formula / 10;
+            $subtotal = $weight * $price;
+
+            $data['weight'] = $weight;
+            $data['subtotal'] = $subtotal;
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('production/cops', $data);
+            $this->load->view('templates/footer');
+        }
+    }
+    
     //update amount
     public function update_cogs_amount()
     {
@@ -414,4 +488,5 @@ class Production extends CI_Controller
         $this->db->delete('cogs_calculator');
         redirect('production/cogs_calculator/');
     }
+
 }

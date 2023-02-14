@@ -41,7 +41,7 @@
                                             <?php $value = $inv['price'] * $inv['in_stock'];
                                             $temp = $temp + $value;  ?>
                                             <td>
-                                                <a href="<?= base_url('production/prod_details/') . $inv['transaction_id'] ?>" class="badge badge-secondary">Details</a>
+                                                <a href="<?= base_url('production/input_roll_details/') . $inv['transaction_id'] ?>" class="badge badge-secondary">Details</a>
                                                 <a href="<?= base_url('production/add_roll/') . $inv['transaction_id'] ?>" class="badge badge-primary">Input Roll</a>
                                             </td>
                                         </tr>

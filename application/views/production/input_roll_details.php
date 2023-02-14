@@ -17,82 +17,16 @@
         <span class="text text-dark">Back</span>
     </a>
 
-    <form action="<?= base_url('production/add_roll_item/') . $po_id . '/2/2/' ?>" method="post">
-        <div class="form-group">
-            <!-- Item code -->
-            <label for="po_id" class="col-form-label">Production Order ID</label>
-            <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
-            <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
+    <div class="card rounded shadow border-0 mb-3">
+        <div class="card-body mb-0">
+            <p class="text-dark mb-1">Prod Order Ref : </p>
+            <p class="text-dark font-weight-bold"> <?= $getID['transaction_id'] ?></p>
+            <p class="text-dark mb-1">Date : </p>
+            <p class="text-dark font-weight-bold"> <?= date('d F Y H:i:s', $getID['date']) ?></p>
+            <p class="text-dark mb-1">Batch : </p>
+            <p class="text-dark font-weight-bold"> <?= $getID['description'] ?></p>
         </div>
-
-        <div class="row">
-            <div class="col-4">
-                <div class="form-group">
-                    <!-- Item categories -->
-                    <label for="rollSelect" class="col-form-label">Add Roll</label>
-                    <select name="rollSelect" id="rollSelect" class="form-control" value="<?= set_value('rollSelect') ?>">
-                        <option value="">--Select Categories--</option>
-                        <?php foreach ($rollSelect as $rt) : ?>
-                            <option value="<?= $rt['name'] ?>" data-weight="<?= $rt['weight'] ?>" data-lipatan="<?= $rt['lipatan'] ?>" data-code="<?= $rt['code'] ?>"><?= $rt['name'] ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                    <?= form_error('rollSelect', '<small class="text-danger pl-2">', '</small>') ?>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group">
-                    <!-- Item code -->
-                    <label for="weight" class="col-form-label">Weight</label>
-                    <input type="text" class="form-control" id="weight" name="weight" value="<?= set_value('weight'); ?>" readonly>
-                    <?= form_error('weight', '<small class="text-danger pl-2">', '</small>') ?>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group">
-                    <!-- Material in stock -->
-                    <label for="lipatan" class="col-form-label">Lipatan</label>
-                    <input type="text" class="form-control" id="lipatan" name="lipatan" readonly value="<?= set_value('lipatan'); ?>">
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="form-group">
-                    <!-- Material in stock -->
-                    <label for="code" class="col-form-label">Code</label>
-                    <input type="text" class="form-control" id="code" name="code" readonly value="<?= set_value('code'); ?>">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-4">
-                <div class="form-group">
-                    <!-- Item code -->
-                    <label for="amount" class="col-form-label">Amount</label>
-                    <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount in kg..">
-                    <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="form-group">
-                    <!-- Item code -->
-                    <label for="batch" class="col-form-label">Batch</label>
-                    <input type="text" class="form-control mb-1" id="batch" name="batch" placeholder="Product name/batch number">
-                    <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Batch number. Mandatory</small>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="form-group">
-                    <!-- Item code -->
-                    <label for="roll_no" class="col-form-label">Roll Number</label>
-                    <input type="text" class="form-control mb-1" id="roll_no" name="roll_no" placeholder="input roll number..">
-                    <?= form_error('roll_no', '<small class="text-danger pl-2">', '</small>') ?>
-                </div>
-            </div>
-        </div>
-        <input class="btn-add-item btn btn-primary mb-3" type="submit"></input>
-        <p class="align-items-center">Data input are automatically saved.</p>
-    </form>
-
+    </div>
 
     <div class="table-responsive my-3">
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -152,7 +86,7 @@
 
     <div class="table-responsive my-3">
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-            <thead>
+        <thead>
                 <tr>
                     <th>No</th>
                     <th>Item</th>
@@ -162,7 +96,6 @@
                     <th>Amount</th>
                     <th>Batch</th>
                     <th>Roll Number</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -181,9 +114,6 @@
                         <!-- <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> -->
                         <td><?= $ms['batch'] ?></td>
                         <td><?= $ms['transaction_desc'] ?></td>
-                        <td>
-                            <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
-                        </td>
                     </tr>
                     <?php $temp = $temp + $ms['incoming'];
                     $i++;
@@ -222,7 +152,7 @@
                 </button>
             </div>
             <p class="mx-3 mt-3 mb-0">You're about to delete this item. Are you sure?</p>
-            <form action="<?= base_url('production/delete_item_roll') ?>" method="post">
+            <form action="<?= base_url('production/delete_item') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- prod id -->
@@ -259,7 +189,7 @@
                 </button>
             </div>
             <p class="mx-3 mt-3 mb-0">Closing this window will delete all production order data you've entered. Are you sure?</p>
-            <form action="<?= base_url('production/delete_all_roll/') ?>" method="post">
+            <form action="<?= base_url('production/delete_all_po/') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- item id -->
