@@ -105,7 +105,7 @@
                 </button>
             </div>
             <p class="mx-3 mt-3 mb-0">Closing this window will delete all PO data you've entered. Are you sure?</p>
-            <form action="<?= base_url('production/delete_all_po/') ?>" method="post">
+            <form action="<?= base_url('production/delete_all_prod_order/') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- item id -->

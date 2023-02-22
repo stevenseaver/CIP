@@ -103,6 +103,7 @@
                 <?php
                 $i = 1;
                 $temp = 0;
+                $temp2 = 0;
                 $isTax = 0;
                 $tax = 0;
                 ?>
@@ -128,9 +129,9 @@
                             <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['outgoing'] ?>" class="badge badge-danger clickable">Delete</a>
                         </td>
                     </tr>
-                    <?php $temp = $temp + $subtotal;
-                    $i++;
-                    ?>
+                    <?php $temp = $temp + $subtotal; 
+                    $temp2 = $temp2 + $ms['outgoing'];
+                    $i++; ?>
                 <?php endforeach; ?>
             </tbody>
             <tfoot class="text-right">
@@ -139,6 +140,13 @@
                     <td class="right"><strong>Total</strong></td>
                     <?php $total = $temp; ?>
                     <td class="right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
+                    <?php if ($temp2 != 0) {
+                            $hpp = $total/$temp2;
+                        } else { 
+                            $hpp = 0;
+                        } ?>
+                    <td class="right"><strong>Cost of Materials</strong></td>
+                    <td class="text-left">IDR <?= $this->cart->format_number($hpp, '2', ',', '.'); ?></td>
                 </tr>
             </tfoot>
         </table>

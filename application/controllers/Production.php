@@ -55,7 +55,7 @@ class Production extends CI_Controller
         //get all stock akhir material data
         $data['material'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
 
-        $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
+        // $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
 
         $this->form_validation->set_rules('materialSelect', 'material', 'required');
@@ -99,7 +99,7 @@ class Production extends CI_Controller
                 'supplier' => $supplier,
                 'transaction_status' => $po_status,
                 'description' => $description,
-                'campuran' => $campuran
+                'item_desc' => $campuran
             ];
 
             $this->db->insert('stock_material', $data);
@@ -215,12 +215,35 @@ class Production extends CI_Controller
         $po_id = $this->input->post('delete_po_id');
 
         //delete related PO items
+        $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $po_id])->result_array();
+        $date = time();
+        // var_dump($data['material_selected']);
+        foreach ($data['material_selected'] as $ms) :
+            //get selected material stock_akhir or stock akhir from id = 7
+            $data['updatestock'] = $this->db->get_where('stock_material', ['code' => $ms['code'], 'status' => 7])->row_array();
+            $stock_akhir = $data['updatestock']['in_stock'];
+
+            $update_stock = ($stock_akhir + $ms['outgoing']);
+            // var_dump($update_stock);
+            
+            $data2 = [
+                'in_stock' => $update_stock,
+                'date' => $date
+            ];
+            
+            //update stock akhir
+            $this->db->where('status', '7');
+            $this->db->where('code', $ms['code']);
+            $this->db->update('stock_material', $data2);
+            
+        endforeach;
         $this->db->where('transaction_id', $po_id);
         $this->db->delete('stock_material');
 
         $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Production order unsaved, item(s) are deleted!</div>');
         redirect('production/');
     }
+
     /*** INPUT ROLL
      * ROLL ITEM INPUT AFTER BEING EXTRUDED VIA EXTRUDER MACHINE
      */
@@ -289,7 +312,6 @@ class Production extends CI_Controller
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
         
         //get inventory warehouse data
-        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
         $data['po_id'] = $prodID;
 
         $this->form_validation->set_rules('rollSelect', 'roll item', 'trim|required');
@@ -315,6 +337,8 @@ class Production extends CI_Controller
             $batch = $this->input->post('batch');
             $roll_no = $this->input->post('roll_no');
 
+            $rollSelect = $this->db->get_where('stock_roll', ['code' => $code, 'status' => 7])->row_array();
+
             $data = [ 
                 'name' => $item,
                 'code' => $code,
@@ -334,9 +358,55 @@ class Production extends CI_Controller
 
             $this->db->insert('stock_roll', $data);
 
+            $stock_old = $rollSelect['in_stock'];
+
+            $data2 = [
+                'in_stock' => $stock_old + $amount,
+                'date' => $date
+            ];
+
+            $this->db->where('status', '7');
+            $this->db->where('code', $code);
+            $this->db->update('stock_roll', $data2);
+
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Roll added!</div>');
             redirect('production/add_roll/' . $prodID);
         }
+    }
+
+    //delete Input Roll per item
+    public function delete_item_roll()
+    {
+        $po_id = $this->input->post('delete_po_id');
+        $id = $this->input->post('delete_id');
+        $name = $this->input->post('delete_name');
+        $amount = $this->input->post('delete_amount');
+
+        $date = time();
+
+        $data['material_edited'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
+        $materialID = $data['material_edited']['code'];
+
+        //get selected material stock_akhir or stock akhir from id = 7
+        $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $materialID, 'status' => 7])->row_array();
+        $stock_akhir = $data['material_selected']['in_stock'];
+
+        $update_stock = ($stock_akhir - $amount);
+
+        $data2 = [
+            'in_stock' => $update_stock,
+            'date' => $date
+        ];
+
+        //update stock akhir
+        $this->db->where('status', '7');
+        $this->db->where('code', $materialID);
+        $this->db->update('stock_roll', $data2);
+        //delete_item
+        $this->db->where('id', $id);
+        $this->db->delete('stock_roll');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material ' . $name . ' with amount ' . $amount . '  deleted!</div>');
+        redirect('production/add_roll/' . $po_id);
     }
 
     public function delete_all_roll()

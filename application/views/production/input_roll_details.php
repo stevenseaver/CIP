@@ -79,6 +79,9 @@
                     <td class="text-right"><strong>Total</strong></td>
                     <?php $total = $temp; ?>
                     <td class="text-right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
+                    <td class="text-right"><strong>Cost of Materials</strong></td>
+                    <?php $hpp = $total/$temp_weight; ?>
+                    <td class="text-right">IDR <?= $this->cart->format_number($hpp, '2', ',', '.'); ?></td>
                 </tr>
             </tfoot>
         </table>
@@ -102,6 +105,7 @@
                 <?php
                 $i = 1;
                 $temp = 0;
+                $percent_waste = 0;
                 ?>
                 <?php foreach ($rollType as $ms) : ?>
                     <tr>
@@ -126,6 +130,10 @@
                     <td class="text-left"><strong>Total Weight</strong></td>
                     <?php $total = $temp; ?>
                     <td class="text-left"><?= $this->cart->format_number($total, '2', ',', '.'); ?> kg</td>
+                    <td class="text-left"><strong>Waste</strong></td>
+                    <?php $waste = $temp-$totalWeight;
+                    $percent_waste = ($waste / $totalWeight) * 100 ?>
+                    <td class="text-left"><?= $this->cart->format_number($waste, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_waste, '2', ',', '.'); ?>%</td>
                 </tr>
             </tfoot>
         </table>

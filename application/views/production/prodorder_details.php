@@ -53,6 +53,7 @@
                 <?php
                 $i = 1;
                 $temp = 0;
+                $temp2 = 0;
                 ?>
                 <?php foreach ($inventory_selected as $ms) : ?>
                     <?php
@@ -72,16 +73,20 @@
                         <td><?= $ms['item_desc'] ?></td>
                         <td><?= $formula ?></td>
                     </tr>
-                    <?php $temp = $temp + $subtotal; ?>
-                    <?php $i++; ?>
+                    <?php $temp = $temp + $subtotal; 
+                    $temp2 = $temp2 + $ms['outgoing'];
+                    $i++; ?>
                 <?php endforeach; ?>
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
                     <td colspan="3"> </td>
-                    <td class="right"><strong>Total</strong></td>
+                    <td class="text-right"><strong>Total</strong></td>
                     <?php $total = $temp; ?>
                     <td class="right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
+                    <?php $hpp = $total/$temp2; ?>
+                    <td class="right"><strong>Cost of Materials</strong></td>
+                    <td class="text-left">IDR <?= $this->cart->format_number($hpp, '2', ',', '.'); ?></td>
                 </tr>
             </tfoot>
         </table>
