@@ -55,7 +55,7 @@ class Production extends CI_Controller
         //get all stock akhir material data
         $data['material'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
 
-        // $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
+        $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
 
         $this->form_validation->set_rules('materialSelect', 'material', 'required');
