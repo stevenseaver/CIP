@@ -138,78 +138,8 @@
             </tfoot>
         </table>
     </div>
-    <div class="footer text-right">
-        <!-- <a href="<?= base_url('production/delete_all_po/') . $po_id ?>" class="btn text-danger">Close and delete data</a> -->
-        <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $po_id ?>" class="btn text-danger">Close and delete data</a>
-        <a href="<?= base_url('production/inputRoll') ?>" class="btn btn-primary">Save Order</a>
-    </div>
 </div>
 <!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->
-
-<!-- Modal For Delete Data -->
-<div class="modal fade" id="deleteItemProdOrder" tabindex="-1" role="dialog" aria-labelledby="deleteItemProdOrderLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteItemProdOrderLabel">Whoops!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <p class="mx-3 mt-3 mb-0">You're about to delete this item. Are you sure?</p>
-            <form action="<?= base_url('production/delete_item') ?>" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <!-- prod id -->
-                        <label for="url" class="col-form-label">Production Order ID</label>
-                        <input type="text" class="form-control" id="delete_po_id" name="delete_po_id" readonly>
-                        <!-- item id -->
-                        <label for="url" class="col-form-label" style="display:none">ID</label>
-                        <input type="text" class="form-control" id="delete_id" name="delete_id" style="display:none" readonly>
-                        <!-- item name -->
-                        <label for="url" class="col-form-label">Item</label>
-                        <input type="text" class="form-control" id="delete_name" name="delete_name" readonly>
-                        <!-- item amount -->
-                        <label for="url" class="col-form-label">Amount</label>
-                        <input type="text" class="form-control" id="delete_amount" name="delete_amount" readonly>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal For Delete Data -->
-<div class="modal fade" id="deletePOModal" tabindex="-1" role="dialog" aria-labelledby="deletePOModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deletePOModalLabel">Whoops!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <p class="mx-3 mt-3 mb-0">Closing this window will delete all production order data you've entered. Are you sure?</p>
-            <form action="<?= base_url('production/delete_all_po/') ?>" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <!-- item id -->
-                        <label for="url" class="col-form-label">Production Order ID</label>
-                        <input type="text" class="form-control" id="delete_po_id" name="delete_po_id" readonly>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>

@@ -43,6 +43,7 @@
                                             <td>
                                                 <a href="<?= base_url('production/input_roll_details/') . $inv['transaction_id'] ?>" class="badge badge-secondary">Details</a>
                                                 <a href="<?= base_url('production/add_roll/') . $inv['transaction_id'] ?>" class="badge badge-primary">Input Roll</a>
+                                                <a data-toggle="modal" data-target="#deleteRollModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger">Delete Roll Input</a>
                                             </td>
                                         </tr>
                                     <?php
@@ -65,5 +66,33 @@
 </div>
 <!-- /.container-fluid -->
 
+</div>
+
+<!-- Modal For Delete Data -->
+<div class="modal fade" id="deleteRollModal" tabindex="-1" role="dialog" aria-labelledby="deleteRollModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteRollModalLabel">Whoops!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">Closing this window will delete all PO data you've entered. Are you sure?</p>
+            <form action="<?= base_url('production/delete_all_roll/') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- item id -->
+                        <label for="url" class="col-form-label">Production Order ID</label>
+                        <input type="text" class="form-control" id="delete_roll_id" name="delete_roll_id" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 <!-- End of Main Content -->

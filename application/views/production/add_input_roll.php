@@ -210,7 +210,7 @@
     </div>
     <div class="footer text-right">
         <!-- <a href="<?= base_url('production/delete_all_po/') . $po_id ?>" class="btn text-danger">Close and delete data</a> -->
-        <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $po_id ?>" class="btn text-danger">Close and delete data</a>
+        <a data-toggle="modal" data-target="#deleteRollModal" data-po="<?= $po_id ?>" class="btn text-danger">Close and delete data</a>
         <a href="<?= base_url('production/inputRoll') ?>" class="btn btn-primary">Save Order</a>
     </div>
 </div>
@@ -257,11 +257,11 @@
 </div>
 
 <!-- Modal For Delete Data -->
-<div class="modal fade" id="deletePOModal" tabindex="-1" role="dialog" aria-labelledby="deletePOModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteRollModal" tabindex="-1" role="dialog" aria-labelledby="deleteRollModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deletePOModalLabel">Whoops!</h5>
+                <h5 class="modal-title" id="deleteRollModalLabel">Whoops!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -272,7 +272,7 @@
                     <div class="form-group">
                         <!-- item id -->
                         <label for="url" class="col-form-label">Production Order ID</label>
-                        <input type="text" class="form-control" id="delete_po_id" name="delete_po_id" readonly>
+                        <input type="text" class="form-control" id="delete_roll_id" name="delete_roll_id" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">

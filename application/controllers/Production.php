@@ -362,7 +362,7 @@ class Production extends CI_Controller
 
             $data2 = [
                 'in_stock' => $stock_old + $amount,
-                'date' => $date
+                'date' => $date 
             ];
 
             $this->db->where('status', '7');
@@ -411,13 +411,37 @@ class Production extends CI_Controller
 
     public function delete_all_roll()
     {
-        $po_id = $this->input->post('delete_po_id');
+        $po_id = $this->input->post('delete_roll_id');
 
         //delete related PO items
+        $data['roll_selected'] = $this->db->get_where('stock_roll', ['transaction_id' => $po_id])->result_array();
+        $data['get_code'] = $this->db->get_where('stock_roll', ['transaction_id' => $po_id])->row_array();
+        $date = time();
+
+        $selected = $data['get_code']['code'];
+        $data['updatestock'] = $this->db->get_where('stock_roll', ['code' => $selected, 'status' => 7])->row_array();
+        $stock_akhir = $data['updatestock']['in_stock'];
+        var_dump($stock_akhir);
+
+        foreach ($data['roll_selected'] as $rs) :
+            $update_stock = ($stock_akhir - $rs['incoming']);
+            $stock_akhir = $update_stock;
+            
+            $data2 = [
+                'in_stock' => $update_stock,
+                'date' => $date
+            ];
+            
+            // update stock akhir
+            $this->db->where('status', '7');
+            $this->db->where('code', $rs['code']);
+            $this->db->update('stock_roll', $data2);
+            
+        endforeach;
         $this->db->where('transaction_id', $po_id);
         $this->db->delete('stock_roll');
 
-        $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Roll item order unsaved, item(s) are deleted!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Production order deleted, item(s) are adjusted!</div>');
         redirect('production/inputRoll');
     }
 
