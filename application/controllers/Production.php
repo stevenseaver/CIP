@@ -109,7 +109,7 @@ class Production extends CI_Controller
             $data2 = [
                 'in_stock' => $stock_old - $amount,
                 'date' => $date,
-                'price' => $price
+                'price' => $price,
             ];
 
             $this->db->where('status', '7');
@@ -174,7 +174,7 @@ class Production extends CI_Controller
         $this->load->view('production/prodorder_details', $data);
         $this->load->view('templates/footer');
     }
-    
+
     //delete Production Order per item
     public function delete_item_prod_order()
     {
@@ -225,18 +225,18 @@ class Production extends CI_Controller
 
             $update_stock = ($stock_akhir + $ms['outgoing']);
             // var_dump($update_stock);
-            
+
             $data2 = [
                 'in_stock' => $update_stock,
                 'date' => $date
             ];
-            
+
             //update stock akhir
             $this->db->where('status', '7');
             $this->db->where('code', $ms['code']);
             $this->db->update('stock_material', $data2);
-            
         endforeach;
+
         $this->db->where('transaction_id', $po_id);
         $this->db->delete('stock_material');
 
@@ -254,8 +254,8 @@ class Production extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $transaction_query = 1; //unprocessed purchase order data
-        $status = 3; //purchase order data only
+        $transaction_query = 1; //unprocessed production order data
+        $status = 3; //production order data only
         $data['materialStock'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
 
         $this->load->view('templates/header', $data);
@@ -271,7 +271,7 @@ class Production extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
-    
+
         //get inventory warehouse data
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
         $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
@@ -291,7 +291,7 @@ class Production extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         $data['rollSelect'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
-        
+
         //get inventory warehouse data
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
         $data['po_id'] = $prodID;
@@ -310,7 +310,7 @@ class Production extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         $data['rollSelect'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
-        
+
         //get inventory warehouse data
         $data['po_id'] = $prodID;
 
@@ -336,10 +336,11 @@ class Production extends CI_Controller
             $amount = $this->input->post('amount');
             $batch = $this->input->post('batch');
             $roll_no = $this->input->post('roll_no');
+            $transaction_status = 2;
 
             $rollSelect = $this->db->get_where('stock_roll', ['code' => $code, 'status' => 7])->row_array();
 
-            $data = [ 
+            $data = [
                 'name' => $item,
                 'code' => $code,
                 'price' => 0,
@@ -362,16 +363,28 @@ class Production extends CI_Controller
 
             $data2 = [
                 'in_stock' => $stock_old + $amount,
-                'date' => $date 
+                'date' => $date
             ];
 
             $this->db->where('status', '7');
             $this->db->where('code', $code);
             $this->db->update('stock_roll', $data2);
-
+            
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Roll added!</div>');
             redirect('production/add_roll/' . $prodID);
         }
+    }
+
+    public function rollToGBJ($prodID){
+        $transaction_status = 2;
+        $data3 = [
+            'transaction_status' => $transaction_status
+        ];
+
+        $this->db->where('transaction_id', $prodID);
+        $this->db->update('stock_material', $data3);
+
+        redirect('production/gbj_report');
     }
 
     //delete Input Roll per item
@@ -426,17 +439,17 @@ class Production extends CI_Controller
         foreach ($data['roll_selected'] as $rs) :
             $update_stock = ($stock_akhir - $rs['incoming']);
             $stock_akhir = $update_stock;
-            
+
             $data2 = [
                 'in_stock' => $update_stock,
                 'date' => $date
             ];
-            
+
             // update stock akhir
             $this->db->where('status', '7');
             $this->db->where('code', $rs['code']);
             $this->db->update('stock_roll', $data2);
-            
+
         endforeach;
         $this->db->where('transaction_id', $po_id);
         $this->db->delete('stock_roll');
@@ -445,14 +458,19 @@ class Production extends CI_Controller
         redirect('production/inputRoll');
     }
 
+    /** GBJ Report From */
+    /** GBJ Report From */
+    /** GBJ Report From */
     public function gbj_report()
     {
         $data['title'] = 'Finished Goods Report';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['rollType'] = $this->db->get('stock_roll')->result_array();
-        //get finished good database
-        $data['finishedStock'] = $this->db->get('stock_finishedgoods')->result_array();
+        //get inventory warehouse data
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $transaction_query = 2; //processed  data
+        $status = 3; //production order data only
+        $data['materialStock'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -461,9 +479,9 @@ class Production extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    /** COGS Calculator function */ 
-    /** COGS Calculator calculates COGS for specific material used in production */ 
-    /** COGS calculation excludes electricity and labour costs. */ 
+    /** COGS Calculator function */
+    /** COGS Calculator calculates COGS for specific material used in production */
+    /** COGS calculation excludes electricity and labour costs. */
     public function cogs_calculator()
     {
         $data['title'] = 'COGS Calculator';
@@ -542,7 +560,7 @@ class Production extends CI_Controller
             $this->load->view('templates/footer');
         }
     }
-    
+
     //update amount
     public function update_cogs_amount()
     {
@@ -582,5 +600,4 @@ class Production extends CI_Controller
         $this->db->delete('cogs_calculator');
         redirect('production/cogs_calculator/');
     }
-
 }

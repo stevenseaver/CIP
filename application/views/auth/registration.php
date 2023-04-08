@@ -50,10 +50,10 @@
                                 <!-- input address 1 -->
                                 <div class="form-group">
                                     <label for="address" class="small ml-3">Address</label>
-                                    <input type="text" class="form-control form-control-user mb-2" id="address" name="address" placeholder="Street" value="<?= set_value('address'); ?>">
+                                    <input type="text" class="form-control form-control-user" id="address" name="address" placeholder="Street" value="<?= set_value('address'); ?>">
                                     <?= form_error('address', '<small class="text-danger pl-3 mb-1">', '</small>') ?>
                                 </div>
-                                <div class="form-group row">
+                                <div class="form-group row mb-1">
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user mb-2" id="city" name="city" placeholder="City" value="<?= set_value('city'); ?>">
                                         <?= form_error('city', '<small class="text-danger pl-3">', '</small>') ?>
@@ -79,7 +79,7 @@
                                 <!-- input no hp -->
                                 <div class="form-group">
                                     <label for="hp" class="small ml-3">Phone Number</label>
-                                    <input type="text" class="form-control form-control-user mb-2" id="hp" name="hp" placeholder="Mobile Phone Number" value="<?= set_value('hp'); ?>">
+                                    <input type="text" class="form-control form-control-user mb-2" id="hp" name="hp" placeholder="Mobile Phone Number (Optional)" value="<?= set_value('hp'); ?>">
                                     <?= form_error('hp', '<small class="text-danger pl-3">', '</small>') ?>
                                 </div>
                                 <hr>

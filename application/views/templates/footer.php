@@ -59,6 +59,18 @@
  <script src="<?= base_url('asset/') ?>js/demo/datatables-demo.js"></script>
 
  <script>
+     function visibilePassword() {
+         var x = document.getElementById("password1");
+         var y = document.getElementById("password2");
+         if (x.type === "password" & y.type === "password") {
+             x.type = "text";
+             y.type = "text";
+         } else {
+             x.type = "password";
+             y.type = "password";
+         }
+     }
+
      $('.custom-file-input').on('change', function() {
          let fileName = $(this).val().split('\\').pop();
          $(this).next('.custom-file-label').addClass("selected").html(fileName);
@@ -848,8 +860,8 @@
          $(event.currentTarget).find('.modal-body input[name="delete_po_id"]').val(po_id);
      });
 
-    //  JavaScript for Adjust GBJ details transaction
-    $('#deleteRollModal').on('show.bs.modal', function(event) {
+     //  JavaScript for Adjust GBJ details transaction
+     $('#deleteRollModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var po_id = $(event.relatedTarget).data('po');
 
@@ -960,15 +972,15 @@
      });
 
      //javascript for select roll
-    //  $('#rolltype').on('change', function(event) {
-    //      var code = $(this).find(':selected').data('code');
-    //      var weight = $(this).find(':selected').data('weight');
-    //      var lipatan = $(this).find(':selected').data('lipatan');
+     //  $('#rolltype').on('change', function(event) {
+     //      var code = $(this).find(':selected').data('code');
+     //      var weight = $(this).find(':selected').data('weight');
+     //      var lipatan = $(this).find(':selected').data('lipatan');
 
-    //      document.getElementById("code").value = code;
-    //      document.getElementById("weight").value = weight;
-    //      document.getElementById("lipatan").value = lipatan;
-    //  });
+     //      document.getElementById("code").value = code;
+     //      document.getElementById("weight").value = weight;
+     //      document.getElementById("lipatan").value = lipatan;
+     //  });
 
      $(document).ready(function() {
          var table = $('#cogstable').DataTable({

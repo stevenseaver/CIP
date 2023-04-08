@@ -92,7 +92,7 @@
 
 <!-- Modal For Add New User -->
 <div class="modal fade" id="newUser" tabindex="-1" aria-labelledby="newUserLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="newUserLabel">Add New User</h5>
@@ -104,42 +104,54 @@
                 <div class="modal-body">
                     <!-- input nama -->
                     <div class="form-group">
+                        <label for="name" class="col-form-label">Full Name</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="Full Name">
                         <?= form_error('name', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
-                    <!-- input Username/ERN/NIK -->
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="nik" name="nik" placeholder="User Registration Number">
-                        <small class="text-primary ml-2">Will be used as login detail.</small>
-                        <?= form_error('nik', '<small class="text-danger pl-3">', '</small>') ?>
+                    <div class="row form group mb-3">
+                        <!-- input Username/ERN/NIK -->
+                        <div class="col">
+                            <label for="nik" class="col-form-label">Username</label>
+                            <input type="text" class="form-control" id="nik" name="nik" placeholder="User Registration Number">
+                            <small class="text-primary ml-2">Will be used as login detail.</small>
+                            <?= form_error('nik', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                        <!-- input alamat email -->
+                        <div class="col">
+                            <label for="email" class="col-form-label">Email</label>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                            <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
                     </div>
-                    <!-- input alamat email -->
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="email" name="email" placeholder="Email">
-                        <?= form_error('email', '<small class="text-danger pl-3">', '</small>') ?>
-                    </div>
-                    <!-- input alamat noktp -->
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="noktp" name="noktp" placeholder="ID Card Number">
-                        <?= form_error('noktp', '<small class="text-danger pl-3">', '</small>') ?>
-                    </div>
-                    <!-- input alamat dob -->
-                    <div class="form-group">
-                        <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth">
-                        <?= form_error('dob', '<small class="text-danger pl-3">', '</small>') ?>
+                    <div class="row form group mb-3">
+                        <!-- input alamat noktp -->
+                        <div class="col">
+                            <label for="noktp" class="col-form-label">ID Card Number</label>
+                            <input type="text" class="form-control" id="noktp" name="noktp" placeholder="ID Card Number">
+                            <?= form_error('noktp', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                        <!-- input alamat dob -->
+                        <div class="col">
+                            <label for="dob" class="col-form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth">
+                            <?= form_error('dob', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
                     </div>
                     <!-- input nomor HP -->
                     <div class="form-group">
+                        <label for="hp" class="col-form-label">Mobile Phone Number</label>
                         <input type="text" class="form-control" id="hp" name="hp" placeholder="Mobile Phone Number">
                         <?= form_error('hp', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
                     <!-- input alamat -->
                     <div class="form-group">
+                        <label for="address" class="col-form-label">Address</label>
                         <input type="text" class="form-control" id="address" name="address" placeholder="Address">
                         <?= form_error('address', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
                     <!-- input user_role -->
                     <div class="form-group">
+                        <label for="role_id" class="col-form-label">Role</label>
                         <select name="role_id" id="role_id" class="form-control">
                             <option value="">--Select Role--</option>
                             <?php foreach ($role as $r) : ?>
@@ -151,13 +163,20 @@
                     <!-- password -->
                     <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
+                            <label for="role_id" class="col-form-label">Password</label>
                             <input type="password" class="form-control" id="password1" name="password1" placeholder="Password">
                             <small class="text-primary ml-2">Minimum 8 characters.</small>
                             <?= form_error('password1', '<small class="text-danger pl-3">', '</small>') ?>
-                        </div><!-- repeat passweord -->
+                        </div>
+                        <!-- repeat passweord -->
                         <div class="col-sm-6">
+                            <label for="role_id" class="col-form-label">Repeat Password</label>
                             <input type="password" class="form-control" id="password2" name="password2" placeholder="Repeat Password">
                             <?= form_error('password2', '<small class="text-danger pl-3">', '</small>') ?>
+                            <div class="form-check ml-3 mb-0">
+                                <input class="form-check-input" type="checkbox" id="show_pass" name="show_pass" onclick="visibilePassword()" />
+                                <label class="small" for="show_pass">Show password</label>
+                            </div>
                         </div>
                     </div>
                 </div>

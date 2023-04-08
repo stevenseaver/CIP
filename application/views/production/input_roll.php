@@ -44,6 +44,7 @@
                                                 <a href="<?= base_url('production/input_roll_details/') . $inv['transaction_id'] ?>" class="badge badge-secondary">Details</a>
                                                 <a href="<?= base_url('production/add_roll/') . $inv['transaction_id'] ?>" class="badge badge-primary">Input Roll</a>
                                                 <a data-toggle="modal" data-target="#deleteRollModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger">Delete Roll Input</a>
+                                                <a href="<?= base_url('production/rollToGBJ/') . $inv['transaction_id']?>" class="badge badge-success">Transfer to GBJ</a>
                                             </td>
                                         </tr>
                                     <?php
