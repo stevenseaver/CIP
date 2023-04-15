@@ -960,7 +960,7 @@
          document.getElementById("price").value = price;
      });
 
-     //javascript for select material for roll input form
+     //javascript for select roll for roll input form
      $('#rollSelect').on('change', function(event) {
          var weight = $(this).find(':selected').data('weight');
          var lipatan = $(this).find(':selected').data('lipatan');
@@ -969,6 +969,19 @@
          document.getElementById("weight").value = weight;
          document.getElementById("lipatan").value = lipatan;
          document.getElementById("code").value = code;
+     });
+
+     //javascript for select gbj for gbj input form
+     $('#gbjSelect').on('change', function(event) {
+         var pcsperpack = $(this).find(':selected').data('pcsperpack');
+         var packpersack = $(this).find(':selected').data('packpersack');
+         var code = $(this).find(':selected').data('code');
+         var stock = $(this).find(':selected').data('instock');
+
+         document.getElementById("pcsperpack").value = pcsperpack;
+         document.getElementById("packpersack").value = packpersack;
+         document.getElementById("code").value = code;
+         document.getElementById("instock").value = stock;
      });
 
      //javascript for select roll

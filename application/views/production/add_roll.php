@@ -26,7 +26,7 @@
         </div>
 
         <div class="row">
-            <div class="col-4">
+            <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item categories -->
                     <label for="rollSelect" class="col-form-label">Add Roll</label>
@@ -39,7 +39,7 @@
                     <?= form_error('rollSelect', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-lg-3">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="weight" class="col-form-label">Weight</label>
@@ -47,14 +47,14 @@
                     <?= form_error('weight', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-lg-3">
                 <div class="form-group">
                     <!-- Material in stock -->
                     <label for="lipatan" class="col-form-label">Lipatan</label>
                     <input type="text" class="form-control" id="lipatan" name="lipatan" readonly value="<?= set_value('lipatan'); ?>">
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-lg-2">
                 <div class="form-group">
                     <!-- Material in stock -->
                     <label for="code" class="col-form-label">Code</label>
@@ -63,15 +63,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-4">
+            <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="amount" class="col-form-label">Amount</label>
-                    <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount in kg..">
+                    <input type="number" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount in kg..">
                     <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="batch" class="col-form-label">Batch</label>
@@ -80,11 +80,11 @@
                     <small>Batch number. Mandatory</small>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="roll_no" class="col-form-label">Roll Number</label>
-                    <input type="text" class="form-control mb-1" id="roll_no" name="roll_no" placeholder="input roll number..">
+                    <input type="number" class="form-control mb-1" id="roll_no" name="roll_no" placeholder="Input roll number..">
                     <?= form_error('roll_no', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
@@ -98,6 +98,7 @@
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
+                    <div class="h5 text-primary">Materials</div>
                     <th>No</th>
                     <th>Item</th>
                     <th>Amount Used (Kg)</th>
@@ -157,6 +158,7 @@
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
+                    <div class="h5 text-primary">Rolls</div>
                     <th>No</th>
                     <th>Item</th>
                     <th>Code</th>

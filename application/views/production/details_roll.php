@@ -31,6 +31,7 @@
     <div class="table-responsive my-3">
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
             <thead>
+                <div class="h5 text-primary">Materials</div>
                 <tr>
                     <th>No</th>
                     <th>Item</th>
@@ -90,6 +91,7 @@
     <div class="table-responsive my-3">
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
         <thead>
+            <div class="h5 text-primary">Rolls</div>
                 <tr>
                     <th>No</th>
                     <th>Item</th>

@@ -41,8 +41,8 @@
                                             <?php $value = $inv['price'] * $inv['in_stock'];
                                             $temp = $temp + $value;  ?>
                                             <td>
-                                                <a href="<?= base_url('production/input_gbj_details/') . $inv['transaction_id'] ?>" class="badge badge-secondary">Details</a>
-                                                <a href="<?= base_url('production/add_gbj/') . $inv['transaction_id'] ?>" class="badge badge-primary">Input Finished Goods</a>
+                                                <a href="<?= base_url('production/gbj_details/') . $inv['transaction_id'] ?>" class="badge badge-primary">Details</a>
+                                                <a href="<?= base_url('production/add_gbj/') . $inv['transaction_id'] ?>" class="badge badge-success">Input Finished Goods</a>
                                                 <a data-toggle="modal" data-target="#deleteRollModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger">Delete Finished Goods Input</a>
                                             </td>
                                         </tr>
@@ -78,7 +78,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <p class="mx-3 mt-3 mb-0">Closing this window will delete all PO data you've entered. Are you sure?</p>
+            <p class="mx-3 mt-3 mb-0">Closing this window will delete all production data you've entered. Are you sure?</p>
             <form action="<?= base_url('production/delete_all_roll/') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">

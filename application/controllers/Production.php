@@ -24,7 +24,7 @@ class Production extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('production/production', $data);
+        $this->load->view('production/production_report', $data);
         $this->load->view('templates/footer');
     }
 
@@ -46,6 +46,25 @@ class Production extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function edit_prod($id)
+    {
+        $data['title'] = 'Edit Production Order';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get material data
+        $data['material'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+
+        $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
+        $data['po_id'] = $id;
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('production/edit_prodorder', $data);
+        $this->load->view('templates/footer');
+    }
+
     //ADD ITEM PO
     public function add_item_prod($id, $status, $warehouse)
     {
@@ -64,6 +83,8 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('campuran', 'mix amount', 'required|trim|numeric');
 
         if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
+
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
@@ -171,7 +192,7 @@ class Production extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('production/prodorder_details', $data);
+        $this->load->view('production/details_prodorder', $data);
         $this->load->view('templates/footer');
     }
 
@@ -261,7 +282,7 @@ class Production extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('production/input_roll', $data);
+        $this->load->view('production/roll_report', $data);
         $this->load->view('templates/footer');
     }
 
@@ -280,7 +301,7 @@ class Production extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('production/input_roll_details', $data);
+        $this->load->view('production/details_roll', $data);
         $this->load->view('templates/footer');
     }
 
@@ -299,7 +320,7 @@ class Production extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('production/add_input_roll', $data);
+        $this->load->view('production/add_roll', $data);
         $this->load->view('templates/footer');
     }
 
@@ -325,7 +346,7 @@ class Production extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('production/add_input_roll', $data);
+            $this->load->view('production/add_roll', $data);
             $this->load->view('templates/footer');
         } else {
             $item = $this->input->post('rollSelect');
@@ -476,6 +497,52 @@ class Production extends CI_Controller
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('production/gbj_report', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function gbj_details($prodID)
+    {
+        $data['title'] = 'Finished Goods Input Details';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        
+        //material items
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+        $data['po_id'] = $prodID;
+        
+        //roll items
+        $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
+
+        //gbj items
+        $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('production/details_gbj', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function add_gbj($prodID)
+    {
+        $data['title'] = 'Finished Goods Input';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['gbjSelect'] = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+        $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
+
+        //get inventory warehouse data
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+        $data['po_id'] = $prodID;
+
+        //gbj items
+        $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('production/add_gbj', $data);
         $this->load->view('templates/footer');
     }
 
