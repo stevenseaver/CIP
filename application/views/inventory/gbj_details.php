@@ -102,7 +102,7 @@
                                         <td><?= number_format($fs['incoming'], 0, ',', '.') ?></td>
                                         <td><?= number_format($fs['outgoing'], 0, ',', '.') ?></td>
                                         <td><?php
-                                            if ($fs['categories'] != '5') {
+                                            if ($fs['categories'] != '6') {
                                                 echo number_format($fs['in_stock'], 0, ',', '.') . ' pack';
                                             } else {
                                                 echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';

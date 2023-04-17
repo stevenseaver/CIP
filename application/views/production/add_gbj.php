@@ -17,7 +17,7 @@
         <span class="text text-dark">Back</span>
     </a>
 
-    <form action="<?= base_url('production/add_roll_item/') . $po_id . '/2/2/' ?>" method="post">
+    <form action="<?= base_url('production/add_gbj_item/') . $po_id . '/2/2/' ?>" method="post">
         <div class="form-group">
             <!-- Item code -->
             <label for="po_id" class="col-form-label">Production Order ID</label>
@@ -74,7 +74,7 @@
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="amount" class="col-form-label">Amount</label>
-                    <input type="number" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount in kg..">
+                    <input type="number" class="form-control mb-1" id="amount" name="amount" step=".01" placeholder="Input amount in pack or kg..">
                     <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
@@ -90,9 +90,10 @@
             <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="roll_no" class="col-form-label">Pack Number</label>
-                    <input type="number" class="form-control mb-1" id="roll_no" name="roll_no" placeholder="Input pack number..">
-                    <?= form_error('roll_no', '<small class="text-danger pl-2">', '</small>') ?>
+                    <label for="pack_no" class="col-form-label">Pack Number</label>
+                    <input type="number" class="form-control mb-1" id="pack_no" name="pack_no" placeholder="Input pack number..">
+                    <?= form_error('pack_no', '<small class="text-danger pl-2">', '</small>') ?>
+                    <small>Packing number. Mandatory</small>
                 </div>
             </div>
         </div>
@@ -195,7 +196,7 @@
                         <td><?= $ms['batch'] ?></td>
                         <td><?= $ms['transaction_desc'] ?></td>
                         <td>
-                            <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
+                            <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-primary clickable">Cut</a>
                         </td>
                     </tr>
                     <?php $temp = $temp + $ms['incoming'];
@@ -232,6 +233,7 @@
                     <th>Pack per Sack</th>
                     <th>Amount</th>
                     <th>Batch</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -248,8 +250,16 @@
                         <td><?= number_format($ms['pcsperpack'], 0, ',', '.'); ?> </td>
                         <td><?= number_format($ms['packpersack'], 0, ',', '.'); ?> </td>
                         <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
-                        <!-- <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> -->
                         <td><?= $ms['batch'] ?></td>
+                        <?php if($ms['transaction_status'] != 2){  ?>
+                            <td>
+                                <a data-toggle="modal" data-target="#convertPack" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code']?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-primary clickable">Convert to Pack</a>
+                            </td>
+                        <?php } else { ?>
+                            <!-- <td>
+                                <a data-toggle="modal" data-target="#convertPack" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code']?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-primary clickable disabled">Convert to Pack</a>
+                            </td> -->
+                        <? } ?>
                     </tr>
                     <?php $temp = $temp + $ms['incoming'];
                     $i++;
@@ -258,7 +268,7 @@
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="4"> </td>
+                    <td colspan="3"> </td>
                     <td class="text-left"><strong>Total Weight</strong></td>
                     <?php $total = $temp; ?>
                     <td class="text-left"><?= $this->cart->format_number($total, '2', ',', '.'); ?> kg</td>
@@ -272,9 +282,8 @@
     </div>
     
     <div class="footer text-right">
-        <!-- <a href="<?= base_url('production/delete_all_po/') . $po_id ?>" class="btn text-danger">Close and delete data</a> -->
-        <a data-toggle="modal" data-target="#deleteRollModal" data-po="<?= $po_id ?>" class="btn text-danger">Close and delete data</a>
-        <a href="<?= base_url('production/inputRoll') ?>" class="btn btn-primary">Save Order</a>
+        <!-- <a data-toggle="modal" data-target="#deleteRollModal" data-po="<?= $po_id ?>" class="btn text-danger">Close and delete data</a> -->
+        <a href="<?= base_url('production/inputRoll') ?>" class="btn btn-primary">Save Report</a>
     </div>
 </div>
 <!-- /.container-fluid -->
@@ -311,8 +320,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Cut</button>
                 </div>
             </form>
         </div>
@@ -320,7 +329,50 @@
 </div>
 
 <!-- Modal For Delete Data -->
-<div class="modal fade" id="deleteRollModal" tabindex="-1" role="dialog" aria-labelledby="deleteRollModalLabel" aria-hidden="true">
+<div class="modal fade" id="convertPack" tabindex="-1" role="dialog" aria-labelledby="convertPackLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="convertPackLabel">Convert to Pack</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">Insert number of packs created from this cutting process.</p>
+            <form action="<?= base_url('production/convert_to_pack/') . $po_id?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- prod id -->
+                        <label for="url" class="col-form-label">Production Order ID</label>
+                        <input type="text" class="form-control" id="po_id" name="po_id" readonly>
+                        <!-- item name -->
+                        <label for="url" class="col-form-label">Item</label>
+                        <input type="text" class="form-control" id="name" name="name" readonly>
+                        <!-- item id -->
+                        <label for="url" class="col-form-label" style="display:none">ID</label>
+                        <input type="text" class="form-control" id="id" name="id" style="display:none" readonly>
+                        <!-- item code -->
+                        <label for="url" class="col-form-label" style="display:none">Code</label>
+                        <input type="text" class="form-control" id="code" name="code" style="display:none" readonly>
+                        <!-- kg amount -->
+                        <label for="url" class="col-form-label">Weight Amount</label>
+                        <input type="text" class="form-control" id="kg_amount" name="kg_amount" readonly>
+                        <!-- pack amount -->
+                        <label for="url" class="col-form-label">Pack Amount</label>
+                        <input type="text" class="form-control" id="pack_amount" name="pack_amount">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Convert</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Delete Data -->
+<!-- <div class="modal fade" id="deleteRollModal" tabindex="-1" role="dialog" aria-labelledby="deleteRollModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -333,7 +385,7 @@
             <form action="<?= base_url('production/delete_all_roll/') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <!-- item id -->
+                        item id
                         <label for="url" class="col-form-label">Production Order ID</label>
                         <input type="text" class="form-control" id="delete_roll_id" name="delete_roll_id" readonly>
                     </div>
@@ -345,4 +397,4 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->

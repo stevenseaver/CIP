@@ -850,6 +850,23 @@
          $(event.currentTarget).find('.modal-body input[name="delete_name"]').val(name);
          $(event.currentTarget).find('.modal-body input[name="delete_amount"]').val(amount);
      });
+     
+     //  JavaScript for delete Production Order per item transaction
+     $('#convertPack').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var po_id = $(event.relatedTarget).data('po');
+         var id = $(event.relatedTarget).data('id');
+         var name = $(event.relatedTarget).data('name');
+         var code = $(event.relatedTarget).data('code');
+         var amount = $(event.relatedTarget).data('amount');
+
+         // input passed data using JS to object INPUT inside modal #deleteItemPOModal
+         $(event.currentTarget).find('.modal-body input[name="po_id"]').val(po_id);
+         $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
+         $(event.currentTarget).find('.modal-body input[name="kg_amount"]').val(amount);
+     });
 
      //  JavaScript for Adjust GBJ details transaction
      $('#deletePOModal').on('show.bs.modal', function(event) {

@@ -546,6 +546,154 @@ class Production extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function add_gbj_item($prodID, $status, $warehouse)
+    {
+        $data['title'] = 'Finished Goods Input';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['gbjSelect'] = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+        $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
+        $data['rollSelect'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
+        $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
+
+        //get inventory warehouse data
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+        $data['po_id'] = $prodID;
+
+        //gbj items
+        $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
+
+        //get inventory warehouse data
+        $data['po_id'] = $prodID;
+
+        $this->form_validation->set_rules('gbjSelect', 'finished goods item', 'trim|required');
+        $this->form_validation->set_rules('code', 'code', 'trim|required');
+        $this->form_validation->set_rules('amount', 'amount', 'trim|required');
+        $this->form_validation->set_rules('batch', 'batch', 'trim|required');
+        $this->form_validation->set_rules('pack_no', 'pack number', 'trim|required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('production/add_gbj', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $item = $this->input->post('gbjSelect');
+            $code = $this->input->post('code');
+            $amount = $this->input->post('amount');
+            $pcsperpack = $this->input->post('pcsperpack');
+            $packpersack = $this->input->post('packpersack');
+            $batch = $this->input->post('batch');
+            $pack_no = $this->input->post('pack_no');
+            $date = time();
+            $transaction_status = 3;
+
+            $gbjSelect = $this->db->get_where('stock_finishedgoods', ['code' => $code, 'status' => 7])->row_array();
+
+            $price = $gbjSelect['price'];
+            $picture = $gbjSelect['picture'];
+            
+            $data = [
+                'name' => $item,
+                'code' => $code,
+                'pcsperpack' => $pcsperpack,
+                'packpersack' => $packpersack,
+                'date' => $date,
+                'price' => $price,
+                'in_stock' => 0,
+                'incoming' => $amount,
+                'outgoing' => 0,
+                'status' => 3,
+                'transaction_status' => 1,
+                'warehouse' => 3,
+                'picture' => $picture,
+                'transaction_id' => $prodID,
+                'batch' => $batch,
+                'description' => $pack_no
+            ];
+
+            $this->db->insert('stock_finishedgoods', $data);
+
+            // $stock_old = $gbjSelect['in_stock'];
+
+            // $data2 = [
+            //     'in_stock' => $stock_old + $amount,
+            //     'date' => $date
+            // ];
+
+            // $this->db->where('status', '7');
+            // $this->db->where('code', $code);
+            // $this->db->update('stock_finishedgoods', $data2);
+            
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Roll added!</div>');
+            redirect('production/add_gbj/' . $prodID);
+        }
+    }
+
+    public function convert_to_pack($prodID){
+        $data['title'] = 'Finished Goods Input';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['gbjSelect'] = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+        $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
+        $data['rollSelect'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
+        $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
+
+        //get inventory warehouse data
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+        $data['po_id'] = $prodID;
+
+        //gbj items
+        $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
+
+        //get inventory warehouse data
+        $data['po_id'] = $prodID;
+
+        $this->form_validation->set_rules('pack_amount', 'pack amount', 'trim|required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops pack amount is missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('production/add_gbj', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $id = $this->input->post('id');
+            $name = $this->input->post('name');
+            $code = $this->input->post('code');
+            $amount = $this->input->post('amount');
+            $weight = $this->input->post('kg_amount');
+            $pack = $this->input->post('pack_amount');
+            $date = time();
+    
+            $gbjSelect = $this->db->get_where('stock_finishedgoods', ['code' => $code, 'status' => 7])->row_array();
+
+            $stock_old = $gbjSelect['in_stock'];
+    
+            $data = [
+                'in_stock' => $stock_old + $pack,
+                'date' => $date
+            ];
+    
+            $this->db->where('status', '7');
+            $this->db->where('code', $code);
+            $this->db->update('stock_finishedgoods', $data);
+
+            $data1 = [
+                'transaction_status' => 2
+            ];
+
+            $this->db->where('id', $id);
+            $this->db->update('stock_finishedgoods', $data1);
+    
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Amount converted!</div>');
+            redirect('production/add_gbj/' . $prodID);
+        }
+    }
+
     /** COGS Calculator function */
     /** COGS Calculator calculates COGS for specific material used in production */
     /** COGS calculation excludes electricity and labour costs. */

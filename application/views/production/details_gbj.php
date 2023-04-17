@@ -185,7 +185,7 @@
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="4"> </td>
+                    <td colspan="2"> </td>
                     <td class="text-left"><strong>Total Weight</strong></td>
                     <?php $total = $temp; ?>
                     <td class="text-left"><?= $this->cart->format_number($total, '2', ',', '.'); ?> kg</td>
