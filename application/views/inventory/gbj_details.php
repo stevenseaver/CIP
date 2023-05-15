@@ -82,8 +82,8 @@
                                 <th>No</th>
                                 <th>Finished Good</th>
                                 <th>Transaction Date</th>
-                                <th>Inbound(Kg)</th>
-                                <th>Outbound(Kg)</th>
+                                <th>Inbound</th>
+                                <th>Outbound</th>
                                 <th>Stock</th>
                                 <th>Warehouse</th>
                                 <th>Status</th>
@@ -99,13 +99,17 @@
                                         <td><?= $i ?></td>
                                         <td><?= $fs['name'] ?></td>
                                         <td><?= date('d F Y H:i:s', $fs['date']); ?></td>
-                                        <td><?= number_format($fs['incoming'], 0, ',', '.') ?></td>
-                                        <td><?= number_format($fs['outgoing'], 0, ',', '.') ?></td>
+                                        <?php if($fs['transaction_status'] != 2){  ?>
+                                            <td><?= number_format($fs['incoming'], 2, ',', '.'); ?> kg</td>
+                                        <?php } else { ?>
+                                            <td><?= number_format($fs['incoming'], 2, ',', '.'); ?> pack</td>
+                                        <? } ?>
+                                        <td><?= number_format($fs['outgoing'], 2, ',', '.') ?></td>
                                         <td><?php
                                             if ($fs['categories'] != '6') {
-                                                echo number_format($fs['in_stock'], 0, ',', '.') . ' pack';
+                                                echo number_format($fs['in_stock'], 2, ',', '.') . ' pack';
                                             } else {
-                                                echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
+                                                echo number_format($fs['in_stock'], 2, ',', '.') . ' kg';
                                             } ?></td>
                                         <td><?= $fs['warehouse_name'] ?></td>
                                         <td><?= $fs['status_name'] ?></td>

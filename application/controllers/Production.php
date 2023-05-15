@@ -594,6 +594,7 @@ class Production extends CI_Controller
 
             $price = $gbjSelect['price'];
             $picture = $gbjSelect['picture'];
+            $category = $gbjSelect['categories'];
             
             $data = [
                 'name' => $item,
@@ -607,6 +608,7 @@ class Production extends CI_Controller
                 'outgoing' => 0,
                 'status' => 3,
                 'transaction_status' => 1,
+                'categories' => $category,
                 'warehouse' => 3,
                 'picture' => $picture,
                 'transaction_id' => $prodID,
@@ -616,20 +618,58 @@ class Production extends CI_Controller
 
             $this->db->insert('stock_finishedgoods', $data);
 
-            // $stock_old = $gbjSelect['in_stock'];
+            if ($category == 6 or $category == 7){
+                $stock_old = $gbjSelect['in_stock'];
+    
+                $data2 = [
+                    'in_stock' => $stock_old + $amount,
+                    'date' => $date
+                ];
+    
+                $this->db->where('status', '7');
+                $this->db->where('code', $code);
+                $this->db->update('stock_finishedgoods', $data2);
+            }
 
-            // $data2 = [
-            //     'in_stock' => $stock_old + $amount,
-            //     'date' => $date
-            // ];
-
-            // $this->db->where('status', '7');
-            // $this->db->where('code', $code);
-            // $this->db->update('stock_finishedgoods', $data2);
             
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Roll added!</div>');
             redirect('production/add_gbj/' . $prodID);
         }
+    }
+
+    //delete Input Roll per item
+    public function cut_roll()
+    {
+        $po_id = $this->input->post('delete_po_id');
+        $id = $this->input->post('delete_id');
+        $name = $this->input->post('delete_name');
+        $amount = $this->input->post('delete_amount');
+
+        $date = time();
+
+        $data['material_edited'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
+        $materialID = $data['material_edited']['code'];
+
+        //get selected material stock_akhir or stock akhir from id = 7
+        $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $materialID, 'status' => 7])->row_array();
+        $stock_akhir = $data['material_selected']['in_stock'];
+
+        $update_stock = ($stock_akhir - $amount);
+
+        $data2 = [
+            'in_stock' => $update_stock,
+            'date' => $date
+        ];
+
+        //update stock akhir
+        $this->db->where('status', '7');
+        $this->db->where('code', $materialID);
+        $this->db->update('stock_roll', $data2);
+        //delete_item
+        $this->db->where('id', $id);
+        $this->db->delete('stock_roll');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material ' . $name . ' with amount ' . $amount . '  deleted!</div>');
+        redirect('production/add_gbj/' . $po_id);
     }
 
     public function convert_to_pack($prodID){
@@ -677,12 +717,13 @@ class Production extends CI_Controller
                 'in_stock' => $stock_old + $pack,
                 'date' => $date
             ];
-    
+            
             $this->db->where('status', '7');
             $this->db->where('code', $code);
             $this->db->update('stock_finishedgoods', $data);
-
+            
             $data1 = [
+                'incoming' => $pack,
                 'transaction_status' => 2
             ];
 
@@ -692,6 +733,11 @@ class Production extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Amount converted!</div>');
             redirect('production/add_gbj/' . $prodID);
         }
+    }
+
+    public function delete_gbj_input(){
+        $po_id = $this->input->post('delete_gbj_id');
+        echo $po_id;
     }
 
     /** COGS Calculator function */

@@ -249,17 +249,27 @@
                         <td><?= $ms['code'] ?></td>
                         <td><?= number_format($ms['pcsperpack'], 0, ',', '.'); ?> </td>
                         <td><?= number_format($ms['packpersack'], 0, ',', '.'); ?> </td>
-                        <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                        <?php if($ms['transaction_status'] != 2){  ?>
+                            <?php if($ms['categories'] != 6 OR $ms['categories'] != 7) { ?>
+                                <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                            <?php } else { ?>
+                                <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                            <?php }
+                        } else { ?>
+                            <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> pack</td>
+                        <?php } ?>
                         <td><?= $ms['batch'] ?></td>
                         <?php if($ms['transaction_status'] != 2){  ?>
+                            <?php if($ms['categories'] != 6 and $ms['categories'] != 7) { ?>
                             <td>
                                 <a data-toggle="modal" data-target="#convertPack" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code']?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-primary clickable">Convert to Pack</a>
+                                <a class="badge badge-danger clickable">Delete</a>
                             </td>
-                        <?php } else { ?>
-                            <!-- <td>
-                                <a data-toggle="modal" data-target="#convertPack" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code']?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-primary clickable disabled">Convert to Pack</a>
-                            </td> -->
-                        <? } ?>
+                            <?php } else { ?>
+                                <a class="badge badge-danger clickable">Delete</a>
+                            <?php }
+                        } else { ?>
+                        <?php } ?>
                     </tr>
                     <?php $temp = $temp + $ms['incoming'];
                     $i++;
@@ -301,8 +311,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <p class="mx-3 mt-3 mb-0">You're about to delete this item. Are you sure?</p>
-            <form action="<?= base_url('production/delete_item_roll') ?>" method="post">
+            <p class="mx-3 mt-3 mb-0">You're about to cut this item. Are you sure?</p>
+            <form action="<?= base_url('production/cut_roll') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- prod id -->

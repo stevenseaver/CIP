@@ -43,7 +43,7 @@
                                             <td>
                                                 <a href="<?= base_url('production/gbj_details/') . $inv['transaction_id'] ?>" class="badge badge-primary">Details</a>
                                                 <a href="<?= base_url('production/add_gbj/') . $inv['transaction_id'] ?>" class="badge badge-success">Input Finished Goods</a>
-                                                <a data-toggle="modal" data-target="#deleteRollModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger">Delete Finished Goods Input</a>
+                                                <a data-toggle="modal" data-target="#deleteGBJ" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger">Delete Finished Goods Input</a>
                                             </td>
                                         </tr>
                                     <?php
@@ -69,22 +69,22 @@
 </div>
 
 <!-- Modal For Delete Data -->
-<div class="modal fade" id="deleteRollModal" tabindex="-1" role="dialog" aria-labelledby="deleteRollModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteGBJ" tabindex="-1" role="dialog" aria-labelledby="deleteGBJLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteRollModalLabel">Whoops!</h5>
+                <h5 class="modal-title" id="deleteGBJLabel">Whoops!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <p class="mx-3 mt-3 mb-0">Closing this window will delete all production data you've entered. Are you sure?</p>
-            <form action="<?= base_url('production/delete_all_roll/') ?>" method="post">
+            <form action="<?= base_url('production/delete_gbj_input/') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- item id -->
                         <label for="url" class="col-form-label">Production Order ID</label>
-                        <input type="text" class="form-control" id="delete_roll_id" name="delete_roll_id" readonly>
+                        <input type="text" class="form-control" id="delete_gbj_id" name="delete_gbj_id" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">
