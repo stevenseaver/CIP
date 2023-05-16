@@ -196,7 +196,11 @@
                         <td><?= $ms['batch'] ?></td>
                         <td><?= $ms['transaction_desc'] ?></td>
                         <td>
-                            <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-primary clickable">Cut</a>
+                            <?php if($ms['status'] != 9) { ?>
+                                <a data-toggle="modal" data-target="#cutRollItem" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Cut</a>
+                            <?php } else { ?>
+                                <badge class="badge badge-primary">Already Cut</badge>
+                            <?php } ?>    
                         </td>
                     </tr>
                     <?php $temp = $temp + $ms['incoming'];
@@ -266,9 +270,10 @@
                                 <a class="badge badge-danger clickable">Delete</a>
                             </td>
                             <?php } else { ?>
-                                <a class="badge badge-danger clickable">Delete</a>
+                                <td><a class="badge badge-danger clickable">Delete</a></td>
                             <?php }
                         } else { ?>
+                            <td><a class="badge badge-danger clickable">Delete</a></td>
                         <?php } ?>
                     </tr>
                     <?php $temp = $temp + $ms['incoming'];
@@ -302,11 +307,11 @@
 <!-- End of Main Content -->
 
 <!-- Modal For Delete Data -->
-<div class="modal fade" id="deleteItemProdOrder" tabindex="-1" role="dialog" aria-labelledby="deleteItemProdOrderLabel" aria-hidden="true">
+<div class="modal fade" id="cutRollItem" tabindex="-1" role="dialog" aria-labelledby="cutRollItemLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteItemProdOrderLabel">Whoops!</h5>
+                <h5 class="modal-title" id="cutRollItemLabel">Whoops!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

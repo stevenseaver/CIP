@@ -142,7 +142,7 @@ class Production extends CI_Controller
         }
     }
 
-    //update amount
+    //update production order material amount
     public function update_amount()
     {
         $id = $this->input->post('id');
@@ -333,6 +333,7 @@ class Production extends CI_Controller
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
 
         //get inventory warehouse data
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
         $data['po_id'] = $prodID;
 
         $this->form_validation->set_rules('rollSelect', 'roll item', 'trim|required');
@@ -394,6 +395,40 @@ class Production extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Roll added!</div>');
             redirect('production/add_roll/' . $prodID);
         }
+    }
+
+    //update production order roll amount
+    public function update_roll_amount()
+    {
+        $id = $this->input->post('id');
+        $prodID = $this->input->post('prodID');
+        $amount = $this->input->post('qtyID');
+
+        $date = time();
+
+        $data['material_edited'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
+        $materialID = $data['material_edited']['code'];
+        $adjust_old = $data['material_edited']['incoming'];
+
+        //get selected material stock_akhir or stock akhir from id = 7
+        $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $materialID, 'status' => 7])->row_array();
+        $stock_akhir = $data['material_selected']['in_stock'];
+
+        $update_stock = ($stock_akhir - $adjust_old) + $amount;
+
+        $data2 = [
+            'in_stock' => $update_stock,
+            'date' => $date
+        ];
+
+        //update transaksi
+        $this->db->where('id', $id);
+        $this->db->set('incoming', $amount);
+        $this->db->update('stock_roll');
+        //update stock akhir
+        $this->db->where('status', '7');
+        $this->db->where('code', $materialID);
+        $this->db->update('stock_roll', $data2);
     }
 
     public function rollToGBJ($prodID){
@@ -654,21 +689,24 @@ class Production extends CI_Controller
         $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $materialID, 'status' => 7])->row_array();
         $stock_akhir = $data['material_selected']['in_stock'];
 
-        $update_stock = ($stock_akhir - $amount);
+        $update_stock = $stock_akhir - $amount;
 
         $data2 = [
             'in_stock' => $update_stock,
             'date' => $date
         ];
 
+        $setStatus = 9;
+
         //update stock akhir
         $this->db->where('status', '7');
         $this->db->where('code', $materialID);
         $this->db->update('stock_roll', $data2);
-        //delete_item
+        //cut
         $this->db->where('id', $id);
-        $this->db->delete('stock_roll');
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material ' . $name . ' with amount ' . $amount . '  deleted!</div>');
+        $this->db->set('status', $setStatus);
+        $this->db->update('stock_roll');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material ' . $name . ' with amount ' . $amount . '  cut!</div>');
         redirect('production/add_gbj/' . $po_id);
     }
 

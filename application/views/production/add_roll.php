@@ -67,7 +67,7 @@
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="amount" class="col-form-label">Amount</label>
-                    <input type="number" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount in kg..">
+                    <input type="number" class="form-control mb-1" id="amount" name="amount" step=".01" placeholder="Input amount in kg..">
                     <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
@@ -183,8 +183,8 @@
                         <td><?= $ms['code'] ?></td>
                         <td><?= $ms['weight'] ?></td>
                         <td><?= $ms['lipatan'] ?></td>
-                        <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
-                        <!-- <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> -->
+                        <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td> -->
+                        <td><input id="rollAmount-<?= $ms['id'] ?>" class="roll-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
                         <td><?= $ms['batch'] ?></td>
                         <td><?= $ms['transaction_desc'] ?></td>
                         <td>

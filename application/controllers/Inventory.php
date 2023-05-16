@@ -496,6 +496,7 @@ class Inventory extends CI_Controller
             $status1 = 1;   //SALDO AWAL
             $status2 = 7;   //SALDO AKHIR
             $warehouse = $this->input->post('warehouse');
+            $trans_stat = 1;
             //initial stock
             $data1 = [
                 'name' => $name,
@@ -506,7 +507,8 @@ class Inventory extends CI_Controller
                 'lipatan' => $lipatan,
                 'in_stock' => $initial_stock,
                 'status' => $status1,
-                'warehouse'  => $warehouse
+                'warehouse'  => $warehouse,
+                'transaction_status' => $trans_stat
             ];
             //final stock
             $data2 = [
@@ -518,7 +520,8 @@ class Inventory extends CI_Controller
                 'lipatan' => $lipatan,
                 'in_stock' => $initial_stock,
                 'status' => $status2,
-                'warehouse'  => $warehouse
+                'warehouse'  => $warehouse,
+                'transaction_status' => $trans_stat
             ];
 
             $this->db->insert('stock_roll', $data1);
