@@ -190,7 +190,7 @@
          });
      });
 
-     //js for amount change on production order quantity per item input on change
+     //js for amount change on roll item prod order quantity input on change
      $('.roll-qty').on('change', function() {
          const id = $(this).data('id');
          const prodID = $(this).data('prodID');
@@ -207,6 +207,31 @@
              },
              success: function() {
                  //  document.location.href = "<?= base_url('production/add_roll/') ?>";
+             }
+         });
+     });
+
+     //js for amount change on gbj item prod order quantity input on change
+     $('.gbj-qty').on('change', function() {
+         const id = $(this).data('id');
+         const prodID = $(this).data('prodID');
+         const cat = $(this).data('cat');
+         const status = $(this).data('status');
+
+         const qtyID = document.getElementById("gbjAmount-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('production/update_gbj_amount'); ?>",
+             type: 'post',
+             data: {
+                 id: id,
+                 qtyID: qtyID,
+                 prodID: prodID,
+                 cat : cat,
+                 status : status
+             },
+             success: function() {
+                //  document.location.href = "<?= base_url('production/update_gbj_amount/') ?>";
              }
          });
      });

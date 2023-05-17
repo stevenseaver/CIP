@@ -253,14 +253,21 @@
                         <td><?= $ms['code'] ?></td>
                         <td><?= number_format($ms['pcsperpack'], 0, ',', '.'); ?> </td>
                         <td><?= number_format($ms['packpersack'], 0, ',', '.'); ?> </td>
-                        <?php if($ms['transaction_status'] != 2){  ?>
+                        <?php if($ms['transaction_status'] != 2){  ?>  
+                            <!-- IF trans status is other than 2 -->
                             <?php if($ms['categories'] != 6 OR $ms['categories'] != 7) { ?>
-                                <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                                <!-- IF product cat is other than bulk products or weighted products that hasn't been converted into packs -->
+                                <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td> -->
+                                <td><input id="gbjAmount-<?= $ms['id'] ?>" class="gbj-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>">kg</td>
                             <?php } else { ?>
-                                <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
-                            <?php }
+                                <!-- IF product cat is bulk products or weighted products-->
+                                <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td> -->
+                                <td><input id="gbjAmount-<?= $ms['id'] ?>" class="gbj-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>">kg</td>
+                                <?php }
                         } else { ?>
-                            <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> pack</td>
+                            <!-- IF product amount already converted into packs for product cat other than 6 or 7 -->
+                            <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> pack</td> -->
+                            <td><input id="gbjAmount-<?= $ms['id'] ?>" class="gbj-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>">pack</td>
                         <?php } ?>
                         <td><?= $ms['batch'] ?></td>
                         <?php if($ms['transaction_status'] != 2){  ?>

@@ -672,7 +672,7 @@ class Production extends CI_Controller
         }
     }
 
-    //delete Input Roll per item
+    //CUT Input Roll per item
     public function cut_roll()
     {
         $po_id = $this->input->post('delete_po_id');
@@ -770,6 +770,50 @@ class Production extends CI_Controller
     
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Amount converted!</div>');
             redirect('production/add_gbj/' . $prodID);
+        }
+    }
+
+    //update production order roll amount
+    public function update_gbj_amount() //belum bisa
+    {
+        $id = $this->input->post('id');
+        $prodID = $this->input->post('prodID');
+        $amount = $this->input->post('qtyID');
+        $cat = $this->input->post('cat');
+        $status = $this->input->post('status');
+
+        $date = time();
+
+        $data['material_edited'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
+        $materialID = $data['material_edited']['code'];
+        $adjust_old = $data['material_edited']['incoming'];
+
+        //get selected material stock_akhir or stock akhir from id = 7
+        $data['material_selected'] = $this->db->get_where('stock_finishedgoods', ['code' => $materialID, 'status' => 7])->row_array();
+        $stock_akhir = $data['material_selected']['in_stock'];
+        
+        if ($cat == 6 or $cat == 7 or $status == 2){
+            //if converted into packs, or bulk products, or weighted, update transaksi dan stock akhir
+            $update_stock = ($stock_akhir - $adjust_old) + $amount;
+
+            $data2 = [
+                'in_stock' => $update_stock,
+                'date' => $date
+            ];
+
+            //update transaksi
+            $this->db->where('id', $id);
+            $this->db->set('incoming', $amount);
+            $this->db->update('stock_finishedgoods');
+            //update stock akhir
+            $this->db->where('status', '7');
+            $this->db->where('code', $materialID);
+            $this->db->update('stock_finishedgoods', $data2);
+        } else if($cat != 6 or $cat != 7 and $status != 2) {           
+            //if not converted into packs, update transaksi only
+            $this->db->where('id', $id);
+            $this->db->set('incoming', $amount);
+            $this->db->update('stock_finishedgoods');
         }
     }
 
