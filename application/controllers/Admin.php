@@ -267,4 +267,8 @@ class Admin extends CI_Controller
             redirect('admin/usermanagement');
         }
     }
+
+    public function settings(){
+        echo 'hello';
+    }
 }

@@ -255,16 +255,8 @@
                         <td><?= number_format($ms['packpersack'], 0, ',', '.'); ?> </td>
                         <?php if($ms['transaction_status'] != 2){  ?>  
                             <!-- IF trans status is other than 2 -->
-                            <?php if($ms['categories'] != 6 OR $ms['categories'] != 7) { ?>
-                                <!-- IF product cat is other than bulk products or weighted products that hasn't been converted into packs -->
-                                <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td> -->
-                                <td><input id="gbjAmount-<?= $ms['id'] ?>" class="gbj-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>">kg</td>
-                            <?php } else { ?>
-                                <!-- IF product cat is bulk products or weighted products-->
-                                <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td> -->
-                                <td><input id="gbjAmount-<?= $ms['id'] ?>" class="gbj-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>">kg</td>
-                                <?php }
-                        } else { ?>
+                            <td><input id="gbjAmount-<?= $ms['id'] ?>" class="gbj-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>">kg</td>
+                        <?php } else { ?>
                             <!-- IF product amount already converted into packs for product cat other than 6 or 7 -->
                             <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> pack</td> -->
                             <td><input id="gbjAmount-<?= $ms['id'] ?>" class="gbj-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>">pack</td>
@@ -274,13 +266,13 @@
                             <?php if($ms['categories'] != 6 and $ms['categories'] != 7) { ?>
                             <td>
                                 <a data-toggle="modal" data-target="#convertPack" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code']?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-primary clickable">Convert to Pack</a>
-                                <a class="badge badge-danger clickable">Delete</a>
+                                <a data-toggle="modal" data-target="#deleteItemGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" class="badge badge-danger clickable">Delete</a>
                             </td>
                             <?php } else { ?>
-                                <td><a class="badge badge-danger clickable">Delete</a></td>
+                                <td><a data-toggle="modal" data-target="#deleteItemGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" class="badge badge-danger clickable">Delete</a></td>
                             <?php }
                         } else { ?>
-                            <td><a class="badge badge-danger clickable">Delete</a></td>
+                            <td><a data-toggle="modal" data-target="#deleteItemGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" class="badge badge-danger clickable">Delete</a></td>
                         <?php } ?>
                     </tr>
                     <?php $temp = $temp + $ms['incoming'];
@@ -303,9 +295,9 @@
         </table>
     </div>
     
-    <div class="footer text-right">
-        <!-- <a data-toggle="modal" data-target="#deleteRollModal" data-po="<?= $po_id ?>" class="btn text-danger">Close and delete data</a> -->
-        <a href="<?= base_url('production/inputRoll') ?>" class="btn btn-primary">Save Report</a>
+    <div class="footer text-right mb-3">
+        <a data-toggle="modal" data-target="#deleteRollModal" data-po="<?= $po_id ?>" class="btn text-danger">Close and delete data</a>
+        <a href="<?= base_url('production/gbj_report') ?>" class="btn btn-primary">Save Report</a>
     </div>
 </div>
 <!-- /.container-fluid -->
@@ -313,7 +305,7 @@
 </div>
 <!-- End of Main Content -->
 
-<!-- Modal For Delete Data -->
+<!-- Modal For Cut Roll Data -->
 <div class="modal fade" id="cutRollItem" tabindex="-1" role="dialog" aria-labelledby="cutRollItemLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -350,7 +342,7 @@
     </div>
 </div>
 
-<!-- Modal For Delete Data -->
+<!-- Modal For Convert TO Pack Data Packed Goods -->
 <div class="modal fade" id="convertPack" tabindex="-1" role="dialog" aria-labelledby="convertPackLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -394,7 +386,53 @@
 </div>
 
 <!-- Modal For Delete Data -->
-<!-- <div class="modal fade" id="deleteRollModal" tabindex="-1" role="dialog" aria-labelledby="deleteRollModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteItemGBJ" tabindex="-1" role="dialog" aria-labelledby="deleteItemGBJLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteItemGBJLabel">Whoops!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">You're about to delete this item. Are you sure?</p>
+            <form action="<?= base_url('production/delete_gbj_input') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- prod id -->
+                        <label for="url" class="col-form-label">Production Order ID</label>
+                        <input type="text" class="form-control" id="delete_po_id" name="delete_po_id" readonly>
+                        <!-- item id -->
+                        <label for="url" class="col-form-label" style="display:none">ID</label>
+                        <input type="text" class="form-control" id="delete_id" name="delete_id" style="display:none" readonly>
+                        <!-- transaction status -->
+                        <label for="url" class="col-form-label" style="display:none">Trans Status</label>
+                        <input type="text" class="form-control" id="trans_status" name="trans_status" style="display:none" readonly>
+                        <!-- transaction status -->
+                        <label for="url" class="col-form-label" style="display:none">Item Category</label>
+                        <input type="text" class="form-control" id="item_cat" name="item_cat" style="display:none" readonly>
+                        <!-- item id -->
+                        <label for="url" class="col-form-label" style="display:none">ID</label>
+                        <input type="text" class="form-control" id="delete_id" name="delete_id" style="display:none" readonly>
+                        <!-- item name -->
+                        <label for="url" class="col-form-label">Item</label>
+                        <input type="text" class="form-control" id="delete_name" name="delete_name" readonly>
+                        <!-- item amount -->
+                        <label for="url" class="col-form-label">Amount</label>
+                        <input type="text" class="form-control" id="delete_amount" name="delete_amount" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Delete All Data -->
+<div class="modal fade" id="deleteRollModal" tabindex="-1" role="dialog" aria-labelledby="deleteRollModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -419,4 +457,4 @@
             </form>
         </div>
     </div>
-</div> -->
+</div>

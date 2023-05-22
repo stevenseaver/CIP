@@ -453,8 +453,8 @@ class Production extends CI_Controller
 
         $date = time();
 
-        $data['material_edited'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
-        $materialID = $data['material_edited']['code'];
+        $data['material_deleted'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
+        $materialID = $data['material_deleted']['code'];
 
         //get selected material stock_akhir or stock akhir from id = 7
         $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $materialID, 'status' => 7])->row_array();
@@ -817,9 +817,35 @@ class Production extends CI_Controller
         }
     }
 
+    //delete individual gbj input
     public function delete_gbj_input(){
-        $po_id = $this->input->post('delete_gbj_id');
-        echo $po_id;
+        $po_id = $this->input->post('delete_po_id');
+        $item_id = $this->input->post('delete_id');
+        $name = $this->input->post('delete_name');
+        $amount = $this->input->post('delete_amount');
+        $status = $this->input->post('trans_status');
+        $cat = $this->input->post('item_cat');
+
+        echo $po_id . ' | ';
+        echo $item_id . ' | ';
+        echo $name . ' | ';
+        echo $status . ' | ';
+        echo $cat . ' | ';
+        echo $amount . '<br>';
+
+        $date = time();
+
+        $data['material_deleted'] = $this->db->get_where('stock_finishedgoods', ['id' => $item_id])->row_array();
+        $materialID = $data['material_deleted']['code'];
+
+        //get selected material stock_akhir or stock akhir from id = 7
+        $data['material_selected'] = $this->db->get_where('stock_finishedgoods', ['code' => $materialID, 'status' => 7])->row_array();
+        $stock_akhir = $data['material_selected']['in_stock'];
+
+        $update_stock = ($stock_akhir - $amount);
+
+        echo $stock_akhir . ' | ';
+        echo $update_stock;
     }
 
     /** COGS Calculator function */

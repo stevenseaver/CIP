@@ -33,9 +33,13 @@
                             <i class="bi bi-person-fill mr-2 text-gray-400"></i>
                             My Profile
                         </a>
-                        <a class="dropdown-item" href="<?= base_url('user/changepassword') ?>">
+                        <a class="dropdown-item mb-2" href="<?= base_url('user/changepassword') ?>">
                             <i class="bi bi-unlock-fill mr-2 text-gray-400"></i>
                             Change Password
+                        </a>
+                        <a class="dropdown-item" href="<?= base_url('admin/settings') ?>">
+                            <i class="bi bi-gear-wide-connected mr-2 text-gray-400"></i>
+                            Settings
                         </a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="<?= base_url('auth/logout') ?>" data-toggle="modal" data-target="#logoutModal">
