@@ -174,7 +174,14 @@
                         <td><?= $ms['code'] ?></td>
                         <td><?= number_format($ms['pcsperpack'], 0, ',', '.'); ?> </td>
                         <td><?= number_format($ms['packpersack'], 0, ',', '.'); ?> </td>
-                        <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                        <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td> -->
+                        <?php if($ms['transaction_status'] != 2){  ?>  
+                            <!-- IF trans status is other than 2 -->
+                            <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                        <?php } else { ?>
+                            <!-- IF product amount already converted into packs for product cat other than 6 or 7 -->
+                            <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> pack</td>
+                        <?php } ?>
                         <!-- <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> -->
                         <td><?= $ms['batch'] ?></td>
                     </tr>
