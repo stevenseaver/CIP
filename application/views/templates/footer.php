@@ -148,7 +148,9 @@
                  qtyID: qtyID
              },
              success: function() {
-                 //  document.location.href = "<?= base_url('purchasing/receiveItem/') ?>";
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
              }
          });
      });
@@ -185,7 +187,9 @@
                  prodID: prodID
              },
              success: function() {
-                 //  document.location.href = "<?= base_url('production/add_prod/') ?>";
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
              }
          });
      });
@@ -206,7 +210,9 @@
                  prodID: prodID
              },
              success: function() {
-                 //  document.location.href = "<?= base_url('production/add_roll/') ?>";
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
              }
          });
      });
@@ -231,7 +237,9 @@
                  status : status
              },
              success: function() {
-                //  document.location.href = "<?= base_url('production/update_gbj_amount/') ?>";
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
              }
          });
      });

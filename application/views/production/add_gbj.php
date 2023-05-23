@@ -296,7 +296,6 @@
     </div>
     
     <div class="footer text-right mb-3">
-        <a data-toggle="modal" data-target="#deleteRollModal" data-po="<?= $po_id ?>" class="btn text-danger">Close and delete data</a>
         <a href="<?= base_url('production/gbj_report') ?>" class="btn btn-primary">Save Report</a>
     </div>
 </div>
@@ -420,34 +419,6 @@
                         <!-- item amount -->
                         <label for="url" class="col-form-label">Amount</label>
                         <input type="text" class="form-control" id="delete_amount" name="delete_amount" readonly>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal For Delete All Data -->
-<div class="modal fade" id="deleteRollModal" tabindex="-1" role="dialog" aria-labelledby="deleteRollModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteRollModalLabel">Whoops!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <p class="mx-3 mt-3 mb-0">Closing this window will delete all production order data you've entered. Are you sure?</p>
-            <form action="<?= base_url('production/delete_all_roll/') ?>" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        item id
-                        <label for="url" class="col-form-label">Production Order ID</label>
-                        <input type="text" class="form-control" id="delete_roll_id" name="delete_roll_id" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">

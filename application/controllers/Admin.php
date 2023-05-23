@@ -269,6 +269,44 @@ class Admin extends CI_Controller
     }
 
     public function settings(){
-        echo 'hello';
+        $data['title'] = 'Settings';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['settingItems'] = $this->db->get('settings')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/setting', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function theme_color($color){
+        $column = 'header_color';
+        $this->db->set('value', $color);
+        $this->db->where('parameter', $column);
+        $this->db->update('settings');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Theme color updated!</div>');
+        redirect('admin/settings');
+    }
+
+    public function download_database(){
+
+        $path = $this->input->post('backup_path');
+        // Load the DB utility class
+        $this->load->dbutil();
+
+        // Backup your entire database and assign it to a variable
+        $backup = $this->dbutil->backup();
+
+        // Load the file helper and write the file to your server
+        $this->load->helper('file');
+        
+        write_file($path, $backup);
+
+        // Load the download helper and send the file to your desktop
+        $this->load->helper('download');
+        force_download('backup.gz', $backup);
     }
 }

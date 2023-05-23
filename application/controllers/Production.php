@@ -83,8 +83,7 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('campuran', 'mix amount', 'required|trim|numeric');
 
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
-
+            // $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
@@ -237,6 +236,7 @@ class Production extends CI_Controller
 
         //delete related PO items
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $po_id])->result_array();
+        $data['roll_selected'] = $this->db->get_where('stock_roll', ['transaction_id' => $po_id])->result_array();
         $date = time();
         // var_dump($data['material_selected']);
         foreach ($data['material_selected'] as $ms) :
@@ -260,6 +260,34 @@ class Production extends CI_Controller
 
         $this->db->where('transaction_id', $po_id);
         $this->db->delete('stock_material');
+
+        if(!empty($data['roll_selected'])){
+            //delete related PO items
+            $data['get_code'] = $this->db->get_where('stock_roll', ['transaction_id' => $po_id])->row_array();
+            $date = time();
+
+            $selected = $data['get_code']['code'];
+            $data['updatestock'] = $this->db->get_where('stock_roll', ['code' => $selected, 'status' => 7])->row_array();
+            $stock_akhir = $data['updatestock']['in_stock'];
+            // var_dump($stock_akhir);
+
+            foreach ($data['roll_selected'] as $rs) :
+                $update_stock = ($stock_akhir - $rs['incoming']);
+                $stock_akhir = $update_stock;
+
+                $data2 = [
+                    'in_stock' => $update_stock,
+                    'date' => $date
+                ];
+
+                // update stock akhir
+                $this->db->where('status', '7');
+                $this->db->where('code', $rs['code']);
+                $this->db->update('stock_roll', $data2);
+            endforeach;
+            $this->db->where('transaction_id', $po_id);
+            $this->db->delete('stock_roll');   
+        }
 
         $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Production order unsaved, item(s) are deleted!</div>');
         redirect('production/');
@@ -490,7 +518,7 @@ class Production extends CI_Controller
         $selected = $data['get_code']['code'];
         $data['updatestock'] = $this->db->get_where('stock_roll', ['code' => $selected, 'status' => 7])->row_array();
         $stock_akhir = $data['updatestock']['in_stock'];
-        var_dump($stock_akhir);
+        // var_dump($stock_akhir);
 
         foreach ($data['roll_selected'] as $rs) :
             $update_stock = ($stock_akhir - $rs['incoming']);
@@ -505,7 +533,6 @@ class Production extends CI_Controller
             $this->db->where('status', '7');
             $this->db->where('code', $rs['code']);
             $this->db->update('stock_roll', $data2);
-
         endforeach;
         $this->db->where('transaction_id', $po_id);
         $this->db->delete('stock_roll');
@@ -774,7 +801,7 @@ class Production extends CI_Controller
     }
 
     //update production order roll amount
-    public function update_gbj_amount() //belum bisa
+    public function update_gbj_amount()
     {
         $id = $this->input->post('id');
         $prodID = $this->input->post('prodID');
@@ -815,39 +842,55 @@ class Production extends CI_Controller
             $this->db->set('incoming', $amount);
             $this->db->update('stock_finishedgoods');
         }
-    }
 
+        // $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Items updated!</div>');
+        // redirect('production/add_gbj/' . $prodID);
+    }
+    
     //delete individual gbj input
     public function delete_gbj_input(){
-        $po_id = $this->input->post('delete_po_id');
-        $item_id = $this->input->post('delete_id');
+        $prodID = $this->input->post('delete_po_id');
+        $id = $this->input->post('delete_id');
         $name = $this->input->post('delete_name');
         $amount = $this->input->post('delete_amount');
         $status = $this->input->post('trans_status');
         $cat = $this->input->post('item_cat');
-
-        echo $po_id . ' | ';
-        echo $item_id . ' | ';
-        echo $name . ' | ';
-        echo $status . ' | ';
-        echo $cat . ' | ';
-        echo $amount . '<br>';
-
+        
         $date = time();
-
-        $data['material_deleted'] = $this->db->get_where('stock_finishedgoods', ['id' => $item_id])->row_array();
+        
+        $data['material_deleted'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
         $materialID = $data['material_deleted']['code'];
-
+        
         //get selected material stock_akhir or stock akhir from id = 7
         $data['material_selected'] = $this->db->get_where('stock_finishedgoods', ['code' => $materialID, 'status' => 7])->row_array();
         $stock_akhir = $data['material_selected']['in_stock'];
-
-        $update_stock = ($stock_akhir - $amount);
-
-        echo $stock_akhir . ' | ';
-        echo $update_stock;
+        
+        if ($cat == 6 or $cat == 7 or $status == 2){
+            //if converted into packs, or bulk products, or weighted, update transaction and stock akhir
+            $update_stock = $stock_akhir - $amount;
+            
+            $data2 = [
+                'in_stock' => $update_stock,
+                'date' => $date
+            ];
+            
+            //update transaction
+            $this->db->where('id', $id);
+            $this->db->delete('stock_finishedgoods');
+            //update stock akhir
+            $this->db->where('status', '7');
+            $this->db->where('code', $materialID);
+            $this->db->update('stock_finishedgoods', $data2);
+        } else if($cat != 6 or $cat != 7 and $status != 2) {           
+            //if not converted into packs, update transaction only
+            $this->db->where('id', $id);
+            $this->db->delete('stock_finishedgoods');
+        }
+        
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Items deleted!</div>');
+        redirect('production/add_gbj/' . $prodID);
     }
-
+    
     /** COGS Calculator function */
     /** COGS Calculator calculates COGS for specific material used in production */
     /** COGS calculation excludes electricity and labour costs. */

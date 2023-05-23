@@ -28,6 +28,74 @@
         </div>
     </div>
 
+    <form action="<?= base_url('production/add_item_prod/') . $po_id . '/3/2' ?>" method="post">
+        <div class="form-group">
+            <!-- Item code -->
+            <label for="po_id" class="col-form-label">Production Order ID</label>
+            <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
+            <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <!-- Item categories -->
+                    <label for="materialSelect" class="col-form-label">Add Material</label>
+                    <select name="materialSelect" id="materialSelect" class="form-control" value="<?= set_value('materialSelect') ?>">
+                        <option value="">--Select Categories--</option>
+                        <?php foreach ($material as $mt) : ?>
+                            <option value="<?= $mt['id'] ?>" data-price="<?= $mt['price'] ?>" data-stock="<?= $mt['in_stock'] ?>"><?= $mt['name'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                    <?= form_error('materialSelect', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="price" class="col-form-label">Price</label>
+                    <input type="currency" class="form-control" id="price" name="price" value="<?= set_value('price'); ?>" readonly>
+                    <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <!-- Material in stock -->
+                    <label for="stock" class="col-form-label">In Stock</label>
+                    <input type="text" class="form-control" id="stock" name="stock" readonly value="<?= set_value('stock'); ?>">
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="amount" class="col-form-label">Amount</label>
+                    <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount in kg..">
+                    <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="description" class="col-form-label">Description</label>
+                    <input type="text" class="form-control mb-1" id="description" name="description" placeholder="Product name/batch number">
+                    <?= form_error('description', '<small class="text-danger pl-2">', '</small>') ?>
+                    <small>Product name and batch number. Mandatory</small>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="item_desc" class="col-form-label">Mixing Formula</label>
+                    <input type="number" min="1" max="100" class="form-control mb-1" id="campuran" name="campuran" placeholder="Mix amount">
+                    <?= form_error('item_desc', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+        </div>
+
+        <input class="btn-add-item btn btn-primary mb-3" type="submit"></input>
+        <p class="align-items-center">Data input are automatically saved.</p>
+    </form>
+
     <div class="table-responsive my-3">
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
             <thead>
