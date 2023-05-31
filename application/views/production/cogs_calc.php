@@ -52,14 +52,19 @@
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="amount" class="col-form-label">Amount</label>
-                    <input type="number" step=".01" min="0" max="10" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount in kg..">
+                    <div class="input-group">
+                        <input type="number" step=".01" min="0" max="10" class="form-control" id="amount" name="amount" placeholder="Input amount in kg..">
+                        <div class="input-group-append">
+                            <span class="input-group-text">kg</span>
+                        </div>
+                    </div>
                     <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
         </div>
         <input class="btn-add-item btn btn-primary mb-3" type="submit"></input>
     </form>
-
+    
     <div class="table-responsive my-3">
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
             <thead>

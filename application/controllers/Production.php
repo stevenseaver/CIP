@@ -1012,4 +1012,24 @@ class Production extends CI_Controller
         $this->db->delete('cogs_calculator');
         redirect('production/cogs_calculator/');
     }
+
+    /** Gramatur function */
+    /** Gramatur calculates gramature and/or thickness of a certain product */
+    public function gramatur(){
+        $data['title'] = 'Gramatur Calculator';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get material data
+        $data['material'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+
+        // $data['material_selected'] = $this->db->get('cogs_calculator')->result_array();
+        $this->load->model('Calculator_model', 'calculator');
+        $data['material_selected'] = $this->calculator->getMaterialName();
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('production/gramatur', $data);
+        $this->load->view('templates/footer');
+    }
 }

@@ -54,28 +54,43 @@
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="price" class="col-form-label">Price</label>
-                    <input type="currency" class="form-control" id="price" name="price" value="<?= set_value('price'); ?>" readonly>
-                    <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Rp</span>
+                        </div>
+                        <input type="currency" class="form-control" id="price" name="price" value="<?= set_value('price'); ?>" readonly>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
                     <!-- Material in stock -->
                     <label for="stock" class="col-form-label">In Stock</label>
-                    <input type="text" class="form-control" id="stock" name="stock" readonly value="<?= set_value('stock'); ?>">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="stock" name="stock" readonly value="<?= set_value('stock'); ?>">
+                        <div class="input-group-append">
+                            <span class="input-group-text">kg</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
-                    <!-- Item code -->
+                    <!-- Item amount -->
                     <label for="amount" class="col-form-label">Amount</label>
-                    <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount in kg..">
-                    <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                    <div class="input-group">
+                        <!-- Item code -->
+                        <input type="number" step=".1" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Use amount">
+                        <div class="input-group-append">
+                            <span class="input-group-text">kg</span>
+                        </div>
+                        <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <!-- Item code -->
+                    <!-- Item desc -->
                     <label for="description" class="col-form-label">Description</label>
                     <input type="text" class="form-control mb-1" id="description" name="description" placeholder="Product name/batch number">
                     <?= form_error('description', '<small class="text-danger pl-2">', '</small>') ?>
@@ -84,10 +99,11 @@
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <!-- Item code -->
-                    <label for="item_desc" class="col-form-label">Mixing Formula</label>
+                    <!-- Item mix amount -->
+                    <label for="campuran" class="col-form-label">Mixing Formula</label>
                     <input type="number" min="1" max="100" class="form-control mb-1" id="campuran" name="campuran" placeholder="Mix amount">
-                    <?= form_error('item_desc', '<small class="text-danger pl-2">', '</small>') ?>
+                    <?= form_error('campuran', '<small class="text-danger pl-2">', '</small>') ?>
+                    <small>Formula mixing number (x10 kg). Mandatory</small>
                 </div>
             </div>
         </div>

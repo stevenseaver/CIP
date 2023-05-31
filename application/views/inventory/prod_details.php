@@ -17,10 +17,16 @@
                     <p class="text-dark font-weight-bold"> <?= $getID['name'] ?></p>
                     <p class="text-dark mb-1">Code : </p>
                     <p class="text-dark font-weight-bold"> <?= $getID['code'] ?></p>
+                </div>
+                <div class="col-lg-4">
                     <p class="text-dark mb-1">Lipatan : </p>
                     <p class="text-dark font-weight-bold"> <?= $getID['lipatan'] ?></p>
                     <p class="text-dark mb-1">Gramatur : </p>
                     <p class="text-dark font-weight-bold"> <?= $getID['weight'] ?></p>
+                </div>
+                <div class="col-lg-4">
+                    <p class="text-dark mb-1">In Stock : </p>
+                    <p class="text-dark font-weight-bold"> <?= number_format($getID['in_stock'], 2, ',', '.') . ' kg' ?></p>
                 </div>
             </div>
         </div>

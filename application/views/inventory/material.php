@@ -50,7 +50,7 @@
                                 <td><?= $ms['name'] ?></td>
                                 <td><?= $ms['code'] ?></td>
                                 <td><?= $ms['categories_name'] ?></td>
-                                <td><?= number_format($ms['in_stock'], 0, ',', '.'); ?></td>
+                                <td><?= number_format($ms['in_stock'], 2, ',', '.'); ?></td>
                                 <td><?= number_format($ms['price'], 0, ',', '.'); ?></td>
                                 <?php $value = $ms['price'] * $ms['in_stock'];
                                 $temp = $temp + $value;  ?>

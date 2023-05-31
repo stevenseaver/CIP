@@ -74,8 +74,14 @@
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="amount" class="col-form-label">Amount</label>
-                    <input type="number" class="form-control mb-1" id="amount" name="amount" step=".01" placeholder="Input amount in pack or kg..">
-                    <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                    <div class="input-group">
+                        <!-- Item code -->
+                        <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Use amount">
+                        <div class="input-group-append">
+                            <span class="input-group-text">kg</span>
+                        </div>
+                        <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-4">
