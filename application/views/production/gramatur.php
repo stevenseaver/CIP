@@ -312,7 +312,7 @@
                         <?= form_error('folding2', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="col-lg-3">
                     <label for="std_gram2" class="col-form-label">Gramature</label>
                     <div class="input-group">
                         <!-- Item code -->
@@ -342,40 +342,3 @@
 </div>
 </div>
 <!-- End of Main Content -->
-
-<!-- Modal For Delete Data -->
-<div class="modal fade" id="deleteItemProdOrder" tabindex="-1" role="dialog" aria-labelledby="deleteItemProdOrderLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteItemProdOrderLabel">Whoops!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <p class="mx-3 mt-3 mb-0">You're about to delete this item. Are you sure?</p>
-            <form action="<?= base_url('production/delete_item') ?>" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <!-- prod id -->
-                        <label for="url" class="col-form-label">Production Order ID</label>
-                        <input type="text" class="form-control" id="delete_po_id" name="delete_po_id" readonly>
-                        <!-- item id -->
-                        <label for="url" class="col-form-label" style="display:none">ID</label>
-                        <input type="text" class="form-control" id="delete_id" name="delete_id" style="display:none" readonly>
-                        <!-- item name -->
-                        <label for="url" class="col-form-label">Item</label>
-                        <input type="text" class="form-control" id="delete_name" name="delete_name" readonly>
-                        <!-- item amount -->
-                        <label for="url" class="col-form-label">Amount</label>
-                        <input type="text" class="form-control" id="delete_amount" name="delete_amount" readonly>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
