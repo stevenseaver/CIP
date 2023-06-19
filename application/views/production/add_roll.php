@@ -69,7 +69,7 @@
                     <label for="amount" class="col-form-label">Amount</label>
                     <div class="input-group">
                         <!-- Item code -->
-                        <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Use amount">
+                        <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Amount produced">
                         <div class="input-group-append">
                             <span class="input-group-text">kg</span>
                         </div>
@@ -81,9 +81,9 @@
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="batch" class="col-form-label">Batch</label>
-                    <input type="text" class="form-control mb-1" id="batch" name="batch" placeholder="Product name/batch number">
+                    <input type="text" class="form-control mb-1" id="batch" name="batch" value="<?= $getID['description'] . '-' ?>">
                     <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Batch number. Mandatory</small>
+                    <small>Batch number YYMMDDHHMM-EL-S. Mandatory to add Extruder Line (ES) and shift (S).</small>
                 </div>
             </div>
             <div class="col-lg-4">

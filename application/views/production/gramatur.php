@@ -40,37 +40,37 @@
                         </thead>
                         <tbody>
                             <tr>
-                            <th scope="row">15</th>
+                            <td scope="row">15</td>
                             <td>9</td>
                             <td>7 and 7.5</td>
                             </tr>
                             <tr>
-                            <th scope="row">21, 24</th>
+                            <td scope="row">21, 24</td>
                             <td>10</td>
                             <td>11 for 21 | 14 for 24 </td>
                             </tr>
                             <tr>
-                            <th scope="row">28</th>
+                            <td scope="row">28</td>
                             <td>12</td>
                             <td>16 and 18</td>
                             </tr>
                             <tr>
-                            <th scope="row">35</th>
+                            <td scope="row">35</td>
                             <td>13</td>
                             <td>21.5</td>
                             </tr>
                             <tr>
-                            <th scope="row">40</th>
+                            <td scope="row">40</td>
                             <td>14</td>
                             <td>23.5, 24, and 24.5</td>
                             </tr>
                             <tr>
-                            <th scope="row">50</th>
+                            <td scope="row">50</td>
                             <td>17</td>
                             <td>32</td>
                             </tr>
                             <tr>
-                            <th scope="row">55</th>
+                            <td scope="row">55</td>
                             <td>18</td>
                             <td>39</td>
                             </tr>
@@ -107,7 +107,7 @@
                         <!-- Item thickness -->
                         <input type="number" step=".0001" class="form-control" id="thickness" name="thickness" value="<?= set_value('thickness'); ?>">
                         <div class="input-group-append">
-                            <span class="input-group-text">cm</span>
+                            <span class="input-group-text">mm</span>
                         </div>
                         <?= form_error('thickness', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>

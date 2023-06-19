@@ -80,10 +80,10 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="description" class="col-form-label">Description</label>
-                    <input type="text" class="form-control mb-1" id="description" name="description" placeholder="Product name/batch number">
+                    <label for="description" class="col-form-label">Batch ID</label>
+                    <input type="text" class="form-control mb-1" id="description" name="description" readonly placeholder="Product name/batch number" value="<?= date('ymdHs', time());?>">
                     <?= form_error('description', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Product name and batch number. Mandatory</small>
+                    <small>Batch number code. Automatically.</small>
                 </div>
             </div>
             <div class="col-lg-6">

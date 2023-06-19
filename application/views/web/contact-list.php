@@ -18,7 +18,7 @@
                                 <p class="text-primary mb-1">info@cakrainti.com</p>
                             </a>
                             <a href="https://wa.me/+6287701007838/?text=Hello,%20general%20inquiries?" target="_blank" rel="noopener noreferer" class="">
-                                <p class="text-primary mb-1">+62 877-0100-7838</p>
+                                <p class="text-primary mb-1">+62 878-6241-3070</p>
                             </a>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                                 <p class="text-primary mb-1">hr@cakrainti.com</p>
                             </a>
                             <a href="https://wa.me/+6282232057755/?text=Hello,%20HR%20inquiries?" target="_blank" rel="noopener noreferer" class="">
-                                <p class="text-primary mb-1">+62 822-3205-7755</p>
+                                <p class="text-primary mb-1">+62 81-330-330-901</p>
                             </a>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                                 <p class="text-primary mb-1">investor@cakrainti.com</p>
                             </a>
                             <a href="https://wa.me/+6281382382999/?text=Hello,%20Investor%20inquiries?" target="_blank" rel="noopener noreferer" class="">
-                                <p class="text-primary mb-1">+62 81-382-382-999</p>
+                                <p class="text-primary mb-1">+62 878-6241-3070</p>
                             </a>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                                 <p class="text-primary mb-1">supplier@cakrainti.com</p>
                             </a>
                             <a href="https://wa.me/+6281330330901/?text=Hello,%20B2B%20inquiries?" target="_blank" rel="noopener noreferer" class="">
-                                <p class="text-primary mb-1">+62 81-330-330-901</p>
+                                <p class="text-primary mb-1">+62 81-382-382-999</p>
                             </a>
                         </div>
                     </div>

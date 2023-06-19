@@ -263,15 +263,12 @@ class Production extends CI_Controller
 
         if(!empty($data['roll_selected'])){
             //delete related PO items
-            $data['get_code'] = $this->db->get_where('stock_roll', ['transaction_id' => $po_id])->row_array();
             $date = time();
 
-            $selected = $data['get_code']['code'];
-            $data['updatestock'] = $this->db->get_where('stock_roll', ['code' => $selected, 'status' => 7])->row_array();
-            $stock_akhir = $data['updatestock']['in_stock'];
-            // var_dump($stock_akhir);
-
             foreach ($data['roll_selected'] as $rs) :
+                $data['updatestock'] = $this->db->get_where('stock_roll', ['code' => $rs['code'], 'status' => 7])->row_array();
+                $stock_akhir = $data['updatestock']['in_stock'];
+
                 $update_stock = ($stock_akhir - $rs['incoming']);
                 $stock_akhir = $update_stock;
 
@@ -291,6 +288,16 @@ class Production extends CI_Controller
 
         $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Production order unsaved, item(s) are deleted!</div>');
         redirect('production/');
+    }
+
+    public function createPDF($po_id, $date)
+    {
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+
+        $data['ref'] = $po_id;
+        $data['date'] = $date;
+        $this->load->view('production/view_prodorder', $data);
     }
 
     /*** INPUT ROLL
@@ -341,6 +348,8 @@ class Production extends CI_Controller
         $data['rollSelect'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
 
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+
         //get inventory warehouse data
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
         $data['po_id'] = $prodID;
@@ -359,6 +368,8 @@ class Production extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         $data['rollSelect'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
+
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
 
         //get inventory warehouse data
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
@@ -512,15 +523,12 @@ class Production extends CI_Controller
 
         //delete related PO items
         $data['roll_selected'] = $this->db->get_where('stock_roll', ['transaction_id' => $po_id])->result_array();
-        $data['get_code'] = $this->db->get_where('stock_roll', ['transaction_id' => $po_id])->row_array();
         $date = time();
 
-        $selected = $data['get_code']['code'];
-        $data['updatestock'] = $this->db->get_where('stock_roll', ['code' => $selected, 'status' => 7])->row_array();
-        $stock_akhir = $data['updatestock']['in_stock'];
-        // var_dump($stock_akhir);
-
         foreach ($data['roll_selected'] as $rs) :
+            $data['updatestock'] = $this->db->get_where('stock_roll', ['code' => $rs['code'], 'status' => 7])->row_array();
+            $stock_akhir = $data['updatestock']['in_stock'];
+
             $update_stock = ($stock_akhir - $rs['incoming']);
             $stock_akhir = $update_stock;
 
@@ -598,6 +606,8 @@ class Production extends CI_Controller
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
         $data['po_id'] = $prodID;
 
+        $data['getID'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->row_array();
+
         //gbj items
         $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
 
@@ -621,6 +631,8 @@ class Production extends CI_Controller
         //get inventory warehouse data
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
         $data['po_id'] = $prodID;
+
+        $data['getID'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->row_array();
 
         //gbj items
         $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();

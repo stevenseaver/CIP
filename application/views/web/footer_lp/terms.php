@@ -118,6 +118,7 @@
         <ul class="text-dark mx-2 text-justify">
             <li class="text-dark mx-4">Invoice and Delivery Order signed by Us and You, and</li>
             <li class="text-dark mx-4">Video or real evidence of said complaint, such as: complaint on quantity that doesn't match the delivery order must be accompanied with video of the Goods unloading and received for the first time by the customer or flaw in plastic bag seal workmanship must be accompanied with video and/or photo evidence.</li>
+            <li class="text-dark mx-4">Complained products must be returned to Us, and we will only replace the same amount as the amount we received. Failure to do so will result in failed claim.</li>
         </ul>
         </p>
         <p class="text-dark mx-2 px-2 text-justify">
@@ -308,6 +309,7 @@
         <ul class="text-dark mx-2 text-justify">
             <li class="text-dark mx-4">Faktur Penjualan dan Surat Jalan asli yang telah ditandatangani oleh kami dan/atau Anda, dan</li>
             <li class="text-dark mx-4">Bukti video atau foto asli dari komplain yang diajukan, contohnya: kuantitas tidak sesuai wajib memberikan video pembongkaran barang saat diterima, ataupun kecacatan pada pengerjaan las harus dibuktikan melalui video dan/atau foto.</li>
+            <li class="text-dark mx-4">Produk yang di komplain/mengalami kerusakan wajib dikembalikan kepada Kami, dan Kami akan mengganti sesuai dengan barang yang Kami terima. Jika Anda tidak mengembalikan produk, maka klaim garansi akan batal sendirinya.</li>
         </ul>
         </p>
         <p class="text-dark mx-2 px-2 text-justify">
