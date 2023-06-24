@@ -12,27 +12,40 @@
         <div class="col-lg">
             <div class="card shadow border-0 mb-3" class="align-items-center">
                 <div class="card-body">
-                    <h5 class="mx-0 mb-3 font-weight-bold text-primary">Or, you can just drop your inquiries here!</h5>
+                    <h5 class="mx-0 mb-3 font-weight-bold text-primary">If you need our after sales service, feel free to contact us here!</h5>
                     <?= $this->session->flashdata('message'); ?>
                     <form class="user" method="post" action="<?= base_url('contact/validate'); ?>">
                         <!-- input nama -->
                         <div class="form-group">
                             <div class="row mx-0">
-                                <!-- name -->
-                                <label for="name" class="text-primary">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Hello there, what's your name?">
-                                <?= form_error('name', '<small class="text-danger mt-2 ml-2">', '</small>') ?>
+                                <!-- invoice number -->
+                                <label for="invoice" class="text-primary">Invoice Number</label>
+                                <!-- <input type="text" class="form-control" id="invoice" name="invoice" placeholder="Input your 7 digit invoice number here"> -->
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">INV-</span>
+                                    </div>
+                                    <input type="text"class="form-control" id="invoice" name="invoice" value="<?= set_value('invoice'); ?>" placeholder="123456-1234">
+                                </div>
+                                <?= form_error('invoice', '<small class="text-danger mt-2 ml-2">', '</small>') ?>
                             </div>
                             <div class="row mx-0">
                                 <!-- email-->
                                 <label for="email" class="text-primary mt-3">Email</label>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="Your email here.">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Your email here, so that we can contact you">
                                 <?= form_error('email', '<small class="text-danger mt-2 ml-2">', '</small>') ?>
+                            </div>
+                            <div class="row mx-0">
+                                <!-- email-->
+                                <label for="phone" class="text-primary mt-3">Phone Number</label>
+                                <input type="phone" class="form-control" id="phone" name="phone" placeholder="Your phone number here, so that we can contact you">
+                                <?= form_error('phone', '<small class="text-danger mt-2 ml-2">', '</small>') ?>
+                                <small class="text-dark mt-2 ml-2">Use your country code, i.e. +62!</small>
                             </div>
                             <div class="row mx-0 mb-3">
                                 <!-- message -->
-                                <label for="message" class="text-primary mt-3">Message</label>
-                                <textarea type="text" class="form-control" id="message" name="message" rows="3" placeholder="Sends us your question, feedback, anything goes here!"></textarea>
+                                <label for="message" class="text-primary mt-3">Tell us what happened?</label>
+                                <textarea type="text" class="form-control" id="message" name="message" rows="3" placeholder="Tell us about your problem, and we will do our best to help you!"></textarea>
                                 <?= form_error('message', '<small class="text-danger mt-2 ml-2">', '</small>') ?>
                             </div>
                         </div>

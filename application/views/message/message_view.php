@@ -20,8 +20,10 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">No</th>
-                                    <th>Name</th>
+                                    <th>Ticket</th>
+                                    <th>Invoice</th>
                                     <th>Email</th>
+                                    <th>Phone</th>
                                     <th>Message</th>
                                     <th>Action</th>
                                 </tr>
@@ -31,11 +33,13 @@
                                 <?php foreach ($message as $m) : ?>
                                     <tr>
                                         <td class="text-center"><?= $i ?></td>
-                                        <td><?= $m['name']; ?></td>
+                                        <td><?= $m['ticket']; ?></td>
+                                        <td><?= $m['invoice']; ?></td>
                                         <td><?= $m['email']; ?></td>
+                                        <td><?= $m['phone']; ?></td>
                                         <td><?= $m['message']; ?></td>
                                         <td>
-                                            <a data-toggle="modal" data-target="#replyModal" class="badge badge-primary text-white clickable" data-email="<?= $m['email']; ?>">Reply</a>
+                                            <a data-toggle="modal" data-target="#replyModal" class="badge badge-primary text-white clickable" data-ticket="<?= $m['ticket']; ?>" data-email="<?= $m['email']; ?>">Reply</a>
                                             <a href="<?= base_url('contact/deletemessage/') . $m['id'] ?>" class="badge badge-danger">Delete</a>
                                         </td>
                                         <?php $i++; ?>

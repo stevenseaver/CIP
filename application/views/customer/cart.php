@@ -103,7 +103,12 @@
     <?php
         echo form_close();
     else : ?>
-        <div class="alert alert-danger" role="alert">Your cart is empty! Let's fill it up <a href="<?= base_url('customer/') ?>">here. </a></div>
+         <div class="row mx-3 my-0 justify-content-center">
+            <h1 class="text-gray-400"><i class="bi bi-bag-plus fa-5x"></i></h1>
+        </div>
+        <div class="row mx-3 justify-content-center">
+            <div class="" role="alert">Your cart is empty! Let's fill it with some items <a href="<?= base_url('customer/') ?>">here. </a></div>
+        </div>
     <? endif;
     ?>
 </div>

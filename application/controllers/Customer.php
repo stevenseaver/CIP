@@ -19,9 +19,10 @@ class Customer extends CI_Controller
         // get trans ID
         $year = date('y');
         $month = date('m');
+        $time = date('s');
         $serial = rand(100, 999);
         //ref invoice
-        $ref = 'INV-' . $year . $month . '-' . $data['user']['id'] . $serial;
+        $ref = 'INV-' . $year . $month . $time . '-' . $data['user']['id'] . $serial;
 
         $data['ref'] = $ref;
         //join warehouse database 
@@ -192,9 +193,10 @@ class Customer extends CI_Controller
         $date = time();
         $year = date('y');
         $month = date('m');
+        $time = date('s');
         $serial = rand(100, 999);
         //ref invoice
-        $ref = 'INV-' . $year . $month . '-' . $data['user']['id'] . $serial;
+        $ref = 'INV-' . $year . $month . $time . '-' . $data['user']['id'] . $serial;
 
         $this->form_validation->set_rules('address', 'address', 'required|trim');
         $this->form_validation->set_rules('city', 'city', 'required|trim');
@@ -220,6 +222,10 @@ class Customer extends CI_Controller
         $data['date'] = $date;
         $data['address'] = $address;
 
+        // $this->db->where('customer_id', $id_cust);
+        // $this->db->where('status', $status);
+        // $this->db->update('cart', $data_db);
+        
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar_cust', $data);
@@ -297,7 +303,7 @@ class Customer extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
-        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id'],  'status' => 1],)->result_array();
 
         $data['inv'] = $this->input->post('invoiceID');
 

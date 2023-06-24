@@ -915,8 +915,9 @@ class Production extends CI_Controller
         $data['material'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
 
         // $data['material_selected'] = $this->db->get('cogs_calculator')->result_array();
+        $user_id = $data['user']['id'];
         $this->load->model('Calculator_model', 'calculator');
-        $data['material_selected'] = $this->calculator->getMaterialName();
+        $data['material_selected'] = $this->calculator->getMaterialName($user_id);
 
         $this->form_validation->set_rules('materialSelect', 'material', 'required');
         $this->form_validation->set_rules('amount', 'amount', 'required|trim');
@@ -935,6 +936,7 @@ class Production extends CI_Controller
             $price = $this->input->post('price');
 
             $data = [
+                'user_id' => $user_id,
                 'material_id' => $materialName,
                 'amount_used' => $amount,
                 'price_per_unit' => $price
@@ -1031,12 +1033,6 @@ class Production extends CI_Controller
         $data['title'] = 'Gramatur Calculator';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get material data
-        $data['material'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
-
-        // $data['material_selected'] = $this->db->get('cogs_calculator')->result_array();
-        $this->load->model('Calculator_model', 'calculator');
-        $data['material_selected'] = $this->calculator->getMaterialName();
         
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

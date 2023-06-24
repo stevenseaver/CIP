@@ -49,7 +49,7 @@
  <script src="<?= base_url('asset/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 
  <!-- Custom scripts for all pages-->
- <script src="<?= base_url('asset/'); ?>js/sb-admin-2.min.js"></script>
+ <script src="<?= base_url('asset/'); ?>js/sb-admin-2.js"></script>
 
  <!-- Page level datatables plugins -->
  <script src="<?= base_url('asset/') ?>vendor/datatables/jquery.dataTables.min.js"></script>
@@ -987,9 +987,11 @@
      $('#replyModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var email = $(event.relatedTarget).data('email');
+         var ticket = $(event.relatedTarget).data('ticket');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="email"]').val(email);
+         $(event.currentTarget).find('.modal-body input[name="subject"]').val(ticket);
      });
 
      //  JavaScript for Delete Individual cart item Message

@@ -12,10 +12,11 @@
         $i = 1;
         $temp = 0;
         $before = '';
+
         foreach ($dataCart as $items) :
-            if ($items['status'] == '0') { //show only with status = 1
-                continue;
-            } else {
+            // if ($items['status'] == '0') { //show only with status = 1
+            //     continue;
+            // } else {
                 if ($before != $items['ref']) { ?>
                     <div class="card rounded border-0 shadow mb-3">
                         <div class="card-body">
@@ -42,15 +43,20 @@
         <?php
                     $before = $items['ref'];
                     $i++;
-                } else {
-                }
+                // } else {
+                // }
             }
         // }
         // 
         endforeach; ?>
     <?php
     } else { ?>
-        <div class="alert alert-danger" role="alert">Your haven't made any transaction! Let's make some <a href="<?= base_url('customer/') ?>">here. </a></div>
+        <div class="row mx-3 my-0 justify-content-center">
+            <h1 class="text-gray-400"><i class="bi bi-cash-coin fa-5x"></i></h1>
+        </div>
+        <div class="row mx-3 justify-content-center">
+            <div class="" role="alert">Your haven't made any transaction! Let's make some <a href="<?= base_url('customer/') ?>">here. </a></div>
+        </div>
     <? }
     ?>
 </div>

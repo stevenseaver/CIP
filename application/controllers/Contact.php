@@ -58,14 +58,15 @@ class Contact extends CI_Controller
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['products'] = $this->db->get('product_menu')->result_array();
 
-        $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('invoice', 'invoice', 'required|trim');
         $this->form_validation->set_rules('email', 'email', 'required|trim');
+        $this->form_validation->set_rules('phone', 'phone', 'required|trim');
         $this->form_validation->set_rules('message', 'message', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/web-topbar', $data);
-            $this->load->view('web/contact-us', $data);
+            $this->load->view('web/complaint-form', $data);
             $this->load->view('templates/web-footer');
         } else {
             //capture captcha response
@@ -96,26 +97,30 @@ class Contact extends CI_Controller
                 $finalResponse = json_decode($receiveData, true);
 
                 if ($finalResponse['success'] == true) {
-                    $name = $this->input->post('name');
+                    $ticket = rand(0000,9999);
+                    $invoice = $this->input->post('invoice');
                     $email = $this->input->post('email');
+                    $phone = $this->input->post('phone');
                     $message = $this->input->post('message');
 
                     $data = [
-                        'name' => $name,
+                        'ticket' => $ticket,
+                        'invoice' => 'INV-' . $invoice,
                         'email' => $email,
+                        'phone' => $phone,
                         'message' => $message
                     ];
 
                     $this->db->insert('contact_us', $data);
                     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Message sent!</div>');
-                    redirect('web/contact_us');
+                    redirect('web/contact_form');
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Google API challenge failed!</div>');
-                    redirect('web/contact_us');
+                    redirect('web/contact_form');
                 }
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">User validation failed!</div>');
-                redirect('web/contact_us');
+                redirect('web/contact_form');
             }
         }
     }
