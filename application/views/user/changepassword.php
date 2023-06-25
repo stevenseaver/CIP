@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <div class="card border-left-info mb-3">
+            <div class="card border-left-primary mb-3">
                 <div class="card-body">
                     <form action="<?= base_url('user/changepassword') ?>" method="post">
                         <div class="form-group row">
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-info btn-icon-split">
+                            <button type="submit" class="btn btn-primary btn-icon-split">
                                 <span class="icon text-white-60">
                                     <i class="fas fa-fw fa-arrow-right"></i>
                                 </span>

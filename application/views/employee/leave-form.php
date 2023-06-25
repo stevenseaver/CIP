@@ -5,31 +5,31 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
 
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg">
             <?= $this->session->flashdata('message'); ?>
             <div class="card border-left-primary mb-3">
                 <div class="card-body">
                     <?= form_open_multipart('employee/submit'); ?>
                     <div class="form-group row">
                         <!-- show ERN -->
-                        <label for="nik" class="col-sm-3 col-form-label">ERN</label>
-                        <div class="col-sm-9">
+                        <label for="nik" class="col-lg-2 col-form-label">ERN</label>
+                        <div class="col-lg-10">
                             <input type="text" class="form-control" id="nik" name="nik" value="<?= $user['nik']; ?>" readonly>
                             <?= form_error('nik', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     <div class="form-group row">
                         <!-- show name -->
-                        <label for="fullname" class="col-sm-3 col-form-label">Full Name</label>
-                        <div class="col-sm-9">
+                        <label for="fullname" class="col-lg-2 col-form-label">Full Name</label>
+                        <div class="col-lg-10">
                             <input type="text" class="form-control" id="name" name="name" value="<?= $user['name']; ?>" readonly>
                             <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     <div class="form-group row">
                         <!-- input leave_type -->
-                        <label for="leave_type" class="col-sm-3 col-form-label">Type</label>
-                        <div class="col-sm-9">
+                        <label for="leave_type" class="col-lg-2 col-form-label">Type</label>
+                        <div class="col-lg-10">
                             <select name="leave_type" id="leave_type" class="form-control" value="<?= set_value('leave_type') ?>">
                                 <option value="">--Select Type--</option>
                                 <?php foreach ($leavetype as $l) : ?>
@@ -41,45 +41,46 @@
                     </div>
                     <div class="form-group row">
                         <!-- fill start date -->
-                        <label for="start_date" class="col-sm-3 col-form-label">Start Date</label>
-                        <div class="col-sm-9">
+                        <label for="start_date" class="col-lg-2 col-form-label">Start Date</label>
+                        <div class="col-lg-10">
                             <input type="date" class="form-control" id="start_date" name="start_date" value="<?= set_value('start_date') ?>">
                             <?= form_error('start_date', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     <div class="form-group row">
                         <!-- fill finish date -->
-                        <label for="finish_date" class="col-sm-3 col-form-label">Finish Date</label>
-                        <div class="col-sm-9">
+                        <label for="finish_date" class="col-lg-2 col-form-label">Finish Date</label>
+                        <div class="col-lg-10">
                             <input type="date" class="form-control" id="finish_date" name="finish_date" value="<?= set_value('finish_date') ?>">
                             <?= form_error('finish_date', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     <div class="form-group row">
                         <!-- fill reason -->
-                        <label for="reason" class="col-sm-3 col-form-label">Reason</label>
-                        <div class="col-sm-9">
+                        <label for="reason" class="col-lg-2 col-form-label">Reason</label>
+                        <div class="col-lg-10">
                             <input type="text" class="form-control" id="reason" name="reason" placeholder="Fill in your reason" value="<?= set_value('reason') ?>">
                             <?= form_error('reason', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     <div class="form-group row">
                         <!-- upload document -->
-                        <label for="proof" class="col-sm-3 col-form-label">Document</label>
-                        <div class="col-sm-9">
-                            <input type="file" class="custom-file-input" id="proof" name="proof">
+                        <label for="proof" class="col-lg-2 col-form-label">Document</label>
+                        <div class="col-lg-10 mx-0">
+                            <input type="file" class="custom-file-input from-control" id="proof" name="proof">
                             <label class="custom-file-label" for="proof">Choose file</label>
                             <small class="text-primary">Maximum 2 MB. Required for sick leave.</small>
                             <?= form_error('proof', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     <div class="form-group row justify-content-end">
-                        <div class="col-sm-9">
+                        <div class="col-lg-10">
                             <button type="submit" class="btn btn-primary btn-icon-split">
                                 <span class="icon text-white-50">
                                     <i class="fas fa-fw fa-arrow-right"></i>
                                 </span>
-                                <span class="text">Submit Request</span></button>
+                                <span class="text">Submit Request</span>
+                            </button>
                         </div>
                     </div>
                     </form>

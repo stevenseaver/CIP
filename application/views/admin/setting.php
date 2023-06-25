@@ -1,22 +1,21 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
 
     <?= $this->session->flashdata('message'); ?>
 
     <div class="row text-dark">
-        <div class="col-3">
+        <div class="col-lg-3 mb-3">
             <div class="list-group list-group-flush" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-general-list" data-toggle="list" href="#list-general" role="tab" aria-controls="general">General</a>
                 <a class="list-group-item list-group-item-action" id="list-backup-list" data-toggle="list" href="#list-backup" role="tab" aria-controls="backup">Backup</a>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-lg-9">
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="list-general" role="tabpanel" aria-labelledby="list-general-list">
-                    <div class="mb-3 h5">Theme Color</div>
+                    <div class="mb-3 h5">Sidebar Color</div>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card border-left-primary mb-3">
@@ -28,23 +27,22 @@
                                     <a class="btn" href="<?= base_url('admin/theme_color/danger') ?>"><i class="bi bi-circle-fill fa-2x text-danger"></i></a>
                                     <a class="btn" href="<?= base_url('admin/theme_color/warning') ?>"><i class="bi bi-circle-fill fa-2x text-warning"></i></a>
                                     <a class="btn" href="<?= base_url('admin/theme_color/success') ?>"><i class="bi bi-circle-fill fa-2x text-success"></i></a>
+                                    <a class="btn" href="<?= base_url('admin/theme_color/info') ?>"><i class="bi bi-circle-fill fa-2x text-info"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="list-appearance" role="tabpanel" aria-labelledby="list-appearance-list">
-                    
-                </div>
                 <div class="tab-pane fade" id="list-backup" role="tabpanel" aria-labelledby="list-backup-list">
-                <div class="mb-3 h5">Back up file path</div>
+                    <div class="mb-3 h5">Back up database</div>
                     <form action="<?= base_url('admin/download_database') ?>" method="post">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="backup_path" name="backup_path" value="./backup/db/">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-danger" type="submit" id="button-backup">Back Up</button>
-                            </div>
-                        </div>
+                        <!-- <button class="btn btn-outline-danger" type="submit" id="button-backup">Back Up</button> -->
+                        <button type="submit" class="btn btn-outline-danger btn-icon-split">
+                            <span class="icon text-white-60">
+                                <i class="fas fa-fw fa-database text-white"></i>
+                            </span>
+                            <span class="text">Back up</span>
+                        </button>
                     </form>
                 </div>
             </div>

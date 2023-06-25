@@ -173,7 +173,7 @@
                             <label for="role_id" class="col-form-label">Repeat Password</label>
                             <input type="password" class="form-control" id="password2" name="password2" placeholder="Repeat Password">
                             <?= form_error('password2', '<small class="text-danger pl-3">', '</small>') ?>
-                            <div class="form-check ml-3 mb-0">
+                            <div class="form-check ml-0 mt-1">
                                 <input class="form-check-input" type="checkbox" id="show_pass" name="show_pass" onclick="visibilePassword()" />
                                 <label class="small" for="show_pass">Show password</label>
                             </div>

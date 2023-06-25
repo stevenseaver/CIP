@@ -283,6 +283,7 @@ class Admin extends CI_Controller
 
     public function theme_color($color){
         $column = 'header_color';
+
         $this->db->set('value', $color);
         $this->db->where('parameter', $column);
         $this->db->update('settings');
@@ -292,8 +293,7 @@ class Admin extends CI_Controller
     }
 
     public function download_database(){
-
-        $path = $this->input->post('backup_path');
+        // $path = $this->input->post('backup_path');
         // Load the DB utility class
         $this->load->dbutil();
 
