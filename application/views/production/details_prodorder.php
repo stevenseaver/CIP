@@ -18,7 +18,7 @@
     </a>
 
     <!-- view pdf PO  -->
-    <a href="<?= base_url('production/createPDF/') . $getID['transaction_id'] .'/'. $getID['date'] ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+    <a href="<?= base_url('production/createPDF/') . $getID['transaction_id'] .'/'. $getID['date'] .'/'. $getID['description'] ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
         <span class="icon text-white-50">
             <i class="bi bi-eye"></i>
         </span>

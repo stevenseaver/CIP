@@ -20,11 +20,12 @@ class User extends CI_Controller
         $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
         $data['dataCartSO'] = $this->db->get_where('cart', ['status' => '1'])->result_array();
         //get material database
-        $data['materialStock'] = $this->db->get('stock_material')->result_array();
+        $data['materialStock'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+        $data['prodOrder'] = $this->db->get_where('stock_material', ['status' => 3, 'transaction_status' => 1])->result_array();
         //get roll database
-        $data['rollStock'] = $this->db->get('stock_roll')->result_array();
+        $data['rollStock'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
         //get roll database
-        $data['fgStock'] = $this->db->get('stock_finishedgoods')->result_array();
+        $data['fgStock'] = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

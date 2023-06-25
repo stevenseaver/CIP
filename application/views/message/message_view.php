@@ -78,14 +78,14 @@
                     <div class="form-group">
                         <!-- Subject -->
                         <label for="subject" class="">Subject:</label>
-                        <input type="text" class="form-control" id="subject" name="subject">
+                        <input type="text" class="form-control" id="subject" name="subject" p>
                         <?= form_error('menu', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Message -->
                         <label for="message" class="">Message:</label>
-                        <textarea type="text" class="form-control" id="message" name="message" rows="3" placeholder=""></textarea>
-                        <?= form_error('menu', '<small class="text-danger pl-3">', '</small>') ?>
+                        <textarea type="text" class="form-control" id="message" name="message" rows="3"></textarea>
+                        <?= form_error('message', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
                 </div>
                 <div class="modal-footer">

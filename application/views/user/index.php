@@ -10,16 +10,29 @@
 
     <?php if ($user['role_id'] != 3) { ?>
         <!-- Content Row for Admin, Employee, Internal-->
+        <?php 
+            $temp = 0;
+            $prodOrderCount = $temp;
+            $before = '';
+            foreach ($prodOrder as $items) :
+                if ($before != $items['transaction_id']) {
+                    $before = $items['transaction_id'];
+                    $temp++;
+                } else {
+                }
+                $prodOrderCount = $temp;
+            endforeach;
+        ?>
         <div class="row">
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+            <a class="col-xl-3 col-md-6 mb-4" href=" <?= base_url('production') ?>" style="text-decoration:none">
                 <div class="card border-left-primary shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Accounts Receivables Due</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                    Production Order Due</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $prodOrderCount ?></div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -27,7 +40,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- Cust Message -->
             <a class="col-xl-3 col-md-6 mb-4" href=" <?= base_url('contact') ?>" style="text-decoration:none">
@@ -108,11 +121,6 @@
         $i = 1;
         $temp = 0;
         foreach ($materialStock as $ms) :
-            if ($ms['status'] != 7) {
-                continue;
-            } else {
-            }
-
             $value = $ms['price'] * $ms['in_stock'];
             $temp = $temp + $value;
         endforeach;
@@ -120,11 +128,6 @@
 
         $temp = 0;
         foreach ($rollStock as $rs) :
-            if ($rs['status'] != 7) {
-                continue;
-            } else {
-            }
-
             $value = $rs['price'] * $rs['in_stock'];
             $temp = $temp + $value;
         endforeach;
@@ -132,11 +135,6 @@
 
         $temp = 0;
         foreach ($fgStock as $fg) :
-            if ($fg['status'] != 7) {
-                continue;
-            } else {
-            }
-
             $value = $fg['price'] * $fg['in_stock'];
             $temp = $temp + $value;
         endforeach;
@@ -176,7 +174,7 @@
             </div>
             <!-- /.container-fluid -->
         </div>
-        <!-- Content Row for Customer-->
+
         <!-- Content Row for Customer-->
         <!-- Content Row for Customer-->
         <!-- Content Row for Customer-->

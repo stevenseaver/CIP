@@ -23,6 +23,11 @@ $pdf->SetFont('', '', 12);
 $pdf->Cell(35, 7, 'Date', 0, 0, 'L');
 $pdf->SetFont('', 'B', 12);
 $pdf->Cell(100, 7, date('d F Y H:i:s', $date), 0, 1, 'L');
+//Batch
+$pdf->SetFont('', '', 12);
+$pdf->Cell(35, 7, 'Batch', 0, 0, 'L');
+$pdf->SetFont('', 'B', 12);
+$pdf->Cell(100, 7, $batch, 0, 1, 'L');
 
 $temp = 0;
 $temp2 = 0;

@@ -290,13 +290,14 @@ class Production extends CI_Controller
         redirect('production/');
     }
 
-    public function createPDF($po_id, $date)
+    public function createPDF($po_id, $date, $batch)
     {
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
         $data['ref'] = $po_id;
         $data['date'] = $date;
+        $data['batch'] = $batch;
         $this->load->view('production/view_prodorder', $data);
     }
 

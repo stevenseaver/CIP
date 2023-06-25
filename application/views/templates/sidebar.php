@@ -1,6 +1,17 @@
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <?php 
+            $data['items'] = $this->db->get_where('settings', ['parameter' => 'header_color'])->row_array();
+            $color = $data['items']['value'];
+            if ($color != 'light') {
+                $text = 'dark';
+                $icon = 'light';
+            } else {
+                $text = 'light';
+                $icon = 'dark';
+            }
+        ?>
 
+        <ul class="navbar-nav bg-gradient-<?= $color ?> sidebar sidebar-<?= $text ?> accordion" id="accordionSidebar">
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('user') ?>">
                 <div class="sidebar-brand-icon">
@@ -52,7 +63,7 @@
                         <li class="nav-item">
                         <?php endif; ?>
                         <a class="nav-link pb-0" href="<?= base_url($sm['url']) ?>">
-                            <i class="<?= $sm['icon']; ?>"></i>
+                            <i class="<?= $sm['icon']; ?> text-<?= $icon ?>"></i>
                             <span><?= $sm['title']; ?></span>
                         </a>
                         <!-- <div id="<?= $i; ?>" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">

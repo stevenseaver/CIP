@@ -54,7 +54,7 @@
                 <div class="card-body">
                     <h5 class="mx-0 mb-3 font-weight-bold text-primary">Do you need our help?</h5>
                     <p class="text-dark mb-2">You can fill our customer service form <a href="<?= base_url('web/contact_form') ?>" rel="noopener noreferer"> here.</a></p>
-                    <p class="text-dark mb-2">Or you can contact our Customer Service</p>
+                    <p class="text-dark mb-2">Or you can contact our Customer Service directly via Whatsapp</p>
                     <i class="bi bi-person-badge fa-3x"></i>
                     <p class="text-primary mt-2 mb-0">+62 878-6241-3070</p>
                     <p class="text-dark mb-0">Customer Service Officer</p>
