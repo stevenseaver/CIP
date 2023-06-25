@@ -303,7 +303,7 @@ class Customer extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
-        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id'],  'status' => 1],)->result_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['status' => 3, 'customer_id' => $data['user']['id']])->result_array();
 
         $data['inv'] = $this->input->post('invoiceID');
 
