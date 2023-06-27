@@ -106,6 +106,14 @@
                     </span>
                     <span class="text-primary">Goods Delivered</span>
                 </div>
+            <?php } else if ($status == 4) { ?>
+                <div class="row justify-content-center mx-3 my-2 h5">
+                    <!-- Status = 4 delivered -->
+                    <span class="icon text-danger mx-2">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </span>
+                    <span class="text-danger">Declined</span>
+                </div>
             <?php } ?>
             <p class="text-dark mb-1">Invoice Ref. : </p>
             <p class="text-dark font-weight-bold"> <?= $ref ?></p>

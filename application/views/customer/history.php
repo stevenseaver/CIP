@@ -29,7 +29,36 @@
                                     <p class="small mb-0"><?= date('d F Y H:i', $items['date']);  ?></p>
                                 </div>
                             </div>
-                            <div class="col-1 d-flex justify-content-center align-items-center mx-3">
+                            <div class="col-2 d-flex justify-content-center align-items-center mx-3">
+                                <?php if($items['status'] == 1){ ?> 
+                                    <p class="mr-3 my-3 text-center">
+                                        <span class="icon text-warning mx-2">
+                                            <i class="bi bi-arrow-clockwise"></i>
+                                        </span>
+                                        <span class="text-warning">Confirming</span>
+                                    </p>
+                                <?php } else if($items['status'] == 2){ ?> 
+                                    <p class="mr-3 my-3 text-center">
+                                        <span class="icon text-primary mx-2">
+                                            <i class="bi bi-truck"></i>
+                                        </span>
+                                        <span class="text-primary">Delivering</span>
+                                    </p>
+                                <?php } else if($items['status'] == 3){ ?> 
+                                    <p class="mr-3 my-3 text-center">
+                                        <span class="icon text-success mx-2">
+                                            <i class="bi bi-check-circle-fill"></i>
+                                        </span>
+                                        <span class="text-success">Delivered</span>
+                                    </p>
+                                <?php } else if($items['status'] == 4){ ?> 
+                                    <p class="mr-3 my-3 text-center">
+                                        <span class="icon text-danger mx-2">
+                                            <i class="bi bi-exclamation-triangle-fill"></i>
+                                        </span>
+                                        <span class="text-danger">Declined</span>
+                                    </p>
+                                <?php } ?>
                                 <a href="<?= base_url('customer/history_details/') . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>">
                                     <i class="bi bi-list-check" style="font-size: 2rem;"></i>
                                 </a>

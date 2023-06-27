@@ -46,7 +46,7 @@
                                             <td>
                                                 <a href="<?= base_url('sales/sales_detail/') . urldecode($items['name']) . '/' . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>" class="badge badge-primary">Details</a>
                                                 <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '2' ?>" class="badge badge-success">Submit to Delivery</a>
-                                                <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '0' ?>" class="badge badge-danger">Decline</a>
+                                                <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '4' ?>" class="badge badge-danger">Decline</a>
                                             </td>
                                             </tr>
                                     <?php

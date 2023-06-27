@@ -59,9 +59,16 @@ class Sales extends CI_Controller
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Status changed!</div>');
         if ($status_change_to == 2) {
+            //delivery order
             redirect('sales/deliveryorder');
         } else if ($status_change_to == 3) {
+            //invoice
             redirect('sales/invoice');
+        } else if ($status_change_to == 4) {
+            //declined
+            redirect('sales/');
+            //delete all that has $ref on stock_finishedgoods database
+            //reset all in_stock on stock_finishedgoods database to the previous value
         }
     }
 

@@ -22,9 +22,9 @@ class Customer extends CI_Controller
         $time = date('s');
         $serial = rand(100, 999);
         //ref invoice
-        $ref = 'INV-' . $year . $month . $time . '-' . $data['user']['id'] . $serial;
+        // $ref = 'INV-' . $year . $month . $time . '-' . $data['user']['id'] . $serial;
 
-        $data['ref'] = $ref;
+        // $data['ref'] = $ref;
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
@@ -53,7 +53,7 @@ class Customer extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function add_to_cart($id, $ref)
+    public function add_to_cart($id)
     {
         //load user data per session
         $data['title'] = 'Products List';
@@ -87,7 +87,6 @@ class Customer extends CI_Controller
             $date = time();
 
             $data_cart = array(
-                'ref' => $ref,
                 'date' => $date,
                 'item_id' => $id,
                 'customer_id' => $customer,
@@ -101,39 +100,6 @@ class Customer extends CI_Controller
             // update cart
             $this->db->insert('cart', $data_cart);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item added to cart!</div>');
-
-            // // data to update inventory database
-            // $transaction_status = 4;
-            // $code = $data['itemselect']['code'];
-            // $category = $data['itemselect']['categories'];
-            // $date = time();
-            // $warehouse = 3;
-            // $pcsperpack = $data['itemselect']['pcsperpack'];
-            // $packpersack = $data['itemselect']['packpersack'];
-            // $in_stockOld = $data['itemselect']['in_stock'];
-
-            // $data_warehouse = [
-            //     'name' => $name,
-            //     'code' => $code,
-            //     'pcsperpack' => $pcsperpack,
-            //     'packpersack' => $packpersack,
-            //     'date' => $date,
-            //     'price' => $price,
-            //     'categories' => $category,
-            //     'outgoing' => $amount,
-            //     'status' => $transaction_status,
-            //     'warehouse' => $warehouse
-            // ];
-            // $data2_warehouse = [
-            //     'in_stock' => $in_stockOld - $amount,
-            //     'date' => $date
-            // ];
-
-            // update inventory
-            // $this->db->insert('stock_finishedgoods', $data_warehouse);
-
-            // $this->db->where('code', $code);
-            // $this->db->update('stock_finishedgoods', $data2_warehouse, 'status = 7');
 
             redirect('customer');
         }
@@ -222,10 +188,6 @@ class Customer extends CI_Controller
         $data['date'] = $date;
         $data['address'] = $address;
 
-        // $this->db->where('customer_id', $id_cust);
-        // $this->db->where('status', $status);
-        // $this->db->update('cart', $data_db);
-        
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar_cust', $data);
@@ -239,8 +201,6 @@ class Customer extends CI_Controller
         $data['title'] = 'Check Out Confirmation';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get cart database
-        // $data['dataCart'] = $this->db->get('cart')->result_array();
 
         $date = time();
         // $data['ref'] = $ref;
@@ -261,6 +221,56 @@ class Customer extends CI_Controller
             $this->upload->initialize($config);
 
             if ($this->upload->do_upload('image')) {
+                //get cart database and update stock finished goods first
+                $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id'], 'status' => '0'])->result_array();
+                foreach ($data['dataCart'] as $ci) :
+                    //get selected item
+                    $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['name' => $ci['item_name'], 'status' => 7])->row_array();
+
+                    // var_dump($data['itemselect']);
+                    // data to update inventory database
+                    $transaction_status = 4;
+                    $name = $data['itemselect']['name'];
+                    $code = $data['itemselect']['code'];
+                    $category = $data['itemselect']['categories'];
+                    $warehouse = 3;
+                    $amount = $ci['qty'];
+                    $price = $data['itemselect']['price'];
+                    $pcsperpack = $data['itemselect']['pcsperpack'];
+                    $packpersack = $data['itemselect']['packpersack'];
+                    $in_stockOld = $data['itemselect']['in_stock'];
+                    $conversion = $data['itemselect']['conversion'];
+
+                    $data_warehouse = [
+                        'name' => $name,
+                        'code' => $code,
+                        'pcsperpack' => $pcsperpack,
+                        'packpersack' => $packpersack,
+                        'conversion' => $conversion,
+                        'date' => $date,
+                        'price' => $price,
+                        'categories' => $category,
+                        'in_stock' => 0,
+                        'incoming' => 0,
+                        'outgoing' => $amount,
+                        'status' => $transaction_status,
+                        'warehouse' => $warehouse,
+                        'transaction_id' => $ref
+                    ];
+
+                    $data2_warehouse = [
+                        'in_stock' => $in_stockOld - $amount,
+                        'date' => $date
+                    ];
+
+                    // update inventory
+                    $this->db->insert('stock_finishedgoods', $data_warehouse);
+
+                    $this->db->where('code', $code);
+                    $this->db->update('stock_finishedgoods', $data2_warehouse, 'status = 7');
+                endforeach;
+                
+                // then upload image and update cart database
                 $new_image = $ref . '.' . $file_ext;
 
                 $data_db = array(
@@ -274,15 +284,6 @@ class Customer extends CI_Controller
                 $this->db->where('customer_id', $id_cust);
                 $this->db->where('status', $status);
                 $this->db->update('cart', $data_db);
-
-                // $data_wh = array(
-                //     'transaction_id' => $ref,
-                //     'transaction_status' => 1,
-                // );
-
-                // $this->db->where('customer_id', $id_cust);
-                // $this->db->where('status', $status);
-                // $this->db->update('stock_finishedgoods', $data_db);
 
                 redirect('customer/history');
             } else {
@@ -303,7 +304,7 @@ class Customer extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
-        $data['dataCart'] = $this->db->get_where('cart', ['status' => 3, 'customer_id' => $data['user']['id']])->result_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
 
         $data['inv'] = $this->input->post('invoiceID');
 
