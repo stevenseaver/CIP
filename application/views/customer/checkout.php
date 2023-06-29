@@ -69,15 +69,19 @@
                         </tfoot>
                     </table>
                 </div>
-
             </div>
         </div>
         <div class="row mx-3 justify-content-start align-items-center">
             <?= form_open_multipart(base_url('Customer/payment/') . $ref . '/' . $user['id'] . '/0'); ?>
+            <div class="row">
+                <div class="d-flex mb-3 text-primary">
+                    We currently accept Bank Transfer to BCA Account Number 465 001 7777 (name: PT. PLASTIK DAUR ULANG BERSAMA) only. Additional payment method to be added in the future!
+                </div>
+            </div>
             <div class="form-group row">
                 <!-- edit profile picture -->
-                <div class="d-flex text-dark mr-3 mb-3">Upload Payment Confirmation</div>
-                <div class="col-lg-6 mb-3">
+                <div class="d-flex text-dark mb-3">Upload Payment Confirmation</div>
+                <div class="col-lg mb-3">
                     <div class="custom-file">
                         <input type="file" class="custom-file-input" id="image" name="image">
                         <label class="custom-file-label" for="image">Choose file</label>
