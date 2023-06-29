@@ -20,7 +20,7 @@ class Sales extends CI_Controller
         $data['dataCart'] = $this->custID->getCustomer();
         // $data['dataCart'] = $this->db->get_where('cart')->result_array();
 
-        $data['inv'] = $this->input->post('invoiceID');
+        // $data['inv'] = $this->input->post('invoiceID');
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -65,11 +65,52 @@ class Sales extends CI_Controller
             //invoice
             redirect('sales/invoice');
         } else if ($status_change_to == 4) {
-            //declined
-            redirect('sales/');
-            //delete all that has $ref on stock_finishedgoods database
             //reset all in_stock on stock_finishedgoods database to the previous value
+            $data['dataCart'] = $this->db->get_where('cart', ['ref' => $ref])->result_array();
+            foreach ($data['dataCart'] as $ci) :
+                //get selected item
+                $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['name' => $ci['item_name'], 'status' => 7])->row_array();
+                
+                $amount = $ci['qty'];
+                $code = $data['itemselect']['code'];
+                $in_stockOld = $data['itemselect']['in_stock'];
+                
+                // data to update inventory database
+                $data2_warehouse = [
+                    'in_stock' => $in_stockOld + $amount
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->where('status', 7);
+                $this->db->update('stock_finishedgoods', $data2_warehouse);
+            endforeach;
+
+            //delete all that has $ref on stock_finishedgoods database
+            $this->db->where('transaction_id', $ref);
+            $this->db->delete('stock_finishedgoods');
+            
+            // return to page
+            redirect('sales/');
         }
+    }
+
+    public function enlarge_image($img_name){
+        //load user data per session
+        $data['title'] = 'Payment Upload View';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get cart database
+        $this->load->model('Sales_model', 'custID');
+        $data['dataCart'] = $this->custID->getCustomer();
+
+        $data['inv'] = $this->input->post('invoiceID');
+        $data['image_name'] = $img_name;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('sales/enlarge_image', $data);
+        $this->load->view('templates/footer');
     }
 
     public function deliveryorder()
@@ -175,9 +216,9 @@ class Sales extends CI_Controller
         $data['title'] = 'Sales Info';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get leave type by combining database table leave_list and leave_type
-        $this->load->model('Leave_model', 'leaveType');
-        $data['leavedata'] = $this->leaveType->getLeaveType();
+        //get cart database
+        $this->load->model('Sales_model', 'custID');
+        $data['dataCart'] = $this->custID->getCustomer();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

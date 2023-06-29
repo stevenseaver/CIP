@@ -45,6 +45,7 @@
                                                 <img class="img-fluid rounded" src="<?= base_url('asset/img/payment/') . $items['img']  ?>" alt="Payment Invoice" style="width: 15rem;">
                                             <td>
                                                 <a href="<?= base_url('sales/sales_detail/') . urldecode($items['name']) . '/' . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>" class="badge badge-primary">Details</a>
+                                                <a href="<?= base_url('sales/enlarge_image/') . $items['img'] ?>" class="badge badge-info">Enlarge Image</a>
                                                 <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '2' ?>" class="badge badge-success">Submit to Delivery</a>
                                                 <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '4' ?>" class="badge badge-danger">Decline</a>
                                             </td>
@@ -61,25 +62,6 @@
                         </table>
                     </div>
                 </div>
-
-                <!-- <div class="row text-left">
-                                <div class="col-1 d-flex mx-2">
-                                    <h1 class=""> <?= $i ?></h1>
-                                </div>
-                                <div class="col d-flex flex-column justify-content-center mb-0">
-                                    <div class="">
-                                        <h5 class="text-primary font-weight-bold mb-1"><?= $items['ref']; ?></h5>
-                                    </div>
-                                    <div class="">
-                                        <p class="small mb-0"><?= date('d F Y H:i', $items['date']);  ?></p>
-                                    </div>
-                                </div>
-                                <div class="col-1 d-flex justify-content-center align-items-center mx-3">
-                                    <a href="<?= base_url('sales/sales_detail/') . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>">
-                                        <i class="bi bi-list-check" style="font-size: 2rem;"></i>
-                                    </a>
-                                </div>
-                            </div> -->
             </div>
         </div>
 
