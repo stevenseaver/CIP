@@ -59,7 +59,7 @@
                                 <td><?= $u['email']; ?></td>
                                 <td><?= $u['dob']; ?></td>
                                 <td><?= $u['noktp']; ?></td>
-                                <td><?= $u['address']; ?></td>
+                                <td><?= $u['address'] . ', ' . $u['city'] . ', ' . $u['province'] . ', ' . $u['country'] . ', ' . $u['postal'] ; ?></td>
                                 <td><?= $u['phone_number']; ?></td>
                                 <td><?= date('d F Y', $u['date_created']); ?></td>
                                 <td>
@@ -148,6 +148,28 @@
                         <label for="address" class="col-form-label">Address</label>
                         <input type="text" class="form-control" id="address" name="address" placeholder="Address">
                         <?= form_error('address', '<small class="text-danger pl-3">', '</small>') ?>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg mb-1">
+                            <input type="text" class="form-control form-control-user" id="city" name="city" placeholder="City">
+                            <?= form_error('city', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                        <!-- state/province -->
+                        <div class="col-lg">
+                            <input type="text" class="form-control form-control-user" id="province" name="province" placeholder="Province or State">
+                            <?= form_error('province', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-9 mb-2">
+                            <input type="text" class="form-control form-control-user" id="country" name="country" placeholder="Country">
+                            <?= form_error('country', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                        <!-- zipcode -->
+                        <div class="col-lg-3 mb-2">
+                            <input type="text" class="form-control form-control-user" id="postal" name="postal" placeholder="Postal Code">
+                            <?= form_error('postal', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
                     </div>
                     <!-- input user_role -->
                     <div class="form-group">

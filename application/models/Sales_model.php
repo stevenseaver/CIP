@@ -20,4 +20,14 @@ class Sales_model extends CI_Model
         ";
         return $this->db->query($query)->result_array();
     }
+
+    public function getInfo($not_status)
+    {
+        $query = "SELECT `user`.*,`cart`.*
+                    FROM `user` JOIN `cart`
+                      ON `cart`.`customer_id` = `user`.`id`
+                   WHERE `status` != $not_status
+        ";
+        return $this->db->query($query)->result_array();
+    }
 }

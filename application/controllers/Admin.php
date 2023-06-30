@@ -177,6 +177,10 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('noktp', 'ID card number', 'required|trim');
         $this->form_validation->set_rules('dob', 'date of birth', 'required|trim');
         $this->form_validation->set_rules('address', 'address', 'required|trim');
+        $this->form_validation->set_rules('city', 'city', 'required|trim');
+        $this->form_validation->set_rules('province', 'province', 'required|trim');
+        $this->form_validation->set_rules('country', 'country', 'required|trim');
+        $this->form_validation->set_rules('postal', 'postal', 'required|trim');
         $this->form_validation->set_rules('email', 'email', 'required|trim|valid_email|is_unique[user.email]', [
             'is_unique' => 'This email has already been used!'
         ]);
@@ -205,6 +209,10 @@ class Admin extends CI_Controller
             $hp = $this->input->post('hp', true);
             $role_id = $this->input->post('role_id', true);
             $address = $this->input->post('address');
+            $city = $this->input->post('city');
+            $province = $this->input->post('province');
+            $country = $this->input->post('country');
+            $postal = $this->input->post('postal');
             $password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
 
             $data = [
@@ -215,6 +223,10 @@ class Admin extends CI_Controller
                 'dob' => htmlspecialchars($dob),
                 'phone_number' => htmlspecialchars($hp),
                 'address' => htmlspecialchars($address),
+                'city' => htmlspecialchars($city),
+                'province' => htmlspecialchars($province),
+                'country' => htmlspecialchars($country),
+                'postal' => htmlspecialchars($postal),
                 'image' => 'default.jpg',
                 'password' => $password,
                 'role_id' => $role_id,
@@ -262,7 +274,7 @@ class Admin extends CI_Controller
             redirect('admin/usermanagement');
         } else {
             $this->db->delete('user', array('id' => $itemtoDelete));
-            $this->db->delete('cart', array('customer' => $itemtoDelete));
+            $this->db->delete('cart', array('customer_id' => $itemtoDelete));
             $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert"> ' . urldecode($name) . ' deleted!</div>');
             redirect('admin/usermanagement');
         }

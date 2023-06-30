@@ -10,13 +10,14 @@
     </div>
 
     <?php
-    $date = time();
-    $year = date('y');
-    $month = date('m');
-    $day = date('d');
-    $serial = rand(1000, 9999);
-    //ref invoice
-    $po_id = 'PROD-' . $year . $month . $day . '-' . $serial;
+        $date = time();
+        $year = date('y');
+        $month = date('m');
+        $day = date('d');
+        $serial = rand(1000, 9999);
+
+        //ref invoice
+        $po_id = 'PROD-' . $year . $month . $day . '-' . $serial;
     ?>
 
     <a href="<?= base_url('production/add_prod/') . $po_id ?>" class="btn btn-primary btn-icon-split mb-3">

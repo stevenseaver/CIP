@@ -218,11 +218,11 @@ class Sales extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //get cart database
         $this->load->model('Sales_model', 'custID');
-        $data['dataCart'] = $this->custID->getCustomer();
+        $data['dataCart'] = $this->custID->getInfo(0);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/topbar_cust', $data);
         $this->load->view('sales/salesinfo', $data);
         $this->load->view('templates/footer');
     }

@@ -58,7 +58,7 @@
                                 <td><?= $u['email']; ?></td>
                                 <td><?= $u['dob']; ?></td>
                                 <td><?= $u['noktp']; ?></td>
-                                <td><?= $u['address']; ?></td>
+                                <td><?= $u['address'] . ', ' . $u['city'] . ', ' . $u['province'] . ', ' . $u['country'] . ', ' . $u['postal'] ; ?></td>
                                 <td><?= $u['phone_number']; ?></td>
                                 <td><?= date('d F Y', $u['date_created']); ?></td>
                                 <td><?= $u['leave_count']; ?></td>
@@ -92,7 +92,7 @@
 
 <!-- Modal For Add New User -->
 <div class="modal fade" id="newUser" tabindex="-1" aria-labelledby="newUserLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="newUserLabel">Add New Employee</h5>
@@ -151,9 +151,31 @@
                         <input type="text" class="form-control" id="address" name="address" placeholder="Address">
                         <?= form_error('address', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
+                    <div class="form-group row">
+                        <div class="col-lg mb-1">
+                            <input type="text" class="form-control form-control-user" id="city" name="city" placeholder="City">
+                            <?= form_error('city', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                        <!-- state/province -->
+                        <div class="col-lg">
+                            <input type="text" class="form-control form-control-user" id="province" name="province" placeholder="Province or State">
+                            <?= form_error('province', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-9 mb-2">
+                            <input type="text" class="form-control form-control-user" id="country" name="country" placeholder="Country">
+                            <?= form_error('country', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                        <!-- zipcode -->
+                        <div class="col-lg-3 mb-2">
+                            <input type="text" class="form-control form-control-user" id="postal" name="postal" placeholder="Postal Code">
+                            <?= form_error('postal', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
+                    </div>
                     <!-- password -->
                     <div class="form-group row">
-                        <div class="col-sm-6 mb-3 mb-sm-0">
+                        <div class="col-sm-6">
                             <input type="password" class="form-control" id="password1" name="password1" placeholder="Password">
                             <small class="text-primary ml-2">Minimum 8 characters.</small>
                             <?= form_error('password1', '<small class="text-danger pl-3">', '</small>') ?>
@@ -161,6 +183,10 @@
                         <div class="col-sm-6">
                             <input type="password" class="form-control" id="password2" name="password2" placeholder="Repeat Password">
                             <?= form_error('password2', '<small class="text-danger pl-3">', '</small>') ?>
+                            <div class="form-check ml-0 mt-1">
+                                <input class="form-check-input" type="checkbox" id="show_pass" name="show_pass" onclick="visibilePassword()" />
+                                <label class="small" for="show_pass">Show password</label>
+                            </div>
                         </div>
                     </div>
                 </div>
