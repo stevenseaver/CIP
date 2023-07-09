@@ -8,6 +8,7 @@ class Auth extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
     }
+    
     public function index()
     {
         if ($this->session->userdata('nik')) {

@@ -18,6 +18,17 @@ function is_logged_in()
         }
     }
 }
+
+function is_logged_in_no_authroized()
+{
+    $ci = get_instance();
+    if (!$ci->session->userdata('nik')) {
+        redirect('auth');
+    } else {
+        
+    }
+}
+
 //check wether the checkbox is checked
 function check_access($role_id, $menu_id)
 {

@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <h5 class="mx-0 mb-3 font-weight-bold text-primary">If you need our after sales service, feel free to contact us here!</h5>
                     <?= $this->session->flashdata('message'); ?>
-                    <form class="user" method="post" action="<?= base_url('contact/validate'); ?>">
+                    <form class="user" method="post" action="<?= base_url('web/validate'); ?>">
                         <!-- input nama -->
                         <div class="form-group">
                             <div class="row mx-0">

@@ -3,6 +3,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Contact extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        is_logged_in_no_authroized();
+    }
+
     public function index()
     {
         $data['title'] = 'Customer Message';
@@ -16,113 +22,6 @@ class Contact extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('message/message_view', $data);
         $this->load->view('templates/footer');
-    }
-
-    public function add_message()
-    {
-        $data['title'] = 'Contact Us';
-        $data['webmenu'] = $this->db->get('web_menu')->result_array();
-        $data['products'] = $this->db->get('product_menu')->result_array();
-        // $data['user'] = $this->db->get_where('user', ['nik' =>
-        // $this->session->userdata('nik')])->row_array();
-
-        $this->form_validation->set_rules('name', 'name', 'required|trim');
-        $this->form_validation->set_rules('email', 'email', 'required|trim');
-        $this->form_validation->set_rules('message', 'message', 'required|trim');
-
-        if ($this->form_validation->run() == false) {
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/web-topbar', $data);
-            $this->load->view('web/contact-us', $data);
-            $this->load->view('templates/web-footer');
-        } else {
-            $name = $this->input->post('name');
-            $email = $this->input->post('email');
-            $message = $this->input->post('message');
-
-            $data = [
-                'name' => $name,
-                'email' => $email,
-                'message' => $message
-            ];
-
-            $this->db->insert('contact_us', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Message sent!</div>');
-            redirect('web/contact_us');
-        }
-    }
-
-    public function validate()
-    {
-        $data['title'] = 'Contact Us';
-        $data['webmenu'] = $this->db->get('web_menu')->result_array();
-        $data['products'] = $this->db->get('product_menu')->result_array();
-
-        $this->form_validation->set_rules('invoice', 'invoice', 'required|trim');
-        $this->form_validation->set_rules('email', 'email', 'required|trim');
-        $this->form_validation->set_rules('phone', 'phone', 'required|trim');
-        $this->form_validation->set_rules('message', 'message', 'required|trim');
-
-        if ($this->form_validation->run() == false) {
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/web-topbar', $data);
-            $this->load->view('web/complaint-form', $data);
-            $this->load->view('templates/web-footer');
-        } else {
-            //capture captcha response
-            $captcha_response = trim($this->input->post('g-recaptcha-response'));
-
-            if ($captcha_response != '') {
-                $keySecret = '6LfDc9ciAAAAAP15GqjPpohPOH8eTpljKTbGMnFc';
-
-                $check = array(
-                    'secret' => $keySecret,
-                    'response' => $this->input->post('g-recaptcha-response')
-                );
-
-                $startProcess = curl_init();
-
-                curl_setopt($startProcess, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
-
-                curl_setopt($startProcess, CURLOPT_POST, true);
-
-                curl_setopt($startProcess, CURLOPT_POSTFIELDS, http_build_query($check));
-
-                curl_setopt($startProcess, CURLOPT_SSL_VERIFYPEER, false);
-
-                curl_setopt($startProcess, CURLOPT_RETURNTRANSFER, true);
-
-                $receiveData = curl_exec($startProcess);
-
-                $finalResponse = json_decode($receiveData, true);
-
-                if ($finalResponse['success'] == true) {
-                    $ticket = rand(0000,9999);
-                    $invoice = $this->input->post('invoice');
-                    $email = $this->input->post('email');
-                    $phone = $this->input->post('phone');
-                    $message = $this->input->post('message');
-
-                    $data = [
-                        'ticket' => $ticket,
-                        'invoice' => 'INV-' . $invoice,
-                        'email' => $email,
-                        'phone' => $phone,
-                        'message' => $message
-                    ];
-
-                    $this->db->insert('contact_us', $data);
-                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Message sent!</div>');
-                    redirect('web/contact_form');
-                } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Google API challenge failed!</div>');
-                    redirect('web/contact_form');
-                }
-            } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">User validation failed!</div>');
-                redirect('web/contact_form');
-            }
-        }
     }
 
     public function send_message()
