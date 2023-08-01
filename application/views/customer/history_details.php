@@ -23,7 +23,7 @@
                     <span class="icon text-primary mx-2">
                         <i class="bi bi-1-circle"></i>
                     </span>
-                    <span class="text-primary">Payment Confirmation</span>
+                    <span class="text-primary">In Progress</span>
 
                     <!-- Separator -->
                     <span class="icon text-secondary mx-2">
@@ -52,7 +52,7 @@
                     <span class="icon text-secondary mx-2">
                         <i class="bi bi-1-circle"></i>
                     </span>
-                    <span class="text-secondary">Payment Confirmation</span>
+                    <span class="text-secondary">In Progress</span>
 
                     <!-- Separator -->
                     <span class="icon text-secondary mx-2">
@@ -82,7 +82,7 @@
                     <span class="icon text-secondary mx-2">
                         <i class="bi bi-1-circle"></i>
                     </span>
-                    <span class="text-secondary">Payment Confirmation</span>
+                    <span class="text-secondary">In Progress</span>
 
                     <!-- Separator -->
                     <span class="icon text-secondary mx-2">

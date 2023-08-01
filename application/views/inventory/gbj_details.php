@@ -106,15 +106,32 @@
                                         <?php } else { ?>
                                             <td><?= number_format($fs['incoming'], 2, ',', '.'); ?> packs</td>
                                         <? } ?>
-                                        <td><?= number_format($fs['outgoing'], 2, ',', '.') ?> packs</td>
+                                        <?php if($fs['categories'] == 6 or $fs['categories'] == 7){  ?>
+                                            <td><?= number_format($fs['outgoing'], 2, ',', '.'); ?> kgs</td>
+                                        <?php } else { ?>
+                                            <td><?= number_format($fs['outgoing'], 2, ',', '.') ?> packs</td>
+                                        <? } ?>
                                         <td><?php
-                                            if ($fs['categories'] != '6') {
-                                                echo number_format($fs['in_stock'], 2, ',', '.') . ' packs';
-                                            } else {
+                                            if ($fs['categories'] == '6' or $fs['categories'] == '7') {
                                                 echo number_format($fs['in_stock'], 2, ',', '.') . ' kgs';
+                                            } else {
+                                                echo number_format($fs['in_stock'], 2, ',', '.') . ' packs';
                                             } ?></td>
                                         <td><?= $fs['warehouse_name'] ?></td>
-                                        <td><?= $fs['status_name'] ?></td>
+                                        <td><?= $fs['status_name'] ?>
+                                            <?php
+                                                if ($fs['status'] == 3 and ($fs['categories'] != 6 and $fs['categories'] != 7))  {
+                                                    if ($fs['transaction_status'] != 2) {
+                                                        echo '<p class="badge badge-danger">Still in weight</p>';
+                                                    }
+                                                    else {
+                                                        echo '<p class="badge badge-success">Converted to pack</p>';
+                                                    }
+                                                } else {
+                                                   
+                                                }
+                                            ?>
+                                        </td>
                                         <td>
                                             <?php
                                             if ($fs['status_name'] == 'Saldo Awal' or $fs['status_name'] == 'Saldo Akhir') { ?>

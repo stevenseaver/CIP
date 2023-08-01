@@ -19,12 +19,9 @@
             } else {  
                 if ($before != $items['ref']) { ?>
                     <div class="card rounded border-0 shadow mb-3">
-                        <div class="card-body">
-                            <div class="row text-left">
-                                <div class="col-1 d-flex mx-2">
-                                    <h1 class=""> <?= $i ?></h1>
-                                </div>
-                                <div class="col d-flex flex-column justify-content-center mb-0">
+                        <div class="card-body justify-content-center">
+                            <div class="row text-center align-items-center">
+                                <div class="col-lg-7 mb-0 text-lg-left text-xs-center">
                                     <div class="">
                                         <h5 class="text-primary font-weight-bold mb-1"><?= $items['ref']; ?></h5>
                                     </div>
@@ -32,38 +29,45 @@
                                         <p class="small mb-0"><?= date('d F Y H:i', $items['date']);  ?></p>
                                     </div>
                                 </div>
-                                <div class="col-2 d-flex justify-content-center align-items-center mx-3">
+                                <div class="col-lg-3 text-lg-right text-xs-center">
                                     <?php if($items['status'] == 1){ ?> 
-                                        <p class="mr-3 my-3 text-center">
+                                        <p class="mr-3 my-3">
                                             <span class="icon text-warning mx-2">
                                                 <i class="bi bi-arrow-clockwise"></i>
                                             </span>
-                                            <span class="text-warning">Confirming</span>
+                                            <span class="text-warning">In Progress</span>
                                         </p>
                                     <?php } else if($items['status'] == 2){ ?> 
-                                        <p class="mr-3 my-3 text-center">
+                                        <p class="mr-3 my-3">
                                             <span class="icon text-primary mx-2">
                                                 <i class="bi bi-truck"></i>
                                             </span>
                                             <span class="text-primary">Delivering</span>
                                         </p>
                                     <?php } else if($items['status'] == 3){ ?> 
-                                        <p class="mr-3 my-3 text-center">
+                                        <p class="mr-3 my-3">
                                             <span class="icon text-success mx-2">
                                                 <i class="bi bi-check-circle-fill"></i>
                                             </span>
                                             <span class="text-success">Delivered</span>
                                         </p>
                                     <?php } else if($items['status'] == 4){ ?> 
-                                        <p class="mr-3 my-3 text-center">
+                                        <p class="mr-3 my-3">
                                             <span class="icon text-danger mx-2">
                                                 <i class="bi bi-exclamation-triangle-fill"></i>
                                             </span>
                                             <span class="text-danger">Declined</span>
                                         </p>
                                     <?php } ?>
+                                </div>
+                                <div class="col-lg-2 d-flex align-items-center justify-content-center text-center">
                                     <a href="<?= base_url('customer/history_details/') . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>">
-                                        <i class="bi bi-list-check" style="font-size: 2rem;"></i>
+                                        <div class="">
+                                            <i class="bi bi-question-circle" style="font-size: 1rem;"></i>
+                                        </div>
+                                        <div class="text-xs-center text-lg-right">
+                                           More info
+                                        </div>
                                     </a>
                                 </div>
                             </div>

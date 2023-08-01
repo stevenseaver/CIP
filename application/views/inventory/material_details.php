@@ -74,13 +74,26 @@
                                         <td><?= number_format($ms['incoming'], 1, ',', '.') ?></td>
                                         <td><?= number_format($ms['outgoing'], 1, ',', '.') ?></td>
                                         <td><?= number_format($ms['in_stock'], 1, ',', '.') . ' kg' ?></td>
-                                        <td><?= $ms['status_name'] ?></td>
+                                        <td><?= $ms['status_name'] ?>
+                                            <?php
+                                                if ($ms['status'] == 1 or $ms['status'] == 6 or $ms['status'] == 3 or $ms['status'] == 7)  {
+                                                    
+                                                } else {
+                                                    if ($ms['transaction_status'] != 2) {
+                                                        echo '<p class="badge badge-danger">Not yet received</p>';
+                                                    }
+                                                    else {
+                                                        echo '<p class="badge badge-success">Received</p>';
+                                                    }
+                                                }
+                                            ?>
+                                        </td>
                                         <td>
                                             <?php
-                                            if ($ms['status_name'] == 'Saldo Awal' or $ms['status_name'] == 'Saldo Akhir') { ?>
+                                            if ($ms['status'] == 1 or $ms['status'] == 7) { ?>
                                                 <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
                                             <?php } else { ?>
-                                                <?php if ($ms['status_name'] == 'Purchasing') { ?>
+                                                <?php if ($ms['status'] == '8') { ?>
                                                     <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>">Edit</a>
                                                     <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMaterialTransaction" data-cat="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-amount="<?= $ms['incoming'] ?>">Delete</a>
                                                 <?php } else { ?>
