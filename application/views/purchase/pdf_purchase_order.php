@@ -66,8 +66,11 @@ foreach ($dataPO as $data) {
 
 $total = $temp;
 
+$tax_array = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array('value');
+$purchase_tax = $tax_array['value'];
+
 if ($data->tax == 1) {
-    $tax = 11; //tax percentage
+    $tax = $purchase_tax; //tax percentage
 } else if ($data->tax == 0) {
     $tax = 0;
 }

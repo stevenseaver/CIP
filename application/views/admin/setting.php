@@ -15,10 +15,10 @@
         <div class="col-lg-9">
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="list-general" role="tabpanel" aria-labelledby="list-general-list">
-                    <div class="mb-3 h5">Sidebar Color</div>
+                    <div class="mb-2 h5">Sidebar Color</div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="card border-left-primary mb-3">
+                            <div class="card border-left-primary mb-4">
                                 <div class="card-body">
                                     <a class="btn" href="<?= base_url('admin/theme_color/primary') ?>"><i class="bi bi-circle-fill fa-2x text-primary"></i></a>
                                     <a class="btn" href="<?= base_url('admin/theme_color/dark') ?>"><i class="bi bi-circle-fill fa-2x text-dark"></i></a>
@@ -32,6 +32,40 @@
                             </div>
                         </div>
                     </div>
+                    <?php 
+                        $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
+                        $data['sales_tax'] = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array();
+                        $purchase_tax = $data['purchase_tax']['value'];
+                        $sales_tax = $data['sales_tax']['value']
+                    ?>
+                    <label class="mb-2 h5">Purchase Tax</label>
+                    <form action="<?= base_url('admin/update_purchase_tax/') ?>" method="post">
+                    <div class="row mb-3">
+                        <div class="col-lg-3 input-group">
+                                <!-- Item folding -->
+                                <input type="number" step=".1" class="form-control" id="purchase_tax" name="purchase_tax" value="<?= $purchase_tax ?>">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                    <button class="btn btn-outline-success" type="submit" id="save_purchase_tax">Save</button>
+                                </div>
+                                <?= form_error('purchase_tax', '<small class="text-danger pl-2">', '</small>') ?>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="mb-2 h5">Sales Tax</div>
+                    <form action="<?= base_url('admin/update_sales_tax/') ?>" method="post">
+                    <div class="row mb-5">
+                        <div class="col-lg-3 input-group">
+                            <!-- Item folding -->
+                            <input type="number" step=".1" class="form-control" id="sales_tax" name="sales_tax" value="<?=$sales_tax ?>">
+                            <div class="input-group-append">
+                                <span class="input-group-text">%</span>
+                                <button class="btn btn-outline-success" type="submit" id="save_sales_tax">Save</button>
+                            </div>
+                            <?= form_error('sales_tax', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    </form>
                 </div>
                 <div class="tab-pane fade" id="list-backup" role="tabpanel" aria-labelledby="list-backup-list">
                     <div class="mb-3 h5">Back up database</div>
@@ -48,6 +82,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        //js for setting purchase tax input onchange
+        function change_purchase_tax($amount){
+            window.location.href = "<?= site_url('admin/update_purchase_tax/');?>"+amount;
+        }
+    </script>
 
     <!-- <div class="table-responsive">
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">

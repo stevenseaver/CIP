@@ -18,11 +18,15 @@
     </a>
 
     <!-- assign tax value-->
-    <?php if ($getID['tax'] == 1) {
-        $tax = 11;
-    } else {
-        $tax = 0;
-    }
+    <?php 
+        $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
+        $purchase_tax = $data['purchase_tax']['value'];
+
+        if ($getID['tax'] == 1) {
+            $tax = $purchase_tax;
+        } else {
+            $tax = 0;
+        } 
     ?>
 
     <!-- view pdf PO  -->

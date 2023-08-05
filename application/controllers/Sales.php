@@ -167,8 +167,12 @@ class Sales extends CI_Controller
             $this->load->view('sales/pdf_sales_order', $data);
         } else if ($type == 2) {
             $this->load->view('sales/pdf_delivery_order', $data);
-        } else if ($type == 3)
+        } else if ($type == 3) {
             $this->load->view('sales/pdf_invoice', $data);
+        } else if ($type == 4) {
+            $this->load->view('sales/pdf_info', $data);
+        }
+        
     }
 
     public function invoice()
@@ -224,6 +228,28 @@ class Sales extends CI_Controller
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar_cust', $data);
         $this->load->view('sales/salesinfo', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function info_detail($customer, $inv, $date, $status)
+    {
+        //load user data per session
+        $data['title'] = 'Transaction Details';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get cart database
+        $data['customer'] = $customer;
+        $data['ref'] = $inv;
+        $data['date'] = $date;
+        $data['status'] = $status;
+
+        $data['dataCart'] = $this->db->get_where('cart', ['ref' => $data['ref']])->result_array();
+        $data['address'] = $this->db->get_where('cart', ['ref' => $data['ref']])->row_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('sales/info_detail', $data);
         $this->load->view('templates/footer');
     }
 

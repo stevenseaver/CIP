@@ -304,6 +304,28 @@ class Admin extends CI_Controller
         redirect('admin/settings');
     }
 
+    public function update_purchase_tax(){
+        $amount = $this->input->post('purchase_tax');
+
+        $this->db->set('value', $amount);
+        $this->db->where('parameter', 'purchase_tax');
+        $this->db->update('settings');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Purchase tax updated!</div>');
+        redirect('admin/settings');
+    }
+
+    public function update_sales_tax(){
+        $amount = $this->input->post('sales_tax');
+
+        $this->db->set('value', $amount);
+        $this->db->where('parameter', 'sales_tax');
+        $this->db->update('settings');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Sales tax updated!</div>');
+        redirect('admin/settings');
+    }
+
     public function download_database(){
         // $path = $this->input->post('backup_path');
         // Load the DB utility class

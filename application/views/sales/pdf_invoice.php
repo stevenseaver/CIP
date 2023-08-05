@@ -67,15 +67,16 @@ foreach ($dataCart as $data) {
 }
 
 $total = $temp;
-$tax = 0; //tax percentage
+$tax_array = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array('value');
+$sales_tax = $tax_array['value'];
 
 $pdf->SetFont('', 'B', 12);
 $pdf->Cell(155, 7, "Total", 1, 0, 'R');
 $pdf->Cell(40, 7, $this->cart->format_number($total, '0', ',', '.'), 1, 1, 'C');
 $pdf->SetFont('', 'B', 12);
-$pdf->Cell(155, 7, "Tax : " . $tax . "%", 1, 0, 'R');
+$pdf->Cell(155, 7, "Tax : " . $sales_tax . "%", 1, 0, 'R');
 
-$taxValue = $total * ($tax / 100);
+$taxValue = $total * ($sales_tax / 100);
 $pdf->Cell(40, 7, $this->cart->format_number($taxValue, '0', ',', '.'), 1, 1, 'C');
 
 $grandTotal = $total + $taxValue;

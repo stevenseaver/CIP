@@ -264,6 +264,7 @@
             thickness = gramatur/total_width/std_gramatur;
             obj("thickness_result").value = thickness.toFixed(6);
         }
+        
         function obj(id)
         {
             return document.getElementById(id);

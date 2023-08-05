@@ -93,7 +93,7 @@
              document.getElementById("conversion").value = 0;
          }
      }
-
+        
      //js for menu change access checkbox onclick
      $('.form-check-input').on('click', function() {
          const menuId = $(this).data('menu');

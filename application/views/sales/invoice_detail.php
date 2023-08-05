@@ -166,13 +166,30 @@
                                 ?>
                             <?php endforeach; ?>
                         </tbody>
+                        <?php
+                            $data['sales_tax'] = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array();
+                            $sales_tax = $data['sales_tax']['value'];
+                        ?>
                         <tfoot>
                             <tr class="text-right align-items-center">
                                 <td colspan="3"> </td>
                                 <td class="right"><strong>Total Invoice Transaction</strong></td>
-                                <?php $grandTotal = $temp; ?>
-                                <td class="right">IDR <?= $this->cart->format_number($grandTotal, '0', ',', '.'); ?></td>
+                                <?php $total = $temp; ?>
+                                <td class="right">IDR <?= $this->cart->format_number($total, '-', ',', '.'); ?></td>
                             </tr>
+                            <tr class="text-right align-items-center">
+                                <td colspan="3"> </td>
+                                <td class="right"><strong>Tax <?= $sales_tax ?>%</strong></td>
+                                <?php
+                                $total_tax = $sales_tax / 100 * $total;
+                                $grandTotal = $total + $total_tax; ?>
+                                <td class="right">IDR <?= $this->cart->format_number($total_tax, '2', ',', '.'); ?></td>
+                            </tr>
+                            <tr class="text-right align-items-center">
+                                <td colspan="3"> </td>
+                                <td class="right"><strong>Grand Total</strong></td>
+                                <td class="right">IDR <?= $this->cart->format_number($grandTotal, '2', ',', '.'); ?></td>
+                            </tr>      
                         </tfoot>
                     </table>
                 </div>

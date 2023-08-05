@@ -142,8 +142,12 @@
                     </tr>
                     <?php $temp = $temp + $subtotal;
                     $i++;
+
+                    $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
+                    $purchase_tax = $data['purchase_tax']['value'];
+
                     if ($ms['tax'] == 1) {
-                        $tax = 11;
+                        $tax = $purchase_tax;
                     } else {
                         $tax = 0;
                     } ?>

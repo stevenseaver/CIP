@@ -9,11 +9,19 @@
     </div>
 
     <!-- back button -->
-    <a href="<?= base_url('customer/history/') ?>" class="btn btn-primary btn-icon-split mb-3">
+    <a href="<?= base_url('sales/salesinfo') ?>" class="btn btn-secondary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-arrow-left"></i>
         </span>
         <span class="text">Back</span>
+    </a>
+
+    <!-- view pdf SO  -->
+    <a href="<?= base_url('sales/createPDF/4/') . $ref . '/' . urldecode($customer) . '/' . $date ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+        <span class="icon text-white-50">
+            <i class="bi bi-eye"></i>
+        </span>
+        <span class="text">View Order Preview</span>
     </a>
 
     <div class="card rounded bg-white shadow border-0 mb-3">
@@ -23,7 +31,7 @@
                     <span class="icon text-primary mx-2">
                         <i class="bi bi-1-circle"></i>
                     </span>
-                    <span class="text-primary">In Progress</span>
+                    <span class="text-primary">Payment Confirmation</span>
 
                     <!-- Separator -->
                     <span class="icon text-secondary mx-2">
@@ -52,7 +60,7 @@
                     <span class="icon text-secondary mx-2">
                         <i class="bi bi-1-circle"></i>
                     </span>
-                    <span class="text-secondary">In Progress</span>
+                    <span class="text-secondary">Payment Confirmation</span>
 
                     <!-- Separator -->
                     <span class="icon text-secondary mx-2">
@@ -82,7 +90,7 @@
                     <span class="icon text-secondary mx-2">
                         <i class="bi bi-1-circle"></i>
                     </span>
-                    <span class="text-secondary">In Progress</span>
+                    <span class="text-secondary">Payment Confirmation</span>
 
                     <!-- Separator -->
                     <span class="icon text-secondary mx-2">
@@ -106,21 +114,15 @@
                     </span>
                     <span class="text-primary">Goods Delivered</span>
                 </div>
-            <?php } else if ($status == 4) { ?>
-                <div class="row justify-content-center mx-3 my-2 h5">
-                    <!-- Status = 4 delivered -->
-                    <span class="icon text-danger mx-2">
-                        <i class="bi bi-exclamation-triangle-fill"></i>
-                    </span>
-                    <span class="text-danger">Declined</span>
-                </div>
             <?php } ?>
+            <p class="text-dark mb-1">Customer Name. : </p>
+            <p class="text-dark font-weight-bold"> <?= urldecode($customer) ?></p>
             <p class="text-dark mb-1">Invoice Ref. : </p>
             <p class="text-dark font-weight-bold"> <?= $ref ?></p>
             <p class="text-dark mb-1">Date : </p>
             <p class="text-dark font-weight-bold"> <?= date('d F Y H:i', $date); ?></p>
             <p class="text-dark mb-1">Delivery Address:</p>
-            <p class="text-dark font-weight-bold"><?= $address; ?></p>
+            <p class="text-dark font-weight-bold"><?= $address['deliveryTo']; ?></p>
         </div>
     </div>
 
