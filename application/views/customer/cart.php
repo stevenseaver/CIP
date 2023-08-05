@@ -34,7 +34,7 @@
                                     <td><?= $i; ?></td>
                                     <td><?= $items['item_name']; ?></td>
                                     <td style="width: 100px">
-                                        <?php if ($items['prod_cat'] != '6') : ?>
+                                        <?php if ($items['prod_cat'] != '6' or $items['prod_cat'] != '7') : ?>
                                             <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>">
                                             <p class="text-center">pack</p>
                                         <?php else : ?>

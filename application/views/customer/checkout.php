@@ -50,7 +50,11 @@
                                 <tr>
                                     <td><?= $i; ?></td>
                                     <td><?= $items['item_name']; ?></td>
-                                    <td><?= $items['qty']; ?></td>
+                                    <?php if ($items['prod_cat'] == '6' or $items['prod_cat'] == '7') : ?>
+                                        <td><?= $items['qty'] . ' kg(s)'; ?></td>
+                                    <?php else : ?>
+                                        <td><?= $items['qty'] . ' pack(s)'; ?></td>
+                                    <?php endif; ?>
                                     <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
                                     </td>
                                     <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
