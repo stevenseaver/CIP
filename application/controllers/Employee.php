@@ -47,6 +47,7 @@ class Employee extends CI_Controller
         $type = $this->input->post('leave_type');
         $start = $this->input->post('start_date');
         $finish = $this->input->post('finish_date');
+        $num_days = $start - $finish;
         $reason = $this->input->post('reason');
         $status = 0;
 
@@ -101,6 +102,22 @@ class Employee extends CI_Controller
                     redirect('employee/leaveform');
                 }
             }
+
+            $input = [
+                'user_nik' => $nik,
+                'user_name' => $name,
+                'type' => $type,
+                'start_date' => $start,
+                'finish_Date' => $finish,
+                'num_days' => $num_days,
+                'reason' => $reason,
+                'status' => $status,
+                'document' => ''
+            ];
+            $this->db->insert('leave_list', $input);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Request submitted!</div>');
+
+            redirect('employee/leaveform');
         }
     }
 

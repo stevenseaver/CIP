@@ -1,8 +1,17 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
+    <div class="row">
+        <div class="col-lg">
+            <div class="card border-0 mb-3 bg-primary">
+                <div class="card-body mx-1 pb-0">
+                    <div class="p mb-1 text-white">Leave Balance</div>
+                    <div class="h3 mb-4 text-white"><?= $user['leave_count'] ?></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-lg">
@@ -66,7 +75,7 @@
                     <div class="form-group row">
                         <!-- upload document -->
                         <label for="proof" class="col-lg-2 col-form-label">Document</label>
-                        <div class="col-lg-10 mx-0">
+                        <div class="col-lg-10">
                             <input type="file" class="custom-file-input from-control" id="proof" name="proof">
                             <label class="custom-file-label" for="proof">Choose file</label>
                             <small class="text-primary">Maximum 2 MB. Required for sick leave.</small>
