@@ -66,12 +66,16 @@ class Sales extends CI_Controller
             redirect('sales/invoice');
         } else if ($status_change_to == 4) {
             //reset all in_stock on stock_finishedgoods database to the previous value
-            $data['dataCart'] = $this->db->get_where('cart', ['ref' => $ref])->result_array();
-            foreach ($data['dataCart'] as $ci) :
+            $data['salesData'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $ref])->result_array();
+            
+            foreach ($data['salesData'] as $ci) :
                 //get selected item
-                $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['name' => $ci['item_name'], 'status' => 7])->row_array();
+                $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['name' => $ci['name'], 'status' => 7])->row_array();
                 
-                $amount = $ci['qty'];
+                $amount = $ci['outgoing'];
+
+                echo $amount;
+
                 $code = $data['itemselect']['code'];
                 $in_stockOld = $data['itemselect']['in_stock'];
                 

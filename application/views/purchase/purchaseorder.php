@@ -26,7 +26,6 @@
         <span class="text">Add New Purchase Order</span>
     </a>
 
-
     <?php if ($inventory_item != null) {
         $i = 1;
         $temp = 0;

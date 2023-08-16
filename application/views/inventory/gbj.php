@@ -17,6 +17,7 @@
         </span>
         <span class="text">Add New Item</span>
     </a>
+    
     <a href="<?= base_url('inventory/product_category') ?>" class="btn btn-light btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-gear-wide-connected"></i>

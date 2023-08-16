@@ -35,20 +35,45 @@
             </select>
             <?= form_error('supplier', '<small class="text-danger pl-2">', '</small>') ?>
         </div>
+
+        <script>
+            var e = document.getElementById("supplier");
+            function onChange() {
+                var value = e.value;
+                var text = e.options[e.selectedIndex].text;
+                console.log(value);
+                }
+                e.onchange = onChange;
+            onChange();
+
+            $.ajax({
+                type: 'post',
+                url: '<?= base_url('purchasing/add_po/'); ?>',
+                data: {
+                    value: value
+                },
+                success: function( data ) {
+                    // console.log( data );
+                }
+            });
+        </script>
+        
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
                     <!-- Item categories -->
                     <label for="material" class="col-form-label">Add Item</label>
                     <select name="material" id="material" class="form-control" value="<?= set_value('material') ?>">
-                        <option value="">--Select Categories--</option>
+                        <option value="">--Select Item--</option>
                         <?php foreach ($inventory_wh as $mt) : ?>
                             <option value="<?= $mt['id'] ?>"><?= $mt['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
+                    <!-- <input class="typeahead form-control" type="text"> -->
                     <?= form_error('material', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
-            </div>
+            </div>  
+
             <div class="col-2">
                 <div class="form-group">
                     <!-- Item code -->

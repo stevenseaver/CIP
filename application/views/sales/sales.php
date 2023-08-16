@@ -1,12 +1,19 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-900"><?= $title ?></h1>
+    <h1 class="h3 mb-3 text-gray-900"><?= $title ?></h1>
     <div class="row">
         <div class="col mb-0">
             <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
+
+    <a href="<?= base_url('')  ?>" class="btn btn-primary btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-plus-lg"></i>
+        </span>
+        <span class="text">Add New Sales Order</span>
+    </a>
 
     <?php if ($dataCart != null) {
         $i = 1;
@@ -47,7 +54,7 @@
                                                 <a href="<?= base_url('sales/sales_detail/') . urldecode($items['name']) . '/' . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>" class="badge badge-primary">Details</a>
                                                 <a href="<?= base_url('sales/enlarge_image/') . $items['img'] ?>" class="badge badge-info">Enlarge Image</a>
                                                 <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '2' ?>" class="badge badge-success">Submit to Delivery</a>
-                                                <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '4' ?>" class="badge badge-danger">Decline</a>
+                                                <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '4' ?>" class="badge badge-danger">Decline and Delete</a>
                                             </td>
                                             </tr>
                                     <?php
