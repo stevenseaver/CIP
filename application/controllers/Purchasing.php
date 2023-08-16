@@ -57,7 +57,7 @@ class Purchasing extends CI_Controller
         //get supplier data
         $data['supplier'] = $this->db->get('supplier')->result_array();
         //get inventory warehouse data
-        $data['inventory_wh'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+        $data['inventory_wh'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
         $data['inventory_item'] = $this->db->get_where('stock_material')->result_array();
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;

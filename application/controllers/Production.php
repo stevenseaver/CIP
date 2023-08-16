@@ -34,7 +34,7 @@ class Production extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get material data
-        $data['material'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+        $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
 
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
@@ -52,7 +52,7 @@ class Production extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get material data
-        $data['material'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+        $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
 
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
@@ -346,7 +346,7 @@ class Production extends CI_Controller
         $data['title'] = 'Add Roll Input';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['rollSelect'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
+        $data['rollSelect'] = $this->db->order_by('name','ASC')->get_where('stock_roll', ['status' => 7])->result_array();
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
 
         $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
@@ -367,7 +367,7 @@ class Production extends CI_Controller
         $data['title'] = 'Add Roll Input';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['rollSelect'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
+        $data['rollSelect'] = $this->db->order_by('name','ASC')->get_where('stock_roll', ['status' => 7])->result_array();
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
 
         $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
@@ -600,7 +600,7 @@ class Production extends CI_Controller
         $data['title'] = 'Finished Goods Input';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['gbjSelect'] = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+        $data['gbjSelect'] = $this->db->order_by('name','ASC')->get_where('stock_finishedgoods', ['status' => 7])->result_array();
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
 
         //get inventory warehouse data
@@ -624,7 +624,7 @@ class Production extends CI_Controller
         $data['title'] = 'Finished Goods Input';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['gbjSelect'] = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+        $data['gbjSelect'] = $this->db->order_by('name','ASC')->get_where('stock_finishedgoods', ['status' => 7])->result_array();
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
         $data['rollSelect'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
