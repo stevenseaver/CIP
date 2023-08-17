@@ -60,7 +60,7 @@
     <?php
     } else { ?>
         <div class="alert alert-danger" role="alert">There's no transaction! </a></div>
-    <? }
+    <?php }
     ?>
 </div>
 <!-- /.container-fluid -->

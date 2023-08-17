@@ -139,12 +139,12 @@
         <div class="footer text-right">
             <a href="<?= base_url('purchasing/receiveorder') ?>" class="btn btn-primary">Save PO</a>
         </div>
-    <? } else { ?>
+    <?php } else { ?>
         <div class="footer text-right">
             <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $poID ?>" class="btn text-danger">Close and delete data</a>
             <a href="<?= base_url('purchasing/receiveorder') ?>" class="btn btn-primary">Save PO</a>
         </div>
-    <? } ?>
+    <?php } ?>
     <!-- </form> -->
 </div>
 <!-- /.container-fluid -->

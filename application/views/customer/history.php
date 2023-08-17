@@ -87,7 +87,7 @@
         <div class="row mx-3 justify-content-center">
             <div class="" role="alert">Your haven't made any transaction! Let's make some <a href="<?= base_url('customer/') ?>">here. </a></div>
         </div>
-    <? }
+    <?php }
     ?>
 </div>
 

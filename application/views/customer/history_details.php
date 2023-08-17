@@ -201,7 +201,7 @@
     <?php
     else : ?>
         <div class="alert alert-danger" role="alert">There's nothing here!</div>
-    <? endif;
+    <?php endif;
     ?>
 </div>
 

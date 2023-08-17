@@ -54,7 +54,7 @@
             </div>
     </div>
     <?php $i++ ?>
-<? endforeach; ?>
+<?php endforeach; ?>
 </div>
 </div>
 <!-- /.container-fluid -->

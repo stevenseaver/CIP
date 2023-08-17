@@ -61,7 +61,7 @@
     <?php
     } else { ?>
         <div class="alert alert-primary mb-3" role="alert">There's no standing purchase order at the moment!</div>
-    <? }
+    <?php }
     ?>
 
     <p class="h5 text-gray-800">Received Purchase Order</p>

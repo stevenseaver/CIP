@@ -125,7 +125,7 @@
     <?php
     else : ?>
         <div class="alert alert-danger" role="alert">Your cart is empty!</div>
-    <? endif;
+    <?php endif;
     ?>
 </div>
 </div>

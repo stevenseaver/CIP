@@ -126,7 +126,7 @@
         <div class="row mx-3 justify-content-center">
             <div class="" role="alert">Your cart is empty! Let's fill it with some items <a href="<?= base_url('customer/') ?>">here. </a></div>
         </div>
-    <? endif;
+    <?php endif;
     ?>
 </div>
 
