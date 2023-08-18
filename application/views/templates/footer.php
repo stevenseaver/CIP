@@ -135,6 +135,26 @@
          });
      });
 
+     //js for amount change on purchase order quantity on input on change
+     $('.edit-qty').on('change', function() {
+         const id = $(this).data('id');
+         const qtyID = document.getElementById("receiveAmount-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('purchasing/update_amount'); ?>",
+             type: 'post',
+             data: {
+                 id: id,
+                 qtyID: qtyID
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
+
      //js for amount change on receive order quantity on input on change
      $('.receive-qty').on('change', function() {
          const id = $(this).data('id');
@@ -382,8 +402,20 @@
          $(event.currentTarget).find('.modal-body input[name="delete_webmenu_name"]').val(menuname);
      });
 
-     //  JavaScript for Delete Product Menu Modal
+     //  JavaScript for Delete Product Menu/Category Modal
      $('#deleteProductMenuModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         //extract data from data-* attributes of modal's toggle button
+         var menuid = $(event.relatedTarget).data('menu-id');
+         var menuname = $(event.relatedTarget).data('menu-name');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="delete_productmenu_id"]').val(menuid);
+         $(event.currentTarget).find('.modal-body input[name="delete_productmenu_name"]').val(menuname);
+     });
+
+     //  JavaScript for Delete Material Category Modal
+     $('#deleteMaterialCat').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          //extract data from data-* attributes of modal's toggle button
          var menuid = $(event.relatedTarget).data('menu-id');
@@ -409,19 +441,30 @@
          $(event.currentTarget).find('.modal-body input[name="icon"]').val(webmenuicon);
      });
 
-     //  JavaScript for Edit Product Menu Modal
+     //  JavaScript for Edit Product Menu/Category Modal
      $('#editProductMenu').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var webmenuid = $(event.relatedTarget).data('id');
          var webmenutitle = $(event.relatedTarget).data('title');
-         var webmenuurl = $(event.relatedTarget).data('url');
-         var webmenuicon = $(event.relatedTarget).data('icon');
+         var unit = $(event.relatedTarget).data('unit');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="id"]').val(webmenuid);
          $(event.currentTarget).find('.modal-body input[name="title"]').val(webmenutitle);
-         $(event.currentTarget).find('.modal-body input[name="url"]').val(webmenuurl);
-         $(event.currentTarget).find('.modal-body input[name="icon"]').val(webmenuicon);
+         $(event.currentTarget).find('.modal-body input[name="unit"]').val(unit);
+     });
+
+     //  JavaScript for Edit Material Category Modal
+     $('#editMaterialCat').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var webmenuid = $(event.relatedTarget).data('id');
+         var webmenutitle = $(event.relatedTarget).data('title');
+         var unit = $(event.relatedTarget).data('unit');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="id"]').val(webmenuid);
+         $(event.currentTarget).find('.modal-body input[name="title"]').val(webmenutitle);
+         $(event.currentTarget).find('.modal-body input[name="unit"]').val(unit);
      });
 
      //  JavaScript for Edit Product Menu Modal
@@ -1068,12 +1111,22 @@
      });
 
      //javascript for select material for production order
+     $('#material').on('change', function(event) {
+         var unit = $(this).find(':selected').data('unit');
+
+         document.getElementById("unit_instock").innerText = unit;
+     });
+
+     //javascript for select material for production order
      $('#materialSelect').on('change', function(event) {
          var price = $(this).find(':selected').data('price');
          var stock = $(this).find(':selected').data('stock');
+         var unit = $(this).find(':selected').data('unit');
 
          document.getElementById("stock").value = stock;
          document.getElementById("price").value = price;
+         document.getElementById("unit_instock").innerText = unit;
+         document.getElementById("unit_amount").innerText = unit;
      });
 
      //javascript for select roll for roll input form

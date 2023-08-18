@@ -16,6 +16,14 @@
         <span class="text">Add New Item</span>
     </a>
 
+    <a href="<?= base_url('inventory/material_category') ?>" class="btn btn-light btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-gear-wide-connected"></i>
+        </span>
+        <span class="text">Material Category Setting</span>
+    </a>
+
+
     <div class="card border-left-primary mb-3">
         <div class="row mx-4 my-3">
             <div class="table-responsive">
@@ -26,7 +34,7 @@
                             <th>Materials</th>
                             <th>Code</th>
                             <th>Category</th>
-                            <th>Stock (Kg)</th>
+                            <th>Stock</th>
                             <th>Price</th>
                             <th>Value</th>
                             <th>Supplier</th>
@@ -50,7 +58,7 @@
                                 <td><?= $ms['name'] ?></td>
                                 <td><?= $ms['code'] ?></td>
                                 <td><?= $ms['categories_name'] ?></td>
-                                <td><?= number_format($ms['in_stock'], 2, ',', '.'); ?></td>
+                                <td><?= number_format($ms['in_stock'], 2, ',', '.') . ' '. $ms['unit_satuan']; ?></td>
                                 <td><?= number_format($ms['price'], 0, ',', '.'); ?></td>
                                 <?php $value = $ms['price'] * $ms['in_stock'];
                                 $temp = $temp + $value;  ?>
@@ -142,6 +150,22 @@
                             <?php endforeach; ?>
                         </select>
                         <?= form_error('category', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Item categories -->
+                        <label for="url" class="col-form-label">Unit</label>
+                        <select name="unit" id="unit" class="form-control" value="<?= set_value('unit') ?>">
+                            <option value="">--Select unit--</option>
+                            <?php $before = '';
+                            foreach ($cat as $fs) : 
+                                if($fs['unit'] != $before){ ?>
+                                <option value="<?= $fs['unit'] ?>"><?= $fs['unit'] ?></option>
+                                <?php $before = $fs['unit']; ?>
+                            <?php } else { 
+                                }
+                            endforeach; ?>
+                        </select>
+                        <?= form_error('unit', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Warehouse -->

@@ -17,7 +17,7 @@
         <span class="text text-dark">Back</span>
     </a>
 
-    <form action="<?= base_url('production/add_item_prod/') . $po_id . '/3/2' ?>" method="post">
+    <form action="<?= base_url('production/add_item_prod/') . $po_id . '/3' ?>" method="post">
         <div class="form-group">
             <!-- Item code -->
             <label for="po_id" class="col-form-label">Production Order ID</label>
@@ -33,7 +33,7 @@
                     <select name="materialSelect" id="materialSelect" class="form-control" value="<?= set_value('materialSelect') ?>">
                         <option value="">--Select Categories--</option>
                         <?php foreach ($material as $mt) : ?>
-                            <option value="<?= $mt['id'] ?>" data-price="<?= $mt['price'] ?>" data-stock="<?= $mt['in_stock'] ?>"><?= $mt['name'] ?></option>
+                            <option value="<?= $mt['id'] ?>" data-price="<?= $mt['price'] ?>" data-stock="<?= $mt['in_stock'] ?>" data-unit="<?= $mt['unit_satuan']?>"><?= $mt['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                     <?= form_error('materialSelect', '<small class="text-danger pl-2">', '</small>') ?>
@@ -58,7 +58,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" id="stock" name="stock" readonly value="<?= set_value('stock'); ?>">
                         <div class="input-group-append">
-                            <span class="input-group-text">kg</span>
+                            <span class="input-group-text" id="unit_instock">unit</span>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                         <!-- Item code -->
                         <input type="number" step=".1" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Use amount">
                         <div class="input-group-append">
-                            <span class="input-group-text">kg</span>
+                            <span class="input-group-text" id="unit_amount">unit</span>
                         </div>
                         <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>

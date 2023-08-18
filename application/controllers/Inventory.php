@@ -62,6 +62,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('category', 'category', 'required');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('supplier', 'supplier', 'required|trim');
+        $this->form_validation->set_rules('unit', 'unit', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -81,6 +82,7 @@ class Inventory extends CI_Controller
             $status1 = 1;  //stock awal
             $status2 = 7;  //stock akhir
             $warehouse = $this->input->post('warehouse');
+            $unit = $this->input->post('unit');
 
             //intital stock
             $data1 = [
@@ -92,7 +94,8 @@ class Inventory extends CI_Controller
                 'price' => $price,
                 'status' => $status1,
                 'warehouse'  => $warehouse,
-                'supplier' => $supplier
+                'supplier' => $supplier,
+                'unit_satuan' => $unit
             ];
             //final stock
             $data2 = [
@@ -104,7 +107,8 @@ class Inventory extends CI_Controller
                 'price' => $price,
                 'status' => $status2,
                 'warehouse'  => $warehouse,
-                'supplier' => $supplier
+                'supplier' => $supplier,
+                'unit_satuan' => $unit
             ];
 
             $this->db->insert('stock_material', $data1);
@@ -230,6 +234,7 @@ class Inventory extends CI_Controller
             $date = time();
             $warehouse = 1;
             $supplier = $data['getID']['supplier'];
+            $unit = $data['getID']['unit_satuan'];
 
             $in_stockOld = $data['getID']['in_stock'];;
             // 8 is purchasing, the only transaction that adds to the final stock
@@ -242,7 +247,8 @@ class Inventory extends CI_Controller
                     'categories' => $category,
                     'supplier' => $supplier,
                     'date' => $date,
-                    'warehouse' => $warehouse
+                    'warehouse' => $warehouse,
+                    'unit_satuan' => $unit
                     // 'in_stock' => $in_stockOld + $amount
                 ];
                 $data2 = [
@@ -259,7 +265,8 @@ class Inventory extends CI_Controller
                     'categories' => $category,
                     'supplier' => $supplier,
                     'date' => $date,
-                    'warehouse' => $warehouse
+                    'warehouse' => $warehouse,
+                    'unit_satuan' => $unit
                     // 'in_stock' => $in_stockOld - $amount
                 ];
                 $data2 = [
@@ -1732,6 +1739,85 @@ class Inventory extends CI_Controller
     //     $this->load->view('inventory/view_qr', $data);
     // }
 
+    // material category
+    // material category
+    // material category
+    public function material_category()
+    {
+        $data['title'] = 'Material Category';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['prod_cat'] = $this->db->get('material_category')->result_array();
+
+        $this->form_validation->set_rules('title', 'title', 'required|trim');
+        $this->form_validation->set_rules('title', 'title', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/material_cat', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $title = $this->input->post('title');
+            $unit = $this->input->post('unit');
+            $data = [
+                'categories_name' => $title,
+                'unit' => $unit
+            ];
+            $this->db->insert('material_category', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material category ' . $title . ' added!</div>');
+            redirect('inventory/material_category');
+        }
+    }
+    
+    public function edit_materialcategory()
+    {
+        $data['title'] = 'Product Menu';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['prod_cat'] = $this->db->get('material_category')->result_array();
+        
+        $this->form_validation->set_rules('id', 'menu name', 'required|trim');
+        $this->form_validation->set_rules('title', 'menu name', 'required|trim');
+        
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/prod_cat', $data);
+            $this->load->view('templates/footer');
+        } else {
+            //read from input input
+            $edit_id = $this->input->post('id');
+            $edit_title = $this->input->post('title');
+            $unit = $this->input->post('unit');
+            $editedMaterialCategory = $this->db->get_where('material_category', array('id' => $edit_id))->row_array();
+            // edit DB
+            $data = [
+                'categories_name' => $edit_title,
+                'unit' => $unit
+            ];
+            $this->db->where('id', $edit_id);
+            $this->db->update('material_category', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Material category ' . $editedMaterialCategory["categories_name"] . ' edited into ' . $edit_title . '!</div>');
+            redirect('inventory/material_category');
+        }
+    }
+
+    public function delete_materialcategory()
+    {
+        // get deleted item
+        $itemtoDelete = $this->input->post('delete_productmenu_id');
+        // get data on deleted sub menu
+        $deletedWebMenu = $this->db->get_where('material_category', array('id' => $itemtoDelete))->row_array();
+        // delete the sub menu
+        $this->db->delete('material_category', array('id' => $itemtoDelete));
+        // send message
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Material category ' . $deletedWebMenu["categories_name"] . ' deleted!</div>');
+        redirect('inventory/material_category');
+    }
+
     // Product category
     // Product category
     // Product category
@@ -1743,6 +1829,7 @@ class Inventory extends CI_Controller
         $data['prod_cat'] = $this->db->get('product_category')->result_array();
 
         $this->form_validation->set_rules('title', 'title', 'required|trim');
+        $this->form_validation->set_rules('unit', 'unit', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -1752,27 +1839,28 @@ class Inventory extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $title = $this->input->post('title');
-            $url = $this->input->post('url');
-            $icon = $this->input->post('icon');
+            $unit = $this->input->post('unit');
             $data = [
                 'title' => $title,
+                'unit' => $unit
             ];
             $this->db->insert('product_category', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert"> Product spec item ' . $title . ' added!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Product category ' . $title . ' added!</div>');
             redirect('inventory/product_category');
         }
     }
-
+    
     public function editproductmenu()
     {
         $data['title'] = 'Product Menu';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         $data['prod_cat'] = $this->db->get('product_category')->result_array();
-
-        $this->form_validation->set_rules('id', 'menu name', 'required|trim');
-        $this->form_validation->set_rules('title', 'menu name', 'required|trim');
-
+        
+        $this->form_validation->set_rules('id', 'id', 'required|trim');
+        $this->form_validation->set_rules('title', 'title', 'required|trim');
+        $this->form_validation->set_rules('unit', 'unit', 'required|trim');
+        
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
@@ -1783,15 +1871,16 @@ class Inventory extends CI_Controller
             //read from input input
             $edit_id = $this->input->post('id');
             $edit_title = $this->input->post('title');
-            //find edited submenu
-            $editedWebMenu = $this->db->get_where('product_category', array('id' => $edit_id))->row_array();
+            $unit = $this->input->post('unit');
+            $editedProdCategory = $this->db->get_where('product_category', array('id' => $edit_id))->row_array();
             // edit DB
             $data = [
-                'title' => $edit_title
+                'title' => $edit_title,
+                'unit' => $unit
             ];
             $this->db->where('id', $edit_id);
             $this->db->update('product_category', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert"> Product Menu ' . $editedWebMenu["title"] . ' edited into ' . $edit_title . '!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert"> Product category ' . $editedProdCategory["title"] . ' edited into ' . $edit_title . '!</div>');
             redirect('inventory/product_category');
         }
     }
@@ -1805,7 +1894,7 @@ class Inventory extends CI_Controller
         // delete the sub menu
         $this->db->delete('product_category', array('id' => $itemtoDelete));
         // send message
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Product menu ' . $deletedWebMenu["title"] . ' deleted!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Product category ' . $deletedWebMenu["title"] . ' deleted!</div>');
         redirect('inventory/product_category');
     }
 }

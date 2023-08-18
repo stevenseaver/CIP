@@ -92,6 +92,7 @@ class Purchasing extends CI_Controller
             $materialName = $material_selected["name"];
             $materialCode = $material_selected["code"];
             $materialCat = $material_selected["categories"];
+            $unit = $material_selected["unit_satuan"];
             // $supplier = $material_selected["supplier"];
 
             $data = [
@@ -102,6 +103,7 @@ class Purchasing extends CI_Controller
                 'date' => time(),
                 'price' => $price,
                 'incoming' => $amount,
+                'unit_satuan' => $unit,
                 'status' => $status,
                 'warehouse' => $warehouse,
                 'supplier' => $supplier,

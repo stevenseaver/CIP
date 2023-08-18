@@ -66,7 +66,7 @@ class Production extends CI_Controller
     }
 
     //ADD ITEM PO
-    public function add_item_prod($id, $status, $warehouse)
+    public function add_item_prod($id, $status)
     {
         $data['title'] = 'Add Production Order';
         $data['user'] = $this->db->get_where('user', ['nik' =>
@@ -104,7 +104,9 @@ class Production extends CI_Controller
             $materialName = $material_selected["name"];
             $materialCode = $material_selected["code"];
             $materialCat = $material_selected["categories"];
+            $warehouse = $material_selected["warehouse"];
             $supplier = $material_selected["supplier"];
+            $unit = $material_selected["unit_satuan"];
 
             $data = [
                 'transaction_id' => $po_id,
@@ -114,6 +116,7 @@ class Production extends CI_Controller
                 'date' => $date,
                 'price' => $price,
                 'outgoing' => $amount,
+                'unit_satuan' => $unit,
                 'status' => $status,
                 'warehouse' => $warehouse,
                 'supplier' => $supplier,

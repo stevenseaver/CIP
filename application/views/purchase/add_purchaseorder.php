@@ -35,7 +35,7 @@
             </select>
             <?= form_error('supplier', '<small class="text-danger pl-2">', '</small>') ?>
         </div>
-
+<!-- 
         <script>
             var e = document.getElementById("supplier");
             function onChange() {
@@ -56,7 +56,7 @@
                     // console.log( data );
                 }
             });
-        </script>
+        </script> -->
         
         <div class="row">
             <div class="col-6">
@@ -66,7 +66,7 @@
                     <select name="material" id="material" class="form-control" value="<?= set_value('material') ?>">
                         <option value="">--Select Item--</option>
                         <?php foreach ($inventory_wh as $mt) : ?>
-                            <option value="<?= $mt['id'] ?>"><?= $mt['name'] ?></option>
+                            <option data-unit="<?= $mt['unit_satuan']?>" value="<?= $mt['id'] ?>"><?= $mt['name'] ?></option>
                         <?php endforeach; ?>
                     </select>
                     <!-- <input class="typeahead form-control" type="text"> -->
@@ -86,7 +86,13 @@
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="amount" class="col-form-label">Amount</label>
-                    <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount..">
+                    <!-- <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount.."> -->
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="amount" name="amount">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="unit_instock">unit</span>
+                        </div>
+                    </div>
                     <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
@@ -155,8 +161,8 @@
                     <tr>
                         <td><?= $i ?></td>
                         <td><?= $ms['name'] ?></td>
-                        <td><?= number_format($ms['incoming'], 2, ',', '.'); ?></td>
-                        <!-- <td><input id="receiveAmount-<?= $ms['id'] ?>" class="edit-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-transID="<?= $ms['transaction_id']; ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> -->
+                        <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?></td> -->
+                        <td><input id="receiveAmount-<?= $ms['id'] ?>" class="edit-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-transID="<?= $ms['transaction_id']; ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php $subtotal = $ms['incoming'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>

@@ -17,13 +17,8 @@
             <p class="text-dark font-weight-bold"> <?= $getID['code'] ?></p>
             <p class="text-dark mb-1">Price : </p>
             <p class="text-dark font-weight-bold"> IDR <?= number_format($getID['price'], 0, ',', '.') ?></p>
-            <?php if ($getID['categories'] == 6 or $getID['categories'] == 7 or $getID['categories'] == 8) { ?>
-                <p class="text-dark mb-1">In Stock : </p>
-                <p class="text-dark font-weight-bold"> <?= number_format($getID['in_stock'], 2, ',', '.') ?></p>
-            <?php } else { ?>
-                <p class="text-dark mb-1">In Stock : </p>
-                <p class="text-dark font-weight-bold"> <?= number_format($getID['in_stock'], 2, ',', '.') . ' kg' ?></p>
-            <? } ?>
+            <p class="text-dark mb-1">In Stock : </p>
+            <p class="text-dark font-weight-bold"> <?= number_format($getID['in_stock'], 2, ',', '.') . ' ' . $getID['unit_satuan'] ?></p>
         </div>
     </div>
 
@@ -73,7 +68,7 @@
                                         <td><?= date('d F Y H:i:s', $ms['date']); ?></td>
                                         <td><?= number_format($ms['incoming'], 1, ',', '.') ?></td>
                                         <td><?= number_format($ms['outgoing'], 1, ',', '.') ?></td>
-                                        <td><?= number_format($ms['in_stock'], 1, ',', '.') . ' kg' ?></td>
+                                        <td><?= number_format($ms['in_stock'], 1, ',', '.') . ' ' . $ms['unit_satuan'] ?></td>
                                         <td><?= $ms['status_name'] ?>
                                             <?php
                                                 if ($ms['status'] == 1 or $ms['status'] == 6 or $ms['status'] == 3 or $ms['status'] == 7)  {

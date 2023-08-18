@@ -37,7 +37,7 @@
                 <tr>
                     <th>No</th>
                     <th>Item</th>
-                    <th>Amount Used (Kg)</th>
+                    <th>Amount Used</th>
                     <th>Price (IDR)</th>
                     <th class="text-right">Subtotal (IDR)</th>
                     <th>Mix Amount</th>
@@ -61,7 +61,7 @@
                     <tr>
                         <td><?= $i ?></td>
                         <td><?= $ms['name'] ?></td>
-                        <td><?= number_format($ms['outgoing'], 2, ',', '.'); ?></td>
+                        <td><?= number_format($ms['outgoing'], 2, ',', '.') . ' ' . $ms['unit_satuan'];; ?></td>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php $subtotal = $ms['outgoing'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
