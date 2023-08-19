@@ -242,6 +242,7 @@
                     <th>Pcs per pack</th>
                     <th>Pack per Sack</th>
                     <th>Amount</th>
+                    <th>Weight of Packed Goods</th>
                     <th>Batch</th>
                     <th>Action</th>
                 </tr>
@@ -267,6 +268,7 @@
                             <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> pack</td> -->
                             <td><input id="gbjAmount-<?= $ms['id'] ?>" class="gbj-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>">pack</td>
                         <?php } ?>
+                        <td><?= $ms['before_convert'] . ' kg'?></td>
                         <td><?= $ms['batch'] ?></td>
                         <?php if($ms['transaction_status'] != 2){  ?>
                             <?php if($ms['categories'] != 6 and $ms['categories'] != 7) { ?>
@@ -281,14 +283,14 @@
                             <td><a data-toggle="modal" data-target="#deleteItemGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" class="badge badge-danger clickable">Delete</a></td>
                         <?php } ?>
                     </tr>
-                    <?php $temp = $temp + $ms['incoming'];
+                    <?php $temp = $temp + $ms['before_convert'];
                     $i++;
                     ?>
                 <?php endforeach; ?>
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="3"> </td>
+                    <td colspan="5"> </td>
                     <td class="text-left"><strong>Total Weight</strong></td>
                     <?php $total = $temp; ?>
                     <td class="text-left"><?= $this->cart->format_number($total, '2', ',', '.'); ?> kg</td>

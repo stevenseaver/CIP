@@ -105,6 +105,7 @@
                     <th>Amount</th>
                     <th>Batch</th>
                     <th>Roll Number</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -124,6 +125,13 @@
                         <!-- <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> -->
                         <td><?= $ms['batch'] ?></td>
                         <td><?= $ms['transaction_desc'] ?></td>
+                        <td>
+                            <?php if($ms['status'] != 9) { ?>
+                                <badge class="badge badge-danger">Not yet cut</badge>
+                            <?php } else { ?>
+                                <badge class="badge badge-primary">Already Cut</badge>
+                            <?php } ?>    
+                        </td>
                     </tr>
                     <?php $temp = $temp + $ms['incoming'];
                     $i++;
@@ -158,7 +166,9 @@
                     <th>Pcs per pack</th>
                     <th>Pack per Sack</th>
                     <th>Amount</th>
+                    <th>Weight of Packed Goods</th>
                     <th>Batch</th>
+                    <th>Pack Number</th>
                 </tr>
             </thead>
             <tbody>
@@ -183,16 +193,18 @@
                             <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> pack</td>
                         <?php } ?>
                         <!-- <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> -->
+                        <td><?= $ms['before_convert'] . ' kg'?></td>
                         <td><?= $ms['batch'] ?></td>
+                        <td><?= $ms['description'] ?></td>
                     </tr>
-                    <?php $temp = $temp + $ms['incoming'];
+                    <?php $temp = $temp + $ms['before_convert'];
                     $i++;
                     ?>
                 <?php endforeach; ?>
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="2"> </td>
+                    <td colspan="5"> </td>
                     <td class="text-left"><strong>Total Weight</strong></td>
                     <?php $total = $temp; ?>
                     <td class="text-left"><?= $this->cart->format_number($total, '2', ',', '.'); ?> kg</td>

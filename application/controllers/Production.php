@@ -683,6 +683,7 @@ class Production extends CI_Controller
                 'price' => $price,
                 'in_stock' => 0,
                 'incoming' => $amount,
+                'before_convert' => $amount,
                 'outgoing' => 0,
                 'status' => 3,
                 'transaction_status' => 1,
@@ -847,6 +848,7 @@ class Production extends CI_Controller
             //update transaksi
             $this->db->where('id', $id);
             $this->db->set('incoming', $amount);
+            $this->db->set('before_convert', $amount);
             $this->db->update('stock_finishedgoods');
             //update stock akhir
             $this->db->where('status', '7');
@@ -856,6 +858,7 @@ class Production extends CI_Controller
             //if not converted into packs, update transaksi only
             $this->db->where('id', $id);
             $this->db->set('incoming', $amount);
+            $this->db->set('before_convert', $amount);
             $this->db->update('stock_finishedgoods');
         }
 

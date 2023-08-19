@@ -94,7 +94,7 @@
 
 <!-- Modal For Add Data -->
 <div class="modal fade" id="newMaterial" tabindex="-1" aria-labelledby="newMaterialModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="newMaterialodalLabel">Add New Item</h5>
@@ -120,12 +120,23 @@
                     <div class="form-group">
                         <!-- Supplier name -->
                         <label for="supplier" class="col-form-label">Supplier</label>
-                        <select name="supplier" id="supplier" class="form-control" value="<?= set_value('supplier') ?>">
-                            <option value="">--Select Supplier--</option>
-                            <?php foreach ($supplier as $sup) : ?>
-                                <option value="<?= $sup['id'] ?>"><?= $sup['supplier_name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <div class="row  align-items-center">
+                            <div class="col-lg-10 mb-xs-3">
+                            <select name="supplier" id="supplier" class="form-control" value="<?= set_value('supplier') ?>">
+                                <option value="">--Select Supplier--</option>
+                                <?php foreach ($supplier as $sup) : ?>
+                                    <option value="<?= $sup['id'] ?>"><?= $sup['supplier_name'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="col-lg-2 justify-content-center">
+                                <a href="<?= base_url('purchasing/supplier')?>">
+                                    <span class="icon text-primary">
+                                        <i class="bi bi-person-plus-fill"></i>
+                                        Add New Supplier
+                                    </span></a>
+                            </div>
+                        </div>
                         <?= form_error('supplier', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
