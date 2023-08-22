@@ -24,7 +24,7 @@
             <p class="text-dark font-weight-bold"> <?= date('d F Y h:i', $date); ?></p>
             <p class="text-dark mb-1">Delivery Address:</p>
             <p class="text-dark font-weight-bold"><?= $address; ?></p>
-            <a href="" data-toggle="modal" data-target="#addNewAddress" class="btn btn-light mb-1">Use another address</a>
+            <!-- <a href="" data-toggle="modal" data-target="#addNewAddress" class="btn btn-light mb-1">Use another address</a> -->
         </div>
     </div>
 

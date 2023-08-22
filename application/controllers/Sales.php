@@ -59,13 +59,9 @@ class Sales extends CI_Controller
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Status changed!</div>');
         if ($status_change_to == 2) {
-            //delivery order
-            redirect('sales/deliveryorder');
-        } else if ($status_change_to == 3) {
-            //invoice
-            redirect('sales/invoice');
-        } else if ($status_change_to == 4) {
-            //reset all in_stock on stock_finishedgoods database to the previous value
+            // delivery order
+            // USE THIS IF ITEM STOCK AKHIR IS CHANGED ON DELIVERY
+            // reset all in_stock on stock_finishedgoods database to the previous value
             $data['salesData'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $ref])->result_array();
             
             foreach ($data['salesData'] as $ci) :
@@ -81,13 +77,43 @@ class Sales extends CI_Controller
                 
                 // data to update inventory database
                 $data2_warehouse = [
-                    'in_stock' => $in_stockOld + $amount
+                    'in_stock' => $in_stockOld - $amount
                 ];
 
                 $this->db->where('code', $code);
                 $this->db->where('status', 7);
                 $this->db->update('stock_finishedgoods', $data2_warehouse);
             endforeach;
+
+            redirect('sales/deliveryorder');
+        } else if ($status_change_to == 3) {
+            //invoice
+            redirect('sales/invoice');
+        } else if ($status_change_to == 4) {
+            // USE THIS IF ITEM STOCK AKHIR IS CHANGED ON PAYMENT
+            // reset all in_stock on stock_finishedgoods database to the previous value
+            // $data['salesData'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $ref])->result_array();
+            
+            // foreach ($data['salesData'] as $ci) :
+            //     //get selected item
+            //     $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['name' => $ci['name'], 'status' => 7])->row_array();
+                
+            //     $amount = $ci['outgoing'];
+
+            //     echo $amount;
+
+            //     $code = $data['itemselect']['code'];
+            //     $in_stockOld = $data['itemselect']['in_stock'];
+                
+            //     // data to update inventory database
+            //     $data2_warehouse = [
+            //         'in_stock' => $in_stockOld + $amount
+            //     ];
+
+            //     $this->db->where('code', $code);
+            //     $this->db->where('status', 7);
+            //     $this->db->update('stock_finishedgoods', $data2_warehouse);
+            // endforeach;
 
             //delete all that has $ref on stock_finishedgoods database
             $this->db->where('transaction_id', $ref);

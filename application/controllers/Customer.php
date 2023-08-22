@@ -164,25 +164,25 @@ class Customer extends CI_Controller
         //ref invoice
         $ref = 'INV-' . $year . $month . $time . '-' . $data['user']['id'] . $serial;
 
-        $this->form_validation->set_rules('address', 'address', 'required|trim');
-        $this->form_validation->set_rules('city', 'city', 'required|trim');
-        $this->form_validation->set_rules('province', 'province', 'required|trim');
-        $this->form_validation->set_rules('country', 'country', 'required|trim');
-        $this->form_validation->set_rules('postal', 'postal', 'numeric|required|trim');
+        // $this->form_validation->set_rules('address', 'address', 'required|trim');
+        // $this->form_validation->set_rules('city', 'city', 'required|trim');
+        // $this->form_validation->set_rules('province', 'province', 'required|trim');
+        // $this->form_validation->set_rules('country', 'country', 'required|trim');
+        // $this->form_validation->set_rules('postal', 'postal', 'numeric|required|trim');
 
-        if ($this->form_validation->run() == false) {
-            $address = $data['user']['address'] . ', ' . $data['user']['city'] . ', ' . $data['user']['province'] . ', ' . $data['user']['country'] . ', ' . $data['user']['postal'];
-        } else {
-            $address = $this->input->post('address');
-            $city = $this->input->post('city');
-            $province = $this->input->post('province');
-            $country = $this->input->post('country');
-            $postal = $this->input->post('postal');
+        // if ($this->form_validation->run() == false) {
+        $address = $data['user']['address'] . ', ' . $data['user']['city'] . ', ' . $data['user']['province'] . ', ' . $data['user']['country'] . ', ' . $data['user']['postal'];
+        // } else {
+        //     $address = $this->input->post('address');
+        //     $city = $this->input->post('city');
+        //     $province = $this->input->post('province');
+        //     $country = $this->input->post('country');
+        //     $postal = $this->input->post('postal');
 
-            $address = $address . ', ' . $city . ', ' . $province . ', ' . $country . ', ' . $postal;
+        //     $address = $address . ', ' . $city . ', ' . $province . ', ' . $country . ', ' . $postal;
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Delivery address changed!</div>');
-        }
+        //     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Delivery address changed!</div>');
+        // }
 
         $data['ref'] = $ref;
         $data['date'] = $date;
@@ -257,17 +257,18 @@ class Customer extends CI_Controller
                         'warehouse' => $warehouse,
                         'transaction_id' => $ref
                     ];
-
-                    $data2_warehouse = [
-                        'in_stock' => $in_stockOld - $amount,
-                        'date' => $date
-                    ];
+                    // USE THIS IF ITEM STOCK AKHIR IS CHANGED ON PAYMENT
+                    // $data2_warehouse = [
+                    //     'in_stock' => $in_stockOld - $amount,
+                    //     'date' => $date
+                    // ];
 
                     // update inventory
                     $this->db->insert('stock_finishedgoods', $data_warehouse);
-
-                    $this->db->where('code', $code);
-                    $this->db->update('stock_finishedgoods', $data2_warehouse, 'status = 7');
+                    // USE THIS IF ITEM STOCK AKHIR IS CHANGED ON PAYMENT
+                    // update inventory stock_akhir
+                    // $this->db->where('code', $code);
+                    // $this->db->update('stock_finishedgoods', $data2_warehouse, 'status = 7');
                 endforeach;
                 
                 // then upload image and update cart database
