@@ -127,32 +127,55 @@ class Sales extends CI_Controller
         }
     }
 
-    public function add_salesorder(){
+    public function add_salesorder($ref){
         //load user data per session
         $data['title'] = 'Add New Sales Order';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get cart database
-        $this->load->model('Sales_model', 'custID');
-        $data['dataCart'] = $this->custID->getCustomer();
 
-        // $data['inv'] = $this->input->post('invoiceID');
         $date = time();
-        $year = date('y');
-        $month = date('m');
-        $time = date('s');
-        $serial = rand(100, 999);
-        //ref invoice
-        $ref = 'INV-' . $year . $month . $time . '-' . $data['user']['id'] . $serial;
-        
-        $data['ref'] = $ref;
+        $data['ref'] = $ref;    
         $data['date'] = $date;
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar_cust', $data);
-        $this->load->view('sales/add_salesorder', $data);
-        $this->load->view('templates/footer');
+        //get cart database
+        $data['dataCart'] = $this->db->get_where('cart', ['ref' => $ref])->result_array();
+        $data['gbjData'] = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+
+        $this->form_validation->set_rules('amount', 'amount', 'numeric|required|trim');
+
+        if($this->form_validation->run() == false){
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar_cust', $data);
+            $this->load->view('sales/add_salesorder', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $customer = $data['user']['id'];
+            $name = $data['itemselect']['name'];
+            $price = $data['itemselect']['price'];
+            $amount = $this->input->post('amount');
+            $prod_cat = $data['itemselect']['categories'];
+            $subtotal = $data['itemselect']['price'] * $amount;
+
+            $date = time();
+
+            $data_cart = array(
+                'date' => $date,
+                'item_id' => $id,
+                'customer_id' => $customer,
+                'item_name' => $name,
+                'prod_cat' => $prod_cat,
+                'qty' => $amount,
+                'price' => $price,
+                'subtotal' => $subtotal
+            );
+
+            // update cart
+            $this->db->insert('cart', $data_cart);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item added to cart!</div>');
+
+            redirect('sales/add_salesorder/' . $ref);
+        }
     }
 
     public function enlarge_image($img_name){

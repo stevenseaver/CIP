@@ -8,7 +8,17 @@
         </div>
     </div>
 
-    <a href="<?= base_url('sales/add_salesorder')  ?>" class="btn btn-primary btn-icon-split mb-3">
+    <?php 
+        $date = time();
+        $year = date('y');
+        $month = date('m');
+        $time = date('s');
+        $serial = rand(100, 999);
+        //ref invoice
+        $ref = 'INV-' . $year . $month . $time . '-' . $user['id'] . $serial;
+    ?>
+
+    <a href="<?= base_url('sales/add_salesorder/') . $ref  ?>" class="btn btn-primary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
         </span>

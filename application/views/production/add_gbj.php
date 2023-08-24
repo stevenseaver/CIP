@@ -24,7 +24,6 @@
             <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
             <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
         </div>
-
         <div class="row">
             <div class="col-lg-5">
                 <div class="form-group">
