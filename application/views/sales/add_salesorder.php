@@ -32,6 +32,67 @@
             <span class="text">Add New Item</span>
         </a>
 
+        <!-- Item selected to be added -->
+        <div>
+            <form action="<?= base_url('sales/add_salesorder/' . $ref) ?>" method="post">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <!-- GBJ item name -->
+                            <label for="name" class="col-form-label">Item Name</label>
+                            <input type="text" class="form-control" id="name" name="name" readonly value="<?= set_value('name'); ?>">
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <!-- GBJ code -->
+                            <label for="code" class="col-form-label">Code</label>
+                            <input type="text" class="form-control" id="code" name="code" readonly value="<?= set_value('code'); ?>">
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <!-- Material in stock -->
+                            <label for="instock" class="col-form-label">In Stock</label>
+                            <input type="text" class="form-control" id="instock" name="instock" readonly value="<?= set_value('instock'); ?>">
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="form-group">
+                            <!-- Item code -->
+                            <label for="pcsperpack" class="col-form-label">Packing</label>
+                            <input type="text" class="form-control" id="pcsperpack" name="pcsperpack" value="<?= set_value('pcsperpack'); ?>" readonly>
+                            <?= form_error('pcsperpack', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="form-group">
+                            <!-- Pack per sack -->
+                            <label for="packpersack" class="col-form-label">Pack/sack</label>
+                            <input type="text" class="form-control" id="packpersack" name="packpersack" readonly value="<?= set_value('packpersack'); ?>">
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <!-- Item code -->
+                            <label for="amount" class="col-form-label">Amount</label>
+                            <div class="input-group">
+                                <!-- Item code -->
+                                <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Ordered amount">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">unit(s)</span>
+                                </div>
+                                <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input class="btn-add-item btn btn-primary mb-3" type="submit"></input>
+                <p class="align-items-center">Data input are automatically saved.</p>
+            </form>
+        </div>
+
+        <!-- Data from cart, item added to sales order -->
         <?php if ($dataCart != null) :
             echo form_open('customer/cart'); ?>
             <div class="card rounded border-0 shadow mb-3">
@@ -132,67 +193,66 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- <form action="<?= base_url('sales/add_salesoreder/') . $ref ?>" method="post"> -->
                 <div class="table-responsive">
-                    <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Finished Good</th>
-                                <th>Code</th>
-                                <th>Pcs/Pack</th>
-                                <th>Pack/Sack</th>
-                                <th>Stock</th>
-                                <th>Price</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i = 1;
-                            $temp = 0; ?>
-                            <?php foreach ($gbjData as $fs) : ?>
-                                <?php
-                                if ($fs['status'] != 7) {
-                                    continue;
-                                } else {
-                                }
-                                ?>
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
                                 <tr>
-                                    <td><?= $i ?></td>
-                                    <td><?= $fs['name'] ?></td>
-                                    <td><?= $fs['code'] ?></td>
-                                    <td><?= $fs['pcsperpack'] . ' pcs' ?></td>
-                                    <td><?= $fs['packpersack'] . ' pack' ?></td>]
-                                    <td><?php
-                                        if ($fs['categories'] == '6') {
-                                            echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
-                                            echo ' or ' . ($fs['in_stock'] / 25) . ' sack';
-                                        } else if ($fs['categories'] == '7') {
-                                            echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
-                                            echo ' or ' . ($fs['in_stock'] / $fs['conversion']) . ' sack';
-                                        } else {
-                                            echo number_format($fs['in_stock'], 0, ',', '.') . ' pack';
-                                            echo ' or ' . ($fs['in_stock'] / $fs['packpersack']) . ' sack';
-                                        } ?></td>
-                                    <td><?php
-                                        if ($fs['categories'] != '6' and $fs['categories'] != '7') {
-                                            echo number_format($fs['price'], 0, ',', '.') . '/pack';
-                                        } else {
-                                            echo number_format($fs['price'], 0, ',', '.') . '/kg';
-                                        } ?></td>
-                                    <td>
-                                        <a href="<?= base_url('sales') . $fs['id'] ?>" class="badge badge-primary">Add</a>
-                                    </td>
+                                    <th>No</th>
+                                    <th>Finished Good</th>
+                                    <th>Code</th>
+                                    <th>Stock</th>
+                                    <th>Price</th>
+                                    <th>Action</th>
                                 </tr>
-                                <?php $i++; ?>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1;
+                                $temp = 0; ?>
+                                <?php foreach ($gbjData as $fs) : ?>
+                                    <?php
+                                    if ($fs['status'] != 7) {
+                                        continue;
+                                    } else {
+                                    }
+                                    ?>
+                                    <tr>
+                                        <td><?= $i ?></td>
+                                        <td><?= $fs['name'] ?></td>
+                                        <td><?= $fs['code'] ?></td>
+                                        <td><?php
+                                            if ($fs['categories'] == '6') {
+                                                echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
+                                                echo ' or ' . ($fs['in_stock'] / 25) . ' sack';
+                                            } else if ($fs['categories'] == '7') {
+                                                echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
+                                                echo ' or ' . ($fs['in_stock'] / $fs['conversion']) . ' sack';
+                                            } else {
+                                                echo number_format($fs['in_stock'], 0, ',', '.') . ' pack';
+                                                echo ' or ' . ($fs['in_stock'] / $fs['packpersack']) . ' sack';
+                                            } ?></td>
+                                        <td><?php
+                                            if ($fs['categories'] != '6' and $fs['categories'] != '7') {
+                                                echo number_format($fs['price'], 0, ',', '.') . '/pack';
+                                            } else {
+                                                echo number_format($fs['price'], 0, ',', '.') . '/kg';
+                                            } ?></td>
+                                        <td>
+                                            <!-- link this with a javascript -->
+                                            <a href="" class="badge badge-primary">Add</a> 
+                                        </td>
+                                    </tr>
+                                    <?php $i++; ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Modal For Delete Individual Data -->
 <div class="modal fade" id="deleteCartIndividualItem" tabindex="-1" aria-labelledby="deleteCartIndividualItemLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
