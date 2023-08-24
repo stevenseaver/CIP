@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <a href="<?= base_url('')  ?>" class="btn btn-primary btn-icon-split mb-3">
+    <a href="<?= base_url('sales/add_salesorder')  ?>" class="btn btn-primary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
         </span>

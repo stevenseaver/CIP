@@ -57,7 +57,7 @@ class Sales extends CI_Controller
         $this->db->set('status', $status_change_to);
         $this->db->update('cart');
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Status changed!</div>');
+        // $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Status changed!</div>');
         if ($status_change_to == 2) {
             // delivery order
             // USE THIS IF ITEM STOCK AKHIR IS CHANGED ON DELIVERY
@@ -69,9 +69,9 @@ class Sales extends CI_Controller
                 $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['name' => $ci['name'], 'status' => 7])->row_array();
                 
                 $amount = $ci['outgoing'];
-
+                
                 echo $amount;
-
+                
                 $code = $data['itemselect']['code'];
                 $in_stockOld = $data['itemselect']['in_stock'];
                 
@@ -79,15 +79,17 @@ class Sales extends CI_Controller
                 $data2_warehouse = [
                     'in_stock' => $in_stockOld - $amount
                 ];
-
+                
                 $this->db->where('code', $code);
                 $this->db->where('status', 7);
                 $this->db->update('stock_finishedgoods', $data2_warehouse);
             endforeach;
-
+            
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Status changed into deliveries, final stock updated!</div>');
             redirect('sales/deliveryorder');
         } else if ($status_change_to == 3) {
             //invoice
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Transaction finished, send invoice to customer!</div>');
             redirect('sales/invoice');
         } else if ($status_change_to == 4) {
             // USE THIS IF ITEM STOCK AKHIR IS CHANGED ON PAYMENT
@@ -95,33 +97,62 @@ class Sales extends CI_Controller
             // $data['salesData'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $ref])->result_array();
             
             // foreach ($data['salesData'] as $ci) :
-            //     //get selected item
-            //     $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['name' => $ci['name'], 'status' => 7])->row_array();
+                //     //get selected item
+                //     $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['name' => $ci['name'], 'status' => 7])->row_array();
                 
-            //     $amount = $ci['outgoing'];
-
-            //     echo $amount;
-
-            //     $code = $data['itemselect']['code'];
-            //     $in_stockOld = $data['itemselect']['in_stock'];
+                //     $amount = $ci['outgoing'];
                 
-            //     // data to update inventory database
-            //     $data2_warehouse = [
-            //         'in_stock' => $in_stockOld + $amount
-            //     ];
-
-            //     $this->db->where('code', $code);
-            //     $this->db->where('status', 7);
-            //     $this->db->update('stock_finishedgoods', $data2_warehouse);
-            // endforeach;
-
-            //delete all that has $ref on stock_finishedgoods database
-            $this->db->where('transaction_id', $ref);
-            $this->db->delete('stock_finishedgoods');
-            
+                //     echo $amount;
+                
+                //     $code = $data['itemselect']['code'];
+                //     $in_stockOld = $data['itemselect']['in_stock'];
+                
+                //     // data to update inventory database
+                //     $data2_warehouse = [
+                    //         'in_stock' => $in_stockOld + $amount
+                    //     ];
+                    
+                    //     $this->db->where('code', $code);
+                    //     $this->db->where('status', 7);
+                    //     $this->db->update('stock_finishedgoods', $data2_warehouse);
+                    // endforeach;
+                    
+                    //delete all that has $ref on stock_finishedgoods database
+                    $this->db->where('transaction_id', $ref);
+                    $this->db->delete('stock_finishedgoods');
+                    
             // return to page
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction declined!</div>');
             redirect('sales/');
         }
+    }
+
+    public function add_salesorder(){
+        //load user data per session
+        $data['title'] = 'Add New Sales Order';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get cart database
+        $this->load->model('Sales_model', 'custID');
+        $data['dataCart'] = $this->custID->getCustomer();
+
+        // $data['inv'] = $this->input->post('invoiceID');
+        $date = time();
+        $year = date('y');
+        $month = date('m');
+        $time = date('s');
+        $serial = rand(100, 999);
+        //ref invoice
+        $ref = 'INV-' . $year . $month . $time . '-' . $data['user']['id'] . $serial;
+        
+        $data['ref'] = $ref;
+        $data['date'] = $date;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('sales/add_salesorder', $data);
+        $this->load->view('templates/footer');
     }
 
     public function enlarge_image($img_name){
