@@ -36,31 +36,38 @@
         <div>
             <form action="<?= base_url('sales/add_salesorder/' . $ref) ?>" method="post">
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-4">
                         <div class="form-group">
                             <!-- GBJ item name -->
                             <label for="name" class="col-form-label">Item Name</label>
                             <input type="text" class="form-control" id="name" name="name" readonly value="<?= set_value('name'); ?>">
                         </div>
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <div class="form-group">
                             <!-- GBJ code -->
                             <label for="code" class="col-form-label">Code</label>
                             <input type="text" class="form-control" id="code" name="code" readonly value="<?= set_value('code'); ?>">
                         </div>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-1">
                         <div class="form-group">
-                            <!-- Material in stock -->
+                            <!-- Item stock -->
                             <label for="instock" class="col-form-label">In Stock</label>
                             <input type="text" class="form-control" id="instock" name="instock" readonly value="<?= set_value('instock'); ?>">
                         </div>
                     </div>
                     <div class="col-lg-1">
                         <div class="form-group">
+                            <!-- Item price -->
+                            <label for="price" class="col-form-label">Price</label>
+                            <input type="text" class="form-control" id="price" name="price" readonly value="<?= set_value('price'); ?>">
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="form-group">
                             <!-- Item code -->
-                            <label for="pcsperpack" class="col-form-label">Packing</label>
+                            <label for="pcsperpack" class="col-form-label">Pcs/pack</label>
                             <input type="text" class="form-control" id="pcsperpack" name="pcsperpack" value="<?= set_value('pcsperpack'); ?>" readonly>
                             <?= form_error('pcsperpack', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
@@ -202,7 +209,7 @@
                                     <th>Finished Good</th>
                                     <th>Code</th>
                                     <th>Stock</th>
-                                    <th>Price</th>
+                                    <th>Unit Price</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -210,36 +217,21 @@
                                 <?php $i = 1;
                                 $temp = 0; ?>
                                 <?php foreach ($gbjData as $fs) : ?>
-                                    <?php
-                                    if ($fs['status'] != 7) {
-                                        continue;
-                                    } else {
-                                    }
-                                    ?>
                                     <tr>
                                         <td><?= $i ?></td>
-                                        <td><?= $fs['name'] ?></td>
-                                        <td><?= $fs['code'] ?></td>
-                                        <td><?php
-                                            if ($fs['categories'] == '6') {
+                                        <td class="name"><?= $fs['name'] ?></td>
+                                        <td class="code"><?= $fs['code'] ?></td>
+                                        <td class="in_stock"><?php
+                                            if ($fs['categories'] == '6' or $fs['categories'] == '7') {
                                                 echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
-                                                echo ' or ' . ($fs['in_stock'] / 25) . ' sack';
-                                            } else if ($fs['categories'] == '7') {
-                                                echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
-                                                echo ' or ' . ($fs['in_stock'] / $fs['conversion']) . ' sack';
                                             } else {
                                                 echo number_format($fs['in_stock'], 0, ',', '.') . ' pack';
-                                                echo ' or ' . ($fs['in_stock'] / $fs['packpersack']) . ' sack';
-                                            } ?></td>
-                                        <td><?php
-                                            if ($fs['categories'] != '6' and $fs['categories'] != '7') {
-                                                echo number_format($fs['price'], 0, ',', '.') . '/pack';
-                                            } else {
-                                                echo number_format($fs['price'], 0, ',', '.') . '/kg';
-                                            } ?></td>
+                                            } ?>
+                                        </td>
+                                        <td class="price"><?= $fs['price'] ?></td>
                                         <td>
                                             <!-- link this with a javascript -->
-                                            <a href="" class="badge badge-primary">Add</a> 
+                                            <a data-dismiss="modal" type="button" class="select-item badge badge-primary" data-id="<?= $i ?>" data-name="<?= $fs['name']; ?>" data-code="<?= $fs['code']; ?>" data-instock="<?= $fs['in_stock'];?>" data-pcs="<?= $fs['pcsperpack']?>" data-pack="<?= $fs['packpersack'] ?>" data-price="<?= $fs['price']; ?>">Add</a> 
                                         </td>
                                     </tr>
                                     <?php $i++; ?>

@@ -300,9 +300,26 @@
          });
      });
 
+     //  JavaScript for add item to sales order database cart
+     $(".select-item").click(function() {
+         //extract data from data-* attributes of modal's add button
+         var $row = $(this).closest("tr"); // Find the row
+         var $name = $row.find(".name").text();
+         var $code = $row.find(".code").text();
+         var $in_stock = $row.find(".in_stock").text();
+         var $price = $row.find(".price").text();
+
+         // input passed data using JS to object INPUT from modal #newItem 
+         document.getElementById("name").value = $name;
+         document.getElementById("code").value = $code;
+         document.getElementById("instock").value = $in_stock;
+         document.getElementById("price").value = $price;
+        //  document.getElementById("pcsperpack").value = pcs;
+        //  document.getElementById("packpersack").value = pack;
+     });
+
      //  JavaScript for Edit Role Modal
      $('#editRoleModal').on('show.bs.modal', function(event) {
-
          //extract data from data-* attributes of modal's toggle button
          var roleid = $(event.relatedTarget).data('id');
          var rolename = $(event.relatedTarget).data('role');
