@@ -24,17 +24,48 @@
                 <!-- <a href="" data-toggle="modal" data-target="#addNewAddress" class="btn btn-light mb-1">Use another address</a> -->
             </div>
         </div>
-
+        <!-- Button to add Item -->
         <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newItem">
+            <span class="icon text-white-50">
+                <i class="bi bi-bag-plus-fill"></i>
+            </span>
+            <span class="text">Add New Item</span>
+        </a>
+
+        <!-- Button to add customer -->
+        <a href="" class="btn btn-light btn-icon-split mb-3" data-toggle="modal" data-target="#newCustomer">
             <span class="icon text-white-50">
                 <i class="fas fa-fw fa-user-plus"></i>
             </span>
-            <span class="text">Add New Item</span>
+            <span class="text">Select Customer</span>
         </a>
 
         <!-- Item selected to be added -->
         <div>
             <form action="<?= base_url('sales/add_salesorder/' . $ref) ?>" method="post">
+            <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <!-- GBJ item name -->
+                            <label for="cust_name" class="col-form-label">Customer</label>
+                            <input type="text" class="form-control" id="cust_name" name="cust_name" readonly value="<?= set_value('cust_name'); ?>">
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
+                        <div class="form-group">
+                            <!-- GBJ code -->
+                            <label for="cust_id" class="col-form-label">Cust ID</label>
+                            <input type="text" class="form-control" id="cust_id" name="cust_id" readonly value="<?= set_value('cust_id'); ?>">
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="form-group">
+                            <!-- Item stock -->
+                            <label for="address" class="col-form-label">Address</label>
+                            <input type="text" class="form-control" id="address" name="address" readonly value="<?= set_value('address'); ?>">
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="form-group">
@@ -231,7 +262,55 @@
                                         <td class="price"><?= $fs['price'] ?></td>
                                         <td>
                                             <!-- link this with a javascript -->
-                                            <a data-dismiss="modal" type="button" class="select-item badge badge-primary" data-id="<?= $i ?>" data-name="<?= $fs['name']; ?>" data-code="<?= $fs['code']; ?>" data-instock="<?= $fs['in_stock'];?>" data-pcs="<?= $fs['pcsperpack']?>" data-pack="<?= $fs['packpersack'] ?>" data-price="<?= $fs['price']; ?>">Add</a> 
+                                            <a data-dismiss="modal" type="button" class="select-item badge badge-primary">Add</a> 
+                                        </td>
+                                    </tr>
+                                    <?php $i++; ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for add customer -->
+<div class="modal fade" id="newCustomer" tabindex="-1" aria-labelledby="newCustomerLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newCustomerLabel">Add New Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Customer</th>
+                                    <th>Address</th>
+                                    <th>ID</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1;
+                                $temp = 0; ?>
+                                <?php foreach ($custData as $cd) : ?>
+                                    <tr>
+                                        <td><?= $i ?></td>
+                                        <td class="cust_name"><?= $cd['name'] ?></td>
+                                        <td class="address"><?= $cd['address'] . ', ' . $cd['city'] . ', ' . $cd['province'] . ', ' . $cd['country'] . ', ' . $cd['postal'] ?></td>
+                                        <td class="id"><?= $cd['id'] ?></td>
+                                        <td>
+                                            <!-- link this with a javascript -->
+                                            <a data-dismiss="modal" type="button" class="select-customer badge badge-primary">Add</a> 
                                         </td>
                                     </tr>
                                     <?php $i++; ?>

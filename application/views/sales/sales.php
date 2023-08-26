@@ -42,7 +42,6 @@
                                     <th>Date</th>
                                     <th>Customer</th>
                                     <th>Delivery Address</th>
-                                    <th>Payment Upload</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -58,11 +57,12 @@
                                             <td><?= date('d F Y H:i', $items['date']); ?></td>
                                             <td><?= $items['name']; ?></td>
                                             <td><?= $items['deliveryTo']; ?></td>
-                                            <td>
+                                            <!-- <td>
                                                 <img class="img-fluid rounded" src="<?= base_url('asset/img/payment/') . $items['img']  ?>" alt="Payment Invoice" style="width: 15rem;">
+                                            </td> -->
                                             <td>
                                                 <a href="<?= base_url('sales/sales_detail/') . urldecode($items['name']) . '/' . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>" class="badge badge-primary">Details</a>
-                                                <a href="<?= base_url('sales/enlarge_image/') . $items['img'] ?>" class="badge badge-info">Enlarge Image</a>
+                                                <a href="<?= base_url('sales/enlarge_image/') . $items['img'] ?>" class="badge badge-info">See Payment Proof</a>
                                                 <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '2' ?>" class="badge badge-success">Submit to Delivery</a>
                                                 <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '4' ?>" class="badge badge-danger">Decline and Delete</a>
                                             </td>

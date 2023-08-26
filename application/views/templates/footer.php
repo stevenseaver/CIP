@@ -301,6 +301,22 @@
      });
 
      //  JavaScript for add item to sales order database cart
+     $(".select-customer").click(function() {
+         //extract data from data-* attributes of modal's add button
+         var $row = $(this).closest("tr"); // Find the row
+         var $cust_name = $row.find(".cust_name").text();
+         var $id = $row.find(".id").text();
+         var $address = $row.find(".address").text();
+
+         // input passed data using JS to object INPUT from modal #newItem 
+         document.getElementById("cust_name").value = $cust_name;
+         document.getElementById("cust_id").value = $id;
+         document.getElementById("address").value = $address;
+        //  document.getElementById("pcsperpack").value = pcs;
+        //  document.getElementById("packpersack").value = pack;
+     });
+
+     //  JavaScript for add item to sales order database cart
      $(".select-item").click(function() {
          //extract data from data-* attributes of modal's add button
          var $row = $(this).closest("tr"); // Find the row

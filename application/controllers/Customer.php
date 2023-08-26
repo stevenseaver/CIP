@@ -222,6 +222,7 @@ class Customer extends CI_Controller
 
             if ($this->upload->do_upload('image')) {
                 //get cart database and update stock finished goods first
+                //status 0 means the cart aren't yet assigned with ref number, hence if the user add more to the cart, they still can
                 $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id'], 'status' => '0'])->result_array();
                 foreach ($data['dataCart'] as $ci) :
                     //get selected item
@@ -257,6 +258,7 @@ class Customer extends CI_Controller
                         'warehouse' => $warehouse,
                         'transaction_id' => $ref
                     ];
+                    
                     // USE THIS IF ITEM STOCK AKHIR IS CHANGED ON PAYMENT
                     // $data2_warehouse = [
                     //     'in_stock' => $in_stockOld - $amount,
