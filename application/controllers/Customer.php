@@ -123,7 +123,6 @@ class Customer extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">' . $item . ' quantity changed to ' . $qty . '.</div>');
     }
 
-
     public function delete_cart_item()
     {
         $ItemID = $this->input->post('delete_item_id');

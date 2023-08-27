@@ -135,6 +135,56 @@
          });
      });
 
+     //js for menu change cart quantity on input on change
+     $('.input-qty-so').on('change', function() {
+         //const qtyID = $(this).data('qty');
+         const item_name = $(this).data('item');
+         const ref = $(this).data('ref');
+         const id = $(this).data('id');
+         const qtyID = document.getElementById("qtyAmount-" + id).value;
+         const priceID = $(this).data('price');
+
+         $.ajax({
+             url: "<?= base_url('sales/update_so'); ?>",
+             type: 'post',
+             data: {
+                 ref: ref,
+                 qtyID: qtyID,
+                 item_name: item_name,
+                 id: id,
+                 priceID: priceID
+             },
+             success: function() {
+                 window.location.reload();  
+             }
+         });
+     });
+     
+     //js for menu change cart quantity on input on change
+     $('.input-price-so').on('change', function() {
+         //const qtyID = $(this).data('qty');
+         const item_name = $(this).data('item');
+         const ref = $(this).data('ref');
+         const id = $(this).data('id');
+         const priceID = document.getElementById("priceAmount-" + id).value;
+         const qtyID = $(this).data('amount');
+
+         $.ajax({
+             url: "<?= base_url('sales/update_so'); ?>",
+             type: 'post',
+             data: {
+                 ref: ref,
+                 qtyID: qtyID,
+                 item_name: item_name,
+                 id: id,
+                 priceID: priceID
+             },
+             success: function() {
+                 window.location.reload();  
+             }
+         });
+     });
+
      //js for amount change on purchase order quantity on input on change
      $('.edit-qty').on('change', function() {
          const id = $(this).data('id');

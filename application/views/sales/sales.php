@@ -62,7 +62,11 @@
                                             </td> -->
                                             <td>
                                                 <a href="<?= base_url('sales/sales_detail/') . urldecode($items['name']) . '/' . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>" class="badge badge-primary">Details</a>
-                                                <a href="<?= base_url('sales/enlarge_image/') . $items['img'] ?>" class="badge badge-info">See Payment Proof</a>
+                                                <a href="<?= base_url('sales/add_salesorder/') . $items['ref'] ?>" class="badge badge-warning">Edit</a>
+                                                <?php if($items['img']){ ?>
+                                                    <a href="<?= base_url('sales/enlarge_image/') . $items['img'] ?>" class="badge badge-info">See Payment Proof</a>
+                                                <?php } else {
+                                                } ?>
                                                 <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '2' ?>" class="badge badge-success">Submit to Delivery</a>
                                                 <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '4' ?>" class="badge badge-danger">Decline and Delete</a>
                                             </td>

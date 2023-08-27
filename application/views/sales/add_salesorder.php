@@ -21,7 +21,6 @@
                 <p class="text-dark font-weight-bold"> <?= $ref ?></p>
                 <p class="text-dark mb-1">Date : </p>
                 <p class="text-dark font-weight-bold"> <?= date('d F Y h:i', $date); ?></p>
-                <!-- <a href="" data-toggle="modal" data-target="#addNewAddress" class="btn btn-light mb-1">Use another address</a> -->
             </div>
         </div>
         <!-- Button to add Item -->
@@ -46,23 +45,35 @@
             <div class="row">
                     <div class="col-lg-3">
                         <div class="form-group">
-                            <!-- GBJ item name -->
+                            <!-- Customer Name -->
                             <label for="cust_name" class="col-form-label">Customer</label>
-                            <input type="text" class="form-control" id="cust_name" name="cust_name" readonly value="<?= set_value('cust_name'); ?>">
+                            <?php if ($input_cust_name) { ?>
+                                <input type="text" class="form-control" id="cust_name" name="cust_name" readonly value="<?= $input_cust_name; ?>">
+                            <?php } else { ?>
+                                <input type="text" class="form-control" id="cust_name" name="cust_name" readonly value="<?= set_value('cust_name'); ?>">
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="col-lg-1">
                         <div class="form-group">
-                            <!-- GBJ code -->
+                            <!-- customer ID -->
                             <label for="cust_id" class="col-form-label">Cust ID</label>
-                            <input type="text" class="form-control" id="cust_id" name="cust_id" readonly value="<?= set_value('cust_id'); ?>">
+                            <?php if ($input_cust_id) { ?>
+                                <input type="text" class="form-control" id="cust_id" name="cust_id" readonly value="<?= $input_cust_id ?>">
+                            <?php } else { ?>
+                                <input type="text" class="form-control" id="cust_id" name="cust_id" readonly value="<?= set_value('customer_id'); ?>">
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="col-lg-8">
                         <div class="form-group">
-                            <!-- Item stock -->
+                            <!-- customer address -->
                             <label for="address" class="col-form-label">Address</label>
-                            <input type="text" class="form-control" id="address" name="address" readonly value="<?= set_value('address'); ?>">
+                            <?php if ($input_cust_address) { ?>
+                                <input type="text" class="form-control" id="address" name="address" readonly value="<?= $input_cust_address ?>">
+                            <?php } else { ?>
+                                <input type="text" class="form-control" id="address" name="address" readonly value="<?= set_value('address'); ?>">
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -142,8 +153,8 @@
                                     <th>No</th>
                                     <th>Item Description</th>
                                     <th style="text-align:center">Qty</th>
-                                    <th style="text-align:right">Item Price</th>
-                                    <th style="text-align:right">Sub Total</th>
+                                    <th style="text-align:right">Unit Price (IDR)</th>
+                                    <th style="text-align:right">Sub Total (IDR)</th>
                                     <th style="text-align:center">Action</th>
                                 </tr>
                             </thead>
@@ -157,14 +168,16 @@
                                         <td><?= $items['item_name']; ?></td>
                                         <td style="width: 100px">
                                             <?php if ($items['prod_cat'] != '6' or $items['prod_cat'] != '7') : ?>
-                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>">
+                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= $items['qty']; ?>">
                                                 <p class="text-center">pack</p>
                                             <?php else : ?>
-                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>">
+                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= $items['qty']; ?>">
                                                 <p class="text-center">kg</p>
                                             <?php endif; ?>
                                         </td>
-                                        <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
+                                        <!-- <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?> -->
+                                        <td style="width: 150px">
+                                            <input id="priceAmount-<?= $items['id']; ?>" class="input-price-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-amount="<?= $items['qty']; ?>" data-ref="<?= $ref?>" value="<?= $items['price']; ?>">
                                         </td>
                                         <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
                                         <td style="text-align:left">
