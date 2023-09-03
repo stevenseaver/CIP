@@ -68,20 +68,26 @@ class Sales extends CI_Controller
                 $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['name' => $ci['name'], 'status' => 7])->row_array();
                 
                 $amount = $ci['outgoing'];
-                
-                echo $amount;
-                
+
                 $code = $data['itemselect']['code'];
                 $in_stockOld = $data['itemselect']['in_stock'];
                 
                 // data to update inventory database
-                $data2_warehouse = [
+                $data = [
                     'in_stock' => $in_stockOld - $amount
                 ];
                 
                 $this->db->where('code', $code);
                 $this->db->where('status', 7);
-                $this->db->update('stock_finishedgoods', $data2_warehouse);
+                $this->db->update('stock_finishedgoods', $data);
+
+                $data_warehouse = [
+                    'transaction_status' => 1
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->where('transaction_id', $ref);
+                $this->db->update('stock_finishedgoods', $data_warehouse);
             endforeach;
             
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Status changed into deliveries, final stock updated!</div>');
@@ -145,11 +151,11 @@ class Sales extends CI_Controller
         $data['gbjData'] = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
         $data['custData'] = $this->db->get_where('user', ['role_id' => 3])->result_array();
         
-        $this->form_validation->set_rules('cust_name', 'customer name', 'trim');
-        $this->form_validation->set_rules('cust_id', 'customer ID', 'trim');
-        $this->form_validation->set_rules('address', 'address', 'trim');
+        $this->form_validation->set_rules('cust_name', 'customer name', 'required|trim');
+        $this->form_validation->set_rules('cust_id', 'customer ID', 'required|trim');
+        $this->form_validation->set_rules('address', 'address', 'required|trim');
         
-        $this->form_validation->set_rules('name', 'name', 'trim');
+        $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('code', 'code', 'trim');
         $this->form_validation->set_rules('price', 'price', 'trim');
         $this->form_validation->set_rules('amount', 'amount', 'numeric|required|trim');
@@ -278,7 +284,7 @@ class Sales extends CI_Controller
         $this->db->where('name', $item_name);
         $this->db->update('stock_finishedgoods', $data_warehouse);
 
-        $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">' . $item_name . ' quantity changed to ' . $qty . '.</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">' . $item_name . ' details  changed!</div>');
     }
 
     public function enlarge_image($img_name){
@@ -298,6 +304,34 @@ class Sales extends CI_Controller
         $this->load->view('templates/topbar_cust', $data);
         $this->load->view('sales/enlarge_image', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function delete_cart_item($ref)
+    {
+        $ItemID = $this->input->post('delete_item_id');
+        $CustName = $this->input->post('cust_name');
+        $ItemName = $this->input->post('delete_item_name');
+
+        $this->db->where('id', $ItemID);
+        $this->db->delete('cart');
+
+        $this->db->where('transaction_id', $ref);
+        $this->db->delete('stock_finishedgoods');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $ItemName . ' on ' . $CustName . ' cart deleted!</div>');
+        redirect('sales/add_salesorder/' . $ref);
+    }
+
+    public function clear_cart()
+    {
+        $refID = $this->input->post('delete_id');
+        $this->db->delete('cart', array('ref' => $refID));
+
+        $this->db->where('transaction_id', $refID);
+        $this->db->delete('stock_finishedgoods');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Cart deleted!</div>');
+        redirect('sales/add_salesorder/' . $refID);
     }
 
     public function deliveryorder()

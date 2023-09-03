@@ -383,6 +383,27 @@
         //  document.getElementById("pcsperpack").value = pcs;
         //  document.getElementById("packpersack").value = pack;
      });
+    
+     //  JavaScript for add item to sales order database cart
+     $(".select-item-prod").click(function() {
+         //extract data from data-* attributes of modal's add button
+         var $row = $(this).closest("tr"); // Find the row
+         var $id = $row.find(".id").text();
+         var $name = $row.find(".name").text();
+         var $in_stock = $row.find(".in_stock").text();
+         var $price = $row.find(".price").text();
+         var $unit = $row.find(".unit").text();
+
+         // input passed data using JS to object INPUT from modal #newItem 
+         document.getElementById("materialSelect").value = $id;
+         document.getElementById("materialName").value = $name;
+         document.getElementById("stock").value = $in_stock;
+         document.getElementById("price").value = $price;
+         document.getElementById("unit_amount").innerText = $unit;
+         document.getElementById("unit_instock").innerText = $unit;
+        //  document.getElementById("pcsperpack").value = pcs;
+        //  document.getElementById("packpersack").value = pack;
+     });
 
      //  JavaScript for Edit Role Modal
      $('#editRoleModal').on('show.bs.modal', function(event) {
@@ -1144,6 +1165,15 @@
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="delete_id"]').val(id);
          $(event.currentTarget).find('.modal-body input[name="cust_name"]').val(custName);
+     });
+
+     //  JavaScript for Delete All cart item Message
+     $('#deleteCartItemSO').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var id = $(event.relatedTarget).data('id');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="delete_id"]').val(id);
      });
 
      //  JavaScript for Invoice  Checkout

@@ -82,7 +82,7 @@
                                     <td><?= number_format($rs['incoming'], 2, ',', '.') ?></td>
                                     <td><?= number_format($rs['outgoing'], 2, ',', '.') ?></td>
                                     <td><?= number_format($rs['in_stock'], 2, ',', '.') ?></td>
-                                    <td><?= $rs['status_name'] ?></td>
+                                    <td><?= $rs['status_name']?></td>
                                     <td>
                                         <?php
                                         if ($rs['status_name'] == 'Saldo Awal' or $rs['status_name'] == 'Saldo Akhir') { ?>

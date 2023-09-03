@@ -118,8 +118,14 @@
                                                 echo number_format($fs['in_stock'], 2, ',', '.') . ' packs';
                                             } ?></td>
                                         <td><?= $fs['warehouse_name'] ?></td>
-                                        <td><?= $fs['status_name'] ?>
-                                            <?php
+                                        <td><?php echo $fs['status_name'];
+                                            if($fs['status'] == 4){ 
+                                                if ($fs['transaction_status'] == 0) {
+                                                    echo ' <p class="badge badge-warning">Sales Order</p>';
+                                                } else {
+                                                    echo ' <p class="badge badge-success">Delivered</p>';
+                                                } 
+                                            } else {
                                                 if ($fs['status'] == 3 and ($fs['categories'] != 6 and $fs['categories'] != 7))  {
                                                     if ($fs['transaction_status'] != 2) {
                                                         echo '<p class="badge badge-danger">Still in weight</p>';
@@ -128,8 +134,9 @@
                                                         echo '<p class="badge badge-success">Converted to pack</p>';
                                                     }
                                                 } else {
-                                                   
+                                                    
                                                 }
+                                            }
                                             ?>
                                         </td>
                                         <td>

@@ -11,7 +11,7 @@
             <?= form_error('icon', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
             <?= $this->session->flashdata('message'); ?>
 
-            <a href="<?= base_url('inventory/gbj_wh') ?>" class="btn btn-light btn-icon-split mb-3">
+            <a href="<?= base_url('inventory/material_wh') ?>" class="btn btn-light btn-icon-split mb-3">
                 <span class=" icon text-white-50">
                     <i class="bi bi-arrow-left"></i>
                 </span>

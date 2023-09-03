@@ -19,7 +19,7 @@ class Production extends CI_Controller
         $this->load->model('Warehouse_model', 'warehouse_id');
         $transaction_query = 1; //unprocessed production order data
         $status = 3; //production order data only
-        $data['materialStock'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
+        $data['materialStock'] = $this->warehouse_id->prodOrder($transaction_query, $status);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -316,7 +316,7 @@ class Production extends CI_Controller
         $this->load->model('Warehouse_model', 'warehouse_id');
         $transaction_query = 1; //unprocessed production order data
         $status = 3; //production order data only
-        $data['materialStock'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
+        $data['materialStock'] = $this->warehouse_id->prodOrder($transaction_query, $status);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -475,7 +475,7 @@ class Production extends CI_Controller
     }
 
     public function rollToGBJ($prodID){
-        $transaction_status = 2;
+        $transaction_status = 1;
         $data3 = [
             'transaction_status' => $transaction_status
         ];
@@ -563,9 +563,9 @@ class Production extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $transaction_query = 2; //processed  data
+        $transaction_query = 1; //processed  data
         $status = 3; //production order data only
-        $data['materialStock'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
+        $data['materialStock'] = $this->warehouse_id->prodOrder($transaction_query, $status);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -611,6 +611,9 @@ class Production extends CI_Controller
         $data['po_id'] = $prodID;
 
         $data['getID'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->row_array();
+        if ($data['getID'] == null) {
+            $data['getID']['batch'] = 'No roll yet';
+        }
 
         //gbj items
         $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();

@@ -17,6 +17,14 @@
         <span class="text text-dark">Back</span>
     </a>
 
+    <!-- Button to add Item -->
+    <a href="" class="btn btn-primary btn-icon-split mb-3 mx-3" data-toggle="modal" data-target="#newItem">
+        <span class="icon text-white-50">
+            <i class="bi bi-plus-lg"></i>
+        </span>
+        <span class="text">Add New Item</span>
+    </a>
+    
     <form action="<?= base_url('production/add_item_prod/') . $po_id . '/3' ?>" method="post">
         <div class="form-group">
             <!-- Item code -->
@@ -24,18 +32,22 @@
             <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
             <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
         </div>
+        
 
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-5">
                 <div class="form-group">
                     <!-- Item categories -->
-                    <label for="materialSelect" class="col-form-label">Add Material</label>
-                    <select name="materialSelect" id="materialSelect" class="form-control" value="<?= set_value('materialSelect') ?>">
-                        <option value="">--Select Categories--</option>
-                        <?php foreach ($material as $mt) : ?>
-                            <option value="<?= $mt['id'] ?>" data-price="<?= $mt['price'] ?>" data-stock="<?= $mt['in_stock'] ?>" data-unit="<?= $mt['unit_satuan']?>"><?= $mt['name'] ?></option>
-                        <?php endforeach; ?>
-                    </select>
+                    <label for="materialName" class="col-form-label">Material Name</label>
+                    <input type="text" class="form-control" id="materialName" name="materialName" readonly value="<?= set_value('materialName'); ?>">
+                    <?= form_error('materialName', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <!-- Item categories -->
+                    <label for="materialSelect" class="col-form-label">ID</label>
+                    <input type="text" class="form-control" id="materialSelect" name="materialSelect" readonly value="<?= set_value('materialSelect'); ?>">
                     <?= form_error('materialSelect', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
@@ -58,7 +70,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" id="stock" name="stock" readonly value="<?= set_value('stock'); ?>">
                         <div class="input-group-append">
-                            <span class="input-group-text" id="unit_instock">unit</span>
+                            <span class="input-group-text" id="unit_instock"></span>
                         </div>
                     </div>
                 </div>
@@ -71,7 +83,7 @@
                         <!-- Item code -->
                         <input type="number" step=".1" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Use amount">
                         <div class="input-group-append">
-                            <span class="input-group-text" id="unit_amount">unit</span>
+                            <span class="input-group-text" id="unit_amount"></span>
                         </div>
                         <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
@@ -100,6 +112,58 @@
         <input class="btn-add-item btn btn-primary mb-3" type="submit"></input>
         <p class="align-items-center">Data input are automatically saved.</p>
     </form>
+
+    <!-- Modal for add items -->
+    <div class="modal fade" id="newItem" tabindex="-1" aria-labelledby="newItemLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newItemLabel">Add New Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Material Item</th>
+                                        <th>Code</th>
+                                        <th>Stock</th>
+                                        <th>Unit</th>
+                                        <th>Unit Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1;
+                                    $temp = 0; ?>
+                                    <?php foreach ($material as $fs) : ?>
+                                        <tr>
+                                            <td class="id"><?= $fs['id'] ?></td>
+                                            <td class="name"><?= $fs['name'] ?></td>
+                                            <td class="code"><?= $fs['code'] ?></td>
+                                            <td class="in_stock"><?= $fs['in_stock'];?></td>
+                                            <td class="unit"><?= $fs['unit_satuan']; ?></td>
+                                            <td class="price"><?= $fs['price']; ?></td>
+                                            <td>
+                                                <!-- link this with a javascript -->
+                                                <a data-dismiss="modal" type="button" class="select-item-prod badge badge-primary">Add</a> 
+                                            </td>
+                                        </tr>
+                                        <?php $i++; ?>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="table-responsive my-3">
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">

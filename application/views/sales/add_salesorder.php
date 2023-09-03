@@ -23,6 +23,7 @@
                 <p class="text-dark font-weight-bold"> <?= date('d F Y h:i', $date); ?></p>
             </div>
         </div>
+        
         <!-- Button to add Item -->
         <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newItem">
             <span class="icon text-white-50">
@@ -38,6 +39,14 @@
             </span>
             <span class="text">Select Customer</span>
         </a>
+        
+        <!-- Clear cart -->
+        <a class="btn btn-danger btn-icon-split mb-3" data-toggle="modal" data-target="#deleteCartItem" data-id="<?= $ref?>" class="btn btn-danger rounded-pill btn-icon-split clickable">
+            <span class="icon text-white-50">
+                <i class="bi bi-trash"></i>
+            </span>
+            <span class="text">Clear All<span>
+        </a>
 
         <!-- Item selected to be added -->
         <div>
@@ -52,6 +61,7 @@
                             <?php } else { ?>
                                 <input type="text" class="form-control" id="cust_name" name="cust_name" readonly value="<?= set_value('cust_name'); ?>">
                             <?php } ?>
+                            <?= form_error('cust_name', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     <div class="col-lg-1">
@@ -83,6 +93,7 @@
                             <!-- GBJ item name -->
                             <label for="name" class="col-form-label">Item Name</label>
                             <input type="text" class="form-control" id="name" name="name" readonly value="<?= set_value('name'); ?>">
+                            <?= form_error('cust_name', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     <div class="col-lg-2">
@@ -167,13 +178,13 @@
                                         <td><?= $i; ?></td>
                                         <td><?= $items['item_name']; ?></td>
                                         <td style="width: 100px">
-                                            <?php if ($items['prod_cat'] != '6' or $items['prod_cat'] != '7') : ?>
+                                            <?php if ($items['prod_cat'] != '6' and $items['prod_cat'] != '7') { ?>
                                                 <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= $items['qty']; ?>">
                                                 <p class="text-center">pack</p>
-                                            <?php else : ?>
+                                            <?php } else { ?>
                                                 <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= $items['qty']; ?>">
                                                 <p class="text-center">kg</p>
-                                            <?php endif; ?>
+                                            <?php }?>
                                         </td>
                                         <!-- <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?> -->
                                         <td style="width: 150px">
@@ -181,7 +192,7 @@
                                         </td>
                                         <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
                                         <td style="text-align:left">
-                                            <a data-toggle="modal" data-target="#deleteCartIndividualItem" data-id="<?= $items['id'] ?>" data-cust="<?= $user['name'] ?>" data-name="<?= $items['item_name']; ?>" data-amount="<?= $items['qty'] ?>" class="badge badge-danger clickable ml-3">Delete</a>
+                                            <a data-toggle="modal" data-target="#deleteCartIndividualItem" data-id="<?= $items['id'] ?>" data-cust="<?= $items['customer_id'] ?>" data-name="<?= $items['item_name']; ?>" data-amount="<?= $items['qty'] ?>" class="badge badge-danger clickable ml-3">Delete</a>
                                         </td>
                                     </tr>
                                     <?php $temp = $temp + $items['subtotal']; ?>
@@ -267,12 +278,12 @@
                                         <td class="code"><?= $fs['code'] ?></td>
                                         <td class="in_stock"><?php
                                             if ($fs['categories'] == '6' or $fs['categories'] == '7') {
-                                                echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
+                                                echo number_format($fs['in_stock'], 2, ',', '.') . ' kg';
                                             } else {
-                                                echo number_format($fs['in_stock'], 0, ',', '.') . ' pack';
+                                                echo number_format($fs['in_stock'], 2, ',', '.') . ' pack';
                                             } ?>
                                         </td>
-                                        <td class="price"><?= $fs['price'] ?></td>
+                                        <td class="price"><?= $fs['price']; ?></td>
                                         <td>
                                             <!-- link this with a javascript -->
                                             <a data-dismiss="modal" type="button" class="select-item badge badge-primary">Add</a> 
@@ -347,7 +358,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('customer/delete_cart_item') ?>" method="post">
+            <form action="<?= base_url('sales/delete_cart_item/') . $ref ?>" method="post">
                 <div class="modal-body">
                     <p class="mb-2">Watch out! You're about to delete this item! Are you sure?</p>
                     <div class="form-group">
@@ -380,11 +391,11 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('customer/clear_cart') ?>" method="post">
+            <form action="<?= base_url('sales/clear_cart/') ?>" method="post">
                 <div class="modal-body">
                     Watch out! You're about to delete all your cart's item. We are sad and you should too! Are you sure?
                     <div class="form-group">
-                        <!-- Cust ID -->
+                        <!-- Transaction Ref ID -->
                         <input type="text" class="form-control mb-1" readonly id="delete_id" name="delete_id" style="display:none">
                         <!-- Customer Name -->
                         <input type="text" class="form-control mb-1" readonly id="cust_name" name="cust_name" placeholder="Customer Name" style="display:none">
