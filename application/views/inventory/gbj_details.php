@@ -128,10 +128,10 @@
                                             } else {
                                                 if ($fs['status'] == 3 and ($fs['categories'] != 6 and $fs['categories'] != 7))  {
                                                     if ($fs['transaction_status'] != 2) {
-                                                        echo '<p class="badge badge-danger">Still in weight</p>';
+                                                        echo ' <p class="badge badge-danger">Still in weight</p>';
                                                     }
                                                     else {
-                                                        echo '<p class="badge badge-success">Converted to pack</p>';
+                                                        echo ' <p class="badge badge-success">Converted to pack</p>';
                                                     }
                                                 } else {
                                                     

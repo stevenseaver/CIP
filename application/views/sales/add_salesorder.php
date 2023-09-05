@@ -264,6 +264,8 @@
                                     <th>Finished Good</th>
                                     <th>Code</th>
                                     <th>Stock</th>
+                                    <th>Pcs per Pack</th>
+                                    <th>Pack per Sack</th>
                                     <th>Unit Price</th>
                                     <th>Action</th>
                                 </tr>
@@ -283,6 +285,8 @@
                                                 echo number_format($fs['in_stock'], 2, ',', '.') . ' pack';
                                             } ?>
                                         </td>
+                                        <td class="pcsperpack"><?= $fs['pcsperpack']; ?></td>
+                                        <td class="packpersack"><?= $fs['packpersack']; ?></td>
                                         <td class="price"><?= $fs['price']; ?></td>
                                         <td>
                                             <!-- link this with a javascript -->

@@ -72,7 +72,7 @@ class Production extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get all stock akhir material data
-        $data['material'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+        $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
 
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
@@ -379,7 +379,7 @@ class Production extends CI_Controller
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
         $data['po_id'] = $prodID;
 
-        $this->form_validation->set_rules('rollSelect', 'roll item', 'trim|required');
+        $this->form_validation->set_rules('rollName', 'roll item', 'trim|required');
         $this->form_validation->set_rules('code', 'code', 'trim|required');
         $this->form_validation->set_rules('amount', 'amount', 'trim|required');
         $this->form_validation->set_rules('batch', 'batch', 'trim|required');
@@ -393,7 +393,7 @@ class Production extends CI_Controller
             $this->load->view('production/add_roll', $data);
             $this->load->view('templates/footer');
         } else {
-            $item = $this->input->post('rollSelect');
+            $item = $this->input->post('rollName');
             $code = $this->input->post('code');
             $weight = $this->input->post('weight');
             $lipatan = $this->input->post('lipatan');
@@ -475,7 +475,7 @@ class Production extends CI_Controller
     }
 
     public function rollToGBJ($prodID){
-        $transaction_status = 1;
+        $transaction_status = 2;
         $data3 = [
             'transaction_status' => $transaction_status
         ];

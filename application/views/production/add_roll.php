@@ -17,6 +17,14 @@
         <span class="text text-dark">Back</span>
     </a>
 
+    <!-- Button to add Item -->
+    <a href="" class="btn btn-primary btn-icon-split mb-3 mx-3" data-toggle="modal" data-target="#newItem">
+        <span class="icon text-white-50">
+            <i class="bi bi-plus-lg"></i>
+        </span>
+        <span class="text">Add New Item</span>
+    </a>
+
     <form action="<?= base_url('production/add_roll_item/') . $po_id . '/2/2/' ?>" method="post">
         <div class="form-group">
             <!-- Item code -->
@@ -24,19 +32,13 @@
             <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
             <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
         </div>
-
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item categories -->
-                    <label for="rollSelect" class="col-form-label">Add Roll</label>
-                    <select name="rollSelect" id="rollSelect" class="form-control" value="<?= set_value('rollSelect') ?>">
-                        <option value="">--Select Categories--</option>
-                        <?php foreach ($rollSelect as $rt) : ?>
-                            <option value="<?= $rt['name'] ?>" data-weight="<?= $rt['weight'] ?>" data-lipatan="<?= $rt['lipatan'] ?>" data-code="<?= $rt['code'] ?>"><?= $rt['name'] ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                    <?= form_error('rollSelect', '<small class="text-danger pl-2">', '</small>') ?>
+                    <label for="rollName" class="col-form-label">Item Name</label>
+                    <input type="text" class="form-control" id="rollName" name="rollName" readonly value="<?= set_value('rollName'); ?>">
+                    <?= form_error('rollName', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
             <div class="col-lg-3">
@@ -52,13 +54,15 @@
                     <!-- Material in stock -->
                     <label for="lipatan" class="col-form-label">Lipatan</label>
                     <input type="text" class="form-control" id="lipatan" name="lipatan" readonly value="<?= set_value('lipatan'); ?>">
+                    <?= form_error('lipatan', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
             <div class="col-lg-2">
-                <div class="form-group">
+                <div class="form-group"> 
                     <!-- Material in stock -->
                     <label for="code" class="col-form-label">Code</label>
                     <input type="text" class="form-control" id="code" name="code" readonly value="<?= set_value('code'); ?>">
+                    <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
         </div>
@@ -99,6 +103,57 @@
         <p class="align-items-center">Data input are automatically saved.</p>
     </form>
 
+    <!-- Modal for add items -->
+    <div class="modal fade" id="newItem" tabindex="-1" aria-labelledby="newItemLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newItemLabel">Add New Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Roll Item</th>
+                                        <th>Code</th>
+                                        <th>Weight</th>
+                                        <th>Folding</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1;
+                                    $temp = 0; ?>
+                                    <?php foreach ($rollSelect as $fs) : ?>
+                                        <tr>
+                                            <td><?= $i ?></td>
+                                            <td class="name"><?= $fs['name'] ?></td>
+                                            <td class="code"><?= $fs['code'] ?></td>
+                                            <td class="weight"><?= $fs['weight'];?></td>
+                                            <td class="lipatan"><?= $fs['lipatan']; ?></td>
+                                            <td class="price"><?= $fs['price']; ?></td>
+                                            <td>
+                                                <!-- link this with a javascript -->
+                                                <a data-dismiss="modal" type="button" class="select-item-roll badge badge-primary">Add</a> 
+                                            </td>
+                                        </tr>
+                                        <?php $i++; ?>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="table-responsive my-3">
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">

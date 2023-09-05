@@ -374,12 +374,16 @@
          var $code = $row.find(".code").text();
          var $in_stock = $row.find(".in_stock").text();
          var $price = $row.find(".price").text();
+         var $pcsperpack = $row.find(".pcsperpack").text();
+         var $packpersack = $row.find(".packpersack").text();
 
          // input passed data using JS to object INPUT from modal #newItem 
          document.getElementById("name").value = $name;
          document.getElementById("code").value = $code;
          document.getElementById("instock").value = $in_stock;
          document.getElementById("price").value = $price;
+         document.getElementById("pcsperpack").value = $pcsperpack;
+         document.getElementById("packpersack").value = $packpersack;
         //  document.getElementById("pcsperpack").value = pcs;
         //  document.getElementById("packpersack").value = pack;
      });
@@ -401,6 +405,48 @@
          document.getElementById("price").value = $price;
          document.getElementById("unit_amount").innerText = $unit;
          document.getElementById("unit_instock").innerText = $unit;
+        //  document.getElementById("pcsperpack").value = pcs;
+        //  document.getElementById("packpersack").value = pack;
+     });
+
+     //  JavaScript for add item to sales order database cart
+     $(".select-item-roll").click(function() {
+         //extract data from data-* attributes of modal's add button
+         var $row = $(this).closest("tr"); // Find the row
+         var $name = $row.find(".name").text();
+         var $code = $row.find(".code").text();
+         var $weight = $row.find(".weight").text();
+         var $lipatan = $row.find(".lipatan").text();
+         var $price = $row.find(".price").text();
+
+         // input passed data using JS to object INPUT from modal #newItem =
+         document.getElementById("rollName").value = $name;
+         document.getElementById("code").value = $code;
+         document.getElementById("weight").value = $weight;
+         document.getElementById("lipatan").value = $lipatan;
+         document.getElementById("price").value = $price;
+        //  document.getElementById("pcsperpack").value = pcs;
+        //  document.getElementById("packpersack").value = pack;
+     });
+     
+     //  JavaScript for add item to sales order database cart
+     $(".select-item-gbj").click(function() {
+         //extract data from data-* attributes of modal's add button
+         var $row = $(this).closest("tr"); // Find the row
+         var $name = $row.find(".name").text();
+         var $code = $row.find(".code").text();
+         var $pcsperpack = $row.find(".pcsperpack").text();
+         var $packpersack = $row.find(".packpersack").text();
+         var $price = $row.find(".price").text();
+         var $in_stock = $row.find(".in_stock").text();
+
+         // input passed data using JS to object INPUT from modal #newItem =
+         document.getElementById("gbjSelect").value = $name;
+         document.getElementById("code").value = $code;
+         document.getElementById("pcsperpack").value = $pcsperpack;
+         document.getElementById("packpersack").value = $packpersack;
+         document.getElementById("price").value = $price;
+         document.getElementById("instock").value = $in_stock;
         //  document.getElementById("pcsperpack").value = pcs;
         //  document.getElementById("packpersack").value = pack;
      });

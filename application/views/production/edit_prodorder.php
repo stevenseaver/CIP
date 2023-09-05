@@ -45,7 +45,7 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-5">
+            <div class="col-lg-6">
                 <div class="form-group">
                     <!-- Item categories -->
                     <label for="materialName" class="col-form-label">Material Name</label>
@@ -53,7 +53,7 @@
                     <?= form_error('materialName', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-lg-1">
+            <div class="col-lg-1" style="display:none">
                 <div class="form-group">
                     <!-- Item categories -->
                     <label for="materialSelect" class="col-form-label">ID</label>
