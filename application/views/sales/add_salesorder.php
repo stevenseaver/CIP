@@ -255,7 +255,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="table-responsive">
+                <div class="table table-responsive">
                     <div class="table-responsive">
                         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
@@ -315,7 +315,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="table-responsive">
+                <div class="table2 table-responsive">
                     <div class="table-responsive">
                         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
@@ -397,7 +397,7 @@
             </div>
             <form action="<?= base_url('sales/clear_cart/') ?>" method="post">
                 <div class="modal-body">
-                    Watch out! You're about to delete all your cart's item. We are sad and you should too! Are you sure?
+                    Watch out! You're about to delete all your sales order item. I am sad and you should too! Are you sure?
                     <div class="form-group">
                         <!-- Transaction Ref ID -->
                         <input type="text" class="form-control mb-1" readonly id="delete_id" name="delete_id" style="display:none">

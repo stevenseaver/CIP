@@ -17,6 +17,14 @@
         <span class="text text-dark">Back</span>
     </a>
 
+    <!-- Button to add Item -->
+    <a href="" class="btn btn-primary btn-icon-split mb-3 mx-3" data-toggle="modal" data-target="#newItem">
+        <span class="icon text-white-50">
+            <i class="bi bi-plus-lg"></i>
+        </span>
+        <span class="text">Add New Item</span>
+    </a>
+
     <form action="<?= base_url('purchasing/add_item_po/') . $po_id . '/8/1' ?>" method="post">
         <div class="form-group">
             <!-- Item code -->
@@ -35,45 +43,24 @@
             </select>
             <?= form_error('supplier', '<small class="text-danger pl-2">', '</small>') ?>
         </div>
-<!-- 
-        <script>
-            var e = document.getElementById("supplier");
-            function onChange() {
-                var value = e.value;
-                var text = e.options[e.selectedIndex].text;
-                console.log(value);
-                }
-                e.onchange = onChange;
-            onChange();
-
-            $.ajax({
-                type: 'post',
-                url: '<?= base_url('purchasing/add_po/'); ?>',
-                data: {
-                    value: value
-                },
-                success: function( data ) {
-                    // console.log( data );
-                }
-            });
-        </script> -->
         
         <div class="row">
-            <div class="col-6">
+            <div class="col-lg-6">
                 <div class="form-group">
                     <!-- Item categories -->
-                    <label for="material" class="col-form-label">Add Item</label>
-                    <select name="material" id="material" class="form-control" value="<?= set_value('material') ?>">
-                        <option value="">--Select Item--</option>
-                        <?php foreach ($inventory_wh as $mt) : ?>
-                            <option data-unit="<?= $mt['unit_satuan']?>" value="<?= $mt['id'] ?>"><?= $mt['name'] ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                    <!-- <input class="typeahead form-control" type="text"> -->
+                    <label for="materialName" class="col-form-label">Material Name</label>
+                    <input type="text" class="form-control" id="materialName" name="materialName" readonly value="<?= set_value('materialName'); ?>">
+                    <?= form_error('materialName', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-1" style="display:none">
+                <div class="form-group">
+                    <!-- Item categories -->
+                    <label for="material" class="col-form-label">ID</label>
+                    <input type="text" class="form-control" id="material" name="material" readonly value="<?= set_value('material'); ?>">
                     <?= form_error('material', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
-            </div>  
-
+            </div>
             <div class="col-2">
                 <div class="form-group">
                     <!-- Item code -->
@@ -130,6 +117,58 @@
         <input class="btn-add-item btn btn-primary mb-3" type="submit"></input>
         <p class="align-items-center">Data input are automatically saved.</p>
     </form>
+
+    <!-- Modal for add items -->
+    <div class="modal fade" id="newItem" tabindex="-1" aria-labelledby="newItemLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newItemLabel">Add New Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th style="display:none">ID</th>
+                                        <th>Material Item</th>
+                                        <th>Code</th>
+                                        <th>Stock</th>
+                                        <th>Unit</th>
+                                        <th>Unit Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1;
+                                    $temp = 0; ?>
+                                    <?php foreach ($inventory_wh as $fs) : ?>
+                                        <tr>
+                                            <td style="display:none" class="id"><?= $fs['id'] ?></td>
+                                            <td class="name"><?= $fs['name'] ?></td>
+                                            <td class="code"><?= $fs['code'] ?></td>
+                                            <td class="in_stock"><?= $fs['in_stock'];?></td>
+                                            <td class="unit"><?= $fs['unit_satuan']; ?></td>
+                                            <td class="price"><?= $fs['price']; ?></td>
+                                            <td>
+                                                <!-- link this with a javascript -->
+                                                <a data-dismiss="modal" type="button" class="select-item-po badge badge-primary">Add</a> 
+                                            </td>
+                                        </tr>
+                                        <?php $i++; ?>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="table-responsive my-3">
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">

@@ -127,7 +127,7 @@
                             <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th style="display:none">ID</th>
                                         <th>Material Item</th>
                                         <th>Code</th>
                                         <th>Stock</th>
@@ -141,7 +141,7 @@
                                     $temp = 0; ?>
                                     <?php foreach ($material as $fs) : ?>
                                         <tr>
-                                            <td class="id"><?= $fs['id'] ?></td>
+                                            <td style="display:none" class="id"><?= $fs['id'] ?></td>
                                             <td class="name"><?= $fs['name'] ?></td>
                                             <td class="code"><?= $fs['code'] ?></td>
                                             <td class="in_stock"><?= $fs['in_stock'];?></td>
