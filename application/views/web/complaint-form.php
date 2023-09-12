@@ -32,16 +32,23 @@
                             <div class="row mx-0">
                                 <!-- email-->
                                 <label for="email" class="text-primary mt-3">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Your email here, so that we can contact you">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Your email here, so we can contact you">
                                 <?= form_error('email', '<small class="text-danger mt-2 ml-2">', '</small>') ?>
                             </div>
                             <div class="row mx-0">
                                 <!-- email-->
                                 <label for="phone" class="text-primary mt-3">Phone Number</label>
-                                <input type="phone" class="form-control" id="phone" name="phone" placeholder="Your phone number here, so that we can contact you">
+                                <input type="phone" class="form-control" id="phone" name="phone" placeholder="Your phone number here, so we can contact you">
                                 <?= form_error('phone', '<small class="text-danger mt-2 ml-2">', '</small>') ?>
                                 <small class="text-dark mt-2 ml-2">Use your country code, i.e. +62!</small>
                             </div>
+                            <!-- <div class="row mx-0">
+                                <label for="email" class="text-primary mt-3">Type</label>
+                                <select name="" id="">
+                                    <option type="email" class="form-control" id="email" name="email">
+                                </select>
+                                <?= form_error('email', '<small class="text-danger mt-2 ml-2">', '</small>') ?>
+                            </div> -->
                             <div class="row mx-0 mb-3">
                                 <!-- message -->
                                 <label for="message" class="text-primary mt-3">Tell us what happened?</label>

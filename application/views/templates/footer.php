@@ -1192,16 +1192,29 @@
          // input passed data using JS to object INPUT inside modal #deleteItemPOModal
          $(event.currentTarget).find('.modal-body input[name="delete_gbj_id"]').val(po_id);
      });
+     
+     //  JavaScript for Delete Customer Message 
+     $('#deleteMessage').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var $id = $(event.relatedTarget).data('id');
+
+         // input passed data using JS to object INPUT inside modal #deleteMessage
+         $(event.currentTarget).find('.modal-body input[name="delete_id"]').val($id);
+     });
 
      //  JavaScript for Reply User Message
      $('#replyModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
-         var email = $(event.relatedTarget).data('email');
-         var ticket = $(event.relatedTarget).data('ticket');
-
+         var $email = $(event.relatedTarget).data('email');
+         var $ticket = $(event.relatedTarget).data('ticket');
+         var $header = 'Hello! We have received your message and please give us some time to assign a customer service officer to handle your message. We will get to you by 1x24 business hour.'; // Find the row
+         
+         var $ticket2 = $ticket + '- Ticket Opened '
+         
          // input passed data using JS to object INPUT inside modal #editModal
-         $(event.currentTarget).find('.modal-body input[name="email"]').val(email);
-         $(event.currentTarget).find('.modal-body input[name="subject"]').val(ticket);
+         $(event.currentTarget).find('.modal-body input[name="email"]').val($email);
+         $(event.currentTarget).find('.modal-body input[name="subject"]').val($ticket2);
+         document.getElementById("message").value = $header;
      });
 
      //  JavaScript for Delete Individual cart item Message

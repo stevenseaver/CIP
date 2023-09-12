@@ -25,6 +25,7 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Message</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -38,9 +39,20 @@
                                         <td><?= $m['email']; ?></td>
                                         <td><?= $m['phone']; ?></td>
                                         <td><?= $m['message']; ?></td>
+                                        <td><?php
+                                            if ($m['status'] == 0) {
+                                                echo ' <p class="badge badge-danger">Unresolved</p>';
+                                            }
+                                            else {
+                                                echo ' <p class="badge badge-success">Closed</p>';
+                                            }
+                                        ?>
+                                        </td>
                                         <td>
-                                            <a data-toggle="modal" data-target="#replyModal" class="badge badge-primary text-white clickable" data-ticket="<?= $m['ticket']; ?>" data-email="<?= $m['email']; ?>">Reply</a>
-                                            <a href="<?= base_url('contact/deletemessage/') . $m['id'] ?>" class="badge badge-danger">Delete</a>
+                                            <a data-toggle="modal" data-target="#replyModal" class="replyModal badge badge-primary text-white clickable" data-ticket="<?= $m['ticket']; ?>" data-email="<?= $m['email']; ?>">Reply</a>
+                                            <a href="<?= base_url('contact/close_ticket/') . $m['id'] ?>" class="badge badge-success">Close Ticket</a>
+                                            <!-- <a href="<?= base_url('contact/deletemessage/') . $m['id'] ?>" class="badge badge-danger">Delete</a> -->
+                                            <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMessage" data-id="<?= $m['id'] ?>">Delete</a>
                                         </td>
                                         <?php $i++; ?>
                                     <?php endforeach; ?>
@@ -91,6 +103,34 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Delete Transaction -->
+<div class="modal fade" id="deleteMessage" tabindex="-1" role="dialog" aria-labelledby="deleteMessageLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteMessageLabel">Whoops!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">You're about to delete this message. Are you sure?</p>
+            <form action="<?= base_url('contact/deletemessage/') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group" style="display:none">
+                        <!-- item id -->
+                        <label for="url" class="col-form-label">ID</label>
+                        <input type="text" class="form-control mb-1" id="delete_id" name="delete_id" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </div>
             </form>
         </div>
