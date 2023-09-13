@@ -107,9 +107,9 @@
                             <i class="bi bi-instagram mr-1"></i> sbplastik
                         </p>
                     </a>
-                    <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" class="text-dark" target="_blank" rel="noopener noreferrer">
+                    <a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" class="text-dark" target="_blank" rel="noopener noreferrer">
                         <p>
-                            <i class="bi bi-whatsapp mr-1"></i>+62822-3205-7755
+                            <i class="bi bi-whatsapp mr-1"></i>+62878-6241-3070
                         </p>
                     </a>
                     <p>

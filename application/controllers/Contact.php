@@ -81,12 +81,12 @@ class Contact extends CI_Controller
         // }
     }
 
-    public function close_ticket($itemtoDelete)
+    public function close_ticket($id)
     {
         // get data on deleted menu
-        $deletedmessage = $this->db->get_where('contact_us', array('id' => $itemtoDelete))->row_array();
+        $deletedmessage = $this->db->get_where('contact_us', array('id' => $id))->row_array();
         // delete menu
-        $this->db->where('id', $itemtoDelete);
+        $this->db->where('id', $id);
         $this->db->set('status', 1);
         $this->db->update('contact_us');
 
@@ -98,10 +98,10 @@ class Contact extends CI_Controller
     public function deletemessage()
     {
         // get data on deleted menu
-        $itemtoDelete = $this->input->post('delete_id');
-        $deletedmessage = $this->db->get_where('contact_us', array('id' => $itemtoDelete))->row_array();
+        $id = $this->input->post('delete_id');
+        $deletedmessage = $this->db->get_where('contact_us', array('id' => $id))->row_array();
         // delete menu
-        $this->db->delete('contact_us', array('id' => $itemtoDelete));
+        $this->db->delete('contact_us', array('id' => $id));
         // send message
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Ticket number ' . $deletedmessage["ticket"] . ' deleted!</div>');
         redirect('contact');

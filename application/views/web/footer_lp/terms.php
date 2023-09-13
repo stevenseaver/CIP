@@ -2,13 +2,13 @@
 <div class="container-fluid pt-4 mt-5">
 
     <!-- Page Heading -->
-    <div id="english">
+    <div class="container" id="english">
         <div class="d-flex mt-4 mb-1 mx-2 px-2 text-justify">
             <h1 class="h3 mb-0 text-primary font-weight-bold"><?= $title ?></h1>
         </div>
 
         <div class="d-flex mb-3 mx-2 px-2 text-justify">
-            <small>Last updated on 15 Juli 2022</small>
+            <small>Last updated on 13 September 2023</small>
         </div>
 
         <button onclick="myFunction()" class="btn btn-primary btn-icon-split ml-3 mb-3">
@@ -18,49 +18,108 @@
             <span class="text">Ganti ke Bahasa Indonesia</span>
         </button>
 
-        <p class="text-dark mx-2 px-2 text-justify">
-            The terms and conditions (“User Terms“) set forth by UD. Cakra Inti Plastik (“We, Our, Ours, Us“) is an inseparable part of our business operations. By contactiing, accessing, downloading, using, registering and making purchase with Us, the User and/or Customer (“You, Your, Yours“) has been deemed to known, read, agreed upon this User Terms and is therefore subject to fully and voluntarily commit to the following terms and conditions.
-        </p>
-        <h5 class="text-dark mx-2 px-2 text-justify font-weight-bold">
-            1. Definition
-        </h5>
-        <p class="text-dark mx-2 px-2 text-justify">
-            a. We are a private company that produces and trades plastic bag products, including but not limited to plastic bag, shopping bag, inner bag, and trash bag (hereinafter referred to as “goods”), through Our website or any other marketing channel, including but not limited to our distributor or end user, to promote and pursue sales transaction between the customer (You) and the manufacturer (Us).
-        </p>
-        <p class="text-dark mx-2 px-2 text-justify">
-            b. User Terms is an agreement between You and Us that contains a set of rules governing the rights, obligations, and responsibilities between You and Us, and the procedures of using Our service system.
-        </p>
-        <p class="text-dark mx-2 px-2 text-justify">
-            c. User is party who use/s Our services, both individuals and/or legal entities, which include buyers registered or not registered on our Website that contacted us via any platform.
-        </p>
-        <p class="text-dark mx-2 px-2 text-justify">
-            d. Buyer/Customer is You who doesn't have to be registered on Our Website and make a purchase of goods sold by Us either on our Website or other marketing platform.
-        </p>
-        <p class="text-dark mx-2 px-2 text-justify">
-            e. Seller is Us; that acts to sell or offer goods to buyer on Our Website or any other marketing platform.
-        </p>
-        <p class="text-dark mx-2 px-2 text-justify">
-            f. Non-electronic agreement is an agreement signed with or without company stamp directly by the parties using ink, in front of public notary or without the presence of a public notary as long as permitable by law, in accordance with applicable law and regulations.
-        </p>
-        <p class="text-dark mx-2 px-2 text-justify">
-            g. Device is electronic equipment which is used by any User to use or experience Our services through Our Website and/or other marketing platfrom.
-        </p>
-        <p class="text-dark mx-2 px-2 text-justify">
-            h. Invoice is a billing document given by Us to You, in electronic or non-electronic form, which at least contains information on the name, quantity, type, price, total value of goods purchased, and cost to ship goods (if any) as well as payment deadline.
-        </p>
-        <p class="text-dark mx-2 px-2 text-justify">
-            i. Business Days are day when banks in Indonesia operate to carry out clearing activities.
-        </p>
-        <p class="text-dark mx-2 px-2 text-justify">
-            j. Calendar Days are all days contained in the Indonesian calendar including holidays and Business Days.
-        </p>
-        <p class="text-dark mx-2 px-2 text-justify">
-            k. Goods are plastic bag or other plastic products owned by Us which are sold through Our Site and/or any other marketing platform.
-        </p>
-        <p class="text-dark mx-2 px-2 text-justify">
-            l. Rukun&trade; and Jemblung&trade; are trade marks of UD. Cakra Inti Plastik, trademark register pending. All rights reserved. Violation to such intellectual properties will be dealt severly according the regulations.
-        </p>
-        <h5 class="text-dark mx-2 px-2 text-justify font-weight-bold">
+        <div class="card mb-3 border-0 text-dark text-justify">
+            <div class="row no-gutters">
+                <div class="col-lg-3 align-items-center">
+                    <div class="card-body">
+                        <h4 class="card-title mb-0">General Terms</h4>
+                        <figure class="nav-icon bi bi-gear fa-3x text-primary"></figure>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="card-body">
+                        <p class="card-text">Welcome to the manufacturer behind Rukun plastic bag. This terms and conditions are an inseparable part of our business operations. By accessing our website, you are agreeing to comply with and be bound by the following terms and conditions of use which, together with our <a href="<?= base_url('web/privacy_policy') ?>">Privacy Policy</a>, governs our relationship with You.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3 border-0 text-dark text-justify">
+            <div class="row no-gutters">
+                <div class="col-lg-3">
+                    <div class="card-body">
+                        <h4 class="card-title mb-0">Definitions</h4>
+                        <figure class="nav-icon bi bi-house fa-3x text-success"></figure>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="card-body">
+                        <p class="card-text">PT. Rukun Bersama Plastindo (RBP/Us/We/Our) are a private company that produces and trades plastic products, registered in Indonesia with following details. </p>
+                        <p class="card-text mb-0 font-weight-bold">Addess</p>
+                        <p class="card-text">Pergudangan dan Industri Sinar Gedangan A-20, Sidoarjo, East Java, Indonesia 61254</p>
+                        <p class="card-text">Registered NIB 16513216541 and VAT number 2121.3215.1.1561</p>
+                        <p class="card-text mb-0">Rukun&trade; and Jemblung&trade; are our registered trade marks. All rights reserved. Violation to such intellectual properties will be dealt severly according the regulations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mb-3 border-0 text-dark text-justify">
+            <div class="row no-gutters">
+                <div class="col-lg-3">
+                    <div class="card-body">
+                        <h4 class="card-title mb-0">Important Disclaimer</h4>
+                        <figure class="nav-icon bi bi-exclamation-triangle-fill fa-3x text-danger"></figure>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="card-body">
+                        <p class="card-text">Our Warranty does not cover any damaged products as the result of intentional tearing, using the product not as intended, and negligent handling.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mb-3 border-0 text-dark text-justify">
+            <div class="row no-gutters">
+                <div class="col-lg-3">
+                    <div class="card-body">
+                        <h4 class="card-title mb-0">Scope</h4>
+                        <figure class="nav-icon bi bi-search fa-3x text-dark"></figure>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="card-body">
+                        <p class="card-text">These terms and conditions and any other policies referred to in these terms and conditions (together 'terms') apply for any interactions between you and us. Please read all the terms carefully. Please save or print a copy of these terms for future references. Any discrepancies in context should only be interpreted by our Customer Relations officer. This terms governs from the use of our website, acceptance of orders, pricing terms, payment terms, shipment terms, cancelation terms, return, refund & exchange terms, warranty terms, and complaint terms.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Acceptance of orders -->
+        <div class="card mb-3 border-0 text-dark text-justify">
+            <div class="row no-gutters">
+                <div class="col-lg-3">
+                    <div class="card-body">
+                        <h4 class="card-title mb-0">Acceptance of Orders</h4>
+                        <figure class="nav-icon bi bi-file-earmark-ruled fa-3x text-primary"></figure>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="card-body">
+                        <p class="card-text">When an order has been placed on our website, or via direct messaging app (i.e. whatsapp, instagram DM, etc), a confirmation in the form of Sales Order document is sent to you via your preferred communication channel. The Sales Order contains the order number, details of the product(s) ordered, details of the delivery address, the payment terms, and delivery services chosen. If you have not received this confirmation message within 24 hours of placing your order, please <a href="<?= base_url('web/contact_us') ?>">contact us</a> and our Customer Relations officer will be happily assist you. If any details are incorrect, please <a href="<?= base_url('web/contact_us') ?>">contact us</a> ASAP, but please be aware, if no confirmation and/or complaints are informed to us within 24 hours from the time you receive your Sales Order, we will consider you have read and agreed to said Sales Order, and that is usually not possible for us to change any details for said order(s). </p>
+                        <p class="card-text">Please note that the Sales Order is an acknowlewdgement that we have received your order and is not an acceptance of your order. Acceptance of your order and the formation of (a) Delivery Order and (b) Sales Invoice (acting as contract of sale between us and you), will only take place after the order has been submitted and payment has been received by us.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Pricing terms -->
+        <div class="card mb-3 border-0 text-dark text-justify">
+            <div class="row no-gutters">
+                <div class="col-lg-3">
+                    <div class="card-body">
+                        <h4 class="card-title mb-0">Pricing Terms</h4>
+                        <figure class="nav-icon bi bi-currency-dollar fa-3x text-success"></figure>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="card-body">
+                        <p class="card-text">All prices on our Website are stated in IDR Indonesian Rupiah. Sales tax, additional value tax, or VAT taxes payable will be charged upon deliveries. Usually, for local order for more than IDR 5 million will get free deliveries. While out-of-town or out-of-island orders are usually taken to your designated expedition company. Any shipment charges between you and the expedition company are yours to settle. </p>
+                        <p class="card-text">Acikul.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 
             2. Our Limitation and Liabilities
         </h5>
         <p class="text-dark mx-2 px-2 text-justify">
@@ -186,14 +245,14 @@
         </p>
         <p class="text-dark mx-2 px-2 text-justify mb-5">
             In the case of conflict and/or disagreement by the User of this User Terms, the User must cease any activities with Us and send Us an e-mail to delete the User's account from Our Website.
-        </p>
+        </p> -->
     </div>
 
     <!-- indonesian -->
     <!-- indonesian -->
     <!-- indonesian -->
 
-    <div id="indonesia" style="display:none" lang="id">
+    <div class="container" id="indonesia" style="display:none" lang="id">
         <div class="d-flex mt-4 mb-1 mx-2 px-2 text-justify">
             <h1 class="h3 mb-0 text-primary font-weight-bold">Syarat dan Ketentuan</h1>
         </div>
