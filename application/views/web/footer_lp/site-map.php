@@ -56,7 +56,7 @@
                 <a href="<?= base_url('web/privacy_policy') ?>" target="_blank" class="text-primary">Privacy policy</a>
             </div>
             <div class="d-sm-flex text-left mb-2">
-                <a href="<?= base_url('web/terms') ?>" target="_blank" class="text-primary">Terms and Condition</a>
+                <a href="<?= base_url('web/terms') ?>" target="_blank" class="text-primary">Terms and Conditions</a>
             </div>
         </div>
     </div>

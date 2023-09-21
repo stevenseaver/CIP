@@ -1394,7 +1394,7 @@ class Inventory extends CI_Controller
             $position = $this->input->post('position', true);
             $status = $this->input->post('status', true);
 
-            $data['room_name'] = $this->db->get_where('rooms', ['room_id' =>
+            $data['room_name'] = $this->db->get_where('rooms', ['id' =>
             $position])->row_array();
             $data['count_num'] = $this->db->get_where('inventory_type', ['code' =>
             $type])->row_array();
@@ -1439,9 +1439,9 @@ class Inventory extends CI_Controller
 
             //create QR for new item
             $config['cacheable']    = true; //boolean, the default is true
-            $config['cachedir']     = './application/cache'; //string, the default is application/cache/
-            $config['errorlog']     = './application/logs'; //string, the default is application/logs/
-            $config['imagedir']     = './asset/img/QRCode/'; //direktori penyimpanan qr code
+            $config['cachedir']     = '/application/cache'; //string, the default is application/cache/
+            $config['errorlog']     = '/application/logs'; //string, the default is application/logs/
+            $config['imagedir']     = '/asset/img/QRCode/'; //direktori penyimpanan qr code
             $config['quality']      = true; //boolean, the default is true
             $config['size']         = '1024'; //interger, the default is 1024
             $config['black']        = array(224, 255, 255); // array, default is array(255,255,255)
