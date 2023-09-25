@@ -56,7 +56,7 @@
                         <a href="<?= base_url('web/site_map') ?>" class="text-dark">Site Map</a>
                     </p>
                     <p>
-                        <a href="<?= base_url('web/terms') ?>" class="text-dark">Terms and Condition</a>
+                        <a href="<?= base_url('web/terms') ?>" class="text-dark">Terms and Conditions</a>
                     </p>
                     <p>
                         <a href="<?= base_url('web/legal') ?>" class="text-dark">Legal Standing</a>
