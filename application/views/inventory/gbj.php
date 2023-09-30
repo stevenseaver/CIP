@@ -64,15 +64,16 @@
                                     <td><?= $fs['title'] ?></td>
                                     <td><?php
                                         if ($fs['categories'] == '6') {
-                                            echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
+                                            echo number_format($fs['in_stock'], 2, ',', '.') . ' ' . $fs['unit_satuan'];
                                             echo ' or ' . ($fs['in_stock'] / 25) . ' sack';
                                         } else if ($fs['categories'] == '7') {
-                                            echo number_format($fs['in_stock'], 0, ',', '.') . ' kg';
+                                            echo number_format($fs['in_stock'], 2, ',', '.') . ' ' . $fs['unit_satuan'];
                                             echo ' or ' . ($fs['in_stock'] / $fs['conversion']) . ' sack';
                                         } else {
-                                            echo number_format($fs['in_stock'], 0, ',', '.') . ' pack';
+                                            echo number_format($fs['in_stock'], 2, ',', '.') . ' ' . $fs['unit_satuan'];
                                             echo ' or ' . ($fs['in_stock'] / $fs['packpersack']) . ' sack';
-                                        } ?></td>
+                                        } ?>
+                                    </td>
                                     <td><?php
                                         if ($fs['categories'] != '6' and $fs['categories'] != '7') {
                                             echo number_format($fs['price'], 0, ',', '.') . '/pack';
@@ -168,8 +169,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                        <!-- Item categories -->
+                        <label for="unit" class="col-form-label">Unit</label>
+                        <select name="unit" id="unit" class="form-control" value="<?= set_value('unit') ?>">
+                            <option value="">--Select unit--</option>
+                            <?php $before = '';
+                            foreach ($cat as $fs) : 
+                                if($fs['unit'] != $before){ ?>
+                                <option value="<?= $fs['unit'] ?>"><?= $fs['unit'] ?></option>
+                                <?php $before = $fs['unit']; ?>
+                            <?php } else { 
+                                }
+                            endforeach; ?>
+                        </select>
+                        <?= form_error('unit', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
                 <div class="form-group" id="weighted_product" style="display:none">
-                    <!-- Item code -->
+                    <!-- Item weight conversion -->
                     <label for="url" class="col-form-label">Weight Conversion</label>
                     <input type="text" class="form-control mb-1" id="conversion" name="conversion" placeholder="Weight per sack">
                     <?= form_error('conversion', '<small class="text-danger pl-2">', '</small>') ?>

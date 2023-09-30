@@ -31,14 +31,15 @@
                     <p class="text-dark mb-1">Code : </p>
                     <p class="text-dark font-weight-bold"> <?= $getID['code'] ?></p>
                     <p class="text-dark mb-1">Stock : </p>
-                    <p class="text-dark font-weight-bold"> <?php
-                                                            if ($getID['categories'] == '6') {
-                                                                echo number_format($getID['in_stock'], 0, ',', '.') . ' kg or ' . ($getID['in_stock'] / 25) . ' sack';
-                                                            } else if ($getID['categories'] == '7') {
-                                                                echo number_format($getID['in_stock'], 0, ',', '.') . ' kg or ' . ($getID['in_stock'] / $getID['conversion']) . ' sack';
-                                                            } else {
-                                                                echo number_format($getID['in_stock'], 0, ',', '.') . ' pack or ' . ($getID['in_stock'] / $getID['packpersack']) . ' sack';
-                                                            } ?></p>
+                    <p class="text-dark font-weight-bold"> 
+                        <?php
+                            if ($getID['categories'] == '6' or $getID['categories'] == '7') {
+                                echo number_format($getID['in_stock'], 2, ',', '.') . ' ' . $getID['unit_satuan'] . ' or ' . number_format(($getID['in_stock'] / $getID['conversion']), 2, ',', '.') . ' sack';
+                            } else {
+                                echo number_format($getID['in_stock'], 2, ',', '.') . ' ' . $getID['unit_satuan'] . ' or ' . number_format(($getID['in_stock'] / $getID['packpersack']), 2, ',', '.') . ' sack' ;
+                            } 
+                        ?>
+                    </p>
                 </div>
                 <div class="col-lg-4">
                     <?php if ($getID['categories'] != 6) { ?>
@@ -57,12 +58,9 @@
                     }
                     ?>
                     <p class="text-dark mb-2">Price: </p>
-                    <p class="text-dark font-weight-bold">IDR <?php
-                                                                if ($getID['categories'] == '6' or $getID['categories'] == '7') {
-                                                                    echo number_format($getID['price'], 0, ',', '.') . '/kg';
-                                                                } else {
-                                                                    echo number_format($getID['price'], 0, ',', '.') . '/pack';
-                                                                } ?></p>
+                    <p class="text-dark font-weight-bold">IDR 
+                        <?= number_format($getID['price'], 1, ',', '.') . '/' . $getID['unit_satuan'] ?>
+                    </p>
                 </div>
                 <div class="col-lg-4 d-flex align-items-start justify-content-center">
                     <img src="<?= base_url($getID['picture']) ?>" alt="" style="width: 10rem;">
@@ -86,7 +84,7 @@
                                 <th>Inbound</th>
                                 <th>Outbound</th>
                                 <th>Stock</th>
-                                <th>Warehouse</th>
+                                <!-- <th>Warehouse</th> -->
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -101,23 +99,10 @@
                                         <td><?= $fs['name'] ?></td>
                                         <td><?= $fs['transaction_id'] ?></td>
                                         <td><?= date('d F Y H:i:s', $fs['date']); ?></td>
-                                        <?php if($fs['transaction_status'] != 2){  ?>
-                                            <td><?= number_format($fs['incoming'], 2, ',', '.'); ?> kgs</td>
-                                        <?php } else { ?>
-                                            <td><?= number_format($fs['incoming'], 2, ',', '.'); ?> packs</td>
-                                        <? } ?>
-                                        <?php if($fs['categories'] == 6 or $fs['categories'] == 7){  ?>
-                                            <td><?= number_format($fs['outgoing'], 2, ',', '.'); ?> kgs</td>
-                                        <?php } else { ?>
-                                            <td><?= number_format($fs['outgoing'], 2, ',', '.') ?> packs</td>
-                                        <? } ?>
-                                        <td><?php
-                                            if ($fs['categories'] == '6' or $fs['categories'] == '7') {
-                                                echo number_format($fs['in_stock'], 2, ',', '.') . ' kgs';
-                                            } else {
-                                                echo number_format($fs['in_stock'], 2, ',', '.') . ' packs';
-                                            } ?></td>
-                                        <td><?= $fs['warehouse_name'] ?></td>
+                                        <td><?= number_format($fs['incoming'], 2, ',', '.') .' '. $fs['unit_satuan'] . '(s)'; ?> </td>
+                                        <td><?= number_format($fs['outgoing'], 2, ',', '.') .' '. $fs['unit_satuan'] . '(s)'; ?> </td>
+                                        <td><?= number_format($fs['in_stock'], 2, ',', '.') .' '. $fs['unit_satuan'] . '(s)'; ?> </td>
+                                        <!-- <td><?= $fs['warehouse_name'] ?></td> -->
                                         <td><?php echo $fs['status_name'];
                                             if($fs['status'] == 4){ 
                                                 if ($fs['transaction_status'] == 0) {

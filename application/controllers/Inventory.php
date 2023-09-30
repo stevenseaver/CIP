@@ -905,6 +905,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('warehouse', 'warehouse', 'required|trim');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('category', 'category', 'required|trim');
+        $this->form_validation->set_rules('unit', 'unit', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('msg_failed_gbj', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -926,6 +927,7 @@ class Inventory extends CI_Controller
             $status1 = 1; //stock awal
             $status2 = 7; //stock akhir
             $warehouse = $this->input->post('warehouse');
+            $unit = $this->input->post('unit');
 
             //intital stock
             $data1 = [
@@ -940,7 +942,8 @@ class Inventory extends CI_Controller
                 'price' => $price,
                 'categories' => $category,
                 'status' => $status1,
-                'warehouse'  => $warehouse
+                'warehouse'  => $warehouse,
+                'unit_satuan' => $unit
             ];
             //final stock
             $data2 = [
@@ -954,7 +957,8 @@ class Inventory extends CI_Controller
                 'categories' => $category,
                 'in_stock' => $initial_stock,
                 'status' => $status2,
-                'warehouse'  => $warehouse
+                'warehouse'  => $warehouse,
+                'unit_satuan' => $unit
             ];
 
             $this->db->insert('stock_finishedgoods', $data1);

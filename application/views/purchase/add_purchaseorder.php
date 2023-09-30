@@ -61,7 +61,7 @@
                     <?= form_error('material', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-lg-2">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="price" class="col-form-label">Price</label>
@@ -69,7 +69,7 @@
                     <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-lg-2">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="amount" class="col-form-label">Amount</label>
@@ -83,7 +83,7 @@
                     <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-lg-2">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="tax" class="col-form-label">Tax</label>
@@ -95,7 +95,7 @@
                     <?= form_error('tax', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-lg-6">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="description" class="col-form-label">PO Description</label>
@@ -104,7 +104,7 @@
                     <small>Weighting Document Number. Optional</small>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-lg-6">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="item_desc" class="col-form-label">Item Descripstion</label>

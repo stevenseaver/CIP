@@ -83,15 +83,15 @@
              document.getElementById("weighted_product").style.display = "none";
              document.getElementById("pcsperpack").value = 0;
              document.getElementById("packpersack").value = 0;
-             document.getElementById("conversion").value = 0;
+             document.getElementById("conversion").value = 25;
          } else if (category.value == "7") {
              document.getElementById("packing_product").style.display = "";
              document.getElementById("weighted_product").style.display = "";
          } else {
              document.getElementById("packing_product").style.display = "";
              document.getElementById("weighted_product").style.display = "none";
-             document.getElementById("conversion").value = 0;
-         }
+             document.getElementById("conversion").value = 1;
+         } 
      }
         
      //js for menu change access checkbox onclick

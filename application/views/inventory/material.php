@@ -134,7 +134,8 @@
                                     <span class="icon text-primary">
                                         <i class="bi bi-person-plus-fill"></i>
                                         Add New Supplier
-                                    </span></a>
+                                    </span>
+                                </a>
                             </div>
                         </div>
                         <?= form_error('supplier', '<small class="text-danger pl-2">', '</small>') ?>

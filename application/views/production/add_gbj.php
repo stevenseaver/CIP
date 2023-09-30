@@ -321,7 +321,7 @@
                         <?php } else { ?>
                             <!-- IF product amount already converted into packs for product cat other than 6 or 7 -->
                             <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> pack</td> -->
-                            <td><input id="gbjAmount-<?= $ms['id'] ?>" class="gbj-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>">pack</td>
+                            <td><input id="gbjAmount-<?= $ms['id'] ?>" class="gbj-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"><?= $ms['unit_satuan']?></td>
                         <?php } ?>
                         <td><?= $ms['before_convert'] . ' kg'?></td>
                         <td><?= $ms['batch'] ?></td>
