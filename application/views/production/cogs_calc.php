@@ -25,7 +25,7 @@
                     <!-- Item categories -->
                     <label for="materialSelect" class="col-form-label">Add Material</label>
                     <select name="materialSelect" id="materialSelect" class="form-control" value="<?= set_value('materialSelect') ?>">
-                        <option value="">--Select Categories--</option>
+                        <option value="">--Select Material--</option>
                         <?php foreach ($material as $mt) : ?>
                             <option value="<?= $mt['id'] ?>" data-price="<?= $mt['price'] ?>" data-stock="<?= $mt['in_stock'] ?>"><?= $mt['name'] ?></option>
                         <?php endforeach; ?>

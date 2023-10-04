@@ -85,7 +85,7 @@ $taxValue = $total * ($tax / 100);
 $pdf->Cell(40, 7, $this->cart->format_number($taxValue, '0', ',', '.'), 1, 1, 'C');
 
 $grandTotal = $total + $taxValue;
-$pdf->Cell(150, 7, "Total", 1, 0, 'R');
+$pdf->Cell(150, 7, "Grand Total", 1, 0, 'R');
 $pdf->Cell(40, 7, $this->cart->format_number($grandTotal, '0', ',', '.'), 1, 1, 'C');
 
 //ENGLISH TERMS AND CONDITIONS

@@ -922,7 +922,7 @@ class Production extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get material data
-        $data['material'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+        $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
 
         // $data['material_selected'] = $this->db->get('cogs_calculator')->result_array();
         $user_id = $data['user']['id'];
@@ -964,9 +964,8 @@ class Production extends CI_Controller
         $data['title'] = 'Cost of Product';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['rollType'] = $this->db->get('stock_roll')->result_array();
         //get material database
-        $data['materialStock'] = $this->db->get('stock_material')->result_array();
+        $data['materialStock'] = $this->db->order_by('categories','ASC')->get('stock_material')->result_array();
 
         $this->form_validation->set_rules('inputFormula', 'formula', 'trim|required');
         $this->form_validation->set_rules('price', 'price', 'trim|required');
