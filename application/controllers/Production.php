@@ -240,6 +240,7 @@ class Production extends CI_Controller
         //delete related PO items
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $po_id])->result_array();
         $data['roll_selected'] = $this->db->get_where('stock_roll', ['transaction_id' => $po_id])->result_array();
+        $data['gbj_selected'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $po_id])->result_array();
         $date = time();
         // var_dump($data['material_selected']);
         foreach ($data['material_selected'] as $ms) :
@@ -265,29 +266,62 @@ class Production extends CI_Controller
         $this->db->delete('stock_material');
 
         if(!empty($data['roll_selected'])){
-            //delete related PO items
+            //delete related PO items in roll_warehouse
             $date = time();
 
             foreach ($data['roll_selected'] as $rs) :
                 $data['updatestock'] = $this->db->get_where('stock_roll', ['code' => $rs['code'], 'status' => 7])->row_array();
                 $stock_akhir = $data['updatestock']['in_stock'];
+                if ($rs['status'] == 3) { 
+                    $update_stock = ($stock_akhir - $rs['incoming']);
+                    $stock_akhir = $update_stock;
 
-                $update_stock = ($stock_akhir - $rs['incoming']);
-                $stock_akhir = $update_stock;
+                    $data2 = [
+                        'in_stock' => $update_stock,
+                        'date' => $date
+                    ];
 
-                $data2 = [
-                    'in_stock' => $update_stock,
-                    'date' => $date
-                ];
+                    // update stock akhir
+                    $this->db->where('status', '7');
+                    $this->db->where('code', $rs['code']);
+                    $this->db->update('stock_roll', $data2);
+                } else {
 
-                // update stock akhir
-                $this->db->where('status', '7');
-                $this->db->where('code', $rs['code']);
-                $this->db->update('stock_roll', $data2);
+                }
             endforeach;
-            $this->db->where('transaction_id', $po_id);
-            $this->db->delete('stock_roll');   
         }
+        
+        $this->db->where('transaction_id', $po_id);
+        $this->db->delete('stock_roll');   
+        
+        if(!empty($data['gbj_selected'])){
+            //delete related PO items in stock_finishedgoods warehouse
+            $date = time();
+
+            foreach ($data['gbj_selected'] as $gs) :
+                $data['updatestock'] = $this->db->get_where('stock_finishedgoods', ['code' => $gs['code'], 'status' => 7])->row_array();
+                $stock_akhir = $data['updatestock']['in_stock'];
+                if ($gs['transaction_status'] == 2 or $gs['categories'] == 6 or $gs['categories'] == 7) { 
+                    //only update if item is already converted to pack or item unit is in weight
+                    $update_stock = ($stock_akhir - $gs['incoming']);
+                    $stock_akhir = $update_stock;
+    
+                    $data2 = [
+                        'in_stock' => $update_stock,
+                        'date' => $date
+                    ];
+                    // update stock akhir
+                    $this->db->where('status', '7');
+                    $this->db->where('code', $gs['code']);
+                    $this->db->update('stock_finishedgoods', $data2);
+                } else {
+
+                }
+            endforeach;
+        }
+
+        $this->db->where('transaction_id', $po_id);
+        $this->db->delete('stock_finishedgoods');   
 
         $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Production order unsaved, item(s) are deleted!</div>');
         redirect('production/');
@@ -676,6 +710,7 @@ class Production extends CI_Controller
             $price = $gbjSelect['price'];
             $picture = $gbjSelect['picture'];
             $category = $gbjSelect['categories'];
+            $satuan = $gbjSelect['unit_satuan'];
             
             $data = [
                 'name' => $item,
@@ -695,7 +730,8 @@ class Production extends CI_Controller
                 'picture' => $picture,
                 'transaction_id' => $prodID,
                 'batch' => $batch,
-                'description' => $pack_no
+                'description' => $pack_no,
+                'unit_satuan' => $satuan
             ];
 
             $this->db->insert('stock_finishedgoods', $data);

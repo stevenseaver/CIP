@@ -179,10 +179,10 @@
                                         <td><?= $items['item_name']; ?></td>
                                         <td style="width: 100px">
                                             <?php if ($items['prod_cat'] != '6' and $items['prod_cat'] != '7') { ?>
-                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= $items['qty']; ?>">
+                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= $this->cart->format_number($items['qty'], '2', ',', '.'); ?>">
                                                 <p class="text-center">pack</p>
                                             <?php } else { ?>
-                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= $items['qty']; ?>">
+                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $this->cart->format_number($items['item_name'], '2', ',', '.'); ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= $items['qty']; ?>">
                                                 <p class="text-center">kg</p>
                                             <?php }?>
                                         </td>

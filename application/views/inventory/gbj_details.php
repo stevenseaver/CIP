@@ -99,7 +99,18 @@
                                         <td><?= $fs['name'] ?></td>
                                         <td><?= $fs['transaction_id'] ?></td>
                                         <td><?= date('d F Y H:i:s', $fs['date']); ?></td>
-                                        <td><?= number_format($fs['incoming'], 2, ',', '.') .' '. $fs['unit_satuan'] . '(s)'; ?> </td>
+                                        <td><?php 
+                                        if ($fs['status'] == 3 and ($fs['categories'] != 6 and $fs['categories'] != 7)){
+                                            if ($fs['transaction_status'] != 2) {
+                                                echo number_format($fs['incoming'], 2, ',', '.') .' kg(s)';
+                                            }
+                                            else {
+                                                echo number_format($fs['incoming'], 2, ',', '.') .' '. $fs['unit_satuan'] . '(s)';
+                                            }
+                                        } else {
+                                            echo number_format($fs['incoming'], 2, ',', '.') .' '. $fs['unit_satuan'] . '(s)';
+                                        }
+                                         ?> </td>
                                         <td><?= number_format($fs['outgoing'], 2, ',', '.') .' '. $fs['unit_satuan'] . '(s)'; ?> </td>
                                         <td><?= number_format($fs['in_stock'], 2, ',', '.') .' '. $fs['unit_satuan'] . '(s)'; ?> </td>
                                         <!-- <td><?= $fs['warehouse_name'] ?></td> -->

@@ -56,7 +56,7 @@ foreach ($dataCart as $data) {
     $i++;
     $pdf->Cell(10, 8, $i, 1, 0, 'C');
     $pdf->Cell(85, 8, $data->item_name, 1, 0);
-    if ($data->prod_cat == 6) {
+    if ($data->prod_cat == 6 or $data->prod_cat == 7 or $data->prod_cat == 8    ) {
         $pdf->Cell(30, 8, $data->qty . ' kg(s)', 1, 0, 'C');
     } else {
         $pdf->Cell(30, 8, $data->qty . ' pack(s)', 1, 0, 'C');
