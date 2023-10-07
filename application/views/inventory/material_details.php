@@ -51,6 +51,8 @@
                                 <th>Outgouing (Kg)</th>
                                 <th>Stock (Kg)</th>
                                 <th>Status</th>
+                                <th>Weight Document</th>
+                                <th>Item Desc</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -70,7 +72,7 @@
                                         <td><?= number_format($ms['outgoing'], 1, ',', '.') ?></td>
                                         <td><?= number_format($ms['in_stock'], 1, ',', '.') . ' ' . $ms['unit_satuan'] ?></td>
                                         <td><?= $ms['status_name'] ?>
-                                            <?php
+                                        <?php
                                                 if ($ms['status'] == 1 or $ms['status'] == 6 or $ms['status'] == 3 or $ms['status'] == 7)  {
                                                     
                                                 } else {
@@ -81,8 +83,10 @@
                                                         echo '<p class="badge badge-success">Received</p>';
                                                     }
                                                 }
-                                            ?>
+                                                ?>
                                         </td>
+                                        <td><?= $ms['description'] ?></td>
+                                        <td><?= $ms['item_desc'] ?></td>
                                         <td>
                                             <?php
                                             if ($ms['status'] == 1 or $ms['status'] == 7) { ?>
@@ -146,7 +150,7 @@
                         <select name="status" id="status" class="form-control" value="<?= set_value('status') ?>">
                             <option value="">--Select Transactions--</option>
                             <?php foreach ($transactionStatus as $ts) : ?>
-                                <?php if ($ts['status_id'] != 1  and $ts['status_id'] != 7 and $ts['status_id'] != 4 and $ts['status_id'] != 5 and $ts['status_id'] != 9 and $ts['status_id'] != 10) {
+                                <?php if ($ts['status_id'] == 2 or $ts['status_id'] == 6) {
                                 ?> <option value="<?= $ts['status_id'] ?>"><?= $ts['status_name']; ?></option>
                                 <?
                                 } else {
@@ -158,10 +162,22 @@
                         <?= form_error('status', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
-                        <!-- Item initial stock -->
-                        <label for="url" class="col-form-label">Amount</label>
+                        <!-- Trans amount -->
+                        <label for="amount" class="col-form-label">Amount</label>
                         <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Item amount">
                         <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Weighing Doc -->
+                        <label for="info" class="col-form-label">Weight Document</label>
+                        <input type="text" class="form-control mb-1" id="info" name="info" placeholder="Weighing document info">
+                        <?= form_error('info', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Description -->
+                        <label for="info2" class="col-form-label">Additional Info</label>
+                        <input type="text" class="form-control mb-1" id="info2" name="info2" placeholder="Coly or sack amount, etc">
+                        <?= form_error('info2', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                 </div>
                 <div class="modal-footer">

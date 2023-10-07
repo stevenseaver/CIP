@@ -143,7 +143,7 @@
                         <select name="status" id="status" class="form-control" value="<?= set_value('status') ?>">
                             <option value="">--Select Transactions--</option>
                             <?php foreach ($transactionStatus as $ts) : ?>
-                                <?php if ($ts['status_id'] == 2  or $ts['status_id'] == 3 or $ts['status_id'] == 9 or $ts['status_id'] == 10) {
+                                <?php if ($ts['status_id'] == 2) {
                                 ?> <option value="<?= $ts['status_id'] ?>"><?= $ts['status_name']; ?></option>
                                 <?
                                 } else {

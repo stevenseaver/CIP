@@ -301,7 +301,7 @@ class Production extends CI_Controller
             foreach ($data['gbj_selected'] as $gs) :
                 $data['updatestock'] = $this->db->get_where('stock_finishedgoods', ['code' => $gs['code'], 'status' => 7])->row_array();
                 $stock_akhir = $data['updatestock']['in_stock'];
-                if ($gs['transaction_status'] == 2 or $gs['categories'] == 6 or $gs['categories'] == 7) { 
+                if ($gs['transaction_status'] == 2 or $gs['unit_satuan'] != 'pack') { 
                     //only update if item is already converted to pack or item unit is in weight
                     $update_stock = ($stock_akhir - $gs['incoming']);
                     $stock_akhir = $update_stock;

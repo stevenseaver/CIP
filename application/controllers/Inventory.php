@@ -217,6 +217,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('status', 'categories', 'required|trim');
         $this->form_validation->set_rules('amount', 'amount', 'required|trim');
+        $this->form_validation->set_rules('info', 'info', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -230,6 +231,8 @@ class Inventory extends CI_Controller
             $name = $this->input->post('name');
             $transaction_status = $this->input->post('status');
             $amount = $this->input->post('amount');
+            $info = $this->input->post('info');
+            $info2 = $this->input->post('info2');
             $category = $data['getID']['categories'];
             $date = time();
             $warehouse = 1;
@@ -239,6 +242,15 @@ class Inventory extends CI_Controller
             $in_stockOld = $data['getID']['in_stock'];;
             // 8 is purchasing, the only transaction that adds to the final stock
             if ($transaction_status == 8) {
+                $date = time();
+                $year = date('y');
+                $month = date('m');
+                $day = date('d');
+                $serial = rand(1000, 9999);
+
+                //ref po
+                $trans_id = 'PO-' . $year . $month . $day . '-' . $serial;
+
                 $data = [
                     'name' => $name,
                     'code' => $code,
@@ -248,7 +260,10 @@ class Inventory extends CI_Controller
                     'supplier' => $supplier,
                     'date' => $date,
                     'warehouse' => $warehouse,
-                    'unit_satuan' => $unit
+                    'unit_satuan' => $unit,
+                    'transaction_id' => $trans_id,
+                    'description' => $info,
+                    'item_desc' => $info2
                     // 'in_stock' => $in_stockOld + $amount
                 ];
                 $data2 = [
@@ -257,6 +272,21 @@ class Inventory extends CI_Controller
                 ];
             } else {
                 //other than purchasing, it reduces the final stock
+                $date = time();
+                $year = date('y');
+                $month = date('m');
+                $day = date('d');
+                $serial = rand(1000, 9999);
+                
+                //ref po
+                if ($transaction_status == 6){
+                    $trans_id = 'RB-' . $year . $month . $day . '-' . $serial;
+                } else if ($transaction_status == 2) {
+                    $trans_id = 'ADJ-' . $year . $month . $day . '-' . $serial;
+                } else {
+                    $trans_id = 'UNAUTHORIZED';
+                } 
+                
                 $data = [
                     'name' => $name,
                     'code' => $code,
@@ -266,7 +296,10 @@ class Inventory extends CI_Controller
                     'supplier' => $supplier,
                     'date' => $date,
                     'warehouse' => $warehouse,
-                    'unit_satuan' => $unit
+                    'unit_satuan' => $unit,
+                    'transaction_id' => $trans_id,
+                    'description' => $info,
+                    'item_desc' => $info2
                     // 'in_stock' => $in_stockOld - $amount
                 ];
                 $data2 = [
@@ -656,6 +689,8 @@ class Inventory extends CI_Controller
             $in_stockOld = $data['getID']['in_stock'];
             // 3 is production, the only transaction that adds to the final stock
             if ($transaction_status == 3) {
+                $trans_id = 'PROD-' . $year . $month . $day . '-' . $serial; //PROD
+
                 $data = [
                     'name' => $name,
                     'code' => $code,
@@ -665,13 +700,26 @@ class Inventory extends CI_Controller
                     'date' => $date,
                     'weight' => $weight,
                     'lipatan' => $lipatan,
-                    'warehouse' => $warehouse
+                    'warehouse' => $warehouse,
+                    'transaction_id' => $trans_id
                 ];
                 $data2 = [
                     'in_stock' => $in_stockOld + $amount,
                     'date' => $date
                 ];
             } else {
+                $date = time();
+                $year = date('y');
+                $month = date('m');
+                $day = date('d');
+                $serial = rand(1000, 9999);
+                
+                //ref po
+                if ($transaction_status == 2){
+                    $trans_id = 'ADJ-' . $year . $month . $day . '-' . $serial; //ADJ
+                } else {
+                    $trans_id = 'UNAUTHORIZED';
+                }
                 $data = [
                     'name' => $name,
                     'code' => $code,
@@ -681,7 +729,8 @@ class Inventory extends CI_Controller
                     'date' => $date,
                     'weight' => $weight,
                     'lipatan' => $lipatan,
-                    'warehouse' => $warehouse
+                    'warehouse' => $warehouse,
+                    'transaction_id' => $trans_id
                 ];
                 $data2 = [
                     'in_stock' => $in_stockOld - $amount,
@@ -1151,6 +1200,21 @@ class Inventory extends CI_Controller
             $in_stockOld = $data['getID']['in_stock'];
             //3 is prod, 5 is return sales, 8 is purchasing, all adds to the final stock
             if ($transaction_status == 3 or $transaction_status == 5 or $transaction_status == 8) {
+                $date = time();
+                $year = date('y');
+                $month = date('m');
+                $day = date('d');
+                $serial = rand(1000, 9999);
+                
+                //ref po
+                if ($transaction_status == 3){
+                    $trans_id = 'PROD-' . $year . $month . $day . '-' . $serial; //PROD
+                } else if ($transaction_status == 5){
+                    $trans_id = 'RS-' . $year . $month . $day . '-' . $serial; //RETURN SALES
+                } else if ($transaction_status == 8){
+                    $trans_id = 'PO-' . $year . $month . $day . '-' . $serial; //purchasing
+                }
+
                 $data = [
                     'name' => $name,
                     'code' => $code,
@@ -1158,13 +1222,28 @@ class Inventory extends CI_Controller
                     'incoming' => $amount,
                     'categories' => $category,
                     'date' => $date,
-                    'warehouse' => $warehouse
+                    'warehouse' => $warehouse,
+                    'transaction_id' => $trans_id
                 ];
                 $data2 = [
                     'in_stock' => $in_stockOld + $amount,
                     'date' => $date
                 ];
             } else {
+                $date = time();
+                $year = date('y');
+                $month = date('m');
+                $day = date('d');
+                $time = date('s');
+                $serial = rand(1000, 9999);
+                
+                //ref po
+                if ($transaction_status == 2){
+                    $trans_id = 'ADJ-' . $year . $month . $day . '-' . $serial; //ADJ
+                } else if ($transaction_status == 4){
+                    $trans_id = 'INV-' . $year . $month . $time . '-'  . $data['user']['id'] . $serial; //SALES
+                } 
+
                 $data = [
                     'name' => $name,
                     'code' => $code,
@@ -1172,7 +1251,8 @@ class Inventory extends CI_Controller
                     'outgoing' => $amount,
                     'categories' => $category,
                     'date' => $date,
-                    'warehouse' => $warehouse
+                    'warehouse' => $warehouse,
+                    'transaction_id' => $trans_id
                 ];
                 $data2 = [
                     'in_stock' => $in_stockOld - $amount,

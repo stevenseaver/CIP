@@ -141,9 +141,15 @@
         $gbjValue = $temp;
 
         $totalWarehouseValue = $materialValue + $prodValue + $gbjValue;
-        $percentMaterial = ($materialValue / $totalWarehouseValue) * 100;
-        $percentProd = ($prodValue / $totalWarehouseValue) * 100;
-        $percentGBJ = ($gbjValue / $totalWarehouseValue) * 100;
+        if ($totalWarehouseValue != 0){
+            $percentMaterial = ($materialValue / $totalWarehouseValue) * 100;
+            $percentProd = ($prodValue / $totalWarehouseValue) * 100;
+            $percentGBJ = ($gbjValue / $totalWarehouseValue) * 100;
+        } else {
+            $percentMaterial = 0;
+            $percentProd = 0;
+            $percentGBJ = 0;
+        }
         ?>
         <!-- Content Row -->
         <!-- Content Row -->
