@@ -47,9 +47,10 @@
                                 <th>Materials</th>
                                 <th>Transaction Ref</th>
                                 <th>Date Created</th>
-                                <th>Incoming (Kg)</th>
-                                <th>Outgouing (Kg)</th>
-                                <th>Stock (Kg)</th>
+                                <th>Incoming</th>
+                                <th>Outgouing</th>
+                                <th>Stock</th>
+                                <th>Price</th>
                                 <th>Status</th>
                                 <th>Weight Document</th>
                                 <th>Item Desc</th>
@@ -68,9 +69,10 @@
                                         <td><?= $ms['name'] ?></td>
                                         <td><?= $ms['transaction_id'] ?></td>
                                         <td><?= date('d F Y H:i:s', $ms['date']); ?></td>
-                                        <td><?= number_format($ms['incoming'], 1, ',', '.') ?></td>
-                                        <td><?= number_format($ms['outgoing'], 1, ',', '.') ?></td>
-                                        <td><?= number_format($ms['in_stock'], 1, ',', '.') . ' ' . $ms['unit_satuan'] ?></td>
+                                        <td><?= number_format($ms['incoming'], 2, ',', '.') ?></td>
+                                        <td><?= number_format($ms['outgoing'], 2, ',', '.') ?></td>
+                                        <td><?= number_format($ms['in_stock'], 2, ',', '.') . ' ' . $ms['unit_satuan'] ?></td>
+                                        <td><?= number_format($ms['price'], 2, ',', '.') ?></td>
                                         <td><?= $ms['status_name'] ?>
                                         <?php
                                                 if ($ms['status'] == 1 or $ms['status'] == 6 or $ms['status'] == 3 or $ms['status'] == 7)  {

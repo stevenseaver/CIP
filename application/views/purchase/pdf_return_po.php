@@ -4,7 +4,7 @@ $pdf = new \TCPDF();
 // set document information
 $pdf->SetCreator($user_name);
 $pdf->SetAuthor('CIP Information System');
-$pdf->SetTitle('Return Order');
+$pdf->SetTitle('Purchase Order Invoice');
 $pdf->SetSubject('Transaction Details');
 $pdf->SetKeywords('invoice, sales, transaction');
 
@@ -18,7 +18,7 @@ $pdf->Cell(0, 0, "NIB: 0220103452894", 0, 1, 'L');
 $pdf->SetAutoPageBreak(true, 0);
 
 $pdf->SetFont('', 'B', 20);
-$pdf->Cell(0, 15, "Purchase Order Invoice", 0, 1, 'L');
+$pdf->Cell(0, 15, "Return Order", 0, 1, 'L');
 $pdf->SetAutoPageBreak(true, 0);
 
 //SUP NAME

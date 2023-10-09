@@ -84,7 +84,7 @@
                                 <th>Inbound</th>
                                 <th>Outbound</th>
                                 <th>Stock</th>
-                                <!-- <th>Warehouse</th> -->
+                                <th>Price</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -113,6 +113,7 @@
                                          ?> </td>
                                         <td><?= number_format($fs['outgoing'], 2, ',', '.') .' '. $fs['unit_satuan'] . '(s)'; ?> </td>
                                         <td><?= number_format($fs['in_stock'], 2, ',', '.') .' '. $fs['unit_satuan'] . '(s)'; ?> </td>
+                                        <td><?= number_format($fs['price'], 2, ',', '.') ?> </td>
                                         <!-- <td><?= $fs['warehouse_name'] ?></td> -->
                                         <td><?php echo $fs['status_name'];
                                             if($fs['status'] == 4){ 

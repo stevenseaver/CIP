@@ -224,6 +224,26 @@
              }
          });
      });
+     
+     //js for amount change on receive order quantity on input on change
+     $('.return-qty').on('change', function() {
+         const id = $(this).data('id');
+         const qtyID = document.getElementById("returnAmount-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('purchasing/update_amount_return'); ?>",
+             type: 'post',
+             data: {
+                 id: id,
+                 qtyID: qtyID
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
 
      $('.btn-add-item').on('click', function() {
          //const qtyID = $(this).data('qty');
@@ -1166,7 +1186,20 @@
          $(event.currentTarget).find('.modal-body input[name="delete_amount"]').val(amount);
      });
 
-     //  JavaScript for Adjust GBJ details transaction
+     //  JavaScript for Delete Purchase Order transaction
+     $('#returnPurchaseModal').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var po_id = $(event.relatedTarget).data('po');
+         var id = $(event.relatedTarget).data('id');
+         var amount = $(event.relatedTarget).data('amount');
+         
+         // input passed data using JS to object INPUT inside modal #deleteItemPOModal
+         $(event.currentTarget).find('.modal-body input[name="delete_po_id"]').val(po_id);
+         $(event.currentTarget).find('.modal-body input[name="trans_id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="qtyID"]').val(amount);
+        });
+        
+     //  JavaScript for Save Return Purchase transaction
      $('#deletePOModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var po_id = $(event.relatedTarget).data('po');

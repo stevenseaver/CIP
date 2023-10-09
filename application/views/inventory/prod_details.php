@@ -61,6 +61,7 @@
                                 <th>Inbound(Kg)</th>
                                 <th>Outbound(Kg)</th>
                                 <th>Stock (Kg)</th>
+                                <th>Price</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -82,6 +83,7 @@
                                     <td><?= number_format($rs['incoming'], 2, ',', '.') ?></td>
                                     <td><?= number_format($rs['outgoing'], 2, ',', '.') ?></td>
                                     <td><?= number_format($rs['in_stock'], 2, ',', '.') ?></td>
+                                    <td><?= number_format($rs['price'], 2, ',', '.') ?></td>
                                     <td><?= $rs['status_name']?></td>
                                     <td>
                                         <?php

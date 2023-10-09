@@ -240,7 +240,7 @@ class Purchasing extends CI_Controller
 
         $poID = $data['inventory_selected']['transaction_id'];
         $amount = $data['inventory_selected']['incoming'];
-        $date = $data['inventory_selected']['date'];
+        $date = time();
         $code = $data['inventory_selected']['code'];
         $supplier_id = $data['inventory_selected']['supplier'];
         $price = $data['inventory_selected']['price'];
@@ -292,7 +292,9 @@ class Purchasing extends CI_Controller
             $this->load->view('purchase/pdf_purchase_order', $data);
         } else if ($type == 2) {
             $this->load->view('purchase/pdf_invoice_po', $data);
-        }
+        } else if ($type == 3) {
+            $this->load->view('purchase/pdf_return_po', $data);
+        } 
     }
 
     public function invoice()
@@ -334,6 +336,137 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    //***                **//
+    //***  Purchase Return **//
+    //***                **//
+
+    public function purchase_return()
+    {
+        $data['title'] = 'Purchase Return';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get supplier data
+        $data['supplier'] = $this->db->get('supplier')->result_array();
+        $this->load->model('Warehouse_model', 'warehouse_id');
+
+        $status = 8; //purchase order data only
+        $transaction_query = 2; //received order only
+        
+        $data['inventory_item_received'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('purchase/return', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function return_details($id, $supplier_id, $date)
+    {
+        $data['title'] = 'Return Order Details';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+
+        //get supplier data from ID
+        $data['supplier'] = $this->db->get_where('supplier', ['id' => $supplier_id])->row_array();
+        //get inventory warehouse data
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+        $data['poID'] = $id;
+        //get data
+        $data['sup_name'] = $data['supplier']['supplier_name'];
+        $data['date'] = $date;
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('purchase/return_details', $data);
+        $this->load->view('templates/footer');
+    }
+    
+    //update received item quantity on database
+    public function update_amount_return()
+    {
+        $this->form_validation->set_rules('trans_id', 'trans_id', 'required|trim');
+        $this->form_validation->set_rules('qtyID', 'qtyID', 'required|trim');
+        $this->form_validation->set_rules('description', 'description', 'required|trim');
+        $this->form_validation->set_rules('item_desc', 'item_desc', 'required|trim');
+
+        if ($this->form_validation->run() == false) { 
+            echo 'form not complete';
+        } else {
+            $id = $this->input->post('trans_id');
+            $amount = $this->input->post('qtyID');
+    
+            //get data from particular transaction which is being returned
+            $data['getCode'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+            $code = $data['getCode']['code'];
+            $price = $data['getCode']['price'];
+            $date2 = $data['getCode']['date'];
+    
+            //get data from stock akhir
+            $data['getData'] = $this->db->get_where('stock_material', ['code' => $code, 'status' => 7])->row_array();
+            $name = $data['getData']['name'];
+            $code = $data['getData']['code'];
+            $categories = $data['getData']['categories'];
+            $unit_satuan = $data['getData']['unit_satuan'];
+            $warehouse = $data['getData']['warehouse'];
+            $supplier = $data['getData']['supplier'];
+            $status = 6;
+            $description = $this->input->post('description');
+            $item_desc = $this->input->post('item_desc');
+            $in_stockOld = $data['getData']['in_stock'];
+    
+            $date = time();
+            $year = date('y');
+            $month = date('m');
+            $day = date('d');
+            $serial = rand(1000, 9999);
+               
+            $transID = 'RB-' . $year . $month . $day . '-' . $serial;
+    
+            //calculate new_stock
+            $newStock = $in_stockOld - $amount; 
+    
+            // $this->db->where('id', $id);
+            // $this->db->set('incoming', $newStock);
+            // $this->db->update('stock_material');
+            
+            $data = [
+                'in_stock' => $in_stockOld - $amount,
+                'date' => $date,
+                'price' => $price
+            ];
+            
+            $this->db->where('status', 7);
+            $this->db->where('code', $code);
+            $this->db->update('stock_material', $data);
+            
+            $data2 = [
+                'name' => $name,
+                'code' => $code,
+                'date' => $date,
+                'price' => $price,
+                'categories' => $categories,
+                'in_stock' => 0,
+                'incoming' => 0,
+                'outgoing' => $amount,
+                'unit_satuan' => $unit_satuan,
+                'status' => $status,
+                'warehouse' => $warehouse,
+                'supplier' => $supplier,
+                'transaction_status' => 3,
+                'transaction_id' => $transID,
+                'description' => $description,
+                'item_desc' => $item_desc
+            ];
+    
+            $this->db->insert('stock_material', $data2);
+    
+            redirect('purchasing/return_details/' . $id . '/' . $supplier . '/' . $date2); //still not correct
+        }
+    }
+    
     //***                **//
     //***  Customer list **//
     //***                **//
