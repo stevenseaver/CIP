@@ -93,6 +93,7 @@ class Purchasing extends CI_Controller
             $materialCode = $material_selected["code"];
             $materialCat = $material_selected["categories"];
             $unit = $material_selected["unit_satuan"];
+            $is_paid = 0;
             // $supplier = $material_selected["supplier"];
 
             $data = [
@@ -110,7 +111,8 @@ class Purchasing extends CI_Controller
                 'transaction_status' => $po_status,
                 'description' => $description,
                 'item_desc' => $item_desc,
-                'tax' => $tax
+                'tax' => $tax,
+                'is_paid' => $is_paid
             ];
 
             $this->db->insert('stock_material', $data);
@@ -336,6 +338,19 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function paid($trans_id, $is_paid) {
+        if($is_paid == 0){
+            $this->db->where('transaction_id', $trans_id);
+            $this->db->set('is_paid', 1);
+            $this->db->update('stock_material');
+            $this->session->set_flashdata('message_is_paid', '<div class="alert alert-success" role="alert">Good news!</div>');
+            redirect('purchasing/purchaseinfo/');
+        } else {
+            $this->session->set_flashdata('message_is_paid', '<div class="alert alert-secondary" role="alert">Already paid!</div>');
+            redirect('purchasing/purchaseinfo/');
+        }
+    }
+
     //***                **//
     //***  Purchase Return **//
     //***                **//
@@ -375,31 +390,26 @@ class Purchasing extends CI_Controller
         $data['poID'] = $id;
         //get data
         $data['sup_name'] = $data['supplier']['supplier_name'];
+        $data['sup_id'] = $supplier_id;
         $data['date'] = $date;
         
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('purchase/return_details', $data);
-        $this->load->view('templates/footer');
-    }
-    
-    //update received item quantity on database
-    public function update_amount_return()
-    {
         $this->form_validation->set_rules('trans_id', 'trans_id', 'required|trim');
         $this->form_validation->set_rules('qtyID', 'qtyID', 'required|trim');
         $this->form_validation->set_rules('description', 'description', 'required|trim');
         $this->form_validation->set_rules('item_desc', 'item_desc', 'required|trim');
-
-        if ($this->form_validation->run() == false) { 
-            echo 'form not complete';
+        
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('purchase/return_details', $data);
+            $this->load->view('templates/footer');
         } else {
-            $id = $this->input->post('trans_id');
+            $trans_id = $this->input->post('trans_id');
             $amount = $this->input->post('qtyID');
     
             //get data from particular transaction which is being returned
-            $data['getCode'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+            $data['getCode'] = $this->db->get_where('stock_material', ['id' => $trans_id])->row_array();
             $code = $data['getCode']['code'];
             $price = $data['getCode']['price'];
             $date2 = $data['getCode']['date'];
@@ -417,7 +427,7 @@ class Purchasing extends CI_Controller
             $item_desc = $this->input->post('item_desc');
             $in_stockOld = $data['getData']['in_stock'];
     
-            $date = time();
+            $trans_date = time();
             $year = date('y');
             $month = date('m');
             $day = date('d');
@@ -427,14 +437,15 @@ class Purchasing extends CI_Controller
     
             //calculate new_stock
             $newStock = $in_stockOld - $amount; 
+            // $update_trans_status = 3; 
     
-            // $this->db->where('id', $id);
-            // $this->db->set('incoming', $newStock);
+            // $this->db->where('id', $trans_id);
+            // $this->db->set('transaction_status', $update_trans_status);
             // $this->db->update('stock_material');
             
             $data = [
                 'in_stock' => $in_stockOld - $amount,
-                'date' => $date,
+                'date' => $trans_date,
                 'price' => $price
             ];
             
@@ -445,7 +456,7 @@ class Purchasing extends CI_Controller
             $data2 = [
                 'name' => $name,
                 'code' => $code,
-                'date' => $date,
+                'date' => $trans_date,
                 'price' => $price,
                 'categories' => $categories,
                 'in_stock' => 0,
@@ -463,7 +474,7 @@ class Purchasing extends CI_Controller
     
             $this->db->insert('stock_material', $data2);
     
-            redirect('purchasing/return_details/' . $id . '/' . $supplier . '/' . $date2); //still not correct
+            redirect('purchasing/return_details/' . $id . '/' . $supplier_id . '/' . $date);
         }
     }
     

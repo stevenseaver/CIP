@@ -42,7 +42,7 @@
                                         $temp = $temp + $value;  ?>
                                         <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
                                         <td>
-                                            <a href="<?= base_url('purchasing/return_details/') . $inv_rcv['transaction_id'] . '/' . $inv_rcv['supplier'] . '/' . $inv_rcv['date'] ?>" class="badge badge-danger">Apply Return Order</a>
+                                            <a href="<?= base_url('purchasing/return_details/') . $inv_rcv['transaction_id'] . '/' . $inv_rcv['supplier'] . '/' . $inv_rcv['date'] ?>" class="badge badge-primary">Apply Return Order</a>
                                         </td>
                                     </tr>
                                 <?php

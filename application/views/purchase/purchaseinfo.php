@@ -26,7 +26,7 @@
                                 <th>PO Number</th>
                                 <th>Date</th>
                                 <th>Supplier</th>
-                                <!-- <th>Value</th> -->
+                                <th>Total Amount</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -40,8 +40,12 @@
                                         <td><?= $inv['transaction_id'] ?></td>
                                         <td><?= date('d F Y H:i:s', $inv['date']); ?></td>
                                         <td><?= $inv['supplier_name'] ?></td>
-                                        <?php $value = $inv['price'] * $inv['incoming'];
-                                        $temp = $temp + $value; ?>
+                                        <td>
+                                            <?php
+                                            $value = $inv['price'] * $inv['incoming'];
+                                            $temp = $temp + $value; 
+                                            echo number_format($temp, 2, ',', '.'); ?>
+                                        </td>
                                         <!-- <td><?= number_format($temp, 0, ',', '.') ?></td> -->
                                         <td>
                                             <a href="<?= base_url('purchasing/po_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary">Details</a>
@@ -50,6 +54,7 @@
                                 <?php
                                     $before = $inv['transaction_id'];
                                     $i++;
+                                    // $temp = 0;
                                 } else {
                                 } ?>
                             <?php endforeach; ?>
@@ -63,8 +68,15 @@
         <div class="alert alert-primary mb-3" role="alert">There's no standing purchase order at the moment!</div>
     <?php }
     ?>
-
+    
     <p class="h5 text-gray-800">Received Purchase Order</p>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <?= $this->session->flashdata('message_is_paid'); ?>
+        </div>
+    </div>
+
     <?php if ($inventory_item_received != null) {
         $i = 1;
         $temp = 0;
@@ -80,6 +92,8 @@
                                 <th>PO Number</th>
                                 <th>Date</th>
                                 <th>Supplier</th>
+                                <th>Total Amount</th>
+                                <th>Payment</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -93,16 +107,28 @@
                                         <td><?= $inv_rcv['transaction_id'] ?></td>
                                         <td><?= date('d F Y H:i:s', $inv_rcv['date']); ?></td>
                                         <td><?= $inv_rcv['supplier_name'] ?></td>
-                                        <?php $value = $inv_rcv['price'] * $inv_rcv['in_stock'];
-                                        $temp = $temp + $value;  ?>
+                                        <td>
+                                            <?php $value = $inv_rcv['price'] * $inv_rcv['incoming'];
+                                            $temp = $temp + $value; 
+                                            echo number_format($temp, 2, ',', '.'); ?>
+                                        </td>
+                                        <td><?php 
+                                            if ($inv_rcv['is_paid'] == 0) {
+                                                echo '<p class="badge badge-warning">Not yet paid</p>';
+                                            } else {
+                                                echo '<p class="badge badge-success">Paid</p>';
+                                            }?>
+                                        </td>
                                         <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
                                         <td>
                                             <a href="<?= base_url('purchasing/receive_details/') . $inv_rcv['transaction_id'] . '/' . $inv_rcv['supplier'] . '/' . $inv_rcv['date'] ?>" class="badge badge-primary">Details</a>
+                                            <a href="<?= base_url('purchasing/paid/') . $inv_rcv['transaction_id'] .'/' . $inv_rcv['is_paid']?>" class="badge badge-success">Pay</a>
                                         </td>
                                     </tr>
                                 <?php
                                     $before = $inv_rcv['transaction_id'];
                                     $i++;
+                                    $temp = 0;
                                 } else {
                                 } ?>
                             <?php endforeach; ?>

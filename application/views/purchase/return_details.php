@@ -86,7 +86,7 @@
                         <?php $subtotal = $ms['incoming'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><?= $ms['item_desc'] ?></td>
-                        <td><a data-toggle="modal" data-target="#returnPurchaseModal" data-po="<?= $getID['transaction_id']?>" data-id="<?= $ms['id'] ?>" data-amount="<?= $ms['incoming']?>" class="badge badge-danger">Apply Return Order</a></td>
+                        <td><a data-toggle="modal" data-target="#returnPurchaseModal" data-po="<?= $getID['transaction_id']?>" data-id="<?= $ms['id'] ?>" data-amount="<?= $ms['incoming']?>" class="badge badge-primary">Apply Return Order</a></td>
                     </tr>
                     <?php $temp = $temp + $subtotal; ?>
                     <?php $i++; ?>
@@ -136,7 +136,7 @@
                 </button>
             </div>
             <p class="mx-3 mt-3 mb-0">Closing this window will delete all PO data you've entered. Are you sure?</p>
-            <form action="<?= base_url('purchasing/update_amount_return/') ?>" method="post">
+            <form action="<?= base_url('purchasing/return_details/' . $poID . '/' . $sup_id . '/' . $date) ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- item id -->
@@ -166,7 +166,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-success">Return</button>
                 </div>
             </form>
         </div>

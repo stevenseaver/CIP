@@ -75,17 +75,22 @@
                                         <td><?= number_format($ms['price'], 2, ',', '.') ?></td>
                                         <td><?= $ms['status_name'] ?>
                                         <?php
-                                                if ($ms['status'] == 1 or $ms['status'] == 6 or $ms['status'] == 3 or $ms['status'] == 7)  {
-                                                    
-                                                } else {
-                                                    if ($ms['transaction_status'] != 2) {
-                                                        echo '<p class="badge badge-danger">Not yet received</p>';
-                                                    }
-                                                    else {
-                                                        echo '<p class="badge badge-success">Received</p>';
-                                                    }
+                                            if ($ms['status'] == 1 or $ms['status'] == 6 or $ms['status'] == 3 or $ms['status'] == 7)  {
+
+                                            } else 
+                                            {
+                                                if ($ms['transaction_status'] == 2) {
+                                                    echo '<p class="badge badge-success">Received</p>';
                                                 }
-                                                ?>
+                                                else if ($ms['transaction_status'] == 3) {
+                                                    echo '<p class="badge badge-success mb-0">Received</p>';
+                                                    echo '<p class="badge badge-danger">Returned</p>';
+                                                }
+                                                else {
+                                                    echo '<p class="badge badge-danger">Not yet received</p>';
+                                                }
+                                            }
+                                            ?>
                                         </td>
                                         <td><?= $ms['description'] ?></td>
                                         <td><?= $ms['item_desc'] ?></td>
