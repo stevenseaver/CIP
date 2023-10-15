@@ -152,10 +152,96 @@
         }
         ?>
         <!-- Content Row -->
+        <div class="row">
+            <div class="col-lg-12 mb-2">
+                <!-- Project Card Example -->
+                <div class="card shadow mb-1">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Unpaid Purchase Info</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="dataTable2" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>PO Number</th>
+                                        <th>Date</th>
+                                        <th>Due Date</th>
+                                        <th>Supplier</th>
+                                        <th>Total Amount</th>
+                                        <th>Payment</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $temp = 0; ?>
+                                    <?php foreach ($inventory_item_received as $inv_rcv) :
+                                        if ($before != $inv_rcv['transaction_id']) { 
+                                            $date_now = time();
+                                            $due_date = $inv_rcv['date'] + $inv_rcv['term'] * 24 * 3600;
+                                            if($inv_rcv['is_paid'] == 0 and $due_date < $date_now - $date_now * 24 * 3600) { ?>
+                                                <tr>
+                                                    <td><?= $inv_rcv['transaction_id'] ?></td>
+                                                    <td><?= date('d F Y H:i:s', $inv_rcv['date']); ?></td>
+                                                    <td><?= date('d F Y H:i:s', $due_date); ?></td>
+                                                    <td><?= $inv_rcv['supplier_name'] ?></td>
+                                                    <td>
+                                                        <?php 
+                                                            foreach ($inventory_item_received as $amount) :
+                                                                if ($amount['transaction_id'] == $inv_rcv['transaction_id']) {
+                                                                    $value = $amount['price'] * $amount['incoming'];
+                                                                    $temp = $temp + $value; 
+                                                                } else {
+
+                                                                }
+                                                            endforeach;
+                                                            if($inv_rcv['tax'] == 0){
+
+                                                            } else if ($inv_rcv['tax'] == 1) {
+                                                                $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
+                                                                $purchase_tax = $data['purchase_tax']['value'];
+                                                                
+                                                                $tax = $purchase_tax/100 * $temp;
+
+                                                                $temp = $temp + $tax;
+                                                                
+                                                            }
+                                                            echo number_format($temp, 2, ',', '.'); 
+                                                        ?>
+                                                    </td>
+                                                    <td><?php 
+                                                        if ($inv_rcv['is_paid'] == 0) {
+                                                            echo '<p class="badge badge-warning">Not yet paid</p>';
+                                                        } else {
+                                                            echo '<p class="badge badge-success">Paid</p>';
+                                                        }?>
+                                                    </td>
+                                                    <td>
+                                                        <a href="<?= base_url('purchasing/info_details/') . $inv_rcv['transaction_id'] . '/' . $inv_rcv['supplier'] . '/' . $inv_rcv['date'] ?>" class="badge badge-primary">Details</a>
+                                                    </td>
+                                                </tr>
+                                        <?php
+                                            $before = $inv_rcv['transaction_id'];
+                                            $temp = 0;
+                                            $tax = 0;
+                                            } else {
+
+                                            }
+                                        } else {
+                                        } ?>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Content Row -->
         <div class="row">
             <!-- Content Column -->
-            <div class="col-lg-6 mb-4">
+            <div class="col-lg-6 mb-1">
                 <!-- Project Card Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
@@ -178,8 +264,9 @@
                     </div>
                 </div>
             </div>
-            <!-- /.container-fluid -->
         </div>
+        
+        <!-- /.container-fluid -->
 
         <!-- Content Row for Customer-->
         <!-- Content Row for Customer-->

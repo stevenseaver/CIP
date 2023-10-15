@@ -35,7 +35,8 @@ class Purchasing extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get supplier data
-        $data['supplier'] = $this->db->get('supplier')->result_array();
+        $this->load->model('Purchase_model', 'terms_id');
+        $data['supplier'] = $this->terms_id->calc_due_date();
         //get inventory warehouse data
         $data['inventory_wh'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
@@ -55,7 +56,9 @@ class Purchasing extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get supplier data
-        $data['supplier'] = $this->db->get('supplier')->result_array();
+        // $data['supplier'] = $this->db->get('supplier')->result_array();
+        $this->load->model('Purchase_model', 'terms_id');
+        $data['supplier'] = $this->terms_id->calc_due_date();
         //get inventory warehouse data
         $data['inventory_wh'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
         $data['inventory_item'] = $this->db->get_where('stock_material')->result_array();
@@ -69,6 +72,7 @@ class Purchasing extends CI_Controller
         $this->form_validation->set_rules('description', 'description', 'trim');
         $this->form_validation->set_rules('item_desc', 'item description', 'trim');
         $this->form_validation->set_rules('tax', 'tax', 'trim');
+        $this->form_validation->set_rules('term', 'term', 'trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -87,6 +91,7 @@ class Purchasing extends CI_Controller
             $description = $this->input->post('description');
             $item_desc = $this->input->post('item_desc');
             $tax = $this->input->post('tax');
+            $term = $this->input->post('term');
 
             $material_selected = $this->db->get_where('stock_material', ['id' => $materialID])->row_array();
             $materialName = $material_selected["name"];
@@ -112,7 +117,8 @@ class Purchasing extends CI_Controller
                 'description' => $description,
                 'item_desc' => $item_desc,
                 'tax' => $tax,
-                'is_paid' => $is_paid
+                'is_paid' => $is_paid,
+                'term' => $term
             ];
 
             $this->db->insert('stock_material', $data);
@@ -335,6 +341,28 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('purchase/purchaseinfo', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function info_details($id, $supplier_id, $date)
+    {
+        $data['title'] = 'Purchase Order Details';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get supplier data from ID
+        $data['supplier'] = $this->db->get_where('supplier', ['id' => $supplier_id])->row_array();
+        //get inventory warehouse data
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+        $data['poID'] = $id;
+        //get data
+        $data['sup_name'] = $data['supplier']['supplier_name'];
+        $data['date'] = $date;
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('purchase/purchaseinfo_details', $data);
         $this->load->view('templates/footer');
     }
 

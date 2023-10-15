@@ -38,7 +38,7 @@
             <select name="supplier" id="supplier" class="form-control" value="<?= set_value('supplier') ?>">
                 <option value="">--Select Supplier--</option>
                 <?php foreach ($supplier as $sup) : ?>
-                    <option value="<?= $sup['id'] ?>"><?= $sup['supplier_name'] ?></option>
+                    <option value="<?= $sup['id'] ?>" data-term="<?= $sup['multiplier'] ?>"><?= $sup['supplier_name'] ?></option>
                 <?php endforeach; ?>
             </select>
             <?= form_error('supplier', '<small class="text-danger pl-2">', '</small>') ?>
@@ -53,7 +53,7 @@
                     <?= form_error('materialName', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-lg-1" style="display:none">
+            <div class="col-lg-0" style="display:none">
                 <div class="form-group">
                     <!-- Item categories -->
                     <label for="material" class="col-form-label">ID</label>
@@ -61,7 +61,7 @@
                     <?= form_error('material', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-1">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="price" class="col-form-label">Price</label>
@@ -85,7 +85,7 @@
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
-                    <!-- Item code -->
+                    <!-- Transaction with tax? -->
                     <label for="tax" class="col-form-label">Tax</label>
                     <select name="tax" id="tax" class="form-control" value="<?= set_value('tax') ?>">
                         <option value="">--Select Categories--</option>
@@ -93,6 +93,14 @@
                         <option value="1">With Tax</option>
                     </select>
                     <?= form_error('tax', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <!-- Terms -->
+                    <label for="term" class="col-form-label">Terms</label>
+                    <input type="text" class="form-control mb-1" id="term" name="term" readonly>
+                    <?= form_error('term', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
             <div class="col-lg-6">

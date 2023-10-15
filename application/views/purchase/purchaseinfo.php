@@ -25,7 +25,9 @@
                                 <th>No</th>
                                 <th>PO Number</th>
                                 <th>Date</th>
+                                <th>Due Date</th>
                                 <th>Supplier</th>
+                                <th>Document</th>
                                 <th>Total Amount</th>
                                 <th>Action</th>
                             </tr>
@@ -39,23 +41,44 @@
                                         <td><?= $i ?></td>
                                         <td><?= $inv['transaction_id'] ?></td>
                                         <td><?= date('d F Y H:i:s', $inv['date']); ?></td>
+                                        <td><?= date('d F Y H:i:s', $inv['date'] + $inv['term'] * 24 * 3600); ?></td>
                                         <td><?= $inv['supplier_name'] ?></td>
                                         <td>
-                                            <?php
-                                            $value = $inv['price'] * $inv['incoming'];
-                                            $temp = $temp + $value; 
-                                            echo number_format($temp, 2, ',', '.'); ?>
+                                            <?php 
+                                                foreach ($inventory_item as $amount) :
+                                                    if ($amount['transaction_id'] == $inv['transaction_id']) {
+                                                        $value = $amount['price'] * $amount['incoming'];
+                                                        $temp = $temp + $value; 
+                                                    } else {
+                                                        
+                                                    }
+                                                endforeach;
+                                                if($inv['tax'] == 0){
+                                                    
+                                                } else if ($inv['tax'] == 1) {
+                                                    $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
+                                                    $purchase_tax = $data['purchase_tax']['value'];
+                                                    
+                                                    $tax = $purchase_tax/100 * $temp;
+                                                    
+                                                    $temp = $temp + $tax;
+                                                    
+                                                }
+                                                echo number_format($temp, 2, ',', '.'); 
+                                            ?>
+                                            
                                         </td>
-                                        <!-- <td><?= number_format($temp, 0, ',', '.') ?></td> -->
+                                        <td><?= $inv['description'] ?></td>
                                         <td>
-                                            <a href="<?= base_url('purchasing/po_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary">Details</a>
+                                            <a href="<?= base_url('purchasing/info_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary">Details</a>
                                         </td>
                                     </tr>
-                                <?php
+                                    <?php
                                     $before = $inv['transaction_id'];
                                     $i++;
-                                    // $temp = 0;
                                 } else {
+                                    $value = $inv['price'] * $inv['incoming'];
+                                    $temp = $temp + $value;
                                 } ?>
                             <?php endforeach; ?>
                         </tbody>
@@ -91,8 +114,10 @@
                                 <th>No</th>
                                 <th>PO Number</th>
                                 <th>Date</th>
+                                <th>Due Date</th>
                                 <th>Supplier</th>
                                 <th>Total Amount</th>
+                                <th>Document</th>
                                 <th>Payment</th>
                                 <th>Action</th>
                             </tr>
@@ -106,12 +131,33 @@
                                         <td><?= $i ?></td>
                                         <td><?= $inv_rcv['transaction_id'] ?></td>
                                         <td><?= date('d F Y H:i:s', $inv_rcv['date']); ?></td>
+                                        <td><?= date('d F Y H:i:s', $inv_rcv['date'] + $inv_rcv['term'] * 24 * 3600); ?></td>
                                         <td><?= $inv_rcv['supplier_name'] ?></td>
                                         <td>
-                                            <?php $value = $inv_rcv['price'] * $inv_rcv['incoming'];
-                                            $temp = $temp + $value; 
-                                            echo number_format($temp, 2, ',', '.'); ?>
+                                            <?php 
+                                                foreach ($inventory_item_received as $amount) :
+                                                    if ($amount['transaction_id'] == $inv_rcv['transaction_id']) {
+                                                        $value = $amount['price'] * $amount['incoming'];
+                                                        $temp = $temp + $value; 
+                                                    } else {
+                                                        
+                                                    }
+                                                endforeach;
+                                                if($inv_rcv['tax'] == 0){
+                                                    
+                                                } else if ($inv_rcv['tax'] == 1) {
+                                                    $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
+                                                    $purchase_tax = $data['purchase_tax']['value'];
+                                                    
+                                                    $tax = $purchase_tax/100 * $temp;
+                                                    
+                                                    $temp = $temp + $tax;
+                                                    
+                                                }
+                                                echo number_format($temp, 2, ',', '.'); 
+                                            ?>
                                         </td>
+                                        <td><?= $inv_rcv['description'] ?></td>
                                         <td><?php 
                                             if ($inv_rcv['is_paid'] == 0) {
                                                 echo '<p class="badge badge-warning">Not yet paid</p>';
@@ -121,7 +167,7 @@
                                         </td>
                                         <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
                                         <td>
-                                            <a href="<?= base_url('purchasing/receive_details/') . $inv_rcv['transaction_id'] . '/' . $inv_rcv['supplier'] . '/' . $inv_rcv['date'] ?>" class="badge badge-primary">Details</a>
+                                            <a href="<?= base_url('purchasing/info_details/') . $inv_rcv['transaction_id'] . '/' . $inv_rcv['supplier'] . '/' . $inv_rcv['date'] ?>" class="badge badge-primary">Details</a>
                                             <a href="<?= base_url('purchasing/paid/') . $inv_rcv['transaction_id'] .'/' . $inv_rcv['is_paid']?>" class="badge badge-success">Pay</a>
                                         </td>
                                     </tr>
@@ -129,6 +175,7 @@
                                     $before = $inv_rcv['transaction_id'];
                                     $i++;
                                     $temp = 0;
+                                    $tax = 0;
                                 } else {
                                 } ?>
                             <?php endforeach; ?>

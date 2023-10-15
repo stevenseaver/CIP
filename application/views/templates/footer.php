@@ -1351,6 +1351,13 @@
          document.getElementById("unit_amount").innerText = unit;
      });
 
+     //javascript for select term for purchase order
+     $('#supplier').on('change', function(event) {
+         var term = $(this).find(':selected').data('term');
+
+         document.getElementById("term").value = term;
+     });
+
      //javascript for select roll for roll input form
      $('#rollSelect').on('change', function(event) {
          var weight = $(this).find(':selected').data('weight');

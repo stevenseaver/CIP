@@ -26,6 +26,11 @@ class User extends CI_Controller
         $data['rollStock'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
         //get roll database
         $data['fgStock'] = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+        //get Receive order
+        $transaction_query = 2; //received order only
+        $status = 8; //purchase order data only
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['inventory_item_received'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
