@@ -178,6 +178,26 @@ class Production extends CI_Controller
         $this->db->update('stock_material', $data2);
     }
 
+    //update production order material amount
+    public function update_amount_desc()
+    {
+        $id = $this->input->post('id');
+        $prodID = $this->input->post('prodID');
+        $amount = $this->input->post('qtyID');
+
+        $date = time();
+
+        $data = [
+            'item_desc' => $amount,
+            'date' => $date
+        ];
+
+        //update transaksi
+        $this->db->where('id', $id);
+        // $this->db->set('item_desc', $amount);
+        $this->db->update('stock_material', $data);
+    }
+
     //get PO details
     public function prod_details($id)
     {
@@ -685,7 +705,7 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('code', 'code', 'trim|required');
         $this->form_validation->set_rules('amount', 'amount', 'trim|required');
         $this->form_validation->set_rules('batch', 'batch', 'trim|required');
-        $this->form_validation->set_rules('pack_no', 'pack number', 'trim|required');
+        $this->form_validation->set_rules('pack_no', 'description', 'trim|required');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');

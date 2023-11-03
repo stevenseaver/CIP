@@ -207,15 +207,20 @@
                             <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['outgoing'] ?>" class="badge badge-danger clickable">Delete</a>
                         </td>
                     </tr>
-                    <?php $temp = $temp + $subtotal; 
-                    $temp2 = $temp2 + $ms['outgoing'];
+                    <?php 
+                    $temp = $temp + $subtotal;  
+                    if($ms['unit_satuan'] == 'kg') {
+                        $temp2 = $temp2 + $ms['outgoing'];
+                    } else {
+                        
+                    }
                     $i++; ?>
                 <?php endforeach; ?>
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
                     <td colspan="3"> </td>
-                    <td class="right"><strong>Total</strong></td>
+                    <td class="right"><strong>Total Value</strong></td>
                     <?php $total = $temp; ?>
                     <td class="right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
                     <?php if ($temp2 != 0) {

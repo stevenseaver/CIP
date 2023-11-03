@@ -213,21 +213,31 @@
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php $subtotal = $ms['outgoing'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
-                        <td><?= $ms['item_desc'] ?></td>
-                        <td><?= $formula ?></td>
+                        <td><input id="descAmount-<?= $ms['id'] ?>" class="desc-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['item_desc'], 1, ',', '.'); ?>"></td>
+                        <!-- <td><?= $ms['item_desc'] ?></td> -->
+                        <td><?= number_format($formula, 3, ',', '.'); ?></td>
                         <td>
                             <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['outgoing'] ?>" class="badge badge-danger clickable">Delete</a>
                         </td>
                     </tr>
-                    <?php $temp = $temp + $subtotal; 
-                    $temp2 = $temp2 + $ms['outgoing'];
+                    <?php 
+                    $temp = $temp + $subtotal;  
+                    if($ms['unit_satuan'] == 'kg') {
+                        $temp2 = $temp2 + $ms['outgoing'];
+                    } else {
+                        
+                    }
                     $i++; ?>
                 <?php endforeach; ?>
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="3"> </td>
-                    <td class="right"><strong>Total</strong></td>
+                    <!-- <td colspan="3"> </td> -->
+                    <td colspan="1"> </td>
+                    <td class="text-right"><strong>Total Weight</strong></td>
+                    <?php $totalWeight = $temp2; ?>
+                    <td class="text-left"><?= $this->cart->format_number($totalWeight, '2', ',', '.'); ?> kg</td>
+                    <td class="right"><strong>Total Value</strong></td>
                     <?php $total = $temp; ?>
                     <td class="right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
                     <?php if ($temp2 != 0) {

@@ -193,8 +193,13 @@
                         <td><?= $ms['item_desc'] ?></td>
                         <td><?= $formula ?></td>
                     </tr>
-                    <?php $temp = $temp + $subtotal; 
-                    $temp_weight = $temp_weight + $ms['outgoing'] ?>
+                    <?php 
+                    $temp = $temp + $subtotal; 
+                    if($ms['unit_satuan'] == 'kg') {
+                        $temp_weight = $temp_weight + $ms['outgoing'];
+                    } else {
+                        
+                    } ?>
                     <?php $i++; ?>
                 <?php endforeach; ?>
             </tbody>
@@ -204,7 +209,7 @@
                     <td class="text-right"><strong>Total Weight</strong></td>
                     <?php $totalWeight = $temp_weight; ?>
                     <td class="text-left"><?= $this->cart->format_number($totalWeight, '2', ',', '.'); ?> kg</td>
-                    <td class="text-right"><strong>Total</strong></td>
+                    <td class="text-right"><strong>Total Value</strong></td>
                     <?php $total = $temp; ?>
                     <td class="text-right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
                     <td class="text-right"><strong>Cost of Materials</strong></td>

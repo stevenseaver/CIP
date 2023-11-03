@@ -284,6 +284,29 @@
          });
      });
 
+     //js for amount change on production order quantity per item input on change
+     $('.desc-qty').on('change', function() {
+         const id = $(this).data('id');
+         const prodID = $(this).data('prodID');
+
+         const qtyID = document.getElementById("descAmount-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('production/update_amount_desc'); ?>",
+             type: 'post',
+             data: {
+                 id: id,
+                 qtyID: qtyID,
+                 prodID: prodID
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
+
      //js for amount change on roll item prod order quantity input on change
      $('.roll-qty').on('change', function() {
          const id = $(this).data('id');

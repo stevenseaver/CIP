@@ -98,8 +98,8 @@
             <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="pack_no" class="col-form-label">Pack Number</label>
-                    <input type="number" class="form-control mb-1" id="pack_no" name="pack_no" placeholder="Input pack number..">
+                    <label for="pack_no" class="col-form-label">Notes</label>
+                    <input type="text" class="form-control mb-1" id="pack_no" name="pack_no" placeholder="Input additional description..">
                     <?= form_error('pack_no', '<small class="text-danger pl-2">', '</small>') ?>
                     <small>Packing number. Mandatory</small>
                 </div>
@@ -201,9 +201,14 @@
                         <td><?= $ms['item_desc'] ?></td>
                         <td><?= $formula ?></td>
                     </tr>
-                    <?php $temp = $temp + $subtotal; 
-                    $temp_weight = $temp_weight + $ms['outgoing'] ?>
-                    <?php $i++; ?>
+                    <?php 
+                    $temp = $temp + $subtotal;  
+                    if($ms['unit_satuan'] == 'kg') {
+                        $temp_weight = $temp_weight + $ms['outgoing'];
+                    } else {
+                        
+                    }
+                    $i++; ?>
                 <?php endforeach; ?>
             </tbody>
             <tfoot class="text-right">
@@ -212,7 +217,7 @@
                     <td class="text-right"><strong>Total Weight</strong></td>
                     <?php $totalWeight = $temp_weight; ?>
                     <td class="text-left"><?= $this->cart->format_number($totalWeight, '2', ',', '.'); ?> kg</td>
-                    <td class="text-right"><strong>Total</strong></td>
+                    <td class="text-right"><strong>Total Value</strong></td>
                     <?php $total = $temp; ?>
                     <td class="text-right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
                     <td class="text-right"><strong>Cost of Materials</strong></td>

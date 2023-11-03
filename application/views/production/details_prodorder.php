@@ -73,15 +73,23 @@
                         <td><?= $ms['item_desc'] ?></td>
                         <td><?= $formula ?></td>
                     </tr>
-                    <?php $temp = $temp + $subtotal; 
-                    $temp2 = $temp2 + $ms['outgoing'];
+                    <?php $temp = $temp + $subtotal;
+                    if($ms['unit_satuan'] == 'kg') {
+                        $temp2 = $temp2 + $ms['outgoing'];
+                    } else {
+                        
+                    }
                     $i++; ?>
                 <?php endforeach; ?>
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="3"> </td>
-                    <td class="text-right"><strong>Total</strong></td>
+                    <!-- <td colspan="3"> </td> -->
+                    <td colspan="1"> </td>
+                    <td class="text-right"><strong>Total Weight</strong></td>
+                    <?php $totalWeight = $temp2; ?>
+                    <td class="text-left"><?= $this->cart->format_number($totalWeight, '2', ',', '.'); ?> kg</td>
+                    <td class="text-right"><strong>Total Value</strong></td>
                     <?php $total = $temp; ?>
                     <td class="right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
                     <?php $hpp = $total/$temp2; ?>
