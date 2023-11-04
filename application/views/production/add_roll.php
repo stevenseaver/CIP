@@ -77,8 +77,8 @@
                         <div class="input-group-append">
                             <span class="input-group-text">kg</span>
                         </div>
-                        <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
+                    <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -87,15 +87,16 @@
                     <label for="batch" class="col-form-label">Batch</label>
                     <input type="text" class="form-control mb-1" id="batch" name="batch" value="<?= $getID['description'] . '-' ?>">
                     <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Batch number YYMMDDHHMM-EL-S. Mandatory to add Extruder Line (ES) and shift (S).</small>
+                    <small>Batch number YYMMDDHHMM-Extruder Line-Shift. Mandatory to add Extruder Line (ES) and shift (S).</small>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="roll_no" class="col-form-label">Roll Number</label>
-                    <input type="number" class="form-control mb-1" id="roll_no" name="roll_no" placeholder="Input roll number..">
+                    <input type="text" class="form-control mb-1" id="roll_no" name="roll_no" placeholder="Input roll description (number, type, etc)..">
                     <?= form_error('roll_no', '<small class="text-danger pl-2">', '</small>') ?>
+                    <small>Alpha numerical.</small>
                 </div>
             </div>
         </div>
@@ -252,7 +253,7 @@
                         <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td> -->
                         <td><input id="rollAmount-<?= $ms['id'] ?>" class="roll-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
                         <td><?= $ms['batch'] ?></td>
-                        <td><?= $ms['transaction_desc'] ?></td>
+                        <td><input id="rollDesc-<?= $ms['id'] ?>" class="roll-desc text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['transaction_desc']; ?>"></td>
                         <td>
                             <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
                         </td>

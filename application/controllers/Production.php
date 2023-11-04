@@ -179,7 +179,7 @@ class Production extends CI_Controller
     }
 
     //update production order material amount
-    public function update_amount_desc()
+    public function update_desc()
     {
         $id = $this->input->post('id');
         $prodID = $this->input->post('prodID');
@@ -437,7 +437,7 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('code', 'code', 'trim|required');
         $this->form_validation->set_rules('amount', 'amount', 'trim|required');
         $this->form_validation->set_rules('batch', 'batch', 'trim|required');
-        $this->form_validation->set_rules('roll_no', 'roll number', 'trim|required');
+        $this->form_validation->set_rules('roll_no', 'roll description', 'trim|required');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -527,6 +527,24 @@ class Production extends CI_Controller
         $this->db->where('code', $materialID);
         $this->db->update('stock_roll', $data2);
     }
+
+      //update production order material amount
+      public function update_roll_desc()
+      {
+          $id = $this->input->post('id');
+          $desc = $this->input->post('descRoll');
+  
+          $date = time();
+  
+          $data = [
+              'transaction_desc' => $desc,
+              'date' => $date
+          ];
+  
+          //update transaksi
+          $this->db->where('id', $id);
+          $this->db->update('stock_roll', $data);
+      }
 
     public function rollToGBJ($prodID){
         $transaction_status = 2;
@@ -923,6 +941,24 @@ class Production extends CI_Controller
 
         // $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Items updated!</div>');
         // redirect('production/add_gbj/' . $prodID);
+    }
+
+    //update production order material amount
+    public function update_gbj_desc()
+    {
+        $id = $this->input->post('id');
+        $desc = $this->input->post('descGBJ');
+
+        $date = time();
+
+        $data = [
+            'description' => $desc,
+            'date' => $date
+        ];
+
+        //update transaksi
+        $this->db->where('id', $id);
+        $this->db->update('stock_finishedgoods', $data);
     }
     
     //delete individual gbj input

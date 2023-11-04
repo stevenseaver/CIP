@@ -292,7 +292,7 @@
          const qtyID = document.getElementById("descAmount-" + id).value;
 
          $.ajax({
-             url: "<?= base_url('production/update_amount_desc'); ?>",
+             url: "<?= base_url('production/update_desc'); ?>",
              type: 'post',
              data: {
                  id: id,
@@ -330,6 +330,27 @@
          });
      });
 
+     //js for amount change on production order quantity per item input on change
+     $('.roll-desc').on('change', function() {
+         const id = $(this).data('id');
+
+         const descRoll = document.getElementById("rollDesc-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('production/update_roll_desc'); ?>",
+             type: 'post',
+             data: {
+                 id: id,
+                 descRoll: descRoll
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
+
      //js for amount change on gbj item prod order quantity input on change
      $('.gbj-qty').on('change', function() {
          const id = $(this).data('id');
@@ -348,6 +369,27 @@
                  prodID: prodID,
                  cat : cat,
                  status : status
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
+
+     //js for amount change on production order quantity per item input on change
+     $('.gbj-desc').on('change', function() {
+         const id = $(this).data('id');
+
+         const descGBJ = document.getElementById("gbjDesc-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('production/update_gbj_desc'); ?>",
+             type: 'post',
+             data: {
+                 id: id,
+                 descGBJ: descGBJ
              },
              success: function() {
                 $(document).ajaxStop(function(){

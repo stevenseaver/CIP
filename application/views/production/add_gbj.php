@@ -82,8 +82,8 @@
                         <div class="input-group-append">
                             <span class="input-group-text">kg</span>
                         </div>
-                        <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
+                    <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -92,7 +92,7 @@
                     <label for="batch" class="col-form-label">Batch</label>
                     <input type="text" class="form-control mb-1" id="batch" name="batch" placeholder="Product name/batch number" value="<?= $getID['batch'] . '-' ?> ">
                     <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Batch number YYMMDDHHMM-EL-S-CL. Mandatory to add Cutting Line (CL).</small>
+                    <small>Batch number YYMMDDHHMM-EL-S-Cutting Line. Mandatory to add Cutting Line (CL).</small>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -101,7 +101,7 @@
                     <label for="pack_no" class="col-form-label">Notes</label>
                     <input type="text" class="form-control mb-1" id="pack_no" name="pack_no" placeholder="Input additional description..">
                     <?= form_error('pack_no', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Packing number. Mandatory</small>
+                    <small>Packing description, alpha numerical. Mandatory</small>
                 </div>
             </div>
         </div>
@@ -330,7 +330,7 @@
                         <?php } ?>
                         <td><?= $ms['before_convert'] . ' kg'?></td>
                         <td><?= $ms['batch'] ?></td>
-                        <td><?= $ms['description'] ?></td>
+                        <td><input id="gbjDesc-<?= $ms['id'] ?>" class="gbj-desc text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['description']; ?>"></td>
                         <?php if($ms['transaction_status'] != 2){  ?>
                             <?php if($ms['categories'] != 6 and $ms['categories'] != 7) { ?>
                             <td>

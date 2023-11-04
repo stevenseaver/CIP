@@ -114,7 +114,7 @@
                     <label for="campuran" class="col-form-label">Mixing Formula</label>
                     <input type="number" min="1" max="100" class="form-control mb-1" id="campuran" name="campuran" placeholder="Mix amount">
                     <?= form_error('campuran', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Formula mixing number (x10 kg). Mandatory</small>
+                    <small>Formula mixing number (x10 kg), numerical. Mandatory</small>
                 </div>
             </div>
         </div>
@@ -214,7 +214,6 @@
                         <?php $subtotal = $ms['outgoing'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><input id="descAmount-<?= $ms['id'] ?>" class="desc-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['item_desc'], 1, ',', '.'); ?>"></td>
-                        <!-- <td><?= $ms['item_desc'] ?></td> -->
                         <td><?= number_format($formula, 3, ',', '.'); ?></td>
                         <td>
                             <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['outgoing'] ?>" class="badge badge-danger clickable">Delete</a>
