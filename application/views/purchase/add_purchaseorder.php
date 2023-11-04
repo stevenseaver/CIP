@@ -77,7 +77,7 @@
                     <div class="input-group">
                         <input type="number" class="form-control" id="amount" name="amount">
                         <div class="input-group-append">
-                            <span class="input-group-text" id="unit_instock">unit</span>
+                            <span class="input-group-text" id="unit_amount"></span>
                         </div>
                     </div>
                     <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>

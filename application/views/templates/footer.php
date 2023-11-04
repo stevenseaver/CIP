@@ -479,17 +479,12 @@
          var $row = $(this).closest("tr"); // Find the row
          var $id = $row.find(".id").text();
          var $name = $row.find(".name").text();
-         var $in_stock = $row.find(".in_stock").text();
-         var $price = $row.find(".price").text();
          var $unit = $row.find(".unit").text();
 
          // input passed data using JS to object INPUT from modal #newItem 
          document.getElementById("material").value = $id;
          document.getElementById("materialName").value = $name;
-         document.getElementById("stock").value = $in_stock;
-         document.getElementById("price").value = $price;
          document.getElementById("unit_amount").innerText = $unit;
-         document.getElementById("unit_instock").innerText = $unit;
      });
 
      //  JavaScript for add item to sales order database cart
