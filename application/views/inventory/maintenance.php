@@ -46,8 +46,27 @@
                     <div class="form-group">
                         <!-- Analysis -->
                         <label for="analysis" class="col-form-label">Analysis</label>
-                        <input type="text" class="form-control mb-1" id="analysis" name="analysis" placeholder="Add analysis such as problems diagnostic, solution, and results">
-                        <?= form_error('analysis', '<small class="text-danger pl-2">', '</small>') ?>
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Problems</span>
+                            </div>
+                            <input type="text" class="form-control " id="analysis" name="analysis" aria-label="analysis" aria-describedby="basic-addon1"placeholder="Add analysis such as why the problems occur">
+                            <?= form_error('analysis', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Solution</span>
+                            </div>
+                            <input type="text" class="form-control " id="solution" name="solution" aria-label="solution" aria-describedby="basic-addon1"placeholder="Add possible solution of the problems">
+                            <?= form_error('solution', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Results</span>
+                            </div>
+                            <input type="text" class="form-control " id="result" name="result" aria-label="result" aria-describedby="basic-addon1"placeholder="Show the final result">
+                            <?= form_error('result', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
                     </div>
                     <div class="form-group">
                         <!-- PIC -->
@@ -64,7 +83,7 @@
                         <label for="image" class="col-form-label">Images</label>
                         <div class="custom-file">
                             <!-- Image -->
-                            <input type="file" class="custom-file-input" id="image" name="image[]" multiple>
+                            <input type="file" class="custom-file-input" id="image" name="image">
                             <label class="custom-file-label" for="image">Choose file</label>
                             <small class="text-primary">Maximum 5 MB</small>
                         </div>
