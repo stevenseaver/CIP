@@ -1422,13 +1422,14 @@ class Inventory extends CI_Controller
         $data['title'] = 'Asset Inventory';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //jpoin database room and asset_inventory
+        
+        //join database room and asset_inventory
         $this->load->model('Inventory_model', 'inventory_id');
         //get invt database
         $data['inventory'] = $this->inventory_id->getRoomName();
         $data['room'] = $this->db->get('rooms')->result_array();
         //get user and invt type
-        $data['user_data'] = $this->db->get('user')->result_array();
+        $data['user_data'] = $this->db->get_where('user' , array('role_id !=' => 3))->result_array();
         $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
         $this->load->view('templates/header', $data);
@@ -1450,7 +1451,7 @@ class Inventory extends CI_Controller
         $data['inventory'] = $this->inventory_id->getRoomName();
         $data['room'] = $this->db->get('rooms')->result_array();
         //get user and invt type
-        $data['user_data'] = $this->db->get('user')->result_array();
+        $data['user_data'] = $this->db->get_where('user' , array('role_id !=' => 3))->result_array();
         $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
         $this->form_validation->set_rules('type', 'type', 'required|trim');
@@ -1563,7 +1564,7 @@ class Inventory extends CI_Controller
         $data['inventory'] = $this->inventory_id->getRoomName();
         $data['room'] = $this->db->get('rooms')->result_array();
         //get user and invt type
-        $data['user_data'] = $this->db->get('user')->result_array();
+        $data['user_data'] = $this->db->get_where('user' , array('role_id !=' => 3))->result_array();
         $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
         //data from modal
@@ -1588,7 +1589,7 @@ class Inventory extends CI_Controller
         $data['inventory'] = $this->inventory_id->getRoomName();
         $data['room'] = $this->db->get('rooms')->result_array();
         //get user and invt type
-        $data['user_data'] = $this->db->get('user')->result_array();
+        $data['user_data'] = $this->db->get_where('user' , array('role_id !=' => 3))->result_array();
         $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
         $this->form_validation->set_rules('name', 'name', 'required|trim');
@@ -1653,7 +1654,7 @@ class Inventory extends CI_Controller
         $data['inventory'] = $this->inventory_id->getRoomName();
         $data['room'] = $this->db->get('rooms')->result_array();
         //get user and invt type
-        $data['user_data'] = $this->db->get('user')->result_array();
+        $data['user_data'] = $this->db->get_where('user' , array('role_id !=' => 3))->result_array();
         $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
         $this->form_validation->set_rules('asset_destination', 'user', 'required|trim');
@@ -1691,6 +1692,7 @@ class Inventory extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Asset named ' . $deleteAsset["name"] . ' with code ' . $deleteAsset["code"] . ' deleted!</div>');
         redirect('inventory/assets');
     }
+
     // assign asset to a user
     public function assign_user()
     {
@@ -1703,7 +1705,7 @@ class Inventory extends CI_Controller
         $data['inventory'] = $this->inventory_id->getRoomName();
         $data['room'] = $this->db->get('rooms')->result_array();
         //get user and invt type
-        $data['user_data'] = $this->db->get('user')->result_array();
+        $data['user_data'] = $this->db->get_where('user' , array('role_id !=' => 3))->result_array();
         $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
         $this->form_validation->set_rules('user_assigned', 'user', 'required|trim');
@@ -1741,7 +1743,7 @@ class Inventory extends CI_Controller
         $data['inventory'] = $this->inventory_id->getRoomName();
         $data['room'] = $this->db->get('rooms')->result_array();
         //get user and invt type
-        $data['user_data'] = $this->db->get('user')->result_array();
+        $data['user_data'] = $this->db->get_where('user' , array('role_id !=' => 3))->result_array();
         $data['inv_type'] = $this->db->get('inventory_type')->result_array();
 
         $this->form_validation->set_rules('assign_asset_user', 'User', 'required|trim');
@@ -1800,13 +1802,80 @@ class Inventory extends CI_Controller
         $data['title'] = 'Asset Inventory';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        // //jpoin database room and asset_inventory
+        // //join database room and asset_inventory
         // $this->load->model('Inventory_model', 'inventory_id');
         // //get invt database
         // $data['inventory'] = $this->inventory_id->getRoomName();
         // $data['room'] = $this->db->get('rooms')->result_array();
 
         $this->load->view('inventory/view_list', $data);
+    }
+
+    public function maintenance($id)
+    {
+        $data['title'] = 'Asset Maintenance';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        
+        //join database room and asset_inventory and get invt database
+        $this->load->model('Inventory_model', 'inventory_id');
+        $data['inventory'] = $this->inventory_id->getAssetData($id);
+    
+        //get user and invt type
+        $data['user_data'] = $this->db->get_where('user', array('role_id !=' => 3))->result_array();
+        //join database user and maintenance data
+        $data['asset_maintenance'] = $this->db->get_where('asset_maintenance', array('inv_code' => $data['inventory']['code']))->result_array();
+       
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('inventory/maintenance', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function add_maintenance_data($id)
+    {
+        $data['title'] = 'Asset Maintenance';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        
+        //join database room and asset_inventory
+        $this->load->model('Inventory_model', 'inventory_id');
+        //get invt database
+        $data['inventory'] = $this->inventory_id->getAssetData($id);
+        //get user and invt type
+        $data['user_data'] = $this->db->get_where('user' , array('role_id !=' => 3))->result_array();
+        //get maintenance data
+        $data['asset_maintenance'] = $this->db->get_where('asset_maintenance', array('inv_code' => $data['inventory']['code']))->result_array();
+
+        $this->form_validation->set_rules('code', 'Code', 'required|trim');
+        $this->form_validation->set_rules('analysis', 'Analysis', 'required|trim');
+        $this->form_validation->set_rules('pic', 'pic', 'required|trim');
+        // $this->form_validation->set_rules('photos', 'photos', 'required|trim');
+
+        if ($this->form_validation->run() == false){
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/maintenance', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $code = $this->input->post('code');
+            $analysis = $this->input->post('analysis');
+            $pic = $this->input->post('pic');
+            // $userdat = $this->input->post('delete_user_user');
+
+            $data1 = [
+                'inv_code' => $code,
+                'analysis' => $analysis,
+                'pic' => $pic,
+                'photos' => 1
+            ];
+
+            $this->db->insert('asset_maintenance', $data1);
+            redirect('inventory/maintenance/' . $id);
+        }
     }
 
     // public function qr_code()

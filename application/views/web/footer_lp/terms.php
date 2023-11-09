@@ -180,7 +180,7 @@
                 <div class="col-lg-9">
                     <div class="card-body">
                         <p class="card-text">Once an order has been made and hits our systems or received by our sales, it can't be canceled by any means. It's also very rare that our warehouse can stop the shipping process once they have your details, but if you need us to cancel your oder for any reason then please get in touch as soon as you can. We will try to prevent it from being shipped, but please be aware that this is not usually possible.</p>
-                        <p class="card-text">This applies to the following circumstances: changing the item, delivery address, adding more items to your oder, and changing shipping method.</p>
+                        <p class="card-text">This applies to the following circumstances: changing the item, delivery address, reducing items of your order, and changing shipping method.</p>
                         <p class="card-text">Cancelation of order is not possible for any order which have been personalised, customised, modified or in any way made bespoke for you. If you failed to fullfil any requirements for an personalised order to be shipped (one-sided and/or intentional cancelation), you will be banned from ordering from us in the future.</p>
                     </div>
                 </div>
@@ -472,7 +472,7 @@
                 <div class="col-lg-9">
                     <div class="card-body">
                         <p class="card-text">Ketika pesanan telah dibuat dan masuk ke sistem kami, pesanan tidak dapat dibatalkan oleh alasan apapun. Proses pengiriman juga biasanya tidak dapat dibatalkan jika pesanan sudah dikonfirmasi, namun jika anda ingin membatalkan pesanan anda, hubungi kami secepatnya. Kami akan berusaha untuk membatalkan pengiriman dari gudang kami, namun mohon dipahami bahwa hal ini biasanya tidak memungkinkan.</p>
-                        <p class="card-text">Pembatalan diatas berlaku untuk alasan berikut ini: mengganti jenis barang, alamat pemesanan, menambah barang, dan mengubah metode pengiriman.</p>
+                        <p class="card-text">Pembatalan diatas berlaku untuk alasan berikut ini: mengganti jenis barang, alamat pemesanan, mengurangi barang, dan mengubah metode pengiriman.</p>
                         <p class="card-text">Pemabatalan pesanan tidak mungkin dilakukan untuk pesanan <span class="font-italic">custom order</span> yang dipersonalisasikan ataupun dibuat untuk anda secara khusus. Jika anda tidak memenuhi ketentuan pembayaran yang telah ditentukan untuk pesanan <span class="font-italic">custom order</span>, anda akan diblokir secara otomatis oleh sistem.</p>
                     </div>
                 </div>

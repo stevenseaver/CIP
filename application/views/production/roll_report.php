@@ -79,7 +79,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <p class="mx-3 mt-3 mb-0">Closing this window will delete all roll data you've entered. Are you sure?</p>
+            <p class="mx-3 mt-3 mb-0">Deleting active roll input form are illegal and would be treated under penalty of treason. Unless this is an inactive production order, are you sure to delete?</p>
             <form action="<?= base_url('production/delete_all_roll/') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">

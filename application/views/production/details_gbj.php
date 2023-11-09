@@ -29,7 +29,6 @@
     </div>
 
     <!-- prod order table -->
-    <!-- prod order table -->
     <div class="table-responsive my-3">
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
             <thead>

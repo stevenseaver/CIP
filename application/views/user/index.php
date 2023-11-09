@@ -157,7 +157,7 @@
                 <!-- Project Card Example -->
                 <div class="card shadow mb-1">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Unpaid Purchase Info</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Accounts Payable Due Purchase Info</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -180,7 +180,7 @@
                                         if ($before != $inv_rcv['transaction_id']) { 
                                             $date_now = time();
                                             $due_date = $inv_rcv['date'] + $inv_rcv['term'] * 24 * 3600;
-                                            if($inv_rcv['is_paid'] == 0 and $due_date < $date_now - $date_now * 24 * 3600) { ?>
+                                            if($inv_rcv['is_paid'] == 0 and $due_date < $date_now ) { ?>
                                                 <tr>
                                                     <td><?= $inv_rcv['transaction_id'] ?></td>
                                                     <td><?= date('d F Y H:i:s', $inv_rcv['date']); ?></td>

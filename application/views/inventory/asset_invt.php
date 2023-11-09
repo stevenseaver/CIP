@@ -67,29 +67,29 @@
                                     } ?>
                                 </td>
                                 <td>
-                                    <a data-toggle="modal" data-target="#createQR" class="badge badge-primary clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-date="<?= $inv['date_in'] ?>" data-pos="<?= $inv['room_name'] ?>">View e-QR</a>
-                                    <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-primary clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Transfer</a>
-                                    <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-secondary text-white clickable" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-user="<?= $inv['user'] ?>" data-spec="<?= $inv['spec'] ?>" data-value="<?= $inv['value'] ?>">Edit</a>
-                                    <a href="<?= base_url('inventory/toggle_asset_status/') . $inv['id'] . "/" . $inv['status'] . "/" . $inv['name'] ?>" class="badge badge-warning clickable">Toggle Status</a>
-                                    <a data-toggle="modal" data-target="#deleteAssetModal" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" class="badge badge-danger clickable">Delete</a>
+                                    <a data-toggle="modal" data-target="#createQR" class="badge badge-primary clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-date="<?= $inv['date_in'] ?>" data-pos="<?= $inv['room_name'] ?>"><i class="bi bi-qr-code"> </i>View e-QR</a>
+                                    <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-primary clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>"><i class="bi bi-arrow-left-right"> </i>Transfer</a>
+                                    <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-secondary text-white clickable" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-user="<?= $inv['user'] ?>" data-spec="<?= $inv['spec'] ?>" data-value="<?= $inv['value'] ?>"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                    <a href="<?= base_url('inventory/toggle_asset_status/') . $inv['id'] . "/" . $inv['status'] . "/" . $inv['name'] ?>" class="badge badge-warning clickable"><i class="bi bi-toggles"> </i>Toggle Status</a>
+                                    <a data-toggle="modal" data-target="#deleteAssetModal" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash"> </i>Delete</a>
                                     <?php
                                     if (empty($inv['user'])) {
                                         if ($user['role_id'] == '1') { ?>
-                                            <a data-toggle="modal" data-target="#assignUserModal" class="badge badge-success clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>">Assign User</a>
+                                            <a data-toggle="modal" data-target="#assignUserModal" class="badge badge-success clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>"><i class="bi bi-person-plus"> </i>Assign User</a>
                                         <?php } else { ?>
-                                            <a data-toggle="modal" data-target="#useAssetModal" class="badge badge-success" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $user['name'] ?>">Use Asset</a>
+                                            <a data-toggle="modal" data-target="#useAssetModal" class="badge badge-success clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $user['name'] ?>"><i class="bi bi-person-plus">Use Asset</a>
                                         <?php }
                                         ?>
                                     <?php } else { ?>
                                         <?php if ($user['role_id'] == '1') { ?>
-                                            <a data-toggle="modal" data-target="#deleteAssignedUser" class="badge badge-dark clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $inv['user'] ?>">Delete User</a>
+                                            <a data-toggle="modal" data-target="#deleteAssignedUser" class="badge badge-dark clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $inv['user'] ?>"><i class="bi bi-person-dash"> </i>Delete User</a>
                                         <?php } else if ($inv['user'] == $user['name']) { ?>
-                                            <a data-toggle="modal" data-target="#deleteUserModal" class="badge badge-dark" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $inv['user'] ?>">Finish Using</a>
+                                            <a data-toggle="modal" data-target="#deleteUserModal" class="badge badge-dark clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>" data-user="<?= $inv['user'] ?>"><i class="bi bi-check-circle-fill"> </i>Finish Using</a>
                                         <?php }
                                         ?>
                                     <?php }
                                     ?>
-                                    <!-- <a href="<?= base_url('inventory/qr_code') ?>" class="badge badge-light" target="_blank" rel="noopener noreferrer">QR Code</a> -->
+                                    <a href="<?= base_url('inventory/maintenance/' . $inv['id']) ?>" class="badge badge-light" rel="noopener noreferrer clickable"><i class="bi bi-tools"> </i>Maintenance</a>
                                 </td>
                                 <td>
                                     <img style="width: 100px;" src="<?= base_url('asset/img/QRCode/') . $inv['code'] . '.png'; ?>">
