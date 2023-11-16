@@ -67,12 +67,12 @@
                                     </td>
                                     <td>
                                         <!-- <a data-toggle="modal" data-target="#editPostModal" data-id='<?= $bd['id'] ?>' data-title='<?= $bd['title'] ?>' data-meta='<?= $bd['metaTitle'] ?>' data-summary='<?= $bd['summary'] ?>' data-content='<?= $bd['content'] ?>' class='badge badge-warning clickable'>Edit</a> -->
-                                        <a href="<?= base_url('blog/edit_post_page/') . $bd['id'] ?>" class='badge badge-warning clickable'>Edit</a>
-                                        <a data-toggle="modal" data-target="#deletePostModal" data-id="<?= $bd['id'] ?>" data-title="<?= $bd['title'] ?>" class="badge badge-danger clickable">Delete</a>
+                                        <a href="<?= base_url('blog/edit_post_page/') . $bd['id'] ?>" class='badge badge-warning clickable'><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                        <a data-toggle="modal" data-target="#deletePostModal" data-id="<?= $bd['id'] ?>" data-title="<?= $bd['title'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash"> </i>Delete</a>
                                         <?php
                                         if ($user['role_id'] == '1') { ?>
-                                            <a href="<?= base_url('blog/approve/') . $bd['id'] ?>" class="badge badge-success clickable">Approve Upload</a>
-                                            <a href="<?= base_url('blog/decline/') . $bd['id'] ?>" class="badge badge-danger clickable">Decline Upload</a>
+                                            <a href="<?= base_url('blog/approve/') . $bd['id'] ?>" class="badge badge-success clickable"><i class="bi bi-check-circle-fill"> </i>Approve Upload</a>
+                                            <a href="<?= base_url('blog/decline/') . $bd['id'] ?>" class="badge badge-danger clickable"><i class="bi bi-x-circle-fill"> </i>Decline Upload</a>
                                         <?php } else { ?>
 
                                         <?php }

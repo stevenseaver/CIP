@@ -1867,43 +1867,42 @@ class Inventory extends CI_Controller
             $analysis = $this->input->post('analysis');
             $solution = $this->input->post('solution');
             $result = $this->input->post('result');
-
-            $description = 'Problems: ' . $analysis . ' | Solution: ' . $solution . ' | Result: ' . $result;
             $pic = $this->input->post('pic');
-            // $userdat = $this->input->post('delete_user_user');
 
-            $data1 = [
-                'inv_code' => $code,
-                'analysis' => $description,
-                'pic' => $pic,
-                'photos' => 1
-            ];
+            $description = 'Problems: ' . $analysis . '. Solution: ' . $solution . '. Result: ' . $result;
 
-            // var_dump($data1);
+            // cek jika ada gambar yang akan di upload
+            $upload_image = $_FILES['image']['name'];
+            $file_ext = pathinfo($upload_image, PATHINFO_EXTENSION);
 
-            $this->db->insert('asset_maintenance', $data1);
+            if ($upload_image) {
+                $config['file_name']            = $data['inventory']['code'] . '_' . time() . '.' . $file_ext;
+                $config['upload_path']          = './asset/img/maintenance/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 5120;
 
-            //cek jika ada gambar yang akan di upload
-            // $upload_image = $_FILES['image']['name'];
+                $this->load->library('upload', $config);
+                $this->upload->initialize($config);
 
-            // if ($upload_image) {
-            //     $config['upload_path']          = './asset/img/maintenance/';
-            //     $config['allowed_types']        = 'gif|jpg|png';
-            //     $config['max_size']             = 5120;
+                if ($this->upload->do_upload('image')) {
+                    // $new_image = $this->upload->data('file_name');
+                    $new_image = $this->upload->data('file_name');
 
-            //     $this->load->library('upload', $config);
-            //     $this->upload->initialize($config);
+                    // echo $new_image;
 
-            //     if ($this->upload->do_upload('image')) {
-            //         $new_image = $this->upload->data('filename');
-            //         $this->db->set('photos', 'asset/img/maintenance/' . $new_image);
-            //         $this->db->where('id', $code);
-            //         $this->db->update('asset_maintenance');
-            //     } else {
-            //         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
-            //         redirect('inventory/maintenance/' . $id);
-            //     }
-            // }
+                    $data1 = [
+                        'inv_code' => $code,
+                        'analysis' => $description,
+                        'pic' => $pic,
+                        'photos' => $new_image
+                    ];
+        
+                    $this->db->insert('asset_maintenance', $data1);
+                } else {
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
+                    redirect('inventory/maintenance/' . $id);
+                }
+            }
             redirect('inventory/maintenance/' . $id);
         }
     }

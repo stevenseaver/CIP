@@ -42,9 +42,9 @@
                                         <td><?= $m['url']; ?></td>
                                         <td><?= $m['image']; ?></td>
                                         <td>
-                                            <a href="<?= base_url('menu/product_spec/') . $m['id'] ?>" class="badge badge-info text-white clickable">Details</a>
-                                            <a data-toggle="modal" data-target="#editProductMenu" class="badge badge-primary text-white clickable" data-id="<?= $m['id'] ?>" data-title="<?= $m['title'] ?>" data-url="<?= $m['url'] ?>" data-icon="<?= $m['image'] ?>">Edit</a>
-                                            <a data-toggle="modal" data-target="#deleteProductMenuModal" class="badge badge-danger text-white clickable" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['title'] ?>">Delete</a>
+                                            <a href="<?= base_url('menu/product_spec/') . $m['id'] ?>" class="badge badge-info text-white clickable"><i class="bi bi-info-circle"> </i>Details</a>
+                                            <a data-toggle="modal" data-target="#editProductMenu" class="badge badge-warning text-white clickable" data-id="<?= $m['id'] ?>" data-title="<?= $m['title'] ?>" data-url="<?= $m['url'] ?>" data-icon="<?= $m['image'] ?>"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                            <a data-toggle="modal" data-target="#deleteProductMenuModal" class="badge badge-danger text-white clickable" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['title'] ?>"><i class="bi bi-trash"> </i>Delete</a>
                                         </td>
                                         <?php $i++; ?>
                                     <?php endforeach; ?>

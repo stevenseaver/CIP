@@ -49,10 +49,10 @@
                                         ?>
                                         </td>
                                         <td>
-                                            <a data-toggle="modal" data-target="#replyModal" class="replyModal badge badge-primary text-white clickable" data-ticket="<?= $m['ticket']; ?>" data-email="<?= $m['email']; ?>">Reply</a>
-                                            <a href="<?= base_url('contact/close_ticket/') . $m['id'] ?>" class="badge badge-success">Close Ticket</a>
+                                            <a data-toggle="modal" data-target="#replyModal" class="replyModal badge badge-primary text-white clickable" data-ticket="<?= $m['ticket']; ?>" data-email="<?= $m['email']; ?>"><i class="bi bi-reply-fill"> </i>Reply</a>
+                                            <a href="<?= base_url('contact/close_ticket/') . $m['id'] ?>" class="badge badge-success"><i class="bi bi-x-circle-fill"> </i>Close Ticket</a>
                                             <!-- <a href="<?= base_url('contact/deletemessage/') . $m['id'] ?>" class="badge badge-danger">Delete</a> -->
-                                            <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMessage" data-id="<?= $m['id'] ?>">Delete</a>
+                                            <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMessage" data-id="<?= $m['id'] ?>"><i class="bi bi-trash"> </i>Delete</a>
                                         </td>
                                         <?php $i++; ?>
                                     <?php endforeach; ?>

@@ -74,11 +74,11 @@
                         <?php endforeach; ?>
                     </tbody>
                     <tfoot>
-                        <tr class="text-right align-items-center">
+                        <tr class="align-items-center">
                             <td colspan="5"> </td>
-                            <td class="right"><strong>Total</strong></td>
+                            <td class="text-right "><strong>Total</strong></td>
                             <?php $grandTotal = $temp; ?>
-                            <td class="right">IDR <?= $this->cart->format_number($grandTotal, '-', ',', '.'); ?></td>
+                            <td class="">IDR <?= $this->cart->format_number($grandTotal, '-', ',', '.'); ?></td>
                         </tr>
                     </tfoot>
                 </table>
