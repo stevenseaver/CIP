@@ -48,8 +48,8 @@
                                         <td><?= $m['specification']; ?></td>
                                         <td><?= $m['items']; ?></td>
                                         <td>
-                                            <a data-toggle="modal" data-target="#editSpecItem" class="badge badge-primary text-white clickable" data-id="<?= $m['id'] ?>" data-name="<?= $m['product_name'] ?>" data-spec="<?= $m['specification'] ?>" data-content='<?= $m['items'] ?>'>Edit</a>
-                                            <a data-toggle="modal" data-target="#deleteSpecItemModal" class="badge badge-danger text-white clickable" data-id="<?= $m['id'] ?>" data-name="<?= $m['product_name'] ?>" data-spec="<?= $m['specification'] ?>">Delete</a>
+                                            <a data-toggle="modal" data-target="#editSpecItem" class="badge badge-warning text-white clickable" data-id="<?= $m['id'] ?>" data-name="<?= $m['product_name'] ?>" data-spec="<?= $m['specification'] ?>" data-content='<?= $m['items'] ?>'><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                            <a data-toggle="modal" data-target="#deleteSpecItemModal" class="badge badge-danger text-white clickable" data-id="<?= $m['id'] ?>" data-name="<?= $m['product_name'] ?>" data-spec="<?= $m['specification'] ?>"><i class="bi bi-trash"> </i>Delete</a>
                                         </td>
                                         <?php $i++; ?>
                                     <?php endforeach; ?>

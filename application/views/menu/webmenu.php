@@ -50,9 +50,9 @@
                                             } ?>
                                         </td>
                                         <td>
-                                            <a data-toggle="modal" data-target="#editWebMenuModal" class="badge badge-primary text-white clickable" data-id="<?= $m['id'] ?>" data-title="<?= $m['title'] ?>" data-url="<?= $m['url'] ?>" data-icon="<?= $m['icon'] ?>">Edit</a>
-                                            <a data-toggle="modal" data-target="#deleteWebMenuModal" class="badge badge-danger text-white clickable" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['title'] ?>">Delete</a>
-                                            <a href="<?= base_url('menu/toggleWebMenuActive/') . $m['id'] . '/' . $m['is_active'] . '/' . urldecode($m['title']) ?>" class="badge badge-success clickable">Toggle Active</a>
+                                            <a data-toggle="modal" data-target="#editWebMenuModal" class="badge badge-warning text-white clickable" data-id="<?= $m['id'] ?>" data-title="<?= $m['title'] ?>" data-url="<?= $m['url'] ?>" data-icon="<?= $m['icon'] ?>"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                            <a href="<?= base_url('menu/toggleWebMenuActive/') . $m['id'] . '/' . $m['is_active'] . '/' . urldecode($m['title']) ?>" class="badge badge-primary clickable"><i class="bi bi-toggles"> </i>Toggle Active</a>
+                                            <a data-toggle="modal" data-target="#deleteWebMenuModal" class="badge badge-danger text-white clickable" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['title'] ?>"><i class="bi bi-pencil-fill"> </i>Delete</a>
                                         </td>
                                         <?php $i++; ?>
                                     <?php endforeach; ?>

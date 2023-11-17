@@ -70,10 +70,10 @@
                                     } ?>
                                 </td>
                                 <td>
-                                    <a href="<?= base_url('hr/toggleactive/') . $u['id'] . '/' . $u['is_active'] . '/' . urldecode($u['name']) ?>" class="badge badge-warning">Toggle Active</a>
+                                    <a href="<?= base_url('hr/toggleactive/') . $u['id'] . '/' . $u['is_active'] . '/' . urldecode($u['name']) ?>" class="badge badge-primary"><i class="bi bi-toggles"> </i>Toggle Active</a>
                                     <!-- <a href="<?= base_url('hr/deleteuser/') . $u['id'] . '/' . urldecode($u['name']) ?>" class="badge badge-danger">Delete</a> -->
-                                    <a href="<?= base_url('hr/restart_count/' . $u['id'])?>" class="badge badge-primary clickable">Restart Leave Count</a>
-                                    <a data-toggle="modal" data-target="#deleteEmployee" data-id="<?= $u['id'] ?>" data-name="<?= $u['name'] ?>" class="badge badge-danger clickable">Delete</a>
+                                    <a href="<?= base_url('hr/restart_count/' . $u['id'])?>" class="badge badge-warning clickable"><i class="bi bi-arrow-clockwise"> </i>Restart Leave Count</a>
+                                    <a data-toggle="modal" data-target="#deleteEmployee" data-id="<?= $u['id'] ?>" data-name="<?= $u['name'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash"> </i>Delete</a>
                             </tr>
                             <?php $i++; ?>
                         <?php endforeach; ?>

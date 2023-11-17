@@ -84,6 +84,7 @@
                         <div class="custom-file">
                             <!-- Image -->
                             <input type="file" class="custom-file-input" id="image" name="image">
+                            <!-- <input type="file" class="custom-file-input" multiple="multiple" id="image" name="image"> -->
                             <label class="custom-file-label" for="image">Choose file</label>
                             <small class="text-primary">Maximum 5 MB</small>
                         </div>
@@ -144,7 +145,7 @@
                         <td><?= $i ?></td>
                         <td><?= $am['analysis'] ?></td>
                         <td><?= $am['pic'] ?></td>
-                        <td><?= $am['photos'] ?></td>
+                        <td><img class="img-fluid rounded" src="<?= base_url('asset/img/maintenance/') . $am['photos'] ?>" alt="" style="width: 15rem;"></td>
                     </tr>
                     <?php $i++; ?>
                 <?php endforeach; ?>

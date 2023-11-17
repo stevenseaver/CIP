@@ -36,9 +36,9 @@
                                         <th><?= $i ?></th>
                                         <td><?= $r['role']; ?></td>
                                         <td>
-                                            <a href="<?= base_url('admin/roleaccess') . '/' . $r['id'] ?>" class="badge badge-warning">Access</a>
-                                            <a data-toggle="modal" data-target="#editRoleModal" class="badge badge-primary text-white clickable" data-id="<?= $r['id']; ?>" data-role="<?= $r['role']; ?>">Edit</a>
-                                            <a href=" <?= base_url('admin/deleterole') . '/' . $r['id'] ?>" class="badge badge-danger">Delete</a>
+                                            <a href="<?= base_url('admin/roleaccess') . '/' . $r['id'] ?>" class="badge badge-warning"><i class="bi bi-pencil-fill"> </i>Edit Access</a>
+                                            <a data-toggle="modal" data-target="#editRoleModal" class="badge badge-primary text-white clickable" data-id="<?= $r['id']; ?>" data-role="<?= $r['role']; ?>"><i class="bi bi-pencil-fill"> </i>Edit Item</a>
+                                            <a href=" <?= base_url('admin/deleterole') . '/' . $r['id'] ?>" class="badge badge-danger"><i class="bi bi-trash"> </i>Delete</a>
                                         </td>
                                     </tr>
                                     <?php $i++; ?>

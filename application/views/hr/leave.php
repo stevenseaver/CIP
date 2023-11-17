@@ -70,8 +70,8 @@
                                     } ?>
                                 </td>
                                 <td>
-                                    <a href="<?= base_url('hr/approve/') . $ld['user_nik'] . '/' . $ld['start_date'] . '/' . $ld['finish_date']; ?>" class="badge badge-success">Approve</a>
-                                    <a href="<?= base_url('hr/decline/') . $ld['user_nik'] . '/' . $ld['start_date'] . '/' . $ld['finish_date']; ?>" class="badge badge-danger">Decline</a>
+                                    <a href="<?= base_url('hr/approve/') . $ld['user_nik'] . '/' . $ld['start_date'] . '/' . $ld['finish_date']; ?>" class="badge badge-success"><i class="bi bi-check-circle-fill"> </i>Approve</a>
+                                    <a href="<?= base_url('hr/decline/') . $ld['user_nik'] . '/' . $ld['start_date'] . '/' . $ld['finish_date']; ?>" class="badge badge-danger"><i class="bi bi-x-circle-fill"> </i>Decline</a>
                                 </td>
                             </tr>
                             <?php $i++; ?>

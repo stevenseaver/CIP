@@ -38,8 +38,8 @@
                                         <td class="text-center"><?= $i ?></td>
                                         <td><?= $m['menu']; ?></td>
                                         <td>
-                                            <a data-toggle="modal" data-target="#editmenumodal" class="badge badge-primary text-white clickable" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['menu'] ?>">Edit</a>
-                                            <a data-toggle="modal" data-target="#deletemenumodal" class="badge badge-danger text-white clickable" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['menu'] ?>">Delete</a>
+                                            <a data-toggle="modal" data-target="#editmenumodal" class="badge badge-warning text-white clickable" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['menu'] ?>"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                            <a data-toggle="modal" data-target="#deletemenumodal" class="badge badge-danger text-white clickable" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['menu'] ?>"><i class="bi bi-trash"> </i>Delete</a>
                                         </td>
                                         <?php $i++; ?>
                                     <?php endforeach; ?>

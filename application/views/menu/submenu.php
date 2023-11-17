@@ -54,9 +54,9 @@
                                             } ?>
                                         </td>
                                         <td>
-                                            <a data-toggle="modal" data-target="#editsubmenumodal" class="badge badge-primary text-white clickable" data-sub_id="<?= $sm['id'] ?>" data-title="<?= $sm['title'] ?>" data-menu_id="<?= $sm['menu_id'] ?>" data-url="<?= $sm['url'] ?>" data-icon="<?= $sm['icon'] ?>">Edit</a>
-                                            <a href="<?= base_url('menu/toggleactive/') . $sm['id'] . '/' . $sm['is_active'] . '/' . urldecode($sm['title']) ?>" class="badge badge-success clickable">Toggle Active</a>
-                                            <a data-toggle="modal" data-target="#deleteSubMenuModal" class="badge badge-danger text-white clickable" data-sub_id="<?= $sm['id'] ?>" data-title="<?= $sm['title'] ?>" data-menu_id="<?= $sm['menu_id'] ?>" data-url="<?= $sm['url'] ?>" data-icon="<?= $sm['icon'] ?>">Delete</a>
+                                            <a data-toggle="modal" data-target="#editsubmenumodal" class="badge badge-warning text-white clickable" data-sub_id="<?= $sm['id'] ?>" data-title="<?= $sm['title'] ?>" data-menu_id="<?= $sm['menu_id'] ?>" data-url="<?= $sm['url'] ?>" data-icon="<?= $sm['icon'] ?>"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                            <a href="<?= base_url('menu/toggleactive/') . $sm['id'] . '/' . $sm['is_active'] . '/' . urldecode($sm['title']) ?>" class="badge badge-primary clickable"><i class="bi bi-toggles"> </i>Toggle Active</a>
+                                            <a data-toggle="modal" data-target="#deleteSubMenuModal" class="badge badge-danger text-white clickable" data-sub_id="<?= $sm['id'] ?>" data-title="<?= $sm['title'] ?>" data-menu_id="<?= $sm['menu_id'] ?>" data-url="<?= $sm['url'] ?>" data-icon="<?= $sm['icon'] ?>"><i class="bi bi-trash"> </i>Delete</a>
                                         </td>
                                     </tr>
                                     <?php $i++; ?>
