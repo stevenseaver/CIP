@@ -75,7 +75,7 @@
                     <label for="amount" class="col-form-label">Amount</label>
                     <!-- <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Input amount.."> -->
                     <div class="input-group">
-                        <input type="number" class="form-control" id="amount" name="amount">
+                        <input type="number" class="form-control" id="amount" name="amount" step=".01">
                         <div class="input-group-append">
                             <span class="input-group-text" id="unit_amount"></span>
                         </div>

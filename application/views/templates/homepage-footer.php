@@ -42,6 +42,24 @@
                     <?php endforeach; ?>
                 </div>
                 <!-- Grid column -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+                    <!-- Links -->
+                    <h6 class="text-primary fw-bold mb-3">
+                        Why Us?
+                    </h6>
+                    <p>
+                        <a href="<?= base_url('web/lp0_circulatry') ?>" target="_blank" class="text-dark">Circular Economy</a>
+                    </p>
+                    <p>
+                        <a href="<?= base_url('web/lp1_quality') ?>" target="_blank" class="text-dark">High Quality</a>
+                    </p>
+                    <p>
+                        <a href="<?= base_url('web/lp2_eco') ?>" target="_blank" class="text-dark">Eco-Mindful</a>
+                    </p>
+                    <p>
+                        <a href="<?= base_url('web/lp3_guideline') ?>" target="_blank" class="text-dark">Customization</a>
+                    </p>
+                </div>
 
                 <!-- Grid column -->
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">

@@ -24,8 +24,8 @@ date_default_timezone_set('Asia/Krasnoyarsk');
 | a PHP script and you can easily do that on your own.
 |
 */
-// $config['base_url'] = 'http://192.168.1.9/cip/';
-$config['base_url'] = 'http://localhost/banksampah/';
+$config['base_url'] = 'http://192.168.1.9/cip/';
+// $config['base_url'] = 'http://localhost/banksampah/';
 
 /*
 |--------------------------------------------------------------------------

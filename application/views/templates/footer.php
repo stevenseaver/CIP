@@ -480,10 +480,12 @@
          var $id = $row.find(".id").text();
          var $name = $row.find(".name").text();
          var $unit = $row.find(".unit").text();
+         var $price = $row.find(".price").text();
 
          // input passed data using JS to object INPUT from modal #newItem 
          document.getElementById("material").value = $id;
          document.getElementById("materialName").value = $name;
+         document.getElementById("price").value = $price;
          document.getElementById("unit_amount").innerText = $unit;
      });
 
