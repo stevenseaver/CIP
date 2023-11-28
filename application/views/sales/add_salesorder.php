@@ -140,10 +140,17 @@
                                 <!-- Item code -->
                                 <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Ordered amount">
                                 <div class="input-group-append">
-                                    <span class="input-group-text">unit(s)</span>
+                                    <span class="input-group-text" id="unit" name="unit">unit(s)</span>
                                 </div>
                                 <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <!-- Item price -->
+                            <label for="notes" class="col-form-label">Notes</label>
+                            <input type="text" class="form-control" id="notes" name="notes" value="<?= set_value('notes'); ?>">
                         </div>
                     </div>
                 </div>
@@ -264,6 +271,7 @@
                                     <th>Finished Good</th>
                                     <th>Code</th>
                                     <th>Stock</th>
+                                    <th>Unit</th>
                                     <th>Pcs per Pack</th>
                                     <th>Pack per Sack</th>
                                     <th>Unit Price</th>
@@ -278,13 +286,8 @@
                                         <td><?= $i ?></td>
                                         <td class="name"><?= $fs['name'] ?></td>
                                         <td class="code"><?= $fs['code'] ?></td>
-                                        <td class="in_stock"><?php
-                                            if ($fs['categories'] == '6' or $fs['categories'] == '7') {
-                                                echo number_format($fs['in_stock'], 2, ',', '.') . ' kg';
-                                            } else {
-                                                echo number_format($fs['in_stock'], 2, ',', '.') . ' pack';
-                                            } ?>
-                                        </td>
+                                        <td class="in_stock"><?= number_format($fs['in_stock'], 2, ',', '.'); ?></td>
+                                        <td class="unit"><?= $fs['unit_satuan']; ?></td>
                                         <td class="pcsperpack"><?= $fs['pcsperpack']; ?></td>
                                         <td class="packpersack"><?= $fs['packpersack']; ?></td>
                                         <td class="price"><?= $fs['price']; ?></td>

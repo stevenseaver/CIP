@@ -461,6 +461,7 @@
          var $price = $row.find(".price").text();
          var $pcsperpack = $row.find(".pcsperpack").text();
          var $packpersack = $row.find(".packpersack").text();
+         var $unit = $row.find(".unit").text();
 
          // input passed data using JS to object INPUT from modal #newItem 
          document.getElementById("name").value = $name;
@@ -469,6 +470,7 @@
          document.getElementById("price").value = $price;
          document.getElementById("pcsperpack").value = $pcsperpack;
          document.getElementById("packpersack").value = $packpersack;
+         document.getElementById("unit").innerText = $unit;
         //  document.getElementById("pcsperpack").value = pcs;
         //  document.getElementById("packpersack").value = pack;
      });

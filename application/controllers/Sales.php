@@ -159,6 +159,7 @@ class Sales extends CI_Controller
         $this->form_validation->set_rules('code', 'code', 'trim');
         $this->form_validation->set_rules('price', 'price', 'trim');
         $this->form_validation->set_rules('amount', 'amount', 'numeric|required|trim');
+        $this->form_validation->set_rules('notes', 'notes', 'required|trim');
         
         //to get cust data
         $data['custDetails'] = $this->db->get_where('cart', ['ref' => $ref])->row_array();
@@ -188,6 +189,7 @@ class Sales extends CI_Controller
             $code = $this->input->post('code');
             $price = $this->input->post('price');
             $amount = $this->input->post('amount');
+            $desc = $this->input->post('notes');
             $subtotal = $price * $amount;
 
             //get selected item
@@ -195,6 +197,7 @@ class Sales extends CI_Controller
 
             $prod_cat = $data['itemselect']['categories'];
             $item_id = $data['itemselect']['id'];
+            $unit = $data['itemselect']['unit_satuan'];
 
             $date = time();
             // add data to cart database
@@ -207,6 +210,7 @@ class Sales extends CI_Controller
                 'prod_cat' => $prod_cat,
                 'deliveryTo' => $cust_address,
                 'qty' => $amount,
+                'unit' => $unit,
                 'price' => $price,
                 'subtotal' => $subtotal,
                 'status' => 1
@@ -236,7 +240,8 @@ class Sales extends CI_Controller
                 'outgoing' => $amount,
                 'status' => $transaction_status,
                 'warehouse' => $warehouse,
-                'transaction_id' => $ref
+                'transaction_id' => $ref,
+                'description' => $desc
             ];
             
             // USE THIS IF ITEM STOCK AKHIR IS CHANGED ON PAYMENT

@@ -56,11 +56,7 @@ foreach ($dataCart as $data) {
     $i++;
     $pdf->Cell(10, 8, $i, 1, 0, 'C');
     $pdf->Cell(85, 8, $data->item_name, 1, 0);
-    if ($data->prod_cat == 6 or $data->prod_cat == 7 or $data->prod_cat == 8    ) {
-        $pdf->Cell(30, 8, $data->qty . ' kg(s)', 1, 0, 'C');
-    } else {
-        $pdf->Cell(30, 8, $data->qty . ' pack(s)', 1, 0, 'C');
-    }
+    $pdf->Cell(30, 8, $data->qty . ' ' . $data->unit, 1, 0, 'C');
     $pdf->Cell(30, 8, $this->cart->format_number($data->price, '0', ',', '.'), 1, 0, 'C');
     $pdf->Cell(40, 8, $this->cart->format_number($data->subtotal, '0', ',', '.'), 1, 1, 'C');
     $temp = $temp + $data->subtotal;

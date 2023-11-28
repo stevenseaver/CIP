@@ -153,11 +153,7 @@
                                         <tr>
                                             <td><?= $i; ?></td>
                                             <td><?= $items['item_name']; ?></td>
-                                            <?php if ($items['prod_cat'] == '6' or $items['prod_cat'] == '7') : ?>
-                                                <td><?= $this->cart->format_number($items['qty'], '2', ',', '.') . ' kg(s)'; ?></td>
-                                            <?php else : ?>
-                                                <td><?= $this->cart->format_number($items['qty'], '2', ',', '.') . ' pack(s)'; ?></td>
-                                            <?php endif; ?>
+                                            <td><?= $this->cart->format_number($items['qty'], '2', ',', '.') . ' ' . $items['unit']; ?></td>
                                             <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
                                             </td>
                                             <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
