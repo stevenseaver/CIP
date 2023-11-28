@@ -1880,6 +1880,8 @@ class Inventory extends CI_Controller
                 $config['upload_path']          = './asset/img/maintenance/';
                 $config['allowed_types']        = 'gif|jpg|png';
                 $config['max_size']             = 5120;
+                $config['overwrite']            = TRUE;
+                $config['remove_spaces']        = FALSE;
 
                 $this->load->library('upload', $config);
                 $this->upload->initialize($config);
@@ -1887,7 +1889,6 @@ class Inventory extends CI_Controller
                 if ($this->upload->do_upload('image')) {
                     // $new_image = $this->upload->data('file_name');
                     $new_image = $this->upload->data('file_name');
-
                     // echo $new_image;
 
                     $data1 = [
