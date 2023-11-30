@@ -238,6 +238,96 @@
                 </div>
             </div>
         </div>
+
+        <!-- Sales Info -->
+        <div class="row">
+            <div class="col-lg-12 mb-2">
+                <!-- Project Card Example -->
+                <div class="card shadow mb-1">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Sales Info</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="dataTable2" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>Invoice Number</th>
+                                        <th>Date</th>
+                                        <th>Customer</th>
+                                        <th>Total Amount</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $temp = 0; ?>
+                                    <?php foreach ($sales_data as $sales) :
+                                        if ($before != $sales['ref']) { 
+                                            $date_now = time();
+                                            // $due_date = $sales['date'] + $sales['term'] * 24 * 3600;
+                                            // if($sales['is_paid'] == 0 and $due_date < $date_now ) { ?>
+                                                <tr>
+                                                    <td><?= $sales['ref'] ?></td>
+                                                    <td><?= date('d F Y H:i:s', $sales['date']); ?></td>
+                                                    <!-- <td><?= date('d F Y H:i:s', $due_date); ?></td> -->
+                                                    <td><?= $sales['name'] ?></td>
+                                                    <td>
+                                                        <?php 
+                                                            foreach ($sales_data as $amount) :
+                                                                if ($amount['ref'] == $sales['ref']) {
+                                                                    $value = $amount['price'] * $amount['qty'];
+                                                                    $temp = $temp + $value; 
+                                                                } else {
+
+                                                                }
+                                                            endforeach;
+                                                            // if($sales['tax'] == 0){
+
+                                                            // } else if ($sales['tax'] == 1) {
+                                                            //     $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
+                                                            //     $purchase_tax = $data['purchase_tax']['value'];
+                                                                
+                                                            //     $tax = $purchase_tax/100 * $temp;
+
+                                                            //     $temp = $temp + $tax;
+                                                                
+                                                            // }
+                                                            echo number_format($temp, 2, ',', '.'); 
+                                                        ?>
+                                                    </td>
+                                                    <td><?php 
+                                                        if ($sales['status'] == 1) {
+                                                            echo '<p class="badge badge-warning">Not yet delivered</p>';
+                                                        } else if ($sales['status'] == 2){
+                                                            echo '<p class="badge badge-primary">Delivering</p>';
+                                                        } else if ($sales['status'] == 3){
+                                                            echo '<p class="badge badge-success">Delivered</p>';
+                                                        }?>
+                                                    </td>
+                                                    <td>
+                                                        <a href="<?= base_url('sales/info_detail/') . $sales['customer_id'] . '/' . $sales['ref'] . '/' . $sales['date'] . '/' . $sales['status']?>" class="badge badge-primary">Details</a>
+                                                    </td>
+                                                </tr>
+                                        <?php
+                                            $before = $sales['ref'];
+                                            $temp = 0;
+                                            $tax = 0;
+                                            // } else {
+
+                                            // }
+                                        } else {
+                                        } ?>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Content Row -->
         <div class="row">
             <!-- Content Column -->

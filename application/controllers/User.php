@@ -31,6 +31,9 @@ class User extends CI_Controller
         $status = 8; //purchase order data only
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['inventory_item_received'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
+        //get sales info
+        $this->load->model('Sales_model', 'custID');
+        $data['sales_data'] = $this->custID->getInfo(0);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
