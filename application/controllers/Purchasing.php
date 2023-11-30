@@ -141,6 +141,7 @@ class Purchasing extends CI_Controller
         $data['po_id'] = $id;
         //get data
         $data['sup_name'] = $data['supplier']['supplier_name'];
+        $data['sup_acc'] = $data['supplier']['bank_account'];
         $data['date'] = $date;
 
         $this->load->view('templates/header', $data);
@@ -210,6 +211,7 @@ class Purchasing extends CI_Controller
         $data['poID'] = $po_id;
         //get data
         $data['sup_name'] = $data['supplier']['supplier_name'];
+        $data['sup_acc'] = $data['supplier']['bank_account'];
         $data['date'] = $date;
 
         $this->load->view('templates/header', $data);
@@ -232,6 +234,7 @@ class Purchasing extends CI_Controller
         $data['poID'] = $id;
         //get data
         $data['sup_name'] = $data['supplier']['supplier_name'];
+        $data['sup_acc'] = $data['supplier']['bank_account'];
         $data['date'] = $date;
 
         $this->load->view('templates/header', $data);
@@ -357,6 +360,7 @@ class Purchasing extends CI_Controller
         $data['poID'] = $id;
         //get data
         $data['sup_name'] = $data['supplier']['supplier_name'];
+        $data['sup_acc'] = $data['supplier']['bank_account'];
         $data['date'] = $date;
 
         $this->load->view('templates/header', $data);
@@ -418,6 +422,7 @@ class Purchasing extends CI_Controller
         $data['poID'] = $id;
         //get data
         $data['sup_name'] = $data['supplier']['supplier_name'];
+        $data['sup_acc'] = $data['supplier']['bank_account'];
         $data['sup_id'] = $supplier_id;
         $data['date'] = $date;
         

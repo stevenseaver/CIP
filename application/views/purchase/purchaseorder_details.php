@@ -39,16 +39,24 @@
 
     <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">
-            <p class="text-dark mb-1">PO Ref : </p>
-            <p class="text-dark font-weight-bold"> <?= $getID['transaction_id'] ?></p>
-            <p class="text-dark mb-1">Weighting Doc. : </p>
-            <p class="text-dark font-weight-bold"> <?= $getID['description'] ?></p>
-            <p class="text-dark mb-1">Date : </p>
-            <p class="text-dark font-weight-bold"> <?= date('d F Y H:i:s', $getID['date']) ?></p>
-            <p class="text-dark mb-1">Supplier : </p>
-            <p class="text-dark font-weight-bold"> <?= $sup_name ?></p>
-            <p class="text-dark mb-1">Tax : </p>
-            <p class="text-dark font-weight-bold"> <?= $tax ?>% </p>
+            <div class="row">
+                <div class="col-lg">
+                    <p class="text-dark mb-1">PO Ref : </p>
+                    <p class="text-dark font-weight-bold"> <?= $getID['transaction_id'] ?></p>
+                    <p class="text-dark mb-1">Weighting Doc. : </p>
+                    <p class="text-dark font-weight-bold"> <?= $getID['description'] ?></p>
+                    <p class="text-dark mb-1">Date : </p>
+                    <p class="text-dark font-weight-bold"> <?= date('d F Y H:i:s', $getID['date']) ?></p>
+                </div>
+                <div class="col-lg">
+                    <p class="text-dark mb-1">Supplier : </p>
+                    <p class="text-dark font-weight-bold"> <?= $sup_name ?></p>
+                    <p class="text-dark mb-1">Bank Account : </p>
+                    <p class="text-dark font-weight-bold"> <?= $sup_acc ?></p>
+                    <p class="text-dark mb-1">Tax : </p>
+                    <p class="text-dark font-weight-bold"> <?= $tax ?>% </p>
+                </div>
+            </div>
         </div>
     </div>
 
