@@ -255,7 +255,7 @@
                                         <th>Invoice Number</th>
                                         <th>Date</th>
                                         <th>Customer</th>
-                                        <th>Total Amount</th>
+                                        <th>Total Amount (Excl. Tax)</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
