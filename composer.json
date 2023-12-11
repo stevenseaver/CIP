@@ -10,15 +10,9 @@
 		"slack": "https://codeigniterchat.slack.com",
 		"source": "https://github.com/bcit-ci/CodeIgniter"
 	},
-	"repositories": [
-		{
-		  "type": "vcs",
-		  "url": "https://github.com/xendit/xendit-php.git"
-		}
-	  ],
 	"require": {
 		"php": ">=5.3.7",
-		"xendit/xendit-php": "4.0.0"
+		"xendit/xendit-php": "^4.1"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

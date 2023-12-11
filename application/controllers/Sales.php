@@ -1,6 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use Xendit\Xendit;
+
 class Sales extends CI_Controller
 {
     public function __construct()
@@ -609,5 +611,27 @@ class Sales extends CI_Controller
         // send message
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Customer named ' . $deleteCust["name"] . ' with ID ' . $deleteCust["id"] . ' deleted!</div>');
         redirect('sales/customer');
+    }
+
+    public function submitPayment(){
+        $external_id = $this->input->post('external_id');
+        $amount = $this->input->post('amount');
+        $name = $this->input->post('name');
+
+        $this->load->library('xendit');
+
+        Xendit::setApiKey('xnd_development_UWOVFQtA7YiczxR9nPPVHAioV8TRnL5mTU1vcJHpTW55UW2oUuJsmb3UTAqO');
+        
+        $params = [
+            "external_id" => $external_id,
+            "name" => $name,
+            "amount" => $amount
+        ];
+        
+        $invoice = $this->xendit->createInvoice($params);
+        
+        echo $external_id;
+        echo $amount;
+        var_dump($invoice);
     }
 }

@@ -240,14 +240,28 @@
             echo form_close();
             else : ?>
         </div>
-            <div class="row mx-3 my-0 justify-content-center">
-                <h1 class="text-gray-400"><i class="bi bi-bag-plus fa-5x"></i></h1>
-            </div>
-            <div class="row mx-3 justify-content-center">
-                <div class="" role="alert">Sales order is empty.</a></div>
-            </div>
+        <div class="row mx-3 my-0 justify-content-center">
+            <h1 class="text-gray-400"><i class="bi bi-bag-plus fa-5x"></i></h1>
+        </div>
+        <div class="row mx-3 justify-content-center">
+            <div class="" role="alert">Sales order is empty.</a></div>
+        </div>
         <?php endif;
         ?>
+        <div class="container">
+            <form action="<?= base_url('Sales/submitPayment') ?>" method="post">
+                <p> External ID : 
+                    <input type="text" name="external_id" id="external_id" value="<?= $ref ?>">
+                </p>     
+                <p> Amount : 
+                    <input type="text" name="amount" id="amount" value="<?= $grandTotal?>">
+                </p>           
+                <p> Name : 
+                    <input type="text" name="name" id="name" value="<?= $input_cust_name?>">
+                </p>           
+                <input type="submit" value="submit">
+            </form>
+        </div>
     </div>
     <!-- /.container-fluid -->
 
