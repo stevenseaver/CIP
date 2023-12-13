@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-use Xendit\Xendit;
+use Xendit\Configuration;
+use Xendit\Invoice\InvoiceAPI;
 
 class Sales extends CI_Controller
 {
@@ -618,20 +619,20 @@ class Sales extends CI_Controller
         $amount = $this->input->post('amount');
         $name = $this->input->post('name');
 
-        $this->load->library('xendit');
+        // $this->load->library('xendit');
 
-        Xendit::setApiKey('xnd_development_UWOVFQtA7YiczxR9nPPVHAioV8TRnL5mTU1vcJHpTW55UW2oUuJsmb3UTAqO');
-        
-        $params = [
+        Configuration::setXenditKey('xnd_development_UWOVFQtA7YiczxR9nPPVHAioV8TRnL5mTU1vcJHpTW55UW2oUuJsmb3UTAqO');
+
+        $params =  new Xendit\Invoice\CreateInvoiceRequest ([ 
             "external_id" => $external_id,
-            "name" => $name,
-            "amount" => $amount
-        ];
-        
-        $invoice = $this->xendit->createInvoice($params);
-        
-        echo $external_id;
-        echo $amount;
-        var_dump($invoice);
+            "amount" => $amount,
+            "name" => $name
+        ]);
+
+        $for_user_id = "1278y4981749812rh";
+
+        $apiInstance = new InvoiceApi();
+        $invoices = $apiInstance->createInvoice($params, $for_user_id);
+        var_dump($invoices);
     }
 }
