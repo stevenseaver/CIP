@@ -30,4 +30,14 @@ class Sales_model extends CI_Model
         ";
         return $this->db->query($query)->result_array();
     }
+
+    public function getRow($inv)
+    {
+        $query = "SELECT `user`.*,`cart`.*
+                    FROM `user` JOIN `cart`
+                      ON `cart`.`customer_id` = `user`.`id`
+                   WHERE `ref` = '$inv'
+        ";
+        return $this->db->query($query)->row_array();
+    }
 }

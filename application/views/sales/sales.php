@@ -61,7 +61,7 @@
                                                 <img class="img-fluid rounded" src="<?= base_url('asset/img/payment/') . $items['img']  ?>" alt="Payment Invoice" style="width: 15rem;">
                                             </td> -->
                                             <td>
-                                                <a href="<?= base_url('sales/sales_detail/') . urldecode($items['name']) . '/' . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>" class="badge badge-primary">Details</a>
+                                                <a href="<?= base_url('sales/sales_detail/') . $items['ref'] ?>" class="badge badge-primary">Details</a>
                                                 <a href="<?= base_url('sales/add_salesorder/') . $items['ref'] ?>" class="badge badge-warning">Edit</a>
                                                 <?php if($items['img']){ ?>
                                                     <a href="<?= base_url('sales/enlarge_image/') . $items['img'] ?>" class="badge badge-info">See Payment Proof</a>

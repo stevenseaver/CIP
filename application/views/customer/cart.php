@@ -34,13 +34,8 @@
                                     <td><?= $i; ?></td>
                                     <td><?= $items['item_name']; ?></td>
                                     <td style="width: 100px">
-                                        <?php if ($items['prod_cat'] != '6' or $items['prod_cat'] != '7') : ?>
-                                            <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>">
-                                            <p class="text-center">pack</p>
-                                        <?php else : ?>
-                                            <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>">
-                                            <p class="text-center">kg</p>
-                                        <?php endif; ?>
+                                        <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" value="<?= $items['qty']; ?>">
+                                        <p class="text-center"><?= $items['unit']; ?></p>
                                     </td>
                                     <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
                                     </td>

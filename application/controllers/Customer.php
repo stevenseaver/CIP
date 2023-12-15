@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use Xendit\Configuration;
+use Xendit\Invoice\InvoiceAPI;
+
 class Customer extends CI_Controller
 {
     public function __construct()
@@ -82,6 +85,7 @@ class Customer extends CI_Controller
             $price = $data['itemselect']['price'];
             $amount = $this->input->post('amount');
             $prod_cat = $data['itemselect']['categories'];
+            $unit = $data['itemselect']['unit_satuan'];
             $subtotal = $data['itemselect']['price'] * $amount;
 
             $date = time();
@@ -94,6 +98,7 @@ class Customer extends CI_Controller
                 'prod_cat' => $prod_cat,
                 'qty' => $amount,
                 'price' => $price,
+                'unit' => $unit,
                 'subtotal' => $subtotal
             );
 
@@ -336,5 +341,40 @@ class Customer extends CI_Controller
         $this->load->view('templates/topbar_cust', $data);
         $this->load->view('customer/history_details', $data);
         $this->load->view('templates/footer');
+    }
+
+    //** XENDIT PAYMENT */
+    //** XENDIT PAYMENT */
+
+    public function submitPayment(){
+        $external_id = $this->input->post('external_id');
+        $amount = $this->input->post('amount');
+        $name = $this->input->post('name');
+
+        // $this->load->library('xendit');
+
+        Configuration::setXenditKey('xnd_development_UWOVFQtA7YiczxR9nPPVHAioV8TRnL5mTU1vcJHpTW55UW2oUuJsmb3UTAqO');
+
+        $params = ([ 
+            "external_id" => $external_id,
+            'description' => 'Cart Payment',
+            "amount" => $amount,
+            'invoice_duration' => 1800,
+            'currency' => 'IDR',
+            'reminder_time' => 1
+        ]);
+
+        $apiInstance = new InvoiceApi();
+        $create_invoice_request = new Xendit\Invoice\CreateInvoiceRequest($params); // \Xendit\Invoice\CreateInvoiceRequest
+        $for_user_id = ""; // string | Business ID of the sub-account merchant (XP feature)
+
+        try {
+            $result = $apiInstance->createInvoice($create_invoice_request, $for_user_id);
+            redirect($result['invoice_url']);
+        } catch (\Xendit\XenditSdkException $e) {
+            echo 'Exception when calling InvoiceApi->createInvoice: ', $e->getMessage(), PHP_EOL;
+            echo ' | Full Error: ', json_encode($e->getFullError()), PHP_EOL;
+        }
+        // var_dump($create_invoice_request);
     }
 }

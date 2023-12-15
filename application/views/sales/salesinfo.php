@@ -70,7 +70,7 @@
                                             <?php } ?>  
                                         </td>
                                         <td>
-                                            <a href="<?= base_url('sales/info_detail/') . urldecode($items['name']) . '/' . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>" class="badge badge-primary">Details</a>
+                                            <a href="<?= base_url('sales/info_detail/') . $items['ref']?>" class="badge badge-primary">Details</a>
                                         </td>
                                     </tr>
                                     <?php

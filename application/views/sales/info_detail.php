@@ -17,7 +17,7 @@
     </a>
 
     <!-- view pdf SO  -->
-    <a href="<?= base_url('sales/createPDF/4/') . $ref . '/' . urldecode($customer) . '/' . $date ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+    <a href="<?= base_url('sales/createPDF/4/') . $ref ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
         <span class="icon text-white-50">
             <i class="bi bi-eye"></i>
         </span>
@@ -116,13 +116,13 @@
                 </div>
             <?php } ?>
             <p class="text-dark mb-1">Customer Name. : </p>
-            <p class="text-dark font-weight-bold"> <?= urldecode($customer) ?></p>
+            <p class="text-dark font-weight-bold"> <?= $customer; ?></p>
             <p class="text-dark mb-1">Invoice Ref. : </p>
-            <p class="text-dark font-weight-bold"> <?= $ref ?></p>
+            <p class="text-dark font-weight-bold"> <?= $ref; ?></p>
             <p class="text-dark mb-1">Date : </p>
             <p class="text-dark font-weight-bold"> <?= date('d F Y H:i', $date); ?></p>
             <p class="text-dark mb-1">Delivery Address:</p>
-            <p class="text-dark font-weight-bold"><?= $address['deliveryTo']; ?></p>
+            <p class="text-dark font-weight-bold"><?= $address; ?></p>
         </div>
     </div>
 

@@ -1,9 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-use Xendit\Configuration;
-use Xendit\Invoice\InvoiceAPI;
-
 class Sales extends CI_Controller
 {
     public function __construct()
@@ -32,20 +29,23 @@ class Sales extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function sales_detail($customer, $inv, $date, $status)
+    public function sales_detail($inv)
     {
         //load user data per session
         $data['title'] = 'Customer Transaction Details';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
-        $data['customer'] = $customer;
+        $this->load->model('Sales_model', 'custID');
+        $data['dataRow'] = $this->custID->getRow($inv);
+
+        $data['customer'] = $data['dataRow']['name'];
         $data['ref'] = $inv;
-        $data['date'] = $date;
-        $data['status'] = $status;
+        $data['date'] = $data['dataRow']['date'];
+        $data['status'] = $data['dataRow']['status'];
+        $data['address'] = $data['dataRow']['deliveryTo'];
 
         $data['dataCart'] = $this->db->get_where('cart', ['ref' => $data['ref']])->result_array();
-        $data['address'] = $this->db->get_where('cart', ['ref' => $data['ref']])->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -361,20 +361,23 @@ class Sales extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function delivery_detail($customer, $inv, $date, $status)
+    public function delivery_detail($inv)
     {
         //load user data per session
         $data['title'] = 'Delivery Order Details';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
-        $data['customer'] = $customer;
+        $this->load->model('Sales_model', 'custID');
+        $data['dataRow'] = $this->custID->getRow($inv);
+
+        $data['customer'] = $data['dataRow']['name'];
         $data['ref'] = $inv;
-        $data['date'] = $date;
-        $data['status'] = $status;
+        $data['date'] = $data['dataRow']['date'];
+        $data['status'] = $data['dataRow']['status'];
+        $data['address'] = $data['dataRow']['deliveryTo'];
 
         $data['dataCart'] = $this->db->get_where('cart', ['ref' => $data['ref']])->result_array();
-        $data['address'] = $this->db->get_where('cart', ['ref' => $data['ref']])->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -383,15 +386,21 @@ class Sales extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function createPDF($type, $inv, $customer, $date)
+    public function createPDF($type, $inv)
     {
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
-        $data['user_name'] = $data['user']['name'];
+        $this->load->model('Sales_model', 'custID');
+        $data['dataRow'] = $this->custID->getRow($inv);
+
         $data['ref'] = $inv;
-        $data['cust_name'] = urldecode($customer);
-        $data['date'] = $date;
+        $data['cust_name'] = $data['dataRow']['name'];
+        $data['date'] = $data['dataRow']['date'];
+        $data['status'] = $data['dataRow']['status'];
+        $data['address'] = $data['dataRow']['deliveryTo'];
+        $data['user_name'] = $data['user']['name'];
+
         if ($type == 1) {
             $this->load->view('sales/pdf_sales_order', $data);
         } else if ($type == 2) {
@@ -429,13 +438,16 @@ class Sales extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
-        $data['customer'] = $customer;
+        $this->load->model('Sales_model', 'custID');
+        $data['dataRow'] = $this->custID->getRow($inv);
+
+        $data['customer'] = $data['dataRow']['name'];
         $data['ref'] = $inv;
-        $data['date'] = $date;
-        $data['status'] = $status;
+        $data['date'] = $data['dataRow']['date'];
+        $data['status'] = $data['dataRow']['status'];
+        $data['address'] = $data['dataRow']['deliveryTo'];
 
         $data['dataCart'] = $this->db->get_where('cart', ['ref' => $data['ref']])->result_array();
-        $data['address'] = $this->db->get_where('cart', ['ref' => $data['ref']])->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -460,20 +472,23 @@ class Sales extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function info_detail($customer, $inv, $date, $status)
+    public function info_detail($inv)
     {
         //load user data per session
         $data['title'] = 'Transaction Details';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
-        $data['customer'] = $customer;
+        $this->load->model('Sales_model', 'custID');
+        $data['dataRow'] = $this->custID->getRow($inv);
+
+        $data['customer'] = $data['dataRow']['name'];
         $data['ref'] = $inv;
-        $data['date'] = $date;
-        $data['status'] = $status;
+        $data['date'] = $data['dataRow']['date'];
+        $data['status'] = $data['dataRow']['status'];
+        $data['address'] = $data['dataRow']['deliveryTo'];
 
         $data['dataCart'] = $this->db->get_where('cart', ['ref' => $data['ref']])->result_array();
-        $data['address'] = $this->db->get_where('cart', ['ref' => $data['ref']])->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -612,27 +627,5 @@ class Sales extends CI_Controller
         // send message
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Customer named ' . $deleteCust["name"] . ' with ID ' . $deleteCust["id"] . ' deleted!</div>');
         redirect('sales/customer');
-    }
-
-    public function submitPayment(){
-        $external_id = $this->input->post('external_id');
-        $amount = $this->input->post('amount');
-        $name = $this->input->post('name');
-
-        // $this->load->library('xendit');
-
-        Configuration::setXenditKey('xnd_development_UWOVFQtA7YiczxR9nPPVHAioV8TRnL5mTU1vcJHpTW55UW2oUuJsmb3UTAqO');
-
-        $params =  new Xendit\Invoice\CreateInvoiceRequest ([ 
-            "external_id" => $external_id,
-            "amount" => $amount,
-            "name" => $name
-        ]);
-
-        $for_user_id = "1278y4981749812rh";
-
-        $apiInstance = new InvoiceApi();
-        $invoices = $apiInstance->createInvoice($params, $for_user_id);
-        var_dump($invoices);
     }
 }

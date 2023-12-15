@@ -45,7 +45,7 @@
                                                 <img class="img-fluid rounded" src="<?= base_url('asset/img/payment/') . $items['img']  ?>" alt="Payment Invoice" style="width: 15rem;">
                                             </td>
                                             <td>
-                                                <a href="<?= base_url('sales/delivery_detail/') . urldecode($items['name']) . '/' . $items['ref'] . '/' . $items['date'] . '/' . $items['status'] ?>" class="badge badge-primary">Delivery Detail</a>
+                                                <a href="<?= base_url('sales/delivery_detail/') . $items['ref'] ?>" class="badge badge-primary">Delivery Detail</a>
                                                 <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '3' ?>" class="badge badge-success">Confirm Delivery</a>
                                             </td>
                                             </tr>

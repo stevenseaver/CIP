@@ -52,11 +52,11 @@
                                     </div> -->
                                     <div class="col-lg-10">
                                         <span class="font-weight-bold"><?= $cd['item_name'] ?></span>
-                                        <div class="small text-gray-500">IDR <?= number_format($cd['subtotal'], 0, ',', '.'); ?></div>
+                                        <div class="small text-gray-500">IDR <?= number_format($cd['subtotal'], 2, ',', '.'); ?></div>
                                         <?php $temp = $temp + $cd['subtotal']; ?>
                                     </div>
                                     <div class="col-lg-2">
-                                        <span class="font-weight-bold"> <?= number_format($cd['qty'], 0, ',', '.'); ?></span>
+                                        <span class="font-weight-bold"> <?= number_format($cd['qty'], 2, ',', '.'); ?></span>
                                     </div>
                                 </a>
                         <?php
@@ -64,7 +64,7 @@
                             } else {
                             }
                         endforeach; ?>
-                        <span class="dropdown-item text-center font-weight-bold">Total in cart: <?= 'IDR ' . number_format($grandTotal, 2, ',', '.'); ?></span>
+                        <span class="dropdown-item text-center font-weight-bold">Total in cart (excl. tax): <?= 'IDR ' . number_format($grandTotal, 2, ',', '.'); ?></span>
                         <a class="dropdown-item text-center text-gray-800" href="<?= base_url('customer/cart') ?>"><i class="bi bi-cart text-dark mr-2"></i>Open Cart</a>
                     </div>
                 </li>

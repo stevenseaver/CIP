@@ -248,20 +248,6 @@
         </div>
         <?php endif;
         ?>
-        <div class="container">
-            <form action="<?= base_url('Sales/submitPayment') ?>" method="post">
-                <p> External ID : 
-                    <input type="text" name="external_id" id="external_id" value="<?= $ref ?>">
-                </p>     
-                <p> Amount : 
-                    <input type="text" name="amount" id="amount" value="<?= $grandTotal?>">
-                </p>           
-                <p> Name : 
-                    <input type="text" name="name" id="name" value="<?= $input_cust_name?>">
-                </p>           
-                <input type="submit" value="submit">
-            </form>
-        </div>
     </div>
     <!-- /.container-fluid -->
 

@@ -92,6 +92,20 @@
                 </div>
             </div>
         </div>
+        <div class="container">
+            <form action="<?= base_url('Customer/submitPayment') ?>" method="post">
+                <p> External ID : 
+                    <input type="text" name="external_id" id="external_id" value="<?= $ref ?>">
+                </p>     
+                <p> Amount : 
+                    <input type="text" name="amount" id="amount" value="<?= $grandTotal?>">
+                </p>           
+                <p> Name : 
+                    <input type="text" name="name" id="name" value="TESTING">
+                </p>           
+                <input type="submit" value="submit">
+            </form>
+        </div>
         <div class="row mx-3 justify-content-start align-items-center">
             <?= form_open_multipart(base_url('Customer/payment/') . $ref . '/' . $user['id'] . '/0'); ?>
             <div class="row">
