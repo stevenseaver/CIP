@@ -71,7 +71,7 @@
                                     <a data-toggle="modal" data-target="#transferAssetModal" class="badge badge-primary clickable" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-position="<?= $inv['room_name'] ?>"><i class="bi bi-arrow-left-right"> </i>Transfer</a>
                                     <a data-toggle="modal" data-target="#editAssetModal" class="badge badge-secondary text-white clickable" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" data-user="<?= $inv['user'] ?>" data-spec="<?= $inv['spec'] ?>" data-value="<?= $inv['value'] ?>"><i class="bi bi-pencil-fill"> </i>Edit</a>
                                     <a href="<?= base_url('inventory/toggle_asset_status/') . $inv['id'] . "/" . $inv['status'] . "/" . $inv['name'] ?>" class="badge badge-warning clickable"><i class="bi bi-toggles"> </i>Toggle Status</a>
-                                    <a data-toggle="modal" data-target="#deleteAssetModal" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash"> </i>Delete</a>
+                                    <a data-toggle="modal" data-target="#deleteAssetModal" data-id="<?= $inv['id'] ?>" data-code="<?= $inv['code'] ?>" data-name="<?= $inv['name'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete</a>
                                     <?php
                                     if (empty($inv['user'])) {
                                         if ($user['role_id'] == '1') { ?>

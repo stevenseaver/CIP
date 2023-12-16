@@ -70,7 +70,7 @@
                                         </td>
                                         <td><?= $inv['description'] ?></td>
                                         <td>
-                                            <a href="<?= base_url('purchasing/info_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary">Details</a>
+                                            <a href="<?= base_url('purchasing/info_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary"><i class="bi bi-info-circle-fill"> </i>Details</a>
                                         </td>
                                     </tr>
                                     <?php
@@ -167,8 +167,8 @@
                                         </td>
                                         <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
                                         <td>
-                                            <a href="<?= base_url('purchasing/info_details/') . $inv_rcv['transaction_id'] . '/' . $inv_rcv['supplier'] . '/' . $inv_rcv['date'] ?>" class="badge badge-primary">Details</a>
-                                            <a href="<?= base_url('purchasing/paid/') . $inv_rcv['transaction_id'] .'/' . $inv_rcv['is_paid']?>" class="badge badge-success">Pay</a>
+                                            <a href="<?= base_url('purchasing/info_details/') . $inv_rcv['transaction_id'] . '/' . $inv_rcv['supplier'] . '/' . $inv_rcv['date'] ?>" class="badge badge-primary"><i class="bi bi-info-circle-fill"> </i>Details</a>
+                                            <a href="<?= base_url('purchasing/paid/') . $inv_rcv['transaction_id'] .'/' . $inv_rcv['is_paid']?>" class="badge badge-success"><i class="bi bi-currency-dollar"> </i>Pay</a>
                                         </td>
                                     </tr>
                                 <?php

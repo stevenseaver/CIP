@@ -42,7 +42,7 @@
                                             $temp = $temp + $value;  ?>
                                             <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
                                             <td>
-                                                <a href="<?= base_url('purchasing/receive_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary">Details</a>
+                                                <a href="<?= base_url('purchasing/receive_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary"><i class="bi bi-info-circle-fill"> </i>Details</a>
                                             </td>
                                         </tr>
                                     <?php

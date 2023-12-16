@@ -212,13 +212,13 @@
                                                     </td>
                                                     <td><?php 
                                                         if ($inv_rcv['is_paid'] == 0) {
-                                                            echo '<p class="badge badge-warning">Not yet paid</p>';
+                                                            echo '<p class="badge badge-warning">Unpaid</p>';
                                                         } else {
                                                             echo '<p class="badge badge-success">Paid</p>';
                                                         }?>
                                                     </td>
                                                     <td>
-                                                        <a href="<?= base_url('purchasing/info_details/') . $inv_rcv['transaction_id'] . '/' . $inv_rcv['supplier'] . '/' . $inv_rcv['date'] ?>" class="badge badge-primary">Details</a>
+                                                        <a href="<?= base_url('purchasing/info_details/') . $inv_rcv['transaction_id'] . '/' . $inv_rcv['supplier'] . '/' . $inv_rcv['date'] ?>" class="badge badge-primary"><i class="bi bi-info-circle"> </i>Details</a>
                                                     </td>
                                                 </tr>
                                         <?php
@@ -257,6 +257,7 @@
                                         <th>Customer</th>
                                         <th>Total Amount (Excl. Tax)</th>
                                         <th>Status</th>
+                                        <th>Payment Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -306,8 +307,15 @@
                                                             echo '<p class="badge badge-success">Delivered</p>';
                                                         }?>
                                                     </td>
+                                                    <td><?php 
+                                                        if ($sales['is_paid'] == 1) {
+                                                            echo '<p class="badge badge-success">Paid</p>';
+                                                        } else {
+                                                            echo '<p class="badge badge-warning">Unpaid</p>';
+                                                        } ?>
+                                                    </td>
                                                     <td>
-                                                        <a href="<?= base_url('sales/info_detail/') . $sales['customer_id'] . '/' . $sales['ref'] . '/' . $sales['date'] . '/' . $sales['status']?>" class="badge badge-primary">Details</a>
+                                                        <a href="<?= base_url('sales/info_detail/') . $sales['customer_id'] . '/' . $sales['ref'] . '/' . $sales['date'] . '/' . $sales['status']?>" class="badge badge-primary"><i class="bi bi-info-circle"> </i>Details</a>
                                                     </td>
                                                 </tr>
                                         <?php

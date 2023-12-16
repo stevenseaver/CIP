@@ -59,10 +59,10 @@
                                             $temp = $temp + $value;  ?>
                                             <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
                                             <td>
-                                                <a href="<?= base_url('purchasing/po_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary">Details</a>
-                                                <a href="<?= base_url('purchasing/add_po/') . $inv['transaction_id'] ?>" class="badge badge-warning">Edit</a>
-                                                <a href="<?= base_url('purchasing/transaction_status_change/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-success">Receive Item</a>
-                                                <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger">Delete PO</a>
+                                                <a href="<?= base_url('purchasing/po_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary"><i class="bi bi-info-circle-fill"> </i>Details</a>
+                                                <a href="<?= base_url('purchasing/add_po/') . $inv['transaction_id'] ?>" class="badge badge-warning"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                                <a href="<?= base_url('purchasing/transaction_status_change/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-success"><i class="bi bi-box-arrow-in-down"> </i>Receive Item</a>
+                                                <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger"><i class="bi bi-trash-fill"> </i>Delete PO</a>
                                             </td>
                                         </tr>
                                     <?php

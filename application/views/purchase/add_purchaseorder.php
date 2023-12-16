@@ -164,7 +164,7 @@
                                             <td class="price"><?= $fs['price']; ?></td>
                                             <td>
                                                 <!-- link this with a javascript -->
-                                                <a data-dismiss="modal" type="button" class="select-item-po badge badge-primary">Add</a> 
+                                                <a data-dismiss="modal" type="button" class="select-item-po badge badge-primary"><i class="bi bi-plus"> </i>Add</a> 
                                             </td>
                                         </tr>
                                         <?php $i++; ?>
@@ -215,7 +215,7 @@
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><?= $ms['item_desc'] ?></td>
                         <td>
-                            <a data-toggle="modal" data-target="#deleteItemPOModal" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
+                            <a data-toggle="modal" data-target="#deleteItemPOModal" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete</a>
                         </td>
                     </tr>
                     <?php $temp = $temp + $subtotal;

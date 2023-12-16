@@ -94,7 +94,7 @@
                         <?php $subtotal = $ms['incoming'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><?= $ms['item_desc'] ?></td>
-                        <td><a data-toggle="modal" data-target="#returnPurchaseModal" data-po="<?= $getID['transaction_id']?>" data-id="<?= $ms['id'] ?>" data-amount="<?= $ms['incoming']?>" class="badge badge-primary">Apply Return Order</a></td>
+                        <td><a data-toggle="modal" data-target="#returnPurchaseModal" data-po="<?= $getID['transaction_id']?>" data-id="<?= $ms['id'] ?>" data-amount="<?= $ms['incoming']?>" class="badge badge-primary"><i class="bi bi-backspace-fill"> </i>Apply Return Order</a></td>
                     </tr>
                     <?php $temp = $temp + $subtotal; ?>
                     <?php $i++; ?>

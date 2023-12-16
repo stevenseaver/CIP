@@ -26,6 +26,7 @@
                                     <th>Date</th>
                                     <th>Delivery Address</th>
                                     <th>Status</th>
+                                    <th>Payment Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -70,7 +71,24 @@
                                             <?php } ?>  
                                         </td>
                                         <td>
-                                            <a href="<?= base_url('sales/info_detail/') . $items['ref']?>" class="badge badge-primary">Details</a>
+                                            <?php if($items['is_paid'] == 1){ ?> 
+                                                <p class="mr-3 my-3 text-center">
+                                                    <span class="icon text-success mx-2">
+                                                        <i class="bi bi-currency-dollar"></i>
+                                                    </span>
+                                                    <span class="text-success">Paid</span>
+                                                </p>
+                                            <?php } else { ?> 
+                                                <p class="mr-3 my-3 text-center">
+                                                    <span class="icon text-danger mx-2">
+                                                        <i class="bi bi-currency-dollar"></i>
+                                                    </span>
+                                                    <span class="text-danger">Unpaid</span>
+                                                </p>
+                                            <?php } ?>
+                                        </td>
+                                        <td>
+                                            <a href="<?= base_url('sales/info_detail/') . $items['ref']?>" class="badge badge-primary"><i class="bi bi-info-circle"> </i>Details</a>
                                         </td>
                                     </tr>
                                     <?php

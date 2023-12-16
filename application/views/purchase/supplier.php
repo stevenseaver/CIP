@@ -52,8 +52,8 @@
                                 <td><?= $sup['terms']; ?></td>
                                 </td>
                                 <td>
-                                    <a data-toggle="modal" data-target="#editSupplierModal" data-id="<?= $sup['id'] ?>" data-name="<?= $sup['supplier_name'] ?>" data-address="<?= $sup['address'] ?>" data-phone="<?= $sup['phone'] ?>" data-email="<?= $sup['email'] ?>" data-account="<?= $sup['bank_account'] ?>" data-terms="<?= $sup['terms_id'] ?>" class="badge badge-success clickable">Edit</a>
-                                    <a data-toggle="modal" data-target="#deleteSupplierModal" data-id="<?= $sup['id'] ?>" data-name="<?= $sup['supplier_name'] ?>" class="badge badge-danger clickable">Delete</a>
+                                    <a data-toggle="modal" data-target="#editSupplierModal" data-id="<?= $sup['id'] ?>" data-name="<?= $sup['supplier_name'] ?>" data-address="<?= $sup['address'] ?>" data-phone="<?= $sup['phone'] ?>" data-email="<?= $sup['email'] ?>" data-account="<?= $sup['bank_account'] ?>" data-terms="<?= $sup['terms_id'] ?>" class="badge badge-success clickable"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                    <a data-toggle="modal" data-target="#deleteSupplierModal" data-id="<?= $sup['id'] ?>" data-name="<?= $sup['supplier_name'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete</a>
                                 </td>
                             </tr>
                             <?php $i++; ?>

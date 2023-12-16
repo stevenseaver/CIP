@@ -103,7 +103,12 @@
                 <p> Name : 
                     <input type="text" name="name" id="name" value="TESTING">
                 </p>           
-                <input type="submit" value="submit">
+                <button type="submit" class="btn btn-success btn-icon-split clickable">
+                    <span class="icon text-white-50">
+                        <i class="bi bi-currency-dollar"></i>
+                    </span>
+                    <span class="text">Pay with Xendit<span>
+                </button>
             </form>
         </div>
         <div class="row mx-3 justify-content-start align-items-center">

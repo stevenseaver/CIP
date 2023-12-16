@@ -212,19 +212,19 @@ class Customer extends CI_Controller
         $address = $data['user']['address'] . ', ' . $data['user']['city'] . ', ' . $data['user']['province'] . ', ' . $data['user']['country'] . ', ' . $data['user']['postal'];
 
         //cek jika ada gambar yang akan di upload
-        $upload_image = $_FILES['image']['name'];
-        $file_ext = pathinfo($upload_image, PATHINFO_EXTENSION);
+        // $upload_image = $_FILES['image']['name'];
+        // $file_ext = pathinfo($upload_image, PATHINFO_EXTENSION);
 
-        if ($upload_image) {
-            $config['file_name']            = $ref;
-            $config['upload_path']          = './asset/img/payment/';
-            $config['allowed_types']        = 'gif|jpg|png';
-            $config['max_size']             = 2048;
-            //load lib
-            $this->load->library('upload', $config);
-            $this->upload->initialize($config);
+        // if ($upload_image) {
+        //     $config['file_name']            = $ref;
+        //     $config['upload_path']          = './asset/img/payment/';
+        //     $config['allowed_types']        = 'gif|jpg|png';
+        //     $config['max_size']             = 2048;
+        //     //load lib
+        //     $this->load->library('upload', $config);
+        //     $this->upload->initialize($config);
 
-            if ($this->upload->do_upload('image')) {
+        //     if ($this->upload->do_upload('image')) {
                 //get cart database and update stock finished goods first
                 //status 0 means the cart aren't yet assigned with ref number, hence if the user add more to the cart, they still can
                 $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id'], 'status' => '0'])->result_array();
@@ -278,13 +278,13 @@ class Customer extends CI_Controller
                 endforeach;
                 
                 // then upload image and update cart database
-                $new_image = $ref . '.' . $file_ext;
+                // $new_image = $ref . '.' . $file_ext;
 
                 $data_db = array(
                     'ref' => $ref,
                     'date' => $date,
                     'status' => 1,
-                    'img' => $new_image,
+                    'is_paid' => 1,
                     'deliveryTo' => $address
                 );
 
@@ -293,14 +293,14 @@ class Customer extends CI_Controller
                 $this->db->update('cart', $data_db);
 
                 redirect('customer/history');
-            } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger pb-0" role="alert">' . $this->upload->display_errors() . '. Double check your address, it will reset to the original address.</div>');
-                redirect('customer/check_out/' . $data['user']['name'] . '/1');
-            }
-        } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">No payment image to be uploaded! Double check your address, it will reset to the original address.</div>');
-            redirect('customer/check_out/' . $data['user']['name'] . '/1');
-        }
+            // } else {
+            //     $this->session->set_flashdata('message', '<div class="alert alert-danger pb-0" role="alert">' . $this->upload->display_errors() . '. Double check your address, it will reset to the original address.</div>');
+            //     redirect('customer/check_out/' . $data['user']['name'] . '/1');
+            // }
+        // } else {
+        //     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">No payment image to be uploaded! Double check your address, it will reset to the original address.</div>');
+        //     redirect('customer/check_out/' . $data['user']['name'] . '/1');
+        // }
     }
 
 
@@ -347,6 +347,9 @@ class Customer extends CI_Controller
     //** XENDIT PAYMENT */
 
     public function submitPayment(){
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+
         $external_id = $this->input->post('external_id');
         $amount = $this->input->post('amount');
         $name = $this->input->post('name');
@@ -357,11 +360,20 @@ class Customer extends CI_Controller
 
         $params = ([ 
             "external_id" => $external_id,
-            'description' => 'Cart Payment',
             "amount" => $amount,
+            'description' => 'Order Payment',
             'invoice_duration' => 1800,
             'currency' => 'IDR',
-            'reminder_time' => 1
+            'reminder_time' => 1,
+            // 'customer' => [ 
+            //     [
+            //         'given_names' => $data['user']['name'],
+            //         'email' => $data['user']['email'],
+            //         'mobile_number' => $data['user']['phone_number'],
+            //     ]
+            // ],
+            'success_redirect_url' => base_url('customer/payment/' . $external_id . '/'. $data['user']['id'] .'/0'),
+            'failure_redirect_url' => base_url('customer/payment_failed'),
         ]);
 
         $apiInstance = new InvoiceApi();
@@ -375,6 +387,16 @@ class Customer extends CI_Controller
             echo 'Exception when calling InvoiceApi->createInvoice: ', $e->getMessage(), PHP_EOL;
             echo ' | Full Error: ', json_encode($e->getFullError()), PHP_EOL;
         }
-        // var_dump($create_invoice_request);
+    }
+
+    public function payment_success($ref){
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+
+        redirect('payment/' . $ref . '/'. $data['user']['name'] . '/0'); 
+    }
+
+    public function payment_failed(){
+        echo 'Faield';
     }
 }

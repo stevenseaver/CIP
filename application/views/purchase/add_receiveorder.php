@@ -95,7 +95,7 @@
                         <? } ?>
                         <?php if ($ms['transaction_status'] == 1) { ?>
                             <td>
-                                <a href=" <?= base_url('purchasing/receiveItem/') . $ms['id'] ?>" class="badge badge-success clickable">Confirm</a>
+                                <a href=" <?= base_url('purchasing/receiveItem/') . $ms['id'] ?>" class="badge badge-success clickable"><i class="bi bi-check-circle-fill"> </i>Confirm</a>
                             </td>
                         <? } else if ($ms['transaction_status'] == 2) { ?>
                             <td>
