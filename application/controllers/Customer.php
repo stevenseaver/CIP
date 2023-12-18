@@ -384,19 +384,13 @@ class Customer extends CI_Controller
             $result = $apiInstance->createInvoice($create_invoice_request, $for_user_id);
             redirect($result['invoice_url']);
         } catch (\Xendit\XenditSdkException $e) {
-            echo 'Exception when calling InvoiceApi->createInvoice: ', $e->getMessage(), PHP_EOL;
-            echo ' | Full Error: ', json_encode($e->getFullError()), PHP_EOL;
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Exception when calling API:' . ' ' . $e->getMessage() . '!</div>');
+            redirect(base_url('customer/check_out')); 
         }
     }
 
-    public function payment_success($ref){
-        $data['user'] = $this->db->get_where('user', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
-
-        redirect('payment/' . $ref . '/'. $data['user']['name'] . '/0'); 
-    }
-
     public function payment_failed(){
-        echo 'Faield';
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is not right, please try again!</div>');
+        redirect(base_url('customer/check_out')); 
     }
 }

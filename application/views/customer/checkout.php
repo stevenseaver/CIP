@@ -92,26 +92,31 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <form action="<?= base_url('Customer/submitPayment') ?>" method="post">
-                <p> External ID : 
-                    <input type="text" name="external_id" id="external_id" value="<?= $ref ?>">
-                </p>     
-                <p> Amount : 
-                    <input type="text" name="amount" id="amount" value="<?= $grandTotal?>">
-                </p>           
-                <p> Name : 
-                    <input type="text" name="name" id="name" value="TESTING">
-                </p>           
-                <button type="submit" class="btn btn-success btn-icon-split clickable">
-                    <span class="icon text-white-50">
-                        <i class="bi bi-currency-dollar"></i>
-                    </span>
-                    <span class="text">Pay with Xendit<span>
-                </button>
-            </form>
+        <div class="row text-right">
+            <div class="col-lg">
+                <form action="<?= base_url('Customer/submitPayment') ?>" method="post">
+                    <p style="display:none"> External ID : 
+                        <input type="text" name="external_id" id="external_id" value="<?= $ref ?>">
+                    </p>     
+                    <p style="display:none"> Amount : 
+                        <input type="text" name="amount" id="amount" value="<?= $grandTotal?>">
+                    </p>           
+                    <p  style="display:none"> Name : 
+                        <input type="text" name="name" id="name" value="TESTING">
+                    </p>           
+                    <div class="d-flex mb-3 text-secondary text-justify">
+                        <p>We accept payemnt with virtual account, debit or credit card, e-wallet/QRIS, retail merchant payment, and BRI direct debit. This service is provided by Xendit, please read their <a href="https://www.xendit.co/en-id/terms-and-conditions/" target="_blank">terms and conditions</a>.</p>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-icon-split clickable">
+                        <span class="icon text-white-50">
+                            <i class="bi bi-currency-dollar"></i>
+                        </span>
+                        <span class="text">Continue to payment<span>
+                    </button>
+                </form>
+            </div>
         </div>
-        <div class="row mx-3 justify-content-start align-items-center">
+        <!-- <div class="row mx-3 justify-content-start align-items-center">
             <?= form_open_multipart(base_url('Customer/payment/') . $ref . '/' . $user['id'] . '/0'); ?>
             <div class="row">
                 <div class="d-flex mb-3 text-primary">
@@ -119,7 +124,6 @@
                 </div>
             </div>
             <div class="form-group row">
-                <!-- edit profile picture -->
                 <div class="d-flex text-dark mb-3">Upload Payment Confirmation</div>
                 <div class="col-lg mb-3">
                     <div class="custom-file">
@@ -139,8 +143,7 @@
                 </div>
             </div>
             </form>
-        </div>
-
+        </div> -->
     <?php
     else : ?>
         <div class="alert alert-danger" role="alert">Your cart is empty!</div>
