@@ -431,7 +431,7 @@ class Sales extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function invoice_detail($customer, $inv, $date, $status)
+    public function invoice_detail($inv)
     {
         //load user data per session
         $data['title'] = 'Invoice Order Details';
