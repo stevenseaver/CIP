@@ -496,7 +496,24 @@ class Sales extends CI_Controller
         $this->load->view('sales/info_detail', $data);
         $this->load->view('templates/footer');
     }
+    
+    public function paid()
+    {
+        $ref = $this->input->post('ref_id');
 
+        $data = [
+            'is_paid' => 1
+        ];
+        
+        $this->db->where('ref', $ref);
+        $this->db->update('cart', $data);
+        
+        // send message
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Invoice ' . $ref . ' paid!</div>');
+        redirect('sales/salesinfo');
+    }
+
+    
     //***                **//
     //***  Customer list **//
     //***                **//

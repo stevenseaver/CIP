@@ -1095,6 +1095,15 @@
          $(event.currentTarget).find('.modal-body input[name="categories"]').val(status);
      });
 
+     //  JavaScript for Sales Info Payment 
+     $('#paymentModal').on('show.bs.modal', function(event) {
+     //extract data from data-* attributes of modal's toggle button
+        var ref_id = $(event.relatedTarget).data('po');
+
+        // input passed data using JS to object INPUT inside modal #deleteItemPOModal
+        $(event.currentTarget).find('.modal-body input[name="ref_id"]').val(ref_id);
+     });
+
      //  JavaScript for Adjust Material WH transaction details 
      $('#adjustProdTrans').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button

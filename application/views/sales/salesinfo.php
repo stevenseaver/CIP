@@ -89,6 +89,12 @@
                                         </td>
                                         <td>
                                             <a href="<?= base_url('sales/info_detail/') . $items['ref']?>" class="badge badge-primary"><i class="bi bi-info-circle"> </i>Details</a>
+                                            <?php if($items['is_paid'] == 1){ 
+
+                                            } else { ?>
+                                                <!-- <a href="<?= base_url('sales/paid/') . $items['ref']?>" class="badge badge-success"><i class="bi bi-currency-dollar"> </i>Pay</a> -->
+                                                <a data-toggle="modal" data-target="#paymentModal" data-po="<?= $items['ref']  ?>" class="badge badge-success"><i class="bi bi-currency-dollar"> </i>Pay</a>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                     <?php
@@ -112,3 +118,31 @@
 
 </div>
 <!-- /.container-fluid -->
+
+<!-- Modal For Delete Data -->
+<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="paymentModalLabel">Yipikay yay!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">Are you sure this is paid?</p>
+            <form action="<?= base_url('sales/paid') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- item id -->
+                        <label for="url" class="col-form-label">Invoice ID</label>
+                        <input type="text" class="form-control" id="ref_id" name="ref_id" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Pay</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
