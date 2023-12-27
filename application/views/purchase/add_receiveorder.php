@@ -88,20 +88,20 @@
                             <td>
                                 <p class="badge badge-warning">Not Received</p>
                             </td>
-                        <? } else if ($ms['transaction_status'] == 2) { ?>
+                        <?php } else if ($ms['transaction_status'] == 2) { ?>
                             <td>
                                 <p class="badge badge-primary">Confirmed</p>
                             </td>
-                        <? } ?>
+                        <?php } ?>
                         <?php if ($ms['transaction_status'] == 1) { ?>
                             <td>
                                 <a href=" <?= base_url('purchasing/receiveItem/') . $ms['id'] ?>" class="badge badge-success clickable"><i class="bi bi-check-circle-fill"> </i>Confirm</a>
                             </td>
-                        <? } else if ($ms['transaction_status'] == 2) { ?>
+                        <?php } else if ($ms['transaction_status'] == 2) { ?>
                             <td>
                                 <!-- <a href=" <?= base_url('purchasing/receiveItem/') . $ms['id'] ?>" class="badge badge-success" style="disable:true">Confirm</a> -->
                             </td>
-                        <? } ?>
+                        <?php } ?>
                     </tr>
                     <?php $temp = $temp + $subtotal;
                     $i++;

@@ -163,7 +163,7 @@
                                         </tr>
                                         <?php $temp = $temp + $items['subtotal']; ?>
                                         <?php $i++; ?>
-                                <? }
+                                <?php }
                                 } else {
                                 }
                                 ?>

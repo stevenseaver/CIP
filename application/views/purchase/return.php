@@ -59,7 +59,7 @@
     <?php
     } else { ?>
         <div class="alert alert-primary mb-3" role="alert">There's no received purchase order at the moment!</div>
-    <? }
+    <?php }
     ?>
 </div>
 <!-- /.container-fluid -->

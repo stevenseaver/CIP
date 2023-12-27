@@ -13,7 +13,7 @@ class Purchase_model extends CI_Model
     }
     public function calc_due_date()
     {
-        $query = "SELECT `supplier`.*,`payment_terms`.*
+        $query = "SELECT `supplier`.*,`payment_terms`.`multiplier`
                     FROM `supplier` JOIN `payment_terms`
                       ON `payment_terms`.`id` = `supplier`.`terms_id`
             ";

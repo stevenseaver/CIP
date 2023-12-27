@@ -81,7 +81,7 @@
                                 </tr>
                                 <?php $i++; ?>
                             <?php endforeach; ?>
-                        <? } else { ?>
+                        <?php } else { ?>
                             <?php foreach ($blogdata as $bd) : ?>
                                 <?php
                                 if ($bd['author_id'] != $user['name']) {
@@ -117,7 +117,7 @@
                                 </tr>
                                 <?php $i++; ?>
                             <?php endforeach; ?>
-                        <? } ?>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>

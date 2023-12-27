@@ -98,11 +98,11 @@
                             <td>
                                 <p class="badge badge-warning">Not Received</p>
                             </td>
-                        <? } else if ($ms['transaction_status'] == 2) { ?>
+                        <?php } else if ($ms['transaction_status'] == 2) { ?>
                             <td>
                                 <p class="badge badge-primary">Confirmed</p>
                             </td>
-                        <? } else {
+                        <?php } else {
                         } ?>
                     </tr>
                     <?php $temp = $temp + $subtotal; ?>
