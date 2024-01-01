@@ -142,19 +142,19 @@
                     </div>
                     <div class="form-group">
                         <!-- Item price -->
-                        <label for="url" class="col-form-label">Price</label>
+                        <label for="price" class="col-form-label">Price</label>
                         <input type="text" class="form-control mb-1" id="price" name="price" placeholder="Add price">
                         <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Material initial stock -->
-                        <label for="url" class="col-form-label">Initial Stock</label>
+                        <label for="initial_stock" class="col-form-label">Initial Stock</label>
                         <input type="text" class="form-control mb-1" id="initial_stock" name="initial_stock" placeholder="Add initial stock">
                         <?= form_error('initial_stock', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Item categories -->
-                        <label for="url" class="col-form-label">Categories</label>
+                        <label for="category" class="col-form-label">Categories</label>
                         <select name="category" id="category" class="form-control" value="<?= set_value('category') ?>">
                             <option value="">--Select Categories--</option>
                             <?php foreach ($cat as $fs) : ?>
@@ -165,7 +165,7 @@
                     </div>
                     <div class="form-group">
                         <!-- Item categories -->
-                        <label for="url" class="col-form-label">Unit</label>
+                        <label for="unit" class="col-form-label">Unit</label>
                         <select name="unit" id="unit" class="form-control" value="<?= set_value('unit') ?>">
                             <option value="">--Select unit--</option>
                             <?php $before = '';

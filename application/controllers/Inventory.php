@@ -27,7 +27,7 @@ class Inventory extends CI_Controller
         //get material categories
         $data['cat'] = $this->db->get('material_category')->result_array();
         //get supplier data
-        $data['supplier'] = $this->db->get('supplier')->result_array();
+        $data['supplier'] = $this->db->order_by('supplier_name','ASC')->get('supplier')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -50,7 +50,7 @@ class Inventory extends CI_Controller
         //get material categories
         $data['cat'] = $this->db->get('material_category')->result_array();
         //get supplier data
-        $data['supplier'] = $this->db->get('supplier')->result_array();
+        $data['supplier'] = $this->db->order_by('supplier_name','ASC')->get('supplier')->result_array();
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
@@ -132,7 +132,7 @@ class Inventory extends CI_Controller
         //get material categories
         $data['cat'] = $this->db->get('material_category')->result_array();
         //get supplier data
-        $data['supplier'] = $this->db->get('supplier')->result_array();
+        $data['supplier'] = $this->db->order_by('supplier_name','ASC')->get('supplier')->result_array();
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');

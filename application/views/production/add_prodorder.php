@@ -144,7 +144,7 @@
                                             <td style="display:none" class="id"><?= $fs['id'] ?></td>
                                             <td class="name"><?= $fs['name'] ?></td>
                                             <td class="code"><?= $fs['code'] ?></td>
-                                            <td class="in_stock"><?= $fs['in_stock'];?></td>
+                                            <td class="in_stock"><?= number_format($fs['in_stock'], 2, ',', '.');?></td>
                                             <td class="unit"><?= $fs['unit_satuan']; ?></td>
                                             <td class="price"><?= $fs['price']; ?></td>
                                             <td>

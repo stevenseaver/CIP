@@ -56,12 +56,14 @@
                             <tr>
                                 <th>No</th>
                                 <th>Roll</th>
-                                <th>Transaction id</th>
+                                <th>Transaction ID</th>
                                 <th>Date Created</th>
                                 <th>Inbound(Kg)</th>
                                 <th>Outbound(Kg)</th>
                                 <th>Stock (Kg)</th>
                                 <th>Price</th>
+                                <th>Batch</th>
+                                <th>Description</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -84,6 +86,8 @@
                                     <td><?= number_format($rs['outgoing'], 2, ',', '.') ?></td>
                                     <td><?= number_format($rs['in_stock'], 2, ',', '.') ?></td>
                                     <td><?= number_format($rs['price'], 2, ',', '.') ?></td>
+                                    <td><?= $rs['batch'] ?></td>
+                                    <td><?= $rs['transaction_desc'] ?></td>
                                     <td><?= $rs['status_name']?></td>
                                     <td>
                                         <?php

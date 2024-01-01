@@ -52,8 +52,8 @@
                                 <th>Stock</th>
                                 <th>Price</th>
                                 <th>Status</th>
-                                <th>Weight Document</th>
-                                <th>Item Desc</th>
+                                <th>Weight Document/Batch</th>
+                                <th>Description</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
