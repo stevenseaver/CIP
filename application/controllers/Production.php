@@ -81,6 +81,7 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('amount', 'amount', 'required|trim');
         $this->form_validation->set_rules('description', 'description', 'required|trim');
         $this->form_validation->set_rules('campuran', 'mix amount', 'required|trim|numeric');
+        $this->form_validation->set_rules('product_name', 'product name', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             // $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
@@ -95,6 +96,7 @@ class Production extends CI_Controller
             $po_status = 1;
             $materialID = $this->input->post('materialSelect');
             $price = $this->input->post('price');
+            $product_name = $this->input->post('product_name');
             $date = time();
             $amount = $this->input->post('amount');
             $description = $this->input->post('description');
@@ -120,6 +122,7 @@ class Production extends CI_Controller
                 'status' => $status,
                 'warehouse' => $warehouse,
                 'supplier' => $supplier,
+                'product_name' => $product_name,
                 'transaction_status' => $po_status,
                 'description' => $description,
                 'item_desc' => $campuran
@@ -347,14 +350,18 @@ class Production extends CI_Controller
         redirect('production/');
     }
 
-    public function createPDF($po_id, $date, $batch)
+    public function createPDF($po_id)
     {
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
         $data['ref'] = $po_id;
-        $data['date'] = $date;
-        $data['batch'] = $batch;
+        $data['getRow'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+
+        $data['date'] = $data['getRow']['date'];
+        $data['batch'] = $data['getRow']['description'];
+        $data['product_name'] = $data['getRow']['product_name'];
+        
         $this->load->view('production/view_prodorder', $data);
     }
 

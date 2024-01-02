@@ -87,16 +87,25 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="description" class="col-form-label">Batch ID</label>
-                    <input type="text" class="form-control mb-1" id="description" name="description" readonly placeholder="Product name/batch number" value="<?= date('ymdHs', time());?>">
+                    <input type="text" class="form-control mb-1" id="description" name="description" readonly value="<?= date('ymdHis', time());?>">
                     <?= form_error('description', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Batch number code. Automatically.</small>
+                    <small>Batch number. Automatically.</small>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="product_name" class="col-form-label">Product Name</label>
+                    <input type="text" class="form-control mb-1" id="product_name" name="product_name" value="<?= set_value('product_name');?>">
+                    <?= form_error('product_name', '<small class="text-danger pl-2">', '</small>') ?>
+                    <small>Product name. Always input on each material.</small>
+                </div>
+            </div>
+            <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="campuran" class="col-form-label">Mixing Formula</label>

@@ -23,6 +23,8 @@
             <p class="text-dark font-weight-bold"> <?= $getID['transaction_id'] ?></p>
             <p class="text-dark mb-1">Date : </p>
             <p class="text-dark font-weight-bold"> <?= date('d F Y H:i:s', $getID['date']) ?></p>
+            <p class="text-dark mb-1">Product : </p>
+            <p class="text-dark font-weight-bold"> <?= $getID['product_name'] ?></p>
             <p class="text-dark mb-1">Batch : </p>
             <p class="text-dark font-weight-bold"> <?= $getID['description'] ?></p>
         </div>
@@ -99,16 +101,25 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item desc -->
-                    <label for="description" class="col-form-label">Description</label>
-                    <input type="text" class="form-control mb-1" id="description" name="description" value="<?= $getID['description'] ?>">
+                    <label for="description" class="col-form-label">Batch ID</label>
+                    <input type="text" class="form-control mb-1" id="description" name="description" value="<?= $getID['description'] ?>" readonly>
                     <?= form_error('description', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Product name and batch number. Mandatory</small>
+                    <small>Batch number. Automatically.</small>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="product_name" class="col-form-label">Product Name</label>
+                    <input type="text" class="form-control mb-1" id="product_name" name="product_name" value="<?= $getID['product_name'];?>">
+                    <?= form_error('product_name', '<small class="text-danger pl-2">', '</small>') ?>
+                    <small>Product name. Always input on each material.</small>
+                </div>
+            </div>
+            <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item mix amount -->
                     <label for="campuran" class="col-form-label">Mixing Formula</label>
@@ -156,7 +167,7 @@
                                             <td class="id"><?= $fs['id'] ?></td>
                                             <td class="name"><?= $fs['name'] ?></td>
                                             <td class="code"><?= $fs['code'] ?></td>
-                                            <td class="in_stock"><?= $fs['in_stock'];?></td>
+                                            <td class="in_stock"><?= number_format($fs['in_stock'], 2, ',', '.');?></td>
                                             <td class="unit"><?= $fs['unit_satuan']; ?></td>
                                             <td class="price"><?= $fs['price']; ?></td>
                                             <td>

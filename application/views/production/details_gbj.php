@@ -23,6 +23,8 @@
             <p class="text-dark font-weight-bold"> <?= $getID['transaction_id'] ?></p>
             <p class="text-dark mb-1">Date : </p>
             <p class="text-dark font-weight-bold"> <?= date('d F Y H:i:s', $getID['date']) ?></p>
+            <p class="text-dark mb-1">Product : </p>
+            <p class="text-dark font-weight-bold"> <?= $getID['product_name'] ?></p>
             <p class="text-dark mb-1">Batch : </p>
             <p class="text-dark font-weight-bold"> <?= $getID['description'] ?></p>
         </div>

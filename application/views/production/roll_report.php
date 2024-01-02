@@ -24,6 +24,7 @@
                                     <th>No</th>
                                     <th>Production ID</th>
                                     <th>Date</th>
+                                    <th>Product Name</th>
                                     <th>Batch</th>
                                     <th>Action</th>
                                 </tr>
@@ -37,6 +38,7 @@
                                             <td><?= $i ?></td>
                                             <td><?= $inv['transaction_id'] ?></td>
                                             <td><?= date('d F Y H:i:s', $inv['date']); ?></td>
+                                            <td><?= $inv['product_name'] ?></td>
                                             <td><?= $inv['description'] ?></td>
                                             <?php $value = $inv['price'] * $inv['in_stock'];
                                             $temp = $temp + $value;  ?>
