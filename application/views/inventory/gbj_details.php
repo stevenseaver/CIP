@@ -190,19 +190,19 @@
                     <!-- <?= form_open_multipart(base_url('inventory/add_trans_gbj/' . $getID['id']));  ?> -->
                     <div class="form-group">
                         <!-- Item name -->
-                        <label for="url" class="col-form-label">Item Name</label>
+                        <label for="name" class="col-form-label">Item Name</label>
                         <input type="text" class="form-control mb-1" id="name" name="name" placeholder="Add new item" readonly>
                         <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Item code -->
-                        <label for="url" class="col-form-label">Code</label>
+                        <label for="code" class="col-form-label">Code</label>
                         <input type="text" class="form-control mb-1" id="code" name="code" placeholder="Item code" readonly>
                         <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Item categories -->
-                        <label for="url" class="col-form-label">Categories</label>
+                        <label for="status" class="col-form-label">Categories</label>
                         <select name="status" id="status" class="form-control" value="<?= set_value('status') ?>">
                             <option value="">--Select Transactions--</option>
                             <?php foreach ($transactionStatus as $ts) : ?>
@@ -215,13 +215,19 @@
                             <?php endforeach; ?>
                         </select>
                         <small class="text-danger">Stock adjustment deduct Stock Akhir.</small>
-                        <?= form_error('status', '<small class="text-danger pl-2">', '</small>') ?>
+                        <?= form_error('status', '<small class="text-danger">', '</small>') ?>
                     </div>
                     <div class="form-group">
-                        <!-- Item initial stock -->
-                        <label for="url" class="col-form-label">Amount</label>
+                        <!-- Trans amount -->
+                        <label for="amount" class="col-form-label">Amount</label>
                         <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Item amount">
                         <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Item description -->
+                        <label for="description" class="col-form-label">Description</label>
+                        <input type="text" class="form-control mb-1" id="description" name="description" placeholder="Item description">
+                        <?= form_error('description', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                 </div>
                 <div class="modal-footer">

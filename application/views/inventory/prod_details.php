@@ -161,10 +161,16 @@
                         <?= form_error('status', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
-                        <!-- Item initial stock -->
+                        <!-- Amount transaction -->
                         <label for="url" class="col-form-label">Amount</label>
                         <input type="text" class="form-control mb-1" id="amount" name="amount" placeholder="Item amount">
                         <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Description -->
+                        <label for="description" class="col-form-label">Description</label>
+                        <input type="text" class="form-control mb-1" id="description" name="description" placeholder="Item description">
+                        <?= form_error('description', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                 </div>
                 <div class="modal-footer">

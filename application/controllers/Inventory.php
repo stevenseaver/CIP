@@ -670,6 +670,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('status', 'status', 'required|trim');
         $this->form_validation->set_rules('amount', 'amount', 'required|trim');
+        $this->form_validation->set_rules('description', 'description', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -683,6 +684,7 @@ class Inventory extends CI_Controller
             $name = $this->input->post('name');
             $transaction_status = $this->input->post('status');
             $amount = $this->input->post('amount');
+            $description = $this->input->post('description');
             $date = time();
             $price = $data['getID']['price'];
             $lipatan = $data['getID']['lipatan'];
@@ -704,7 +706,8 @@ class Inventory extends CI_Controller
                     'weight' => $weight,
                     'lipatan' => $lipatan,
                     'warehouse' => $warehouse,
-                    'transaction_id' => $trans_id
+                    'transaction_id' => $trans_id,
+                    'transaction_desc' => $description
                 ];
                 $data2 = [
                     'in_stock' => $in_stockOld + $amount,
@@ -733,7 +736,8 @@ class Inventory extends CI_Controller
                     'weight' => $weight,
                     'lipatan' => $lipatan,
                     'warehouse' => $warehouse,
-                    'transaction_id' => $trans_id
+                    'transaction_id' => $trans_id,
+                    'transaction_desc' => $description
                 ];
                 $data2 = [
                     'in_stock' => $in_stockOld - $amount,
@@ -1183,6 +1187,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('status', 'categories', 'required|trim');
         $this->form_validation->set_rules('amount', 'amount', 'required|trim');
+        $this->form_validation->set_rules('description', 'description', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -1196,6 +1201,7 @@ class Inventory extends CI_Controller
             $name = $this->input->post('name');
             $transaction_status = $this->input->post('status');
             $amount = $this->input->post('amount');
+            $description = $this->input->post('description');
             $category = $data['getID']['categories'];
             $date = time();
             $warehouse = 3;
@@ -1226,7 +1232,8 @@ class Inventory extends CI_Controller
                     'categories' => $category,
                     'date' => $date,
                     'warehouse' => $warehouse,
-                    'transaction_id' => $trans_id
+                    'transaction_id' => $trans_id,
+                    'description' => $description
                 ];
                 $data2 = [
                     'in_stock' => $in_stockOld + $amount,
@@ -1255,7 +1262,8 @@ class Inventory extends CI_Controller
                     'categories' => $category,
                     'date' => $date,
                     'warehouse' => $warehouse,
-                    'transaction_id' => $trans_id
+                    'transaction_id' => $trans_id,
+                    'description' => $description
                 ];
                 $data2 = [
                     'in_stock' => $in_stockOld - $amount,
