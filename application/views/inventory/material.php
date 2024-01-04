@@ -54,12 +54,6 @@
                         $temp = 0;
                         ?>
                         <?php foreach ($materialStock as $ms) : ?>
-                            <?php
-                            if ($ms['status'] != 7) {
-                                continue;
-                            } else {
-                            }
-                            ?>
                             <tr>
                                 <td><?= $i ?></td>
                                 <td><?= $ms['name'] ?></td>

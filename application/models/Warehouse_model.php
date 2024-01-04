@@ -14,6 +14,8 @@ class Warehouse_model extends CI_Model
                       ON `stock_material`.`categories` = `material_category`.`id`
                       JOIN `supplier`
                       ON `stock_material`.`supplier` = `supplier`.`id`
+                   WHERE `status` = 7
+                   ORDER BY `name`
             ";
     return $this->db->query($query)->result_array();
   }
@@ -29,8 +31,8 @@ class Warehouse_model extends CI_Model
                       ON `stock_material`.`categories` = `material_category`.`id`
                       JOIN `supplier`
                       ON `stock_material`.`supplier` = `supplier`.`id`
-            WHERE `transaction_status` = $trans_id  AND `status` = $status 
-            ORDER BY `transaction_id`
+                   WHERE `transaction_status` = $trans_id  AND `status` = $status 
+                ORDER BY `transaction_id`
             ";
     return $this->db->query($query)->result_array();
   }
@@ -42,6 +44,8 @@ class Warehouse_model extends CI_Model
                       ON `stock_roll`.`warehouse` = `warehouse`.`warehouse_id`
                     JOIN `transaction_status`
                       ON `stock_roll`.`status` = `transaction_status`.`status_id`
+                   WHERE `status` = 7
+                ORDER BY `name`
             ";
     return $this->db->query($query)->result_array();
   }
@@ -56,6 +60,8 @@ class Warehouse_model extends CI_Model
                       ON `stock_finishedgoods`.`status` = `transaction_status`.`status_id`
                     JOIN `product_category`
                       ON `stock_finishedgoods`.`categories` = `product_category`.`id`
+                   WHERE `status` = 7
+                   ORDER BY `name`
             ";
     return $this->db->query($query)->result_array();
   }

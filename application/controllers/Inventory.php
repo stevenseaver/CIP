@@ -511,6 +511,19 @@ class Inventory extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function pdf_prod()
+    {
+        $data['title'] = 'Material Inventory';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+
+        //join warehouse database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
+
+        $this->load->view('inventory/pdf_prod', $data);
+    }
+
     public function add_production()
     {
         $data['title'] = 'Production Warehouse';
@@ -930,6 +943,20 @@ class Inventory extends CI_Controller
         $this->load->view('inventory/gbj', $data);
         $this->load->view('templates/footer');
     }
+
+    public function pdf_gbj()
+    {
+        $data['title'] = 'Material Inventory';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+
+       //join warehouse database 
+       $this->load->model('Warehouse_model', 'warehouse_id');
+       $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+
+        $this->load->view('inventory/pdf_gbj', $data);
+    }
+
 
     public function gbj_details($id)
     {

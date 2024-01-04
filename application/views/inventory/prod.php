@@ -16,6 +16,13 @@
         <span class="text">Add New Item</span>
     </a>
 
+    <a href="<?= base_url('inventory/pdf_prod') ?>" target="_blank" class="btn btn-success btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-file-earmark-pdf"></i>
+        </span>
+        <span class="text">View PDF</span>
+    </a>
+
     <div class="card border-left-primary mb-3">
         <div class="row mx-4 my-3">
             <div class="table-responsive">
@@ -40,12 +47,6 @@
                             $temp = 0;
                             ?>
                             <?php foreach ($rollStock as $rs) : ?>
-                                <?php
-                                if ($rs['status'] != 7) {
-                                    continue;
-                                } else {
-                                }
-                                ?>
                                 <tr>
                                     <td><?= $i ?></td>
                                     <td><?= $rs['name'] ?></td>
