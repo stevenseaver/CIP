@@ -36,6 +36,19 @@ class Inventory extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function pdf_material()
+    {
+        $data['title'] = 'Material Inventory';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+
+        //join warehouse database 
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
+
+        $this->load->view('inventory/pdf_material', $data);
+    }
+
     public function add_material()
     {
         $data['title'] = 'Material Warehouse';

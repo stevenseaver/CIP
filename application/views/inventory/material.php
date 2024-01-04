@@ -16,6 +16,13 @@
         <span class="text">Add New Item</span>
     </a>
 
+    <a href="<?= base_url('inventory/pdf_material') ?>" target="_blank" class="btn btn-success btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-file-earmark-pdf"></i>
+        </span>
+        <span class="text">View PDF</span>
+    </a>
+
     <a href="<?= base_url('inventory/material_category') ?>" class="btn btn-light btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-gear-wide-connected"></i>
