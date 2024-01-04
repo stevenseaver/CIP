@@ -177,15 +177,15 @@
                     <div class="form-group">
                         <!-- Weighing Doc -->
                         <label for="info" class="col-form-label">Weight Document</label>
-                        <input type="text" class="form-control mb-1" id="info" name="info" placeholder="Weighing document info">
+                        <input type="text" class="form-control mb-1" id="info" name="info" placeholder="Description">
                         <?= form_error('info', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group"> -->
                         <!-- Description -->
-                        <label for="info2" class="col-form-label">Additional Info</label>
-                        <input type="text" class="form-control mb-1" id="info2" name="info2" placeholder="Coly or sack amount, etc">
+                        <!-- <label for="info2" class="col-form-label">Description</label>
+                        <input type="text" class="form-control mb-1" id="info2" name="info2" placeholder="Additional description">
                         <?= form_error('info2', '<small class="text-danger pl-2">', '</small>') ?>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

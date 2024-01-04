@@ -93,7 +93,7 @@
             <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="roll_no" class="col-form-label">Roll Number</label>
+                    <label for="roll_no" class="col-form-label">Roll Number/Description</label>
                     <input type="text" class="form-control mb-1" id="roll_no" name="roll_no" placeholder="Input roll description (number, type, etc)..">
                     <?= form_error('roll_no', '<small class="text-danger pl-2">', '</small>') ?>
                     <small>Alpha numerical.</small>
@@ -277,15 +277,15 @@
             </tfoot>
         </table>
     </div>
-    <div class="footer text-right">
+    <div class="footer text-right mb-5">
         <!-- <a href="<?= base_url('production/delete_all_po/') . $po_id ?>" class="btn text-danger">Close and delete data</a> -->
         <a data-toggle="modal" data-target="#deleteRollModal" data-po="<?= $po_id ?>" class="btn text-danger">Close and delete data</a>
         <a href="<?= base_url('production/inputRoll') ?>" class="btn btn-primary">Save Order</a>
     </div>
 </div>
+</div>
 <!-- /.container-fluid -->
 
-</div>
 <!-- End of Main Content -->
 
 <!-- Modal For Delete Data -->

@@ -232,14 +232,15 @@ class Inventory extends CI_Controller
             $transaction_status = $this->input->post('status');
             $amount = $this->input->post('amount');
             $info = $this->input->post('info');
-            $info2 = $this->input->post('info2');
+            // $info2 = $this->input->post('info2');
             $category = $data['getID']['categories'];
             $date = time();
             $warehouse = 1;
             $supplier = $data['getID']['supplier'];
             $unit = $data['getID']['unit_satuan'];
 
-            $in_stockOld = $data['getID']['in_stock'];;
+            $in_stockOld = $data['getID']['in_stock'];
+            $trans_stat = 2;
             // 8 is purchasing, the only transaction that adds to the final stock
             if ($transaction_status == 8) {
                 $date = time();
@@ -263,7 +264,8 @@ class Inventory extends CI_Controller
                     'unit_satuan' => $unit,
                     'transaction_id' => $trans_id,
                     'description' => $info,
-                    'item_desc' => $info2
+                    'transaction_status' => $trans_stat
+                    // 'item_desc' => $info2
                     // 'in_stock' => $in_stockOld + $amount
                 ];
                 $data2 = [
@@ -299,7 +301,8 @@ class Inventory extends CI_Controller
                     'unit_satuan' => $unit,
                     'transaction_id' => $trans_id,
                     'description' => $info,
-                    'item_desc' => $info2
+                    'transaction_status' => $trans_stat
+                    // 'item_desc' => $info2
                     // 'in_stock' => $in_stockOld - $amount
                 ];
                 $data2 = [

@@ -16,6 +16,7 @@ class Purchase_model extends CI_Model
         $query = "SELECT `supplier`.*,`payment_terms`.`multiplier`
                     FROM `supplier` JOIN `payment_terms`
                       ON `payment_terms`.`id` = `supplier`.`terms_id`
+                ORDER BY `supplier_name`
             ";
         return $this->db->query($query)->result_array();
     }
