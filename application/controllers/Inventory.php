@@ -59,7 +59,7 @@ class Inventory extends CI_Controller
         $data['materialStock'] = $this->db->get('stock_material')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
+        $data['materialStock'] = $this->warehouse_id->getMaterial();
         //get material categories
         $data['cat'] = $this->db->get('material_category')->result_array();
         //get supplier data
@@ -141,7 +141,7 @@ class Inventory extends CI_Controller
         $data['materialStock'] = $this->db->get('stock_material')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
+        $data['materialStock'] = $this->warehouse_id->getMaterial();
         //get material categories
         $data['cat'] = $this->db->get('material_category')->result_array();
         //get supplier data
@@ -202,7 +202,7 @@ class Inventory extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //join warehouse, material, and transaction stauts database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
+        $data['materialStock'] = $this->warehouse_id->getMaterial();
         $data['getID'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
         $data['code'] = $data['getID']['code'];
         $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
@@ -221,7 +221,7 @@ class Inventory extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //join warehouse, material, and transaction stauts database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
+        $data['materialStock'] = $this->warehouse_id->getMaterial();
         $data['getID'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
         $data['code'] = $data['getID']['code'];
         $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
@@ -341,7 +341,7 @@ class Inventory extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //join warehouse, material, and transaction stauts database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
+        $data['materialStock'] = $this->warehouse_id->getMaterial();
         $data['getID'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
         $code = $data['getID']['code'];
         $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
@@ -450,7 +450,7 @@ class Inventory extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //join warehouse, material, and transaction stauts database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
+        $data['materialStock'] = $this->warehouse_id->getMaterial();
         $data['getID'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
         // $data['code'] = $data['getID']['code'];
         $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
@@ -533,7 +533,7 @@ class Inventory extends CI_Controller
         $data['rollStock'] = $this->db->get('stock_roll')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
+        $data['rollStock'] = $this->warehouse_id->getProduction();
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
@@ -609,7 +609,7 @@ class Inventory extends CI_Controller
         $data['rollStock'] = $this->db->get('stock_roll')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
+        $data['rollStock'] = $this->warehouse_id->getProduction();
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
@@ -667,7 +667,7 @@ class Inventory extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //join trans. status, prod warehouse, and warehouse database database
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
+        $data['rollStock'] = $this->warehouse_id->getProduction();
         //get item code by using ID as anchor
         $data['getID'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
         $data['code'] = $data['getID']['code'];
@@ -687,7 +687,7 @@ class Inventory extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //join warehouse, material, and transaction stauts database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
+        $data['rollStock'] = $this->warehouse_id->getProduction();
         $data['getID'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
         $data['code'] = $data['getID']['code'];
         $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
@@ -788,7 +788,7 @@ class Inventory extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //join warehouse, material, and transaction stauts database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
+        $data['rollStock'] = $this->warehouse_id->getProduction();
         $data['getID'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
         $code = $data['getID']['code'];
         $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
@@ -884,7 +884,7 @@ class Inventory extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //join warehouse, material, and transaction stauts database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
+        $data['rollStock'] = $this->warehouse_id->getProduction();
         $data['getID'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
         $data['code'] = $data['getID']['code'];
         $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
