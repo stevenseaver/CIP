@@ -1011,6 +1011,26 @@ class Production extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Items deleted!</div>');
         redirect('production/add_gbj/' . $prodID);
     }
+
+    public function pdf_prodReport($prodID)
+    {
+        $data['title'] = 'Production Report';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+
+        //material items
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+        $data['po_id'] = $prodID;
+        
+        //roll items
+        $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
+
+        //gbj items
+        $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
+        
+        $this->load->view('production/pdf_report', $data);
+    }
     
     /** COGS Calculator function */
     /** COGS Calculator calculates COGS for specific material used in production */

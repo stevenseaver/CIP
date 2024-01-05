@@ -17,6 +17,13 @@
         <span class="text text-dark">Back</span>
     </a>
 
+    <a href="<?= base_url('production/pdf_prodReport/') . $getID['transaction_id']?>" target="_blank" class="btn btn-success btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-file-earmark-pdf"></i>
+        </span>
+        <span class="text">View PDF</span>
+    </a>
+
     <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">
             <p class="text-dark mb-1">Prod Order Ref : </p>
