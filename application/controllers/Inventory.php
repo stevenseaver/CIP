@@ -965,7 +965,7 @@ class Inventory extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        $data['finishedStock'] = $this->warehouse_id->getGBJ();
         //get item code by using ID as anchor
         $data['getID'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
         $data['code'] = $data['getID']['code'];
@@ -986,7 +986,7 @@ class Inventory extends CI_Controller
         $data['rollType'] = $this->db->get('stock_roll')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        $data['finishedStock'] = $this->warehouse_id->getGBJ();
         $data['cat'] = $this->db->get('product_menu')->result_array();
 
         //validation
@@ -1094,7 +1094,7 @@ class Inventory extends CI_Controller
     //     $data['rollType'] = $this->db->get('stock_roll')->result_array();
     //     //join warehouse database 
     //     $this->load->model('Warehouse_model', 'warehouse_id');
-    //     $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+    //     $data['finishedStock'] = $this->warehouse_id->getGBJ();
     //     $data['cat'] = $this->db->get('product_menu')->result_array();
 
     //     //validation
@@ -1129,7 +1129,7 @@ class Inventory extends CI_Controller
         $data['rollType'] = $this->db->get('stock_roll')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        $data['finishedStock'] = $this->warehouse_id->getGBJ();
         $data['cat'] = $this->db->get('product_menu')->result_array();
 
         //validation
@@ -1217,7 +1217,7 @@ class Inventory extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        $data['finishedStock'] = $this->warehouse_id->getGBJ();
         //get item code by using ID as anchor
         $data['getID'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
         $data['code'] = $data['getID']['code'];
@@ -1328,7 +1328,7 @@ class Inventory extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        $data['finishedStock'] = $this->warehouse_id->getGBJ();
         //get item code by using ID as anchor
         $data['getID'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
         $data['code'] = $data['getID']['code'];
@@ -1425,7 +1425,7 @@ class Inventory extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        $data['finishedStock'] = $this->warehouse_id->getGBJ();
         //get item code by using ID as anchor
         $data['getID'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
 
