@@ -43,8 +43,8 @@
                                             <?php $value = $inv['price'] * $inv['in_stock'];
                                             $temp = $temp + $value;  ?>
                                             <td>
-                                                <a href="<?= base_url('production/gbj_details/') . $inv['transaction_id'] ?>" class="badge badge-primary">Details</a>
-                                                <a href="<?= base_url('production/add_gbj/') . $inv['transaction_id'] ?>" class="badge badge-success">Input Finished Goods</a>
+                                                <a href="<?= base_url('production/gbj_details/') . $inv['transaction_id'] ?>" class="badge badge-primary clickable"><i class="bi bi-info-circle-fill"> </i>Details</a>
+                                                <a href="<?= base_url('production/add_gbj/') . $inv['transaction_id'] ?>" class="badge badge-success clickable"><i class="bi bi-pencil-fill"> </i>Input Finished Goods</a>
                                             </td>
                                         </tr>
                                     <?php

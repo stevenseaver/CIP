@@ -51,9 +51,9 @@
                                 <th>Outgouing</th>
                                 <th>Stock</th>
                                 <th>Price</th>
-                                <th>Status</th>
                                 <th>Weight Document/Batch</th>
                                 <th>Description</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -73,6 +73,8 @@
                                         <td><?= number_format($ms['outgoing'], 2, ',', '.') ?></td>
                                         <td><?= number_format($ms['in_stock'], 2, ',', '.') . ' ' . $ms['unit_satuan'] ?></td>
                                         <td><?= number_format($ms['price'], 2, ',', '.') ?></td>
+                                        <td><?= $ms['description'] ?></td>
+                                        <td><?= $ms['item_desc'] ?></td>
                                         <td><?= $ms['status_name'] ?>
                                         <?php
                                             if ($ms['status'] == 1 or $ms['status'] == 6 or $ms['status'] == 3 or $ms['status'] == 7)  {
@@ -92,8 +94,6 @@
                                             }
                                             ?>
                                         </td>
-                                        <td><?= $ms['description'] ?></td>
-                                        <td><?= $ms['item_desc'] ?></td>
                                         <td>
                                             <?php
                                             if ($ms['status'] == 1 or $ms['status'] == 7) { ?>
