@@ -15,8 +15,8 @@ class Auth extends CI_Controller
             redirect('user');
         }
 
-        $this->form_validation->set_rules('nik', 'ERN', 'trim|required');
-        $this->form_validation->set_rules('password', 'Password', 'trim|required');
+        $this->form_validation->set_rules('nik', 'username', 'trim|required');
+        $this->form_validation->set_rules('password', 'password', 'trim|required');
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Login';
@@ -47,11 +47,11 @@ class Auth extends CI_Controller
                     $this->session->set_userdata($data);
                     redirect('user');
                 } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Password!</div>');
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong password!</div>');
                     redirect('auth');
                 }
             } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">User is not yet active!</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">User is not active!</div>');
                 redirect('auth');
             }
         } else {

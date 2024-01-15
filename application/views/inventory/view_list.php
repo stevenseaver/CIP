@@ -22,8 +22,8 @@ $pdf->Cell(35, 8, "Asset Name", 1, 0, 'C');
 $pdf->Cell(20, 8, "Date Acquired", 1, 0, 'C');
 $pdf->Cell(15, 8, "Position", 1, 0, 'C');
 $pdf->Cell(35, 8, "User", 1, 0, 'C');
-$pdf->Cell(100, 8, "Specifications/Desc", 1, 0, 'C');
-$pdf->Cell(15, 8, "Value", 1, 0, 'C');
+$pdf->Cell(90, 8, "Specifications/Desc", 1, 0, 'C');
+$pdf->Cell(25, 8, "Value", 1, 0, 'C');
 $pdf->Cell(15, 8, "Status", 1, 0, 'C');
 $pdf->Cell(8, 8, "Cek", 1, 1, 'C');
 $pdf->SetFont('', '', 8);
@@ -33,6 +33,7 @@ $inventory = $this->db->get('inventory_asset')->result();
 // //get invt database
 // $data['inventory'] = $this->inventory_id->getRoomName();
 $i = 0;
+$temp = 0;
 foreach ($inventory as $data) {
     $i++;
     $pdf->Cell(8, 7, $i, 1, 0, 'C');
@@ -41,11 +42,19 @@ foreach ($inventory as $data) {
     $pdf->Cell(20, 7, $data->date_in, 1, 0);
     $pdf->Cell(15, 7, $data->position, 1, 0);
     $pdf->Cell(35, 7, $data->user, 1, 0);
-    $pdf->Cell(100, 7, $data->spec, 1, 0);
-    $pdf->Cell(15, 7, $data->value, 1, 0);
+    $pdf->Cell(90, 7, $data->spec, 1, 0);
+    $pdf->Cell(25, 7, number_format($data->value, 2, ',', '.'), 1, 0);
     $pdf->Cell(15, 7, $data->status, 1, 0);
     $pdf->Cell(8, 7, ' ', 1, 1);
+
+    $temp = $temp + $data->value;
 }
+$grandTotal = 0;
+$grandTotal = $temp;
+
+$pdf->Cell(230, 7, 'Total value : IDR ', 0, 0, 'R');
+$pdf->Cell(48, 7, number_format($grandTotal, 2, ',', '.'), 1, 1);
+
 $pdf->SetFont('', 'B', 8);
 $pdf->Cell(277, 10, "Computerized report are automatically validated.", 0, 1, 'L');
 $pdf->Output('Laporan_Inventory.pdf');
