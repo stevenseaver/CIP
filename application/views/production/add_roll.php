@@ -67,7 +67,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="amount" class="col-form-label">Amount</label>
@@ -81,16 +81,31 @@
                     <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="price" class="col-form-label">Price</label>
+                    <div class="input-group">
+                        <!-- Item code -->
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">IDR</span>
+                        </div>
+                        <input type="text" class="form-control" id="price" name="price" value="<?= set_value('price'); ?>" placeholder="COGS">
+                    </div>
+                    <small>Make sure the COGS is similar with the materials cost.</small>
+                    <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-3">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="batch" class="col-form-label">Batch</label>
                     <input type="text" class="form-control mb-1" id="batch" name="batch" value="<?= $getID['description'] . '-' ?>">
                     <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Batch number YYMMDDHHMM-Extruder Line-Shift. Mandatory to add Extruder Line (ES) and shift (S).</small>
+                    <small>Batch number YYMMDDhhmm-Extruder Line-Shift. Mandatory to add Extruder Line (ES) and shift (S).</small>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="roll_no" class="col-form-label">Roll Number/Description</label>
@@ -232,6 +247,8 @@
                     <th>Weight</th>
                     <th>Lipatan</th>
                     <th>Amount</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
                     <th>Batch</th>
                     <th>Roll Number</th>
                     <th>Action</th>
@@ -241,6 +258,7 @@
                 <?php
                 $i = 1;
                 $temp = 0;
+                $temp_value = 0;
                 $percent_waste = 0;
                 ?>
                 <?php foreach ($rollType as $ms) : ?>
@@ -252,24 +270,34 @@
                         <td><?= $ms['lipatan'] ?></td>
                         <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td> -->
                         <td><input id="rollAmount-<?= $ms['id'] ?>" class="roll-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
+                        <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
+                        <?php 
+                            $subtotal = $ms['incoming'] * $ms['price'];
+                        ?>
+                        <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><?= $ms['batch'] ?></td>
                         <td><input id="rollDesc-<?= $ms['id'] ?>" class="roll-desc text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['transaction_desc']; ?>"></td>
                         <td>
                             <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
                         </td>
                     </tr>
-                    <?php $temp = $temp + $ms['incoming'];
-                    $i++;
+                    <?php 
+                        $temp = $temp + $ms['incoming'];
+                        $temp_value = $temp_value + $subtotal;
+                        $i++;
                     ?>
                 <?php endforeach; ?>
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
                     <td colspan="4"> </td>
-                    <td class="text-left"><strong>Total Weight</strong></td>
+                    <td class="text-right"><strong>Total Weight</strong></td>
                     <?php $total = $temp; ?>
                     <td class="text-left"><?= $this->cart->format_number($total, '2', ',', '.'); ?> kg</td>
-                    <td class="text-left"><strong>Waste</strong></td>
+                    <td class="text-right"><strong>Production Value</strong></td>
+                    <?php $grandTotal = $temp_value; ?>
+                    <td class="text-left">Rp <?= $this->cart->format_number($grandTotal, '2', ',', '.'); ?></td>
+                    <td class="text-right"><strong>Waste</strong></td>
                     <?php $waste = $temp-$totalWeight;
                     $percent_waste = ($waste / $totalWeight) * 100 ?>
                     <td class="text-left"><?= $this->cart->format_number($waste, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_waste, '2', ',', '.'); ?>%</td>

@@ -106,6 +106,8 @@
                     <th>Weight</th>
                     <th>Lipatan</th>
                     <th>Amount</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
                     <th>Batch</th>
                     <th>Roll Number</th>
                 </tr>
@@ -114,6 +116,7 @@
                 <?php
                 $i = 1;
                 $temp = 0;
+                $temp_value = 0;
                 $percent_waste = 0;
                 ?>
                 <?php foreach ($rollType as $ms) : ?>
@@ -124,12 +127,19 @@
                         <td><?= $ms['weight'] ?></td>
                         <td><?= $ms['lipatan'] ?></td>
                         <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                        <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
+                        <?php 
+                            $subtotal = $ms['incoming'] * $ms['price'];
+                        ?>
+                        <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <!-- <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> -->
                         <td><?= $ms['batch'] ?></td>
                         <td><?= $ms['transaction_desc'] ?></td>
                     </tr>
-                    <?php $temp = $temp + $ms['incoming'];
-                    $i++;
+                    <?php 
+                        $temp = $temp + $ms['incoming'];
+                        $temp_value = $temp_value + $subtotal;
+                        $i++;
                     ?>
                 <?php endforeach; ?>
             </tbody>
@@ -139,7 +149,10 @@
                     <td class="text-left"><strong>Total Weight</strong></td>
                     <?php $total = $temp; ?>
                     <td class="text-left"><?= $this->cart->format_number($total, '2', ',', '.'); ?> kg</td>
-                    <td class="text-left"><strong>Waste</strong></td>
+                    <td class="text-right"><strong>Production Value</strong></td>
+                    <?php $grandTotal = $temp_value; ?>
+                    <td class="text-left">Rp <?= $this->cart->format_number($grandTotal, '2', ',', '.'); ?></td>
+                    <td class="text-right"><strong>Waste</strong></td>
                     <?php $waste = $temp-$totalWeight;
                     $percent_waste = ($waste / $totalWeight) * 100 ?>
                     <td class="text-left"><?= $this->cart->format_number($waste, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_waste, '2', ',', '.'); ?>%</td>

@@ -33,7 +33,7 @@
                                 <th>No</th>
                                 <th>Roll</th>
                                 <th>Code</th>
-                                <th>Weight Unit</th>
+                                <th>Gramature</th>
                                 <th>Lip (cm)</th>
                                 <th>Stock (Kg)</th>
                                 <th>Price</th>
@@ -54,7 +54,7 @@
                                     <td><?= $rs['weight'] ?></td>
                                     <td><?= $rs['lipatan'] ?></td>
                                     <td><?= number_format($rs['in_stock'], 2, ',', '.') ?></td>
-                                    <td><?= number_format($rs['price'], 0, ',', '.') ?></td>
+                                    <td><?= number_format($rs['price'], 2, ',', '.') ?></td>
                                     <?php $value = $rs['price'] * $rs['in_stock'];
                                     $temp = $temp + $value;  ?>
                                     <td><?= number_format($value, 0, ',', '.') ?></td>

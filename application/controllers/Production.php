@@ -386,7 +386,7 @@ class Production extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function input_roll_details($prodID)
+    public function roll_details($prodID)
     {
         $data['title'] = 'Roll Input Details';
         $data['user'] = $this->db->get_where('user', ['nik' =>
@@ -443,6 +443,7 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('rollName', 'roll item', 'trim|required');
         $this->form_validation->set_rules('code', 'code', 'trim|required');
         $this->form_validation->set_rules('amount', 'amount', 'trim|required');
+        $this->form_validation->set_rules('price', 'price', 'trim|required');
         $this->form_validation->set_rules('batch', 'batch', 'trim|required');
         $this->form_validation->set_rules('roll_no', 'roll description', 'trim|required');
 
@@ -460,6 +461,7 @@ class Production extends CI_Controller
             $lipatan = $this->input->post('lipatan');
             $date = time();
             $amount = $this->input->post('amount');
+            $price = $this->input->post('price');
             $batch = $this->input->post('batch');
             $roll_no = $this->input->post('roll_no');
             $transaction_status = 2;
@@ -476,6 +478,7 @@ class Production extends CI_Controller
                 'in_stock' => 0,
                 'incoming' => $amount,
                 'outgoing' => 0,
+                'price' => $price,
                 'status' => 3,
                 'warehouse' => 2,
                 'transaction_id' => $prodID,
@@ -489,7 +492,8 @@ class Production extends CI_Controller
 
             $data2 = [
                 'in_stock' => $stock_old + $amount,
-                'date' => $date
+                'date' => $date,
+                'price' => $price
             ];
 
             $this->db->where('status', '7');
@@ -729,6 +733,7 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('gbjSelect', 'finished goods item', 'trim|required');
         $this->form_validation->set_rules('code', 'code', 'trim|required');
         $this->form_validation->set_rules('amount', 'amount', 'trim|required');
+        $this->form_validation->set_rules('price', 'price', 'trim|required');
         $this->form_validation->set_rules('batch', 'batch', 'trim|required');
         $this->form_validation->set_rules('pack_no', 'description', 'trim|required');
 
@@ -743,6 +748,7 @@ class Production extends CI_Controller
             $item = $this->input->post('gbjSelect');
             $code = $this->input->post('code');
             $amount = $this->input->post('amount');
+            $price = $this->input->post('price');
             $pcsperpack = $this->input->post('pcsperpack');
             $packpersack = $this->input->post('packpersack');
             $batch = $this->input->post('batch');
@@ -752,7 +758,7 @@ class Production extends CI_Controller
 
             $gbjSelect = $this->db->get_where('stock_finishedgoods', ['code' => $code, 'status' => 7])->row_array();
 
-            $price = $gbjSelect['price'];
+            // $price = $gbjSelect['price'];
             $picture = $gbjSelect['picture'];
             $category = $gbjSelect['categories'];
             $satuan = $gbjSelect['unit_satuan'];
@@ -786,9 +792,19 @@ class Production extends CI_Controller
     
                 $data2 = [
                     'in_stock' => $stock_old + $amount,
-                    'date' => $date
+                    'date' => $date,
+                    'price' => $price
                 ];
     
+                $this->db->where('status', '7');
+                $this->db->where('code', $code);
+                $this->db->update('stock_finishedgoods', $data2);
+            } else {
+                $data2 = [
+                    'date' => $date,
+                    'price' => $price
+                ];
+                
                 $this->db->where('status', '7');
                 $this->db->where('code', $code);
                 $this->db->update('stock_finishedgoods', $data2);
@@ -878,7 +894,7 @@ class Production extends CI_Controller
             $gbjSelect = $this->db->get_where('stock_finishedgoods', ['code' => $code, 'status' => 7])->row_array();
 
             $stock_old = $gbjSelect['in_stock'];
-    
+
             $data = [
                 'in_stock' => $stock_old + $pack,
                 'date' => $date
