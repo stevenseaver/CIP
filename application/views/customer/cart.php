@@ -18,7 +18,7 @@
                         <thead>
                             <tr class="">
                                 <th>No</th>
-                                <th>Item Description</th>
+                                <th>Item Name</th>
                                 <th style="text-align:center">Qty</th>
                                 <th style="text-align:right">Item Price</th>
                                 <th style="text-align:right">Sub Total</th>

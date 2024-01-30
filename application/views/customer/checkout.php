@@ -36,7 +36,7 @@
                         <thead>
                             <tr class="">
                                 <th>No</th>
-                                <th>Item Description</th>
+                                <th>Item Name</th>
                                 <th>Qty</th>
                                 <th style="text-align:right">Item Price</th>
                                 <th style="text-align:right">Sub-Total</th>

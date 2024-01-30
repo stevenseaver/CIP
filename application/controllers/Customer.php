@@ -32,6 +32,7 @@ class Customer extends CI_Controller
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
         $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
+        $data['productCategory'] = $this->db->get('product_category')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -154,7 +155,7 @@ class Customer extends CI_Controller
     public function check_out()
     {
         //load user data per session
-        $data['title'] = 'Check Out Confirmation';
+        $data['title'] = 'Order Summary';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
