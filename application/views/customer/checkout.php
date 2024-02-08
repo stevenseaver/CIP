@@ -105,9 +105,9 @@
                         <input type="text" name="name" id="name" value="TESTING">
                     </p>           
                     <div class="d-flex mb-3 text-secondary text-justify">
-                        <p>We accept payemnt with virtual account, debit or credit card, e-wallet/QRIS, retail merchant payment, and BRI direct debit. This service is provided by Xendit, please read their <a href="https://www.xendit.co/en-id/terms-and-conditions/" target="_blank">terms and conditions</a>.</p>
+                        <p>We accept payment with virtual account, debit or credit card, e-wallet/QRIS, retail merchant payment, and BRI direct debit. This service is provided by Xendit, please read their <a href="https://www.xendit.co/en-id/terms-and-conditions/" target="_blank">terms and conditions</a>.</p>
                     </div>
-                    <button type="submit" class="btn btn-success btn-icon-split clickable">
+                    <button type="submit" class="btn btn-success btn-icon-split clickable mb-3">
                         <span class="icon text-white-50">
                             <i class="bi bi-currency-dollar"></i>
                         </span>
