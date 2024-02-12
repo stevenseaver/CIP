@@ -17,12 +17,11 @@
         <?php 
         $i = 0; 
         foreach ($productCategory as $pc) : ?>
-            <a class="dropdown-item"></a>
-            <div class="card">
+            <div class="card border-0">
                 <div class="card-header" id="heading-<?=$i?>">
                 <div class="mb-0 ">
                     <p class="text-dark text-left font-weight-bold mb-0" type="button" data-toggle="collapse" data-target="#collapse-<?=$i?>" aria-expanded="true" aria-controls="collapse-<?=$i?>">
-                        <?= $pc['title'];?>
+                        <?= $pc['title'];?> <i class="bi bi-caret-down-fill"> </i>
                     </p>
                 </div>
             </div>
