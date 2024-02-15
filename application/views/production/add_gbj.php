@@ -231,13 +231,13 @@
                     <td colspan="1"> </td>
                     <td class="text-right"><strong>Total Weight</strong></td>
                     <?php $totalWeight = $temp_weight; ?>
-                    <td class="text-left"><?= $this->cart->format_number($totalWeight, '2', ',', '.'); ?> kg</td>
+                    <td class="text-left"><?= number_format($totalWeight, '2', ',', '.'); ?> kg</td>
                     <td class="text-right"><strong>Total Value</strong></td>
                     <?php $total = $temp; ?>
-                    <td class="text-right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
+                    <td class="text-right">IDR <?= number_format($total, '2', ',', '.'); ?></td>
                     <td class="text-right"><strong>Cost of Materials</strong></td>
                     <?php $hpp = $total/$temp_weight; ?>
-                    <td class="text-right">IDR <?= $this->cart->format_number($hpp, '2', ',', '.'); ?></td>
+                    <td class="text-right">IDR <?= number_format($hpp, '2', ',', '.'); ?></td>
                 </tr>
             </tfoot>
         </table>
@@ -266,7 +266,12 @@
                 $i = 1;
                 $temp = 0;
                 $temp_value = 0;
+                $waste = 0;
                 $percent_waste = 0;
+                $depretiation = 0;
+                $percent_depretiation = 0;
+                $max_process_waste = -0.5;
+                $max_waste = 1.5;
                 ?>
                 <?php foreach ($rollType as $ms) : ?>
                     <tr>
@@ -295,6 +300,14 @@
                     <?php 
                         $temp = $temp + $ms['incoming'];
                         $temp_value = $temp_value + $subtotal;
+                        
+                        $avalan = 'avalan';
+                        $prongkolan = 'prongkolan';
+
+                        if(similar_text($ms['transaction_desc'], $avalan, $percent) > 50 or similar_text($ms['transaction_desc'], $prongkolan, $percent) > 50){
+                            $waste = $waste + $ms['incoming'];
+                        };
+
                         $i++;
                     ?>
                 <?php endforeach; ?>
@@ -302,16 +315,30 @@
             <tfoot class="text-right">
                 <tr class="align-items-center">
                     <td colspan="4"> </td>
-                    <td class="text-right"><strong>Total Weight</strong></td>
+                    <td class="text-left"><strong>Total Weight</strong></td>
                     <?php $total = $temp; ?>
-                    <td class="text-left"><?= $this->cart->format_number($total, '2', ',', '.'); ?> kg</td>
+                    <td class="text-left"><?= number_format($total, '2', ',', '.'); ?> kg</td>
                     <td class="text-right"><strong>Production Value</strong></td>
                     <?php $grandTotal = $temp_value; ?>
-                    <td class="text-left">Rp <?= $this->cart->format_number($grandTotal, '2', ',', '.'); ?></td>
+                    <td class="text-left">Rp <?= number_format($grandTotal, '2', ',', '.'); ?></td>
+                    <td class="text-right"><strong>Process Waste</strong></td>
+                    <?php $depretiation = $temp-$totalWeight;
+                    $percent_depretiation = ($depretiation / $totalWeight) * 100;
+                    if ($percent_depretiation <= $max_process_waste) {?>
+                        <td class="text-left text-danger"><?= number_format($depretiation, '2', ',', '.'); ?> kg or <?= number_format($percent_depretiation, '2', ',', '.'); ?>%</td>
+                    <?php } else { ?>
+                         <td class="text-left text-success"><?= number_format($depretiation, '2', ',', '.'); ?> kg or <?= number_format($percent_depretiation, '2', ',', '.'); ?>%</td>
+                    <?php }?>
+                </tr>
+                <tr class="align-items-center">
+                    <td colspan="8"> </td>
                     <td class="text-right"><strong>Waste</strong></td>
-                    <?php $waste = $temp-$totalWeight;
-                    $percent_waste = ($waste / $totalWeight) * 100 ?>
-                    <td class="text-left"><?= $this->cart->format_number($waste, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_waste, '2', ',', '.'); ?>%</td>
+                    <?php $percent_waste = ($waste / $totalWeight) * 100; 
+                    if ($percent_waste >= $max_waste) {?>
+                        <td class="text-left text-danger"><?= number_format($waste, '2', ',', '.'); ?> kg or <?= number_format($percent_waste, '2', ',', '.'); ?>%</td>
+                    <?php } else { ?>
+                        <td class="text-left text-success"><?= number_format($waste, '2', ',', '.'); ?> kg or <?= number_format($percent_waste, '2', ',', '.'); ?>%</td>
+                    <?php }?>
                 </tr>
             </tfoot>
         </table>
@@ -341,10 +368,15 @@
             </thead>
             <tbody>
                 <?php
-                $i = 1;
-                $temp = 0;
-                $temp_total = 0;
-                $percent_waste = 0;
+                    $i = 1;
+                    $temp = 0;
+                    $waste_roll = 0;
+                    $waste_plong = 0;
+                    $waste_other = 0;
+                    $temp_total = 0;
+                    $percent_waste = 0;
+                    $plong_percent = 0;
+                    $other_percent = 0;
                 ?>
                 <?php foreach ($gbjItems as $ms) : ?>
                     <tr>
@@ -382,9 +414,29 @@
                             <td><a data-toggle="modal" data-target="#deleteItemGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" class="badge badge-danger clickable">Delete</a></td>
                         <?php } ?>
                     </tr>
-                    <?php $temp = $temp + $ms['before_convert'];
-                    $temp_total = $temp_total + $subtotal;
-                    $i++;
+                    <?php 
+                        $temp = $temp + $ms['before_convert'];
+                        $temp_total = $temp_total + $subtotal;
+
+                        $avalan = "avalan roll";
+                        $avalan = "prongkolan roll";
+                        $plong = "plong";
+                        $other = "sortir/tarik";
+
+                        $sim_av = similar_text($ms['description'], $avalan, $percent_av);
+                        $sim_prong = similar_text($ms['description'], $avalan, $percent_prong);
+                        $sim_plong = similar_text($ms['description'], $plong, $percent_plong);
+                        $sim_oth = similar_text($ms['description'], $other, $percent_oth);
+
+                        if($percent_av > 50 or $percent_prong > 50){
+                            $waste_roll = $waste_roll + $ms['incoming'];
+                        } else if($percent_plong > 20){
+                            $waste_plong = $waste_plong + $ms['incoming'];
+                        } else if($percent_oth > 50){
+                            $waste_other = $waste_other + $ms['incoming'];
+                        };
+
+                        $i++;
                     ?>
                 <?php endforeach; ?>
             </tbody>
@@ -393,15 +445,54 @@
                     <td colspan="5"> </td>
                     <td class="text-left"><strong>Total Weight</strong></td>
                     <?php $total = $temp; ?>
-                    <td class="text-left"><?= $this->cart->format_number($total, '2', ',', '.'); ?> kg</td>
+                    <td class="text-left"><?= number_format($total, '2', ',', '.'); ?> kg</td>
                     <td colspan="1"> </td>
                     <td class="text-left"><strong>Grand Total</strong></td>
                     <?php $grandTotal = $temp_total; ?>
                     <td class="text-left">IDR <?= number_format($grandTotal, '2', ',', '.'); ?></td>
-                    <td class="text-left"><strong>Waste</strong></td>
-                    <?php $waste = $temp-$totalWeight;
-                    $percent_waste = ($waste / $totalWeight) * 100 ?>
-                    <td class="text-left"><?= $this->cart->format_number($waste, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_waste, '2', ',', '.'); ?>%</td>
+                    <td class="text-left"><strong>Roll Waste</strong></td>
+                    <?php
+                        if($total != 0){
+                            $percent_waste = ($waste_roll / $total) * 100;
+                            if ($percent_waste >= $max_waste) {?>
+                                <td class="text-left text-danger"><?= number_format($waste_roll, '2', ',', '.'); ?> kg or <?= number_format($percent_waste, '2', ',', '.'); ?>%</td>
+                            <?php } else { ?>
+                                <td class="text-left text-success"><?= number_format($waste_roll, '2', ',', '.'); ?> kg or <?= number_format($percent_waste, '2', ',', '.'); ?>%</td>
+                                <?php };
+                        } else { ?>
+                            <td class="text-left">No data</td>
+                        <?php };
+                    ?>
+                </tr>
+                <tr>
+                    <td colspan="10"> </td>
+                    <td class="text-left"><strong>Plong Waste</strong></td>
+                    <?php
+                        if($total != 0){
+                            $percent_plong = ($waste_plong / $total) * 100; ?>
+                            <td class="text-left"><?= number_format($waste_plong, '2', ',', '.'); ?> kg or <?= number_format($percent_plong, '2', ',', '.'); ?>%</td>
+                        <?php } else {?>
+                            <td class="text-left">No data</td>
+                        <?php };
+                      ?>
+                </tr>
+                <tr>
+                    <td colspan="10"> </td>
+                    <td class="text-left"><strong>Other Waste</strong></td>
+                    <?php 
+                        $max_other_waste = 5;
+                        
+                        if($total != 0){
+                            $percent_other = ($waste_other / $total) * 100;
+                            if ($percent_other <= $max_other_waste) {?>
+                                <td class="text-left text-success"><?= number_format($waste_other, '2', ',', '.'); ?> kg or <?= number_format($percent_other, '2', ',', '.'); ?>%</td>
+                            <?php } else { ?>
+                                <td class="text-left text-danger"><?= number_format($waste_other, '2', ',', '.'); ?> kg or <?= number_format($percent_other, '2', ',', '.'); ?>%</td>
+                            <?php };
+                        } else { ?>
+                            <td class="text-left">No data</td>
+                        <?php };
+                    ?>
                 </tr>
             </tfoot>
         </table>

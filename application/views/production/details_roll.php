@@ -119,8 +119,10 @@
                 $temp_value = 0;
                 $waste = 0;
                 $percent_waste = 0;
-                $depretiation = 0;
-                $percent_depretiation = 0;
+                $depreciation = 0;
+                $percent_depreciation = 0;
+                $max_process_waste = -0.5;
+                $max_waste = 1.5;
                 ?>
                 <?php foreach ($rollType as $ms) : ?>
                     <tr>
@@ -143,10 +145,16 @@
                         $temp = $temp + $ms['incoming'];
                         $temp_value = $temp_value + $subtotal;
 
-                        if($ms['transaction_desc'] == 'Avalan' or $ms['transaction_desc'] == 'Prongkolan'){
-                            $waste = $waste + $ms['incoming'];
-                        } 
+                        $avalan = "avalan";
+                        $prongkolan = "prongkolan";
 
+                        $sim_av = similar_text($ms['transaction_desc'], $avalan, $percent_av);
+                        $sim_prong = similar_text($ms['transaction_desc'], $prongkolan, $percent_prong);
+
+                        if($percent_av > 50 or $percent_prong > 50){
+                            $waste = $waste + $ms['incoming'];
+                        };
+                        
                         $i++;
                     ?>
                 <?php endforeach; ?>
@@ -160,20 +168,20 @@
                     <td class="text-right"><strong>Production Value</strong></td>
                     <?php $grandTotal = $temp_value; ?>
                     <td class="text-left">Rp <?= $this->cart->format_number($grandTotal, '2', ',', '.'); ?></td>
-                    <td class="text-right"><strong>Depreciation</strong></td>
-                    <?php $depretiation = $temp-$totalWeight;
-                    $percent_depretiation = ($depretiation / $totalWeight) * 100;
-                    if ($percent_depretiation <= -0.5) {?>
-                        <td class="text-left text-danger"><?= $this->cart->format_number($depretiation, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_depretiation, '2', ',', '.'); ?>%</td>
+                    <td class="text-right"><strong>Process Waste</strong></td>
+                    <?php $depreciation = $temp-$totalWeight;
+                    $percent_depreciation = ($depreciation / $totalWeight) * 100;
+                    if ($percent_depreciation <= $max_process_waste) {?>
+                        <td class="text-left text-danger"><?= $this->cart->format_number($depreciation, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_depreciation, '2', ',', '.'); ?>%</td>
                     <?php } else { ?>
-                         <td class="text-left text-success"><?= $this->cart->format_number($depretiation, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_depretiation, '2', ',', '.'); ?>%</td>
+                         <td class="text-left text-success"><?= $this->cart->format_number($depreciation, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_depreciation, '2', ',', '.'); ?>%</td>
                     <?php }?>
                 </tr>
                 <tr class="align-items-center">
                     <td colspan="8"> </td>
                     <td class="text-right"><strong>Waste</strong></td>
                     <?php $percent_waste = ($waste / $totalWeight) * 100; 
-                    if ($percent_waste >= 1.5) {?>
+                    if ($percent_waste >= $max_waste) {?>
                         <td class="text-left text-danger"><?= $this->cart->format_number($waste, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_waste, '2', ',', '.'); ?>%</td>
                     <?php } else { ?>
                         <td class="text-left text-success"><?= $this->cart->format_number($waste, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_waste, '2', ',', '.'); ?>%</td>

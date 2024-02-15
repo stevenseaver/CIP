@@ -86,12 +86,13 @@ $pdf->Cell(20, 8, "Roll Number", 1, 0, 'C');
 $pdf->Cell(20, 8, "Status", 1, 1, 'C');
 $pdf->SetFont('', '', 8);
 
-
 $i = 1;
 $temp = 0;
-$temp_aval = 0;
-$total_roll = 0;
-$aval_weight = 0;
+$temp_value = 0;
+$waste_roll = 0;
+$percent_waste = 0;
+$depretiation = 0;
+$percent_depretiation = 0;
 
 foreach ($rollType as $ms) {
     $pdf->Cell(8, 7, $i, 1, 0, 'C');
@@ -102,31 +103,38 @@ foreach ($rollType as $ms) {
     $pdf->Cell(20, 7, number_format($ms['incoming'], 2, ',', '.') . ' kg', 1, 0);
     $pdf->Cell(25, 7, $ms['batch'], 1, 0);
     $pdf->Cell(20, 7, $ms['transaction_desc'], 1, 0);
-    //this needs improvement
-    if($ms['transaction_desc'] == 'Avalan' or $ms['transaction_desc'] == 'Prongkolan') {
-        $temp_aval = $temp_aval + $ms['incoming'];
-    } else {
-        
-    }
+
     if($ms['status'] != 9) { 
          $pdf->Cell(20, 7, 'Not yet cut', 1, 1);
     } else { 
          $pdf->Cell(20, 7, 'Already cut', 1, 1);
     } 
     $temp = $temp + $ms['incoming'];   
+
+    $avalan = "avalan";
+    $prongkolan = "prongkolan";
+
+    $sim_av = similar_text($ms['transaction_desc'], $avalan, $percent_av);
+    $sim_prong = similar_text($ms['transaction_desc'], $prongkolan, $percent_prong);
+
+    if($percent_av > 50 or $percent_prong > 50){
+        $waste_roll = $waste_roll + $ms['incoming'];
+    };
+
     $i++;
 }
 $total_roll = $temp;
-$aval_weight = $temp_aval;
 $waste = $total_roll-$total_weight;
+$percent_roll = ($waste_roll/$total_roll) * 100;
 
 $pdf->Cell(193, 7, 'Total roll weight : ' . number_format($total_roll, 2, ',', '.') .' kg', 1, 1);
 $pdf->Cell(193, 7, 'Process Waste : ' . number_format($waste, 2, ',', '.') . ' kg. Positive value means expansion.', 1, 1);
+$pdf->Cell(193, 7, 'Roll Waste : ' . number_format($waste_roll, 2, ',', '.') . ' kg or ' .  number_format($percent_roll, 2, ',', '.') .'%', 1, 1);
 // $pdf->Cell(193, 7, 'Product waste : ' . number_format($aval_weight, 2, ',', '.') . ' kg or ' . number_format($aval_weight/$total_roll * 100, 2, ',', '.') .'%', 1, 1);
 
 //GBJ
 $pdf->SetFont('', 'B', 8);
-$pdf->Cell(20, 10, 'Roll Item', 0, 1, 'L');
+$pdf->Cell(20, 10, 'Finished Goods Item', 0, 1, 'L');
 
 $pdf->Cell(8, 8, "No", 1, 0, 'C');
 $pdf->Cell(50, 8, "Item", 1, 0, 'C');
@@ -142,8 +150,13 @@ $pdf->SetFont('', '', 8);
 
 $i = 1;
 $temp = 0;
-$percent_waste = 0;
+$waste_roll = 0;
+$waste_plong = 0;
+$waste_other = 0;
 $temp_total = 0;
+$percent_waste = 0;
+$plong_percent = 0;
+$other_percent = 0;
 
 foreach ($gbjItems as $ms) {
     $pdf->Cell(8, 7, $i, 1, 0, 'C');
@@ -165,16 +178,47 @@ foreach ($gbjItems as $ms) {
     
     $temp = $temp + $ms['before_convert'];
     $temp_total = $temp_total + $subtotal;
+
+    $avalan = "avalan roll";
+    $avalan = "prongkolan roll";
+    $plong = "plong";
+    $other = "sortir/tarik";
+
+    $sim_av = similar_text($ms['description'], $avalan, $percent_av);
+    $sim_prong = similar_text($ms['description'], $avalan, $percent_prong);
+    $sim_plong = similar_text($ms['description'], $plong, $percent_plong);
+    $sim_oth = similar_text($ms['description'], $other, $percent_oth);
+
+    if($percent_av > 50 or $percent_prong > 50){
+        $waste_roll = $waste_roll + $ms['incoming'];
+    } else if($percent_plong > 20){
+        $waste_plong = $waste_plong + $ms['incoming'];
+    } else if($percent_oth > 50){
+        $waste_other = $waste_other + $ms['incoming'];
+    };
+
     $i++;
 }
 $total_FG = $temp;
 $grandTotal = $temp_total;
 $waste = $total_FG-$total_weight;
-$percent_waste = ($waste / $total_weight) * 100;
+if ($total_FG != 0){ 
+    $percent_waste = ($waste_roll / $total_FG) * 100;
+    $percent_plong = ($waste_plong / $total_FG) * 100;
+    $percent_other = ($waste_other / $total_FG) * 100; 
+    $pdf->Cell(96, 7, 'Total finished goods weight : ' . number_format($total_FG, 2, ',', '.') .' kg', 1, 0);
+    $pdf->Cell(97, 7, 'Total finished goods value : IDR ' . number_format($grandTotal, 2, ',', '.') .' kg', 1, 1);
+    $pdf->Cell(193, 7, 'Roll Waste : ' . number_format($waste_roll, 2, ',', '.') . ' kg or ' .  number_format($percent_waste, 2, ',', '.') . '%', 1, 1);
+    $pdf->Cell(193, 7, 'Plong Waste : ' . number_format($waste_plong, 2, ',', '.') . ' kg or ' .  number_format($percent_plong, 2, ',', '.') . '%', 1, 1);
+    $pdf->Cell(193, 7, 'Other Waste : ' . number_format($waste_other, 2, ',', '.') . ' kg or ' .  number_format($percent_other, 2, ',', '.') . '%. Max 5%.', 1, 1);
+} else {
+    $pdf->Cell(96, 7, 'Total finished goods weight : no data', 1, 0);
+    $pdf->Cell(97, 7, 'Total finished goods value : IDR no data', 1, 1);
+    $pdf->Cell(193, 7, 'Roll Waste : no data', 1, 1);
+    $pdf->Cell(193, 7, 'Plong Waste : no data', 1, 1);
+    $pdf->Cell(193, 7, 'Other Waste : no data', 1, 1);
+}
 
-$pdf->Cell(96, 7, 'Total finished goods weight : ' . number_format($total_FG, 2, ',', '.') .' kg', 1, 0);
-$pdf->Cell(97, 7, 'Total finished goods value : IDR ' . number_format($grandTotal, 2, ',', '.') .' kg', 1, 1);
-$pdf->Cell(193, 7, 'Process Waste : ' . number_format($waste, 2, ',', '.') . ' kg or ' .  number_format($percent_waste, 2, ',', '.') . '%. Positive value means expansion.', 1, 1);
 
 $pdf->SetFont('', 'B', 8);
 $pdf->Cell(277, 10, "Computerized report are automatically validated.", 0, 1, 'L');
