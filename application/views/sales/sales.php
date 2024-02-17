@@ -68,7 +68,8 @@
                                                 <?php } else {
                                                 } ?>
                                                 <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '2' ?>" class="badge badge-success">Submit to Delivery</a>
-                                                <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '4' ?>" class="badge badge-danger">Decline and Delete</a>
+                                                <!-- <a href="<?= base_url('sales/sales_status_change/') . $items['ref'] . '/' . '4' ?>" class="badge badge-danger">Decline and Delete</a> -->
+                                                <a data-toggle="modal" data-target="#deleteSalesOrder" class="badge badge-danger text-white clickable" data-id="<?= $items['id'] ?>" data-name="<?= $items['ref'] ?>"><i class="bi bi-trash"> </i>Decline</a>
                                             </td>
                                             </tr>
                                     <?php
@@ -95,3 +96,34 @@
 
 </div>
 <!-- /.container-fluid -->
+
+<!-- Modal For Delete Sales Order -->
+<div class="modal fade" id="deleteSalesOrder" tabindex="-1" role="dialog" aria-labelledby="deleteSalesOrderLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteSalesOrderLabel">Whoops!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">You're about to delete this sales order. Are you sure?</p>
+            <form action="<?= base_url('sales/sales_status_change/1/4')?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- menu id -->
+                        <label for="deletemenu" class="col-form-label" style="display:none">Menu ID</label>
+                        <input type="text" class="form-control" style="display:none" id="delete_id" name="delete_id" readonly>
+                        <!-- productmenu name -->
+                        <label for="deletemenu" class="col-form-label">Invoice ID</label>
+                        <input type="text" class="form-control" id="delete_ref" name="delete_ref" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

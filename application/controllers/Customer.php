@@ -32,6 +32,7 @@ class Customer extends CI_Controller
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
         $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
+
         $data['productCategory'] = $this->db->get('product_category')->result_array();
 
         $this->load->view('templates/header', $data);
@@ -366,6 +367,9 @@ class Customer extends CI_Controller
             'invoice_duration' => 1800,
             'currency' => 'IDR',
             'reminder_time' => 1,
+            'should_send_email' => 'true',
+            'payer_email' => $data['user']['email'],
+            // 'mobile_number' => 
             // 'customer' => [ 
             //     [
             //         'given_names' => $data['user']['name'],

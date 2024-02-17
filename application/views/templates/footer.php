@@ -574,6 +574,17 @@
          $(event.currentTarget).find('.modal-body input[name="delete_name"]').val(name);
      });
 
+     //  JavaScript for Delete Sales order modal
+     $('#deleteSalesOrder').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var id = $(event.relatedTarget).data('id');
+         var name = $(event.relatedTarget).data('name');
+
+         // input passed data using JS to object INPUT inside modal
+         $(event.currentTarget).find('.modal-body input[name="delete_id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="delete_ref"]').val(name);
+     });
+
      //  JavaScript for Delete User Account modal
      $('#deleteEmployee').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button

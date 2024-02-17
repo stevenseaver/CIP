@@ -124,14 +124,19 @@ class Sales extends CI_Controller
             //     $this->db->where('status', 7);
             //     $this->db->update('stock_finishedgoods', $data2_warehouse);
             // endforeach;
+            $ref = $this->input->post('delete_ref');
+
+            $this->db->where('ref', $ref);
+            $this->db->set('status', $status_change_to);
+            $this->db->update('cart');
                     
             //delete all that has $ref on stock_finishedgoods database
             $this->db->where('transaction_id', $ref);
             $this->db->delete('stock_finishedgoods');
 
             //delete all that has $ref on cart database
-            $this->db->where('ref', $ref);
-            $this->db->delete('cart');
+            // $this->db->where('ref', $ref);
+            // $this->db->delete('cart');
                     
             // return to page
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction declined!</div>');
