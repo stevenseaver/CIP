@@ -2,13 +2,48 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <p class="h3 mb-4 text-gray-800"><?= $title ?></p>
+    <p class="h3 text-gray-800"><?= $title ?></p>
     <div class="row">
         <div class="col-lg-12">
             <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
+    
+    <?php 
+        $data['items'] = $this->db->get_where('settings', ['parameter' => 'header_color'])->row_array();
+        $color = $data['items']['value'];
 
+        $check_year = '';
+    ?>
+
+    <div class="dropdown text-center my-2">
+        <button class="btn text-<?= $color?> bi bi-caret-left-fill" onclick="left_click()" type="button">
+        </button>
+        <button class="btn btn-<?= $color?> dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+            <a id="periode_show" name="periode_show"><?= $current_periode ?></a>
+        </button>
+        <button class="btn text-<?= $color?> bi bi-caret-right-fill" onclick="right_click()" type="button">
+        </button>
+
+        <!-- <div class="dropdown-menu">
+            <?php $j = 0; 
+            foreach($periode as $per) : 
+                if ($check_year != $per['year']){  ?>
+                    <a class="dropdown-item" href="#"><?= $per['year'];?></a>
+                <?php $check_year = $per['year']; 
+                } else { 
+                    $j++; 
+                } 
+            endforeach; ?>
+        </div> -->
+        <div class="dropdown-menu">
+            <?php $j = 0; 
+            foreach($periode as $per) : ?>
+                <a class="dropdown-item" href="#"><?= $per['period'];?></a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    
     <!-- show uncompleted purchase order -->
     <p class="h5 text-gray-800">Standing Purchase Order</p>
     <?php if ($inventory_item != null) {
@@ -194,3 +229,13 @@
 
 </div>
 <!-- End of Main Content -->
+
+<script>
+    function left_click() {
+        document.getElementById("periode_show").innerHTML = 'LEFT';
+    }
+
+    function right_click() {
+        document.getElementById("periode_show").innerHTML = 'RIGHT';
+    }
+</script>

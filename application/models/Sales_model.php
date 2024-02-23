@@ -31,6 +31,16 @@ class Sales_model extends CI_Model
         return $this->db->query($query)->result_array();
     }
 
+    public function getInfoDate($not_status)
+    {
+        $query = "SELECT `user`.*,`cart`.*
+                    FROM `user` JOIN `cart`
+                      ON `cart`.`customer_id` = `user`.`id`
+                   WHERE `status` != $not_status AND `date` > '1706745600' AND `date` < '1709225999'
+        ";
+        return $this->db->query($query)->result_array();
+    }
+
     public function getRow($inv)
     {
         $query = "SELECT `user`.*,`cart`.*

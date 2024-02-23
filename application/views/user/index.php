@@ -263,7 +263,8 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $temp = 0; ?>
+                                    $temp = 0;
+                                    $total_revenue = 0; ?>
                                     <?php foreach ($sales_data as $sales) :
                                         if ($before != $sales['ref']) { 
                                             $date_now = time();
@@ -305,7 +306,10 @@
                                                             echo '<p class="badge badge-primary">Delivering</p>';
                                                         } else if ($sales['status'] == 3){
                                                             echo '<p class="badge badge-success">Delivered</p>';
-                                                        }?>
+                                                        } else if ($sales['status'] == 4){
+                                                            echo '<p class="badge badge-danger">Declined</p>';
+                                                        }
+                                                    ?>
                                                     </td>
                                                     <td><?php 
                                                         if ($sales['is_paid'] == 1) {
@@ -314,10 +318,15 @@
                                                             echo '<p class="badge badge-warning">Unpaid</p>';
                                                         } ?>
                                                     </td>
+                                                    <?php
+                                                        $total_revenue = $temp + $total_revenue;
+                                                        $total_revenue;
+                                                    ?>
                                                     <td>
                                                         <a href="<?= base_url('sales/info_detail/') . $sales['customer_id'] . '/' . $sales['ref'] . '/' . $sales['date'] . '/' . $sales['status']?>" class="badge badge-primary"><i class="bi bi-info-circle"> </i>Details</a>
                                                     </td>
                                                 </tr>
+                                               
                                         <?php
                                             $before = $sales['ref'];
                                             $temp = 0;
@@ -328,6 +337,14 @@
                                         } else {
                                         } ?>
                                     <?php endforeach; ?>
+                                    <td colspan="2"></td>
+                                    <td>
+                                        <p class="font-weight-bold text-primary text-left">Total Revenue IDR</p>
+                                    </td>
+                                    <td>
+                                        <p class="font-weight-bold text-primary text-left"><?= number_format($total_revenue, 2, ',', '.'); ?></p>
+                                    </td>
+                                    <td colspan="3"></td>
                                 </tbody>
                             </table>
                         </div>

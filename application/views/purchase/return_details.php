@@ -150,26 +150,33 @@
                         <!-- item id -->
                         <label for="url" class="col-form-label">PO ID</label>
                         <input type="text" class="form-control" id="delete_po_id" name="delete_po_id" readonly>
+                        <?= form_error('delete_po_id', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group" style="display:none">
                         <!-- trans id -->
                         <label for="url" class="col-form-label">ID</label>
                         <input type="text" class="form-control" id="trans_id" name="trans_id" readonly>
+                        <?= form_error('trans_id', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- trans amount -->
                         <label for="url" class="col-form-label">Return Amount</label>
                         <input type="text" class="form-control" id="qtyID" name="qtyID">
+                        <?= form_error('qtyID', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- trans amount -->
                         <label for="url" class="col-form-label">Additional Document</label>
                         <input type="text" class="form-control" id="description" name="description">
+                        <small>Required.</small>
+                        <?= form_error('description', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- trans amount -->
                         <label for="url" class="col-form-label">Description</label>
                         <input type="text" class="form-control" id="item_desc" name="item_desc">
+                        <small>Required.</small>
+                        <?= form_error('item_desc', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                 </div>
                 <div class="modal-footer">

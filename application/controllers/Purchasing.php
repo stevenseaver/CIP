@@ -333,6 +333,19 @@ class Purchasing extends CI_Controller
         $data['supplier'] = $this->db->get('supplier')->result_array();
         $this->load->model('Warehouse_model', 'warehouse_id');
 
+        //show data in current periode
+        $current_time = time();
+        $current_year = date('Y', $current_time);
+
+        // $data['periode'] = $this->db->get_where('periode_counter', ['period' => $current_year])->result_array();
+        $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+
+        foreach($data['periode'] as $per) :
+            if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
+                $data['current_periode'] = $per['period'];
+            };
+        endforeach;
+
         $transaction_query = 1; //unreceived purchase order only
         $status = 8; //purchase order data only
         $data['inventory_item'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
@@ -437,6 +450,7 @@ class Purchasing extends CI_Controller
             $this->load->view('templates/topbar', $data);
             $this->load->view('purchase/return_details', $data);
             $this->load->view('templates/footer');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Return order form incomplete!</div>');
         } else {
             $trans_id = $this->input->post('trans_id');
             $amount = $this->input->post('qtyID');
@@ -506,8 +520,9 @@ class Purchasing extends CI_Controller
             ];
     
             $this->db->insert('stock_material', $data2);
-    
-            redirect('purchasing/return_details/' . $id . '/' . $supplier_id . '/' . $date);
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Return order complete!</div>');
+            redirect('purchasing/purchase_return');
         }
     }
     
