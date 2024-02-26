@@ -1,11 +1,34 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
+    <?php 
+        $data['items'] = $this->db->get_where('settings', ['parameter' => 'header_color'])->row_array();
+        $color = $data['items']['value'];
+
+        $check_year = '';
+    ?>
+
     <!-- Page Heading -->
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        <h1 class="h3 text-gray-800"><?= $title ?></h1>
+        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+        <div class="dropdown text-center">
+            <!-- <button class="btn text-<?= $color?> bi bi-caret-left-fill" onclick="left_click()" type="button">
+            </button> -->
+            <button class="btn btn-<?= $color?> dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                <a id="periode_show" name="periode_show"><?= $current_periode ?></a>
+            </button>
+            <!-- <button class="btn text-<?= $color?> bi bi-caret-right-fill" onclick="right_click()" type="button">
+            </button> -->
+    
+            <div class="dropdown-menu">
+                <?php $j = 0; 
+                foreach($periode as $per) : ?>
+                    <a class="dropdown-item" href="<?= base_url('user/index?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
+                <?php endforeach; ?>
+            </div>
+        </div>
     </div>
 
     <?php if ($user['role_id'] != 3) { ?>
@@ -245,7 +268,7 @@
                 <!-- Project Card Example -->
                 <div class="card shadow mb-1">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Sales Info</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Sales Info in This Period</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -360,7 +383,7 @@
                 <!-- Project Card Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Inventory Value</h6>
+                        <h6 class="m-0 font-weight-bold text-primary">Real Time Inventory Value</h6>
                     </div>
                     <div class="card-body">
                         <a href="<?= base_url('inventory/material_wh')?>" style="text-decoration:none"><p class="font-weight-bold">Material Warehouse <span class="float-right">IDR <?= number_format($materialValue, 2, ',', '.'); ?></span></p></a>

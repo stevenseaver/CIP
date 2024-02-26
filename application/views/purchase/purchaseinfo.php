@@ -17,35 +17,24 @@
     ?>
 
     <div class="dropdown text-center my-2">
-        <button class="btn text-<?= $color?> bi bi-caret-left-fill" onclick="left_click()" type="button">
-        </button>
+        <!-- <button class="btn text-<?= $color?> bi bi-caret-left-fill" onclick="left_click()" type="button">
+        </button> -->
         <button class="btn btn-<?= $color?> dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
             <a id="periode_show" name="periode_show"><?= $current_periode ?></a>
         </button>
-        <button class="btn text-<?= $color?> bi bi-caret-right-fill" onclick="right_click()" type="button">
-        </button>
+        <!-- <button class="btn text-<?= $color?> bi bi-caret-right-fill" onclick="right_click()" type="button">
+        </button> -->
 
-        <!-- <div class="dropdown-menu">
-            <?php $j = 0; 
-            foreach($periode as $per) : 
-                if ($check_year != $per['year']){  ?>
-                    <a class="dropdown-item" href="#"><?= $per['year'];?></a>
-                <?php $check_year = $per['year']; 
-                } else { 
-                    $j++; 
-                } 
-            endforeach; ?>
-        </div> -->
         <div class="dropdown-menu">
             <?php $j = 0; 
             foreach($periode as $per) : ?>
-                <a class="dropdown-item" href="#"><?= $per['period'];?></a>
+                <a class="dropdown-item" href="<?= base_url('purchasing/purchaseinfo?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
             <?php endforeach; ?>
         </div>
     </div>
     
     <!-- show uncompleted purchase order -->
-    <p class="h5 text-gray-800">Standing Purchase Order</p>
+    <!-- <p class="h5 text-gray-800">Standing Purchase Order</p>
     <?php if ($inventory_item != null) {
         $i = 1;
         $temp = 0;
@@ -125,7 +114,7 @@
     } else { ?>
         <div class="alert alert-primary mb-3" role="alert">There's no standing purchase order at the moment!</div>
     <?php }
-    ?>
+    ?> -->
     
     <p class="h5 text-gray-800">Received Purchase Order</p>
 
@@ -143,7 +132,7 @@
         <div class="card border-left-primary mb-3">
             <div class="row mx-4 my-3">
                 <div class="table-responsive">
-                    <table class="table table-hover" id="dataTable2" width="100%" cellspacing="0">
+                    <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>

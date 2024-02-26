@@ -14,6 +14,40 @@ class User extends CI_Controller
         $data['title'] = 'Dashboard';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+
+        //periode tracker
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
+        $periode_id = $this->input->get('name');
+
+        if($this->input->get('start_date') == null){
+            //show data in current periode
+            $current_time = time();
+            $current_year = date('Y', $current_time);
+            
+            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            
+            foreach($data['periode'] as $per) :
+                if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
+                    $data['current_periode'] = $per['period'];
+                    $data['start_date'] = $per['start_date'];
+                    $data['end_date'] = $per['end_date'];
+                };
+            endforeach;
+            
+            $start_date = $data['start_date'];
+            $end_date = $data['end_date'];
+        } else {
+            //get data parameters
+            $current_time = time();
+            $current_year = date('Y', $current_time);
+            
+            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
+
+            $data['current_periode'] = $data['selectedMonth']['period'];
+        }
+
         $data['employeeLeaveCount'] = $this->db->count_all_results('leave_list');
         $data['custMessage'] = $this->db->count_all_results('contact_us');
         //get cart database
@@ -33,7 +67,7 @@ class User extends CI_Controller
         $data['inventory_item_received'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
         //get sales info
         $this->load->model('Sales_model', 'custID');
-        $data['sales_data'] = $this->custID->getInfo(0);
+        $data['sales_data'] = $this->custID->getSaleswithTimeFrame(0, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
