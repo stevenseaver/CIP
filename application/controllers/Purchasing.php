@@ -402,7 +402,9 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function paid($trans_id, $is_paid) {
+    public function paid() {
+        $is_paid = 0;
+        $trans_id = $this->input->post('ref_id');
         if($is_paid == 0){
             $this->db->where('transaction_id', $trans_id);
             $this->db->set('is_paid', 1);

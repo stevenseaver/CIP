@@ -1,7 +1,29 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-900"><?= $title ?></h1>
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div class="h3 text-gray-900"><?= $title ?></div>
+        <?php 
+            $data['items'] = $this->db->get_where('settings', ['parameter' => 'header_color'])->row_array();
+            $color = $data['items']['value'];
+
+            $check_year = '';
+        ?>
+
+        <div class="dropdown text-right align-items-center mb-3">
+            <button class="btn btn-<?= $color?> dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                <a id="periode_show" name="periode_show"><?= $current_periode ?></a>
+            </button>
+
+            <div class="dropdown-menu">
+                <?php $j = 0; 
+                foreach($periode as $per) : ?>
+                    <a class="dropdown-item" href="<?= base_url('sales/salesinfo?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col mb-0">
             <?= $this->session->flashdata('message'); ?>
