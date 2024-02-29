@@ -16,8 +16,9 @@ class Sales extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get cart database
+        $status = 1;
         $this->load->model('Sales_model', 'custID');
-        $data['dataCart'] = $this->custID->getCustomer();
+        $data['dataCart'] = $this->custID->getSalesOrderData($status);
         // $data['dataCart'] = $this->db->get_where('cart')->result_array();
 
         // $data['inv'] = $this->input->post('invoiceID');
@@ -457,11 +458,45 @@ class Sales extends CI_Controller
         $data['title'] = 'Sales Invoice';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get cart database
-        $this->load->model('Sales_model', 'custID');
-        $data['dataCart'] = $this->custID->getCustomer();
 
-        $data['inv'] = $this->input->post('invoiceID');
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
+        $periode_id = $this->input->get('name');
+
+        if($this->input->get('start_date') == null){
+            //show data in current periode
+            $current_time = time();
+            $current_year = date('Y', $current_time);
+            
+            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            
+            foreach($data['periode'] as $per) :
+                if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
+                    $data['current_periode'] = $per['period'];
+                    $data['start_date'] = $per['start_date'];
+                    $data['end_date'] = $per['end_date'];
+                };
+            endforeach;
+            
+            $start_date = $data['start_date'];
+            $end_date = $data['end_date'];
+        } else {
+            //get data parameters
+            $current_time = time();
+            $current_year = date('Y', $current_time);
+            
+            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
+
+            $data['current_periode'] = $data['selectedMonth']['period'];
+        }
+
+        //get cart database
+        $status = 3;
+        $this->load->model('Sales_model', 'custID');
+        $data['dataCart'] = $this->custID->getSaleswithTimeFrameEqualTo($status, $start_date, $end_date);
+
+        // $data['inv'] = $this->input->post('invoiceID');
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

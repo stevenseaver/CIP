@@ -20,6 +20,16 @@ class Sales_model extends CI_Model
         ";
         return $this->db->query($query)->result_array();
     }
+    
+    public function getSalesOrderData($status)
+    {
+        $query = "SELECT `user`.*,`cart`.*
+                    FROM `user` JOIN `cart`
+                      ON `cart`.`customer_id` = `user`.`id`
+                   WHERE `status` = $status
+        ";
+        return $this->db->query($query)->result_array();
+    }
 
     public function getSaleswithTimeFrameEqualTo($status, $start_date, $end_date)
     {
@@ -37,6 +47,16 @@ class Sales_model extends CI_Model
                     FROM `user` JOIN `cart`
                       ON `cart`.`customer_id` = `user`.`id`
                    WHERE `status` != $not_status AND `date` >= $start_date AND `date` <= $end_date
+        ";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getSaleswithTimeFrameDualParameters($not_status1, $not_status2, $start_date, $end_date)
+    {
+        $query = "SELECT `user`.*,`cart`.*
+                    FROM `user` JOIN `cart`
+                      ON `cart`.`customer_id` = `user`.`id`
+                   WHERE `status` != $not_status1 AND `status` != $not_status2 AND `date` >= $start_date AND `date` <= $end_date
         ";
         return $this->db->query($query)->result_array();
     }

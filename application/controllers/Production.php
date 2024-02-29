@@ -15,11 +15,43 @@ class Production extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
+        $periode_id = $this->input->get('name');
+
+        if($this->input->get('start_date') == null){
+            //show data in current periode
+            $current_time = time();
+            $current_year = date('Y', $current_time);
+            
+            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            
+            foreach($data['periode'] as $per) :
+                if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
+                    $data['current_periode'] = $per['period'];
+                    $data['start_date'] = $per['start_date'];
+                    $data['end_date'] = $per['end_date'];
+                };
+            endforeach;
+            
+            $start_date = $data['start_date'];
+            $end_date = $data['end_date'];
+        } else {
+            //get data parameters
+            $current_time = time();
+            $current_year = date('Y', $current_time);
+            
+            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
+
+            $data['current_periode'] = $data['selectedMonth']['period'];
+        }
+
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
         $transaction_query = 1; //unprocessed production order data
         $status = 3; //production order data only
-        $data['materialStock'] = $this->warehouse_id->prodOrder($transaction_query, $status);
+        $data['materialStock'] = $this->warehouse_id->prodOrderwithTimeFrame($transaction_query, $status, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -373,11 +405,44 @@ class Production extends CI_Controller
         $data['title'] = 'Roll Input';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
+        $periode_id = $this->input->get('name');
+
+        if($this->input->get('start_date') == null){
+            //show data in current periode
+            $current_time = time();
+            $current_year = date('Y', $current_time);
+            
+            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            
+            foreach($data['periode'] as $per) :
+                if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
+                    $data['current_periode'] = $per['period'];
+                    $data['start_date'] = $per['start_date'];
+                    $data['end_date'] = $per['end_date'];
+                };
+            endforeach;
+            
+            $start_date = $data['start_date'];
+            $end_date = $data['end_date'];
+        } else {
+            //get data parameters
+            $current_time = time();
+            $current_year = date('Y', $current_time);
+            
+            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
+
+            $data['current_periode'] = $data['selectedMonth']['period'];
+        }
+
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
         $transaction_query = 1; //unprocessed production order data
         $status = 3; //production order data only
-        $data['materialStock'] = $this->warehouse_id->prodOrder($transaction_query, $status);
+        $data['materialStock'] = $this->warehouse_id->prodOrderwithTimeFrame($transaction_query, $status, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -644,11 +709,44 @@ class Production extends CI_Controller
         $data['title'] = 'Finished Goods Report';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
+        $periode_id = $this->input->get('name');
+
+        if($this->input->get('start_date') == null){
+            //show data in current periode
+            $current_time = time();
+            $current_year = date('Y', $current_time);
+            
+            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            
+            foreach($data['periode'] as $per) :
+                if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
+                    $data['current_periode'] = $per['period'];
+                    $data['start_date'] = $per['start_date'];
+                    $data['end_date'] = $per['end_date'];
+                };
+            endforeach;
+            
+            $start_date = $data['start_date'];
+            $end_date = $data['end_date'];
+        } else {
+            //get data parameters
+            $current_time = time();
+            $current_year = date('Y', $current_time);
+            
+            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
+
+            $data['current_periode'] = $data['selectedMonth']['period'];
+        }
+
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $transaction_query = 1; //processed  data
+        $transaction_query = 1; //unprocessed  data
         $status = 3; //production order data only
-        $data['materialStock'] = $this->warehouse_id->prodOrder($transaction_query, $status);
+        $data['materialStock'] = $this->warehouse_id->prodOrderwithTimeFrame($transaction_query, $status, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -659,7 +757,7 @@ class Production extends CI_Controller
 
     public function gbj_details($prodID)
     {
-        $data['title'] = 'Finished Goods Input Details';
+        $data['title'] = 'Finished Goods Details';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         

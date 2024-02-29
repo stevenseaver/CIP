@@ -5,9 +5,9 @@
         <div class="h3 text-gray-900"><?= $title ?></div>
         <?php 
             $data['items'] = $this->db->get_where('settings', ['parameter' => 'header_color'])->row_array();
+            $data['sales_tax'] = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array();
             $color = $data['items']['value'];
-
-            $check_year = '';
+            $sales_tax = $data['sales_tax']['value'];
         ?>
 
         <div class="dropdown text-right align-items-center mb-3">
@@ -33,6 +33,7 @@
     <?php if ($dataCart != null) {
         $i = 1;
         $temp = 0;
+        $tax = 0;
         $before = '';
     ?>
         <div class="card rounded border-0 shadow mb-3">
@@ -46,6 +47,7 @@
                                     <th>Customer</th>
                                     <th>Invoice Number</th>
                                     <th>Date</th>
+                                    <th>Amount</th>
                                     <th>Delivery Address</th>
                                     <th>Status</th>
                                     <th>Payment Status</th>
@@ -60,31 +62,54 @@
                                         <td><?= $items['name']; ?></td>
                                         <td><?= $items['ref']; ?></td>
                                         <td><?= date('d F Y H:i', $items['date']); ?></td>
+                                        <td>
+                                            <?php 
+                                                foreach ($dataCart as $amount) :
+                                                    if ($amount['ref'] == $items['ref']) {
+                                                        $value = $amount['price'] * $amount['qty'];
+                                                        $temp = $temp + $value; 
+                                                    } else {
+                                                        
+                                                    }
+                                                endforeach;
+                                                if($sales_tax == 0){
+                                                    
+                                                } else {
+                                                    $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
+                                                    
+                                                    $tax = $sales_tax/100 * $temp;
+                                                    
+                                                    $temp = $temp + $tax;
+                                                    
+                                                }
+                                                echo number_format($temp, 2, ',', '.'); 
+                                            ?>
+                                        </td>
                                         <td><?= $items['deliveryTo']; ?></td>
                                         <td>
                                             <?php if($items['status'] == 1){ ?> 
-                                                <p class="mr-3 my-3 text-center">
+                                                <p class="mr-3 my-1 text-center">
                                                     <span class="icon text-warning mx-2">
                                                         <i class="bi bi-arrow-clockwise"></i>
                                                     </span>
                                                     <span class="text-warning">Confirming</span>
                                                 </p>
                                             <?php } else if($items['status'] == 2){ ?> 
-                                                <p class="mr-3 my-3 text-center">
+                                                <p class="mr-3 my-1 text-center">
                                                     <span class="icon text-primary mx-2">
                                                         <i class="bi bi-truck"></i>
                                                     </span>
                                                     <span class="text-primary">Delivering</span>
                                                 </p>
                                             <?php } else if($items['status'] == 3){ ?> 
-                                                <p class="mr-3 my-3 text-center">
+                                                <p class="mr-3 my-1 text-center">
                                                     <span class="icon text-success mx-2">
                                                         <i class="bi bi-check-circle-fill"></i>
                                                     </span>
                                                     <span class="text-success">Delivered</span>
                                                 </p>
                                             <?php } else if($items['status'] == 4){ ?> 
-                                                <p class="mr-3 my-3 text-center">
+                                                <p class="mr-3 my-1 text-center">
                                                     <span class="icon text-danger mx-2">
                                                         <i class="bi bi-exclamation-triangle-fill"></i>
                                                     </span>
@@ -94,14 +119,14 @@
                                         </td>
                                         <td>
                                             <?php if($items['is_paid'] == 1){ ?> 
-                                                <p class="mr-3 my-3 text-center">
+                                                <p class="mr-3 my-1 text-center">
                                                     <span class="icon text-success mx-2">
                                                         <i class="bi bi-currency-dollar"></i>
                                                     </span>
                                                     <span class="text-success">Paid</span>
                                                 </p>
                                             <?php } else { ?> 
-                                                <p class="mr-3 my-3 text-center">
+                                                <p class="mr-3 my-1 text-center">
                                                     <span class="icon text-danger mx-2">
                                                         <i class="bi bi-currency-dollar"></i>
                                                     </span>
@@ -121,8 +146,9 @@
                                     </tr>
                                     <?php
                                         $before = $items['ref'];
+                                        $temp = 0;
+                                        $tax = 0;
                                         $i++;
-                                        
                                 } endforeach; ?>
                             </tbody>
                         </table>

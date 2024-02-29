@@ -184,11 +184,44 @@ class Purchasing extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //get supplier data
         $data['supplier'] = $this->db->get('supplier')->result_array();
+
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
+        $periode_id = $this->input->get('name');
+
+        if($this->input->get('start_date') == null){
+            //show data in current periode
+            $current_time = time();
+            $current_year = date('Y', $current_time);
+            
+            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            
+            foreach($data['periode'] as $per) :
+                if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
+                    $data['current_periode'] = $per['period'];
+                    $data['start_date'] = $per['start_date'];
+                    $data['end_date'] = $per['end_date'];
+                };
+            endforeach;
+            
+            $start_date = $data['start_date'];
+            $end_date = $data['end_date'];
+        } else {
+            //get data parameters
+            $current_time = time();
+            $current_year = date('Y', $current_time);
+            
+            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
+
+            $data['current_periode'] = $data['selectedMonth']['period'];
+        }
+
         //load inventory item of trans status = 2
-        $this->load->model('Warehouse_model', 'warehouse_id');
         $transaction_query = 2; //receive order data
         $status = 8; //purchase order data only
-        $data['inventory_item'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['inventory_item'] = $this->warehouse_id->purchaseOrderwithTimeFrame($transaction_query, $status, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -428,12 +461,44 @@ class Purchasing extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //get supplier data
         $data['supplier'] = $this->db->get('supplier')->result_array();
-        $this->load->model('Warehouse_model', 'warehouse_id');
+
+        $start_date = $this->input->get('start_date');
+        $end_date = $this->input->get('end_date');
+        $periode_id = $this->input->get('name');
+
+        if($this->input->get('start_date') == null){
+            //show data in current periode
+            $current_time = time();
+            $current_year = date('Y', $current_time);
+            
+            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            
+            foreach($data['periode'] as $per) :
+                if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
+                    $data['current_periode'] = $per['period'];
+                    $data['start_date'] = $per['start_date'];
+                    $data['end_date'] = $per['end_date'];
+                };
+            endforeach;
+            
+            $start_date = $data['start_date'];
+            $end_date = $data['end_date'];
+        } else {
+            //get data parameters
+            $current_time = time();
+            $current_year = date('Y', $current_time);
+            
+            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
+
+            $data['current_periode'] = $data['selectedMonth']['period'];
+        }
 
         $status = 8; //purchase order data only
         $transaction_query = 2; //received order only
         
-        $data['inventory_item_received'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['inventory_item_received'] = $this->warehouse_id->purchaseOrderwithTimeFrame($transaction_query, $status, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

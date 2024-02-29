@@ -73,6 +73,7 @@
                             <?php } else { ?>
                                 <input type="text" class="form-control" id="cust_id" name="cust_id" readonly value="<?= set_value('customer_id'); ?>">
                             <?php } ?>
+                            <?= form_error('cust_name', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     <div class="col-lg-8">
@@ -151,6 +152,7 @@
                             <!-- Item price -->
                             <label for="notes" class="col-form-label">Notes</label>
                             <input type="text" class="form-control" id="notes" name="notes" value="<?= set_value('notes'); ?>">
+                            <?= form_error('notes', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                 </div>

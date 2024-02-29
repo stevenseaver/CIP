@@ -55,7 +55,7 @@ class User extends CI_Controller
         $data['dataCartSO'] = $this->db->get_where('cart', ['status' => '1'])->result_array();
         //get material database
         $data['materialStock'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
-        $data['prodOrder'] = $this->db->get_where('stock_material', ['status' => 3, 'transaction_status' => 1])->result_array();
+        $data['prodOrder'] = $this->db->get_where('stock_material', ['status' => 3, 'transaction_status' => 1, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
         //get roll database
         $data['rollStock'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
         //get roll database
@@ -67,7 +67,7 @@ class User extends CI_Controller
         $data['inventory_item_received'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
         //get sales info
         $this->load->model('Sales_model', 'custID');
-        $data['sales_data'] = $this->custID->getSaleswithTimeFrame(0, $start_date, $end_date);
+        $data['sales_data'] = $this->custID->getSaleswithTimeFrameDualParameters(1, 4, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

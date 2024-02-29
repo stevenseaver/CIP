@@ -7,8 +7,6 @@
         <?php 
             $data['items'] = $this->db->get_where('settings', ['parameter' => 'header_color'])->row_array();
             $color = $data['items']['value'];
-    
-            $check_year = '';
         ?>
     
         <div class="dropdown text-center my-2">
@@ -203,9 +201,9 @@
                                     </tr>
                                 <?php
                                     $before = $inv_rcv['transaction_id'];
-                                    $i++;
                                     $temp = 0;
                                     $tax = 0;
+                                    $i++;
                                 } else {
                                 } ?>
                             <?php endforeach; ?>

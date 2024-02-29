@@ -1,6 +1,10 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
     <!-- Page Heading -->
+    <?php 
+        $data['sales_tax'] = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array();
+        $sales_tax = $data['sales_tax']['value'];
+    ?>
     <h1 class="h3 mb-3 text-gray-900"><?= $title ?></h1>
     <div class="row">
         <div class="col mb-0">
@@ -28,6 +32,7 @@
     <?php if ($dataCart != null) {
         $i = 1;
         $temp = 0;
+        $tax = 0;
         $before = '';
     ?>
         <div class="card rounded border-0 shadow mb-3">
@@ -38,9 +43,10 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Customer</th>
                                     <th>Invoice Number</th>
                                     <th>Date</th>
-                                    <th>Customer</th>
+                                    <th>Amount</th>
                                     <th>Delivery Address</th>
                                     <th>Action</th>
                                 </tr>
@@ -53,9 +59,32 @@
                                     } else {
                                         if ($before != $items['ref']) { ?>
                                             <td><?= $i ?></td>
+                                            <td><?= $items['name']; ?></td>
                                             <td><?= $items['ref']; ?></td>
                                             <td><?= date('d F Y H:i', $items['date']); ?></td>
-                                            <td><?= $items['name']; ?></td>
+                                            <td>
+                                            <?php 
+                                                foreach ($dataCart as $amount) :
+                                                    if ($amount['ref'] == $items['ref']) {
+                                                        $value = $amount['price'] * $amount['qty'];
+                                                        $temp = $temp + $value; 
+                                                    } else {
+                                                        
+                                                    }
+                                                endforeach;
+                                                if($sales_tax == 0){
+                                                    
+                                                } else {
+                                                    $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
+                                                    
+                                                    $tax = $sales_tax/100 * $temp;
+                                                    
+                                                    $temp = $temp + $tax;
+                                                    
+                                                }
+                                                echo number_format($temp, 2, ',', '.'); 
+                                            ?>
+                                        </td>
                                             <td><?= $items['deliveryTo']; ?></td>
                                             <!-- <td>
                                                 <img class="img-fluid rounded" src="<?= base_url('asset/img/payment/') . $items['img']  ?>" alt="Payment Invoice" style="width: 15rem;">
@@ -74,6 +103,8 @@
                                             </tr>
                                     <?php
                                             $before = $items['ref'];
+                                            $temp = 0;
+                                            $tax = 0;
                                             $i++;
                                         } else {
                                         }

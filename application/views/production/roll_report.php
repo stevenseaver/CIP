@@ -2,7 +2,31 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div class="h3 text-gray-800"><?= $title ?></div>
+        <?php 
+            $data['items'] = $this->db->get_where('settings', ['parameter' => 'header_color'])->row_array();
+            $color = $data['items']['value'];
+        ?>
+    
+        <div class="dropdown text-center my-2">
+            <!-- <button class="btn text-<?= $color?> bi bi-caret-left-fill" onclick="left_click()" type="button">
+            </button> -->
+            <button class="btn btn-<?= $color?> dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                <a id="periode_show" name="periode_show"><?= $current_periode ?></a>
+            </button>
+            <!-- <button class="btn text-<?= $color?> bi bi-caret-right-fill" onclick="right_click()" type="button">
+            </button> -->
+    
+            <div class="dropdown-menu">
+                <?php $j = 0; 
+                foreach($periode as $per) : ?>
+                    <a class="dropdown-item" href="<?= base_url('production/inputRoll?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-lg-12">
             <?= $this->session->flashdata('message'); ?>
