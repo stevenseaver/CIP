@@ -269,12 +269,12 @@
                         $temp_total = $temp_total + $subtotal;
                         
                         $avalan = "avalan roll";
-                        $avalan = "prongkolan roll";
+                        $avalan1 = "prongkolan roll";
                         $plong = "plong";
-                        $other = "sortir/tarik";
+                        $other = "sortir/tarik alas";
 
                         $sim_av = similar_text($ms['description'], $avalan, $percent_av);
-                        $sim_prong = similar_text($ms['description'], $avalan, $percent_prong);
+                        $sim_prong = similar_text($ms['description'], $avalan1, $percent_prong);
                         $sim_plong = similar_text($ms['description'], $plong, $percent_plong);
                         $sim_oth = similar_text($ms['description'], $other, $percent_oth);
 

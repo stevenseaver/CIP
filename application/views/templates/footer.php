@@ -385,11 +385,53 @@
          const descGBJ = document.getElementById("gbjDesc-" + id).value;
 
          $.ajax({
-             url: "<?= base_url('production/update_gbj_desc'); ?>",
+             url: "<?= base_url('production/update_gbj_details/1'); ?>",
              type: 'post',
              data: {
                  id: id,
                  descGBJ: descGBJ
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
+
+     //js for amount change on production order quantity per item input on change
+     $('.gbj-price').on('change', function() {
+         const id = $(this).data('id');
+
+         const priceGBJ = document.getElementById("gbjPrice-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('production/update_gbj_details/2'); ?>",
+             type: 'post',
+             data: {
+                 id: id,
+                 priceGBJ: priceGBJ
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
+
+     //js for amount change on production order quantity per item input on change
+     $('.gbj-batch').on('change', function() {
+         const id = $(this).data('id');
+
+         const batchGBJ = document.getElementById("gbjBatch-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('production/update_gbj_details/3'); ?>",
+             type: 'post',
+             data: {
+                 id: id,
+                 batchGBJ: batchGBJ
              },
              success: function() {
                 $(document).ajaxStop(function(){
@@ -1242,6 +1284,7 @@
          var name = $(event.relatedTarget).data('name');
          var code = $(event.relatedTarget).data('code');
          var amount = $(event.relatedTarget).data('amount');
+         var price = $(event.relatedTarget).data('price');
 
          // input passed data using JS to object INPUT inside modal #deleteItemPOModal
          $(event.currentTarget).find('.modal-body input[name="po_id"]').val(po_id);
@@ -1249,6 +1292,7 @@
          $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
          $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
          $(event.currentTarget).find('.modal-body input[name="kg_amount"]').val(amount);
+         $(event.currentTarget).find('.modal-body input[name="kg_price"]').val(price);
      });
 
      //  JavaScript for delete Production Order per item transaction

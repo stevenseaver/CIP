@@ -44,6 +44,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Customer</th>
                                     <th>Invoice Number</th>
                                     <th>Date</th>
                                     <th>Amount</th>

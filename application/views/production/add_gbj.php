@@ -397,14 +397,15 @@
                         ?>
                         <td><?= $ms['before_convert'] . ' kg'?></td>
                         <td><?= $weightPerPack ?></td>
-                        <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
+                        <!-- <td><?= number_format($ms['price'], 2, ',', '.'); ?></td> -->
+                        <td><input id="gbjPrice-<?= $ms['id'] ?>" class="gbj-price text-left form-control number" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['price'], 2, ',', '.'); ?>"></td>
                         <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
-                        <td><?= $ms['batch'] ?></td>
+                        <td><input id="gbjBatch-<?= $ms['id'] ?>" class="gbj-batch text-left form-control number" data-id="<?= $ms['id']; ?>" value="<?= $ms['batch'] ?>"></td>
                         <td><input id="gbjDesc-<?= $ms['id'] ?>" class="gbj-desc text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['description']; ?>"></td>
                         <?php if($ms['transaction_status'] != 2){  ?>
                             <?php if($ms['categories'] != 6 and $ms['categories'] != 7) { ?>
                             <td>
-                                <a data-toggle="modal" data-target="#convertPack" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code']?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-primary clickable">Convert to Pack</a>
+                                <a data-toggle="modal" data-target="#convertPack" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code']?>" data-amount="<?= $ms['incoming'] ?>" data-price=<?= $ms['price']?>  class="badge badge-primary clickable">Convert to Pack</a>
                                 <a data-toggle="modal" data-target="#deleteItemGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" class="badge badge-danger clickable">Delete</a>
                             </td>
                             <?php } else { ?>
@@ -419,20 +420,20 @@
                         $temp_total = $temp_total + $subtotal;
 
                         $avalan = "avalan roll";
-                        $avalan = "prongkolan roll";
+                        $avalan1 = "prongkolan roll";
                         $plong = "plong";
-                        $other = "sortir/tarik";
+                        $other = "sortir tarik alas";
 
                         $sim_av = similar_text($ms['description'], $avalan, $percent_av);
-                        $sim_prong = similar_text($ms['description'], $avalan, $percent_prong);
+                        $sim_prong = similar_text($ms['description'], $avalan1, $percent_prong);
                         $sim_plong = similar_text($ms['description'], $plong, $percent_plong);
                         $sim_oth = similar_text($ms['description'], $other, $percent_oth);
 
-                        if($percent_av > 50 or $percent_prong > 50){
+                        if($percent_av > 55 or $percent_prong > 55){
                             $waste_roll = $waste_roll + $ms['incoming'];
-                        } else if($percent_plong > 20){
+                        } else if($percent_plong > 40){
                             $waste_plong = $waste_plong + $ms['incoming'];
-                        } else if($percent_oth > 50){
+                        } else if($percent_oth > 10){
                             $waste_other = $waste_other + $ms['incoming'];
                         };
 
@@ -560,22 +561,26 @@
                     <div class="form-group">
                         <!-- prod id -->
                         <label for="url" class="col-form-label">Production Order ID</label>
-                        <input type="text" class="form-control" id="po_id" name="po_id" readonly>
+                        <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly>
                         <!-- item name -->
                         <label for="url" class="col-form-label">Item</label>
-                        <input type="text" class="form-control" id="name" name="name" readonly>
+                        <input type="text" class="form-control mb-1" id="name" name="name" readonly>
                         <!-- item id -->
                         <label for="url" class="col-form-label" style="display:none">ID</label>
-                        <input type="text" class="form-control" id="id" name="id" style="display:none" readonly>
+                        <input type="text" class="form-control mb-1" id="id" name="id" style="display:none" readonly>
                         <!-- item code -->
                         <label for="url" class="col-form-label" style="display:none">Code</label>
-                        <input type="text" class="form-control" id="code" name="code" style="display:none" readonly>
+                        <input type="text" class="form-control mb-1" id="code" name="code" style="display:none" readonly>
                         <!-- kg amount -->
                         <label for="url" class="col-form-label">Weight Amount</label>
-                        <input type="text" class="form-control" id="kg_amount" name="kg_amount" readonly>
+                        <input type="text" class="form-control mb-1" id="kg_amount" name="kg_amount" readonly>
+                        <!-- kg price -->
+                        <label for="url" class="col-form-label">Price per Kg</label>
+                        <input type="text" class="form-control mb-1" id="kg_price" name="kg_price" readonly>
                         <!-- pack amount -->
                         <label for="url" class="col-form-label">Pack Amount</label>
-                        <input type="text" class="form-control" id="pack_amount" name="pack_amount">
+                        <input type="text" class="form-control mb-1" id="pack_amount" name="pack_amount">
+                        <label for="url" class="small text-dark">Price per Pack = (Weight x Price per kg) / Pack Amount</label>
                     </div>
                 </div>
                 <div class="modal-footer">

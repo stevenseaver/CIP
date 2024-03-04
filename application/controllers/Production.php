@@ -984,8 +984,8 @@ class Production extends CI_Controller
             $id = $this->input->post('id');
             $name = $this->input->post('name');
             $code = $this->input->post('code');
-            $amount = $this->input->post('amount');
             $weight = $this->input->post('kg_amount');
+            $priceperkg = $this->input->post('kg_price');
             $pack = $this->input->post('pack_amount');
             $date = time();
     
@@ -993,9 +993,13 @@ class Production extends CI_Controller
 
             $stock_old = $gbjSelect['in_stock'];
 
+            $totalPrice = $weight * $priceperkg;
+            $priceperPack = $totalPrice / $pack;
+
             $data = [
                 'in_stock' => $stock_old + $pack,
-                'date' => $date
+                'date' => $date,
+                'price' => $priceperPack
             ];
             
             $this->db->where('status', '7');
@@ -1004,7 +1008,8 @@ class Production extends CI_Controller
             
             $data1 = [
                 'incoming' => $pack,
-                'transaction_status' => 2
+                'transaction_status' => 2,
+                'price' => $priceperPack
             ];
 
             $this->db->where('id', $id);
@@ -1064,18 +1069,36 @@ class Production extends CI_Controller
         // redirect('production/add_gbj/' . $prodID);
     }
 
-    //update production order material amount
-    public function update_gbj_desc()
+    //update production order GBJ descriptipn
+    public function update_gbj_details($type)
     {
         $id = $this->input->post('id');
-        $desc = $this->input->post('descGBJ');
-
         $date = time();
+        if ($type == 1) { //description
+            $desc = $this->input->post('descGBJ');
 
-        $data = [
-            'description' => $desc,
-            'date' => $date
-        ];
+            $data = [
+                'description' => $desc,
+                'date' => $date
+            ];
+        } else if ($type == 2){ //price
+            $price = $this->input->post('priceGBJ');
+
+            $data = [
+                'price' => $price,
+                'date' => $date
+            ];
+
+        } else if ($type == 3){ //batch description
+            $batchDesc = $this->input->post('batchGBJ');
+
+            $data = [
+                'batch' => $batchDesc,
+                'date' => $date
+            ];
+        } 
+
+        
 
         //update transaksi
         $this->db->where('id', $id);
