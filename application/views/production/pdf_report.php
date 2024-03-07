@@ -179,21 +179,25 @@ foreach ($gbjItems as $ms) {
     $temp = $temp + $ms['before_convert'];
     $temp_total = $temp_total + $subtotal;
 
-    $avalan = "avalan roll";
-    $avalan = "prongkolan roll";
+    $avalan = "roll";
+    $avalan1 = "prongkolan roll";
     $plong = "plong";
-    $other = "sortir/tarik";
+    $sortir = "sortir";
+    $alas = "alas";
+    $tarik = "tarik";
 
     $sim_av = similar_text($ms['description'], $avalan, $percent_av);
-    $sim_prong = similar_text($ms['description'], $avalan, $percent_prong);
+    $sim_prong = similar_text($ms['description'], $avalan1, $percent_prong);
     $sim_plong = similar_text($ms['description'], $plong, $percent_plong);
-    $sim_oth = similar_text($ms['description'], $other, $percent_oth);
+    $sim_sortir = similar_text($ms['description'], $sortir, $percent_sortir);
+    $sim_alas = similar_text($ms['description'], $alas, $percent_alas);
+    $sim_tarik = similar_text($ms['description'], $tarik, $percent_tarik);
 
-    if($percent_av > 50 or $percent_prong > 50){
+    if($percent_av > 60 or $percent_prong > 60){
         $waste_roll = $waste_roll + $ms['incoming'];
-    } else if($percent_plong > 20){
+    } else if($percent_plong > 60){
         $waste_plong = $waste_plong + $ms['incoming'];
-    } else if($percent_oth > 50){
+    } else if($percent_sortir > 50 or $percent_alas > 50 or $percent_tarik > 50){
         $waste_other = $waste_other + $ms['incoming'];
     };
 

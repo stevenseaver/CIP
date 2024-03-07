@@ -154,7 +154,7 @@
                                             <td class="code"><?= $fs['code'] ?></td>
                                             <td class="weight"><?= $fs['weight'];?></td>
                                             <td class="lipatan"><?= $fs['lipatan']; ?></td>
-                                            <td class="price"><?= $fs['price']; ?></td>
+                                            <td class="price"><?= $fs['price'];  ?></td>
                                             <td>
                                                 <!-- link this with a javascript -->
                                                 <a data-dismiss="modal" type="button" class="select-item-roll badge badge-primary">Add</a> 
@@ -263,8 +263,12 @@
                 $percent_waste = 0;
                 $depretiation = 0;
                 $percent_depretiation = 0;
-                $max_process_waste = -0.5;
-                $max_waste = 1.5;
+
+                $data['items'] = $this->db->get_where('settings', ['parameter' => 'process_waste'])->row_array();
+                $max_process_waste = $data['items']['value'];
+
+                // $max_process_waste = -0.5; //change to setting reading
+                $max_waste = 1.5; //change to setting reading
                 ?>
                 <?php foreach ($rollType as $ms) : ?>
                     <tr>
@@ -275,12 +279,13 @@
                         <td><?= $ms['lipatan'] ?></td>
                         <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td> -->
                         <td><input id="rollAmount-<?= $ms['id'] ?>" class="roll-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
-                        <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
+                        <!-- <td><?= number_format($ms['price'], 2, ',', '.'); ?></td> -->
+                        <td><input id="rollPrice-<?= $ms['id'] ?>" class="roll-price text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['price'], 2, ',', '.'); ?>"></td>
                         <?php 
                             $subtotal = $ms['incoming'] * $ms['price'];
                         ?>
                         <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
-                        <td><?= $ms['batch'] ?></td>
+                        <td><input id="rollBatch-<?= $ms['id'] ?>" class="roll-batch text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['batch']; ?>"></td>
                         <td><input id="rollDesc-<?= $ms['id'] ?>" class="roll-desc text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['transaction_desc']; ?>"></td>
                         <td>
                             <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>

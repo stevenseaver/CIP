@@ -337,11 +337,53 @@
          const descRoll = document.getElementById("rollDesc-" + id).value;
 
          $.ajax({
-             url: "<?= base_url('production/update_roll_desc'); ?>",
+             url: "<?= base_url('production/update_roll_details/1'); ?>",
              type: 'post',
              data: {
                  id: id,
                  descRoll: descRoll
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
+
+     //js for amount change on production order quantity per item input on change
+     $('.roll-batch').on('change', function() {
+         const id = $(this).data('id');
+
+         const batchRoll = document.getElementById("rollBatch-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('production/update_roll_details/2'); ?>",
+             type: 'post',
+             data: {
+                 id: id,
+                 batchRoll: batchRoll
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
+
+     //js for amount change on production order quantity per item input on change
+     $('.roll-price').on('change', function() {
+         const id = $(this).data('id');
+
+         const priceRoll = document.getElementById("rollPrice-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('production/update_roll_details/3'); ?>",
+             type: 'post',
+             data: {
+                 id: id,
+                 priceRoll: priceRoll
              },
              success: function() {
                 $(document).ajaxStop(function(){

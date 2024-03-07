@@ -604,23 +604,46 @@ class Production extends CI_Controller
         $this->db->update('stock_roll', $data2);
     }
 
-      //update production order material amount
-      public function update_roll_desc()
-      {
-          $id = $this->input->post('id');
-          $desc = $this->input->post('descRoll');
+    //update production order material amount
+    public function update_roll_details($type)
+    {
+        $id = $this->input->post('id');
+        $date = time();
+
+        $data['rollEdited'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
+        $rollID = $data['rollEdited']['code']; 
+
+        if ($type == 1) { //roll number/description
+            $desc = $this->input->post('descRoll');
   
-          $date = time();
-  
-          $data = [
-              'transaction_desc' => $desc,
-              'date' => $date
-          ];
-  
-          //update transaksi
-          $this->db->where('id', $id);
-          $this->db->update('stock_roll', $data);
-      }
+            $data = [
+                'transaction_desc' => $desc,
+                'date' => $date
+            ];
+        } else if ($type == 2){ //batch
+            $batch = $this->input->post('batchRoll');
+
+            $data = [
+                'batch' => $batch,
+                'date' => $date
+            ];
+        } else if ($type == 3){ //price
+            $price = $this->input->post('priceRoll');
+
+            $data = [
+                'price' => $price,
+                'date' => $date
+            ];
+
+            $this->db->where('status', '7');
+            $this->db->where('code', $rollID);
+            $this->db->update('stock_roll', $data);
+        } 
+
+        //update transaksi
+        $this->db->where('id', $id);
+        $this->db->update('stock_roll', $data);
+    }
 
     public function rollToGBJ($prodID){
         $transaction_status = 2;
@@ -1097,8 +1120,6 @@ class Production extends CI_Controller
                 'date' => $date
             ];
         } 
-
-        
 
         //update transaksi
         $this->db->where('id', $id);

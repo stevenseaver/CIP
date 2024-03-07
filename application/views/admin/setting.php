@@ -15,6 +15,7 @@
         <div class="col-lg-9">
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="list-general" role="tabpanel" aria-labelledby="list-general-list">
+                    <!-- side bar color -->
                     <div class="mb-2 h5">Sidebar Color</div>
                     <div class="row">
                         <div class="col-lg-12">
@@ -35,9 +36,14 @@
                     <?php 
                         $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
                         $data['sales_tax'] = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array();
+                        $data['max_process_waste'] = $this->db->get_where('settings', ['parameter' => 'process_waste'])->row_array();
+                        // $data['sales_tax'] = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array();
+                        // $data['sales_tax'] = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array();
                         $purchase_tax = $data['purchase_tax']['value'];
-                        $sales_tax = $data['sales_tax']['value']
+                        $sales_tax = $data['sales_tax']['value'];
+                        $max_process_waste = $data['max_process_waste']['value'];
                     ?>
+                    <!-- purchase tax setting -->
                     <label class="mb-2 h5">Purchase Tax</label>
                     <form action="<?= base_url('admin/update_purchase_tax/') ?>" method="post">
                     <div class="row mb-3">
@@ -52,6 +58,7 @@
                             </div>
                         </div>
                     </form>
+                    <!-- sales tax setting -->
                     <div class="mb-2 h5">Sales Tax</div>
                     <form action="<?= base_url('admin/update_sales_tax/') ?>" method="post">
                     <div class="row mb-5">
@@ -63,6 +70,21 @@
                                 <button class="btn btn-outline-success" type="submit" id="save_sales_tax">Save</button>
                             </div>
                             <?= form_error('sales_tax', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    </form>
+                    <!-- max bprocess waste -->
+                    <div class="mb-2 h5">Maximum Process Waste</div>
+                    <form action="<?= base_url('admin/update_waste/1') ?>" method="post">
+                    <div class="row mb-5">
+                        <div class="col-lg-3 input-group">
+                            <!-- Item folding -->
+                            <input type="number" step=".1" class="form-control" id="max_process_waste" name="max_process_waste" value="<?=$max_process_waste ?>">
+                            <div class="input-group-append">
+                                <span class="input-group-text">%</span>
+                                <button class="btn btn-outline-success" type="submit" id="save_max_process_waste">Save</button>
+                            </div>
+                            <?= form_error('max_process_waste', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     </form>

@@ -121,8 +121,8 @@
                 $percent_waste = 0;
                 $depreciation = 0;
                 $percent_depreciation = 0;
-                $max_process_waste = -0.5;
-                $max_waste = 1.5;
+                $max_process_waste = -0.5; //change to setting reading
+                $max_waste = 1.5; //change to setting reading
                 ?>
                 <?php foreach ($rollType as $ms) : ?>
                     <tr>

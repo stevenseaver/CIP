@@ -326,6 +326,20 @@ class Admin extends CI_Controller
         redirect('admin/settings');
     }
 
+    public function update_waste($type){
+        if($type == 1){
+            $amount = $this->input->post('max_process_waste');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Maximum process waste updated!</div>');
+            
+            $this->db->set('value', $amount);
+            $this->db->where('parameter', 'process_waste');
+            $this->db->update('settings');
+        } else {
+
+        }
+        redirect('admin/settings');
+    }
+
     public function download_database(){
         // $path = $this->input->post('backup_path');
         // Load the DB utility class
