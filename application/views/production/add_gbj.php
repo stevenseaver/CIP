@@ -270,8 +270,11 @@
                 $percent_waste = 0;
                 $depretiation = 0;
                 $percent_depretiation = 0;
-                $max_process_waste = -0.5; //change to setting reading
-                $max_waste = 1.5; //change to setting reading
+
+                $data['items'] = $this->db->get_where('settings', ['parameter' => 'process_waste'])->row_array();
+                $max_process_waste = $data['items']['value'];
+                $data['items'] = $this->db->get_where('settings', ['parameter' => 'max_waste'])->row_array();
+                $max_waste = $data['items']['value'];
                 ?>
                 <?php foreach ($rollType as $ms) : ?>
                     <tr>
@@ -335,7 +338,7 @@
                 </tr>
                 <tr class="align-items-center">
                     <td colspan="8"> </td>
-                    <td class="text-right"><strong>Waste</strong></td>
+                    <td class="text-right"><strong>Extrusion Waste</strong></td>
                     <?php $percent_waste = ($waste / $totalWeight) * 100; 
                     if ($percent_waste >= $max_waste) {?>
                         <td class="text-left text-danger"><?= number_format($waste, '2', ',', '.'); ?> kg or <?= number_format($percent_waste, '2', ',', '.'); ?>%</td>
@@ -488,7 +491,8 @@
                     <td colspan="10"> </td>
                     <td class="text-left"><strong>Other Waste</strong></td>
                     <?php 
-                        $max_other_waste = 5; //ganti dari setting parameter
+                        $data['items'] = $this->db->get_where('settings', ['parameter' => 'other_waste'])->row_array();
+                        $max_other_waste = $data['items']['value'];
                         
                         if($total != 0){
                             $percent_other = ($waste_other / $total) * 100;

@@ -334,8 +334,20 @@ class Admin extends CI_Controller
             $this->db->set('value', $amount);
             $this->db->where('parameter', 'process_waste');
             $this->db->update('settings');
-        } else {
-
+        } else if($type == 2) {
+            $amount = $this->input->post('max_ext_waste');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Maximum extrusion waste updated!</div>');
+            
+            $this->db->set('value', $amount);
+            $this->db->where('parameter', 'max_waste');
+            $this->db->update('settings');
+        } else if($type == 3) {
+            $amount = $this->input->post('max_other_waste');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Maximum other waste updated!</div>');
+            
+            $this->db->set('value', $amount);
+            $this->db->where('parameter', 'other_waste');
+            $this->db->update('settings');
         }
         redirect('admin/settings');
     }

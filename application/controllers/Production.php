@@ -634,7 +634,7 @@ class Production extends CI_Controller
                 'price' => $price,
                 'date' => $date
             ];
-
+        //delete this portion if edit price don't affect stock akhir price  
             $this->db->where('status', '7');
             $this->db->where('code', $rollID);
             $this->db->update('stock_roll', $data);
@@ -1096,6 +1096,8 @@ class Production extends CI_Controller
     public function update_gbj_details($type)
     {
         $id = $this->input->post('id');
+        $data['material_edited'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
+        $materialID = $data['material_edited']['code'];
         $date = time();
         if ($type == 1) { //description
             $desc = $this->input->post('descGBJ');
@@ -1111,7 +1113,10 @@ class Production extends CI_Controller
                 'price' => $price,
                 'date' => $date
             ];
-
+            //delete this portion if edit price don't affect stock akhir price  
+            $this->db->where('status', '7');
+            $this->db->where('code', $materialID);
+            $this->db->update('stock_finishedgoods', $data);
         } else if ($type == 3){ //batch description
             $batchDesc = $this->input->post('batchGBJ');
 

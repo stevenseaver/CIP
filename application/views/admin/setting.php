@@ -37,11 +37,15 @@
                         $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
                         $data['sales_tax'] = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array();
                         $data['max_process_waste'] = $this->db->get_where('settings', ['parameter' => 'process_waste'])->row_array();
+                        $data['max_waste'] = $this->db->get_where('settings', ['parameter' => 'max_waste'])->row_array();
+                        $data['max_other_waste'] = $this->db->get_where('settings', ['parameter' => 'other_waste'])->row_array();
                         // $data['sales_tax'] = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array();
                         // $data['sales_tax'] = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array();
                         $purchase_tax = $data['purchase_tax']['value'];
                         $sales_tax = $data['sales_tax']['value'];
                         $max_process_waste = $data['max_process_waste']['value'];
+                        $max_extrusion_waste = $data['max_waste']['value'];
+                        $max_other_waste = $data['max_other_waste']['value'];
                     ?>
                     <!-- purchase tax setting -->
                     <label class="mb-2 h5">Purchase Tax</label>
@@ -73,10 +77,13 @@
                         </div>
                     </div>
                     </form>
-                    <!-- max bprocess waste -->
-                    <div class="mb-2 h5">Maximum Process Waste</div>
+                    <!-- max process waste -->
+                    <div class="mb-2 h5">Maximum Process Waste
+                        <i type="button" class="small text-primary bi bi-question-circle" data-toggle="tooltip" data-placement="right" title="Maximum process waste, x kg of materials produce y kg of roll products">
+                        </i>
+                    </div>
                     <form action="<?= base_url('admin/update_waste/1') ?>" method="post">
-                    <div class="row mb-5">
+                    <div class="row mb-3">
                         <div class="col-lg-3 input-group">
                             <!-- Item folding -->
                             <input type="number" step=".1" class="form-control" id="max_process_waste" name="max_process_waste" value="<?=$max_process_waste ?>">
@@ -85,6 +92,42 @@
                                 <button class="btn btn-outline-success" type="submit" id="save_max_process_waste">Save</button>
                             </div>
                             <?= form_error('max_process_waste', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    </form>
+                    <!-- max extrusion waste -->
+                    <div class="mb-2 h5">Maximum Exrtusion Waste
+                        <i type="button" class="small text-primary bi bi-question-circle" data-toggle="tooltip" data-placement="right" title="Maximum extrusion waste/roll waste">
+                        </i>
+                    </div>
+                    <form action="<?= base_url('admin/update_waste/2') ?>" method="post">
+                    <div class="row mb-3">
+                        <div class="col-lg-3 input-group">
+                            <!-- Item folding -->
+                            <input type="number" step=".1" class="form-control" id="max_ext_waste" name="max_ext_waste" value="<?=$max_extrusion_waste ?>">
+                            <div class="input-group-append">
+                                <span class="input-group-text">%</span>
+                                <button class="btn btn-outline-success" type="submit" id="save_max_ext_waste">Save</button>
+                            </div>
+                            <?= form_error('max_ext_waste', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    </form>
+                    <!-- max other waste -->
+                    <div class="mb-2 h5">Maximum Other Waste 
+                        <i type="button" class="small text-primary bi bi-question-circle" data-toggle="tooltip" data-placement="right" title="Maximum other waste besides extrusion process and plong waste">
+                        </i>
+                    </div>
+                    <form action="<?= base_url('admin/update_waste/3') ?>" method="post">
+                    <div class="row mb-3">
+                        <div class="col-lg-3 input-group">
+                            <!-- Item folding -->
+                            <input type="number" step=".1" class="form-control" id="max_other_waste" name="max_other_waste" value="<?=$max_other_waste ?>">
+                            <div class="input-group-append">
+                                <span class="input-group-text">%</span>
+                                <button class="btn btn-outline-success" type="submit" id="save_max_other_waste">Save</button>
+                            </div>
+                            <?= form_error('max_other_waste', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     </form>
@@ -110,6 +153,10 @@
         function change_purchase_tax($amount){
             window.location.href = "<?= site_url('admin/update_purchase_tax/');?>"+amount;
         }
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
 
     <!-- <div class="table-responsive">
