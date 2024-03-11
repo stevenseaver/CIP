@@ -102,7 +102,7 @@
                     <label for="batch" class="col-form-label">Batch</label>
                     <input type="text" class="form-control mb-1" id="batch" name="batch" value="<?= $getID['description'] . '-' ?>">
                     <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Batch number YYMMDDhhmm-Extruder Line-Shift. Mandatory to add Extruder Line (ES) and shift (S).</small>
+                    <small>Batch number YEARrandomWEEK-Extruder Line-Shift. Mandatory to add Extruder Line (ES) and shift (S).</small>
                 </div>
             </div>
             <div class="col-lg-3">

@@ -107,7 +107,7 @@
                     <label for="batch" class="col-form-label">Batch</label>
                     <input type="text" class="form-control mb-1" id="batch" name="batch" placeholder="Product name/batch number" value="<?= $getID['batch'] . '-' ?> ">
                     <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Batch number YYMMDDHHMM-EL-S-Cutting Line. Mandatory to add Cutting Line (CL).</small>
+                    <small>Batch number YEARrandomWEEK-EL-S-Cutting Line. Mandatory to add Cutting Line (CL).</small>
                 </div>
             </div>
             <div class="col-lg-3">

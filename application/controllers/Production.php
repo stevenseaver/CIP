@@ -67,6 +67,13 @@ class Production extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //get material data
         $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
+        //this bit needs improvement
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+        if ($data['getID'] != null) {
+        } else {
+            $data['getID']['description'] = 1;
+            $data['getID']['product_name'] = 1;
+        }
 
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
@@ -105,7 +112,8 @@ class Production extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         //get all stock akhir material data
         $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
-
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+        
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
 

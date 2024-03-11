@@ -36,12 +36,15 @@
     <?php
         $date = time();
         $year = date('y');
-        $month = date('m');
+        $week = date('W');
         $day = date('d');
-        $serial = rand(1000, 9999);
+        // $serial = rand(1000, 9999);
 
-        //ref invoice
-        $po_id = 'PROD-' . $year . $month . $day . '-' . $serial;
+        // //ref invoice
+        // $po_id = 'PROD-' . $year . $month . $day . '-' . $serial;
+        $n = 3;
+        $result = bin2hex(random_bytes($n));
+        $po_id = $year .$result . $week;
     ?>
 
     <a href="<?= base_url('production/add_prod/') . $po_id ?>" class="btn btn-<?= $color?>  btn-icon-split mb-3">

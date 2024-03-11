@@ -125,11 +125,18 @@ foreach ($rollType as $ms) {
 }
 $total_roll = $temp;
 $waste = $total_roll-$total_weight;
+$percent_depretiation = ($waste / $total_weight) * 100;
+
 $percent_roll = ($waste_roll/$total_roll) * 100;
 
+$data['items'] = $this->db->get_where('settings', ['parameter' => 'process_waste'])->row_array();
+$max_process_waste = $data['items']['value'];
+$data['items'] = $this->db->get_where('settings', ['parameter' => 'max_waste'])->row_array();
+$max_waste = $data['items']['value'];
+
 $pdf->Cell(193, 7, 'Total roll weight : ' . number_format($total_roll, 2, ',', '.') .' kg', 1, 1);
-$pdf->Cell(193, 7, 'Process Waste : ' . number_format($waste, 2, ',', '.') . ' kg. Positive value means expansion.', 1, 1);
-$pdf->Cell(193, 7, 'Roll Waste : ' . number_format($waste_roll, 2, ',', '.') . ' kg or ' .  number_format($percent_roll, 2, ',', '.') .'%', 1, 1);
+$pdf->Cell(193, 7, 'Process Waste : ' . number_format($waste, 2, ',', '.') . ' kg or ' .  number_format($percent_depretiation, 2, ',', '.') .'%. Positive value means expansion. Maximum ' . $max_process_waste . '%', 1, 1);
+$pdf->Cell(193, 7, 'Roll Waste : ' . number_format($waste_roll, 2, ',', '.') . ' kg or ' .  number_format($percent_roll, 2, ',', '.') .'%. Maximum ' . $max_waste . '%', 1, 1);
 // $pdf->Cell(193, 7, 'Product waste : ' . number_format($aval_weight, 2, ',', '.') . ' kg or ' . number_format($aval_weight/$total_roll * 100, 2, ',', '.') .'%', 1, 1);
 
 //GBJ
@@ -206,15 +213,19 @@ foreach ($gbjItems as $ms) {
 $total_FG = $temp;
 $grandTotal = $temp_total;
 $waste = $total_FG-$total_weight;
+
+$data['items'] = $this->db->get_where('settings', ['parameter' => 'other_waste'])->row_array();
+$max_other_waste = $data['items']['value'];
+
 if ($total_FG != 0){ 
     $percent_waste = ($waste_roll / $total_FG) * 100;
     $percent_plong = ($waste_plong / $total_FG) * 100;
     $percent_other = ($waste_other / $total_FG) * 100; 
     $pdf->Cell(96, 7, 'Total finished goods weight : ' . number_format($total_FG, 2, ',', '.') .' kg', 1, 0);
     $pdf->Cell(97, 7, 'Total finished goods value : IDR ' . number_format($grandTotal, 2, ',', '.') .' kg', 1, 1);
-    $pdf->Cell(193, 7, 'Roll Waste : ' . number_format($waste_roll, 2, ',', '.') . ' kg or ' .  number_format($percent_waste, 2, ',', '.') . '%', 1, 1);
+    $pdf->Cell(193, 7, 'Roll Waste : ' . number_format($waste_roll, 2, ',', '.') . ' kg or ' .  number_format($percent_waste, 2, ',', '.') . '%. Maximum ' . $max_waste . '%', 1, 1);
     $pdf->Cell(193, 7, 'Plong Waste : ' . number_format($waste_plong, 2, ',', '.') . ' kg or ' .  number_format($percent_plong, 2, ',', '.') . '%', 1, 1);
-    $pdf->Cell(193, 7, 'Other Waste : ' . number_format($waste_other, 2, ',', '.') . ' kg or ' .  number_format($percent_other, 2, ',', '.') . '%. Max 5%.', 1, 1);
+    $pdf->Cell(193, 7, 'Other Waste : ' . number_format($waste_other, 2, ',', '.') . ' kg or ' .  number_format($percent_other, 2, ',', '.') . '%. Maximum ' . $max_other_waste . '%', 1, 1);
 } else {
     $pdf->Cell(96, 7, 'Total finished goods weight : no data', 1, 0);
     $pdf->Cell(97, 7, 'Total finished goods value : IDR no data', 1, 1);

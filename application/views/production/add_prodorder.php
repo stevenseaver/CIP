@@ -90,8 +90,23 @@
             <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item code -->
+                    <?php 
+                        $date = time();
+                        $year = date('y');
+                        $week = date('W');
+
+                        $n = 2;
+                        $result = bin2hex(random_bytes($n));
+
+                        $tester = $getID['description'];
+                        if ($tester != 1){
+                            $batch = $getID['description'];
+                        } else {
+                            $batch = $year . $result . $week;
+                        }
+                    ?>
                     <label for="description" class="col-form-label">Batch ID</label>
-                    <input type="text" class="form-control mb-1" id="description" name="description" readonly value="<?= date('ymdHis', time());?>">
+                    <input type="text" class="form-control mb-1" id="description" name="description" readonly value="<?= $batch;?>">
                     <?= form_error('description', '<small class="text-danger pl-2">', '</small>') ?>
                     <small>Batch number. Automatically.</small>
                 </div>
@@ -99,8 +114,15 @@
             <div class="col-lg-4">
                 <div class="form-group">
                     <!-- Item code -->
+                    <?php 
+                        if ($getID['product_name'] != 1){
+                            $product_name = $getID['product_name'];;
+                        } else {
+                            $product_name = '';
+                        }
+                    ?>
                     <label for="product_name" class="col-form-label">Product Name</label>
-                    <input type="text" class="form-control mb-1" id="product_name" name="product_name" value="<?= set_value('product_name');?>">
+                    <input type="text" class="form-control mb-1" id="product_name" name="product_name" value="<?= $product_name?>">
                     <?= form_error('product_name', '<small class="text-danger pl-2">', '</small>') ?>
                     <small>Product name. Always input on each material.</small>
                 </div>

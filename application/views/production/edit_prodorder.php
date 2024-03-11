@@ -93,7 +93,7 @@
                     <label for="amount" class="col-form-label">Amount</label>
                     <div class="input-group">
                         <!-- Item code -->
-                        <input type="number" step=".1" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Use amount">
+                        <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Use amount">
                         <div class="input-group-append">
                             <span class="input-group-text" id="unit_amount">unit</span>
                         </div>
