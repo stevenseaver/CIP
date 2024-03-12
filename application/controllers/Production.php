@@ -733,11 +733,27 @@ class Production extends CI_Controller
     }
 
     public function print_ticket(){
-        $prod_id = $this->input->post('po_id');
-        $batch = $this->input->post('batch');
-        $item = $this->input->post('name');
-        $net_weight = $this->input->post('amount');
-        echo $prod_id . ' ' . $batch . ' ' . $item . ' ' . $net_weight;
+        $data['title'] = 'Print Roll Ticket';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+
+        $data['prod_id'] = $this->input->post('po_id');
+        $data['batch'] = $this->input->post('batch');
+        $data['item'] = $this->input->post('name');
+        $data['net_weight'] = $this->input->post('amount');
+        $type = $this->input->get('type');
+        if ($type == 1){
+            $data['roll_back'] = 'add_roll';
+        } else if ($type == 2){
+            $data['roll_back'] = 'roll_details';
+        }
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('production/print_ticket', $data);
+        $this->load->view('templates/footer');
+        // echo $prod_id . ' ' . $batch . ' ' . $item . ' ' . $net_weight;
     }
 
     /** GBJ Report From */

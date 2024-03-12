@@ -394,8 +394,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <p class="mx-3 mt-3 mb-0">Make sure print details are correct!</p>
-            <form action="<?= base_url('production/print_ticket') ?>" method="post">
+            <p class="mx-3 mt-3 mb-0">Double check the details!</p>
+            <form action="<?= base_url('production/print_ticket?type=1') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- prod id -->
@@ -414,7 +414,7 @@
                         <label for="url" class="col-form-label">Net Amount</label>
                         <div class="input-group">
                         <!-- Item code -->
-                            <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Amount produced">
+                            <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" readonly>
                             <div class="input-group-append">
                                 <span class="input-group-text">kg</span>
                             </div>
