@@ -10,13 +10,23 @@
     </div>
 
     <?php
-    $date = time();
-    $year = date('y');
-    $month = date('m');
-    $day = date('d');
-    $serial = rand(1000, 9999);
-    //ref invoice
-    $po_id = 'PO-' . $year . $month . $day . '-' . $serial;
+        // $date = time();
+        // $year = date('y');
+        // $month = date('m');
+        // $day = date('d');
+        // $serial = rand(1000, 9999);
+        // //ref invoice
+        // $po_id = 'PO-' . $year . $month . $day . '-' . $serial;
+        $date = time();
+        $year = date('y');
+        $month = date('m');
+        // $serial = rand(1000, 9999);
+
+        // ref invoice
+        // $po_id = 'PROD-' . $year . $month . $day . '-' . $serial;
+        $n = 3;
+        $result = bin2hex(random_bytes($n));
+        $po_id = 'A' . $year . $month . $result;
     ?>
 
     <a href="<?= base_url('purchasing/add_po/') . $po_id ?>" class="btn btn-primary btn-icon-split mb-3">

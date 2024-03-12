@@ -13,13 +13,19 @@
     </div>
 
     <?php 
+        // $date = time();
+        // $year = date('y');
+        // $month = date('m');
+        // $time = date('s');
+        // $serial = rand(100, 999);
+        // //ref invoice
+        // $ref = 'INV-' . $year . $month . $time . '-' . $user['id'] . $serial;
         $date = time();
         $year = date('y');
         $month = date('m');
-        $time = date('s');
-        $serial = rand(100, 999);
-        //ref invoice
-        $ref = 'INV-' . $year . $month . $time . '-' . $user['id'] . $serial;
+        $n = 3;
+        $result = bin2hex(random_bytes($n));
+        $ref = 'S' . $year . $month . $result . $user['id'];
     ?>
 
     <a href="<?= base_url('sales/add_salesorder/') . $ref  ?>" class="btn btn-primary btn-icon-split mb-3">

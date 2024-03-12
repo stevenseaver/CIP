@@ -732,6 +732,14 @@ class Production extends CI_Controller
         redirect('production/inputRoll');
     }
 
+    public function print_ticket(){
+        $prod_id = $this->input->post('po_id');
+        $batch = $this->input->post('batch');
+        $item = $this->input->post('name');
+        $net_weight = $this->input->post('amount');
+        echo $prod_id . ' ' . $batch . ' ' . $item . ' ' . $net_weight;
+    }
+
     /** GBJ Report From */
     /** GBJ Report From */
     /** GBJ Report From */

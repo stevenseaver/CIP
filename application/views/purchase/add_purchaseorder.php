@@ -187,6 +187,7 @@
                     <th>Amount</th>
                     <th>Price</th>
                     <th class="text-right">Subtotal</th>
+                    <th>Document</th>
                     <th>Description</th>
                     <th>Action</th>
                 </tr>
@@ -213,6 +214,7 @@
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php $subtotal = $ms['incoming'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
+                        <td><?= $ms['description'] ?></td>
                         <td><?= $ms['item_desc'] ?></td>
                         <td>
                             <a data-toggle="modal" data-target="#deleteItemPOModal" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete</a>

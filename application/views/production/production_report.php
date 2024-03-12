@@ -40,14 +40,14 @@
         $day = date('d');
         // $serial = rand(1000, 9999);
 
-        // //ref invoice
+        // ref invoice
         // $po_id = 'PROD-' . $year . $month . $day . '-' . $serial;
         $n = 3;
         $result = bin2hex(random_bytes($n));
-        $po_id = $year .$result . $week;
+        $po_id = 'P' . $year .$result . $week;
     ?>
 
-    <a href="<?= base_url('production/add_prod/') . $po_id ?>" class="btn btn-<?= $color?>  btn-icon-split mb-3">
+    <a href="<?= base_url('production/add_prod/') . $po_id ?>" class="btn btn-primary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
         </span>

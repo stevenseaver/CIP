@@ -145,8 +145,8 @@
                                         <th>Code</th>
                                         <th>Pcs per Pack</th>
                                         <th>Pack per Sack</th>
+                                        <th>In Stock</th>
                                         <th>Price</th>
-                                        <th>Stock</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -160,8 +160,8 @@
                                             <td class="code"><?= $fs['code'] ?></td>
                                             <td class="pcsperpack"><?= $fs['pcsperpack'];?></td>
                                             <td class="packpersack"><?= $fs['packpersack']; ?></td>
-                                            <td class="price"><?= $fs['price']; ?></td>
                                             <td class="in_stock"><?= $fs['in_stock']; ?></td>
+                                            <td class="price"><?= $fs['price']; ?></td>
                                             <td>
                                                 <!-- link this with a javascript -->
                                                 <a data-dismiss="modal" type="button" class="select-item-gbj badge badge-primary">Add</a> 

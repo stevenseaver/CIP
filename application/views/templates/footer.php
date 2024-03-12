@@ -1288,6 +1288,23 @@
      });
 
 
+     //  JavaScript for print roll input ticket
+     $('#printDetails').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var po_id = $(event.relatedTarget).data('po');
+         var id = $(event.relatedTarget).data('id');
+         var batch = $(event.relatedTarget).data('batch');
+         var name = $(event.relatedTarget).data('name');
+         var amount = $(event.relatedTarget).data('amount');
+
+         // input passed data using JS to object INPUT inside modal #deleteItemPOModal
+         $(event.currentTarget).find('.modal-body input[name="po_id"]').val(po_id);
+         $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="batch"]').val(batch);
+         $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="amount"]').val(amount);
+     });
+
      //  JavaScript for delete Production Order per item transaction
      $('#deleteItemProdOrder').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button

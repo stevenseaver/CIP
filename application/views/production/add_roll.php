@@ -67,12 +67,40 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <div class="form-group">
-                    <!-- Item code -->
-                    <label for="amount" class="col-form-label">Amount</label>
+                    <!-- Item net amount -->
+                    <label for="gross" class="col-form-label">Gross Amount</label>
                     <div class="input-group">
-                        <!-- Item code -->
+                        <!-- Item net amount -->
+                        <input type="number" step=".01" class="form-control" id="gross" name="gross" value="<?= set_value('gross'); ?>" placeholder="Gross roll weight" onchange="calculate()">
+                        <div class="input-group-append">
+                            <span class="input-group-text">kg</span>
+                        </div>
+                    </div>
+                    <?= form_error('gross', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <!-- Item net amount -->
+                    <label for="bobin" class="col-form-label">Bobin Weight</label>
+                    <div class="input-group">
+                        <!-- Item net amount -->
+                        <input type="number" step=".01" class="form-control" id="bobin" name="bobin" value="<?= set_value('bobin'); ?>" placeholder="Bobin used" onchange="calculate()">
+                        <div class="input-group-append">
+                            <span class="input-group-text">kg</span>
+                        </div>
+                    </div>
+                    <?= form_error('bobin', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <!-- Item net amount -->
+                    <label for="amount" class="col-form-label">Net Weight</label>
+                    <div class="input-group">
+                        <!-- Item net amount -->
                         <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Amount produced">
                         <div class="input-group-append">
                             <span class="input-group-text">kg</span>
@@ -81,12 +109,12 @@
                     <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <div class="form-group">
-                    <!-- Item code -->
+                    <!-- Item price -->
                     <label for="price" class="col-form-label">Price</label>
                     <div class="input-group">
-                        <!-- Item code -->
+                        <!-- Item price -->
                         <div class="input-group-prepend">
                             <span class="input-group-text">IDR</span>
                         </div>
@@ -96,18 +124,18 @@
                     <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <div class="form-group">
-                    <!-- Item code -->
+                    <!-- Item batch -->
                     <label for="batch" class="col-form-label">Batch</label>
                     <input type="text" class="form-control mb-1" id="batch" name="batch" value="<?= $getID['description'] . '-' ?>">
                     <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
                     <small>Batch number YEARrandomWEEK-Extruder Line-Shift. Mandatory to add Extruder Line (ES) and shift (S).</small>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <div class="form-group">
-                    <!-- Item code -->
+                    <!-- Item roll number -->
                     <label for="roll_no" class="col-form-label">Roll Number/Description</label>
                     <input type="text" class="form-control mb-1" id="roll_no" name="roll_no" placeholder="Input roll description (number, type, etc)..">
                     <?= form_error('roll_no', '<small class="text-danger pl-2">', '</small>') ?>
@@ -140,6 +168,7 @@
                                         <th>Code</th>
                                         <th>Weight</th>
                                         <th>Folding</th>
+                                        <th>In Stock</th>
                                         <th>Price</th>
                                         <th>Action</th>
                                     </tr>
@@ -154,6 +183,7 @@
                                             <td class="code"><?= $fs['code'] ?></td>
                                             <td class="weight"><?= $fs['weight'];?></td>
                                             <td class="lipatan"><?= $fs['lipatan']; ?></td>
+                                            <td class="in_stock"><?= $fs['in_stock']; ?></td>
                                             <td class="price"><?= $fs['price'];  ?></td>
                                             <td>
                                                 <!-- link this with a javascript -->
@@ -290,6 +320,7 @@
                         <td><input id="rollBatch-<?= $ms['id'] ?>" class="roll-batch text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['batch']; ?>"></td>
                         <td><input id="rollDesc-<?= $ms['id'] ?>" class="roll-desc text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['transaction_desc']; ?>"></td>
                         <td>
+                            <a data-toggle="modal" data-target="#printDetails" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-primary clickable">Print</a>
                             <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
                         </td>
                     </tr>
@@ -352,6 +383,52 @@
 <!-- /.container-fluid -->
 
 <!-- End of Main Content -->
+
+<!-- Modal For Print -->
+<div class="modal fade" id="printDetails" tabindex="-1" role="dialog" aria-labelledby="printDetailsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="printDetailsLabel">Print!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-0">Make sure print details are correct!</p>
+            <form action="<?= base_url('production/print_ticket') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- prod id -->
+                        <label for="url" class="col-form-label">Production Order ID</label>
+                        <input type="text" class="form-control" id="po_id" name="po_id" readonly>
+                        <!-- item id -->
+                        <label for="url" class="col-form-label" style="display:none">ID</label>
+                        <input type="text" class="form-control" id="id" name="id" style="display:none" readonly>
+                        <!-- item batch ID -->
+                        <label for="url" class="col-form-label">Batch</label>
+                        <input type="text" class="form-control" id="batch" name="batch" readonly>
+                        <!-- item name -->
+                        <label for="url" class="col-form-label">Item</label>
+                        <input type="text" class="form-control" id="name" name="name" readonly>
+                        <!-- item net amount -->
+                        <label for="url" class="col-form-label">Net Amount</label>
+                        <div class="input-group">
+                        <!-- Item code -->
+                            <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Amount produced">
+                            <div class="input-group-append">
+                                <span class="input-group-text">kg</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Print</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!-- Modal For Delete Data -->
 <div class="modal fade" id="deleteItemProdOrder" tabindex="-1" role="dialog" aria-labelledby="deleteItemProdOrderLabel" aria-hidden="true">
@@ -417,3 +494,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    function calculate(){
+        const gross_weight = document.getElementById('gross').value;
+        const bobin_weight = document.getElementById('bobin').value;
+        const net_weight = gross_weight - bobin_weight;
+        document.getElementById('amount').value = net_weight; 
+    }
+</script>
