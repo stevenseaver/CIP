@@ -1606,7 +1606,7 @@ class Inventory extends CI_Controller
 
     public function view_QR()
     {
-        $data['title'] = 'QR Code Print';
+        $data['title'] = 'Inventory QR Code Print';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //jpoin database room and asset_inventory
@@ -1626,7 +1626,10 @@ class Inventory extends CI_Controller
 
         //load view print_qr
         $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('inventory/print_qr', $data);
+        $this->load->view('templates/footer');
     }
 
     public function edit_asset()

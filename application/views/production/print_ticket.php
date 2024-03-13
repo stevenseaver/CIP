@@ -9,6 +9,11 @@
         </div>
     </div>
 
+    <?php 
+        $params['data'] = $prod_id . $batch . $item . $net_weight;
+        $qr_image = $this->ciqrcode->generate($params);
+    ?>
+
     <div class="col-lg-4 px-0" id="printableArea">
         <div class="card rounded shadow border-0 mb-3">
             <div class="card-body mb-0 pb-0">
@@ -20,15 +25,11 @@
                 <p class="text-dark font-weight-bold"> <?= $item ?></p>
                 <p class="mb-0">Net Amount : </p>
                 <p class="text-dark font-weight-bold"> <?= $net_weight ?> kg</p>
+                <!-- <img src="<?= $qr_image ?>" alt=""></img> -->
+                <?php $base64Image =  'R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' . $qr_image; 
+                echo '<img src="data:image/png;base64,' . $base64Image . '" />';?>
             </div>
         </div>
-    </div>
-
-    <div>
-        <?php 
-            $params['data'] = 'This is a text to encode become QR Code';
-            $this->ciqrcode->generate($params);
-        ?>
     </div>
 
     <a href="<?= base_url('production/') . $roll_back . '/' . $prod_id ?>" class="btn btn-light btn-icon-split mb-3">
