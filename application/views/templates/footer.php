@@ -576,6 +576,23 @@
      });
 
      //  JavaScript for add item to sales order database cart
+     $(".select-item-cogs").click(function() {
+         //extract data from data-* attributes of modal's add button
+         var $row = $(this).closest("tr"); // Find the row
+         var $id = $row.find(".id").text();
+         var $name = $row.find(".name").text();
+         var $in_stock = $row.find(".in_stock").text();
+         var $price = $row.find(".price").text();
+
+         // input passed data using JS to object INPUT from modal #newItem 
+        //  document.getElementById("materialSelect").value = $id;
+         document.getElementById("materialSelect").value = $id;
+         document.getElementById("materialName").value = $name;
+         document.getElementById("stock").value = $in_stock;
+         document.getElementById("price").value = $price;
+     });
+     
+     //  JavaScript for add item to sales order database cart
      $(".select-item-prod").click(function() {
          //extract data from data-* attributes of modal's add button
          var $row = $(this).closest("tr"); // Find the row
@@ -1295,6 +1312,8 @@
          var id = $(event.relatedTarget).data('id');
          var batch = $(event.relatedTarget).data('batch');
          var name = $(event.relatedTarget).data('name');
+         var weight = $(event.relatedTarget).data('weight');
+         var lipatan = $(event.relatedTarget).data('lipatan');
          var amount = $(event.relatedTarget).data('amount');
 
          // input passed data using JS to object INPUT inside modal #deleteItemPOModal
@@ -1302,6 +1321,8 @@
          $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
          $(event.currentTarget).find('.modal-body input[name="batch"]').val(batch);
          $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="gram"]').val(weight);
+         $(event.currentTarget).find('.modal-body input[name="guset"]').val(lipatan);
          $(event.currentTarget).find('.modal-body input[name="amount"]').val(amount);
      });
 

@@ -320,7 +320,7 @@
                         <td><input id="rollBatch-<?= $ms['id'] ?>" class="roll-batch text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['batch']; ?>"></td>
                         <td><input id="rollDesc-<?= $ms['id'] ?>" class="roll-desc text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['transaction_desc']; ?>"></td>
                         <td>
-                            <a data-toggle="modal" data-target="#printDetails" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-primary clickable">Print</a>
+                            <a data-toggle="modal" data-target="#printDetails" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['weight'] ?>" data-lipatan="<?= $ms['lipatan']?>" class="badge badge-primary clickable">Print</a>
                             <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
                         </td>
                     </tr>
@@ -395,23 +395,29 @@
                 </button>
             </div>
             <p class="mx-3 mt-3 mb-0">Double check the details!</p>
-            <form action="<?= base_url('production/print_ticket?type=1') ?>" method="post">
+            <form action="<?= base_url('production/print_ticket?type=2') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- prod id -->
-                        <label for="url" class="col-form-label">Production Order ID</label>
+                        <label for="po_id" class="col-form-label">Production Order ID</label>
                         <input type="text" class="form-control" id="po_id" name="po_id" readonly>
                         <!-- item id -->
-                        <label for="url" class="col-form-label" style="display:none">ID</label>
+                        <label for="id" class="col-form-label" style="display:none">ID</label>
                         <input type="text" class="form-control" id="id" name="id" style="display:none" readonly>
                         <!-- item batch ID -->
-                        <label for="url" class="col-form-label">Batch</label>
+                        <label for="batch" class="col-form-label">Batch</label>
                         <input type="text" class="form-control" id="batch" name="batch" readonly>
                         <!-- item name -->
-                        <label for="url" class="col-form-label">Item</label>
+                        <label for="name" class="col-form-label">Item</label>
                         <input type="text" class="form-control" id="name" name="name" readonly>
+                        <!-- item weight -->
+                        <label for="gram" class="col-form-label">Gramature</label>
+                        <input type="text" class="form-control" id="gram" name="gram" readonly>
+                        <!-- item lipatan -->
+                        <label for="guest" class="col-form-label">Gusset</label>
+                        <input type="text" class="form-control" id="guset" name="guset" readonly>
                         <!-- item net amount -->
-                        <label for="url" class="col-form-label">Net Amount</label>
+                        <label for="amount" class="col-form-label">Net Amount</label>
                         <div class="input-group">
                         <!-- Item code -->
                             <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" readonly>

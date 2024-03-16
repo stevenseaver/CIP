@@ -8,8 +8,8 @@
             <?= $this->session->flashdata('message'); ?>
         </div>
     </div>
-
-    <!-- back button -->
+    
+    <!-- delete button -->
     <a href="<?= base_url('production/delete_cogs_data') ?>" class="btn btn-danger btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-eraser"></i>
@@ -17,23 +17,85 @@
         <span class="text">Clear Data</span>
     </a>
 
-    <form action="<?= base_url('production/cogs_calculator/') ?>" method="post">
+    <!-- Button to add Item -->
+    <a href="" class="btn btn-primary btn-icon-split mb-3 mx-3" data-toggle="modal" data-target="#newItem">
+        <span class="icon text-white-50">
+            <i class="bi bi-plus-lg"></i>
+        </span>
+        <span class="text">Add New Item</span>
+    </a>
 
-        <div class="row">
-            <div class="col-6">
-                <div class="form-group">
-                    <!-- Item categories -->
-                    <label for="materialSelect" class="col-form-label">Add Material</label>
-                    <select name="materialSelect" id="materialSelect" class="form-control" value="<?= set_value('materialSelect') ?>">
-                        <option value="">--Select Material--</option>
-                        <?php foreach ($material as $mt) : ?>
-                            <option value="<?= $mt['id'] ?>" data-price="<?= $mt['price'] ?>" data-stock="<?= $mt['in_stock'] ?>"><?= $mt['name'] ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                    <?= form_error('materialSelect', '<small class="text-danger pl-2">', '</small>') ?>
+    <!-- Modal for add items -->
+    <div class="modal fade" id="newItem" tabindex="-1" aria-labelledby="newItemLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newItemLabel">Add New Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th style="display:none">ID</th>
+                                        <th>Material Item</th>
+                                        <th>Code</th>
+                                        <th>Stock</th>
+                                        <th>Unit</th>
+                                        <th>Unit Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1;
+                                    $temp = 0; ?>
+                                    <?php foreach ($material as $fs) : ?>
+                                        <tr>
+                                            <td style="display:none" class="id"><?= $fs['id'] ?></td>
+                                            <td class="name"><?= $fs['name'] ?></td>
+                                            <td class="code"><?= $fs['code'] ?></td>
+                                            <td class="in_stock"><?= number_format($fs['in_stock'], 2, ',', '.');?></td>
+                                            <td class="unit"><?= $fs['unit_satuan']; ?></td>
+                                            <td class="price"><?= $fs['price']; ?></td>
+                                            <td>
+                                                <!-- link this with a javascript -->
+                                                <a data-dismiss="modal" type="button" class="select-item-cogs badge badge-primary">Add</a> 
+                                            </td>
+                                        </tr>
+                                        <?php $i++; ?>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-2">
+        </div>
+    </div>
+
+    <form action="<?= base_url('production/cogs_calculator/') ?>" method="post">
+        <div class="row">
+            <!-- <div class="col-lg-6"> -->
+                <!-- <div class="form-group"> -->
+                    <!-- Item categories -->
+                    <label for="materialSelect" class="col-form-label"  style="display:none">Material ID</label>
+                    <input type="text" class="form-control" id="materialSelect" name="materialSelect" readonly value="<?= set_value('materialSelect'); ?>"  style="display:none">
+                    <?= form_error('materialSelect', '<small class="text-danger pl-2">', '</small>') ?>
+                <!-- </div> -->
+            <!-- </div> -->
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <!-- Item categories -->
+                    <label for="materialName" class="col-form-label">Material Name</label>
+                    <input type="text" class="form-control" id="materialName" name="materialName" readonly value="<?= set_value('materialName'); ?>">
+                    <?= form_error('materialName', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-2">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="price" class="col-form-label">Price</label>
@@ -41,14 +103,14 @@
                     <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-lg-2">
                 <div class="form-group">
                     <!-- Material in stock -->
                     <label for="stock" class="col-form-label">In Stock</label>
                     <input type="text" class="form-control" id="stock" name="stock" readonly value="<?= set_value('stock'); ?>">
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-lg-2">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="amount" class="col-form-label">Amount</label>

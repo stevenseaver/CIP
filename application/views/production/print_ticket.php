@@ -10,24 +10,35 @@
     </div>
 
     <?php 
-        $params['data'] = $prod_id . $batch . $item . $net_weight;
-        $qr_image = $this->ciqrcode->generate($params);
+        // $params['data'] = $prod_id . $batch . $item . $net_weight;
+        // $qr_image = $this->ciqrcode->generate($params);
     ?>
 
     <div class="col-lg-4 px-0" id="printableArea">
         <div class="card rounded shadow border-0 mb-3">
             <div class="card-body mb-0 pb-0">
-                <p class="mb-0">Prod Order Ref : </p>
-                <p class="text-dark font-weight-bold"> <?= $prod_id ?></p>
-                <p class="mb-0">Batch : </p>
-                <p class="text-dark font-weight-bold"> <?= $batch ?></p>
-                <p class="mb-0">Item : </p>
-                <p class="text-dark font-weight-bold"> <?= $item ?></p>
-                <p class="mb-0">Net Amount : </p>
-                <p class="text-dark font-weight-bold"> <?= $net_weight ?> kg</p>
-                <!-- <img src="<?= $qr_image ?>" alt=""></img> -->
-                <?php $base64Image =  'R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' . $qr_image; 
-                echo '<img src="data:image/png;base64,' . $base64Image . '" />';?>
+                <div class="row">
+                    <div class="col-lg">
+                        <p class="mb-0">Prod Order Ref : </p>
+                        <p class="text-dark font-weight-bold"> <?= $prod_id ?></p>
+                        <p class="mb-0">Batch : </p>
+                        <p class="text-dark font-weight-bold"> <?= $batch ?></p>
+                        <p class="mb-0">Item : </p>
+                        <p class="text-dark font-weight-bold"> <?= $item ?></p>
+                    </div>
+                    <div class="col-lg">
+                        <p class="mb-0">Gramature : </p>
+                        <p class="text-dark font-weight-bold"> <?= $gram ?></p>
+                        <p class="mb-0">Gusset : </p>
+                        <p class="text-dark font-weight-bold"> <?= $guset ?></p>
+                        <p class="mb-0 text-primary">Net Amount : </p>
+                        <p class="text-dark font-weight-bold"> <?= $net_weight ?> kg</p>
+                    </div>
+                </div>
+                <?php 
+                    // $base64Image =  'R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==' . $qr_image; 
+                    // echo '<img src="data:image/png;base64,' . $base64Image . '" />';
+                ?>
             </div>
         </div>
     </div>

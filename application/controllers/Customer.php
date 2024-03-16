@@ -166,7 +166,8 @@ class Customer extends CI_Controller
         $year = date('y');
         $month = date('m');
         //ref invoice
-        // $ref = 'INV-' . $year . $month . $time . '-' . $data['user']['id'] . $serial;
+        $n = 3;
+        $result = bin2hex(random_bytes($n));
         $ref = 'S' . $year . $month . $result . $data['user']['id'];
 
         // $this->form_validation->set_rules('address', 'address', 'required|trim');

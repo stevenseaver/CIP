@@ -736,11 +736,14 @@ class Production extends CI_Controller
         $data['title'] = 'Print Roll Ticket';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-
+        //get data from form
         $data['prod_id'] = $this->input->post('po_id');
         $data['batch'] = $this->input->post('batch');
         $data['item'] = $this->input->post('name');
+        $data['gram'] = $this->input->post('gram');
+        $data['guset'] = $this->input->post('guset');
         $data['net_weight'] = $this->input->post('amount');
+
         $type = $this->input->get('type');
         if ($type == 1){
             $data['roll_back'] = 'add_roll';
