@@ -79,7 +79,7 @@
                         <div class="col-sm-9">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <img src="<?= base_url('asset/img/Profile/') . $user['image'] ?>" class="img-thumbnail">
+                                    <img src="<?= base_url('asset/img/profile/') . $user['image'] ?>" class="img-thumbnail">
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="custom-file">

@@ -3,11 +3,11 @@
     <!-- Section: Social media -->
     <section class="d-flex align-items-center justify-content-center justify-content-lg-between p-4 border-bottom mx-2">
         <div class="container text-left text-md-start mt-1">
-            <p class="small">1. Rukun&reg;, and Gemah&reg; are registered trademark of UD. Cakra Inti Plastik.</p>
-            <p class="small">2. Our products are made from select recycled materials, hence some minor differences in characteristic (such as color or clearness) may occur between production batches. This does not affect product's quality and reliability. </p>
-            <p class="small">3. We may change the product's specification and price according to market situations without prior notice. Product specifications and actual products may slightly vary depending on production processes and quality enhancement. </p>
-            <p class="small">4. Custom order are available with a minimum order of 500 kg. </p>
-            <p class="small">5. Product images are for illustration purpose only, actual products may or may not vary. </p>
+            <p class="small">1. Rukun&reg; dan Gemah&reg; adalah merk dagang terdaftar dari CV. Rukun Gemilang Perkasa.</p>
+            <p class="small">2. Produk kami terbuat dari bahan daur ulang pilihan, perubahan warna dan karakteristik bahan plastik dapat terjadi antar batch produksi. Hal ini tidak mempengaruhi kualitas dan keandalan produk.</p>
+            <p class="small">3. Kami dapat mengganti spesifikasi dan harga produk sesuai kondisi pasar tanpa pemberitahuan lebih dahulu. Spesifikasi produk dan kenyataannya dapat sedikit berbeda tergantung dari proses produksi dan peningkatan kualitas.</p>
+            <p class="small">4. Order khusus tersedia dengan kuantitas order minimum (MOQ) 500 kg.</p>
+            <p class="small">5. Gambar produk adalah untuk ilustrasi semata. Produk sesungguhnya mungkin berbeda.</p>
         </div>
         <!-- Right -->
     </section>
@@ -21,10 +21,10 @@
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto">
                     <!-- Content -->
                     <h6 class="text-dark fw-bold mb-3">
-                        <i class="fas fa-recycle mr-2"></i>UD. Cakra Inti Plastik
+                        <i class="fas fa-recycle mr-2"></i>CV. Rukun Gemilang Perkasa
                     </h6>
                     <p>
-                        A plastic manufacturing company focused on recycled plastic bag and packaging products.
+                        Produsen plastik yang berfokus pada daur ulang dan produk kemasan plastik.
                     </p>
                 </div>
                 <!-- Grid column -->
@@ -33,7 +33,7 @@
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
                     <!-- Links -->
                     <h6 class="text-primary fw-bold mb-3">
-                        Products
+                        Produk
                     </h6>
                     <?php foreach ($products as $p) : ?>
                         <p>
@@ -47,19 +47,19 @@
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
                     <!-- Links -->
                     <h6 class="text-primary fw-bold mb-3">
-                        Why Us?
+                        Kenapa kami?
                     </h6>
                     <p>
-                        <a href="<?= base_url('web/lp0_circulatry') ?>" target="_blank" class="text-dark">Circular Economy</a>
+                        <a href="<?= base_url('web/lp0_circulatry') ?>" target="_blank" class="text-dark">Ekonomi Sirkular</a>
                     </p>
                     <p>
-                        <a href="<?= base_url('web/lp1_quality') ?>" target="_blank" class="text-dark">High Quality</a>
+                        <a href="<?= base_url('web/lp1_quality') ?>" target="_blank" class="text-dark">Kualitas Tinggi</a>
                     </p>
                     <p>
-                        <a href="<?= base_url('web/lp2_eco') ?>" target="_blank" class="text-dark">Eco-Mindful</a>
+                        <a href="<?= base_url('web/lp2_eco') ?>" target="_blank" class="text-dark">Peduli Lingkungan</a>
                     </p>
                     <p>
-                        <a href="<?= base_url('web/lp3_guideline') ?>" target="_blank" class="text-dark">Customization</a>
+                        <a href="<?= base_url('web/lp3_guideline') ?>" target="_blank" class="text-dark">Kustomisasi</a>
                     </p>
                 </div>
 
@@ -70,16 +70,16 @@
                         Legal
                     </h6>
                     <p>
-                        <a href="<?= base_url('web/privacy_policy') ?>" class="text-dark">Privacy Policy</a>
+                        <a href="<?= base_url('web/privacy_policy') ?>" class="text-dark">Kebijakan Privasi</a>
                     </p>
                     <p>
-                        <a href="<?= base_url('web/site_map') ?>" class="text-dark">Site Map</a>
+                        <a href="<?= base_url('web/site_map') ?>" class="text-dark">Peta Situs</a>
                     </p>
                     <p>
-                        <a href="<?= base_url('web/terms') ?>" class="text-dark">Terms and Conditions</a>
+                        <a href="<?= base_url('web/terms') ?>" class="text-dark">Syarat dan Ketentuan</a>
                     </p>
                     <p>
-                        <a href="<?= base_url('web/legal') ?>" class="text-dark">Legal Standing</a>
+                        <a href="<?= base_url('web/legal') ?>" class="text-dark">Legal</a>
                     </p>
                 </div>
                 <!-- Grid column -->
@@ -99,12 +99,12 @@
                     <p>
                         <a href="mailto:cs.sbplastik@gmail.com" class="text-dark" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-envelope mr-1"></i>
-                            <span>cs.sbplastik@gmail.com</span>
+                            <span>info@plastikrukun.com</span>
                         </a>
                     </p>
                     <a href="https://instagram.com/sbplastik" class="text-dark" target="_blank" rel="noopener noreferrer">
                         <p>
-                            <i class="bi bi-instagram mr-1"></i> sbplastik
+                            <i class="bi bi-instagram mr-1"></i>@ciplastik.id
                         </p>
                     </a>
                     <a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" class="text-dark" target="_blank" rel="noopener noreferrer">
@@ -126,7 +126,7 @@
     <!-- Copyright -->
     <div class="text-center bg-white p-4">
         <div class="copyright">
-            <span class="small">Copyright &copy; UD. Cakra Inti Plastik 2021</span>
+            <span class="small">Copyright &copy; CV. Rukun Gemilang Perkasa 2024</span>
         </div>
     </div>
     <!-- Copyright -->

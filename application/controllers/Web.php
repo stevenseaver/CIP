@@ -8,7 +8,7 @@ class Web extends CI_Controller
 	{
 		// index function, will load home-page
 		// data['title'] will serve as title of the page
-		$data['title'] = 'Home';
+		$data['title'] = 'Beranda';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
@@ -23,7 +23,7 @@ class Web extends CI_Controller
 	//load view product
 	public function product()
 	{
-		$data['title'] = 'Products';
+		$data['title'] = 'Produk';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();
@@ -37,7 +37,7 @@ class Web extends CI_Controller
 	//load page contact us
 	public function contact_us()
 	{
-		$data['title'] = 'Contact Us';
+		$data['title'] = 'Kontak';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
@@ -51,7 +51,7 @@ class Web extends CI_Controller
 
 	public function contact_form()
 	{
-		$data['title'] = 'Customer Service Form';
+		$data['title'] = 'Form Layanan Pelanggan';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
@@ -65,7 +65,7 @@ class Web extends CI_Controller
 
 	public function validate()
     {
-        $data['title'] = 'Contact Us';
+        $data['title'] = 'Kontak';
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['products'] = $this->db->get('product_menu')->result_array();
 
@@ -139,7 +139,7 @@ class Web extends CI_Controller
 	//load page contact list
 	public function contactList()
 	{
-		$data['title'] = 'Contact List';
+		$data['title'] = 'Daftar Kontak';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
@@ -154,7 +154,7 @@ class Web extends CI_Controller
 	//load page about Us
 	public function aboutUs()
 	{
-		$data['title'] = 'About';
+		$data['title'] = 'Tentang Kami';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>

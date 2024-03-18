@@ -348,6 +348,13 @@ class Admin extends CI_Controller
             $this->db->set('value', $amount);
             $this->db->where('parameter', 'other_waste');
             $this->db->update('settings');
+        } else if($type == 4) {
+            $img = $this->input->post('header_img');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Header image updated!</div>');
+            
+            $this->db->set('value', $img);
+            $this->db->where('parameter', 'web_header_img');
+            $this->db->update('settings');
         }
         redirect('admin/settings');
     }

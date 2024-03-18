@@ -12,7 +12,7 @@
     <div class="card border-left-primary mb-3" style="max-width: 540px;">
         <div class="row no-gutters">
             <div class="col-md-4 pl-auto align-self-center">
-                <img src="<?= base_url('asset/img/Profile/') . $user['image'] ?>" class="card-img">
+                <img src="<?= base_url('asset/img/profile/') . $user['image'] ?>" class="card-img">
             </div>
             <div class="col-md-8">
                 <div class="card-body">

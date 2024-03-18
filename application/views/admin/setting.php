@@ -9,6 +9,7 @@
         <div class="col-lg-3 mb-3">
             <div class="list-group list-group-flush" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-general-list" data-toggle="list" href="#list-general" role="tab" aria-controls="general">General</a>
+                <!-- <a class="list-group-item list-group-item-action" id="list-backup-list" data-toggle="list" href="#list-backup" role="tab" aria-controls="backup">Manufacturing</a> -->
                 <a class="list-group-item list-group-item-action" id="list-backup-list" data-toggle="list" href="#list-backup" role="tab" aria-controls="backup">Backup</a>
             </div>
         </div>
@@ -39,6 +40,7 @@
                         $data['max_process_waste'] = $this->db->get_where('settings', ['parameter' => 'process_waste'])->row_array();
                         $data['max_waste'] = $this->db->get_where('settings', ['parameter' => 'max_waste'])->row_array();
                         $data['max_other_waste'] = $this->db->get_where('settings', ['parameter' => 'other_waste'])->row_array();
+                        $data['web_header_img'] = $this->db->get_where('settings', ['parameter' => 'web_header_img'])->row_array();
                         // $data['sales_tax'] = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array();
                         // $data['sales_tax'] = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array();
                         $purchase_tax = $data['purchase_tax']['value'];
@@ -46,6 +48,7 @@
                         $max_process_waste = $data['max_process_waste']['value'];
                         $max_extrusion_waste = $data['max_waste']['value'];
                         $max_other_waste = $data['max_other_waste']['value'];
+                        $web_header_img = $data['web_header_img']['value'];
                     ?>
                     <!-- purchase tax setting -->
                     <label class="mb-2 h5">Purchase Tax</label>
@@ -77,16 +80,16 @@
                         </div>
                     </div>
                     </form>
-                    <!-- max process waste -->
+                     <!-- max process waste -->
                     <div class="mb-2 h5">Maximum Process Waste
                         <i type="button" class="small text-primary bi bi-question-circle" data-toggle="tooltip" data-placement="right" title="Maximum process waste, x kg of materials produce y kg of roll products">
                         </i>
-                    </div>
+                    <div>
                     <form action="<?= base_url('admin/update_waste/1') ?>" method="post">
                     <div class="row mb-3">
                         <div class="col-lg-3 input-group">
                             <!-- Item folding -->
-                            <input type="number" step=".1" class="form-control" id="max_process_waste" name="max_process_waste" value="<?=$max_process_waste ?>">
+                            <input type="number" step=".01" class="form-control" id="max_process_waste" name="max_process_waste" value="<?=$max_process_waste ?>">
                             <div class="input-group-append">
                                 <span class="input-group-text">%</span>
                                 <button class="btn btn-outline-success" type="submit" id="save_max_process_waste">Save</button>
@@ -104,7 +107,7 @@
                     <div class="row mb-3">
                         <div class="col-lg-3 input-group">
                             <!-- Item folding -->
-                            <input type="number" step=".1" class="form-control" id="max_ext_waste" name="max_ext_waste" value="<?=$max_extrusion_waste ?>">
+                            <input type="number" step=".01" class="form-control" id="max_ext_waste" name="max_ext_waste" value="<?=$max_extrusion_waste ?>">
                             <div class="input-group-append">
                                 <span class="input-group-text">%</span>
                                 <button class="btn btn-outline-success" type="submit" id="save_max_ext_waste">Save</button>
@@ -122,12 +125,34 @@
                     <div class="row mb-3">
                         <div class="col-lg-3 input-group">
                             <!-- Item folding -->
-                            <input type="number" step=".1" class="form-control" id="max_other_waste" name="max_other_waste" value="<?=$max_other_waste ?>">
+                            <input type="number" step=".01" class="form-control" id="max_other_waste" name="max_other_waste" value="<?=$max_other_waste ?>">
                             <div class="input-group-append">
                                 <span class="input-group-text">%</span>
                                 <button class="btn btn-outline-success" type="submit" id="save_max_other_waste">Save</button>
                             </div>
                             <?= form_error('max_other_waste', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    </form>
+                    <!-- max other waste -->
+                    <div class="mb-2 h5">Webpage Header Image
+                        <i type="button" class="small text-primary bi bi-question-circle" data-toggle="tooltip" data-placement="right" title="Website header image selector">
+                        </i>
+                    </div>
+                    <form action="<?= base_url('admin/update_waste/4') ?>" method="post">
+                    <div class="row mb-3">
+                        <div class="col-lg-3 input-group">
+                            <div class="navbar-brand-text mx-2 text-white font-weight-bold"><img class="img-profile" style="height:30px" src="<?= base_url($web_header_img)?>"></div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-lg-3 input-group">
+                            <!-- Item folding -->
+                            <input type="text" class="form-control" id="header_img" name="header_img" value="<?= $web_header_img ?>">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-success" type="submit" id="save_header_img">Save</button>
+                            </div>
+                            <?= form_error('header_img', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     </form>
@@ -147,6 +172,8 @@
             </div>
         </div>
     </div>
+</div>
+</div>
 
     <script>
         //js for setting purchase tax input onchange

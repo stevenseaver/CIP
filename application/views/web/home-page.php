@@ -4,10 +4,10 @@
 		<div class="no-gutter shadow bg-white mt-1 mb-4">
 			<div class="row align-items-center">
 				<div class="col-lg text-center mt-4 mx-4">
-					<h1 class="card-title text-primary mb-3">Infinite Loop.</h1>
-					<h5 class="card-text text-dark">We manufacture. We recycle. We do it for you and Earth.</h5>
+					<h1 class="card-title text-primary mb-3">Sirkular. Selamanya.</h1>
+					<h5 class="card-text text-dark">Kita membuat. Kita mendaur ulang. Kita lakukan untuk anda dan Bumi.</h5>
 					<a data-toggle="modal" data-target="#circulatryModal" class="card-text clickable">
-						<p class="card-text mb-3">Learn how our company manage our production waste using circular economy &rarr;
+						<p class="card-text mb-3">Pelajari bagaimana kami mengolah sisa produksi kami dengan ekonomi sirkular &rarr;
 					</a>
 				</div>
 				<div class="col-lg text-center mx-3 my-3">
@@ -25,17 +25,17 @@
 								<img class="img-fluid rounded mx-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/webpage/product_.png') ?>" alt="Main Cards">
 							</div>
 							<div class="col-lg text-center">
-								<h1 class="card-title text-primary mb-2">Rukun Jumbo Bag</h1>
-								<h5 class="card-text mx-4 text-dark">Made from selected recycled materials. 6 gorgeous colors. Smooth surface. Your perfect options for jumbo bag needs.</h5>
+								<h1 class="card-title text-primary mb-2">Kresek Jumbo Rukun</h1>
+								<h5 class="card-text mx-4 text-dark">Dibuat dari bahan daur ulang pilihan. 6 pilihan warna yang cerah. Cocok untuk kebutuhan kresek jumbo anda.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-4">
 										<a href="<?= base_url('products/jumbobag') ?>" class="card-text" style="text-decoration:none">
-											<p class="card-text">Learn more &rarr;
+											<p class="card-text">Pelajari lebih &rarr;
 										</a>
 									</div>
 									<div class="col-lg-3">
 										<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
-											<p class="card-text">Shop &rarr;
+											<p class="card-text">Belanja &rarr;
 										</a>
 									</div>
 								</div>
@@ -50,17 +50,17 @@
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center my-3">
-								<h1 class="card-title text-primary mb-2">Shopping Bag</h1>
-								<h5 class="card-text mx-4 text-dark">Strong and durable surface quality. 6 high saturarion colors. Your perfect options for online business shopping bag.</h5>
+								<h1 class="card-title text-primary mb-2">Kantong Belanja</h1>
+								<h5 class="card-text mx-4 text-dark">Kuat dan tebal. 6 warna saturasi tinggi. Cocok untuk kantong belanja usaha anda.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-4">
-										<a href="<?= base_url('products/shoppingbag') ?>" class="card-text" style="text-decoration:none">
-											<p class="card-text">Learn more &rarr;
+										<a href="<?= base_url('products/Belanjapingbag') ?>" class="card-text" style="text-decoration:none">
+											<p class="card-text">Pelajari lebih &rarr;
 										</a>
 									</div>
 									<div class="col-lg-3">
 										<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
-											<p class="card-text">Shop &rarr;
+											<p class="card-text">Belanja &rarr;
 										</a>
 									</div>
 								</div>
@@ -81,17 +81,17 @@
 								<img class="img-fluid rounded mx-3 my-3" style="width: 40rem;" src="<?= base_url('asset/img/webpage/product_3.png') ?>" alt="Main Cards">
 							</div>
 							<div class="col-lg text-center my-3">
-								<h1 class="card-title text-primary mb-2">Rukun Trash Bag</h1>
-								<h5 class="card-text mx-5 text-dark">Three differnet sizes. Two different colors. To keep your trash tidy.</h5>
+								<h1 class="card-title text-primary mb-2">Kantong Sampah Rukun</h1>
+								<h5 class="card-text mx-5 text-dark">Tiga ukuran dan dua warna  berbeda. Menjaga lingkungan anda tetap bersih.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-4">
 										<a href="<?= base_url('products/trashbag') ?>" class="card-text" style="text-decoration:none">
-											<p class="card-text">Learn more &rarr;
+											<p class="card-text">Pelajari lebih &rarr;
 										</a>
 									</div>
 									<div class="col-lg-3">
 										<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
-											<p class="card-text">Shop &rarr;
+											<p class="card-text">Belanja &rarr;
 										</a>
 									</div>
 								</div>
@@ -110,17 +110,17 @@
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center mt-4">
-								<h1 class="card-title text-primary mb-3">Rukun Jumbo Bag</h1>
-								<h5 class="card-text mx-4 text-dark">Made from selected recycled materials. 6 gorgeous colors. Smooth surface. Your perfect options for jumbo bag needs.</h5>
+							<h1 class="card-title text-primary mb-2">Kresek Jumbo Rukun</h1>
+								<h5 class="card-text mx-4 text-dark">Dibuat dari bahan daur ulang pilihan. 6 pilihan warna yang cerah. Cocok untuk kebutuhan kresek jumbo anda.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-3">
 										<a href="<?= base_url('products/jumbobag') ?>" class="card-text" style="text-decoration:none">
-											<p class="card-text">Learn more &rarr;
+											<p class="card-text">Pelajari lebih &rarr;
 										</a>
 									</div>
 									<div class="col-lg-3">
 										<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
-											<p class="card-text">Shop &rarr;
+											<p class="card-text">Belanja &rarr;
 										</a>
 									</div>
 								</div>
@@ -138,12 +138,12 @@
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center mt-4">
-								<h1 class="card-title text-primary mb-3">Shopping Bag</h1>
-								<h5 class="card-text mx-5 text-dark">Strong and durable surface quality. 6 high saturarion colors. Your perfect options for online business shopping bag.</h5>
+								<h1 class="card-title text-primary mb-2">Kantong Belanja</h1>
+								<h5 class="card-text mx-4 text-dark">Kuat dan tebal. 6 warna saturasi tinggi. Cocok untuk kantong belanja usaha anda.</h5>	
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-3">
 										<a href="<?= base_url('products/shoppingbag') ?>" class="card-text" style="text-decoration:none">
-											<p class="card-text">Learn more &rarr;
+											<p class="card-text">Pelajari lebih &rarr;
 										</a>
 									</div>
 									<div class="col-lg-3">
@@ -166,17 +166,17 @@
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center mt-4">
-								<h1 class="card-title text-primary mb-3">Rukun Trash Bag</h1>
-								<h5 class="card-text mx-5 text-dark">Three differnet sizes. Two different colors. To keep your trash tidy.</h5>
+							<h1 class="card-title text-primary mb-2">Kantong Sampah Rukun</h1>
+								<h5 class="card-text mx-5 text-dark">Tiga ukuran dan dua warna  berbeda. Menjaga lingkungan anda tetap bersih.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-3">
 										<a href="<?= base_url('products/trashbag') ?>" class="card-text" style="text-decoration:none">
-											<p class="card-text">Learn more &rarr;
+											<p class="card-text">Pelajari lebih &rarr;
 										</a>
 									</div>
 									<div class="col-lg-3">
 										<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
-											<p class="card-text">Shop &rarr;
+											<p class="card-text">Belanja &rarr;
 										</a>
 									</div>
 								</div>
@@ -192,7 +192,7 @@
 
 		<!-- Secondary Card -->
 		<div class="container justify-content-center pt-3 my-4">
-			<h3 class="text-primary text-center font-weight-bold mb-3"> Why Choose Us?</h3>
+			<h3 class="text-primary text-center font-weight-bold mb-3">Kenapa memilih kami?</h3>
 		</div>
 		<div class="row px-3 mx-3 mb-4">
 			<!-- Secondary Value Prop Card #1 -->
@@ -202,28 +202,28 @@
 						<div class="text-center">
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="<?= base_url('asset/') ?>img/stock/undraw_upgrade_re_gano.svg" alt="High Quality">
 						</div>
-						<h5 class="text-primary">High Quality</h5>
-						<p class="text-dark">Our plastic bag and packaging use carefully selected recycled material with continually improved formula to achieve highest quality possible. </p>
+						<h5 class="text-primary">Kualitas Tinggi</h5>
+						<p class="text-dark">Produk kami dibuat dengan bahan daur ulang pilihan. Peningkatan kualitas produk dan efisiensi proses produksi dilakukan secara terus menerus.</p>
 						<!-- arahkan ke landing page soal high quality -->
-						<!-- <a href="<?= base_url('web/lp1_quality') ?>">Learn More &rarr;</a> -->
+						<!-- <a href="<?= base_url('web/lp1_quality') ?>">Pelajari lebih &rarr;</a> -->
 						<a data-toggle="modal" data-target="#highQualityModal" class="card-text clickable">
-							<p class="card-text">Learn more &rarr;
+							<p class="card-text">Pelajari lebih &rarr;
 						</a>
 					</div>
 				</div>
 			</div>
 			<!-- Secondary Card #2 -->
 			<div class="col-lg-4">
-				<div class="card border mb-3 bg-primary" style="border-radius: 50px 20px;">
+				<div class="card border-primary mb-3 bg-light" style="border-radius: 50px 20px;">
 					<div class="card-body">
 						<div class="text-center">
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 16rem;" src="<?= base_url('asset/') ?>img/stock/undraw_together_re_a8x4.svg" alt="Eco-mindful">
 						</div>
-						<h5 class="text-white">Eco-Mindful</h5>
-						<p class="text-white">We use more than 95% recycled plastic materials, thus helping to reduce plastic waste and promote sustainable circulatory economy. </p>
-						<!-- <a href="<?= base_url('web/lp2_eco') ?>" class="text-white">Learn More &rarr;</a> -->
-						<a data-toggle="modal" data-target="#ecoMindfulModal" class="card-text text-white clickable">
-							<p class="card-text ">Learn more &rarr;
+						<h5 class="text-primary">Peduli Lingkungan</h5>
+						<p class="text-dark">Penggunaan plastik daur ulang mencapai >95% kapasitas kami, membantu mengurangi sampah plastik dan mendorong ekonomi sirkular yang berkelanjutan. Selain itu, kami juga memiliki bank sampah yang siap menampung sampah plastik anda.</p>
+						<!-- <a href="<?= base_url('web/lp2_eco') ?>" class="text-white">Pelajari lebih &rarr;</a> -->
+						<a data-toggle="modal" data-target="#ecoMindfulModal" class="card-text text-primary clickable">
+							<p class="card-text">Pelajari lebih &rarr;
 						</a>
 					</div>
 				</div>
@@ -235,12 +235,12 @@
 						<div class="text-center">
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="<?= base_url('asset/') ?>img/stock/undraw_specs_re_546x.svg" alt="Highly Customizable">
 						</div>
-						<h5 class="text-primary">Highly Customizable</h5>
-						<p class="text-dark">Plastic comes with many shape and sizes. Be unique! Customize your own using our plastic bag and packaging design guidlines. </p>
+						<h5 class="text-primary">Mudah Dikustomisasi</h5>
+						<p class="text-dark">Plastik tersedia dalam bentuk dan ukuran yang beragam. Jadilah unik! Buat desain kemasan dan kantong plastik anda dengan kami!</p>
 						<!-- arahkan ke landing page soal high quality -->
 						<!-- <a href="<?= base_url('web/lp3_guideline') ?>">Guideline &rarr;</a> -->
 						<a data-toggle="modal" data-target="#customizableModal" class="card-text text-primary clickable">
-							<p class="card-text ">Learn more &rarr;
+							<p class="card-text ">Pelajari lebih &rarr;
 						</a>
 					</div>
 				</div>
@@ -250,57 +250,57 @@
 		<div class="no-gutter bg-white shadow mt-2 mb-3">
 			<!-- Value Prop 4 -->
 			<div class="row justify-content-center">
-				<h3 class="text-primary text-center font-weight-bold mb-1 pt-2 mt-5">In other words..</h3>
+				<h3 class="text-primary text-center font-weight-bold mb-1 pt-2 mt-5">Dengan kata lain..</h3>
 			</div>
 			<div class="row justify-content-center text-center mt-2 mb-3">
 				<div class="col-lg-3">
 					<i class="bi bi-arrow-up-circle fa-3x text-primary"></i>
-					<p class="nav-label text-dark">Continual Quality Improvement</p>
+					<p class="nav-label text-dark">Peningkatan Kualitas Berkelanjutan</p>
 				</div>
 				<div class="col-lg-3 mx-2">
 					<i class="bi bi-currency-dollar fa-3x text-success"></i>
-					<p class="nav-label text-dark">Cost-Effective Products</p>
+					<p class="nav-label text-dark">Produk dengan Harga Efektif</p>
 				</div>
 				<div class="col-lg-3">
 					<i class="bi bi-trophy fa-3x text-primary"></i>
-					<p class="nav-label text-dark">Higher Quality Products<sup>1</sup></p>
+					<p class="nav-label text-dark">Kualitas Produk Lebih Tinggi<sup>1</sup></p>
 				</div>
 				<div class="col-lg-3">
 					<i class="bi bi-recycle fa-3x text-warning"></i>
-					<p class="nav-label text-dark">Selected Recycled Materials</p>
+					<p class="nav-label text-dark">Bahan Daur Ulang Pilihan</p>
 				</div>
 				<div class="col-lg-3">
 					<i class="bi bi-shield-check fa-3x text-danger"></i>
-					<p class="nav-label text-dark">Extensive Quality Control</p>
+					<p class="nav-label text-dark">Kendali Kualitas Ekstensif</p>
 				</div>
 			</div>
 			<div class="row justify-content-center">
-				<h3 class="text-primary text-center font-weight-bold mb-1 mt-3"> So, don't hesitate to visit or contact us.</h3>
+				<h3 class="text-primary text-center font-weight-bold mb-1 mt-3"> Jangan ragu untuk hubungi kami.</h3>
 			</div>
 			<div class="row justify-content-center mb-0 mx-3">
-				<p class="text-dark text-center">We would love to sent you our representatives. Or if you want to know us more, you can visit us at our address.</p>
+				<p class="text-dark text-center">Kami sangat senang mengirim perwakilan kami ke tempat Anda. Atau jika Anda ingin tahu kami lebih lagi, Anda dapat mengunjungi kami di alamat kami.</p>
 			</div>
 			<div class="row justify-content-center pb-5">
 				<div class="col-lg-3 py-3 px-3 mb-1 text-center">
 					<i class="bi bi-geo fa-3x mb-3 text-primary"></i>
 					<p class="text-primary mb-0">Pergudangan & Industri Sinar Gedangan A-20</p>
 					<p class="text-dark mb-0">Gedangan, Sidoarjo</p>
-					<p class="text-dark mb-0">East Java, Indonesia 61245</p>
-					<a href="https://goo.gl/maps/zRBAk5gr9dujTFc48" class="" target="_blank">Directions &rarr; </a>
+					<p class="text-dark mb-0">Jawa Timur, Indonesia 61245</p>
+					<a href="https://maps.app.goo.gl/b1YM7f1MYZved6kLA" class="" target="_blank">Petunjuk arah &rarr; </a>
 				</div>
 				<div class="col-lg-3 py-3 px-3 mb-1 text-center">
 					<i class="bi bi-whatsapp fa-3x mb-3 text-success"></i>
-					<p class="text-primary mb-0">+62822-3205-7755</p>
-					<p class="text-dark mb-0">Whatsapp with Customer Service</p>
+					<p class="text-primary mb-0">+62-878-6241-3070</p>
+					<p class="text-dark mb-0">Whatsapp dengan Perwakilan Kami</p>
 					<p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
-					<a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" target="_blank" rel="noopener noreferer" class="text-success">Contact us now <i class="bi bi-whatsapp mr-1"></i> </a>
+					<a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" target="_blank" rel="noopener noreferer" class="text-success">Hubungi kami di <i class="bi bi-whatsapp mr-1"></i> </a>
 				</div>
 				<div class="col-lg-3 py-3 px-3 mb-1 text-center">
 					<i class="bi bi-instagram fa-3x mb-3" style="color: #962fbf"></i>
-					<p class="text-primary mb-0">@sbplastik</p>
-					<p class="text-dark mb-0">Chat on Instagram</p>
+					<p class="text-primary mb-0">@ciplastik.id</p>
+					<p class="text-dark mb-0">Kirim pesan di Instagram</p>
 					<p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
-					<a href="https://instagram.com/sbplastik" target="_blank" rel="noopener noreferer" style="color: #962fbf">Chat with us <i class="bi bi-instagram mr-1"></i> </a>
+					<a href="https://instagram.com/sbplastik" target="_blank" rel="noopener noreferer" style="color: #962fbf">Kirim pesan di <i class="bi bi-instagram mr-1"></i> </a>
 				</div>
 			</div>
 		</div>

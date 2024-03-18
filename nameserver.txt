@@ -1,0 +1,15 @@
+database : plar2935_cip_login
+username : plar2935_admin
+password : #RVw2VET)==K
+
+cs@plastikrukun.com
+csrukungemilangperkasa
+
+hr@plastikrukun.com
+hrrukungemilangperkasa
+
+info@plastikrukun.com
+inforukungemilangperkasa
+
+sales@plastikrukun.com
+salesrukungemilangperkasa

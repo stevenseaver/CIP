@@ -1,6 +1,11 @@
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 
+    <?php 
+        $data['items'] = $this->db->get_where('settings', ['parameter' => 'web_header_img'])->row_array();
+        $header_img = $data['items']['value'];
+    ?>
+
     <!-- Main Content -->
     <div id="content">
         <!-- Topbar -->
@@ -8,10 +13,7 @@
         <nav class="mx-3 my-3 navbar rounded navbar-expand-lg fixed-top navbar-dark bg-primary mb-4">
             <!-- Topbar - Brand -->
             <a class="navbar-brand d-flex align-items-center justify-content-center" href="<?= base_url('web') ?>">
-                <div class="navbar-brand-icon ml-2">
-                    <i class="fas fa-recycle"></i>
-                </div>
-                <div class="navbar-brand-text mx-2 text-white font-weight-bold">CIP</div>
+                <div class="navbar-brand-text mx-2 text-white font-weight-bold"><img class="img-profile" style="height:30px" src="<?= base_url($header_img)?>"></div>
             </a>
             <!-- Toggler -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
