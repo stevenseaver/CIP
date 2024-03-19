@@ -809,12 +809,14 @@
          //extract data from data-* attributes of modal's toggle button
          var webmenuid = $(event.relatedTarget).data('id');
          var webmenutitle = $(event.relatedTarget).data('title');
-         var unit = $(event.relatedTarget).data('unit');
+         var webmenuurl = $(event.relatedTarget).data('url');
+         var webmenuicon = $(event.relatedTarget).data('icon');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="id"]').val(webmenuid);
          $(event.currentTarget).find('.modal-body input[name="title"]').val(webmenutitle);
-         $(event.currentTarget).find('.modal-body input[name="unit"]').val(unit);
+         $(event.currentTarget).find('.modal-body input[name="url"]').val(webmenuurl);
+         $(event.currentTarget).find('.modal-body input[name="icon"]').val(webmenuicon);
      });
 
      //  JavaScript for Edit Material Category Modal

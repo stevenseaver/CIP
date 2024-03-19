@@ -44,7 +44,7 @@
                             <div class="carousel-caption d-none d-md-block">
                                 <h4 class="text-white"><?= $bc["title"] ?></h4>
                                 <p><?= $bc["summary"] ?></p>
-                                <a href="<?= base_url('blog/content/') . $bc["id"]  ?>" class="text-white">Read more &rarr; </a>
+                                <a href="<?= base_url('blog/content/') . $bc["id"]  ?>" class="text-white">Baca lebih &rarr; </a>
                             </div>
                         </div>
                     <?php $i++;
@@ -74,7 +74,7 @@
                     <h5 class="card-title mb-1 text-primary font-weight-bold"><?= $bc["title"] ?></h5>
                     <p class="card-subtitle mb-4 text-muted"><?= date('d F Y', $bc["date_created"]); ?></p>
                     <h6 class="card-subtitle mb-2 text-muted"><?= $bc["summary"] ?></h6>
-                    <a href="<?= base_url('blog/content/') . $bc["id"]  ?>" class="card-link">Read more &rarr; </a>
+                    <a href="<?= base_url('blog/content/') . $bc["id"]  ?>" class="card-link">Baca lebih &rarr; </a>
                 </div>
             </div>
         </div>

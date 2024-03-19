@@ -2,7 +2,7 @@
 <div class="container-fluid pt-4 mt-5">
 
     <!-- Page Heading -->
-    <div class="container" id="english">
+    <div class="container" id="english" style="display:none" >
         <div class="d-flex mt-4 mb-1 mx-2 px-2 text-justify">
             <h1 class="h3 mb-0 text-primary font-weight-bold"><?= $title ?></h1>
         </div>
@@ -294,7 +294,7 @@
     <!-- indonesian -->
     <!-- indonesian -->
     
-    <div class="container" id="indonesia" style="display:none" lang="id">
+    <div class="container" id="indonesia" lang="id">
         <div class="d-flex mt-4 mb-1 mx-2 px-2 text-justify">
             <h1 class="h3 mb-0 text-primary font-weight-bold">Syarat dan Ketentuan</h1>
         </div>
@@ -336,11 +336,11 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="card-body">
-                        <p class="card-text">PT. Rukun Bersama Plastindo (RBP/Us/We/Our) adalah perusahaan swasta yang membuat dan memperdagangkan produk plastik, terdaftar di Indonesia dengan detail sebagai berikut.</p>
+                        <p class="card-text">CV. Rukun Gemilang Perkasa (Us/We/Our) adalah perusahaan swasta yang membuat dan memperdagangkan produk plastik, terdaftar di Indonesia dengan detail sebagai berikut.</p>
                         <p class="card-text mb-0 font-weight-bold">Alamat</p>
                         <p class="card-text">Pergudangan dan Industri Sinar Gedangan A-20, Sidoarjo, Jawa Timur, Indonesia 61254</p>
-                        <p class="card-text">Nomor NIB xxxxxxxxxxxx dan NPWP xxxx.x.xxx.xxxxxx</p>
-                        <p class="card-text mb-0">Rukun&trade; dan Jemblung&trade; adalah merek dagang terdaftar di Kementrian Hukum dan Ham Republik Indonesia. Pelanggaran terhadap hak kekayaan intelektual kami akan diproses secara tegas berdasarkan hukum yang berlaku.</p>
+                        <p class="card-text">Nomor NIB 1503240288249 dan NPWP 12.800.415.7-643.000</p>
+                        <p class="card-text mb-0">Rukun&trade;, Jemblung&trade;, dan Gemah&trade; adalah merek dagang terdaftar di Kementrian Hukum dan Ham Republik Indonesia. Pelanggaran terhadap hak kekayaan intelektual kami akan diproses secara tegas berdasarkan hukum yang berlaku.</p>
                     </div>
                 </div>
             </div>

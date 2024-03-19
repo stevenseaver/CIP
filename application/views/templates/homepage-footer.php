@@ -22,7 +22,7 @@
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto">
                     <!-- Content -->
                     <h6 class="text-dark fw-bold mb-3">
-                        <i class="fas fa-recycle mr-2"></i>CV. Rukun Gemilang Perkasa
+                        <i class=""></i>CV. Rukun Gemilang Perkasa
                     </h6>
                     <p>
                         Produsen plastik yang berfokus pada daur ulang dan produk kemasan plastik.
@@ -58,7 +58,7 @@
                         <a href="<?= base_url('web/lp2_eco') ?>" target="_blank" class="text-dark">Peduli Lingkungan</a>
                     </p>
                     <p>
-                        <a href="<?= base_url('web/lp3_guideline') ?>" target="_blank" class="text-dark">Kustomisasi</a>
+                        <a href="<?= base_url('web/lp3_guideline') ?>" target="_blank" class="text-dark">Personalisasi</a>
                     </p>
                 </div>
 

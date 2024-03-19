@@ -42,7 +42,7 @@ class Blog extends CI_Controller
     public function news()
     {
         //load user data per session
-        $data['title'] = 'News';
+        $data['title'] = 'Baru';
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
@@ -60,7 +60,7 @@ class Blog extends CI_Controller
     public function education()
     {
         //load user data per session
-        $data['title'] = 'Education';
+        $data['title'] = 'Edukasi';
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
@@ -78,7 +78,7 @@ class Blog extends CI_Controller
     public function promotion()
     {
         //load user data per session
-        $data['title'] = 'Promotion';
+        $data['title'] = 'Promosi';
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
@@ -97,7 +97,7 @@ class Blog extends CI_Controller
     public function content($id)
     {
         //load user data per session
-        $data['title'] = 'Content';
+        $data['title'] = 'Konten';
         $data['webmenu'] = $this->db->get('web_menu')->result_array();
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();

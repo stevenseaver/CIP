@@ -34,7 +34,7 @@
     </div>
 
     <div class="text-center mb-4">
-        <a class="small" href="<?= base_url('web/blogs') ?>"> &larr; Go Back</a>
+        <a class="small" href="<?= base_url('web/blogs') ?>"> &larr; Kembali</a>
     </div>
 </div>
 <!-- End of Main Content -->

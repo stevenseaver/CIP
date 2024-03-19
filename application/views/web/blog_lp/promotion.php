@@ -24,7 +24,7 @@
                         <h5 class="card-title mb-1 font-weight-bold"><?= $bc["title"] ?></h5>
                         <p class="card-subtitle mb-4 text-muted"><?= date('d F Y', $bc["date_created"]); ?></p>
                         <h6 class="card-subtitle mb-2 text-muted"><?= $bc["summary"] ?></h6>
-                        <a href="<?= base_url('blog/content/') . $bc["id"]  ?>" class="card-link">Read more &rarr; </a>
+                        <a href="<?= base_url('blog/content/') . $bc["id"]  ?>" class="card-link">Baca lebih &rarr; </a>
                     </div>
                 </div>
             </div>
@@ -32,12 +32,12 @@
     <?php
     else : ?>
         <div class="row justify-content-center my-2 mx-3">
-            <div class="alert alert-primary mx-5 col-lg-8 align-items-center" role="alert">Blog is empty! Wait for new articles from us.</div>
+            <div class="alert alert-primary mx-5 col-lg-8 align-items-center" role="alert">Blog kosong! Tunggu artikel terbaru dari kami.</div>
         </div>
     <? endif;
     ?>
     <div class="text-center">
-        <a class="small" href="<?= base_url('web/blogs') ?>"> &larr; Back to Blog</a>
+        <a class="small" href="<?= base_url('web/blogs') ?>"> &larr; Kembali ke Blog</a>
     </div>
 </div>
 <!-- End of Main Content -->

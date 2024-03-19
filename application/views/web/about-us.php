@@ -11,9 +11,9 @@
     <div class="row justify-content-center align-items-center text-justify pt-1">
         <!-- Page Body -->
         <div class="col-lg-10 mb-3 mx-4 text-dark">
-            <p class="mb-3">UD. Cakra Inti Plastik is a plastic manufacturing company based in Sidoarjo, East Java, Indonesia. We provide a series of recycled plastic product such as plastic bag, shopping bag, trash bag, inner, and many more to come. The plastic bag plant has started operating since 2018, while our company has been empowering plastic recycling since early 2002.
+            <p class="mb-3">CV. Rukun Gemilang Perkasa adalah perusahaan produsen kantong plastik di Sidoarjo, Jawa Timur, Indonesia. Kami menyediakan berbagai produk plastik daur ulang, seperti kantong plastik, kantong belanja, kantong sampah, dan banyak produk lain yang akan datang. Lini produksi sudah berjalan sejak 2018, sementara grup kami sudah bergerak di bidang daur ulang plastik sejak 2002.
             </p>
-            <p>We believe that recycled products are the future of plastic industry. Every month, our humble company absorbed at least 50 metric ton of recycled plastic materials and we aim to increase production capacity and clients by 30% before 2025. With more recycled material used, we hope to take part in minimizing plastic's environmental impact. </p>
+            <p>Kami percaya bahwa daur ulang adalah masa depan dari industri plastik. Setiap bulan, perusahaan kecil kami dapat memanfaatkan sampai 50 ton plastik bahan daur ulang dan kami berharap dapat meningkatkan kapasitas produksi dan klien kami sampai 30% di akhir 2025. Dengan lebih banyak bahan daur ulang yang digunakan, kami berharap dapat membantu mengurangi dampak lingkungan plastik.</p>
         </div>
     </div>
     <!-- Vision -->
@@ -22,8 +22,8 @@
             <div class="card shadow border-0 bg-primary py-3 px-3">
                 <div class="card-body text-white">
                     <i class="bi bi-arrow-up-circle fa-2x mb-5"></i>
-                    <h4 class="font-weight-bold">Vision</h4>
-                    <p>Be a leading recycled plastic products manufacturer by giving high-quality and eco-conscious products.</p>
+                    <h4 class="font-weight-bold">Visi</h4>
+                    <p>Menjadi produsen produk plastik daur ulang terdepan dengan produk kualitas tinggi yang bermanfaat bagi pelanggan dan pemangku kepentingan di perusahaan ini.</p>
                     <!-- Mission -->
                     <div class="row justify-content-center align-items-center pt-1">
                         <div class="col-lg mb-3 mx-1 text-dark text-left">
@@ -33,9 +33,8 @@
                                         <img class="img-fluid px-3 mb-3" style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_begin_chat_re_v0lw.svg') ?>" alt="BL1"> <br>
                                     </div>
                                     <i class="bi bi-bucket fa-2x mb-2"></i>
-                                    <h5 class="mb-3 font-weight-bold">Bucket List #1</h5>
-                                    <p>Advocating plastic recycling movement as a way to sustainably save the environment using circular economy.</p>
-
+                                    <h5 class="mb-3 font-weight-bold">Misi #1</h5>
+                                    <p>Advokasi gerakan daur ulang plastik sebagai cara yang berkelanjutan untuk menyelamatkan lingkungan dengan ekonomi sirkular.</p>
                                 </div>
                             </div>
                         </div>
@@ -46,9 +45,8 @@
                                         <img class="img-fluid px-3 mb-3" style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_connected_world_wuay.svg') ?>" alt="Quality First"> <br>
                                     </div>
                                     <i class="bi bi-bucket fa-2x mb-2"></i>
-                                    <h5 class="mb-3 font-weight-bold">Bucket List #2</h5>
-                                    <p>Expand services to meet Indonesian and worldwide recycled plastic bag demand, using technology to deliver best possible services for our clients.</p>
-
+                                    <h5 class="mb-3 font-weight-bold">Misi #2</h5>
+                                    <p>Meningkatkan layanan untuk memenuhi kebutuhan Indonesia dan pasar ekspor dengan menggunakan teknologi untuk menyediakan layanan terbaik bagi klien kami.</p>
                                 </div>
                             </div>
                         </div>
@@ -59,8 +57,8 @@
                                         <img class="img-fluid px-3 mb-3" style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_completing_re_i7ap.svg') ?>" alt="Quality First"> <br>
                                     </div>
                                     <i class="bi bi-bucket fa-2x mb-2"></i>
-                                    <h5 class="mb-3 font-weight-bold">Bucket List #3</h5>
-                                    <p>Meet our customer expectation by delivering high-quality and reasonably priced products.</p>
+                                    <h5 class="mb-3 font-weight-bold">Misi #3</h5>
+                                    <p>Memenuhi ekspektasi pelanggan dengan memberikan produk kualitas tinggi dengan harga yang masuk akal.</p>
                                 </div>
                             </div>
                         </div>
@@ -75,7 +73,7 @@
             <div class="card shadow border-0 py-3 px-3">
                 <div class="card-body">
                     <i class="bi bi-emoji-laughing fa-2x text-primary mb-5"></i>
-                    <h4 class="font-weight-bold mb-2 text-primary">Values</h4>
+                    <h4 class="font-weight-bold mb-2 text-primary">Nilai Perusahaan</h4>
                     <p class="text-dark">We upholds our core company values because we believe that what differentiates us from the rest.</p>
                     <!-- value 1 -->
                     <div class="row align-items-center pt-3 mb-0">

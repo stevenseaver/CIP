@@ -190,7 +190,7 @@ class Web extends CI_Controller
 	//load page LP0_circulatry
 	public function lp0_circulatry()
 	{
-		$data['title'] = 'Circular Economy';
+		$data['title'] = 'Ekonomi Sirkular';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
@@ -205,7 +205,7 @@ class Web extends CI_Controller
 	//load page LP1_quality
 	public function lp1_quality()
 	{
-		$data['title'] = 'High Quality';
+		$data['title'] = 'Kualitas Tinggi';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
@@ -219,7 +219,7 @@ class Web extends CI_Controller
 	//load page LP2_eco
 	public function lp2_eco()
 	{
-		$data['title'] = 'Eco-Mindful';
+		$data['title'] = 'Peduli Lingkungan';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
@@ -233,7 +233,7 @@ class Web extends CI_Controller
 	//load page LP3_guideline
 	public function lp3_guideline()
 	{
-		$data['title'] = 'Highly Customizable';
+		$data['title'] = 'Personalisasi';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
