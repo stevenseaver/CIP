@@ -13,11 +13,11 @@
     <div class="container">
         <div class="row mt-3 mx-1">
             <div class="col-6 mb-1">
-                <h1 class="h3 mb-0 text-primary font-weight-bold">Shopping Bag</h1>
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Kantong Belanja</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kantong%20belanja%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20shopping%20bag%20products?" class="badge badge-success" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now</a>
+                    <i class="bi bi-whatsapp mr-1"></i>Hubungi kami</a>
             </div>
         </div>
         <div class="row justify-content-left my-1 mx-3">
@@ -49,8 +49,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Shopping Bag</h4> -->
-                            <p class="text-dark text-justify">Recycled shopping bag made specifically to support your online businesses anywhere. We provides colorful and cost-effective recycled shopping bag with punchhole cut or bag-handle. With minimum order, we can also provide printing for your renowned brand. Use this bag to support circulatory economy to save both the Earth and the Economy.</p>
-                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
+                            <p class="text-dark text-justify">Kantong belanja yang terbuat dari bahan daur ulang dibuat khusus untuk memenuhi kebutuhan bisnis online Anda. Kami menyediakan kantong belanja berbagai warna dengan harga yang bersahabat. Anda dapat memilih antara dua jenis kantong belanja: dengan plong bundar ataupun dengan tangan. Dengan kuantitas order tertentu, kami juga dapat menyediakan percetakan untuk merek spesial Anda. </p>
+                            <h6 class="text-primary font-weight-bold">Spesifikasi</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
                                 if ($s['product_name'] != "Shopping Bag") {

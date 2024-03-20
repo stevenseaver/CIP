@@ -4,8 +4,8 @@
 		<div class="no-gutter shadow bg-white mt-1 mb-4">
 			<div class="row align-items-center">
 				<div class="col-lg text-center mt-4 mx-4">
-					<h1 class="card-title text-primary mb-3">Sirkular. Selamanya.</h1>
-					<h5 class="card-text text-dark">Kita membuat. Kita mendaur ulang. Kita lakukan untuk anda dan Bumi.</h5>
+					<h1 class="card-title text-primary mb-3">Ekonomi Sirkular.</h1>
+					<h5 class="card-text text-dark">Kita membuat sekaligus mendaur ulang. Untuk anda dan Bumi.</h5>
 					<a data-toggle="modal" data-target="#circulatryModal" class="card-text clickable">
 						<p class="card-text mb-3">Pelajari bagaimana kami mengolah sisa produksi kami dengan ekonomi sirkular &rarr;
 					</a>
@@ -275,9 +275,9 @@
 				</div>
 			</div>
 			<div class="row justify-content-center">
-				<h3 class="text-primary text-center font-weight-bold mb-1 mt-3"> Jangan ragu untuk hubungi kami.</h3>
+				<h3 class="text-primary text-center font-weight-bold mb-1 mt-3 mx-4"> Jangan ragu untuk hubungi kami.</h3>
 			</div>
-			<div class="row justify-content-center mb-0 mx-3">
+			<div class="row justify-content-center mb-0 mx-4">
 				<p class="text-dark text-center">Kami sangat senang mengirim perwakilan kami ke tempat Anda. Atau jika Anda ingin tahu kami lebih lagi, Anda dapat mengunjungi kami di alamat kami.</p>
 			</div>
 			<div class="row justify-content-center pb-5">

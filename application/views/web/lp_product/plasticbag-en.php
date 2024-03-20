@@ -14,11 +14,11 @@
     <div class="container">
         <div class="row mt-3 mx-1">
             <div class="col-6 mb-1">
-                <h1 class="h3 mb-0 text-primary font-weight-bold">Kantong Plastik Putih</h1>
+                <h1 class="h3 mb-0 text-primary font-weight-bold">White Plastic Bag</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
-                    <i class="bi bi-whatsapp mr-1"></i>Hubungi kami
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now
                 </a>
             </div>
         </div>
@@ -53,8 +53,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Plastic Bag</h4> -->
-                            <p class="text-dark text-justify">Bukan kantong plastik biasanya, kami dapat membuat berbagai jenis kantong plastik sesuai kebutuhan Anda. Kantong plastik Rukun&trade; tersedia dalam warna putih, bening, hitam, dan merah; semuanya terbuat dari bahan daur ulang berkualitas.</p>
-                            <h6 class="text-primary font-weight-bold">Spesifikasi</h6>
+                            <p class="text-dark text-justify">Not your ordinary plastic bag, we can create a wide range of plastic bag variety. Rukun&reg; plastic bags are available in red, white, and black; made from high-quality fully recycled materials.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
                                 if ($s['product_name'] != "White Plastic Bag") {
@@ -81,11 +81,11 @@
     <div class="container">
         <div class="row mt-3 mx-1">
             <div class="col-6 mb-1">
-                <h1 class="h3 mb-0 text-primary font-weight-bold">Kantong Plastik Bening</h1>
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Clear Plastic Bag</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
-                    <i class="bi bi-whatsapp mr-1"></i>Hubungi kami
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now
                 </a>
             </div>
         </div>
@@ -124,8 +124,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Plastic Bag</h4> -->
-                            <p class="text-dark text-justify">Bukan kantong plastik biasanya, kami dapat membuat berbagai jenis kantong plastik sesuai kebutuhan Anda. Kantong plastik Rukun&trade; tersedia dalam warna putih, bening, hitam, dan merah; semuanya terbuat dari bahan daur ulang berkualitas.</p>
-                            <h6 class="text-primary font-weight-bold">Spesifikasi</h6>
+                            <p class="text-dark text-justify">Not your ordinary plastic bag, we can create a wide range of plastic bag variety. Rukun&reg; plastic bags are available in red, white, and black; made from high-quality fully recycled materials.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
                                 if ($s['product_name'] != "Clear Plastic Bag") {
@@ -152,11 +152,11 @@
     <div class="container">
         <div class="row mt-3 mx-1">
             <div class="col-6 mb-1">
-                <h1 class="h3 mb-0 text-primary font-weight-bold">Kantong Plastik Hitam</h1>
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Black Plastic Bag</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
-                    <i class="bi bi-whatsapp mr-1"></i>Hubungi kami
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now
                 </a>
             </div>
         </div>
@@ -191,8 +191,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Plastic Bag</h4> -->
-                            <p class="text-dark text-justify">Bukan kantong plastik biasanya, kami dapat membuat berbagai jenis kantong plastik sesuai kebutuhan Anda. Kantong plastik Rukun&trade; tersedia dalam warna putih, bening, hitam, dan merah; semuanya terbuat dari bahan daur ulang berkualitas.</p>
-                            <h6 class="text-primary font-weight-bold">Spesifikasi</h6>
+                            <p class="text-dark text-justify">Not your ordinary plastic bag, we can create a wide range of plastic bag variety. Rukun&reg; plastic bags are available in red, white, and black; made from high-quality fully recycled materials.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
                                 if ($s['product_name'] != "Black Plastic Bag") {
@@ -219,11 +219,11 @@
     <div class="container">
         <div class="row mt-3 mx-1">
             <div class="col-6 mb-1">
-                <h1 class="h3 mb-0 text-primary font-weight-bold">Kantong Plastik Merah</h1>
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Red Plastic Bag</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
-                    <i class="bi bi-whatsapp mr-1"></i>Hubungi kami
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now
                 </a>
             </div>
         </div>
@@ -262,8 +262,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Plastic Bag</h4> -->
-                            <p class="text-dark text-justify">Bukan kantong plastik biasanya, kami dapat membuat berbagai jenis kantong plastik sesuai kebutuhan Anda. Kantong plastik Rukun&trade; tersedia dalam warna putih, bening, hitam, dan merah; semuanya terbuat dari bahan daur ulang berkualitas.</p>
-                            <h6 class="text-primary font-weight-bold">Spesifikasi</h6>
+                            <p class="text-dark text-justify">Not your ordinary plastic bag, we can create a wide range of plastic bag variety. Rukun&reg; plastic bags are available in red, white, and black; made from high-quality fully recycled materials.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
                                 if ($s['product_name'] != "Red Plastic Bag") {

@@ -96,12 +96,12 @@
                         </a>
                     </p>
                     <p>
-                        <a href="mailto:cs.sbplastik@gmail.com" class="text-dark" target="_blank" rel="noopener noreferrer">
+                        <a href="mailto:info@plastikrukun.com" class="text-dark" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-envelope mr-1"></i>
                             <span>info@plastikrukun.com</span>
                         </a>
                     </p>
-                    <a href="https://instagram.com/sbplastik" class="text-dark" target="_blank" rel="noopener noreferrer">
+                    <a href="https://instagram.com/ciplastik.id" class="text-dark" target="_blank" rel="noopener noreferrer">
                         <p>
                             <i class="bi bi-instagram mr-1"></i>@ciplastik.id
                         </p>

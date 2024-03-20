@@ -17,7 +17,7 @@
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kantong%20loss%20ori%20TM%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20ori%20TM%20bag%20products?" class="badge badge-success" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-whatsapp mr-1"></i>Hubungi kami</a>
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now</a>
             </div>
         </div>
         <div class="row justify-content-left my-1 mx-3">
@@ -45,8 +45,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Jumbo Bag</h4> -->
-                            <p class="text-dark text-justify">Produk loss pack kami juga tersedia untuk Anda beli. Loss Ori TM kami menggunakan biji plastik original dengan kebeningan dan kecerahan plastik yang luar biasa. Dengan formula rahasia, kami bisa membuat Loss Ori TM bening seperti kaca.</p>
-                            <h6 class="text-primary font-weight-bold">Spesifikasi</h6>
+                            <p class="text-dark text-justify">We also provides option for you to buy our bulk products. Our Loss Ori TM uses high content virgin materials alongside recycled ones and displayed glass-like properties no other company can immitate. That is because HDPE are matte colored, but with our secret materials, we can make it glass-like.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
                                 if ($s['product_name'] != "Loss Ori TM") {
@@ -74,7 +74,7 @@
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kantong%20loss%20ori%20TM%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20ori%20TM%20bag%20products?" class="badge badge-success" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-whatsapp mr-1"></i>Hubungi kami</a>
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now</a>
             </div>
         </div>
         <div class="row justify-content-left my-1 mx-3">
@@ -102,8 +102,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Jumbo Bag</h4> -->
-                            <p class="text-dark text-justify">Loss Natural TB merupakan salah satu produk terbaik kami yang terjual belasan ton tiap bulannya. Dengan harga yang sangat murah, Anda akan jarang menemukan yang lebih murah dan lebih bagus daripada Loss Natural TB.</p>
-                            <h6 class="text-primary font-weight-bold">Spesifikasi</h6>
+                            <p class="text-dark text-justify">We also provides option for you to buy our bulk products. Our Loss Ori TM uses high content virgin materials alongside recycled ones and displayed glass-like properties no other company can immitate. That is because HDPE are matte colored, but with our secret materials, we can make it glass-like.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
                                 if ($s['product_name'] != "Loss Natural") {
@@ -132,7 +132,7 @@
             <!-- <div class="col-lg-6 mb-1 d-flex justify-content-end align-items-center"> -->
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kantong%20loss%20warna%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20bulk%20colour%20bag%20products?" class="badge badge-success" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-whatsapp mr-1"></i>Hubungi kami</a>
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now</a>
             </div>
         </div>
         <div class="row justify-content-left my-1 mx-3">
@@ -160,8 +160,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Jumbo Bag</h4> -->
-                            <p class="text-dark text-justify">Loss warna adalah kantong kresek curah dengan tiga warna yang cocok untuk penggunaan di pasar tradisional Indonesia. Loss warna terbuat dari 100% biji plastik daur ulang untuk harga terbaik.</p>
-                            <h6 class="text-primary font-weight-bold">Spesifikasi</h6>
+                            <p class="text-dark text-justify">Loss Warna is high-volume colored plastic bag for every-day Indonesian traditional market usage. Loss warna is made from fully recycled plastic pellets for low-cost usage.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
                                 if ($s['product_name'] != "Loss Warna") {
@@ -189,7 +189,7 @@
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kantong%20loss%20warna%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20bulk%20colour%20bag%20products?" class="badge badge-success" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-whatsapp mr-1"></i>Hubungi kami</a>
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now</a>
             </div>
         </div>
         <div class="row justify-content-left my-1 mx-3">
@@ -227,8 +227,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Jumbo Bag</h4> -->
-                            <p class="text-dark text-justify">Loss hitam adalah plastik curah berharga rendah, namun tidak murahan.</p>
-                            <h6 class="text-primary font-weight-bold">Spesifikasi</h6>
+                            <p class="text-dark text-justify">Loss Hitam is high-volume colored plastic bag for every-day Indonesian traditional market usage. Loss warna is made from fully recycled plastic pellets for low-cost usage.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
                                 if ($s['product_name'] != "Loss Hitam") {

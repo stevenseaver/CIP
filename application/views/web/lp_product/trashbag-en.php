@@ -13,11 +13,11 @@
     <div class="container">
         <div class="row mt-3 mx-1">
             <div class="col-6 mb-1">
-                <h1 class="h3 mb-0 text-primary font-weight-bold">Kantong Sampah</h1>
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Trash Bag</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kantong%20sampah%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20trash%20bag%20products?" class="badge badge-success" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-whatsapp mr-1"></i>Hubungi kami</a>
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now</a>
             </div>
         </div>
         <div class="row justify-content-left my-1 mx-3">
@@ -53,8 +53,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Trash Bag</h4> -->
-                            <p class="text-dark text-justify">Apakah anda membutuhkan kantong untuk menampung sampah anda? Kantong Sampah Rukun&trade; tersedia dalam berbagai ukuran dan warna untuk membantu menjaga kebersihan lingkungan Anda, baik sampah domestik ataupun sampah medis.</p>
-                            <h6 class="text-primary font-weight-bold">Spesifikasi</h6>
+                            <p class="text-dark text-justify">Do you need to keep your trash tidy and not actually trashing your trash can? We have the solution. Our Rukun&reg; trash bag products with varying size and color can make your cleaning duty easier, whether it is domestic or medical purposes.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
                                 if ($s['product_name'] != "Trash Bag") {

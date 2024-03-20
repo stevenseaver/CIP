@@ -12,14 +12,14 @@
         <div class="col-lg">
             <div class="card shadow border-0 mb-3" class="align-items-center">
                 <div class="card-body">
-                    <h5 class="mx-0 mb-3 font-weight-bold text-primary">Jika Anda butuh layanan pelanggan, hubungi kami disini!</h5>
+                    <h5 class="mx-0 mb-3 font-weight-bold text-primary">If you need our after sales service, feel free to contact us here!</h5>
                     <?= $this->session->flashdata('message'); ?>
                     <form class="user" method="post" action="<?= base_url('web/validate'); ?>">
                         <!-- input nama -->
                         <div class="form-group">
                             <div class="row mx-0">
                                 <!-- invoice number -->
-                                <label for="invoice" class="text-primary">Nomor Faktur</label>
+                                <label for="invoice" class="text-primary">Invoice Number</label>
                                 <!-- <input type="text" class="form-control" id="invoice" name="invoice" placeholder="Input your 7 digit invoice number here"> -->
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -31,16 +31,16 @@
                             </div>
                             <div class="row mx-0">
                                 <!-- email-->
-                                <label for="email" class="text-primary mt-3">E-mail</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Isi e-mail anda agar kami dapat menghubungi anda">
+                                <label for="email" class="text-primary mt-3">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Your email here, so we can contact you">
                                 <?= form_error('email', '<small class="text-danger mt-2 ml-2">', '</small>') ?>
                             </div>
                             <div class="row mx-0">
                                 <!-- email-->
-                                <label for="phone" class="text-primary mt-3">Nomor Telepon</label>
-                                <input type="phone" class="form-control" id="phone" name="phone" placeholder="Isi telepon anda agar kami dapat menghubungi anda">
+                                <label for="phone" class="text-primary mt-3">Phone Number</label>
+                                <input type="phone" class="form-control" id="phone" name="phone" placeholder="Your phone number here, so we can contact you">
                                 <?= form_error('phone', '<small class="text-danger mt-2 ml-2">', '</small>') ?>
-                                <small class="text-dark mt-2 ml-2">Gunakan kode negara Anda, contohnya untuk Indonesia +62812345678!</small>
+                                <small class="text-dark mt-2 ml-2">Use your country code, i.e. +62!</small>
                             </div>
                             <!-- <div class="row mx-0">
                                 <label for="email" class="text-primary mt-3">Type</label>
@@ -51,14 +51,13 @@
                             </div> -->
                             <div class="row mx-0 mb-3">
                                 <!-- message -->
-                                <label for="message" class="text-primary mt-3">Ceritakan apa yang terjadi?</label>
-                                <textarea type="text" class="form-control" id="message" name="message" rows="3" placeholder="Ceritakan masalah Anda, kami dengan senang hati membantu!"></textarea>
+                                <label for="message" class="text-primary mt-3">Tell us what happened?</label>
+                                <textarea type="text" class="form-control" id="message" name="message" rows="3" placeholder="Tell us about your problem, and we will do our best to help you!"></textarea>
                                 <?= form_error('message', '<small class="text-danger mt-2 ml-2">', '</small>') ?>
                             </div>
                         </div>
                         <form action="?" method="POST">
                             <div class="g-recaptcha" data-sitekey="6LfDc9ciAAAAAOvs9TRP8ISo26wwrdQkg3Ln1ih7"></div>
-                            <!-- <div class="g-recaptcha" data-sitekey="6LdaPKciAAAAAKkXXcbOOP_FrG2uawwIHLKmB2A1"></div> -->
                             <button type="submit" class="btn btn-primary btn-icon-split mt-3">
                                 <span class="icon text-white-60">
                                     <i class="fas fa-fw fa-arrow-right"></i>

@@ -13,11 +13,11 @@
     <div class="container">
         <div class="row mt-3 mx-1">
             <div class="col-6 mb-1">
-                <h1 class="h3 mb-0 text-primary font-weight-bold">Kantong Plastik Jumbo Rukun</h1>
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Rukun Jumbo Bag</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20jumbo%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20jumbo%20plastic%20bag%20products?" class="badge badge-success" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-whatsapp mr-1"></i>Hubungi kami</a>
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now</a>
             </div>
         </div>
         <div class="row justify-content-left my-1 mx-3">
@@ -67,8 +67,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Jumbo Bag</h4> -->
-                            <p class="text-dark text-justify">Kantong plastik jumbo Rukun&trade; cocok untuk kantong belanja dan kebutuhan kemasan Anda. Ukurannya tersedia darilebar 40 sampai 50 cm, terbuat dengan campuran bahan daur ulang pilihan terbaik untuk memastikan kemampuannya membawa beban berat.</p>
-                            <h6 class="text-primary font-weight-bold">Spesifikasi</h6>
+                            <p class="text-dark text-justify">Rukun&reg; jumbo bags are suitable for your shopping and packaging needs. Jumbo bag's size range from 40 cm to as large as 55 cm in width, made with a blend of HDPE and LDPE to ensure strength for heavy items.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
                                 if ($s['product_name'] != "Jumbo Bag") {
@@ -92,11 +92,11 @@
         </div>
         <div class="row align-items-center mt-3 mx-3">
             <div class="col-6 mb-1">
-                <h1 class="h3 mb-0 text-primary font-weight-bold">Kantong Plastik Super Jumbo Gemah</h1>
+                <h1 class="h3 mb-0 text-primary font-weight-bold">Gemah Super Jumbo Bag</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
                 <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20super%20jumbo%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20super%20jumbo%20plastic%20bag%20products?" class="badge badge-success" target="_blank" rel="noopener noreferrer">
-                    <i class="bi bi-whatsapp mr-1"></i>Hubungi kami</a>
+                    <i class="bi bi-whatsapp mr-1"></i>Contact Us Now</a>
             </div>
         </div>
         <div class="row justify-content-left my-1 mx-3">
@@ -137,8 +137,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <!-- <h4 class="card-title text-primary font-weight-bold">Jumbo Bag</h4> -->
-                            <p class="text-dark">Kresek super jumbo Gemah&trade; adalah kantong plastik kualitas tinggi dengan warna yang cerah dan permukaan yang halus. Diturunkan dari kata Jawa kuno yang berarti kesuburan, warna cerah dan kualitas superior dari kresek Gemah&trade; akan memenuhi kebutuhan Anda akan kantong plastik berkualitas tinggi.</p>
-                            <h6 class="text-primary font-weight-bold">Spesifikasi</h6>
+                            <p class="text-dark">Gemah&reg; super jumbo bags are high quality plastic bags with vivid color and smooth surface quality. Derrived from ancient Javanese word of fertility, Gemah&reg;'s colorful hue and superior plastic quality would satisfy your need for high-end super jumbo plastic bag.</p>
+                            <h6 class="text-primary font-weight-bold">Specification Sheet</h6>
                             <?php foreach ($spec as $s) : ?>
                                 <?php
                                 if ($s['product_name'] != "Super Jumbo Bag") {

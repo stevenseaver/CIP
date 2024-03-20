@@ -13,12 +13,12 @@
                     <div class="row py-2 justify-content-center">
                         <div class="col-lg py-1 mx-2 text-center">
                             <i class="bi bi-cash-coin fa-4x mb-3 mx-2 text-dark"></i>
-                            <h5 class="text-dark font-weight-bold mb-2">Informasi Umum</h5>
+                            <h5 class="text-dark font-weight-bold mb-2">General Inquiry</h5>
                             <a href="mailto:info@plastikrukun.com" class="text-dark" target="_blank" rel="noopener noreferrer">
                                 <p class="text-primary mb-1">info@plastikrukun.com</p>
                             </a>
-                            <a href="https://wa.me/+6287701007838/?text=Halo,%20informasi%20umum?" target="_blank" rel="noopener noreferer" class="">
-                                <p class="text-primary mb-1">+62 877-0100-7838</p>
+                            <a href="https://wa.me/+6287701007838/?text=Hello,%20general%20inquiries?" target="_blank" rel="noopener noreferer" class="">
+                                <p class="text-primary mb-1">+62 878-6241-3070</p>
                             </a>
                         </div>
                     </div>
@@ -31,11 +31,11 @@
                     <div class="row py-2 justify-content-center">
                         <div class="col-lg py-1 mx-2 text-center">
                             <i class="bi bi-telephone fa-4x mb-3 mx-2 text-dark"></i>
-                            <h5 class="text-dark font-weight-bold mb-2">Layanan Pelanggan</h5>
+                            <h5 class="text-dark font-weight-bold mb-2">Customer Service Support</h5>
                             <a href="mailto:cs@plastikrukun.com" class="text-dark" target="_blank" rel="noopener noreferrer">
                                 <p class="text-primary mb-1">cs@plastikrukun.com</p>
                             </a>
-                            <a href="https://wa.me/+6287862413070/?text=Halo,%20layanan%20CS?" target="_blank" rel="noopener noreferer" class="">
+                            <a href="https://wa.me/+6287862413070/?text=Hello,%20CS%20inquiries?" target="_blank" rel="noopener noreferer" class="">
                                 <p class="text-primary mb-1">+62 878-6241-3070</p>
                             </a>
                         </div>
@@ -53,8 +53,8 @@
                             <a href="mailto:hr@plastikrukun.com" class="text-dark" target="_blank" rel="noopener noreferrer">
                                 <p class="text-primary mb-1">hr@plastikrukun.com</p>
                             </a>
-                            <a href="https://wa.me/+6281331333525/?text=Halo,%20info%20lowongan%20kerja?" target="_blank" rel="noopener noreferer" class="">
-                                <p class="text-primary mb-1">+62 813-3133-3525</p>
+                            <a href="https://wa.me/+6281330330901/?text=Hello,%20HR%20inquiries?" target="_blank" rel="noopener noreferer" class="">
+                                <p class="text-primary mb-1">+62 81-330-330-901</p>
                             </a>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                             <a href="mailto:investor@plastikrukun.com" class="text-dark" target="_blank" rel="noopener noreferrer">
                                 <p class="text-primary mb-1">investor@plastikrukun.com</p>
                             </a>
-                            <a href="https://wa.me/+6281382382999/?text=Halo,%20layanan%20investor?" target="_blank" rel="noopener noreferer" class="">
+                            <a href="https://wa.me/+6281382382999/?text=Hello,%20Investor%20inquiries?" target="_blank" rel="noopener noreferer" class="">
                                 <p class="text-primary mb-1">+62 878-6241-3070</p>
                             </a>
                         </div>
@@ -87,12 +87,12 @@
                     <div class="row py-2 justify-content-center">
                         <div class="col-lg py-1 mx-2 text-center">
                             <i class="bi bi-people fa-4x mb-3 mx-2 text-dark"></i>
-                            <h5 class="text-dark font-weight-bold mb-2">Penjualan</h5>
-                            <a href="mailto:sales@plastikrukun.com" class="text-dark" target="_blank" rel="noopener noreferrer">
-                                <p class="text-primary mb-1">sales@plastikrukun.com</p>
+                            <h5 class="text-dark font-weight-bold mb-2">Public Relation</h5>
+                            <a href="mailto:pr@plastikrukun.com" class="text-dark" target="_blank" rel="noopener noreferrer">
+                                <p class="text-primary mb-1">pr@plastikrukun.com</p>
                             </a>
-                            <a href="https://wa.me/+6287862413070/?text=Halo,%20layanan%20CS?" target="_blank" rel="noopener noreferer" class="">
-                                <p class="text-primary mb-1">+62 878-6241-3070</p>
+                            <a href="https://wa.me/+6281331030398/?text=Hello,%20PR%20inquiries?" target="_blank" rel="noopener noreferer" class="">
+                                <p class="text-primary mb-1">+62 813-3103-0398</p>
                             </a>
                         </div>
                     </div>
@@ -105,11 +105,11 @@
                     <div class="row py-2 justify-content-center">
                         <div class="col-lg py-1 mx-2 text-center">
                             <i class="bi bi-node-plus fa-4x mb-3 mx-2 text-dark"></i>
-                            <h5 class="text-dark font-weight-bold mb-2">Pembelian</h5>
-                            <a href="mailto:info@plastikrukun.com" class="text-dark" target="_blank" rel="noopener noreferrer">
-                                <p class="text-primary mb-1">info@plastikrukun.com</p>
+                            <h5 class="text-dark font-weight-bold mb-2">Supplier Inquiry</h5>
+                            <a href="mailto:supplier@plastikrukun.com" class="text-dark" target="_blank" rel="noopener noreferrer">
+                                <p class="text-primary mb-1">supplier@plastikrukun.com</p>
                             </a>
-                            <a href="https://wa.me/+6281382382999/?text=Halo,%20Supplier%20inquiries?" target="_blank" rel="noopener noreferer" class="">
+                            <a href="https://wa.me/+6281382382999/?text=Hello,%20Supplier%20inquiries?" target="_blank" rel="noopener noreferer" class="">
                                 <p class="text-primary mb-1">+62 81-382-382-999</p>
                             </a>
                         </div>

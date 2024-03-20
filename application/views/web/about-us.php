@@ -4,7 +4,7 @@
         <!-- Page Heading -->
         <div class="col-lg-12 mx-3 mb-3">
             <i class="bi bi-people fa-3x"></i>
-            <h2 class="h3 mb-0 text-primary font-weight-bold">Hello, it's nice to meet you!</h1>
+            <h2 class="h3 mb-0 text-primary font-weight-bold">Halo, senang bertemu Anda!</h1>
         </div>
     </div>
     <!-- Intro -->
@@ -46,7 +46,7 @@
                                     </div>
                                     <i class="bi bi-bucket fa-2x mb-2"></i>
                                     <h5 class="mb-3 font-weight-bold">Misi #2</h5>
-                                    <p>Meningkatkan layanan untuk memenuhi kebutuhan Indonesia dan pasar ekspor dengan menggunakan teknologi untuk menyediakan layanan terbaik bagi klien kami.</p>
+                                    <p>Meningkatkan layanan untuk memenuhi kebutuhan pasar di Indonesia dan ekspor dengan menggunakan teknologi untuk menyediakan layanan terbaik bagi klien kami.</p>
                                 </div>
                             </div>
                         </div>
@@ -74,15 +74,15 @@
                 <div class="card-body">
                     <i class="bi bi-emoji-laughing fa-2x text-primary mb-5"></i>
                     <h4 class="font-weight-bold mb-2 text-primary">Nilai Perusahaan</h4>
-                    <p class="text-dark">We upholds our core company values because we believe that what differentiates us from the rest.</p>
+                    <p class="text-dark">Kami menjunjung tinggi nilai perusahaan karena kami percaya itu yang membedakan kami dengan yang lain.</p>
                     <!-- value 1 -->
                     <div class="row align-items-center pt-3 mb-0">
                         <div class="col-lg-4 text-center">
                             <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_qa_engineers_dg-5-p.svg') ?>" alt="Quality First">
                         </div>
                         <div class="col-lg-8 text-left">
-                            <h5 class="font-weight-bold mb-2 mx-3">Quality Products at Reasonable Price</h5>
-                            <p class="mx-3">Our products is the back bone of the company, carefully manufactured using selected plastic materials to ensure highest quality possible for our customers. All of this are achieved while ensuring reasonable selling price so that our customers can use high quality products with reasonable costs.</p>
+                            <h5 class="font-weight-bold mb-2 mx-3">Produk Berkualitas di Harga yang Masuk Akal</h5>
+                            <p class="mx-3">Produk kami adalah tulang punggung perusahaan, dibuat secara hati-hati menggunakan bahan plastik pilihan untuk memastikan kualitas terbaik bagi pelanggan kami. Semua ini dicapai dengan memastikan harga jual yang masuk akal sehingga pelanggan yang menikmati produk berkualitas dengan harga terbaik.</p>
                         </div>
                     </div>
                     <!-- value 2 -->
@@ -91,8 +91,8 @@
                             <img class="img-fluid px-3 px-4 mt-3 mb-4" style="width: 16rem;" src="<?= base_url('asset/img/stock/undraw_winners_re_wr1l.svg') ?>" alt="Quality First">
                         </div>
                         <div class="col-lg-8 text-left">
-                            <h5 class="font-weight-bold mx-3 mb-2">Customer Satisfaction Comes Next</h5>
-                            <p class="mx-3">Proper products at reasonable price paired with good customer service will give customers satisfaction they deserved. We aim to deliver satisfaction to all our customers so that we can create a thriving ecosystem for recycled plastic products.</p>
+                            <h5 class="font-weight-bold mx-3 mb-2">Kepuasan Pelanggan Setelahnya</h5>
+                            <p class="mx-3">Produk dengan harga dan kualitas yang baik digabungkan dengan layanan pelanggan akan memberikan kepuasan bagi pelanggan. Kami berharap  untuk dapat memberikan kepuasan bagi semua pelanggan kami dan menjaga ekosistem daur ulang plastik yang berkelanjutan.</p>
                         </div>
                     </div>
                 </div>
@@ -105,17 +105,17 @@
             <div class="card shadow border-0 bg-primary py-3 px-3">
                 <div class="card-body text-white">
                     <i class="bi bi-gear-wide-connected fa-2x mb-5"></i>
-                    <h4 class="font-weight-bold">Technical Whatabouts</h4>
-                    <p>Our technical specifications are described as follows.</p>
+                    <h4 class="font-weight-bold">Apapun yang Teknis</h4>
+                    <p>Kemampuan teknis produksi kami adalah sebagai berikut:</p>
                     <!-- Mission -->
                     <div class="row justify-content-center align-items-center pt-1">
                         <div class="col-lg-2 mb-3 mx-0 text-dark text-left">
                             <div class="card border-0 shadow">
                                 <div class="card-body">
                                     <i class="bi bi-rulers fa-2x mb-2"></i>
-                                    <h5 class="mb-3 font-weight-bold">Plastic Size</h5>
-                                    <p class="mb-1">Width: 5 to 120 cm</p>
-                                    <p>Thickness: 10 to 100 µm</p>
+                                    <h5 class="mb-3 font-weight-bold">Ukuran Plastik</h5>
+                                    <p class="mb-1">Lebar: 5 to 110 cm</p>
+                                    <p>Ketebalan: 10 to 100 µm</p>
                                 </div>
                             </div>
                         </div>
@@ -123,34 +123,34 @@
                             <div class="card border-0 shadow">
                                 <div class="card-body">
                                     <i class="bi bi-palette fa-2x mb-2"></i>
-                                    <h5 class="mb-3 font-weight-bold">Colors</h5>
+                                    <h5 class="mb-3 font-weight-bold">Warna</h5>
                                     <div class="row mx-1">
                                         <i class="bi bi-circle-fill text-dark-900">
-                                            <p class="text-dark mb-3 mr-3">Black</p>
+                                            <p class="text-dark mb-3 mr-3">Hitam</p>
                                         </i>
                                         <i class="bi bi-circle-fill text-light">
-                                            <p class="text-dark mb-0 mr-3">White</p>
+                                            <p class="text-dark mb-0 mr-3">Putih</p>
                                         </i>
                                         <i class="bi bi-circle-fill text-danger">
-                                            <p class="text-danger mb-0 mr-3">Red</p>
+                                            <p class="text-danger mb-0 mr-3">Merah</p>
                                         </i>
                                         <i class="bi bi-circle-fill text-warning">
-                                            <p class="text-warning mb-0 mr-3">Yellow</p>
+                                            <p class="text-warning mb-0 mr-3">Kuning</p>
                                         </i>
                                         <i class="bi bi-circle-fill text-success">
-                                            <p class="text-success mb-0 mr-3">Green</p>
+                                            <p class="text-success mb-0 mr-3">Hijau</p>
                                         </i>
                                         <i class="bi bi-circle-fill text-primary">
-                                            <p class="text-primary mb-0 mr-3">Blue</p>
+                                            <p class="text-primary mb-0 mr-3">Biru</p>
                                         </i>
                                         <i class="bi bi-circle-fill" style="color:#FF8333;">
-                                            <p class=" text-orange mb-0 mr-3">Orange</p>
+                                            <p class=" text-orange mb-0 mr-3">Oranye</p>
                                         </i>
                                         <i class="bi bi-circle-fill" style="color:#FF33B8;">
-                                            <p class="mb-0 mr-3">Pink</p>
+                                            <p class="mb-0 mr-3">Merah muda</p>
                                         </i>
                                         <i class="bi bi-circle-fill" style="color:#962fbf;">
-                                            <p class="mb-0 mr-3">Purple</p>
+                                            <p class="mb-0 mr-3">Ungu</p>
                                         </i>
                                     </div>
                                 </div>
@@ -160,11 +160,11 @@
                             <div class="card border-0 shadow">
                                 <div class="card-body">
                                     <i class="bi bi-view-list fa-2x mb-2"></i>
-                                    <h5 class="mb-3 font-weight-bold">Plastic Type</h5>
-                                    <p class="mb-1">HDPE, virgin and recycled</p>
-                                    <p class="mb-1">LDPE, virgin and recyled</p>
-                                    <p class="mb-1">PP, virgin and recyled</p>
-                                    <p>HDPE and LDPE blend</p>
+                                    <h5 class="mb-3 font-weight-bold">Jenis Plastik</h5>
+                                    <p class="mb-1">HDPE, virgin dan daur ulang</p>
+                                    <p class="mb-1">LDPE, virgin dan daur ulang</p>
+                                    <p class="mb-1">PP, virgin dan daur ulang</p>
+                                    <p>Campuran HDPE dan LDPE</p>
                                 </div>
                             </div>
                         </div>
@@ -172,9 +172,9 @@
                             <div class="card border-0 shadow">
                                 <div class="card-body">
                                     <i class="bi bi-app fa-2x mb-2"></i>
-                                    <h5 class="mb-3 font-weight-bold">Plastic Surface</h5>
-                                    <p class="mb-1">Smooth</p>
-                                    <p>Embossed</p>
+                                    <h5 class="mb-3 font-weight-bold">Permukaan Plastik</h5>
+                                    <p class="mb-1">Halus</p>
+                                    <p>Emboss</p>
                                 </div>
                             </div>
                         </div>

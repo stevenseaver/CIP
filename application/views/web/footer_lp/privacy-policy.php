@@ -17,7 +17,7 @@
         </button>
 
         <p class="text-dark mx-2 px-2 text-justify">
-            The following Privacy Policy explains how CV. Rukun Gemilang Perkasa (“We, Our, Ours, Us”) obtains, collects, uses, stores, discloses, and deletes User’s Information that has been registered on Our business platform, which available through Our website at www.cakraintiplastik.com (from now on called “Website”).
+            The following Privacy Policy explains how CV. Rukun Gemilang Perkasa (“We, Our, Ours, Us”) obtains, collects, uses, stores, discloses, and deletes User’s Information that has been registered on Our business platform, which available through Our website at www.plastikrukun.com (from now on called “Website”).
         </p>
         <p class="text-dark mx-2 px-2 text-justify">
             This Privacy Policy is Our real commitment to respect and protect any certain Personal Data (“Information”) and as a form of our compliance with the regulations applied in Indonesia. This Privacy Policy is an inseparable part of our Terms and Conditions that you have agreed to when you access, download, register, and / or use our services both on Our website, in Our applications, and via any other platforms.
@@ -121,11 +121,11 @@
             <span class="icon text-white-60">
                 <i class="bi bi-translate"></i>
             </span>
-            <span class="text">Change to Bahasa Inggris</span>
+            <span class="text">Change to English</span>
         </button>
 
         <p class="text-dark mx-2 px-2 text-justify">
-            Kebijakan privasi ini menjelaskan bagaimana CV. Rukun Gemilang Perkasa (Kami) mendapatkan, menyimpan, menggunakan, dan membagikan data pengguna (Anda) yang telah didaftarkan kepada kami melalui salah satu kanal binis kami, yang tersedia melalui website kami di www.cakraintiplastik.com (disebut halaman web), maupun kanal lainnya.
+            Kebijakan privasi ini menjelaskan bagaimana CV. Rukun Gemilang Perkasa (Kami) mendapatkan, menyimpan, menggunakan, dan membagikan data pengguna (Anda) yang telah didaftarkan kepada kami melalui salah satu kanal binis kami, yang tersedia melalui website kami di www.plastikrukun.com (disebut halaman web), maupun kanal lainnya.
         </p>
         <p class="text-dark mx-2 px-2 text-justify">
             Kebijakan privasi ini adalah komitmen nyata kami untuk menghargai dan melindungi data pribadi pengguna ('Informasi') dan sebagai bentuk kepatuhan kami terhadap regulasi yang berlaku di Indonesia. Kebijakan privasi ini adalah bagian tidak terpisahkan dari Syarat dan Ketentuan penggunaan yang telah anda setujui ketika anda mengkases, mengunduh, mendaftarkan, dan/atau menggunakan layanan kami baik melalui halaman web kami, aplikasi kami, atau melalui kanal lainnya.
