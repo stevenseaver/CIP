@@ -280,7 +280,7 @@ class Web extends CI_Controller
 	//load page site map
 	public function site_map()
 	{
-		$data['title'] = 'Site Map';
+		$data['title'] = 'Peta Situs';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['products'] = $this->db->get('product_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>

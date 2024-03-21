@@ -16,7 +16,7 @@
                 <h1 class="h3 mb-0 text-primary font-weight-bold">Kantong Plastik Jumbo Rukun</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
-                <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20jumbo%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20jumbo%20plastic%20bag%20products?" class="badge badge-success" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20jumbo%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20jumbo%20plastic%20bag%20products?" class="badge badge-success" target="_blank" rel="noopener noreferrer">
                     <i class="bi bi-whatsapp mr-1"></i>Hubungi kami</a>
             </div>
         </div>
@@ -95,7 +95,7 @@
                 <h1 class="h3 mb-0 text-primary font-weight-bold">Kantong Plastik Super Jumbo Gemah</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
-                <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20super%20jumbo%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20super%20jumbo%20plastic%20bag%20products?" class="badge badge-success" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20super%20jumbo%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20super%20jumbo%20plastic%20bag%20products?" class="badge badge-success" target="_blank" rel="noopener noreferrer">
                     <i class="bi bi-whatsapp mr-1"></i>Hubungi kami</a>
             </div>
         </div>

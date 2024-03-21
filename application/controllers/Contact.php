@@ -38,9 +38,9 @@ class Contact extends CI_Controller
     {
         $config = [
             'protocol'  => 'smtp',
-            'smtp_host' => 'smtp.hostinger.com',
-            'smtp_user' => 'email@seaverweb.com',
-            'smtp_pass' => 'Anderson25?',
+            'smtp_host' => 'mail.plastikrukun.com',
+            'smtp_user' => 'donotreply@plastikrukun.com',
+            'smtp_pass' => 'donotreply!',
             'smtp_port' => 587,
             'mailtype'  => 'html',
             'charset'   => 'utf-8',

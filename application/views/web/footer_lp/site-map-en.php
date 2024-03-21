@@ -11,7 +11,7 @@
         <div class="row mb-3 mx-3">
             <div class="col-lg-2 mb-3">
                 <div class="d-sm-flex text-left">
-                    <h5 class="text-dark font-weight-bold">Laman Web</h5>
+                    <h5 class="text-dark font-weight-bold">Webpage</h5>
                 </div>
                 <?php foreach ($webmenu as $wm) : ?>
                     <div class="d-sm-flex text-left mb-2">
@@ -19,12 +19,12 @@
                     </div>
                 <?php endforeach; ?>
                 <div class="d-sm-flex text-left mb-2">
-                    <a href="<?= base_url('auth') ?>" target="_blank" class="text-primary">Belanja</a>
+                    <a href="<?= base_url('auth') ?>" target="_blank" class="text-primary">Shop</a>
                 </div>
             </div>
             <div class="col-lg-2 mb-3">
                 <div class="d-sm-flex text-left ">
-                    <h5 class="text-dark font-weight-bold">Produk</h5>
+                    <h5 class="text-dark font-weight-bold">Products</h5>
                 </div>
                 <?php foreach ($products as $p) : ?>
                     <div class="d-sm-flex text-left mb-2">
@@ -34,19 +34,19 @@
             </div>
             <div class="col-lg-2 mb-3">
                 <div class="d-sm-flex text-left ">
-                    <h5 class="text-dark font-weight-bold">Prinsip</h5>
+                    <h5 class="text-dark font-weight-bold">Our Values</h5>
                 </div>
                 <div class="d-sm-flex text-left mb-2">
-                    <a href="<?= base_url('web/lp0_circulatry') ?>" target="_blank" class="text-primary">Ekonomi Sirkular</a>
+                    <a href="<?= base_url('web/lp0_circulatry') ?>" target="_blank" class="text-primary">Circular Economy</a>
                 </div>
                 <div class="d-sm-flex text-left mb-2">
-                    <a href="<?= base_url('web/lp1_quality') ?>" target="_blank" class="text-primary">Kualitas Tinggi</a>
+                    <a href="<?= base_url('web/lp1_quality') ?>" target="_blank" class="text-primary">High Quality</a>
                 </div>
                 <div class="d-sm-flex text-left mb-2">
-                    <a href="<?= base_url('web/lp2_eco') ?>" target="_blank" class="text-primary">Peduli Lingkungan</a>
+                    <a href="<?= base_url('web/lp2_eco') ?>" target="_blank" class="text-primary">Eco-Mindful</a>
                 </div>
                 <div class="d-sm-flex text-left mb-2">
-                    <a href="<?= base_url('web/lp3_guideline') ?>" target="_blank" class="text-primary">Personalisasi</a>
+                    <a href="<?= base_url('web/lp3_guideline') ?>" target="_blank" class="text-primary">Customization</a>
                 </div>
             </div>
             <div class="col-lg-2 mb-3">
@@ -54,10 +54,10 @@
                     <h5 class="text-dark font-weight-bold">Legal</h5>
                 </div>
                 <div class="d-sm-flex text-left mb-2">
-                    <a href="<?= base_url('web/privacy_policy') ?>" target="_blank" class="text-primary">Kebijakan Privasi</a>
+                    <a href="<?= base_url('web/privacy_policy') ?>" target="_blank" class="text-primary">Privacy policy</a>
                 </div>
                 <div class="d-sm-flex text-left mb-2">
-                    <a href="<?= base_url('web/terms') ?>" target="_blank" class="text-primary">Syarat dan Ketentuan</a>
+                    <a href="<?= base_url('web/terms') ?>" target="_blank" class="text-primary">Terms and Conditions</a>
                 </div>
             </div>
         </div>

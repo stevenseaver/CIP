@@ -17,7 +17,7 @@
                 <h1 class="h3 mb-0 text-primary font-weight-bold">Kantong Plastik Putih</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
-                <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
+                <a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
                     <i class="bi bi-whatsapp mr-1"></i>Hubungi kami
                 </a>
             </div>
@@ -84,7 +84,7 @@
                 <h1 class="h3 mb-0 text-primary font-weight-bold">Kantong Plastik Bening</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
-                <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
+                <a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
                     <i class="bi bi-whatsapp mr-1"></i>Hubungi kami
                 </a>
             </div>
@@ -155,7 +155,7 @@
                 <h1 class="h3 mb-0 text-primary font-weight-bold">Kantong Plastik Hitam</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
-                <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
+                <a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
                     <i class="bi bi-whatsapp mr-1"></i>Hubungi kami
                 </a>
             </div>
@@ -222,7 +222,7 @@
                 <h1 class="h3 mb-0 text-primary font-weight-bold">Kantong Plastik Merah</h1>
             </div>
             <div class="col-6 mb-1 d-flex justify-content-end align-items-center">
-                <a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
+                <a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="badge badge-success">
                     <i class="bi bi-whatsapp mr-1"></i>Hubungi kami
                 </a>
             </div>
