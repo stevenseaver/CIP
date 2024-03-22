@@ -2,7 +2,7 @@
     <!-- Outer Row -->
     <div class="row d-flex justify-content-center my-5">
         <div class="col-xl-10 col-lg-12 col-md-9 my-5">
-            <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card o-hidden border-0 shadow-lg">
                 <div class="card-body p-0">
                     <!-- Nested Row within Card Body -->
                     <div class="row">

@@ -163,13 +163,24 @@ class Auth extends CI_Controller
             'protocol'  => 'smtp',
             'smtp_host' => 'mail.plastikrukun.com',
             'smtp_user' => 'donotreply@plastikrukun.com',
-            'smtp_pass' => 'donotreply!',
+            'smtp_pass' => 'donotreplyplastikrukun1!',
             'smtp_port' => 587,
             'mailtype'  => 'html',
             'charset'   => 'utf-8',
             'starttls'  => true,
             'newline'   => "\r\n"
         ];
+        // $config = [
+        //     'protocol'  => 'smtp',
+        //     'smtp_host' => 'mail.plastikrukun.com',
+        //     'smtp_user' => 'cs@plastikrukun.com',
+        //     'smtp_pass' => 'csplastikrukun1!',
+        //     'smtp_port' => 587,
+        //     'mailtype'  => 'html',
+        //     'charset'   => 'utf-8',
+        //     'starttls'  => true,
+        //     'newline'   => "\r\n"
+        // ];
         $this->email->initialize($config);
 
         //message body

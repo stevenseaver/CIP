@@ -16,6 +16,14 @@
         </span>
         <span class="text text-dark">Back</span>
     </a>
+    
+    <!-- view pdf PO  -->
+    <a href="<?= base_url('production/createPDF/') . $po_id?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+        <span class="icon text-white-50">
+            <i class="bi bi-eye"></i>
+        </span>
+        <span class="text">View Production Order</span>
+    </a>
 
     <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">

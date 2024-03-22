@@ -93,14 +93,15 @@ class Production extends CI_Controller
         //get material data
         $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
 
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+        
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
-        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('production/edit_prodorder', $data);
+        $this->load->view('production/add_prodorder', $data);
         $this->load->view('templates/footer');
     }
 
@@ -396,13 +397,18 @@ class Production extends CI_Controller
         $this->session->userdata('nik')])->row_array();
 
         $data['ref'] = $po_id;
-        $data['getRow'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+        $data['getRow'] = $this->db->get_where('stock_material', ['transaction_id' => $po_id])->row_array();
 
-        $data['date'] = $data['getRow']['date'];
-        $data['batch'] = $data['getRow']['description'];
-        $data['product_name'] = $data['getRow']['product_name'];
-        
-        $this->load->view('production/view_prodorder', $data);
+        if($data['getRow'] == null ){
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">There is no data yet!</div>');
+            redirect('production/add_prod/'. $po_id);
+        } else {
+            $data['date'] = $data['getRow']['date'];
+            $data['batch'] = $data['getRow']['description'];
+            $data['product_name'] = $data['getRow']['product_name'];
+            
+            $this->load->view('production/view_prodorder', $data);
+        }
     }
 
     /*** INPUT ROLL

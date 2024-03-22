@@ -25,7 +25,7 @@
         <span class="text">Add New Item</span>
     </a>
 
-    <a href="" class="btn btn-primary btn-icon-split mb-3 ml-2" data-toggle="collapse" data-target="#addMaterial" aria-expanded="false" aria-controls="addMaterial">
+    <a href="" class="btn btn-primary btn-icon-split mb-3 ml-3" data-toggle="collapse" data-target="#addMaterial" aria-expanded="false" aria-controls="addMaterial">
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
         </span>
@@ -34,65 +34,63 @@
 
     <!-- Input aditional materials here -->
     <!-- Input aditional materials here -->
-    <script>
-        new DataTable('dataTable2.display');
-    </script>
-
     <div class="collapse" id="addMaterial">
         <div class="card card-body">
             <!-- Button to add Item -->
-            <a href="" class="btn btn-primary btn-icon-split mb-3 mx-3" data-toggle="modal" data-target="#newMaterial">
-                <span class="icon text-white-50">
-                    <i class="bi bi-plus-lg"></i>
-                </span>
-                <span class="text">Add New Item</span>
-            </a>
+            <div class="row">
+                <div class="col-lg-4">
+                    <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newMaterial">
+                        <span class="icon text-white-50">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <span class="text">Search Item</span>
+                    </a>
+                </div>
+            </div>
 
             <!-- Modal for add items -->
             <div class="modal fade" id="newMaterial" tabindex="-1" aria-labelledby="newMaterialLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="newMaterialLabel">Add New Item</h5>
+                            <h5 class="modal-title" id="newMaterialLabel">Add Additional Materials</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <div class="table-responsive">
-                                <div class="table-responsive">
-                                    <table class="table table-hover" id="dataTable2" width="100%" cellspacing="0">
-                                        <thead>
+                                <table class="table" id="table2" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th style="display:none">ID</th>
+                                            <th>Material Item</th>
+                                            <th>Code</th>
+                                            <th>Stock</th>
+                                            <th>Unit</th>
+                                            <th>Unit Price</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php $i = 1;
+                                        $temp = 0; ?>
+                                        <?php foreach ($material as $fs) : ?>
                                             <tr>
-                                                <th style="display:none">ID</th>
-                                                <th>Material Item</th>
-                                                <th>Code</th>
-                                                <th>Stock</th>
-                                                <th>Unit</th>
-                                                <th>Unit Price</th>
-                                                <th>Action</th>
+                                                <td style="display:none" class="id"><?= $fs['id'] ?></td>
+                                                <td class="name"><?= $fs['name'] ?></td>
+                                                <td class="code"><?= $fs['code'] ?></td>
+                                                <td class="in_stock"><?= number_format($fs['in_stock'], 2, ',', '.');?></td>
+                                                <td class="unit"><?= $fs['unit_satuan']; ?></td>
+                                                <td class="price"><?= $fs['price']; ?></td>
+                                                <td>
+                                                    <a data-dismiss="modal" type="button" class="select-item-prod badge badge-primary">Add</a> 
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php $i = 1;
-                                            $temp = 0; ?>
-                                            <?php foreach ($material as $fs) : ?>
-                                                <tr>
-                                                    <td style="display:none" class="id"><?= $fs['id'] ?></td>
-                                                    <td class="name"><?= $fs['name'] ?></td>
-                                                    <td class="code"><?= $fs['code'] ?></td>
-                                                    <td class="in_stock"><?= number_format($fs['in_stock'], 2, ',', '.');?></td>
-                                                    <td class="unit"><?= $fs['unit_satuan']; ?></td>
-                                                    <td class="price"><?= $fs['price']; ?></td>
-                                                    <td>
-                                                        <a data-dismiss="modal" type="button" class="select-item-prod badge badge-primary">Add</a> 
-                                                    </td>
-                                                </tr>
-                                                <?php $i++; ?>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                            <?php $i++; ?>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -329,42 +327,40 @@
                 </div>
                 <div class="modal-body">
                     <div class="table-responsive">
-                        <div class="table-responsive">
-                            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
+                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Roll Item</th>
+                                    <th>Code</th>
+                                    <th>Pcs per Pack</th>
+                                    <th>Pack per Sack</th>
+                                    <th>In Stock</th>
+                                    <th>Price</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1;
+                                $temp = 0; ?>
+                                <?php foreach ($gbjSelect as $fs) : ?>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Roll Item</th>
-                                        <th>Code</th>
-                                        <th>Pcs per Pack</th>
-                                        <th>Pack per Sack</th>
-                                        <th>In Stock</th>
-                                        <th>Price</th>
-                                        <th>Action</th>
+                                        <td><?= $i ?></td>
+                                        <td class="name"><?= $fs['name'] ?></td>
+                                        <td class="code"><?= $fs['code'] ?></td>
+                                        <td class="pcsperpack"><?= $fs['pcsperpack'];?></td>
+                                        <td class="packpersack"><?= $fs['packpersack']; ?></td>
+                                        <td class="in_stock"><?= $fs['in_stock']; ?></td>
+                                        <td class="price"><?= $fs['price']; ?></td>
+                                        <td>
+                                            <!-- link this with a javascript -->
+                                            <a data-dismiss="modal" type="button" class="select-item-gbj badge badge-primary">Add</a> 
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1;
-                                    $temp = 0; ?>
-                                    <?php foreach ($gbjSelect as $fs) : ?>
-                                        <tr>
-                                            <td><?= $i ?></td>
-                                            <td class="name"><?= $fs['name'] ?></td>
-                                            <td class="code"><?= $fs['code'] ?></td>
-                                            <td class="pcsperpack"><?= $fs['pcsperpack'];?></td>
-                                            <td class="packpersack"><?= $fs['packpersack']; ?></td>
-                                            <td class="in_stock"><?= $fs['in_stock']; ?></td>
-                                            <td class="price"><?= $fs['price']; ?></td>
-                                            <td>
-                                                <!-- link this with a javascript -->
-                                                <a data-dismiss="modal" type="button" class="select-item-gbj badge badge-primary">Add</a> 
-                                            </td>
-                                        </tr>
-                                        <?php $i++; ?>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                    <?php $i++; ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -841,3 +837,20 @@
         </div>
     </div>
 </div>
+
+<script>
+        var table2 = $('#table2').DataTable({
+        paging: true,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+ 
+    });
+</script>

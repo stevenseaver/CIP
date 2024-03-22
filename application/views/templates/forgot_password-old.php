@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -60,11 +60,12 @@
                     <div class="card-body">
                         <div class="row py-2 justify-content-center">
                             <div class="col-lg py-3 mx-2 text-left">
-                                <i class="bi bi-patch-check fa-3x mb-3 x-2 text-primary"></i>
-                                <h4 class="text-primary mb-2 font-weight-bold">Verify Your Email</h4>
-                                <p class="text-secondary mb-1">We're glad you join our extended family tree.</p>
-                                <p class="text-secondary mb-1">Click this link below to activate your account. This link will self destruct in one (1) day.</p>
-                                <a href="<?= base_url() . 'auth/verify?email=' . $email . '&token=' . $token ?>" class="btn btn-primary mt-3">Activate Account</a>
+                                <i class="bi bi-key fa-3x mb-3 x-2 text-primary"></i>
+                                <h4 class="text-primary mb-2 font-weight-bold">Forgot your password?</h4>
+                                <p class="text-secondary mb-1">Don't worry, we know this would happen so we will help you.</p>
+                                <p class="text-secondary mb-1">Click this link below to reset your password. This link will self destruct in one (1) day.</p>
+                                <!-- <a href="" class="btn btn-primary mt-3" target="_blank">Directions &rarr; </a> -->
+                                <a href="<?= base_url() . 'auth/resetpassword?email=' . $email . '&token=' . $token ?>" class="btn btn-primary mt-3">Reset Password</a>
                             </div>
                         </div>
                     </div>
@@ -88,7 +89,6 @@
                         <a href="<?= base_url('web/') ?>"><i class="fas fa-recycle mr-2"></i>CV Rukun Gemilang Perkasa</a>
                     </h6>
                 </div>
-                <!-- Grid column -->
 
                 <!-- Grid column -->
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0">
@@ -102,42 +102,16 @@
                             <span>cs@plastikrukun.com</span>
                         </a>
                     </p>
-                    <a href="https://instagram.com/ciplastik.id" class="text-dark" target="_blank" rel="noopener noreferrer">
-                        <p>
-                            <i class="bi bi-instagram mr-1"></i>ciplastik.id
-                        </p>
-                    </a>
                     <a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" class="text-dark" target="_blank" rel="noopener noreferrer">
                         <p>
-                            <i class="bi bi-whatsapp mr-1"></i>+62878-6241-3070
+                            <i class="bi bi-whatsapp mr-1"></i>+6287862413070
                         </p>
                     </a>
                 </div>
-                <!-- Grid column -->
             </div>
-            <!-- Grid row -->
         </div>
     </section>
-    <!-- Section: Links  -->
-
-    <!-- Copyright -->
-    <div class="text-center bg-white p-4">
-        <div class="copyright">
-            <span class="small">Copyright &copy; CV Rukun Gemilang Perkasa 2021</span>
-        </div>
-    </div>
-    <!-- Copyright -->
 </footer>
-<!-- Footer -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Custom scripts for all pages-->
 <script src="<?= base_url('asset/'); ?>js/sb-admin-2.min.js"></script>
-
 </body>
-
 </html>

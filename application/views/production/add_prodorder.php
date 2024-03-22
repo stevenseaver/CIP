@@ -24,6 +24,14 @@
         </span>
         <span class="text">Add New Item</span>
     </a>
+
+    <!-- view pdf PO  -->
+    <a href="<?= base_url('production/createPDF/') . $po_id?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+        <span class="icon text-white-50">
+            <i class="bi bi-eye"></i>
+        </span>
+        <span class="text">View Production Order</span>
+    </a>
     
     <form action="<?= base_url('production/add_item_prod/') . $po_id . '/3' ?>" method="post">
         <div class="form-group">

@@ -39,8 +39,8 @@ class Contact extends CI_Controller
         $config = [
             'protocol'  => 'smtp',
             'smtp_host' => 'mail.plastikrukun.com',
-            'smtp_user' => 'donotreply@plastikrukun.com',
-            'smtp_pass' => 'donotreply!',
+            'smtp_user' => 'cs@plastikrukun.com',
+            'smtp_pass' => 'csplastikrukun1!',
             'smtp_port' => 587,
             'mailtype'  => 'html',
             'charset'   => 'utf-8',
@@ -49,7 +49,7 @@ class Contact extends CI_Controller
         ];
         $this->email->initialize($config);
 
-        $this->email->from('email@seaverweb.com', 'Administrator');
+        $this->email->from('cs@plastikrukun.com', 'Administrator');
         $this->email->to($to);
 
         $this->email->subject($subject);
