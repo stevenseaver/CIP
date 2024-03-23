@@ -12,6 +12,16 @@
     <title><?= $title ?></title>
 
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdVkNYiAAAAAHaJpzjwaERYD-2e7oR-iJ_dget-"></script> -->
+
+    <!-- <script>
+        function onClick(e) {
+            e.preventDefault();
+            grecaptcha.enterprise.ready(async () => {
+            const token = await grecaptcha.enterprise.execute('6LdVkNYiAAAAAHaJpzjwaERYD-2e7oR-iJ_dget-', {action: 'LOGIN'});
+            });
+        }
+    </script> -->
 
     <!-- Bootstrap CSS -->
     <link href="<?= base_url('asset/'); ?>css/bootstrap.css" rel="stylesheet" type="text/css">

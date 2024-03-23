@@ -14,7 +14,7 @@
             <div class="row justify-content-center text-center my-2">
                 <div class="col-3">
                     <i class="bi bi-award fa-3x text-danger"></i>
-                    <p class="nav-label">Mempertahankan dan meningkatkan kualitas</p>
+                    <p class="nav-label">Menjaga dan meningkatkan kualitas</p>
                 </div>
                 <div class="col-3 mx-2">
                     <i class="bi bi-currency-dollar fa-3x text-primary"></i>

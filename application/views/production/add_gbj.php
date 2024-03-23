@@ -840,7 +840,7 @@
 
 <script>
         var table2 = $('#table2').DataTable({
-        paging: true,
+        paging: false,
         select: {
             style: 'single'
         },

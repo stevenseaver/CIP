@@ -31,8 +31,8 @@
                         <div class="col-lg py-3 mx-2 mb-1 text-center">
                             <i class="bi bi-instagram fa-3x mb-3" style="color: #962fbf"></i>
                             <p class="text-primary mb-0">@ciplastik.id</p>
-                            <p class="text-dark mb-0">Hubungi kami di Instagram</p>
-                            <p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
+                            <p class="text-secondary mb-0">Hubungi kami di Instagram</p>
+                            <p class="text-secondary mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
                             <a href="https://instagram.com/ciplastik.id" target="_blank" rel="noopener noreferer">Temukan kami <i class="bi bi-instagram mr-1"></i></a>
                         </div>
                         <div class="col-lg py-3 mx-2 text-center">
