@@ -283,10 +283,10 @@
 			<div class="row justify-content-center pb-5">
 				<div class="col-lg-3 py-3 px-3 mb-1 text-center">
 					<i class="bi bi-geo fa-3x mb-3 text-primary"></i>
-					<p class="text-primary mb-0">Pergudangan & Industri Sinar Gedangan A-20</p>
+					<p class="text-primary mb-0">Pergudangan dan Industri Sinar Gedangan</p>
 					<p class="text-dark mb-0">Gedangan, Sidoarjo</p>
 					<p class="text-dark mb-0">Jawa Timur, Indonesia 61245</p>
-					<a href="https://maps.app.goo.gl/b1YM7f1MYZved6kLA" class="" target="_blank">Petunjuk arah &rarr; </a>
+					<a href="https://goo.gl/maps/zRBAk5gr9dujTFc48" class="" target="_blank">Petunjuk arah &rarr; </a>
 				</div>
 				<div class="col-lg-3 py-3 px-3 mb-1 text-center">
 					<i class="bi bi-whatsapp fa-3x mb-3 text-success"></i>
