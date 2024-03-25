@@ -41,10 +41,9 @@
         // $serial = rand(1000, 9999);
 
         // ref invoice
-        // $po_id = 'PROD-' . $year . $month . $day . '-' . $serial;
-        $n = 3;
+        $n = 2;
         $result = bin2hex(random_bytes($n));
-        $po_id = 'P' . $year .$result . $week;
+        $po_id = 'P' . $year . $day . $result . $week;
     ?>
 
     <a href="<?= base_url('production/add_prod/') . $po_id ?>" class="btn btn-primary btn-icon-split mb-3">

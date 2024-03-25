@@ -749,6 +749,7 @@ class Production extends CI_Controller
         $data['gram'] = $this->input->post('gram');
         $data['guset'] = $this->input->post('guset');
         $data['net_weight'] = $this->input->post('amount');
+        $data['desc'] = $this->input->post('desc');
 
         $type = $this->input->get('type');
         if ($type == 1){
@@ -760,7 +761,7 @@ class Production extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('production/print_ticket', $data);
+        $this->load->view('production/print_ticket_roll', $data);
         $this->load->view('templates/footer');
         // echo $prod_id . ' ' . $batch . ' ' . $item . ' ' . $net_weight;
     }
@@ -1149,6 +1150,33 @@ class Production extends CI_Controller
 
         // $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Items updated!</div>');
         // redirect('production/add_gbj/' . $prodID);
+    }
+
+    public function print_ticket_gbj(){
+        $data['title'] = 'Print Finished Goods Ticket';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get data from form
+        $data['prod_id'] = $this->input->post('po_id');
+        $data['batch'] = $this->input->post('batch');
+        $data['item'] = $this->input->post('name');
+        $data['net_weight'] = $this->input->post('weight');
+        $data['amount'] = $this->input->post('amount');
+        $data['desc'] = $this->input->post('desc');
+
+        $type = $this->input->get('type');
+        if ($type == 1){
+            $data['roll_back'] = 'add_gbj';
+        } else if ($type == 2){
+            $data['roll_back'] = 'gbj_details';
+        }
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('production/print_ticket_gbj', $data);
+        $this->load->view('templates/footer');
+        // echo $prod_id . ' ' . $batch . ' ' . $item . ' ' . $net_weight;
     }
 
     public function add_item_prod_after_gbj($id, $status)

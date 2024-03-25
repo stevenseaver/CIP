@@ -1317,8 +1317,8 @@
          var weight = $(event.relatedTarget).data('weight');
          var lipatan = $(event.relatedTarget).data('lipatan');
          var amount = $(event.relatedTarget).data('amount');
-
-         // input passed data using JS to object INPUT inside modal #deleteItemPOModal
+         var desc = $(event.relatedTarget).data('desc');
+         
          $(event.currentTarget).find('.modal-body input[name="po_id"]').val(po_id);
          $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
          $(event.currentTarget).find('.modal-body input[name="batch"]').val(batch);
@@ -1326,6 +1326,27 @@
          $(event.currentTarget).find('.modal-body input[name="gram"]').val(weight);
          $(event.currentTarget).find('.modal-body input[name="guset"]').val(lipatan);
          $(event.currentTarget).find('.modal-body input[name="amount"]').val(amount);
+         $(event.currentTarget).find('.modal-body input[name="desc"]').val(desc);
+     });
+
+     //  JavaScript for print roll input ticket
+     $('#printDetailsGBJ').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var po_id = $(event.relatedTarget).data('po');
+         var id = $(event.relatedTarget).data('id');
+         var batch = $(event.relatedTarget).data('batch');
+         var name = $(event.relatedTarget).data('name');
+         var amount = $(event.relatedTarget).data('amount');
+         var weight = $(event.relatedTarget).data('weight');
+         var desc = $(event.relatedTarget).data('desc');
+
+         $(event.currentTarget).find('.modal-body input[name="po_id"]').val(po_id);
+         $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="batch"]').val(batch);
+         $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="amount"]').val(amount);
+         $(event.currentTarget).find('.modal-body input[name="weight"]').val(weight);
+         $(event.currentTarget).find('.modal-body input[name="desc"]').val(desc);
      });
 
      //  JavaScript for delete Production Order per item transaction

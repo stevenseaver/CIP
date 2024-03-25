@@ -293,14 +293,14 @@
 					<p class="text-primary mb-0">+62-878-6241-3070</p>
 					<p class="text-dark mb-0">Whatsapp dengan Perwakilan Kami</p>
 					<p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
-					<a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" target="_blank" rel="noopener noreferer" class="text-success">Hubungi kami di <i class="bi bi-whatsapp mr-1"></i> </a>
+					<a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" target="_blank" rel="noopener noreferer" class="text-success">Hubungi kami di <i class="bi bi-whatsapp mr-1"></i> </a>
 				</div>
 				<div class="col-lg-3 py-3 px-3 mb-1 text-center">
 					<i class="bi bi-instagram fa-3x mb-3" style="color: #962fbf"></i>
 					<p class="text-primary mb-0">@ciplastik.id</p>
 					<p class="text-dark mb-0">Kirim pesan di Instagram</p>
 					<p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
-					<a href="https://instagram.com/sbplastik" target="_blank" rel="noopener noreferer" style="color: #962fbf">Kirim pesan di <i class="bi bi-instagram mr-1"></i> </a>
+					<a href="https://instagram.com/ciplastik.id" target="_blank" rel="noopener noreferer" style="color: #962fbf">Kirim pesan di <i class="bi bi-instagram mr-1"></i> </a>
 				</div>
 			</div>
 		</div>

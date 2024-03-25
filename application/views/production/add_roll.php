@@ -320,7 +320,7 @@
                         <td><input id="rollBatch-<?= $ms['id'] ?>" class="roll-batch text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['batch']; ?>"></td>
                         <td><input id="rollDesc-<?= $ms['id'] ?>" class="roll-desc text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['transaction_desc']; ?>"></td>
                         <td>
-                            <a data-toggle="modal" data-target="#printDetails" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['weight'] ?>" data-lipatan="<?= $ms['lipatan']?>" class="badge badge-primary clickable">Print</a>
+                        <td><a data-toggle="modal" data-target="#printDetails" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['weight'] ?>" data-lipatan="<?= $ms['lipatan']?>" data-desc="<?= $ms['transaction_desc']?>" class="badge badge-primary clickable">Print</a></td>
                             <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
                         </td>
                     </tr>
@@ -389,12 +389,12 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="printDetailsLabel">Print!</h5>
+                <h5 class="modal-title" id="printDetailsLabel">Print</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <p class="mx-3 mt-3 mb-0">Double check the details!</p>
+            <p class="mx-3 mt-3 mb-1">Double check the details.</p>
             <form action="<?= base_url('production/print_ticket?type=2') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
@@ -425,6 +425,9 @@
                                 <span class="input-group-text">kg</span>
                             </div>
                         </div>
+                        <!-- item desc -->
+                        <label for="desc" class="col-form-label">Description</label>
+                        <input type="text" class="form-control" id="desc" name="desc" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">

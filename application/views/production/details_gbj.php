@@ -230,6 +230,7 @@
                     <th>Subtotal</th>
                     <th>Batch</th>
                     <th>Pack Number</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -267,6 +268,7 @@
                         <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><?= $ms['batch'] ?></td>
                         <td><?= $ms['description'] ?></td>
+                        <td><a data-toggle="modal" data-target="#printDetailsGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['before_convert'] ?>" data-desc="<?= $ms['description']?>" class="badge badge-primary clickable">Print</a></td>
                     </tr>
                     <?php 
                         $temp = $temp + $ms['before_convert'];
@@ -361,3 +363,59 @@
 
 </div>
 <!-- End of Main Content -->
+
+<!-- Modal For Print -->
+<div class="modal fade" id="printDetailsGBJ" tabindex="-1" role="dialog" aria-labelledby="printDetailsGBJLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="printDetailsGBJLabel">Print</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <p class="mx-3 mt-3 mb-1">Double check the details.</p>
+            <form action="<?= base_url('production/print_ticket_gbj?type=2') ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- prod id -->
+                        <label for="po_id" class="col-form-label">Production Order ID</label>
+                        <input type="text" class="form-control" id="po_id" name="po_id" readonly>
+                        <!-- item id -->
+                        <!-- <label for="id" class="col-form-label" style="display:none">ID</label>
+                        <input type="text" class="form-control" id="id" name="id" style="display:none" readonly> -->
+                        <!-- item batch ID -->
+                        <label for="batch" class="col-form-label">Batch</label>
+                        <input type="text" class="form-control" id="batch" name="batch" readonly>
+                        <!-- item name -->
+                        <label for="name" class="col-form-label">Item</label>
+                        <input type="text" class="form-control" id="name" name="name" readonly>
+                        <!-- item net weight -->
+                        <label for="weight" class="col-form-label">Net Weight</label>
+                        <div class="input-group">
+                            <input type="number" step=".01" class="form-control" id="weight" name="weight" value="<?= set_value('amount'); ?>" readonly>
+                            <div class="input-group-append">
+                                <span class="input-group-text">kg</span>
+                            </div>
+                        </div>
+                        <!-- item net amount -->
+                        <label for="amount" class="col-form-label">Pack Amount</label>
+                        <div class="input-group">
+                            <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" readonly>
+                            <div class="input-group-append">
+                                <span class="input-group-text">pack</span>
+                            </div>
+                        </div>
+                        <!-- item desc -->
+                        <label for="desc" class="col-form-label">Description</label>
+                        <input type="text" class="form-control" id="desc" name="desc" readonly>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Print</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -144,7 +144,7 @@
                         <!-- <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> -->
                         <td><?= $ms['batch'] ?></td>
                         <td><?= $ms['transaction_desc'] ?></td>
-                        <td><a data-toggle="modal" data-target="#printDetails" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['weight'] ?>" data-lipatan="<?= $ms['lipatan']?>" class="badge badge-primary clickable">Print</a></td>
+                        <td><a data-toggle="modal" data-target="#printDetails" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['weight'] ?>" data-lipatan="<?= $ms['lipatan']?>" data-desc="<?= $ms['transaction_desc']?>" class="badge badge-primary clickable">Print</a></td>
                     </tr>
                     <?php 
                         $temp = $temp + $ms['incoming'];
@@ -206,12 +206,12 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="printDetailsLabel">Print!</h5>
+                <h5 class="modal-title" id="printDetailsLabel">Print</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <p class="mx-3 mt-3 mb-0">Double check the details!</p>
+            <p class="mx-3 mt-3 mb-1">Double check the details.</p>
             <form action="<?= base_url('production/print_ticket?type=2') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
@@ -231,7 +231,7 @@
                         <label for="gram" class="col-form-label">Gramature</label>
                         <input type="text" class="form-control" id="gram" name="gram" readonly>
                         <!-- item lipatan -->
-                        <label for="guest" class="col-form-label">Gusset</label>
+                        <label for="guset" class="col-form-label">Gusset</label>
                         <input type="text" class="form-control" id="guset" name="guset" readonly>
                         <!-- item net amount -->
                         <label for="amount" class="col-form-label">Net Amount</label>
@@ -242,6 +242,9 @@
                                 <span class="input-group-text">kg</span>
                             </div>
                         </div>
+                        <!-- item desc -->
+                        <label for="desc" class="col-form-label">Description</label>
+                        <input type="text" class="form-control" id="desc" name="desc" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">
