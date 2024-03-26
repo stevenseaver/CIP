@@ -24,7 +24,7 @@
                         <i class=""></i>CV. Rukun Gemilang Perkasa
                     </h6>
                     <p>
-                        Produsen plastik yang berfokus pada daur ulang dan produk kemasan plastik.
+                        Produsen plastik yang berfokus pada produk kemasan plastik daur ulang.
                     </p>
                 </div>
                 <!-- Grid column -->

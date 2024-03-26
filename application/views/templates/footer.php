@@ -2,10 +2,10 @@
  <footer class="sticky-footer bg-white">
      <div class="container my-auto">
          <div class="copyright text-center mb-2">
-             <span>Copyright &copy; UD. Cakra Inti Plastik 2021</span>
+             <span>Licensed by Rukun Gemilang Perkasa 2024</span>
          </div>
          <div class="copyright text-center my-auto">
-             <span>Telp: +6231 80 11 529 | Email: cs.sbplastik@gmail.com</span>
+             <span>Telp: +627862413070 | Email: cs@plastikrukun.com</span>
          </div>
      </div>
  </footer>

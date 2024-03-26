@@ -286,7 +286,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">IDR</span>
                         </div>
-                        <input type="text" class="form-control" id="price" name="price" value="<?= set_value('price'); ?>" placeholder="Selling price per unit">
+                        <input type="text" class="form-control" id="price" name="price" value="<?= set_value('price'); ?>" placeholder="Input COGS per kg">
                     </div>
                     <small>Automatically. But you can update to the latest price per unit.</small>
                     <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
@@ -307,7 +307,7 @@
                     <label for="pack_no" class="col-form-label">Notes</label>
                     <input type="text" class="form-control mb-1" id="pack_no" name="pack_no" placeholder="Input additional description..">
                     <?= form_error('pack_no', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Packing description, alpha numerical. Mandatory</small>
+                    <small>Packing description, description, or else. Alpha numerical. Mandatory</small>
                 </div>
             </div>
         </div>
@@ -492,17 +492,19 @@
                     <?php 
                         $temp = $temp + $ms['incoming'];
                         $temp_value = $temp_value + $subtotal;
-                        
-                        $avalan = 'avalan';
-                        $prongkolan = 'prongkolan';
+
+                        $avalan = "avalan";
+                        $prongkolan = "prongkolan";
+                        $avalan_name = "AVALAN ROLL";
+                        $prongkolan_name = "PRONGKOLAN ROLL";
 
                         $sim_av = similar_text($ms['transaction_desc'], $avalan, $percent_av);
                         $sim_prong = similar_text($ms['transaction_desc'], $prongkolan, $percent_prong);
 
-                        if($percent_av > 50 or $percent_prong > 50){
+                        if($percent_av > 50 or $percent_prong > 50 or $ms['name'] == $avalan_name or $ms['name'] == $prongkolan_name){
                             $waste = $waste + $ms['incoming'];
                         };
-                        
+
                         $i++;
                     ?>
                 <?php endforeach; ?>
@@ -621,7 +623,7 @@
                         $temp = $temp + $ms['before_convert'];
                         $temp_total = $temp_total + $subtotal;
 
-                        $avalan = "roll";
+                        $avalan = "avalan roll";
                         $avalan1 = "prongkolan roll";
                         $plong = "plong";
                         $sortir = "sortir";

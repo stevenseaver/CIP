@@ -9,7 +9,6 @@
         <div class="col-lg-3 mb-3">
             <div class="list-group list-group-flush" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-general-list" data-toggle="list" href="#list-general" role="tab" aria-controls="general">General</a>
-                <!-- <a class="list-group-item list-group-item-action" id="list-backup-list" data-toggle="list" href="#list-backup" role="tab" aria-controls="backup">Manufacturing</a> -->
                 <a class="list-group-item list-group-item-action" id="list-backup-list" data-toggle="list" href="#list-backup" role="tab" aria-controls="backup">Backup</a>
             </div>
         </div>
@@ -84,7 +83,7 @@
                     <div class="mb-2 h5">Maximum Process Waste
                         <i type="button" class="small text-primary bi bi-question-circle" data-toggle="tooltip" data-placement="right" title="Maximum process waste, x kg of materials produce y kg of roll products">
                         </i>
-                    <div>
+                    </div>
                     <form action="<?= base_url('admin/update_waste/1') ?>" method="post">
                     <div class="row mb-3">
                         <div class="col-lg-3 input-group">
@@ -173,43 +172,18 @@
         </div>
     </div>
 </div>
-</div>
-
-    <script>
-        //js for setting purchase tax input onchange
-        function change_purchase_tax($amount){
-            window.location.href = "<?= site_url('admin/update_purchase_tax/');?>"+amount;
-        }
-
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
-
-    <!-- <div class="table-responsive">
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-            <thead>
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Menu</th>
-                    <th scope="col">Access</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $i = 1; ?>
-                <?php foreach ($settingItems as $m) : ?>
-                    <tr>
-                        <th scope="row"><?= $i ?></th>
-                        <td><?= $m['parameter']; ?></td>
-                        <td><?= $m['value']; ?></td>
-                    </tr>
-                    <?php $i++; ?>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div> -->
-</div>
 <!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->
+
+<script>
+    //js for setting purchase tax input onchange
+    function change_purchase_tax($amount){
+        window.location.href = "<?= site_url('admin/update_purchase_tax/');?>"+amount;
+    }
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>

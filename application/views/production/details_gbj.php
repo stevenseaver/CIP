@@ -162,20 +162,23 @@
                             <?php } ?>    
                         </td>
                     </tr>
-                    <?php $temp = $temp + $ms['incoming'];
-                    $temp_value = $temp_value + $subtotal;
+                    <?php 
+                        $temp = $temp + $ms['incoming'];
+                        $temp_value = $temp_value + $subtotal;
 
-                    $avalan = "avalan";
-                    $prongkolan = "prongkolan";
+                        $avalan = "avalan";
+                        $prongkolan = "prongkolan";
+                        $avalan_name = "AVALAN ROLL";
+                        $prongkolan_name = "PRONGKOLAN ROLL";
 
-                    $sim_av = similar_text($ms['transaction_desc'], $avalan, $percent_av);
-                    $sim_prong = similar_text($ms['transaction_desc'], $prongkolan, $percent_prong);
+                        $sim_av = similar_text($ms['transaction_desc'], $avalan, $percent_av);
+                        $sim_prong = similar_text($ms['transaction_desc'], $prongkolan, $percent_prong);
 
-                    if($percent_av > 50 or $percent_prong > 50){
-                        $waste = $waste + $ms['incoming'];
-                    };
+                        if($percent_av > 50 or $percent_prong > 50 or $ms['name'] == $avalan_name or $ms['name'] == $prongkolan_name){
+                            $waste = $waste + $ms['incoming'];
+                        };
 
-                    $i++;
+                        $i++;
                     ?>
                 <?php endforeach; ?>
             </tbody>

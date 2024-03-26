@@ -385,7 +385,7 @@ $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
-$config['sess_expiration'] = 600; //(10 Minutes)
+$config['sess_expiration'] = 7200; //(2 hours)
 $config['sess_time_to_update'] = 300; //(7 half minutes for update)
 
 /*

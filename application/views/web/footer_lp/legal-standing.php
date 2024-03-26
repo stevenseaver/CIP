@@ -29,24 +29,22 @@
 
         <br>
 
-        <p class=" text-dark mx-2 px-2 text-justify">
-            Alamat terdaftar:
-        </p>
-        <p class="text-dark mx-2 px-2 my-0 text-justify" p>
-            Pergudangan dan Industri Sinar Gedangan A-20
-        </p>
-        <p class="text-dark mx-2 px-2 my-0 text-justify">
-            Kecamatan Gedangan, Kabupaten Sidoarjo,
-        </p>
-        <p class="text-dark mx-2 px-2 mb-4 text-justify">
-            Jawa Timur, Indonesia 61254
-        </p>
-
         <p class=" text-dark mx-2 px-2 text-justify mb-0">
-            Nomor registrasi merek Rukun&reg;:
+            Halaman web, sistem informasi, dan laman web turunan ini terdaftar di PSE Kementrian Komunikasi dan Informatika:
         </p>
-        <p class="text-dark mx-2 px-2 mb-3 text-justify" p>
+        <p class="mb-3 text-justify">
+            <a href="https://pse.kominfo.go.id/tdpse-detail/18420" target="_blank" rel="noopener noreferrer" class="mx-2 px-2 mb-3 text-justify clickable">
+                013753.01/DJAI.PSE/03/2024
+            </a>
+        </p>
+        
+        <p class=" text-dark mx-2 px-2 text-justify mb-0">
+            Nomor registrasi merek Rukun&reg; di Kementrian Hukum dan Hak Asasi Manusia:
+        </p>
+        <p class="text-justify">
+            <a href="https://pdki-indonesia.dgip.go.id/detail/965d7e685421da1b4f25c2472d2426d9e508213407958f3dc86972c54c26e4af?nomor=IPT2022024728&type=trademark&keyword=rukun" target="_blank" rel="noopener noreferrer" class="mx-2 px-2 mb-3 text-justify clickable">
             DID2022011228
+            </a>
         </p>
     </div>
 </div>

@@ -152,14 +152,16 @@
 
                         $avalan = "avalan";
                         $prongkolan = "prongkolan";
+                        $avalan_name = "AVALAN ROLL";
+                        $prongkolan_name = "PRONGKOLAN ROLL";
 
                         $sim_av = similar_text($ms['transaction_desc'], $avalan, $percent_av);
                         $sim_prong = similar_text($ms['transaction_desc'], $prongkolan, $percent_prong);
 
-                        if($percent_av > 50 or $percent_prong > 50){
+                        if($percent_av > 50 or $percent_prong > 50 or $ms['name'] == $avalan_name or $ms['name'] == $prongkolan_name){
                             $waste = $waste + $ms['incoming'];
                         };
-                        
+
                         $i++;
                     ?>
                 <?php endforeach; ?>

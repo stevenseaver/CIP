@@ -44,7 +44,7 @@
                         <p class="text-dark font-weight-bold"> <?= $amount ?> pack</p>
                         <p class="mb-0 text-primary">Net Amount : </p>
                         <p class="text-dark font-weight-bold"> <?= $net_weight ?> kg</p>
-                        <p class="mb-0 text-primary">Description : </p>
+                        <p class="mb-0">Description : </p>
                         <p class="text-dark font-weight-bold"><?= $desc ?> </p>
                     </div>
                 </div>

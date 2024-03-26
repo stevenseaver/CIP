@@ -101,6 +101,7 @@ class User extends CI_Controller
         $this->form_validation->set_rules('email', 'email', 'required|trim|valid_email', [
             'is_unique' => 'This email has already been used!'
         ]);
+        $this->form_validation->set_rules('noktp', 'ID number', 'trim|numeric');
         $this->form_validation->set_rules('hp', 'phone number', 'required|trim|numeric');
         $this->form_validation->set_rules('address', 'address', 'required|trim');
         $this->form_validation->set_rules('city', 'city', 'required|trim');
@@ -122,8 +123,8 @@ class User extends CI_Controller
 
             if ($upload_image) {
                 $config['upload_path']          = './asset/img/profile/';
-                $config['allowed_types']        = 'gif|jpg|png';
-                $config['max_size']             = 2048;
+                $config['allowed_types']        = 'gif|jpg|png|jpeg|heif';
+                $config['max_size']             = 4096;
 
                 $this->load->library('upload', $config);
                 $this->upload->initialize($config);
@@ -146,6 +147,7 @@ class User extends CI_Controller
 
             $data = [
                 'name' => $this->input->post('name'),
+                'noktp' => $this->input->post('noktp'),
                 'email' => $this->input->post('email'),
                 'address' => $this->input->post('address'),
                 'city' => $this->input->post('city'),

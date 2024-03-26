@@ -17,7 +17,7 @@
                 <div class="sidebar-brand-icon">
                     <i class="bi bi-cart"></i>
                 </div>
-                <div class="sidebar-brand-text mx-1">IT System</div>
+                <div class="sidebar-brand-text mx-1">Stocky</div>
             </a>
 
             <!-- Divider -->

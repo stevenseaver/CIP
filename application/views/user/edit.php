@@ -26,6 +26,14 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <!-- edit name -->
+                        <label for="noktp" class="col-sm-3 col-form-label">ID Number</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="noktp" name="noktp" value="<?= $user['noktp']; ?>">
+                            <?= form_error('noktp', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <!-- edit email -->
                         <label for="email" class="col-sm-3 col-form-label">Email</label>
                         <div class="col-sm-9">
@@ -85,7 +93,7 @@
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="image" name="image">
                                         <label class="custom-file-label" for="image">Choose file</label>
-                                        <small class="text-primary">Maximum 2 MB</small>
+                                        <small class="text-primary">Maximum 4 MB</small>
                                     </div>
                                 </div>
                             </div>

@@ -320,7 +320,7 @@
                         <td><input id="rollBatch-<?= $ms['id'] ?>" class="roll-batch text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['batch']; ?>"></td>
                         <td><input id="rollDesc-<?= $ms['id'] ?>" class="roll-desc text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['transaction_desc']; ?>"></td>
                         <td>
-                        <td><a data-toggle="modal" data-target="#printDetails" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['weight'] ?>" data-lipatan="<?= $ms['lipatan']?>" data-desc="<?= $ms['transaction_desc']?>" class="badge badge-primary clickable">Print</a></td>
+                            <a data-toggle="modal" data-target="#printDetails" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['weight'] ?>" data-lipatan="<?= $ms['lipatan']?>" data-desc="<?= $ms['transaction_desc']?>" class="badge badge-primary clickable">Print</a>
                             <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
                         </td>
                     </tr>
@@ -330,11 +330,13 @@
 
                         $avalan = "avalan";
                         $prongkolan = "prongkolan";
+                        $avalan_name = "AVALAN ROLL";
+                        $prongkolan_name = "PRONGKOLAN ROLL";
 
                         $sim_av = similar_text($ms['transaction_desc'], $avalan, $percent_av);
                         $sim_prong = similar_text($ms['transaction_desc'], $prongkolan, $percent_prong);
 
-                        if($percent_av > 50 or $percent_prong > 50){
+                        if($percent_av > 50 or $percent_prong > 50 or $ms['name'] == $avalan_name or $ms['name'] == $prongkolan_name){
                             $waste = $waste + $ms['incoming'];
                         };
 

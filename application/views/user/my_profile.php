@@ -19,6 +19,7 @@
                     <h5 class="card-title mb-2 font-weight-bold text-dark"><?= $user['name']; ?></h5>
                     <p class="card-text mb-1 text-dark"><?= $user['email']; ?></p>
                     <p class="card-text mb-3 text-dark"><?= $user['phone_number']; ?></p>
+                    <p class="card-text mb-2 text-dark"><?= $user['noktp']; ?></p>
                     <p class="card-text text-dark"><small class="text-muted">Member since <?= date('d F Y', $user['date_created']); ?></small></p>
                 </div>
             </div>

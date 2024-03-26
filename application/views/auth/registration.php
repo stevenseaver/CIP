@@ -5,9 +5,9 @@
                 <div class="row d-flex justify-content-center align-items-center">
                     <div class="col-lg-5 d-none d-lg-block">
                         <h3 class="font-weight-bold text-primary mx-5">User Registration</h3>
-                        <p class="h5 mx-5">support</p>
-                        <a href="mailto:cs.sbplastik@gmail.com" class="text-primary mx-5" target="_blank" rel="noopener noreferrer">
-                            <span>cs.sbplastik@gmail.com</span>
+                        <p class="h5 mx-5">Support</p>
+                        <a href="mailto:cs@plastikrukun.com" class="text-primary mx-5" target="_blank" rel="noopener noreferrer">
+                            <span>cs@plastikrukun.com</span>
                         </a>
                         <!-- <img src="<?= base_url('asset/img/registration.png') ?>" class="img-fluid mx-auto d-block"> -->
                     </div>
