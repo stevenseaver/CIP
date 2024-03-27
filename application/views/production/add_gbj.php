@@ -25,7 +25,7 @@
         <span class="text">Add New Item</span>
     </a>
 
-    <a href="" class="btn btn-primary btn-icon-split mb-3 ml-3" data-toggle="collapse" data-target="#addMaterial" aria-expanded="false" aria-controls="addMaterial">
+    <a href="" class="btn btn-light btn-icon-split mb-3" data-toggle="collapse" data-target="#addMaterial" aria-expanded="false" aria-controls="addMaterial">
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
         </span>
