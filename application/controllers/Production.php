@@ -509,9 +509,6 @@ class Production extends CI_Controller
             $data['IDCheck']['description'] = 1;
             $data['IDCheck']['product_name'] = 1;
         }
-
-        $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
-
         //MATERIAL ITEMS HERE
         //MATERIAL ITEMS HERE
 
@@ -973,10 +970,7 @@ class Production extends CI_Controller
         } else {
             $data['IDCheck']['description'] = 1;
             $data['IDCheck']['product_name'] = 1;
-        }
-
-        $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
-        // $data['po_id'] = $prodID;
+        };
 
         //MATERIAL ITEMS HERE
         //MATERIAL ITEMS HERE
