@@ -336,7 +336,7 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="card-body">
-                        <p class="card-text">CV. Rukun Gemilang Perkasa (Us/We/Our) adalah perusahaan swasta yang membuat dan memperdagangkan produk plastik, terdaftar di Indonesia dengan detail sebagai berikut.</p>
+                        <p class="card-text">CV. Rukun Gemilang Perkasa (Kami) adalah perusahaan swasta yang membuat dan memperdagangkan produk plastik, terdaftar di Indonesia dengan detail sebagai berikut.</p>
                         <p class="card-text mb-0 font-weight-bold">Alamat</p>
                         <p class="card-text">Pergudangan dan Industri Sinar Gedangan A-20, Sidoarjo, Jawa Timur, Indonesia 61254</p>
                         <p class="card-text">Nomor NIB 1503240288249 dan NPWP 12.800.415.7-643.000</p>

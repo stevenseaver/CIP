@@ -114,8 +114,8 @@
                                 <div class="card-body">
                                     <i class="bi bi-rulers fa-2x mb-2"></i>
                                     <h5 class="mb-3 font-weight-bold">Ukuran Plastik</h5>
-                                    <p class="mb-1">Lebar: 5 to 110 cm</p>
-                                    <p>Ketebalan: 10 to 100 µm</p>
+                                    <p class="mb-1">Lebar: 5 sampai 110 cm</p>
+                                    <p>Ketebalan: 10 sampai 100 µm</p>
                                 </div>
                             </div>
                         </div>

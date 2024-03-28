@@ -807,29 +807,27 @@
      //  JavaScript for Edit Product Menu/Category Modal
      $('#editProductMenu').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
-         var webmenuid = $(event.relatedTarget).data('id');
-         var webmenutitle = $(event.relatedTarget).data('title');
-         var webmenuurl = $(event.relatedTarget).data('url');
-         var webmenuicon = $(event.relatedTarget).data('icon');
+         var prod_category_id = $(event.relatedTarget).data('id');
+         var prod_category_name = $(event.relatedTarget).data('title');
+         var prod_category_unit = $(event.relatedTarget).data('unit');
 
          // input passed data using JS to object INPUT inside modal #editModal
-         $(event.currentTarget).find('.modal-body input[name="id"]').val(webmenuid);
-         $(event.currentTarget).find('.modal-body input[name="title"]').val(webmenutitle);
-         $(event.currentTarget).find('.modal-body input[name="url"]').val(webmenuurl);
-         $(event.currentTarget).find('.modal-body input[name="icon"]').val(webmenuicon);
+         $(event.currentTarget).find('.modal-body input[name="id"]').val(prod_category_id);
+         $(event.currentTarget).find('.modal-body input[name="title"]').val(prod_category_name);
+         $(event.currentTarget).find('.modal-body input[name="unit"]').val(prod_category_unit);
      });
 
      //  JavaScript for Edit Material Category Modal
      $('#editMaterialCat').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
-         var webmenuid = $(event.relatedTarget).data('id');
-         var webmenutitle = $(event.relatedTarget).data('title');
-         var unit = $(event.relatedTarget).data('unit');
+         var material_category_id = $(event.relatedTarget).data('id');
+         var materia_category_name = $(event.relatedTarget).data('title');
+         var material_category_unit = $(event.relatedTarget).data('unit');
 
          // input passed data using JS to object INPUT inside modal #editModal
-         $(event.currentTarget).find('.modal-body input[name="id"]').val(webmenuid);
-         $(event.currentTarget).find('.modal-body input[name="title"]').val(webmenutitle);
-         $(event.currentTarget).find('.modal-body input[name="unit"]').val(unit);
+         $(event.currentTarget).find('.modal-body input[name="id"]').val(material_category_id);
+         $(event.currentTarget).find('.modal-body input[name="title"]').val(materia_category_name);
+         $(event.currentTarget).find('.modal-body input[name="unit"]').val(material_category_unit);
      });
 
      //  JavaScript for Edit Product Menu Modal
