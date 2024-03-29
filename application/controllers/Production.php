@@ -611,7 +611,7 @@ class Production extends CI_Controller
         $data['po_id'] = $id;
 
         $this->form_validation->set_rules('materialSelect', 'material', 'required');
-        $this->form_validation->set_rules('amount', 'amount', 'required|trim');
+        $this->form_validation->set_rules('mat_amount', 'amount', 'required|trim');
         $this->form_validation->set_rules('description', 'description', 'required|trim');
         $this->form_validation->set_rules('campuran', 'mix amount', 'required|trim|numeric');
         $this->form_validation->set_rules('product_name', 'product name', 'required|trim');
@@ -631,7 +631,7 @@ class Production extends CI_Controller
             $price = $this->input->post('price');
             $product_name = $this->input->post('product_name');
             $date = time();
-            $amount = $this->input->post('amount');
+            $amount = $this->input->post('mat_amount');
             $description = $this->input->post('description');
             $campuran = $this->input->post('campuran');
 

@@ -148,14 +148,14 @@
                     <div class="col-lg-2">
                         <div class="form-group">
                             <!-- Item code -->
-                            <label for="amount" class="col-form-label">Amount</label>
+                            <label for="mat_amount" class="col-form-label">Amount</label>
                             <div class="input-group">
                                 <!-- Item code -->
-                                <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Use amount">
+                                <input type="number" step=".01" class="form-control" id="mat_amount" name="mat_amount" value="<?= set_value('mat_amount'); ?>" placeholder="Use amount">
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="unit_amount"></span>
                                 </div>
-                                <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                                <?= form_error('mat_amount', '<small class="text-danger pl-2">', '</small>') ?>
                             </div>
                         </div>
                     </div>
