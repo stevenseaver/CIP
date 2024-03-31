@@ -25,7 +25,8 @@ class Inventory extends CI_Controller
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
         //get material categories
-        $data['cat'] = $this->db->get('material_category')->result_array();
+        // $data['cat'] = $this->db->get('material_category')->result_array();
+        $data['cat'] = $this->db->order_by('unit','ASC')->get('material_category')->result_array();
         //get supplier data
         $data['supplier'] = $this->db->order_by('supplier_name','ASC')->get('supplier')->result_array();
 
@@ -935,7 +936,8 @@ class Inventory extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
-        $data['cat'] = $this->db->get('product_category')->result_array();
+        // $data['cat'] = $this->db->get('product_category')->result_array();
+        $data['cat'] = $this->db->order_by('unit','ASC')->get('product_category')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
