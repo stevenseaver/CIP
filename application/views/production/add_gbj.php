@@ -905,7 +905,7 @@
 </div>
 
 <script>
-        var table2 = $('#table2').DataTable({
+    var table2 = $('#table2').DataTable({
         paging: false,
         select: {
             style: 'single'
@@ -917,6 +917,6 @@
                 searchable: true
             }
         ]
- 
+
     });
 </script>

@@ -238,7 +238,7 @@
                     <td colspan="3"> </td>
                     <td class="right"><strong>Total</strong></td>
                     <?php $total = $temp; ?>
-                    <td class="right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
+                    <td class="right">IDR <?= number_format($total, '2', ',', '.'); ?></td>
                 </tr>
                 <tr class="align-items-center">
                     <td colspan="3"> </td>
@@ -246,12 +246,12 @@
                     <?php
                     $total_tax = $tax / 100 * $total;
                     $grandTotal = $total + $total_tax; ?>
-                    <td class="right">IDR <?= $this->cart->format_number($total_tax, '2', ',', '.'); ?></td>
+                    <td class="right">IDR <?= number_format($total_tax, '2', ',', '.'); ?></td>
                 </tr>
                 <tr class="align-items-center">
                     <td colspan="3"> </td>
                     <td class="right"><strong>Grand Total</strong></td>
-                    <td class="right">IDR <?= $this->cart->format_number($grandTotal, '2', ',', '.'); ?></td>
+                    <td class="right">IDR <?= number_format($grandTotal, '2', ',', '.'); ?></td>
                 </tr>
             </tfoot>
         </table>

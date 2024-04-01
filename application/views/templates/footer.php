@@ -1039,15 +1039,15 @@
      });
 
      //  JavaScript for Edit GBJ item Modal
-     $('#editItemModal').on('show.bs.modal', function(event) {
-         //extract data from data-* attributes of modal's toggle button
-         var name = $(event.relatedTarget).data('name');
-         var code = $(event.relatedTarget).data('code');
+    //  $('#editItemModal').on('show.bs.modal', function(event) {
+    //      //extract data from data-* attributes of modal's toggle button
+    //      var name = $(event.relatedTarget).data('name');
+    //      var code = $(event.relatedTarget).data('code');
 
-         // input passed data using JS to object INPUT inside modal #editModal
-         $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
-         $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
-     });
+    //      // input passed data using JS to object INPUT inside modal #editModal
+    //      $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+    //      $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
+    //  });
 
      //  JavaScript for Delete GBJ item Modal
      $('#deleteItemModal').on('show.bs.modal', function(event) {
@@ -1124,6 +1124,7 @@
          var cat = $(event.relatedTarget).data('cat');
          var pcs = $(event.relatedTarget).data('pcs');
          var pack = $(event.relatedTarget).data('pack');
+         var conv = $(event.relatedTarget).data('conv');
          var price = $(event.relatedTarget).data('price');
 
          // input passed data using JS to object INPUT inside modal #editModal
@@ -1131,6 +1132,7 @@
          $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
          $(event.currentTarget).find('.modal-body input[name="pcsperpack"]').val(pcs);
          $(event.currentTarget).find('.modal-body input[name="packpersack"]').val(pack);
+         $(event.currentTarget).find('.modal-body input[name="conversion"]').val(conv);
          $(event.currentTarget).find('.modal-body input[name="price"]').val(price);
          $(event.currentTarget).find('.modal-body select[name="category"]').val(cat);
      });

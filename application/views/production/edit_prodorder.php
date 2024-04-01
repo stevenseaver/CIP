@@ -18,11 +18,18 @@
     </a>
     
     <!-- view pdf PO  -->
-    <a href="<?= base_url('production/createPDF/') . $po_id?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+    <a href="<?= base_url('production/createPDF/') . $po_id?>" class="btn btn-secondary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
         <span class="icon text-white-50">
             <i class="bi bi-eye"></i>
         </span>
         <span class="text">View Production Order</span>
+    </a>
+
+    <a href="<?= base_url('production/createPDF_prod/') . $po_id?>" class="btn btn-light btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+        <span class="icon text-white-50">
+            <i class="bi bi-eye"></i>
+        </span>
+        <span class="text">Print for Staff</span>
     </a>
 
     <div class="card rounded shadow border-0 mb-3">
@@ -101,7 +108,7 @@
                     <label for="amount" class="col-form-label">Amount</label>
                     <div class="input-group">
                         <!-- Item code -->
-                        <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Use amount">
+                        <input type="number" step=".001" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Use amount">
                         <div class="input-group-append">
                             <span class="input-group-text" id="unit_amount">unit</span>
                         </div>

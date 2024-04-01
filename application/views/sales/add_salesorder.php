@@ -115,7 +115,7 @@
                         <div class="form-group">
                             <!-- Item price -->
                             <label for="price" class="col-form-label">Price</label>
-                            <input type="text" class="form-control" id="price" name="price" readonly value="<?= set_value('price'); ?>">
+                            <input type="text" class="form-control" id="price" name="price" value="<?= set_value('price'); ?>">
                         </div>
                     </div>
                     <div class="col-lg-1">
@@ -167,7 +167,7 @@
             <div class="card rounded border-0 shadow mb-3">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0" cellpadding="6">
+                        <table class="table table-hover" id="table2" width="100%" cellspacing="0" cellpadding="6">
                             <thead>
                                 <tr class="">
                                     <th>No</th>
@@ -188,18 +188,18 @@
                                         <td><?= $items['item_name']; ?></td>
                                         <td style="width: 100px">
                                             <?php if ($items['prod_cat'] != '6' and $items['prod_cat'] != '7') { ?>
-                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= $this->cart->format_number($items['qty'], '2', ',', '.'); ?>">
+                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= number_format($items['qty'], '2', ',', '.'); ?>">
                                                 <p class="text-center">pack</p>
                                             <?php } else { ?>
-                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $this->cart->format_number($items['item_name'], '2', ',', '.'); ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= $items['qty']; ?>">
+                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= number_format($items['item_name'], '2', ',', '.'); ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= $items['qty']; ?>">
                                                 <p class="text-center">kg</p>
                                             <?php }?>
                                         </td>
-                                        <!-- <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?> -->
+                                        <!-- <td style=" text-align:right">IDR <?= number_format($items['price'], '2', ',', '.'); ?> -->
                                         <td style="width: 150px">
-                                            <input id="priceAmount-<?= $items['id']; ?>" class="input-price-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-amount="<?= $items['qty']; ?>" data-ref="<?= $ref?>" value="<?= $items['price']; ?>">
+                                            <input id="priceAmount-<?= $items['id']; ?>" class="input-price-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-amount="<?= $items['qty']; ?>" data-ref="<?= $ref?>" value="<?= number_format($items['price'], '2', ',', '.'); ?>">
                                         </td>
-                                        <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
+                                        <td style="text-align:right">IDR <?= number_format($items['subtotal'], '0', ',', '.'); ?></td>
                                         <td style="text-align:left">
                                             <a data-toggle="modal" data-target="#deleteCartIndividualItem" data-id="<?= $items['id'] ?>" data-cust="<?= $items['customer_id'] ?>" data-name="<?= $items['item_name']; ?>" data-amount="<?= $items['qty'] ?>" class="badge badge-danger clickable ml-3">Delete</a>
                                         </td>
@@ -217,7 +217,7 @@
                                     <td colspan="3"> </td>
                                     <td class="right"><strong>Total</strong></td>
                                     <?php $total = $temp; ?>
-                                    <td class="right">IDR <?= $this->cart->format_number($total, '-', ',', '.'); ?></td>
+                                    <td class="right">IDR <?= number_format($total, 2, ',', '.'); ?></td>
                                 </tr>
                                 <tr class="text-right align-items-center">
                                     <td colspan="3"> </td>
@@ -225,12 +225,12 @@
                                     <?php
                                     $total_tax = $sales_tax / 100 * $total;
                                     $grandTotal = $total + $total_tax; ?>
-                                    <td class="right">IDR <?= $this->cart->format_number($total_tax, '2', ',', '.'); ?></td>
+                                    <td class="right">IDR <?= number_format($total_tax, '2', ',', '.'); ?></td>
                                 </tr>
                                 <tr class="text-right align-items-center">
                                     <td colspan="3"> </td>
                                     <td class="right"><strong>Grand Total</strong></td>
-                                    <td class="right">IDR <?= $this->cart->format_number($grandTotal, '2', ',', '.'); ?></td>
+                                    <td class="right">IDR <?= number_format($grandTotal, '2', ',', '.'); ?></td>
                                 </tr>      
                             </tfoot>
                         </table>
@@ -314,7 +314,7 @@
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newCustomerLabel">Add New Item</h5>
+                <h5 class="modal-title" id="newCustomerLabel">Add New Customer</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -322,7 +322,7 @@
             <div class="modal-body">
                 <div class="table2 table-responsive">
                     <div class="table-responsive">
-                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-hover" id="table3" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -418,3 +418,35 @@
         </div>
     </div>
 </div>
+
+<script>
+    var table2 = $('#table2').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+
+    });
+    
+    var table3 = $('#table3').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+
+    });
+</script>

@@ -411,6 +411,26 @@ class Production extends CI_Controller
         }
     }
 
+    public function createPDF_prod($po_id)
+    {
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+
+        $data['ref'] = $po_id;
+        $data['getRow'] = $this->db->get_where('stock_material', ['transaction_id' => $po_id])->row_array();
+
+        if($data['getRow'] == null ){
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">There is no data yet!</div>');
+            redirect('production/add_prod/'. $po_id);
+        } else {
+            $data['date'] = $data['getRow']['date'];
+            $data['batch'] = $data['getRow']['description'];
+            $data['product_name'] = $data['getRow']['product_name'];
+            
+            $this->load->view('production/print_prodorder', $data);
+        }
+    }
+
     /*** INPUT ROLL
      * ROLL ITEM INPUT AFTER BEING EXTRUDED VIA EXTRUDER MACHINE
      */

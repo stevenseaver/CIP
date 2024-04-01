@@ -1067,7 +1067,7 @@ class Inventory extends CI_Controller
 
             if ($upload_image) {
                 $config['upload_path']          = './asset/img/products/';
-                $config['allowed_types']        = 'gif|jpg|png';
+                $config['allowed_types']        = 'gif|jpg|png|jpeg|heif';
                 $config['max_size']             = 5120;
 
                 $this->load->library('upload', $config);
@@ -1139,6 +1139,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('code', 'code', 'required|trim');
         $this->form_validation->set_rules('pcsperpack', 'product amount', 'required|trim|numeric');
         $this->form_validation->set_rules('packpersack', 'product pack/sack', 'required|trim|numeric');
+        $this->form_validation->set_rules('conversion', 'conversion', 'trim|numeric');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('category', 'category', 'required|trim');
 
@@ -1156,13 +1157,14 @@ class Inventory extends CI_Controller
             $pack = $this->input->post('packpersack');
             $price = $this->input->post('price');
             $category = $this->input->post('category');
+            $conv = $this->input->post('conversion');
 
             //cek jika ada gambar yang akan di upload
             $upload_image = $_FILES['image']['name'];
 
             if ($upload_image) {
                 $config['upload_path']          = './asset/img/products/';
-                $config['allowed_types']        = 'gif|jpg|png';
+                $config['allowed_types']        = 'gif|jpg|png|jpeg|heif';
                 $config['max_size']             = 5120;
 
                 $this->load->library('upload', $config);
@@ -1190,7 +1192,8 @@ class Inventory extends CI_Controller
                 'pcsperpack' => $pcs,
                 'packpersack' => $pack,
                 'price' => $price,
-                'categories' => $category
+                'categories' => $category,
+                'conversion' => $conv
             ];
             $this->db->where('code', $code);
             $this->db->update('stock_finishedgoods', $data);

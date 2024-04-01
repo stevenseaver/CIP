@@ -25,6 +25,13 @@
         <span class="text">View Production Order</span>
     </a>
 
+    <a href="<?= base_url('production/createPDF_prod/') . $po_id?>" class="btn btn-light btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+        <span class="icon text-white-50">
+            <i class="bi bi-eye"></i>
+        </span>
+        <span class="text">Print for Staff</span>
+    </a>
+
     <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">
             <p class="text-dark mb-1">Prod Order Ref : </p>

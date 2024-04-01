@@ -39,13 +39,10 @@ $temp2 = 0;
 
 // Add Header
 $pdf->Ln(10);
-$pdf->SetFont('', 'B',12);
+$pdf->SetFont('', 'B', 12);
 $pdf->Cell(8, 8, "No", 1, 0, 'C');
-$pdf->Cell(100, 8, "Item", 1, 0, 'C');
+$pdf->Cell(80, 8, "Item", 1, 0, 'C');
 $pdf->Cell(55, 8, "Amount Used", 1, 0, 'C');
-$pdf->Cell(25, 8, "Price (IDR)", 1, 0, 'C');
-$pdf->Cell(30, 8, "Subtotal", 1, 0, 'C');
-$pdf->Cell(30, 8, "Mix Amount", 1, 0, 'C');
 $pdf->Cell(25, 8, "Formula", 1, 1, 'C');
 $pdf->SetFont('', '', 12);
 $order = $this->db->get_where('stock_material', ['transaction_id' => $ref])->result();
@@ -53,27 +50,12 @@ $i = 0;
 foreach ($order as $data) {
     $i++;
     $pdf->Cell(8, 7, $i, 1, 0, 'C');
-    $pdf->Cell(100, 7, $data->name, 1, 0);
-    $pdf->Cell(55, 7, number_format($data->outgoing, 0, ',', '.') . ' ' . $data->unit_satuan, 1, 0);
-    $pdf->Cell(25, 7, number_format($data->price, 0, ',', '.'), 1, 0);
-    $subtotal = $data->outgoing * $data->price;
+    $pdf->Cell(80, 7, $data->name, 1, 0);
+    $pdf->Cell(55, 7, number_format($data->outgoing, 3, ',', '.') . ' ' . $data->unit_satuan, 1, 0);
     $formula = $data->outgoing/($data->item_desc*10) * 10;
-    $pdf->Cell(30, 7, number_format($subtotal, 0, ',', '.'), 1, 0);
-    $pdf->Cell(30, 7, $data->item_desc, 1, 0);
     $pdf->Cell(25, 7, $formula, 1, 1);
-
-    $temp = $temp + $subtotal; 
-    $temp2 = $temp2 + $data->outgoing;
 }
-
-$total = $temp;
-$hpp = $total/$temp2;
-
-$pdf->Cell(188, 8, "Grand Total Value Rp.", 1, 0, 'R');
-$pdf->Cell(30, 8, number_format($total, 0, ',', '.'), 1, 0, 'C');
-$pdf->Cell(20, 8, "HPP Rp.", 1, 0, 'C');
-$pdf->Cell(35, 8, number_format($hpp, 2, ',', '.') . '/kg', 1, 1, 'C');
 
 $pdf->SetFont('', 'B', 8);
 $pdf->Cell(277, 10, "Computerized report are automatically validated.", 0, 1, 'L');
-$pdf->Output('Laporan_Inventory.pdf');
+$pdf->Output($ref . '.pdf');

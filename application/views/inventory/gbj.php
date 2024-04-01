@@ -67,9 +67,8 @@
                                         if ($fs['categories'] == '6') {
                                             echo number_format($fs['in_stock'], 2, ',', '.') . ' ' . $fs['unit_satuan'];
                                             echo ' or ' . ($fs['in_stock'] / 25) . ' sack';
-                                        } else if ($fs['categories'] == '7') {
+                                        } else if ($fs['categories'] == '7' or $fs['categories'] == '4') {
                                             echo number_format($fs['in_stock'], 2, ',', '.') . ' ' . $fs['unit_satuan'];
-                                            echo ' or ' . ($fs['in_stock'] / $fs['conversion']) . ' sack';
                                         } else {
                                             echo number_format($fs['in_stock'], 2, ',', '.') . ' ' . $fs['unit_satuan'];
                                             echo ' or ' . ($fs['in_stock'] / $fs['packpersack']) . ' sack';
@@ -89,7 +88,7 @@
                                     <td>
                                         <a href="<?= base_url('inventory/gbj_details/') . $fs['id'] ?>" class="badge badge-primary"><i class="bi bi-info-circle-fill"> </i>Details</a>
                                         <!-- <a data-toggle="modal" data-target="#adjustItemModal" class="badge badge-success text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-success">Quick Adjust</a> -->
-                                        <a data-toggle="modal" data-target="#editItemModal" class="badge badge-warning text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-cat="<?= $fs['categories'] ?>" data-pcs="<?= $fs['pcsperpack'] ?>" data-pack="<?= $fs['packpersack'] ?>" data-price="<?= $fs['price'] ?>"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                        <a data-toggle="modal" data-target="#editItemModal" class="badge badge-warning text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-cat="<?= $fs['categories'] ?>" data-pcs="<?= $fs['pcsperpack'] ?>" data-pack="<?= $fs['packpersack'] ?>" data-conv="<?= $fs['conversion'] ?>" data-price="<?= $fs['price'] ?>"><i class="bi bi-pencil-fill"> </i>Edit</a>
                                         <a data-toggle="modal" data-target="#deleteItemModal" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete</a>
                                     </td>
                                 </tr>
@@ -311,6 +310,12 @@
                             <?= form_error('packpersack', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
+                </div>
+                <div class="form-group">
+                    <!-- Item conversion -->
+                    <label for="conversion" class="col-form-label">Conversion</label>
+                    <input type="text" class="form-control mb-1" id="conversion" name="conversion" placeholder="Edit conversion">
+                    <?= form_error('conversion', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
                 <div class="form-group">
                     <!-- Item price -->

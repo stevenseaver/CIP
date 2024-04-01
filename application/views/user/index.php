@@ -345,7 +345,7 @@
                                                         $total_revenue;
                                                     ?>
                                                     <td>
-                                                        <a href="<?= base_url('sales/info_detail/') . $sales['customer_id'] . '/' . $sales['ref'] . '/' . $sales['date'] . '/' . $sales['status']?>" class="badge badge-primary"><i class="bi bi-info-circle"> </i>Details</a>
+                                                        <a href="<?= base_url('sales/info_detail/') . $sales['ref']; ?>" class="badge badge-primary"><i class="bi bi-info-circle"> </i>Details</a>
                                                     </td>
                                                 </tr>
                                                
