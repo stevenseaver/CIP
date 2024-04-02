@@ -13,6 +13,8 @@
 
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
+    <link rel="icon" href="<?= base_url('asset/img/webpage/3.png'); ?>" type="image/gif">
+
     <!-- Bootstrap CSS -->
     <link href="<?= base_url('asset/'); ?>css/bootstrap.css" rel="stylesheet" type="text/css">
 

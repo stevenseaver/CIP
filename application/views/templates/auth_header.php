@@ -19,6 +19,8 @@
     <!-- Custom styles for this template-->
     <link href="<?= base_url('asset/'); ?>css/sb-admin-2.css" rel="stylesheet">
 
+    <link rel="icon" href="<?= base_url('asset/img/webpage/3.png'); ?>" type="image/gif">
+
     <!-- Custom styles for user-management page -->
     <link href="<?= base_url('asset/'); ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>

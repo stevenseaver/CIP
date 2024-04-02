@@ -45,7 +45,7 @@
     <footer class="sticky-footer bg-white">
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
-                <span>Copyright &copy; UD. Cakra Inti Plastik 2021</span>
+                <span>Licensed by &copy; CV Rukun Gemilang Perkasa 2024</span>
             </div>
         </div>
     </footer>
