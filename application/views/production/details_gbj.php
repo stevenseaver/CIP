@@ -39,7 +39,7 @@
 
     <!-- prod order table -->
     <div class="table-responsive my-3">
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-hover" id="table1" width="100%" cellspacing="0">
             <thead>
                 <div class="h5 text-dark">Materials</div>
                 <tr>
@@ -104,7 +104,7 @@
     <!-- roll table  -->
     <!-- roll table  -->
     <div class="table-responsive my-3">
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-hover" id="table2" width="100%" cellspacing="0">
             <thead>
                 <div class="h5 text-primary">Rolls</div>
                 <tr>
@@ -217,7 +217,7 @@
     <!-- gbj table -->
     <!-- gbj table -->
     <div class="table-responsive my-3">
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-hover" id="table3" width="100%" cellspacing="0">
             <thead>
                 <div class="h5 text-success">Finished Goods</div>
                 <tr>
@@ -277,7 +277,7 @@
                         $temp = $temp + $ms['before_convert'];
                         $temp_total = $temp_total + $subtotal;
                         
-                        $avalan = "roll";
+                        $avalan = "avalan roll";
                         $avalan1 = "prongkolan roll";
                         $plong = "plong";
                         $sortir = "sortir";
@@ -422,3 +422,48 @@
         </div>
     </div>
 </div>
+
+<script>
+    var table1 = $('#table1').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+
+    });
+    var table2 = $('#table2').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+
+    });
+    var table3 = $('#table3').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+
+    });
+</script>

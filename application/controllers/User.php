@@ -55,10 +55,10 @@ class User extends CI_Controller
         $data['dataCartSO'] = $this->db->get_where('cart', ['status' => '1'])->result_array();
         //get material database
         $data['materialStock'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
-        $data['prodOrder'] = $this->db->get_where('stock_material', ['status' => 3, 'transaction_status' => 1, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
+        $data['prodOrder'] = $this->db->order_by('transaction_id', 'ASC')->get_where('stock_material', ['status' => 3, 'transaction_status' => 1, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
         //get roll database
         $data['rollStock'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
-        //get roll database
+        //get FG database
         $data['fgStock'] = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
         //get Receive order
         $transaction_query = 2; //received order only

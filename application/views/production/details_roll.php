@@ -31,7 +31,7 @@
     </div>
 
     <div class="table-responsive my-3">
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-hover" id="table1" width="100%" cellspacing="0">
             <thead>
                 <div class="h5 text-primary">Materials</div>
                 <tr>
@@ -96,7 +96,7 @@
     </div>
 
     <div class="table-responsive my-3">
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-hover" id="table2" width="100%" cellspacing="0">
         <thead>
             <div class="h5 text-primary">Rolls</div>
                 <tr>
@@ -257,3 +257,34 @@
         </div>
     </div>
 </div>
+
+<script>
+    var table1 = $('#table1').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+
+    });
+    var table2 = $('#table2').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+
+    });
+</script>

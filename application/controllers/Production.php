@@ -1104,8 +1104,7 @@ class Production extends CI_Controller
                 $this->db->update('stock_finishedgoods', $data2);
             }
 
-            
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Roll added!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Finished goods added!</div>');
             redirect('production/add_gbj/' . $prodID);
         }
     }

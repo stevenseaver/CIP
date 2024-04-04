@@ -392,8 +392,10 @@
         </div>
     </div>
 
+    <!-- Material data -->
+    <!-- Material data -->
     <div class="table-responsive my-3">
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-hover" id="table1" width="100%" cellspacing="0">
             <thead>
                 <tr>
                     <div class="h5 text-primary">Materials</div>
@@ -457,8 +459,10 @@
         </table>
     </div>
 
+    <!-- Roll data -->
+    <!-- Roll data -->
     <div class="table-responsive my-3">
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-hover" id="table3" width="100%" cellspacing="0">
             <thead>
                 <tr>
                     <div class="h5 text-primary">Rolls</div>
@@ -707,7 +711,35 @@
 </script>
 
 <script>
-        var table2 = $('#table2').DataTable({
+    var table1 = $('#table1').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+ 
+    });
+    var table2 = $('#table2').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+ 
+    });
+    var table3 = $('#table3').DataTable({
         paging: false,
         select: {
             style: 'single'

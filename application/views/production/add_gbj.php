@@ -60,7 +60,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="table-responsive">
-                                <table class="table" id="table2" width="100%" cellspacing="0">
+                                <table class="table" id="table0" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th style="display:none">ID</th>
@@ -331,7 +331,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Roll Item</th>
+                                    <th>Item</th>
                                     <th>Code</th>
                                     <th>Pcs per Pack</th>
                                     <th>Pack per Sack</th>
@@ -368,7 +368,7 @@
     </div>
 
     <div class="table-responsive my-3">
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-hover" id="table1" width="100%" cellspacing="0">
             <thead>
                 <tr>
                     <div class="h5 text-dark">Materials</div>
@@ -433,7 +433,7 @@
     </div>
 
     <div class="table-responsive my-3">
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-hover" id="table2" width="100%" cellspacing="0">
             <thead>
                 <tr>
                     <div class="h5 text-primary">Rolls</div>
@@ -544,7 +544,7 @@
     <!-- gbj table -->
     <!-- gbj table -->
     <div class="table-responsive my-3">
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-hover" id="table3" width="100%" cellspacing="0">
             <thead>
                 <div class="h5 text-success">Finished Goods</div>
                 <tr>
@@ -905,7 +905,49 @@
 </div>
 
 <script>
+   var table0 = $('#table0').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+
+    });
+   var table1 = $('#table1').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+
+    });
     var table2 = $('#table2').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+
+    });
+    var table3 = $('#table3').DataTable({
         paging: false,
         select: {
             style: 'single'
