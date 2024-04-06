@@ -418,12 +418,12 @@
             if ($cd['status'] == 0) {
                 $temp = $temp + $cd['subtotal'];
                 $grandTotal = $temp;
-            } else if ($cd['status'] != 0) {
+            } else if ($cd['status'] == 3) {
                 $temp1 = $temp1 + $cd['subtotal'];
                 $grandTotalTrans = $temp1;
             } else {
-                $grandTotal = 0;
-                $grandTotalTrans = 0;
+                $grandTotal = $grandTotal;
+                $grandTotalTrans = $grandTotalTrans;
             }
         endforeach; ?>
 
@@ -436,7 +436,7 @@
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                     Cart</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">Rp <?= number_format($grandTotal, 0, ',', '.'); ?></div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">Rp <?= number_format($grandTotal, 2, ',', '.'); ?></div>
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -456,7 +456,7 @@
                                 <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Transactions History
                                 </div>
                                 <div class="row no-gutters align-items-center">
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">Rp <?= number_format($grandTotalTrans, 0, ',', '.'); ?></div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">Rp <?= number_format($grandTotalTrans, 2, ',', '.'); ?></div>
                                 </div>
                             </div>
                             <div class="col-auto">

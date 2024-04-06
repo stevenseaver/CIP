@@ -41,7 +41,7 @@
                                         <td class="text-center"><?= $i ?></td>
                                         <td><?= $m['title']; ?></td>
                                         <td><?= $m['url']; ?></td>
-                                        <td><?= $m['icon']; ?></td>
+                                        <td><i class="<?= $m['icon']; ?> ?>"></i></td>
                                         <td>
                                             <?php if ($m['is_active']) {
                                                 echo '<p class="badge badge-success">Active</p>';

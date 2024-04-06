@@ -702,10 +702,12 @@
          //extract data from data-* attributes of modal's toggle button
          var menuid = $(event.relatedTarget).data('menu-id');
          var menuname = $(event.relatedTarget).data('menu-name');
+         var menuicon = $(event.relatedTarget).data('menu-icon');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="edit_menu_id"]').val(menuid);
          $(event.currentTarget).find('.modal-body input[name="edit_menu_name"]').val(menuname);
+         $(event.currentTarget).find('.modal-body input[name="edit_menu_icon"]').val(menuicon);
      });
 
      // JavaScript for Delete Menu Modal

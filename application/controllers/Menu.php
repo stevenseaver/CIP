@@ -42,6 +42,7 @@ class Menu extends CI_Controller
 
         $this->form_validation->set_rules('edit_menu_id', 'menu id', 'required|trim');
         $this->form_validation->set_rules('edit_menu_name', 'menu name', 'required|trim');
+        $this->form_validation->set_rules('edit_menu_icon', 'menu icon', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -53,10 +54,16 @@ class Menu extends CI_Controller
             //read from input input
             $edit_id = $this->input->post('edit_menu_id');
             $edit_name = $this->input->post('edit_menu_name');
+            $edit_icon = $this->input->post('edit_menu_icon');
+
             $editedMenu = $this->db->get_where('user_menu', array('id' => $edit_id))->row_array();
             // edit DB
+            $data = [
+                'menu' => $edit_name,
+                'menu_icon' => $edit_icon
+            ];
             $this->db->where('id', $edit_id);
-            $this->db->update('user_menu', array('menu' => $edit_name));
+            $this->db->update('user_menu', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Menu ' . $editedMenu["menu"] . ' edited into ' . $edit_name . '!</div>');
             redirect('menu');
         }

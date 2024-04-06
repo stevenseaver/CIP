@@ -45,7 +45,7 @@
                                         <td><?= $sm['title']; ?></td>
                                         <td><?= $sm['menu']; ?></td>
                                         <td><?= $sm['url']; ?></td>
-                                        <td><?= $sm['icon']; ?></td>
+                                        <td><i class="<?= $sm['icon']; ?> ?>"></i></td>
                                         <td>
                                             <?php if ($sm['is_active']) {
                                                 echo '<p class="badge badge-success">Active</p>';

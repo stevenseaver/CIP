@@ -28,6 +28,7 @@
                                 <tr>
                                     <th class="text-center">No</th>
                                     <th>Menu</th>
+                                    <th>Icon</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -37,8 +38,9 @@
                                     <tr>
                                         <td class="text-center"><?= $i ?></td>
                                         <td><?= $m['menu']; ?></td>
+                                        <td><i class="<?= $m['menu_icon']; ?> ?>"></i></td>
                                         <td>
-                                            <a data-toggle="modal" data-target="#editmenumodal" class="badge badge-warning text-white clickable" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['menu'] ?>"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                            <a data-toggle="modal" data-target="#editmenumodal" class="badge badge-warning text-white clickable" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['menu'] ?>" data-menu-icon="<?= $m['menu_icon']?>"><i class="bi bi-pencil-fill"> </i>Edit</a>
                                             <a data-toggle="modal" data-target="#deletemenumodal" class="badge badge-danger text-white clickable" data-menu-id="<?= $m['id'] ?>" data-menu-name="<?= $m['menu'] ?>"><i class="bi bi-trash"> </i>Delete</a>
                                         </td>
                                         <?php $i++; ?>
@@ -101,9 +103,13 @@
                         <input type="text" class="form-control" id="edit_menu_id" name="edit_menu_id" readonly>
                         <?= form_error('edit_menu_id', '<small class="text-danger">', '</small><br>') ?>
                         <!-- menu name -->
-                        <label for="editmenu" class="col-form-label">Edit menu name</label>
+                        <label for="editmenu" class="col-form-label">Edit Menu Name</label>
                         <input type="text" class="form-control" id="edit_menu_name" name="edit_menu_name">
                         <?= form_error('edit_menu_name', '<small class="text-danger">', '</small><br>') ?>
+                        <!-- menu name -->
+                        <label for="editmenu" class="col-form-label">Edit Menu Icon</label>
+                        <input type="text" class="form-control" id="edit_menu_icon" name="edit_menu_icon">
+                        <?= form_error('edit_menu_icon', '<small class="text-danger">', '</small><br>') ?>
                     </div>
                 </div>
                 <div class="modal-footer">
