@@ -324,7 +324,7 @@ class Admin extends CI_Controller
 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Sales tax updated!</div>');
         redirect('admin/settings');
-    }
+    }   
 
     public function update_waste($type){
         if($type == 1){
@@ -356,6 +356,17 @@ class Admin extends CI_Controller
             $this->db->where('parameter', 'web_header_img');
             $this->db->update('settings');
         }
+        redirect('admin/settings');
+    }
+
+    public function update_version(){
+        $version = $this->input->post('version');
+
+        $this->db->set('value', $version);
+        $this->db->where('parameter', 'version');
+        $this->db->update('settings');
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Version updated!</div>');
         redirect('admin/settings');
     }
 

@@ -10,6 +10,7 @@
             <div class="list-group list-group-flush" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-general-list" data-toggle="list" href="#list-general" role="tab" aria-controls="general">General</a>
                 <a class="list-group-item list-group-item-action" id="list-backup-list" data-toggle="list" href="#list-backup" role="tab" aria-controls="backup">Backup</a>
+                <a class="list-group-item list-group-item-action" id="list-about-list" data-toggle="list" href="#list-about" role="tab" aria-controls="backup">General</a>
             </div>
         </div>
         <div class="col-lg-9">
@@ -166,6 +167,29 @@
                             </span>
                             <span class="text">Back up</span>
                         </button>
+                    </form>
+                </div>
+                <?php 
+                    $data['version'] = $this->db->get_where('settings', ['parameter' => 'version'])->row_array();
+                    $version = $data['version']['value'];
+                ?>
+                <div class="tab-pane fade" id="list-about" role="tabpanel" aria-labelledby="list-about-list">
+                    <!-- max process waste -->
+                    <div class="mb-2 h5">About</div>
+                    <form action="<?= base_url('admin/update_version/') ?>" method="post">
+                    <div class="row mb-3">
+                        <div class="col-lg-3 input-group">
+                            <!-- Item folding -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Version</span>
+                            </div>
+                            <input type="text" class="form-control" id="version" name="version" value="<?= $version; ?>">
+                            <div class="input-group-append">    
+                                <button class="btn btn-outline-success" type="submit" id="save_max_process_waste">Update</button>
+                            </div>
+                            <?= form_error('version', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
                     </form>
                 </div>
             </div>

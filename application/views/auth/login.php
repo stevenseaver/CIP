@@ -12,8 +12,13 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="p-5">
-                                <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Login Page</h1>
+                                <div class="text-left">
+                                    <h1 class="h4 text-dark mb-0 font-weight-bold">Welcome to Stocky</h1>
+                                    <?php 
+                                        $data['version'] = $this->db->get_where('settings', ['parameter' => 'version'])->row_array();
+                                        $version = $data['version']['value'];
+                                    ?>
+                                    <p class="small mb-4">v<?= $version; ?></p>
                                 </div>
                                 <?= $this->session->flashdata('message'); ?>
                                 <form class="user" method="post" action="<?= base_url('auth') ?>">
@@ -41,13 +46,13 @@
                                         </a> -->
                                 </form>
                                 <hr>
-                                <div class="text-center">
+                                <div class="text-left">
                                     <small>Don't have an account? <a href="<?= base_url('auth/registration') ?>">Create an Account! &rarr;</a></small>
                                 </div>
-                                <div class="text-center">
+                                <div class="text-left">
                                     <small>Forgot your password? <a href="<?= base_url('auth/forgotpassword') ?>">Forgot Password? &rarr;</a></small>
                                 </div>
-                                <div class="text-center">
+                                <div class="text-left">
                                     <a class="small" href="<?= base_url('web') ?>"> &larr; Back to Web Page</a>
                                 </div>
                             </div>
