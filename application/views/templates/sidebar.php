@@ -15,7 +15,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('user') ?>">
                 <div class="sidebar-brand-icon">
-                    <i class="bi bi-cart"></i>
+                    <i class="bi bi-box-fill"></i>
                 </div>
                 <div class="sidebar-brand-text mx-1">Stocky</div>
             </a>
@@ -39,7 +39,7 @@
             $i = 0;
             foreach ($menu as $m) : ?>
                 <li class="nav-item">
-                    <a class="nav-link collapsed mb-0 pb-0" data-toggle="collapse" data-target="#collapse-<?= $i ?>" aria-expanded="true" aria-controls="collapse-<?= $i ?>">
+                    <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapse-<?= $i ?>" aria-expanded="true" aria-controls="collapse-<?= $i ?>">
                         <i class="<?= $m['menu_icon']; ?> text-<?= $icon ?>"></i>
                         <span><?= $m['menu']; ?></span>
                     </a>
@@ -56,12 +56,12 @@
                     $subMenu = $this->db->query($querySubMenu)->result_array();
                     ?>
 
-                    <div id="collapse-<?= $i; ?>" class="collapse mt-2" aria-labelledby="heading-<?= $i; ?>" data-parent="#accordionSidebar">
+                    <div id="collapse-<?= $i; ?>" class="collapse" aria-labelledby="heading-<?= $i; ?>" data-parent="#accordionSidebar">
                         <div class="bg-<?= $icon ?> collapse-inner rounded">
                             <?php foreach ($subMenu as $sm) : ?>
-                                <a class="nav-link py-2" href="<?= base_url($sm['url']) ?>">
+                                <a class="collapse-item" href="<?= base_url($sm['url']) ?>">
                                     <i class="<?= $sm['icon']; ?> text-<?= $text ?>"></i>
-                                    <span class="text-<?= $text?>"><?= $sm['title']; ?></span>
+                                    <span class="text-wrap text-<?= $text?>"><?= $sm['title']; ?></span>
                                 </a>
                             <?php endforeach; ?>
                         </div>

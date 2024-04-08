@@ -10,7 +10,7 @@
             <div class="list-group list-group-flush" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-general-list" data-toggle="list" href="#list-general" role="tab" aria-controls="general">General</a>
                 <a class="list-group-item list-group-item-action" id="list-backup-list" data-toggle="list" href="#list-backup" role="tab" aria-controls="backup">Backup</a>
-                <a class="list-group-item list-group-item-action" id="list-about-list" data-toggle="list" href="#list-about" role="tab" aria-controls="backup">General</a>
+                <a class="list-group-item list-group-item-action" id="list-about-list" data-toggle="list" href="#list-about" role="tab" aria-controls="backup">About</a>
             </div>
         </div>
         <div class="col-lg-9">
@@ -174,10 +174,20 @@
                     $version = $data['version']['value'];
                 ?>
                 <div class="tab-pane fade" id="list-about" role="tabpanel" aria-labelledby="list-about-list">
-                    <!-- max process waste -->
+                    <!-- version number -->
                     <div class="mb-2 h5">About</div>
+                    <div class="row mb-2">
+                        <div class="col-lg-3 input-group">
+                            <!-- Item folding -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Name</span>
+                            </div>
+                            <input type="text" readonly class="form-control" id="version" name="version" value="Stocky">
+                            <?= form_error('version', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
                     <form action="<?= base_url('admin/update_version/') ?>" method="post">
-                    <div class="row mb-3">
+                    <div class="row mb-2">
                         <div class="col-lg-3 input-group">
                             <!-- Item folding -->
                             <div class="input-group-prepend">
@@ -191,6 +201,16 @@
                         </div>
                     </div>
                     </form>
+                    <div class="row mb-2">
+                        <div class="col-lg-4 input-group">
+                            <!-- Item folding -->
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">PSE Certificate</span>
+                            </div>
+                            <input type="text" readonly class="form-control" id="version" name="version" value="013753.01/DJAI.PSE/03/2024">
+                            <?= form_error('version', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

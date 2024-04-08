@@ -13,7 +13,7 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-left">
-                                    <h1 class="h4 text-dark mb-0 font-weight-bold">Welcome to Stocky</h1>
+                                    <div class="h3 text-dark mb-0 font-weight-bold">Welcome to <span class="text-primary">Stocky</span></div>
                                     <?php 
                                         $data['version'] = $this->db->get_where('settings', ['parameter' => 'version'])->row_array();
                                         $version = $data['version']['value'];

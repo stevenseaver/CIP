@@ -125,13 +125,13 @@
                                 </a> -->
                             </form>
                             <hr>
-                            <div class="text-center">
+                            <div class="text-left">
                                 <a class="small" href="<?= base_url('auth/forgotpassword') ?>">Forgot Password? &rarr;</a>
                             </div>
-                            <div class="text-center">
+                            <div class="text-left">
                                 <a class="small" href="<?= base_url('auth'); ?>">Already have an account? Login! &rarr;</a>
                             </div>
-                            <div class="text-center">
+                            <div class="text-left">
                                 <a class="small" href="<?= base_url('web') ?>"> &larr; Back to Home</a>
                             </div>
                         </div>
