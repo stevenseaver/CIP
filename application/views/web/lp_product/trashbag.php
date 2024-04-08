@@ -38,6 +38,9 @@
                                 <div class="carousel-item">
                                     <img src="<?= base_url('asset/img/webpage/9. Sampah/2.png') ?>" class="my-4 rounded img-fluid">
                                 </div>
+                                <div class="carousel-item">
+                                    <img src="<?= base_url('asset/img/webpage/9. Sampah/3.png') ?>" class="my-4 rounded img-fluid">
+                                </div>
                             </div>
                             <button class="carousel-control-prev border-0 bg-transparent" type="button" data-target="#trashbagCarousel" data-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
