@@ -25,7 +25,7 @@ class Sales extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('sales/sales', $data);
         $this->load->view('templates/footer');
     }
@@ -50,7 +50,7 @@ class Sales extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('sales/sales_detail', $data);
         $this->load->view('templates/footer');
     }
@@ -187,7 +187,7 @@ class Sales extends CI_Controller
         if($this->form_validation->run() == false){
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar_cust', $data);
+            $this->load->view('templates/topbar', $data);
             $this->load->view('sales/add_salesorder', $data);
             $this->load->view('templates/footer');
         } else {
@@ -315,7 +315,7 @@ class Sales extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('sales/enlarge_image', $data);
         $this->load->view('templates/footer');
     }
@@ -396,7 +396,7 @@ class Sales extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('sales/deliveryorder', $data);
         $this->load->view('templates/footer');
     }
@@ -421,7 +421,7 @@ class Sales extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('sales/delivery_detail', $data);
         $this->load->view('templates/footer');
     }
@@ -450,7 +450,6 @@ class Sales extends CI_Controller
         } else if ($type == 4) {
             $this->load->view('sales/pdf_info', $data);
         }
-        
     }
 
     public function invoice()
@@ -500,7 +499,7 @@ class Sales extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('sales/invoice', $data);
         $this->load->view('templates/footer');
     }
@@ -525,7 +524,7 @@ class Sales extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('sales/invoice_detail', $data);
         $this->load->view('templates/footer');
     }
@@ -574,7 +573,7 @@ class Sales extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('sales/salesinfo', $data);
         $this->load->view('templates/footer');
     }
@@ -599,7 +598,7 @@ class Sales extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar_cust', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('sales/info_detail', $data);
         $this->load->view('templates/footer');
     }

@@ -1081,6 +1081,7 @@
          var supplier = $(event.relatedTarget).data('supplier');
          var price = $(event.relatedTarget).data('price');
          var cat = $(event.relatedTarget).data('cat');
+         var min_stock = $(event.relatedTarget).data('minstock');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
@@ -1088,6 +1089,7 @@
          $(event.currentTarget).find('.modal-body input[name="code"]').val(code);
          $(event.currentTarget).find('.modal-body input[name="price"]').val(price);
          $(event.currentTarget).find('.modal-body select[name="category"]').val(cat);
+         $(event.currentTarget).find('.modal-body input[name="min_stock"]').val(min_stock);
      });
 
      //  JavaScript for Edit production warehouse item  item Modal

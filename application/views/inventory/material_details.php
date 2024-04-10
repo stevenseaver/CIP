@@ -11,14 +11,22 @@
 
     <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">
-            <p class="text-dark mb-1">Product Name : </p>
-            <p class="text-dark font-weight-bold"> <?= $getID['name'] ?></p>
-            <p class="text-dark mb-1">Code : </p>
-            <p class="text-dark font-weight-bold"> <?= $getID['code'] ?></p>
-            <p class="text-dark mb-1">Price : </p>
-            <p class="text-dark font-weight-bold"> IDR <?= number_format($getID['price'], 0, ',', '.') ?></p>
-            <p class="text-dark mb-1">In Stock : </p>
-            <p class="text-dark font-weight-bold"> <?= number_format($getID['in_stock'], 2, ',', '.') . ' ' . $getID['unit_satuan'] ?></p>
+            <div class="row">     
+                <div class="col-lg-6">
+                    <p class="text-dark mb-1">Product Name : </p>
+                    <p class="text-dark font-weight-bold"> <?= $getID['name'] ?></p>
+                    <p class="text-dark mb-1">Code : </p>
+                    <p class="text-dark font-weight-bold"> <?= $getID['code'] ?></p>
+                    <p class="text-dark mb-1">Price : </p>
+                    <p class="text-dark font-weight-bold"> IDR <?= number_format($getID['price'], 0, ',', '.') ?></p>
+                </div>
+                <div class="col-lg-6">
+                    <p class="text-dark mb-1">In Stock : </p>
+                    <p class="text-dark font-weight-bold"> <?= number_format($getID['in_stock'], 2, ',', '.') . ' ' . $getID['unit_satuan'] ?></p>
+                    <p class="text-dark mb-1">Minimal Stock : </p>
+                    <p class="text-dark font-weight-bold"> <?= $getID['item_desc'] . ' ' . $getID['unit_satuan'] ?></p>
+                </div>
+            </div>
         </div>
     </div>
 

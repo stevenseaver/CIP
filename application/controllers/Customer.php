@@ -398,4 +398,22 @@ class Customer extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is not right, please try again!</div>');
         redirect(base_url('customer/check_out')); 
     }
+
+    public function createPDF($inv)
+    {
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+
+        $this->load->model('Sales_model', 'custID');
+        $data['dataRow'] = $this->custID->getRow($inv);
+
+        $data['ref'] = $inv;
+        $data['cust_name'] = $data['dataRow']['name'];
+        $data['date'] = $data['dataRow']['date'];
+        $data['status'] = $data['dataRow']['status'];
+        $data['address'] = $data['dataRow']['deliveryTo'];
+        $data['user_name'] = $data['user']['name'];
+
+        $this->load->view('customer/pdf_invoice', $data);
+    }
 }

@@ -77,6 +77,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('supplier', 'supplier', 'required|trim');
         $this->form_validation->set_rules('unit', 'unit', 'required|trim');
+        $this->form_validation->set_rules('min_stock', 'min_stock', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -97,6 +98,7 @@ class Inventory extends CI_Controller
             $status2 = 7;  //stock akhir
             $warehouse = $this->input->post('warehouse');
             $unit = $this->input->post('unit');
+            $min_stock = $this->input->post('min_stock');
 
             //intital stock
             $data1 = [
@@ -122,7 +124,8 @@ class Inventory extends CI_Controller
                 'status' => $status2,
                 'warehouse'  => $warehouse,
                 'supplier' => $supplier,
-                'unit_satuan' => $unit
+                'unit_satuan' => $unit,
+                'item_desc' => $min_stock //using item_desc column on stock akhir (cat 7) for min stock
             ];
 
             $this->db->insert('stock_material', $data1);
@@ -153,6 +156,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('category', 'category', 'required|trim');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('supplier', 'supplier', 'required|trim');
+        $this->form_validation->set_rules('min_stock', 'supplier', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -167,6 +171,7 @@ class Inventory extends CI_Controller
             $price = $this->input->post('price');
             $category = $this->input->post('category');
             $supplier = $this->input->post('supplier');
+            $min_stock = $this->input->post('min_stock');
 
             //intital stock
             $data1 = [
@@ -178,6 +183,15 @@ class Inventory extends CI_Controller
 
             $this->db->where('code', $code);
             $this->db->update('stock_material', $data1);
+
+            $data2 = [
+                'item_desc' => $min_stock
+            ];
+            
+            $this->db->where('code', $code);
+            $this->db->where('status', 7);
+            $this->db->update('stock_material', $data2);
+
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $name . ' edited!</div>');
             redirect('inventory/material_wh');
         }

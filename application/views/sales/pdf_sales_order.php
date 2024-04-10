@@ -10,11 +10,10 @@ $pdf->SetKeywords('invoice, sales, transaction');
 
 $pdf->AddPage('P', 'mm', 'A4');
 $pdf->SetFont('', 'B', 12);
-$pdf->Cell(0, 7, "Plastik Daur Ulang", 0, 1, 'L');
+$pdf->Cell(0, 7, "Stocky", 0, 1, 'L');
 $pdf->SetFont('', '', 8);
 $pdf->Cell(0, 0, "Pergudangan dan Industri Sinar Gedangan A-20", 0, 1, 'L');
 $pdf->Cell(0, 0, "Sidoarjo - Indonesia", 0, 1, 'L');
-$pdf->Cell(0, 0, "NIB: 0220103452894", 0, 1, 'L');
 $pdf->SetAutoPageBreak(true, 0);
 
 $pdf->SetFont('', 'B', 20);
@@ -79,34 +78,5 @@ $grandTotal = $total + $taxValue;
 $pdf->Cell(155, 7, "Grand Total", 1, 0, 'R');
 $pdf->Cell(40, 7, $this->cart->format_number($grandTotal, '0', ',', '.'), 1, 1, 'C');
 
-//ENGLISH TERMS AND CONDITIONS
-$pdf->Cell(277, 0, "", 0, 1, 'L');
-$pdf->SetFont('', 'BI', 8);
-$pdf->Cell(277, 1, "Terms and Conditions", 0, 1, 'L');
-
-$pdf->Cell(277, 1, "", 0, 1, 'L');
-$pdf->SetFont('', 'I', 8);
-$pdf->Cell(277, 5, "1. Computerized report are automatically validated.", 0, 1, 'L');
-$pdf->Cell(277, 5, "2. Our products are guaranteed with limited 10-days warranty covering sealing craftmanship and quantity.", 0, 1, 'L');
-$pdf->Cell(277, 5, "3. By using our services, software, or making any transactions, you have agreed upon our terms and conditions.", 0, 1, 'L');
-$pdf->Cell(277, 5, "4. Any warranty claims outside the warranty time-frame are not our liability.", 0, 1, 'L');
-$pdf->Cell(277, 5, "5. We will replace the item with similar or more expensive products or refund your money according to our prerogative rights. ", 0, 1, 'L');
-$pdf->Cell(277, 5, "6. Any price discrepancy between goods being replaced and the replacement, or any delivery fees must be beared by the customer.", 0, 1, 'L');
-$pdf->Cell(277, 5, "7. Please contact our customer serivce +62 822 3205 7755 for any inquiries.", 0, 1, 'L');
-
-//INDONESIA TERMS AND CONDITIONS
-$pdf->Cell(277, 0, "", 0, 1, 'L');
-$pdf->SetFont('', 'B', 8);
-$pdf->Cell(277, 1, "Syarat dan Ketentuan", 0, 1, 'L');
-
-$pdf->Cell(277, 1, "", 0, 1, 'L');
-$pdf->SetFont('', '', 8);
-$pdf->Cell(277, 5, "1. Nota ini dikeluarkan komputer, tidak perlu tanda tangan.", 0, 1, 'L');
-$pdf->Cell(277, 5, "2. Produk kami digaransi selama 10-hari mencakup pengerjaan las dan jumlah barang.", 0, 1, 'L');
-$pdf->Cell(277, 5, "3. Dengan menggunakan layanan ataupun melakukan transaksi dengan kami, Anda telah menyetujui syarat dan ketetentuan yang berlaku.", 0, 1, 'L');
-$pdf->Cell(277, 5, "4. Klaim garansi diluar waktu garansi bukan tanggung jawab kami.", 0, 1, 'L');
-$pdf->Cell(277, 5, "5. Kami akan mengganti barang dengan barang sejenis atau lebih mahal, atau mengembalikan uang anda sesuai hak prerogatif kami.", 0, 1, 'L');
-$pdf->Cell(277, 5, "6. Perbedaan harga antara barang yang diganti dengan barang pengganti, atau biaya pengiriman yang timbul ditanggung oleh pelanggan.", 0, 1, 'L');
-$pdf->Cell(277, 5, "7. Hubungi layanan pelanggan kami di +62 822 3205 7755 jika ada pertanyaan.", 0, 1, 'L');
 $pdf->Cell(100, 10, "Printed by " . $user_name . ' ' . date('d-m-Y h:m:s'), 0, 1, 'L');
 $pdf->Output('SO-'. $ref. '.pdf');

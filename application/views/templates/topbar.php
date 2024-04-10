@@ -14,6 +14,67 @@
 
             <!-- Topbar Navbar -->
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <small>Notifications</small>
+                        <i class="bi bi-bell-fill fa-fw"></i>
+                        <!-- Counter - Alerts -->
+                        <?php
+                            $userName = $user['id'];
+                            $dataNotif = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+                            // var_dump($dataNotif);
+                            $amount = 0;
+                            $i = 0;
+                            foreach ($dataNotif as $dn) :
+                                $min_val = (float) $dn['item_desc'];
+                                if ($dn['in_stock'] < $min_val) {
+                                    $i++;
+                                    $amount = $i;
+                                } else {
+                                }
+                            endforeach;
+                            if ($amount == 0) :
+                        ?>
+                        <?php else : ?>
+                            <h5 class="badge badge-danger badge-counter large"><?= $amount ?></h5>
+                        <?php endif; ?>
+                    </a>
+                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                        <h6 class="dropdown-header">
+                            Low Inventory Notifications
+                        </h6>
+                        <?php
+                        if($amount != 0) { 
+                            foreach ($dataNotif as $dn) :
+                                $min_val = (float) $dn['item_desc'];
+                                if ($dn['in_stock'] < $min_val) { ?>
+                                    <a class="dropdown-item d-flex text-left align-items-center" href="#">
+                                        <div class="row align-items-center">
+                                            <div class="col-lg-2">
+                                                <i class="bi bi-exclamation-triangle-fill text-danger h3"></i>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <span class="font-weight-bold"><?= $dn['name'] ?></span>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <span class="font-weight-bold"><?= number_format($dn['in_stock'], 2, '.', ',') . ' ' . $dn['unit_satuan'] ?></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                            <?php
+                                } else { 
+                                }
+                            endforeach;
+                        } else { ?>
+                            <a class="dropdown-item d-flex text-left align-items-center" href="#">
+                                <div class="col-lg-12">
+                                    <span class="">Nothing here</span>
+                                </div>
+                            </a>
+                        <?php }; ?>
+                    </div>
+                </li>
+
                 <!-- divider -->
                 <div class="topbar-divider d-none d-sm-block"></div>
 

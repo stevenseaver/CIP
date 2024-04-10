@@ -67,7 +67,7 @@
                                 <td><?= $ms['supplier_name'] ?></td>
                                 <td>
                                     <a href="<?= base_url('inventory/material_details/') . $ms['id'] ?>" class="badge badge-primary"><i class="bi bi-info-circle-fill"> </i>Details</a>
-                                    <a data-toggle="modal" data-target="#editMaterial" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-price="<?= $ms['price'] ?>" data-cat="<?= $ms['categories'] ?>" data-supplier="<?= $ms['supplier'] ?>" class="badge badge-warning clickable"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                    <a data-toggle="modal" data-target="#editMaterial" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" data-price="<?= $ms['price'] ?>" data-cat="<?= $ms['categories'] ?>" data-supplier="<?= $ms['supplier'] ?>" data-minstock="<?= $ms['item_desc'] ?>" class="badge badge-warning clickable"><i class="bi bi-pencil-fill"> </i>Edit</a>
                                     <a data-toggle="modal" data-target="#deleteMaterialItem" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete</a>
                                 </td>
                             </tr>
@@ -181,9 +181,15 @@
                         <?= form_error('unit', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
+                        <!-- Min Stock -->
+                        <label for="min_stock" class="col-form-label">Minimum Stock to Trigger Notification</label>
+                        <input type="number" class="form-control mb-1" id="min_stock" name="min_stock" placeholder="Minimal stock">
+                        <?= form_error('min_stock', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
                         <!-- Warehouse -->
                         <label for="url" class="col-form-label">Warehouse</label>
-                        <input type="warehouse" class="form-control mb-1" id="warehouse" name="warehouse" placeholder="Material" value="1" readonly>
+                        <input type="text" class="form-control mb-1" id="warehouse" name="warehouse" placeholder="Material" value="1" readonly>
                         <?= form_error('category', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                 </div>
@@ -201,7 +207,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editMaterialodalLabel">Add New Item</h5>
+                <h5 class="modal-title" id="editMaterialodalLabel">Edit Item</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -248,6 +254,12 @@
                             <?php endforeach; ?>
                         </select>
                         <?= form_error('category', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Min Stock -->
+                        <label for="min_stock" class="col-form-label">Minimum Stock to Trigger Notification</label>
+                        <input type="number" class="form-control mb-1" id="min_stock" name="min_stock" placeholder="Minimal stock">
+                        <?= form_error('min_stock', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Warehouse -->

@@ -5,9 +5,11 @@
             if ($color != 'light') {
                 $text = 'dark';
                 $icon = 'light';
+                $background = 'light';
             } else {
-                $text = 'light';
+                $text = 'dark';
                 $icon = 'dark';
+                $background = 'white';
             }
         ?>
 
@@ -15,9 +17,9 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('user') ?>">
                 <div class="sidebar-brand-icon">
-                    <i class="bi bi-box-fill"></i>
+                    <i class="bi bi-box-fill text-<?= $icon ?>"></i>
                 </div>
-                <div class="sidebar-brand-text mx-1">Stocky</div>
+                <div class="sidebar-brand-text mx-1 text-<?= $icon ?>">Stocky</div>
             </a>
 
             <!-- Divider -->
@@ -41,7 +43,7 @@
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapse-<?= $i ?>" aria-expanded="true" aria-controls="collapse-<?= $i ?>">
                         <i class="<?= $m['menu_icon']; ?> text-<?= $icon ?>"></i>
-                        <span><?= $m['menu']; ?></span>
+                        <span class="text-<?= $icon ?>"><?= $m['menu']; ?></span>
                     </a>
 
                     <!-- get sub menu content -->
@@ -57,7 +59,7 @@
                     ?>
 
                     <div id="collapse-<?= $i; ?>" class="collapse" aria-labelledby="heading-<?= $i; ?>" data-parent="#accordionSidebar">
-                        <div class="bg-<?= $icon ?> collapse-inner rounded">
+                        <div class="bg-<?= $background ?> collapse-inner rounded">
                             <?php foreach ($subMenu as $sm) : ?>
                                 <a class="collapse-item" href="<?= base_url($sm['url']) ?>">
                                     <i class="<?= $sm['icon']; ?> text-<?= $text ?>"></i>

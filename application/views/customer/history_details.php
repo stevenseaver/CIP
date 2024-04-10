@@ -16,6 +16,14 @@
         <span class="text">Back</span>
     </a>
 
+    <!-- view pdf Invoice  -->
+    <a href="<?= base_url('customer/createPDF/') . $ref ?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+        <span class="icon text-white-50">
+            <i class="bi bi-eye"></i>
+        </span>
+        <span class="text">View Invoice Preview</span>
+    </a>
+
     <div class="card rounded bg-white shadow border-0 mb-3">
         <div class="card-body pb-1">
             <?php if ($status == 1) { ?>
