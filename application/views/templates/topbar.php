@@ -16,8 +16,8 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown no-arrow mx-1">
                     <a class="nav-link dropdown-toggle" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <small>Notifications</small>
-                        <i class="bi bi-bell-fill fa-fw"></i>
+                        <!-- <small>Notifications</small> -->
+                        <i class="bi bi-bell-fill"></i>
                         <!-- Counter - Alerts -->
                         <?php
                             $userName = $user['id'];
@@ -48,8 +48,8 @@
                             foreach ($dataNotif as $dn) :
                                 $min_val = (float) $dn['item_desc'];
                                 if ($dn['in_stock'] < $min_val) { ?>
-                                    <a class="dropdown-item d-flex text-left align-items-center" href="#">
-                                        <div class="row align-items-center">
+                                    <a class="dropdown-item text-left align-items-center" href="#">
+                                        <div class="row align-items-center text-left">
                                             <div class="col-lg-2">
                                                 <i class="bi bi-exclamation-triangle-fill text-danger h3"></i>
                                             </div>

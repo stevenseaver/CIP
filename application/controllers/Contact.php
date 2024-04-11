@@ -47,7 +47,9 @@ class Contact extends CI_Controller
             'starttls'  => true,
             'newline'   => "\r\n"
         ];
+        
         $this->email->initialize($config);
+        $this->email->set_crlf("\r\n"); 
 
         $this->email->from('cs@plastikrukun.com', 'Administrator');
         $this->email->to($to);

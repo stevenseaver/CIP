@@ -143,6 +143,7 @@
          const id = $(this).data('id');
          const qtyID = document.getElementById("qtyAmount-" + id).value;
          const priceID = $(this).data('price');
+         const discID = $(this).data('discount');
 
          $.ajax({
              url: "<?= base_url('sales/update_so'); ?>",
@@ -152,7 +153,8 @@
                  qtyID: qtyID,
                  item_name: item_name,
                  id: id,
-                 priceID: priceID
+                 priceID: priceID,
+                 discID: discID
              },
              success: function() {
                  window.location.reload();  
@@ -168,6 +170,7 @@
          const id = $(this).data('id');
          const priceID = document.getElementById("priceAmount-" + id).value;
          const qtyID = $(this).data('amount');
+         const discID = $(this).data('discount');
 
          $.ajax({
              url: "<?= base_url('sales/update_so'); ?>",
@@ -177,7 +180,35 @@
                  qtyID: qtyID,
                  item_name: item_name,
                  id: id,
-                 priceID: priceID
+                 priceID: priceID,
+                 discID: discID
+             },
+             success: function() {
+                 window.location.reload();  
+             }
+         });
+     });
+
+     //js for menu change cart discount on input on change
+     $('.input-discount-so').on('change', function() {
+         //const qtyID = $(this).data('qty');
+         const item_name = $(this).data('item');
+         const ref = $(this).data('ref');
+         const id = $(this).data('id');
+         const priceID = $(this).data('price');
+         const discID = document.getElementById("discountAmount-" + id).value;
+         const qtyID = $(this).data('amount');
+
+         $.ajax({
+             url: "<?= base_url('sales/update_so'); ?>",
+             type: 'post',
+             data: {
+                 ref: ref,
+                 qtyID: qtyID,
+                 item_name: item_name,
+                 id: id,
+                 priceID: priceID,
+                 discID: discID
              },
              success: function() {
                  window.location.reload();  

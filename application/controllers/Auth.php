@@ -180,8 +180,9 @@ class Auth extends CI_Controller
         //     'charset'   => 'utf-8',
         //     'starttls'  => true,
         //     'newline'   => "\r\n"
-        // ];
+        // ];   
         $this->email->initialize($config);
+        $this->email->set_crlf("\r\n"); 
 
         //message body
         // $base_url = base_url();
@@ -196,20 +197,26 @@ class Auth extends CI_Controller
             $data['email'] = $emailTo;
             $this->email->message($this->load->view('templates/verify_email', $data, true));
             // $this->email->message('Click this link to activate your account : <a href="' . $base_url . 'auth/verify?email=' . $emailTo . '&token=' . $tokenTo . '">Activate</a>');
+            if ($this->email->send()) {
+                return true;
+            } else {
+                $message = $this->email->print_debugger();
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> Sorry, message failed to send. Error: ' . $message . '</div>');
+                redirect('auth/');
+            }
         } else if ($type == 'forgot') {
             $this->email->subject('Reset Password');
             $data['token'] = $tokenTo;
             $data['email'] = $emailTo;
             $this->email->message($this->load->view('templates/forgot_password', $data, true));
             // $this->email->message('Click this link to reset your password : <a href="' . $base_url . 'auth/resetpassword?email=' . $emailTo . '&token=' . $tokenTo . '">Reset</a>');
-        }
-
-        if ($this->email->send()) {
-            return true;
-        } else {
-            $message = $this->email->print_debugger();
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> Sorry, message failed to send. Error: ' . $message . '</div>');
-            redirect('auth/forgotpassword');
+            if ($this->email->send()) {
+                return true;
+            } else {
+                $message = $this->email->print_debugger();
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert"> Sorry, message failed to send. Error: ' . $message . '</div>');
+                redirect('auth/forgotpassword');
+            }
         }
     }
 
@@ -258,7 +265,7 @@ class Auth extends CI_Controller
         if ($user) {
             $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
             if ($user_token) {
-                if (time() - $user_token['date_created'] < (3000)) {
+                if (time() - $user_token['date_created'] < (300)) {
                     $this->session->set_userdata('reset_email', $email);
                     $this->changePassword();
                 } else {

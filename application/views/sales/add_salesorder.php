@@ -51,7 +51,7 @@
         <!-- Item selected to be added -->
         <div>
             <form action="<?= base_url('sales/add_salesorder/' . $ref) ?>" method="post">
-            <div class="row">
+                <div class="row">
                     <div class="col-lg-3">
                         <div class="form-group">
                             <!-- Customer Name -->
@@ -89,33 +89,26 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-5">
                         <div class="form-group">
                             <!-- GBJ item name -->
                             <label for="name" class="col-form-label">Item Name</label>
                             <input type="text" class="form-control" id="name" name="name" readonly value="<?= set_value('name'); ?>">
-                            <?= form_error('cust_name', '<small class="text-danger pl-2">', '</small>') ?>
+                            <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                         <div class="form-group">
                             <!-- GBJ code -->
                             <label for="code" class="col-form-label">Code</label>
                             <input type="text" class="form-control" id="code" name="code" readonly value="<?= set_value('code'); ?>">
                         </div>
                     </div>
-                    <div class="col-lg-1">
+                    <div class="col-lg-2">
                         <div class="form-group">
                             <!-- Item stock -->
                             <label for="instock" class="col-form-label">In Stock</label>
                             <input type="text" class="form-control" id="instock" name="instock" readonly value="<?= set_value('instock'); ?>">
-                        </div>
-                    </div>
-                    <div class="col-lg-1">
-                        <div class="form-group">
-                            <!-- Item price -->
-                            <label for="price" class="col-form-label">Price</label>
-                            <input type="text" class="form-control" id="price" name="price" value="<?= set_value('price'); ?>">
                         </div>
                     </div>
                     <div class="col-lg-1">
@@ -133,7 +126,9 @@
                             <input type="text" class="form-control" id="packpersack" name="packpersack" readonly value="<?= set_value('packpersack'); ?>">
                         </div>
                     </div>
-                    <div class="col-lg-2">
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
                         <div class="form-group">
                             <!-- Item code -->
                             <label for="amount" class="col-form-label">Amount</label>
@@ -143,7 +138,32 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="unit" name="unit">unit(s)</span>
                                 </div>
-                                <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                            </div>
+                            <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <!-- Item price -->
+                            <label for="price" class="col-form-label">Price</label>
+                            <input type="text" class="form-control" id="price" name="price" value="<?= set_value('price'); ?>" placeholder="Input price per unit">
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="form-group">
+                            <!-- Item price -->
+                            <label for="discount" class="col-form-label">Discount</label>
+                            <div class="input-group">
+                                <!-- Item code -->
+                                <input type="number" step=".01" class="form-control" id="percent_discount" name="percent_discount" value="<?= set_value('discount'); ?>" placeholder="Percentage discount" onchange="calculate_nom_discount()">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="unit" name="unit">%</span>
+                                </div>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="unit" name="unit">IDR</span>
+                                </div>
+                                <input type="number" step=".01" class="form-control" id="discount" name="discount" value="<?= set_value('discount'); ?>" placeholder="Nominal discount">
+                                <?= form_error('discount', '<small class="text-danger pl-2">', '</small>') ?>
                             </div>
                         </div>
                     </div>
@@ -173,14 +193,18 @@
                                     <th>No</th>
                                     <th>Item Description</th>
                                     <th style="text-align:center">Qty</th>
-                                    <th style="text-align:right">Unit Price (IDR)</th>
-                                    <th style="text-align:right">Sub Total (IDR)</th>
+                                    <th style="text-align:right">Unit Price</th>
+                                    <th style="text-align:right">Discount</th>
+                                    <th style="text-align:right">Sub Total</th>
                                     <th style="text-align:center">Action</th>
                                 </tr>
                             </thead>
 
-                            <?php $i = 1;
-                            $temp = 0; ?>
+                            <?php 
+                                $i = 1;
+                                $temp = 0;
+                                $temp1 = 0; 
+                            ?>
                             <tbody>
                                 <?php foreach ($dataCart as $items) : ?>
                                     <tr>
@@ -188,25 +212,32 @@
                                         <td><?= $items['item_name']; ?></td>
                                         <td style="width: 100px">
                                             <?php if ($items['prod_cat'] != '6' and $items['prod_cat'] != '7') { ?>
-                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= number_format($items['qty'], '2', ',', '.'); ?>">
+                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-discount="<?= $items['discount']?>" data-ref="<?= $ref?>" value="<?= number_format($items['qty'], '2', ',', '.'); ?>">
                                                 <p class="text-center">pack</p>
                                             <?php } else { ?>
-                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= $items['qty']; ?>">
+                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-discount="<?= $items['discount']?>" data-ref="<?= $ref?>" value="<?= number_format($items['qty'], '2', ',', '.'); ?>">
                                                 <p class="text-center">kg</p>
                                             <?php }?>
                                         </td>
                                         <!-- <td style=" text-align:right">IDR <?= number_format($items['price'], '2', ',', '.'); ?> -->
                                         <td style="width: 150px">
-                                            <input id="priceAmount-<?= $items['id']; ?>" class="input-price-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-amount="<?= $items['qty']; ?>" data-ref="<?= $ref?>" value="<?= number_format($items['price'], '2', ',', '.'); ?>">
+                                            <input id="priceAmount-<?= $items['id']; ?>" class="input-price-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-amount="<?= $items['qty']; ?>" data-discount="<?= $items['discount']?>" data-ref="<?= $ref?>" value="<?= number_format($items['price'], '2', ',', '.'); ?>">
                                         </td>
-                                        <td style="text-align:right">IDR <?= number_format($items['subtotal'], '0', ',', '.'); ?></td>
+                                        <!-- <td style="text-align:right"><?= number_format($items['discount'], '2', ',', '.'); ?></td> -->
+                                        <td style="width: 120px"> 
+                                            <input id="discountAmount-<?= $items['id']; ?>" class="input-discount-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-amount="<?= $items['qty']; ?>" data-price="<?= $items['price']; ?>" data-ref="<?= $ref?>" value="<?= number_format($items['discount'], '2', ',', '.'); ?>">
+                                        </td>
+                                        <td style="text-align:right">IDR <?= number_format($items['subtotal'], '2', ',', '.'); ?></td>
                                         <td style="text-align:left">
                                             <a data-toggle="modal" data-target="#deleteCartIndividualItem" data-id="<?= $items['id'] ?>" data-cust="<?= $items['customer_id'] ?>" data-name="<?= $items['item_name']; ?>" data-amount="<?= $items['qty'] ?>" class="badge badge-danger clickable ml-3">Delete</a>
                                         </td>
                                     </tr>
-                                    <?php $temp = $temp + $items['subtotal']; ?>
-                                    <?php $i++; ?>
-                                <?php endforeach; ?>
+                                    <?php 
+                                        $temp = $temp + $items['subtotal']; 
+                                        $temp1 = $temp1 + ($items['qty'] * $items['discount']); 
+                                        $i++; 
+                                    endforeach; 
+                                    ?>
                             </tbody>
                             <?php
                                 $data['sales_tax'] = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array();
@@ -214,13 +245,13 @@
                             ?>
                             <tfoot>
                                 <tr class="text-right align-items-center">
-                                    <td colspan="3"> </td>
+                                    <td colspan="4"> </td>
                                     <td class="right"><strong>Total</strong></td>
                                     <?php $total = $temp; ?>
                                     <td class="right">IDR <?= number_format($total, 2, ',', '.'); ?></td>
                                 </tr>
                                 <tr class="text-right align-items-center">
-                                    <td colspan="3"> </td>
+                                    <td colspan="4"> </td>
                                     <td class="right"><strong>Tax <?= $sales_tax ?>%</strong></td>
                                     <?php
                                     $total_tax = $sales_tax / 100 * $total;
@@ -228,10 +259,16 @@
                                     <td class="right">IDR <?= number_format($total_tax, '2', ',', '.'); ?></td>
                                 </tr>
                                 <tr class="text-right align-items-center">
-                                    <td colspan="3"> </td>
+                                    <td colspan="4"> </td>
                                     <td class="right"><strong>Grand Total</strong></td>
                                     <td class="right">IDR <?= number_format($grandTotal, '2', ',', '.'); ?></td>
                                 </tr>      
+                                <tr class="text-right align-items-center">
+                                    <td colspan="4"> </td>
+                                    <td class="right"><strong>Discount</strong></td>
+                                    <?php $total_disc = $temp1; ?>
+                                    <td class="right">IDR <?= $this->cart->format_number($total_disc, '-', ',', '.'); ?></td>
+                                </tr>
                             </tfoot>
                         </table>
                     </div>
@@ -420,6 +457,13 @@
 </div>
 
 <script>
+    function calculate_nom_discount(){
+        const price = document.getElementById('price').value;
+        const percent = document.getElementById('percent_discount').value;
+        const nom_discount = (percent/100) * price;
+        document.getElementById('discount').value = nom_discount; 
+    }
+
     var table2 = $('#table2').DataTable({
         paging: false,
         select: {

@@ -137,12 +137,16 @@
                                 <th>Item Description</th>
                                 <th>Qty</th>
                                 <th style="text-align:right">Item Price</th>
+                                <th style="text-align:right">Discount</th>
                                 <th style="text-align:right">Sub-Total</th>
                             </tr>
                         </thead>
 
-                        <?php $i = 1;
-                        $temp = 0; ?>
+                        <?php 
+                            $i = 1;
+                            $temp = 0;
+                            $temp1 = 0; 
+                        ?>
                         <tbody>
                             <?php foreach ($dataCart as $items) : ?>
                                 <?php
@@ -153,19 +157,19 @@
                                         <tr>
                                             <td><?= $i; ?></td>
                                             <td><?= $items['item_name']; ?></td>
-                                            <td><?= $this->cart->format_number($items['qty'], '2', ',', '.') . ' ' . $items['unit']; ?></td>
-                                            <td style=" text-align:right">IDR <?= $this->cart->format_number($items['price'], '0', ',', '.'); ?>
-                                            </td>
-                                            <td style="text-align:right">IDR <?= $this->cart->format_number($items['subtotal'], '0', ',', '.'); ?></td>
-                                            </td>
+                                            <td><?= number_format($items['qty'], '2', ',', '.') . ' ' . $items['unit']; ?></td>
+                                            <td style=" text-align:right">IDR <?= number_format($items['price'], '2', ',', '.'); ?></td>
+                                            <td style=" text-align:right">IDR <?= number_format($items['discount'], '2', ',', '.'); ?></td>
+                                            <td style="text-align:right">IDR <?= number_format($items['subtotal'], '2', ',', '.'); ?></td>
                                         </tr>
-                                        <?php $temp = $temp + $items['subtotal']; ?>
-                                        <?php $i++; ?>
-                                <?php }
+                                        <?php 
+                                            $temp = $temp + $items['subtotal']; 
+                                            $temp1 = $temp1 + ($items['qty'] * $items['discount']); 
+                                            $i++; 
+                                    }
                                 } else {
-                                }
-                                ?>
-                            <?php endforeach; ?>
+                                };
+                            endforeach; ?>
                         </tbody>
                         <?php
                             $data['sales_tax'] = $this->db->get_where('settings', ['parameter' => 'sales_tax'])->row_array();
@@ -173,13 +177,13 @@
                         ?>
                         <tfoot>
                             <tr class="text-right align-items-center">
-                                <td colspan="3"> </td>
+                                <td colspan="4"> </td>
                                 <td class="right"><strong>Total</strong></td>
                                 <?php $total = $temp; ?>
                                 <td class="right">IDR <?= $this->cart->format_number($total, '-', ',', '.'); ?></td>
                             </tr>
                             <tr class="text-right align-items-center">
-                                <td colspan="3"> </td>
+                                <td colspan="4"> </td>
                                 <td class="right"><strong>Tax <?= $sales_tax ?>%</strong></td>
                                 <?php
                                 $total_tax = $sales_tax / 100 * $total;
@@ -187,10 +191,16 @@
                                 <td class="right">IDR <?= $this->cart->format_number($total_tax, '2', ',', '.'); ?></td>
                             </tr>
                             <tr class="text-right align-items-center">
-                                <td colspan="3"> </td>
+                                <td colspan="4"> </td>
                                 <td class="right"><strong>Grand Total</strong></td>
                                 <td class="right">IDR <?= $this->cart->format_number($grandTotal, '2', ',', '.'); ?></td>
-                            </tr>      
+                            </tr>   
+                            <tr class="text-right align-items-center">
+                                <td colspan="4"> </td>
+                                <td class="right"><strong>Discount</strong></td>
+                                <?php $total_disc = $temp1; ?>
+                                <td class="right">IDR <?= $this->cart->format_number($total_disc, '-', ',', '.'); ?></td>
+                            </tr>    
                         </tfoot>
                     </table>
                 </div>
