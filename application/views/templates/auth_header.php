@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,5 +23,8 @@
     <!-- Custom styles for user-management page -->
     <link href="<?= base_url('asset/'); ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
-
-<body class="bg-gradient-light">
+<?php 
+    $data['items'] = $this->db->get_where('settings', ['parameter' => 'header_color'])->row_array();
+    $color = $data['items']['value'];
+?>
+<body class="bg-gradient-<?= $color?>">

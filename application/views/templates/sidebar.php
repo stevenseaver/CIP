@@ -10,7 +10,7 @@
                 $text = 'dark';
                 $icon = 'dark';
                 $background = 'white';
-            }
+            };
         ?>
 
         <ul class="navbar-nav bg-gradient-<?= $color ?> sidebar sidebar-<?= $text ?> accordion" id="accordionSidebar">
