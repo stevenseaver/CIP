@@ -155,7 +155,7 @@
 									</div>
 									<div class="col-lg-3">
 										<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
-											<p class="card-text">Shop &rarr;
+											<p class="card-text">Belanja &rarr;
 										</a>
 									</div>
 								</div>

@@ -19,7 +19,7 @@
             <!-- Grid row -->
             <div class="row mt-1">
                 <!-- Grid column -->
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto">
+                <div class="col-md-3 col-lg-2 col-xl-3 mx-auto">
                     <!-- Content -->
                     <h6 class="text-dark fw-bold mb-3">
                         <i class=""></i>CV. Rukun Gemilang Perkasa
@@ -43,7 +43,7 @@
                     <?php endforeach; ?>
                 </div>
                 <!-- Grid column -->
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
                     <!-- Links -->
                     <h6 class="text-primary fw-bold mb-3">
                         Kenapa kami?
@@ -63,7 +63,7 @@
                 </div>
 
                 <!-- Grid column -->
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
                     <!-- Links -->
                     <h6 class="text-primary fw-bold mb-3">
                         Legal
@@ -84,7 +84,7 @@
                 <!-- Grid column -->
 
                 <!-- Grid column -->
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0">
+                <div class="col-md-2 col-lg-3 col-xl-3 mx-auto mb-md-0">
                     <!-- Links -->
                     <h6 class="text-small text-primary fw-bold mb-3">
                         Kontak
