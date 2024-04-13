@@ -88,7 +88,7 @@
                                 $amount = 0;
                                 $i = 0;
                                 foreach ($dataFG as $df) :
-                                    $min_val = (float) $df['item_desc'];
+                                    $min_val = (float) $df['description'];
                                     if ($df['in_stock'] < $min_val) {
                                         $i++;
                                         $amount = $i;
@@ -108,7 +108,7 @@
                             <?php
                             if($amount != 0) { 
                                 foreach ($dataFG as $df) :
-                                    $min_val = (float) $df['item_desc'];
+                                    $min_val = (float) $df['description'];
                                     if ($df['in_stock'] < $min_val) { ?>
                                         <a class="dropdown-item text-left align-items-center" href="#">
                                             <div class="row align-items-center text-left">

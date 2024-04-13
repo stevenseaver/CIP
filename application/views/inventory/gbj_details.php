@@ -40,6 +40,10 @@
                             } 
                         ?>
                     </p>
+                    <p class="text-dark mb-2">Minimum Stock: </p>
+                    <p class="text-dark font-weight-bold"> 
+                        <?= number_format((float)$getID['description'], 2, ',', '.') . ' ' . $getID['unit_satuan'] ?>
+                    </p>
                 </div>
                 <div class="col-lg-4">
                     <?php if ($getID['categories'] != 6) { ?>
@@ -59,7 +63,7 @@
                     ?>
                     <p class="text-dark mb-2">Price: </p>
                     <p class="text-dark font-weight-bold">IDR 
-                        <?= number_format($getID['price'], 1, ',', '.') . '/' . $getID['unit_satuan'] ?>
+                        <?= number_format($getID['price'], 2, ',', '.') . '/' . $getID['unit_satuan'] ?>
                     </p>
                 </div>
                 <div class="col-lg-4 d-flex align-items-start justify-content-center">
