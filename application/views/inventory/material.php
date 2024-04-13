@@ -63,7 +63,7 @@
                                 <td><?= number_format($ms['price'], 0, ',', '.'); ?></td>
                                 <?php $value = $ms['price'] * $ms['in_stock'];
                                 $temp = $temp + $value;  ?>
-                                <td><?= number_format($value, 0, ',', '.') ?></td>
+                                <td><?= number_format($value, 2, ',', '.') ?></td>
                                 <td><?= $ms['supplier_name'] ?></td>
                                 <td>
                                     <a href="<?= base_url('inventory/material_details/') . $ms['id'] ?>" class="badge badge-primary"><i class="bi bi-info-circle-fill"> </i>Details</a>
@@ -79,7 +79,7 @@
                             <td colspan="5"> </td>
                             <td class="text-right "><strong>Total</strong></td>
                             <?php $grandTotal = $temp; ?>
-                            <td class="">IDR <?= $this->cart->format_number($grandTotal, '-', ',', '.'); ?></td>
+                            <td class="">IDR <?= number_format($grandTotal, 2, ',', '.'); ?></td>
                         </tr>
                     </tfoot>
                 </table>
@@ -183,7 +183,8 @@
                     <div class="form-group">
                         <!-- Min Stock -->
                         <label for="min_stock" class="col-form-label">Minimum Stock to Trigger Notification</label>
-                        <input type="number" class="form-control mb-1" id="min_stock" name="min_stock" placeholder="Minimal stock">
+                        <input type="number" class="form-control mb-1" id="min_stock" name="min_stock" placeholder="Minimum stock">
+                        <small>Fill with 0 if you choose to not monitor minimum stock.</small>
                         <?= form_error('min_stock', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
@@ -258,7 +259,8 @@
                     <div class="form-group">
                         <!-- Min Stock -->
                         <label for="min_stock" class="col-form-label">Minimum Stock to Trigger Notification</label>
-                        <input type="number" class="form-control mb-1" id="min_stock" name="min_stock" placeholder="Minimal stock">
+                        <input type="number" class="form-control mb-1" id="min_stock" name="min_stock" placeholder="Minimum stock">
+                        <small>Fill with 0 if you choose to not monitor minimum stock.</small>
                         <?= form_error('min_stock', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">

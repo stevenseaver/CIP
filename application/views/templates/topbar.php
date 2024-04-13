@@ -17,7 +17,7 @@
                 <li class="nav-item dropdown no-arrow mx-1">
                     <a class="nav-link dropdown-toggle" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <!-- <small>Notifications</small> -->
-                        <i class="bi bi-bell-fill"></i>
+                        <i class="bi bi-dropbox"></i>
                         <!-- Counter - Alerts -->
                         <?php
                             $userName = $user['id'];
@@ -41,7 +41,7 @@
                     </a>
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                         <h6 class="dropdown-header">
-                            Low Inventory Notifications
+                            Low Material Notifications
                         </h6>
                         <?php
                         if($amount != 0) { 
@@ -58,6 +58,67 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <span class="font-weight-bold"><?= number_format($dn['in_stock'], 2, '.', ',') . ' ' . $dn['unit_satuan'] ?></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                            <?php
+                                } else { 
+                                }
+                            endforeach;
+                        } else { ?>
+                            <a class="dropdown-item d-flex text-left align-items-center" href="#">
+                                <div class="col-lg-12">
+                                    <span class="">Nothing here</span>
+                                </div>
+                            </a>
+                        <?php }; ?>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <!-- <small>Notifications</small> -->
+                        <i class="bi bi-box-fill"></i>
+                        <!-- Counter - Alerts -->
+                        <?php
+                            $userName = $user['id'];
+                            $dataFG = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+                            // var_dump($dataFG);
+                            $amount = 0;
+                            $i = 0;
+                            foreach ($dataFG as $df) :
+                                $min_val = (float) $df['description'];
+                                if ($df['in_stock'] < $min_val) {
+                                    $i++;
+                                    $amount = $i;
+                                } else {
+                                }
+                            endforeach;
+                            if ($amount == 0) :
+                        ?>
+                        <?php else : ?>
+                            <h5 class="badge badge-danger badge-counter large"><?= $amount ?></h5>
+                        <?php endif; ?>
+                    </a>
+                    <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                        <h6 class="dropdown-header">
+                            Low Finished Goods Notifications
+                        </h6>
+                        <?php
+                        if($amount != 0) { 
+                            foreach ($dataFG as $df) :
+                                $min_val = (float) $df['description'];
+                                if ($df['in_stock'] < $min_val) { ?>
+                                    <a class="dropdown-item text-left align-items-center" href="#">
+                                        <div class="row align-items-center text-left">
+                                            <div class="col-lg-2">
+                                                <i class="bi bi-exclamation-triangle-fill text-danger h3"></i>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <span class="font-weight-bold"><?= $df['name'] ?></span>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <span class="font-weight-bold"><?= number_format($df['in_stock'], 2, '.', ',') . ' ' . $df['unit_satuan'] ?></span>
                                             </div>
                                         </div>
                                     </a>

@@ -1160,6 +1160,7 @@
          var pcs = $(event.relatedTarget).data('pcs');
          var pack = $(event.relatedTarget).data('pack');
          var conv = $(event.relatedTarget).data('conv');
+         var min_stock = $(event.relatedTarget).data('minstock');
          var price = $(event.relatedTarget).data('price');
 
          // input passed data using JS to object INPUT inside modal #editModal
@@ -1169,6 +1170,7 @@
          $(event.currentTarget).find('.modal-body input[name="packpersack"]').val(pack);
          $(event.currentTarget).find('.modal-body input[name="conversion"]').val(conv);
          $(event.currentTarget).find('.modal-body input[name="price"]').val(price);
+         $(event.currentTarget).find('.modal-body input[name="min_stock"]').val(min_stock);
          $(event.currentTarget).find('.modal-body select[name="category"]').val(cat);
      });
 

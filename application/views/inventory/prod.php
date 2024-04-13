@@ -57,7 +57,7 @@
                                     <td><?= number_format($rs['price'], 2, ',', '.') ?></td>
                                     <?php $value = $rs['price'] * $rs['in_stock'];
                                     $temp = $temp + $value;  ?>
-                                    <td><?= number_format($value, 0, ',', '.') ?></td>
+                                    <td><?= number_format($value, 2, ',', '.') ?></td>
                                     <td><?= $rs['status_name'] ?></td>
                                     <td>
                                         <a href="<?= base_url('inventory/prod_details/') . $rs['id'] ?>" class="badge badge-primary"><i class="bi bi-info-circle-fill"> </i>Details</a>
@@ -73,7 +73,7 @@
                                 <td colspan="6"> </td>
                                 <td class="text-right"><strong>Total</strong></td>
                                 <?php $grandTotal = $temp; ?>
-                                <td class="">IDR <?= $this->cart->format_number($grandTotal, '-', ',', '.'); ?></td>
+                                <td class="">IDR <?= number_format($grandTotal, 2, ',', '.'); ?></td>
                             </tr>
                         </tfoot>
                     </table>

@@ -71,7 +71,7 @@
                                             echo number_format($fs['in_stock'], 2, ',', '.') . ' ' . $fs['unit_satuan'];
                                         } else {
                                             echo number_format($fs['in_stock'], 2, ',', '.') . ' ' . $fs['unit_satuan'];
-                                            echo ' or ' . ($fs['in_stock'] / $fs['packpersack']) . ' sack';
+                                            echo ' or ' . number_format(($fs['in_stock'] / $fs['packpersack']), 2, ',', '.') . ' sack';
                                         } ?>
                                     </td>
                                     <td><?php
@@ -82,13 +82,13 @@
                                         } ?></td>
                                     <?php $value = $fs['price'] * $fs['in_stock'];
                                     $temp = $temp + $value;  ?>
-                                    <td><?= number_format($value, 0, ',', '.') ?></td>
+                                    <td><?= number_format($value, 2, ',', '.') ?></td>
                                     <td>
                                         <img class="img-fluid rounded" src="<?= base_url() . $fs['picture'] ?>" alt="Product Image #2" style="width: 15rem;">
                                     <td>
                                         <a href="<?= base_url('inventory/gbj_details/') . $fs['id'] ?>" class="badge badge-primary"><i class="bi bi-info-circle-fill"> </i>Details</a>
                                         <!-- <a data-toggle="modal" data-target="#adjustItemModal" class="badge badge-success text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-success">Quick Adjust</a> -->
-                                        <a data-toggle="modal" data-target="#editItemModal" class="badge badge-warning text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-cat="<?= $fs['categories'] ?>" data-pcs="<?= $fs['pcsperpack'] ?>" data-pack="<?= $fs['packpersack'] ?>" data-conv="<?= $fs['conversion'] ?>" data-price="<?= $fs['price'] ?>"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                        <a data-toggle="modal" data-target="#editItemModal" class="badge badge-warning text-white clickable" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-cat="<?= $fs['categories'] ?>" data-pcs="<?= $fs['pcsperpack'] ?>" data-pack="<?= $fs['packpersack'] ?>" data-conv="<?= $fs['conversion'] ?>" data-minstock="<?= $fs['description'] ?>" data-price="<?= $fs['price'] ?>"><i class="bi bi-pencil-fill"> </i>Edit</a>
                                         <a data-toggle="modal" data-target="#deleteItemModal" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete</a>
                                     </td>
                                 </tr>
@@ -100,7 +100,7 @@
                                 <td colspan="7"> </td>
                                 <td class="text-right "><strong>Total</strong></td>
                                 <?php $grandTotal = $temp; ?>
-                                <td class="">IDR <?= $this->cart->format_number($grandTotal, '-', ',', '.'); ?></td>
+                                <td class="">IDR <?= number_format($grandTotal, 2, ',', '.'); ?></td>
                             </tr>
                         </tfoot>
                     </table>
@@ -198,6 +198,13 @@
                     <?= form_error('initial_stock', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
                 <div class="form-group">
+                    <!-- Min Stock -->
+                    <label for="min_stock" class="col-form-label">Minimum Stock to Trigger Notification</label>
+                    <input type="number" class="form-control mb-1" id="min_stock" name="min_stock" placeholder="Minimum stock">
+                    <small>Fill with 0 if you choose to not monitor minimum stock.</small>
+                    <?= form_error('min_stock', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class="form-group">
                     <!-- Item price -->
                     <label for="url" class="col-form-label">Price</label>
                     <input type="text" class="form-control mb-1" id="price" name="price" placeholder="Add price">
@@ -272,7 +279,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editItemModalLabel">Edit Item Name</h5>
+                <h5 class="modal-title" id="editItemModalLabel">Edit Item</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -322,6 +329,13 @@
                     <label for="url" class="col-form-label">Price</label>
                     <input type="text" class="form-control mb-1" id="price" name="price" placeholder="Add price">
                     <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+                <div class="form-group">
+                    <!-- Min Stock -->
+                    <label for="min_stock" class="col-form-label">Minimum Stock to Trigger Notification</label>
+                    <input type="number" class="form-control mb-1" id="min_stock" name="min_stock" placeholder="Minimum stock">
+                    <small>Fill with 0 if you choose to not monitor minimum stock.</small>
+                    <?= form_error('min_stock', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
                 <div class="form-group">
                     <!-- Item categories -->

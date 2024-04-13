@@ -1018,6 +1018,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('category', 'category', 'required|trim');
         $this->form_validation->set_rules('unit', 'unit', 'required|trim');
+        $this->form_validation->set_rules('min_stock', 'min_stock', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('msg_failed_gbj', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -1035,6 +1036,7 @@ class Inventory extends CI_Controller
             $initial_stock = $this->input->post('initial_stock');
             $price = $this->input->post('price');
             $category = $this->input->post('category');
+            $min_stock = $this->input->post('min_stock');
             $date = time();
             $status1 = 1; //stock awal
             $status2 = 7; //stock akhir
@@ -1070,7 +1072,8 @@ class Inventory extends CI_Controller
                 'in_stock' => $initial_stock,
                 'status' => $status2,
                 'warehouse'  => $warehouse,
-                'unit_satuan' => $unit
+                'unit_satuan' => $unit,
+                'description' => $min_stock
             ];
 
             $this->db->insert('stock_finishedgoods', $data1);
@@ -1156,6 +1159,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('conversion', 'conversion', 'trim|numeric');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('category', 'category', 'required|trim');
+        $this->form_validation->set_rules('min_stock', 'minimal stock', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -1172,6 +1176,7 @@ class Inventory extends CI_Controller
             $price = $this->input->post('price');
             $category = $this->input->post('category');
             $conv = $this->input->post('conversion');
+            $min_stock = $this->input->post('min_stock');
 
             //cek jika ada gambar yang akan di upload
             $upload_image = $_FILES['image']['name'];
@@ -1209,8 +1214,18 @@ class Inventory extends CI_Controller
                 'categories' => $category,
                 'conversion' => $conv
             ];
+
             $this->db->where('code', $code);
             $this->db->update('stock_finishedgoods', $data);
+
+            $data2 = [
+                'description' => $min_stock
+            ];
+            
+            $this->db->where('code', $code);
+            $this->db->where('status', 7);
+            $this->db->update('stock_finishedgoods', $data2);
+
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $name . ' edited!</div>');
             redirect('inventory/gbj_wh');
         }
