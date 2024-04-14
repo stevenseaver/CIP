@@ -1003,7 +1003,7 @@ class Inventory extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJ();
-        $data['cat'] = $this->db->get('product_menu')->result_array();
+        $data['cat'] = $this->db->order_by('unit','ASC')->get('product_category')->result_array();
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');

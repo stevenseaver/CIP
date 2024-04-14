@@ -118,7 +118,11 @@
                                                 <span class="font-weight-bold"><?= $df['name'] ?></span>
                                             </div>
                                             <div class="col-lg-4">
-                                                <span class="font-weight-bold"><?= number_format($df['in_stock'], 2, '.', ',') . ' ' . $df['unit_satuan'] ?></span>
+                                                <?php if($df['conversion'] != 0) : ?>
+                                                    <span class="font-weight-bold"><?= number_format($df['in_stock'], 2, '.', ',') . ' ' . $df['unit_satuan'] . ' or ' . number_format($df['in_stock']/$df['conversion'], 2, '.', ',') . ' bal';?></span>
+                                                <?php else : ?>
+                                                    <span class="font-weight-bold"><?= number_format($df['in_stock'], 2, '.', ',') . ' ' . $df['unit_satuan'] . ' or ' . number_format($df['in_stock']/$df['packpersack'], 2, '.', ',') . ' bal';?></span>
+                                                <?php endif;?>    
                                             </div>
                                         </div>
                                     </a>
