@@ -256,7 +256,7 @@
             </tfoot>
         </table>
     </div>
-    <div class="footer text-right">
+    <div class="footer text-right mb-3">
         <!-- <a href="<?= base_url('purchasing/delete_all_po/') . $po_id ?>" class="btn text-danger">Close and delete data</a> -->
         <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $po_id ?>" class="btn text-danger">Close and delete data</a>
         <a href="<?= base_url('purchasing/') ?>" class="btn btn-primary">Save PO</a>

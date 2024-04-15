@@ -58,7 +58,8 @@
                         </thead>
                         <tbody>
                             <?php $i = 1;
-                            $temp = 0; ?>
+                            $temp = 0; 
+                            $subtotal = 0; ?>
                             <?php foreach ($inventory_item as $inv) :
                                 if ($before != $inv['transaction_id']) { ?>
                                     <tr>
@@ -69,26 +70,26 @@
                                         <td><?= $inv['supplier_name'] ?></td>
                                         <td>
                                             <?php 
-                                                foreach ($inventory_item as $amount) :
-                                                    if ($amount['transaction_id'] == $inv['transaction_id']) {
-                                                        $value = $amount['price'] * $amount['incoming'];
-                                                        $temp = $temp + $value; 
-                                                    } else {
+                                                // foreach ($inventory_item as $amount) :
+                                                //     if ($amount['transaction_id'] == $inv['transaction_id']) {
+                                                //         $value = $amount['price'] * $amount['incoming'];
+                                                //         $temp = $temp + $value; 
+                                                //     } else {
                                                         
-                                                    }
-                                                endforeach;
-                                                if($inv['tax'] == 0){
+                                                //     }
+                                                // endforeach;
+                                                // if($inv['tax'] == 0){
                                                     
-                                                } else if ($inv['tax'] == 1) {
-                                                    $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
-                                                    $purchase_tax = $data['purchase_tax']['value'];
+                                                // } else if ($inv['tax'] == 1) {
+                                                //     $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
+                                                //     $purchase_tax = $data['purchase_tax']['value'];
                                                     
-                                                    $tax = $purchase_tax/100 * $temp;
+                                                //     $tax = $purchase_tax/100 * $temp;
                                                     
-                                                    $temp = $temp + $tax;
+                                                //     $temp = $temp + $tax;
                                                     
-                                                }
-                                                echo number_format($temp, 2, ',', '.'); 
+                                                // }
+                                                // echo number_format($temp, 2, ',', '.'); 
                                             ?>
                                             
                                         </td>
@@ -128,6 +129,7 @@
         $i = 1;
         $temp = 0;
         $before = '';
+        $subtotal = 0;
     ?>
         <div class="card border-left-primary mb-3">
             <div class="row mx-4 my-3">
@@ -201,6 +203,7 @@
                                     </tr>
                                 <?php
                                     $before = $inv_rcv['transaction_id'];
+                                    $subtotal = $subtotal + $temp;
                                     $temp = 0;
                                     $tax = 0;
                                     $i++;
@@ -208,6 +211,14 @@
                                 } ?>
                             <?php endforeach; ?>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4"></td>
+                                <td class="text-right"><strong>Total Purchase</strong></td>
+                                <td>IDR <?= number_format($subtotal, 2, ',', '.'); ?></td>
+                                <td colspan="3"></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

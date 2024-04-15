@@ -63,6 +63,7 @@
                 $i = 1;
                 $temp = 0;
                 $temp2 = 0;
+                $temp3 = 0;
                 ?>
                 <?php foreach ($inventory_selected as $ms) : ?>
                     <?php
@@ -82,29 +83,50 @@
                         <td><?= $ms['item_desc'] ?></td>
                         <td><?= $formula ?></td>
                     </tr>
-                    <?php $temp = $temp + $subtotal;
-                    if($ms['unit_satuan'] == 'kg') {
-                        $temp2 = $temp2 + $ms['outgoing'];
-                    } else {
-                        
-                    }
-                    $i++; ?>
-                <?php endforeach; ?>
+                    <?php 
+                        $temp = $temp + $subtotal;
+                        if($ms['categories'] == 1 or $ms['categories'] == 2 or $ms['categories'] == 3){
+                            $temp2 = $temp2 + $ms['outgoing'];
+                        }
+                        else if ($ms['categories'] == 4 or $ms['categories'] == 5){
+                            $temp3 = $temp3 + $ms['outgoing'];
+                        } else {
+
+                        };
+                        $i++;
+                endforeach; ?>
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <!-- <td colspan="3"> </td> -->
                     <td colspan="1"> </td>
-                    <td class="text-right"><strong>Total Weight</strong></td>
-                    <?php $totalWeight = $temp2; ?>
-                    <td class="text-left"><?= $this->cart->format_number($totalWeight, '2', ',', '.'); ?> kg</td>
-                    <td class="text-right"><strong>Total Value</strong></td>
-                    <?php $total = $temp; ?>
-                    <td class="right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
-                    <?php $hpp = $total/$temp2; ?>
-                    <td class="right"><strong>Cost of Materials</strong></td>
-                    <td class="text-left">IDR <?= $this->cart->format_number($hpp, '2', ',', '.'); ?></td>
+                    <td class="right"><strong>Total Materials</strong></td>
+                    <?php 
+                        $totalValue = $temp; 
+                        $totalWeight = $temp2;
+                        $totalWeightOther = $temp3;
+                        $grandTotalWeight = $temp2+$temp3;
+                        if ($totalWeight != 0) {
+                            $hpp = $totalValue/$grandTotalWeight;
+                        } else { 
+                            $hpp = 0;
+                        }; 
+                    ?>
+                    <td class="text-left"><?= number_format($grandTotalWeight, '2', ',', '.');?> kg</td>
+                    <td class=""><strong>Total Value</strong></td>
+                    <td class="">IDR <?= number_format($totalValue, '2', ',', '.'); ?></td>
+                    <td class=""><strong>Cost of Materials</strong></td>
+                    <td class="text-left">IDR <?= number_format($hpp, '2', ',', '.'); ?></td>
                 </tr>
+                <!-- <tr class="align-items-center">
+                    <td colspan="1"> </td>
+                    <td class=""><strong>Other Materials</strong></td>
+                    <td class="text-left"><?= number_format($totalWeightOther, '2', ',', '.'); ?> kg</td>
+                </tr>
+                <tr class="align-items-center">
+                    <td colspan="1"> </td>
+                    <td class=""><strong>Total Materials</strong></td>
+                    <td class="text-left"><?= number_format($grandTotalWeight, '2', ',', '.'); ?> kg</td>
+                </tr> -->
             </tfoot>
         </table>
     </div>

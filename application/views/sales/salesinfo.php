@@ -35,6 +35,7 @@
         $temp = 0;
         $tax = 0;
         $before = '';
+        $subtotal = 0;
     ?>
         <div class="card rounded border-0 shadow mb-3">
             <div class="card-body">
@@ -146,11 +147,20 @@
                                     </tr>
                                     <?php
                                         $before = $items['ref'];
+                                        $subtotal = $subtotal + $temp;
                                         $temp = 0;
                                         $tax = 0;
                                         $i++;
                                 } endforeach; ?>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3"></td>
+                                    <td><strong>Total Sales</strong></td>
+                                    <td>IDR <?= number_format($subtotal, 2, ',', '.'); ?></td>
+                                    <td colspan="3"></td>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
