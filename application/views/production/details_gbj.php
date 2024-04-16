@@ -334,7 +334,7 @@
                 <tr>
                     <td colspan="5"> </td>
                     <td class="text-left"><strong>Net Item Weight</strong></td>
-                    <?php $net_weight_gbj = $total - $waste_roll - $waste_other; ?>
+                    <?php $net_weight_gbj = $total - $waste_roll - $waste_plong - $waste_other; ?>
                     <td class="text-left text-primary"><?= number_format($net_weight_gbj, '2', ',', '.'); ?> kg</td>
                     <td colspan="3"> </td>
                     <td class="text-left"><strong>Plong Waste</strong></td>
