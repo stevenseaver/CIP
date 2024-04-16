@@ -447,13 +447,13 @@
                     <td colspan="1"> </td>
                     <td class="text-right"><strong>Total Weight</strong></td>
                     <?php $totalWeight = $temp_weight; ?>
-                    <td class="text-left"><?= $this->cart->format_number($totalWeight, '2', ',', '.'); ?> kg</td>
+                    <td class="text-left"><?= number_format($totalWeight, '2', ',', '.'); ?> kg</td>
                     <td class="text-right"><strong>Total Value</strong></td>
                     <?php $total = $temp; ?>
-                    <td class="text-right">IDR <?= $this->cart->format_number($total, '2', ',', '.'); ?></td>
+                    <td class="text-right">IDR <?= number_format($total, '2', ',', '.'); ?></td>
                     <td class="text-right"><strong>Cost of Materials</strong></td>
                     <?php $hpp = $total/$temp_weight; ?>
-                    <td class="text-right">IDR <?= $this->cart->format_number($hpp, '2', ',', '.'); ?></td>
+                    <td class="text-right">IDR <?= number_format($hpp, '2', ',', '.'); ?></td>
                 </tr>
             </tfoot>
         </table>
@@ -544,33 +544,37 @@
                     <td colspan="4"> </td>
                     <td class="text-left"><strong>Total Weight</strong></td>
                     <?php $total = $temp; ?>
-                    <td class="text-left"><?= $this->cart->format_number($total, '2', ',', '.'); ?> kg</td>
+                    <td class="text-left"><?= number_format($total, '2', ',', '.'); ?> kg</td>
                     <td class="text-right"><strong>Production Value</strong></td>
                     <?php $grandTotal = $temp_value; ?>
-                    <td class="text-left">Rp <?= $this->cart->format_number($grandTotal, '2', ',', '.'); ?></td>
+                    <td class="text-left">Rp <?= number_format($grandTotal, '2', ',', '.'); ?></td>
                     <td class="text-right"><strong>Process Waste</strong></td>
                     <?php $depretiation = $temp-$totalWeight;
                     $percent_depretiation = ($depretiation / $totalWeight) * 100;
                     if ($percent_depretiation <= $max_process_waste) {?>
-                        <td class="text-left text-danger"><?= $this->cart->format_number($depretiation, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_depretiation, '2', ',', '.'); ?>%</td>
+                        <td class="text-left text-danger"><?= number_format($depretiation, '2', ',', '.'); ?> kg or <?= number_format($percent_depretiation, '2', ',', '.'); ?>%</td>
                     <?php } else { ?>
-                         <td class="text-left text-success"><?= $this->cart->format_number($depretiation, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_depretiation, '2', ',', '.'); ?>%</td>
+                         <td class="text-left text-success"><?= number_format($depretiation, '2', ',', '.'); ?> kg or <?= number_format($percent_depretiation, '2', ',', '.'); ?>%</td>
                     <?php }?>
                 </tr>
                 <tr class="align-items-center">
-                    <td colspan="8"> </td>
+                    <td colspan="4"> </td>
+                    <td class="text-left"><strong>Net Roll Weight</strong></td>
+                    <?php $net_weight = $total - $waste; ?>
+                    <td class="text-left text-primary"><?= number_format($net_weight, '2', ',', '.'); ?> kg</td>
+                    <td colspan="2"> </td>
                     <td class="text-right"><strong>Extrusion Waste</strong></td>
                     <?php $percent_waste = ($waste / $totalWeight) * 100; 
                     if ($percent_waste >= $max_waste) {?>
-                        <td class="text-left text-danger"><?= $this->cart->format_number($waste, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_waste, '2', ',', '.'); ?>%</td>
+                        <td class="text-left text-danger"><?= number_format($waste, '2', ',', '.'); ?> kg or <?= number_format($percent_waste, '2', ',', '.'); ?>%</td>
                     <?php } else { ?>
-                        <td class="text-left text-success"><?= $this->cart->format_number($waste, '2', ',', '.'); ?> kg or <?= $this->cart->format_number($percent_waste, '2', ',', '.'); ?>%</td>
+                        <td class="text-left text-success"><?= number_format($waste, '2', ',', '.'); ?> kg or <?= number_format($percent_waste, '2', ',', '.'); ?>%</td>
                     <?php }?>
                 </tr>
             </tfoot>
         </table>
     </div>
-    <div class="footer text-right mb-5">
+    <div class="footer text-right my-3">
         <!-- <a href="<?= base_url('production/delete_all_po/') . $po_id ?>" class="btn text-danger">Close and delete data</a> -->
         <a data-toggle="modal" data-target="#deleteRollModal" data-po="<?= $po_id ?>" class="btn text-danger">Close and delete data</a>
         <a href="<?= base_url('production/inputRoll') ?>" class="btn btn-primary">Save Order</a>
@@ -712,7 +716,7 @@
 
 <script>
     var table1 = $('#table1').DataTable({
-        paging: false,
+        paging: true,
         select: {
             style: 'single'
         },

@@ -528,14 +528,18 @@
                     <?php }?>
                 </tr>
                 <tr class="align-items-center">
-                    <td colspan="8"> </td>
+                    <td colspan="4"> </td>
+                    <td class="text-left"><strong>Net Roll Weight</strong></td>
+                    <?php $net_weight = $total - $waste; ?>
+                    <td class="text-left text-primary"><?= number_format($net_weight, '2', ',', '.'); ?> kg</td>
+                    <td colspan="2"> </td>
                     <td class="text-right"><strong>Extrusion Waste</strong></td>
                     <?php $percent_waste = ($waste / $totalWeight) * 100; 
                     if ($percent_waste >= $max_waste) {?>
                         <td class="text-left text-danger"><?= number_format($waste, '2', ',', '.'); ?> kg or <?= number_format($percent_waste, '2', ',', '.'); ?>%</td>
                     <?php } else { ?>
                         <td class="text-left text-success"><?= number_format($waste, '2', ',', '.'); ?> kg or <?= number_format($percent_waste, '2', ',', '.'); ?>%</td>
-                    <?php }?>
+                    <?php };?>
                 </tr>
             </tfoot>
         </table>
@@ -674,7 +678,11 @@
                     ?>
                 </tr>
                 <tr>
-                    <td colspan="10"> </td>
+                    <td colspan="5"> </td>
+                    <td class="text-left"><strong>Net Item Weight</strong></td>
+                    <?php $net_weight_gbj = $total - $waste_roll - $waste_other; ?>
+                    <td class="text-left text-primary"><?= number_format($net_weight_gbj, '2', ',', '.'); ?> kg</td>
+                    <td colspan="3"> </td>
                     <td class="text-left"><strong>Plong Waste</strong></td>
                     <?php
                         if($total != 0){
@@ -920,7 +928,7 @@
 
     });
    var table1 = $('#table1').DataTable({
-        paging: false,
+        paging: true,
         select: {
             style: 'single'
         },

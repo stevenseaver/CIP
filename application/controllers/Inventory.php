@@ -18,14 +18,11 @@ class Inventory extends CI_Controller
         $data['title'] = 'Material Warehouse';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['rollType'] = $this->db->get('stock_roll')->result_array();
         //get material database
-        $data['materialStock'] = $this->db->get('stock_material')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
         //get material categories
-        // $data['cat'] = $this->db->get('material_category')->result_array();
         $data['cat'] = $this->db->order_by('unit','ASC')->get('material_category')->result_array();
         //get supplier data
         $data['supplier'] = $this->db->order_by('supplier_name','ASC')->get('supplier')->result_array();
@@ -55,14 +52,13 @@ class Inventory extends CI_Controller
         $data['title'] = 'Material Warehouse';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['rollType'] = $this->db->get('stock_roll')->result_array();
+        // $data['rollType'] = $this->db->get('stock_roll')->result_array();
         //get material database
-        $data['materialStock'] = $this->db->get('stock_material')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['materialStock'] = $this->warehouse_id->getMaterial();
+        $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
         //get material categories
-        $data['cat'] = $this->db->get('material_category')->result_array();
+        $data['cat'] = $this->db->order_by('unit','ASC')->get('material_category')->result_array();
         //get supplier data
         $data['supplier'] = $this->db->order_by('supplier_name','ASC')->get('supplier')->result_array();
 
@@ -142,12 +138,11 @@ class Inventory extends CI_Controller
         $this->session->userdata('nik')])->row_array();
         $data['rollType'] = $this->db->get('stock_roll')->result_array();
         //get material database
-        $data['materialStock'] = $this->db->get('stock_material')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['materialStock'] = $this->warehouse_id->getMaterial();
+        $data['materialStock'] = $this->warehouse_id->getMaterialWarehouseID();
         //get material categories
-        $data['cat'] = $this->db->get('material_category')->result_array();
+        $data['cat'] = $this->db->order_by('unit','ASC')->get('material_category')->result_array();
         //get supplier data
         $data['supplier'] = $this->db->order_by('supplier_name','ASC')->get('supplier')->result_array();
 
@@ -514,7 +509,6 @@ class Inventory extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get roll database
-        $data['rollStock'] = $this->db->get('stock_roll')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
@@ -545,10 +539,9 @@ class Inventory extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get roll database
-        $data['rollStock'] = $this->db->get('stock_roll')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['rollStock'] = $this->warehouse_id->getProduction();
+        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
@@ -621,10 +614,9 @@ class Inventory extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get roll database
-        $data['rollStock'] = $this->db->get('stock_roll')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['rollStock'] = $this->warehouse_id->getProduction();
+        $data['rollStock'] = $this->warehouse_id->getProductionWarehouseID();
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
@@ -999,10 +991,10 @@ class Inventory extends CI_Controller
         $data['title'] = 'Finished Goods Warehouse';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['rollType'] = $this->db->get('stock_roll')->result_array();
+        // $data['rollType'] = $this->db->get('stock_roll')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['finishedStock'] = $this->warehouse_id->getGBJ();
+        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
         $data['cat'] = $this->db->order_by('unit','ASC')->get('product_category')->result_array();
 
         //validation
@@ -1145,10 +1137,10 @@ class Inventory extends CI_Controller
         $data['title'] = 'Finished Goods Warehouse';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['rollType'] = $this->db->get('stock_roll')->result_array();
+        // $data['rollType'] = $this->db->get('stock_roll')->result_array();
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['finishedStock'] = $this->warehouse_id->getGBJ();
+        $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
         $data['cat'] = $this->db->get('product_menu')->result_array();
 
         //validation

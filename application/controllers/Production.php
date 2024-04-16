@@ -1126,30 +1126,37 @@ class Production extends CI_Controller
 
         $data['material_edited'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
         $materialID = $data['material_edited']['code'];
+        $materialStatus = $data['material_edited']['status'];
 
-        //get selected material stock_akhir or stock akhir from id = 7
-        $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $materialID, 'status' => 7])->row_array();
-        $stock_akhir = $data['material_selected']['in_stock'];
+        if($materialStatus == 9){ 
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Material ' . $name . ' with amount ' . $amount . '  is already cut!</div>');
+            redirect('production/add_gbj/' . $po_id);
+        } else {
+            //get selected material stock_akhir or stock akhir from id = 7
+            $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $materialID, 'status' => 7])->row_array();
+            $stock_akhir = $data['material_selected']['in_stock'];
+    
+            $update_stock = $stock_akhir - $amount;
+    
+            $data2 = [
+                'in_stock' => $update_stock,
+                'date' => $date
+            ];
+    
+            $setStatus = 9;
+    
+            //update stock akhir
+            $this->db->where('status', '7');
+            $this->db->where('code', $materialID);
+            $this->db->update('stock_roll', $data2);
+            //cut
+            $this->db->where('id', $id);
+            $this->db->set('status', $setStatus);
+            $this->db->update('stock_roll');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material ' . $name . ' with amount ' . $amount . '  cut!</div>');
+            redirect('production/add_gbj/' . $po_id);
+        };
 
-        $update_stock = $stock_akhir - $amount;
-
-        $data2 = [
-            'in_stock' => $update_stock,
-            'date' => $date
-        ];
-
-        $setStatus = 9;
-
-        //update stock akhir
-        $this->db->where('status', '7');
-        $this->db->where('code', $materialID);
-        $this->db->update('stock_roll', $data2);
-        //cut
-        $this->db->where('id', $id);
-        $this->db->set('status', $setStatus);
-        $this->db->update('stock_roll');
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material ' . $name . ' with amount ' . $amount . '  cut!</div>');
-        redirect('production/add_gbj/' . $po_id);
     }
 
     public function convert_to_pack($prodID){

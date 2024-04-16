@@ -54,7 +54,7 @@ foreach ($order as $data) {
     $i++;
     $pdf->Cell(8, 7, $i, 1, 0, 'C');
     $pdf->Cell(100, 7, $data->name, 1, 0);
-    $pdf->Cell(55, 7, number_format($data->outgoing, 0, ',', '.') . ' ' . $data->unit_satuan, 1, 0);
+    $pdf->Cell(55, 7, number_format($data->outgoing, 3, ',', '.') . ' ' . $data->unit_satuan, 1, 0);
     $pdf->Cell(25, 7, number_format($data->price, 0, ',', '.'), 1, 0);
     $subtotal = $data->outgoing * $data->price;
     $formula = $data->outgoing/($data->item_desc*10) * 10;
