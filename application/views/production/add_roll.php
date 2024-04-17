@@ -32,6 +32,13 @@
         <span class="text">Add Aditional Materials</span>
     </a>
 
+    <div class="card rounded shadow border-0 mb-3">
+        <div class="card-body mb-0">
+            <p class="text-dark mb-0">Product : </p>
+            <p class="text-dark font-weight-bold mb-0"> <?= $getID['product_name'] ?></p>
+        </div>
+    </div>
+
     <!-- Input aditional materials here -->
     <!-- Input aditional materials here -->
     <div class="collapse" id="addMaterial">

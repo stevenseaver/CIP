@@ -29,8 +29,15 @@
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
         </span>
-        <span class="text">Add Aditional Materials</span>
+        <span class="text">Add Additional Materials</span>
     </a>
+
+    <div class="card rounded shadow border-0 mb-3">
+        <div class="card-body mb-0">
+            <p class="text-dark mb-0">Product : </p>
+            <p class="text-dark font-weight-bold mb-0"> <?= $getID['product_name'] ?></p>
+        </div>
+    </div>
 
     <!-- Input aditional materials here -->
     <!-- Input aditional materials here -->
@@ -155,8 +162,8 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="unit_amount"></span>
                                 </div>
-                                <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                             </div>
+                            <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -296,7 +303,7 @@
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="batch" class="col-form-label">Batch</label>
-                    <input type="text" class="form-control mb-1" id="batch" name="batch" placeholder="Product name/batch number" value="<?= $getID['batch'] . '-' ?> ">
+                    <input type="text" class="form-control mb-1" id="batch" name="batch" placeholder="Product name/batch number" value="<?= $getRollID['batch'] . '-' ?> ">
                     <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
                     <small>Batch number YEARrandomWEEK-EL-S-Cutting Line. Mandatory to add Cutting Line (CL).</small>
                 </div>
@@ -606,7 +613,7 @@
                         <?php if($ms['transaction_status'] != 2){  ?>
                             <?php if($ms['categories'] != 6 and $ms['categories'] != 7) { ?>
                             <td>
-                                <a data-toggle="modal" data-target="#convertPack" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code']?>" data-amount="<?= $ms['incoming'] ?>" data-price=<?= $ms['price']?>  class="badge badge-primary clickable">Convert to Pack</a>
+                                <a data-toggle="modal" data-target="#convertPack" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code']?>" data-amount="<?= $ms['incoming'] ?>" data-price=<?= $ms['price']?>  class="badge badge-primary clickable">Convert to <?= $ms['unit_satuan']?></a>
                                 <a data-toggle="modal" data-target="#printDetailsGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['before_convert'] ?>" data-desc="<?= $ms['description']?>" class="badge badge-primary clickable">Print</a>
                                 <a data-toggle="modal" data-target="#deleteItemGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" class="badge badge-danger clickable">Delete</a>
                             </td>

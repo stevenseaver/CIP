@@ -970,17 +970,21 @@ class Production extends CI_Controller
         $data['title'] = 'Finished Goods Input';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        //get GBJ item data
         $data['gbjSelect'] = $this->db->order_by('name','ASC')->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+        //get roll item data
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
-
         //get inventory warehouse data
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+
         $data['po_id'] = $prodID;
 
-        $data['getID'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->row_array();
-        if ($data['getID'] == null) {
-            $data['getID']['batch'] = 'No roll yet';
-        }
+        $data['getRollID'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->row_array();
+        if ($data['getRollID'] != null) {
+        } else {
+            $data['getRollID']['batch'] = 'No roll yet';
+        };
 
         //gbj items
         $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
@@ -997,9 +1001,6 @@ class Production extends CI_Controller
             $data['IDCheck']['product_name'] = 1;
         };
 
-        //MATERIAL ITEMS HERE
-        //MATERIAL ITEMS HERE
-
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -1012,22 +1013,36 @@ class Production extends CI_Controller
         $data['title'] = 'Finished Goods Input';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        //get GBJ item data
         $data['gbjSelect'] = $this->db->order_by('name','ASC')->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+        //get roll item data
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
-        $data['rollSelect'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
-        $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
-
         //get inventory warehouse data
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+
         $data['po_id'] = $prodID;
 
-        $data['getID'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->row_array();
+        $data['getRollID'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->row_array();
+        if ($data['getRollID'] != null) {
+        } else {
+            $data['getRollID']['batch'] = 'No roll yet';
+        };
 
         //gbj items
         $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
 
-        //get inventory warehouse data
-        $data['po_id'] = $prodID;
+        //MATERIAL ITEMS HERE
+        //MATERIAL ITEMS HERE
+        //get material data
+        $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
+        $data['IDCheck'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+
+        if ($data['IDCheck'] != null) {
+        } else {
+            $data['IDCheck']['description'] = 1;
+            $data['IDCheck']['product_name'] = 1;
+        };
 
         $this->form_validation->set_rules('gbjSelect', 'finished goods item', 'trim|required');
         $this->form_validation->set_rules('code', 'code', 'trim|required');
@@ -1163,20 +1178,36 @@ class Production extends CI_Controller
         $data['title'] = 'Finished Goods Input';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        $data['gbjSelect'] = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+        //get GBJ item data
+        $data['gbjSelect'] = $this->db->order_by('name','ASC')->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+        //get roll item data
         $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
-        $data['rollSelect'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
-        $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
-
         //get inventory warehouse data
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+
         $data['po_id'] = $prodID;
+
+        $data['getRollID'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->row_array();
+        if ($data['getRollID'] != null) {
+        } else {
+            $data['getRollID']['batch'] = 'No roll yet';
+        };
 
         //gbj items
         $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
 
-        //get inventory warehouse data
-        $data['po_id'] = $prodID;
+        //MATERIAL ITEMS HERE
+        //MATERIAL ITEMS HERE
+        //get material data
+        $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
+        $data['IDCheck'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+
+        if ($data['IDCheck'] != null) {
+        } else {
+            $data['IDCheck']['description'] = 1;
+            $data['IDCheck']['product_name'] = 1;
+        };
 
         $this->form_validation->set_rules('pack_amount', 'pack amount', 'trim|required');
 
@@ -1245,9 +1276,10 @@ class Production extends CI_Controller
         //get selected material stock_akhir or stock akhir from id = 7
         $data['material_selected'] = $this->db->get_where('stock_finishedgoods', ['code' => $materialID, 'status' => 7])->row_array();
         $stock_akhir = $data['material_selected']['in_stock'];
+        $unit_satuan = $data['material_selected']['unit_satuan'];
         
-        if ($cat == 6 or $cat == 7 or $status == 2){
-            //if converted into packs, or bulk products, or weighted, update transaksi dan stock akhir
+        if ($cat == 6 or $cat == 7 or $unit_satuan == 'kg' or $status == 2){
+            //if item has been converted into packs, or bulk products, or weighted, update transaksi dan stock akhir
             $update_stock = ($stock_akhir - $adjust_old) + $amount;
 
             $data2 = [
@@ -1258,14 +1290,18 @@ class Production extends CI_Controller
             //update transaksi
             $this->db->where('id', $id);
             $this->db->set('incoming', $amount);
-            $this->db->set('before_convert', $amount);
+            if ($cat == 6 or $cat == 7  or $unit_satuan == 'kg') {
+                $this->db->set('before_convert', $amount);
+            } else {
+
+            };
             $this->db->update('stock_finishedgoods');
             //update stock akhir
             $this->db->where('status', '7');
             $this->db->where('code', $materialID);
             $this->db->update('stock_finishedgoods', $data2);
-        } else if($cat != 6 or $cat != 7 and $status != 2) {           
-            //if not converted into packs, update transaksi only
+        } else if($cat != 6 or $cat != 7 or $unit_satuan != 'kg' and $status != 2) {           
+            //item that is not converted into packs, update transaksi only
             $this->db->where('id', $id);
             $this->db->set('incoming', $amount);
             $this->db->set('before_convert', $amount);
@@ -1305,15 +1341,49 @@ class Production extends CI_Controller
 
     public function add_item_prod_after_gbj($id, $status)
     {
-        $data['title'] = 'Add Production Order';
+        // $data['title'] = 'Add Production Order';
+        // $data['user'] = $this->db->get_where('user', ['nik' =>
+        // $this->session->userdata('nik')])->row_array();
+        // //get all stock akhir material data
+        // $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
+        // $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+        
+        // $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
+        // $data['po_id'] = $id;
+
+        $data['title'] = 'Finished Goods Input';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get all stock akhir material data
-        $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
+        //get GBJ item data
+        $data['gbjSelect'] = $this->db->order_by('name','ASC')->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+        //get roll item data
+        $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $id])->result_array();
+        //get inventory warehouse data
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
-        
-        $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
+
         $data['po_id'] = $id;
+
+        $data['getRollID'] = $this->db->get_where('stock_roll', ['transaction_id' => $id])->row_array();
+        if ($data['getRollID'] != null) {
+        } else {
+            $data['getRollID']['batch'] = 'No roll yet';
+        };
+
+        //gbj items
+        $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $id])->result_array();
+
+        //MATERIAL ITEMS HERE
+        //MATERIAL ITEMS HERE
+        //get material data
+        $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
+        $data['IDCheck'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+
+        if ($data['IDCheck'] != null) {
+        } else {
+            $data['IDCheck']['description'] = 1;
+            $data['IDCheck']['product_name'] = 1;
+        };
 
         $this->form_validation->set_rules('materialSelect', 'material', 'required');
         $this->form_validation->set_rules('amount', 'amount', 'required|trim');
@@ -1326,7 +1396,7 @@ class Production extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('production/add_prodorder', $data);
+            $this->load->view('production/add_gbj', $data);
             $this->load->view('templates/footer');
         } else {
             //get data to be inserted to inventory stock_material warehouse
