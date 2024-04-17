@@ -29,7 +29,7 @@
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
         </span>
-        <span class="text">Add Aditional Materials</span>
+        <span class="text">Add Additional Materials</span>
     </a>
 
     <div class="card rounded shadow border-0 mb-3">
@@ -162,8 +162,8 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="unit_amount"></span>
                                 </div>
-                                <?= form_error('mat_amount', '<small class="text-danger pl-2">', '</small>') ?>
                             </div>
+                            <?= form_error('mat_amount', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -177,9 +177,9 @@
                                 $n = 2;
                                 $result = bin2hex(random_bytes($n));
 
-                                $tester = $IDCheck['description'];
+                                $tester = $getID['description'];
                                 if ($tester != 1){
-                                    $batch = $IDCheck['description'];
+                                    $batch = $getID['description'];
                                 } else {
                                     $batch = $year . $result . $week;
                                 }
@@ -194,8 +194,8 @@
                         <div class="form-group">
                             <!-- Item code -->
                             <?php 
-                                if ($IDCheck['product_name'] != 1){
-                                    $product_name = $IDCheck['product_name'];;
+                                if ($getID['product_name'] != 1){
+                                    $product_name = $getID['product_name'];;
                                 } else {
                                     $product_name = '';
                                 }

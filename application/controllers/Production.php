@@ -527,13 +527,12 @@ class Production extends CI_Controller
         //MATERIAL ITEMS HERE
         //get material data
         $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
-        $data['IDCheck'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
 
-        if ($data['IDCheck'] != null) {
+        if ($data['getID'] != null) {
         } else {
-            $data['IDCheck']['description'] = 1;
-            $data['IDCheck']['product_name'] = 1;
-        }
+            $data['getID']['description'] = 1;
+            $data['getID']['product_name'] = 1;
+        };
         //MATERIAL ITEMS HERE
         //MATERIAL ITEMS HERE
 
@@ -557,6 +556,17 @@ class Production extends CI_Controller
         //get inventory warehouse data
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
         $data['po_id'] = $prodID;
+
+        //MATERIAL ITEMS HERE
+        //MATERIAL ITEMS HERE
+        //get material data
+        $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
+
+        if ($data['getID'] != null) {
+        } else {
+            $data['getID']['description'] = 1;
+            $data['getID']['product_name'] = 1;
+        };
 
         $this->form_validation->set_rules('rollName', 'roll item', 'trim|required');
         $this->form_validation->set_rules('code', 'code', 'trim|required');
@@ -623,17 +633,30 @@ class Production extends CI_Controller
         }
     }
 
-    public function add_item_prod_after_roll($id, $status)
+    public function add_item_prod_after_roll($prodID, $status)
     {
-        $data['title'] = 'Add Production Order';
+        $data['title'] = 'Add Roll Input';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-        //get all stock akhir material data
+        $data['rollSelect'] = $this->db->order_by('name','ASC')->get_where('stock_roll', ['status' => 7])->result_array();
+        $data['rollType'] = $this->db->get_where('stock_roll', ['transaction_id' => $prodID])->result_array();
+
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+
+        //get inventory warehouse data
+        $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+        $data['po_id'] = $prodID;
+
+        //MATERIAL ITEMS HERE
+        //MATERIAL ITEMS HERE
+        //get material data
         $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
-        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
-        
-        $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
-        $data['po_id'] = $id;
+
+        if ($data['getID'] != null) {
+        } else {
+            $data['getID']['description'] = 1;
+            $data['getID']['product_name'] = 1;
+        };
 
         $this->form_validation->set_rules('materialSelect', 'material', 'required');
         $this->form_validation->set_rules('mat_amount', 'amount', 'required|trim');
@@ -642,11 +665,11 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('product_name', 'product name', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            // $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('production/add_prodorder', $data);
+            $this->load->view('production/add_roll', $data);
             $this->load->view('templates/footer');
         } else {
             //get data to be inserted to inventory stock_material warehouse
@@ -1341,16 +1364,6 @@ class Production extends CI_Controller
 
     public function add_item_prod_after_gbj($id, $status)
     {
-        // $data['title'] = 'Add Production Order';
-        // $data['user'] = $this->db->get_where('user', ['nik' =>
-        // $this->session->userdata('nik')])->row_array();
-        // //get all stock akhir material data
-        // $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
-        // $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
-        
-        // $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
-        // $data['po_id'] = $id;
-
         $data['title'] = 'Finished Goods Input';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
@@ -1392,7 +1405,7 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('product_name', 'product name', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            // $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
