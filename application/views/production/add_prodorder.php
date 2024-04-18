@@ -98,8 +98,8 @@
                         <div class="input-group-append">
                             <span class="input-group-text" id="unit_amount"></span>
                         </div>
-                        <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
+                    <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -214,6 +214,7 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>Date</th>
                     <th>Item</th>
                     <th>Amount</th>
                     <th>Price</th>
@@ -243,7 +244,8 @@
                     ?>
                     <tr>
                         <td><?= $i ?></td>
-                        <td><?= $ms['name'] ?></td>
+                        <td><?= date('d F Y H:i:s', $ms['date']);?></td>
+                        <td><?= $ms['name']; ?></td>
                         <!-- <td><?= number_format($ms['outgoing'], 2, ',', '.'); ?></td> -->
                         <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['outgoing'], 2, ',', '.'); ?>"></td>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
@@ -270,7 +272,7 @@
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="1"> </td>
+                    <td colspan="2"> </td>
                     <td class="right"><strong>Main Materials</strong></td>
                     <?php 
                         $totalWeight = $temp2;
@@ -290,12 +292,12 @@
                     <td class="text-left">IDR <?= number_format($hpp, '2', ',', '.'); ?></td>
                 </tr>
                 <tr class="align-items-center">
-                    <td colspan="1"> </td>
+                    <td colspan="2"> </td>
                     <td class=""><strong>Other Materials</strong></td>
                     <td class="text-left"><?= number_format($totalWeightOther, '2', ',', '.'); ?> kg</td>
                 </tr>
                 <tr class="align-items-center">
-                    <td colspan="1"> </td>
+                    <td colspan="2"> </td>
                     <td class=""><strong>Total Materials</strong></td>
                     <td class="text-left"><?= number_format($grandTotalWeight, '2', ',', '.'); ?> kg</td>
                 </tr>

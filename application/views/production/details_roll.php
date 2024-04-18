@@ -36,6 +36,7 @@
                 <div class="h5 text-primary">Materials</div>
                 <tr>
                     <th>No</th>
+                    <th>Date</th>
                     <th>Item</th>
                     <th>Amount Used</th>
                     <th>Unit Price (IDR)</th>
@@ -60,6 +61,7 @@
                     ?>
                     <tr>
                         <td><?= $i ?></td>
+                        <td><?= date('d F Y H:i', $ms['date']);?></td>
                         <td><?= $ms['name'] ?></td>
                         <td><?= number_format($ms['outgoing'], 2, ',', '.') . ' ' . $ms['unit_satuan'];; ?></td>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
@@ -80,7 +82,7 @@
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="1"> </td>
+                    <td colspan="2"> </td>
                     <td class="text-right"><strong>Total Weight</strong></td>
                     <?php $totalWeight = $temp_weight; ?>
                     <td class="text-left"><?= $this->cart->format_number($totalWeight, '2', ',', '.'); ?> kg</td>
@@ -101,6 +103,7 @@
             <div class="h5 text-primary">Rolls</div>
                 <tr>
                     <th>No</th>
+                    <th>Date</th>
                     <th>Item</th>
                     <th>Code</th>
                     <th>Weight</th>
@@ -131,6 +134,7 @@
                 <?php foreach ($rollType as $ms) : ?>
                     <tr>
                         <td><?= $i ?></td>
+                        <td><?= date('d F Y H:i', $ms['date']);?></td>
                         <td><?= $ms['name'] ?></td>
                         <td><?= $ms['code'] ?></td>
                         <td><?= $ms['weight'] ?></td>
@@ -168,7 +172,7 @@
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="4"> </td>
+                    <td colspan="5"> </td>
                     <td class="text-left"><strong>Total Weight</strong></td>
                     <?php $total = $temp; ?>
                     <td class="text-left"><?= $this->cart->format_number($total, '2', ',', '.'); ?> kg</td>
@@ -185,7 +189,7 @@
                     <?php }?>
                 </tr>
                 <tr class="align-items-center">
-                    <td colspan="4"> </td>
+                    <td colspan="5"> </td>
                     <td class="text-left"><strong>Net Roll Weight</strong></td>
                     <?php $net_weight = $total - $waste; ?>
                     <td class="text-left text-primary"><?= number_format($net_weight, '2', ',', '.'); ?> kg</td>

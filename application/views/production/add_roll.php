@@ -407,6 +407,7 @@
                 <tr>
                     <div class="h5 text-primary">Materials</div>
                     <th>No</th>
+                    <th>Date</th>
                     <th>Item</th>
                     <th>Amount Used</th>
                     <th>Price (IDR)</th>
@@ -431,6 +432,7 @@
                     ?>
                     <tr>
                         <td><?= $i ?></td>
+                        <td><?= date('d F Y H:i', $ms['date']);?></td>
                         <td><?= $ms['name'] ?></td>
                         <td><?= number_format($ms['outgoing'], 2, ',', '.') . ' ' . $ms['unit_satuan']; ?></td>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
@@ -451,7 +453,7 @@
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="1"> </td>
+                    <td colspan="2"> </td>
                     <td class="text-right"><strong>Total Weight</strong></td>
                     <?php $totalWeight = $temp_weight; ?>
                     <td class="text-left"><?= number_format($totalWeight, '2', ',', '.'); ?> kg</td>
@@ -474,6 +476,7 @@
                 <tr>
                     <div class="h5 text-primary">Rolls</div>
                     <th>No</th>
+                    <th>Date</th>
                     <th>Item</th>
                     <th>Code</th>
                     <th>Weight</th>
@@ -507,14 +510,15 @@
                 <?php foreach ($rollType as $ms) : ?>
                     <tr>
                         <td><?= $i ?></td>
-                        <td><?= $ms['name'] ?></td>
-                        <td><?= $ms['code'] ?></td>
-                        <td><?= $ms['weight'] ?></td>
-                        <td><?= $ms['lipatan'] ?></td>
+                        <td style="width: 110px"><?= date('d F Y H:i', $ms['date']);?></td>
+                        <td><?= $ms['name']; ?></td>
+                        <td><?= $ms['code']; ?></td>
+                        <td><?= $ms['weight']; ?></td>
+                        <td><?= $ms['lipatan']; ?></td>
                         <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td> -->
-                        <td><input id="rollAmount-<?= $ms['id'] ?>" class="roll-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
+                        <td style="width: 100px"><input id="rollAmount-<?= $ms['id'] ?>" class="roll-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
                         <!-- <td><?= number_format($ms['price'], 2, ',', '.'); ?></td> -->
-                        <td><input id="rollPrice-<?= $ms['id'] ?>" class="roll-price text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['price'], 2, ',', '.'); ?>"></td>
+                        <td style="width: 110px"><input id="rollPrice-<?= $ms['id'] ?>" class="roll-price text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['price'], 2, ',', '.'); ?>"></td>
                         <?php 
                             $subtotal = $ms['incoming'] * $ms['price'];
                         ?>
@@ -548,7 +552,7 @@
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="4"> </td>
+                    <td colspan="5"> </td>
                     <td class="text-left"><strong>Total Weight</strong></td>
                     <?php $total = $temp; ?>
                     <td class="text-left"><?= number_format($total, '2', ',', '.'); ?> kg</td>
@@ -565,7 +569,7 @@
                     <?php }?>
                 </tr>
                 <tr class="align-items-center">
-                    <td colspan="4"> </td>
+                    <td colspan="5"> </td>
                     <td class="text-left"><strong>Net Roll Weight</strong></td>
                     <?php $net_weight = $total - $waste; ?>
                     <td class="text-left text-primary"><?= number_format($net_weight, '2', ',', '.'); ?> kg</td>

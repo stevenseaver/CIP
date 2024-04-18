@@ -119,6 +119,12 @@ class Production extends CI_Controller
         //get all stock akhir material data
         $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
         $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+
+        if ($data['getID'] != null) {
+        } else {
+            $data['getID']['description'] = 1;
+            $data['getID']['product_name'] = 1;
+        }
         
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
@@ -155,6 +161,7 @@ class Production extends CI_Controller
             $warehouse = $material_selected["warehouse"];
             $supplier = $material_selected["supplier"];
             $unit = $material_selected["unit_satuan"];
+            $stock_old = $material_selected["in_stock"];
 
             $data = [
                 'transaction_id' => $po_id,
@@ -164,6 +171,7 @@ class Production extends CI_Controller
                 'date' => $date,
                 'price' => $price,
                 'outgoing' => $amount,
+                'in_stock' => $stock_old - $amount,
                 'unit_satuan' => $unit,
                 'status' => $status,
                 'warehouse' => $warehouse,
@@ -175,8 +183,6 @@ class Production extends CI_Controller
             ];
 
             $this->db->insert('stock_material', $data);
-
-            $stock_old = $material_selected["in_stock"];
 
             $data2 = [
                 'in_stock' => $stock_old - $amount,
@@ -212,15 +218,21 @@ class Production extends CI_Controller
 
         $update_stock = ($stock_akhir + $adjust_old) - $amount;
 
-        $data2 = [
+        $data3 = [
+            'date' => $date,
             'in_stock' => $update_stock,
-            'date' => $date
+            'outgoing' => $amount
         ];
 
         //update transaksi
         $this->db->where('id', $id);
-        $this->db->set('outgoing', $amount);
-        $this->db->update('stock_material');
+        // $this->db->set('outgoing', $amount);
+        $this->db->update('stock_material', $data3);
+        
+        $data2 = [
+            'in_stock' => $update_stock,
+            'date' => $date
+        ];
         //update stock akhir
         $this->db->where('status', '7');
         $this->db->where('code', $materialID);
@@ -593,8 +605,9 @@ class Production extends CI_Controller
             $batch = $this->input->post('batch');
             $roll_no = $this->input->post('roll_no');
             $transaction_status = 2;
-
+            
             $rollSelect = $this->db->get_where('stock_roll', ['code' => $code, 'status' => 7])->row_array();
+            $stock_old = $rollSelect['in_stock'];
 
             $data = [
                 'name' => $item,
@@ -603,9 +616,10 @@ class Production extends CI_Controller
                 'date' => $date,
                 'weight' => $weight,
                 'lipatan' => $lipatan,
-                'in_stock' => 0,
                 'incoming' => $amount,
                 'outgoing' => 0,
+                'in_stock' => 0,
+                // 'in_stock' => $stock_old + $amount,
                 'price' => $price,
                 'status' => 3,
                 'warehouse' => 2,
@@ -615,8 +629,6 @@ class Production extends CI_Controller
             ];
 
             $this->db->insert('stock_roll', $data);
-
-            $stock_old = $rollSelect['in_stock'];
 
             $data2 = [
                 'in_stock' => $stock_old + $amount,
@@ -690,6 +702,7 @@ class Production extends CI_Controller
             $warehouse = $material_selected["warehouse"];
             $supplier = $material_selected["supplier"];
             $unit = $material_selected["unit_satuan"];
+            $stock_old = $material_selected["in_stock"];
 
             $data = [
                 'transaction_id' => $po_id,
@@ -699,6 +712,7 @@ class Production extends CI_Controller
                 'date' => $date,
                 'price' => $price,
                 'outgoing' => $amount,
+                'in_stock' => $stock_old - $amount,
                 'unit_satuan' => $unit,
                 'status' => $status,
                 'warehouse' => $warehouse,
@@ -710,8 +724,6 @@ class Production extends CI_Controller
             ];
 
             $this->db->insert('stock_material', $data);
-
-            $stock_old = $material_selected["in_stock"];
 
             $data2 = [
                 'in_stock' => $stock_old - $amount,
@@ -747,16 +759,21 @@ class Production extends CI_Controller
 
         $update_stock = ($stock_akhir - $adjust_old) + $amount;
 
+        //update transaksi
+        $data3 = [
+            'date' => $date,
+            'incoming' => $amount,
+            // 'in_stock' => $update_stock
+        ];
+
+        $this->db->where('id', $id);
+        $this->db->update('stock_roll', $data3);
+        
+        //update stock akhir
         $data2 = [
             'in_stock' => $update_stock,
             'date' => $date
         ];
-
-        //update transaksi
-        $this->db->where('id', $id);
-        $this->db->set('incoming', $amount);
-        $this->db->update('stock_roll');
-        //update stock akhir
         $this->db->where('status', '7');
         $this->db->where('code', $materialID);
         $this->db->update('stock_roll', $data2);
@@ -1430,6 +1447,7 @@ class Production extends CI_Controller
             $warehouse = $material_selected["warehouse"];
             $supplier = $material_selected["supplier"];
             $unit = $material_selected["unit_satuan"];
+            $stock_old = $material_selected["in_stock"];
 
             $data = [
                 'transaction_id' => $po_id,
@@ -1439,6 +1457,7 @@ class Production extends CI_Controller
                 'date' => $date,
                 'price' => $price,
                 'outgoing' => $amount,
+                'in_stock' => $stock_old - $amount,
                 'unit_satuan' => $unit,
                 'status' => $status,
                 'warehouse' => $warehouse,
@@ -1450,8 +1469,6 @@ class Production extends CI_Controller
             ];
 
             $this->db->insert('stock_material', $data);
-
-            $stock_old = $material_selected["in_stock"];
 
             $data2 = [
                 'in_stock' => $stock_old - $amount,

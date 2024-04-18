@@ -269,11 +269,11 @@ class Inventory extends CI_Controller
                 $date = time();
                 $year = date('y');
                 $month = date('m');
-                $day = date('d');
-                $serial = rand(1000, 9999);
 
-                //ref po
-                $trans_id = 'PO-' . $year . $month . $day . '-' . $serial;
+                // ref invoice
+                $n = 3;
+                $result = bin2hex(random_bytes($n));
+                $trans_id = 'A' . $year . $month . $result;
 
                 $data = [
                     'name' => $name,
@@ -287,9 +287,9 @@ class Inventory extends CI_Controller
                     'unit_satuan' => $unit,
                     'transaction_id' => $trans_id,
                     'description' => $info,
-                    'transaction_status' => $trans_stat
+                    'transaction_status' => $trans_stat,
+                    'in_stock' => $in_stockOld + $amount
                     // 'item_desc' => $info2
-                    // 'in_stock' => $in_stockOld + $amount
                 ];
                 $data2 = [
                     'in_stock' => $in_stockOld + $amount,
@@ -310,7 +310,7 @@ class Inventory extends CI_Controller
                     $trans_id = 'ADJ-' . $year . $month . $day . '-' . $serial;
                 } else {
                     $trans_id = 'UNAUTHORIZED';
-                } 
+                };
                 
                 $data = [
                     'name' => $name,
@@ -324,9 +324,9 @@ class Inventory extends CI_Controller
                     'unit_satuan' => $unit,
                     'transaction_id' => $trans_id,
                     'description' => $info,
-                    'transaction_status' => $trans_stat
+                    'transaction_status' => $trans_stat,
+                    'in_stock' => $in_stockOld - $amount
                     // 'item_desc' => $info2
-                    // 'in_stock' => $in_stockOld - $amount
                 ];
                 $data2 = [
                     'in_stock' => $in_stockOld - $amount,
@@ -412,7 +412,7 @@ class Inventory extends CI_Controller
                     $update_stock = ($stock_end_before - $stock_adjust_before) + $adjust_amount;
 
                     $this->db->set('incoming', $adjust_amount);
-                    // $this->db->set('in_stock', $update_stock);
+                    $this->db->set('in_stock', $update_stock);
                     $this->db->set('date', $date);
                     $this->db->where('id', $idToEdit);
                     $this->db->update('stock_material');
@@ -433,7 +433,7 @@ class Inventory extends CI_Controller
                     $update_stock = ($stock_end_before + $stock_adjust_before) - $adjust_amount;
 
                     $this->db->set('outgoing', $adjust_amount);
-                    // $this->db->set('in_stock', $update_stock);
+                    $this->db->set('in_stock', $update_stock);
                     $this->db->set('date', $date);
                     $this->db->where('id', $idToEdit);
                     $this->db->update('stock_material');

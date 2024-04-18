@@ -293,9 +293,14 @@ class Purchasing extends CI_Controller
         $data['getID'] = $this->db->get_where('stock_material', ['code' => $code, 'status' => '7'])->row_array();
         $in_stockOld = $data['getID']['in_stock'];;
 
+        $data = [
+            'transaction_status' => 2,
+            'in_stock' => $in_stockOld + $amount
+        ];
+
         $this->db->where('id', $id);
-        $this->db->set('transaction_status', 2);
-        $this->db->update('stock_material');
+        // $this->db->set('transaction_status', 2);
+        $this->db->update('stock_material', $data);
 
         $data2 = [
             'in_stock' => $in_stockOld + $amount,
@@ -577,7 +582,8 @@ class Purchasing extends CI_Controller
             // $this->db->update('stock_material');
             
             $data = [
-                'in_stock' => $in_stockOld - $amount,
+                // 'in_stock' => $in_stockOld - $amount,
+                'in_stock' => $newStock,
                 'date' => $trans_date,
                 'price' => $price
             ];
@@ -592,7 +598,7 @@ class Purchasing extends CI_Controller
                 'date' => $trans_date,
                 'price' => $price,
                 'categories' => $categories,
-                'in_stock' => 0,
+                'in_stock' => $newStock,
                 'incoming' => 0,
                 'outgoing' => $amount,
                 'unit_satuan' => $unit_satuan,

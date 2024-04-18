@@ -206,6 +206,7 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>Date</th>
                     <th>Item</th>
                     <th>Amount</th>
                     <th>Price</th>
@@ -233,6 +234,7 @@
                     ?>
                     <tr>
                         <td><?= $i ?></td>
+                        <td><?= date('d F Y H:i:s', $ms['date']);?></td>
                         <td><?= $ms['name'] ?></td>
                         <!-- <td><?= number_format($ms['outgoing'], 2, ',', '.'); ?></td> -->
                         <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['outgoing'], 2, ',', '.'); ?>"></td>
@@ -258,7 +260,7 @@
             <tfoot class="text-right">
                 <tr class="align-items-center">
                     <!-- <td colspan="3"> </td> -->
-                    <td colspan="1"> </td>
+                    <td colspan="2"> </td>
                     <td class="text-right"><strong>Total Weight</strong></td>
                     <?php $totalWeight = $temp2; ?>
                     <td class="text-left"><?= $this->cart->format_number($totalWeight, '2', ',', '.'); ?> kg</td>

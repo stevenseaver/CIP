@@ -136,7 +136,7 @@
         </table>
     </div>
     <?php if ($received == 1) { ?>
-        <div class="footer text-right">
+        <div class="footer text-right mb-3">
             <a href="<?= base_url('purchasing/receiveorder') ?>" class="btn btn-primary">Save PO</a>
         </div>
     <?php } else { ?>

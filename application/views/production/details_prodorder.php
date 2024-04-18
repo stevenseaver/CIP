@@ -50,6 +50,7 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>Date</th>
                     <th>Item</th>
                     <th>Amount Used</th>
                     <th>Unit Price</th>
@@ -75,6 +76,7 @@
                     ?>
                     <tr>
                         <td><?= $i ?></td>
+                        <td><?= date('d F Y H:i:s', $ms['date']); ?></td>
                         <td><?= $ms['name'] ?></td>
                         <td><?= number_format($ms['outgoing'], 2, ',', '.') . ' ' . $ms['unit_satuan']; ?></td>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
@@ -98,7 +100,7 @@
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="1"> </td>
+                    <td colspan="2"> </td>
                     <td class="right"><strong>Total Materials</strong></td>
                     <?php 
                         $totalValue = $temp; 
