@@ -49,6 +49,7 @@
                                     <th>Date</th>
                                     <th>Supplier</th>
                                     <th>Amount</th>
+                                    <th>Reference</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -89,6 +90,7 @@
                                             </td>
                                             <?php $value = $inv['price'] * $inv['in_stock'];
                                             $temp = $temp + $value;  ?>
+                                            <td><?= $inv['description'] ?></td>
                                             <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
                                             <td>
                                                 <a href="<?= base_url('purchasing/receive_details/') . $inv['transaction_id'] . '/' . $inv['supplier'] . '/' . $inv['date'] ?>" class="badge badge-primary"><i class="bi bi-info-circle-fill"> </i>Details</a>

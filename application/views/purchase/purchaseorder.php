@@ -52,6 +52,7 @@
                                     <th>PO Number</th>
                                     <th>Date</th>
                                     <th>Supplier</th>
+                                    <th>Reference</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -65,6 +66,7 @@
                                             <td><?= $inv['transaction_id'] ?></td>
                                             <td><?= date('d F Y H:i:s', $inv['date']); ?></td>
                                             <td><?= $inv['supplier_name'] ?></td>
+                                            <td><?= $inv['description'] ?></td>
                                             <?php $value = $inv['price'] * $inv['in_stock'];
                                             $temp = $temp + $value;  ?>
                                             <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->

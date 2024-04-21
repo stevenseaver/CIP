@@ -50,7 +50,8 @@
                                     <th>Date</th>
                                     <th>Amount</th>
                                     <th>Delivery Address</th>
-                                    <th>Payment Upload</th>
+                                    <th>Reference</th>
+                                    <th class="text-center">Payment Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -85,8 +86,23 @@
                                             ?>
                                         </td>
                                         <td><?= $items['deliveryTo']; ?></td>
-                                        <td>
-                                            <img class="img-fluid rounded" src="<?= base_url('asset/img/payment/') . $items['img']  ?>" alt="Payment Invoice" style="width: 15rem;">
+                                        <td><?= $items['description']; ?></td>
+                                        <td class="text-center">
+                                            <?php if($items['is_paid'] == 1){ ?> 
+                                                <p class="mr-3 my-1 text-center">
+                                                    <span class="icon text-success">
+                                                        <i class="bi bi-currency-dollar"></i>
+                                                    </span>
+                                                    <span class="text-success">Paid</span>
+                                                </p>
+                                            <?php } else { ?> 
+                                                <p class="mr-3 my-1 text-center">
+                                                    <span class="icon text-danger">
+                                                        <i class="bi bi-currency-dollar"></i>
+                                                    </span>
+                                                    <span class="text-danger">Unpaid</span>
+                                                </p>
+                                            <?php } ?>
                                         </td>
                                         <td>
                                             <a href="<?= base_url('sales/invoice_detail/') . $items['ref'] ?>" class="badge badge-primary">Invoice Detail</a>

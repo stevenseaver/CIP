@@ -123,6 +123,8 @@
             <p class="text-dark font-weight-bold"> <?= date('d F Y H:i', $date); ?></p>
             <p class="text-dark mb-1">Delivery Address:</p>
             <p class="text-dark font-weight-bold"><?= $address; ?></p>
+            <p class="text-dark mb-1">Reference:</p>
+            <p class="text-dark font-weight-bold"><?= $reference; ?></p>
         </div>
     </div>
 

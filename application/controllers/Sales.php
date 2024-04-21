@@ -427,6 +427,7 @@ class Sales extends CI_Controller
         $data['date'] = $data['dataRow']['date'];
         $data['status'] = $data['dataRow']['status'];
         $data['address'] = $data['dataRow']['deliveryTo'];
+        $data['reference'] = $data['dataRow']['description'];
 
         $data['dataCart'] = $this->db->get_where('cart', ['ref' => $data['ref']])->result_array();
 
@@ -530,6 +531,7 @@ class Sales extends CI_Controller
         $data['date'] = $data['dataRow']['date'];
         $data['status'] = $data['dataRow']['status'];
         $data['address'] = $data['dataRow']['deliveryTo'];
+        $data['reference'] = $data['dataRow']['description'];
 
         $data['dataCart'] = $this->db->get_where('cart', ['ref' => $data['ref']])->result_array();
 
@@ -604,6 +606,7 @@ class Sales extends CI_Controller
         $data['date'] = $data['dataRow']['date'];
         $data['status'] = $data['dataRow']['status'];
         $data['address'] = $data['dataRow']['deliveryTo'];
+        $data['reference'] = $data['dataRow']['description'];
 
         $data['dataCart'] = $this->db->get_where('cart', ['ref' => $data['ref']])->result_array();
 

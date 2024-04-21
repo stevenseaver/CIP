@@ -48,6 +48,7 @@
                                     <th>Date</th>
                                     <th>Amount</th>
                                     <th>Delivery Address</th>
+                                    <th>Reference</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -82,6 +83,7 @@
                                             ?>
                                         </td>
                                         <td><?= $items['deliveryTo']; ?></td>
+                                        <td><?= $items['description']; ?></td>
                                         <!-- <td>
                                             <img class="img-fluid rounded" src="<?= base_url('asset/img/payment/') . $items['img']  ?>" alt="Payment Invoice" style="width: 15rem;">
                                         </td> -->

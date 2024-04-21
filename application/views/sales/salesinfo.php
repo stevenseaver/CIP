@@ -50,6 +50,7 @@
                                     <th>Date</th>
                                     <th>Amount</th>
                                     <th>Delivery Address</th>
+                                    <th>Reference</th>
                                     <th>Status</th>
                                     <th>Payment Status</th>
                                     <th>Action</th>
@@ -87,6 +88,7 @@
                                             ?>
                                         </td>
                                         <td><?= $items['deliveryTo']; ?></td>
+                                        <td><?= $items['description']; ?></td>
                                         <td>
                                             <?php if($items['status'] == 1){ ?> 
                                                 <p class="mr-3 my-1 text-center">
@@ -121,14 +123,14 @@
                                         <td>
                                             <?php if($items['is_paid'] == 1){ ?> 
                                                 <p class="mr-3 my-1 text-center">
-                                                    <span class="icon text-success mx-2">
+                                                    <span class="icon text-success">
                                                         <i class="bi bi-currency-dollar"></i>
                                                     </span>
                                                     <span class="text-success">Paid</span>
                                                 </p>
                                             <?php } else { ?> 
                                                 <p class="mr-3 my-1 text-center">
-                                                    <span class="icon text-danger mx-2">
+                                                    <span class="icon text-danger">
                                                         <i class="bi bi-currency-dollar"></i>
                                                     </span>
                                                     <span class="text-danger">Unpaid</span>
