@@ -106,7 +106,9 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="description" class="col-form-label">PO Description</label>
+                    <label for="description" class="col-form-label">Reference</label>
+                    <i type="button" class="small text-primary bi bi-question-circle" data-toggle="tooltip" data-placement="right" title="Isi dengan nomor dokumen AM">
+                    </i>
                     <input type="text" class="form-control mb-1" id="description" name="description" placeholder="Input description..">
                     <?= form_error('description', '<small class="text-danger pl-2">', '</small>') ?>
                     <small>Weighting Document Number. Optional</small>
@@ -115,10 +117,12 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="item_desc" class="col-form-label">Item Descripstion</label>
+                    <label for="item_desc" class="col-form-label">Item Description</label>
+                    <i type="button" class="small text-primary bi bi-question-circle" data-toggle="tooltip" data-placement="right" title="Fill with sack amount">
+                    </i>
                     <input type="text" class="form-control mb-1" id="item_desc" name="item_desc" placeholder="Input item description..">
                     <?= form_error('item_desc', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Sack Number. Optional</small>
+                    <small>Sack amount. Optional</small>
                 </div>
             </div>
         </div>
@@ -187,7 +191,7 @@
                     <th>Amount</th>
                     <th>Price</th>
                     <th class="text-right">Subtotal</th>
-                    <th>Document</th>
+                    <th>Reference</th>
                     <th>Description</th>
                     <th>Action</th>
                 </tr>
@@ -210,14 +214,15 @@
                         <td><?= $i ?></td>
                         <td><?= $ms['name'] ?></td>
                         <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?></td> -->
-                        <td><input id="receiveAmount-<?= $ms['id'] ?>" class="edit-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-transID="<?= $ms['transaction_id']; ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
-                        <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
-                        <?php $subtotal = $ms['incoming'] * $ms['price'] ?>
+                        <td style="width: 150px"><input id="receiveAmount-<?= $ms['id'] ?>" class="edit-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-transID="<?= $ms['transaction_id']; ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
+                        <!-- <td><?= number_format($ms['price'], 2, ',', '.'); ?></td> -->
+                        <td style="width: 200px"><input id="editPriceOrder-<?= $ms['id'] ?>" class="edit-POprice text-left form-control" data-id="<?= $ms['id']; ?>" data-transID="<?= $ms['transaction_id']; ?>" value="<?= number_format($ms['price'], 2, ',', '.'); ?>"></td>
+                        <?php $subtotal = $ms['incoming'] * $ms['price']; ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
-                        <td><?= $ms['description'] ?></td>
-                        <td><?= $ms['item_desc'] ?></td>
+                        <td style="width: 200px"><input id="editPOrder-<?= $ms['id'] ?>" class="edit-po text-left form-control" data-id="<?= $ms['id']; ?>" data-transID="<?= $ms['transaction_id']; ?>" value="<?= $ms['description']; ?>"></td>
+                        <td><?= $ms['item_desc']; ?></td>
                         <td>
-                            <a data-toggle="modal" data-target="#deleteItemPOModal" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete</a>
+                            <a data-toggle="modal" data-target="#deleteItemPOModal" data-po="<?= $po_id ?>" data-id="<?= $ms['id']; ?>" data-name="<?= $ms['name']; ?>" data-amount="<?= $ms['incoming']; ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete</a>
                         </td>
                     </tr>
                     <?php $temp = $temp + $subtotal;
@@ -331,3 +336,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    //js for setting purchase tax input onchange
+    function change_purchase_tax($amount){
+        window.location.href = "<?= site_url('admin/update_purchase_tax/');?>"+amount;
+    }
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+</script>

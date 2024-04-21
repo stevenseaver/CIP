@@ -69,6 +69,7 @@
                     <th>Amount</th>
                     <th>Price</th>
                     <th class="text-right">Subtotal</th>
+                    <th>Reference</th>
                     <th>Description</th>
                 </tr>
             </thead>
@@ -91,7 +92,8 @@
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php $subtotal = $ms['incoming'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
-                        <td><?= $ms['item_desc'] ?></td>
+                        <td><?= $ms['description']; ?></td>
+                        <td><?= $ms['item_desc']; ?></td>
                     </tr>
                     <?php $temp = $temp + $subtotal; ?>
                     <?php $i++; ?>

@@ -137,6 +137,8 @@
                         }
                     ?>
                     <label for="product_name" class="col-form-label">Product Name</label>
+                    <i type="button" class="small text-primary bi bi-question-circle" data-toggle="tooltip" data-placement="right" title="Selalu isi dengan [NAMA PRODUK][GRAMATUR][LIPATAN]">
+                    </i>
                     <input type="text" class="form-control mb-1" id="product_name" name="product_name" value="<?= $product_name?>">
                     <?= form_error('product_name', '<small class="text-danger pl-2">', '</small>') ?>
                     <small>Product name. Always input on each material.</small>
@@ -148,7 +150,7 @@
                     <label for="campuran" class="col-form-label">Mixing Formula</label>
                     <input type="text" min="1" max="100" class="form-control mb-1" id="campuran" name="campuran" placeholder="Mix amount">
                     <?= form_error('campuran', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Formula mixing number (x10 kg), numerical. Mandatory</small>
+                    <small>Formula mixing number (total material/10), numerical. Mandatory</small>
                 </div>
             </div>
         </div>
@@ -240,7 +242,7 @@
                         continue;
                     } else {
                     }
-                    $formula = $ms['outgoing']/($ms['item_desc']*10)
+                    $formula = $ms['outgoing']/($ms['item_desc'])
                     ?>
                     <tr>
                         <td><?= $i ?></td>
@@ -377,3 +379,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    //js for setting purchase tax input onchange
+    function change_purchase_tax($amount){
+        window.location.href = "<?= site_url('admin/update_purchase_tax/');?>"+amount;
+    }
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+</script>

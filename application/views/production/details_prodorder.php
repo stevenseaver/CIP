@@ -72,7 +72,7 @@
                         continue;
                     } else {
                     }
-                    $formula = $ms['outgoing']/($ms['item_desc']*10)
+                    $formula = $ms['outgoing']/($ms['item_desc'])
                     ?>
                     <tr>
                         <td><?= $i ?></td>

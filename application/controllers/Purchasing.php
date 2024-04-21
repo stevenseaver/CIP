@@ -17,9 +17,9 @@ class Purchasing extends CI_Controller
         //get supplier data
         $data['supplier'] = $this->db->get('supplier')->result_array();
         //get inventory warehouse data
-        $this->load->model('Warehouse_model', 'warehouse_id');
         $transaction_query = 1; //purchase order data
         $status = 8; //purchase order data only
+        $this->load->model('Warehouse_model', 'warehouse_id');
         $data['inventory_item'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
 
         $this->load->view('templates/header', $data);
@@ -69,9 +69,9 @@ class Purchasing extends CI_Controller
         $this->form_validation->set_rules('material', 'material', 'required|trim');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('amount', 'amount', 'required|trim');
-        $this->form_validation->set_rules('description', 'description', 'trim');
+        $this->form_validation->set_rules('tax', 'tax', 'required|trim');
+        $this->form_validation->set_rules('description', 'reference', 'trim');
         $this->form_validation->set_rules('item_desc', 'item description', 'trim');
-        $this->form_validation->set_rules('tax', 'tax', 'trim');
         $this->form_validation->set_rules('term', 'term', 'trim');
 
         if ($this->form_validation->run() == false) {
@@ -324,6 +324,27 @@ class Purchasing extends CI_Controller
         $this->db->where('id', $id);
         $this->db->set('incoming', $amount);
         $this->db->update('stock_material');
+    }
+
+    //update received item quantity on database
+    public function update_desc()
+    {
+        $selector = $this->input->post('selector');
+        $id = $this->input->post('id');
+        
+        if($selector == 1){
+            $reference = $this->input->post('refID');
+    
+            $this->db->where('id', $id);
+            $this->db->set('description', $reference);
+            $this->db->update('stock_material');
+        } else if ($selector == 2){
+            $price = $this->input->post('priceID');
+    
+            $this->db->where('id', $id);
+            $this->db->set('price', $price);
+            $this->db->update('stock_material');
+        };
     }
 
     public function createPDF($type, $po_id, $supplier, $date, $tax)

@@ -145,6 +145,7 @@
          const qtyID = document.getElementById("qtyAmount-" + id).value;
          const priceID = $(this).data('price');
          const discID = $(this).data('discount');
+         const refID = $(this).data('description');
 
          $.ajax({
              url: "<?= base_url('sales/update_so'); ?>",
@@ -155,7 +156,8 @@
                  item_name: item_name,
                  id: id,
                  priceID: priceID,
-                 discID: discID
+                 discID: discID,
+                 refID: refID
              },
              success: function() {
                  window.location.reload();  
@@ -172,6 +174,7 @@
          const priceID = document.getElementById("priceAmount-" + id).value;
          const qtyID = $(this).data('amount');
          const discID = $(this).data('discount');
+         const refID = $(this).data('description');
 
          $.ajax({
              url: "<?= base_url('sales/update_so'); ?>",
@@ -182,7 +185,8 @@
                  item_name: item_name,
                  id: id,
                  priceID: priceID,
-                 discID: discID
+                 discID: discID,
+                 refID: refID
              },
              success: function() {
                  window.location.reload();  
@@ -199,6 +203,7 @@
          const priceID = $(this).data('price');
          const discID = document.getElementById("discountAmount-" + id).value;
          const qtyID = $(this).data('amount');
+         const refID = $(this).data('description');
 
          $.ajax({
              url: "<?= base_url('sales/update_so'); ?>",
@@ -209,7 +214,37 @@
                  item_name: item_name,
                  id: id,
                  priceID: priceID,
-                 discID: discID
+                 discID: discID,
+                 refID: refID
+             },
+             success: function() {
+                 window.location.reload();  
+             }
+         });
+     });
+
+     //js for menu change cart discount on input on change
+     $('.input-reference-so').on('change', function() {
+         //const qtyID = $(this).data('qty');
+         const item_name = $(this).data('item');
+         const ref = $(this).data('ref');
+         const id = $(this).data('id');
+         const qtyID = $(this).data('amount');
+         const discID = $(this).data('discount');
+         const priceID = $(this).data('price');
+         const refID = document.getElementById("referenceEdit-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('sales/update_so'); ?>",
+             type: 'post',
+             data: {
+                 ref: ref,
+                 qtyID: qtyID,
+                 item_name: item_name,
+                 id: id,
+                 priceID: priceID,
+                 discID: discID,
+                 refID: refID
              },
              success: function() {
                  window.location.reload();  
@@ -228,6 +263,48 @@
              data: {
                  id: id,
                  qtyID: qtyID
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
+
+     //js for reference description change on purchase order form on input change
+     $('.edit-po').on('change', function() {
+         const id = $(this).data('id');
+         const refID = document.getElementById("editPOrder-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('purchasing/update_desc'); ?>",
+             type: 'post',
+             data: {
+                 selector : 1,
+                 id: id,
+                 refID: refID
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
+    
+     //js for price change on purchase order form on input change
+     $('.edit-POprice').on('change', function() {
+         const id = $(this).data('id');
+         const priceID = document.getElementById("editPriceOrder-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('purchasing/update_desc'); ?>",
+             type: 'post',
+             data: {
+                 selector : 2,
+                 id: id,
+                 priceID : priceID 
              },
              success: function() {
                 $(document).ajaxStop(function(){
