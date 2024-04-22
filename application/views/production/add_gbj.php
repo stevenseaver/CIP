@@ -654,9 +654,9 @@
                         $sim_alas = similar_text($ms['description'], $alas, $percent_alas);
                         $sim_tarik = similar_text($ms['description'], $tarik, $percent_tarik);
 
-                        if($percent_av > 50 or $percent_prong > 50){
+                        if($percent_av > 60 or $percent_prong > 60){
                             $waste_roll = $waste_roll + $ms['incoming'];
-                        } else if($percent_plong > 50){
+                        } else if($percent_plong > 60){
                             $waste_plong = $waste_plong + $ms['incoming'];
                         } else if($percent_sortir > 50 or $percent_alas > 50 or $percent_tarik > 50){
                             $waste_other = $waste_other + $ms['incoming'];
