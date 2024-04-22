@@ -18,15 +18,15 @@
         $i = 0; 
         foreach ($productCategory as $pc) : ?>
             <div class="card border-0">
-                <div class="card-header" id="heading-<?=$i?>">
+                <div class="card-header" id="headingProd-<?=$i?>">
                 <div class="mb-0 ">
-                    <p class="text-dark text-left font-weight-bold mb-0" type="button" data-toggle="collapse" data-target="#collapse-<?=$i?>" aria-expanded="true" aria-controls="collapse-<?=$i?>">
+                    <p class="text-dark text-left font-weight-bold mb-0" type="button" data-toggle="collapse" data-target="#collapseProd-<?=$i?>" aria-expanded="true" aria-controls="collapseProd-<?=$i?>">
                         <?= $pc['title'];?> <i class="bi bi-caret-down-fill"> </i>
                     </p>
                 </div>
             </div>
 
-            <div id="collapse-<?=$i?>" class="collapse show" aria-labelledby="heading-<?=$i?>?" data-parent="#accordionPage">
+            <div id="collapseProd-<?=$i?>" class="collapse show" aria-labelledby="headingProd-<?=$i?>?" data-parent="#accordionPage">
                 <div class="card-body">
                     <?php $pc['id'];?>
                     <div class="row row-cols-1 row-cols-md-3">

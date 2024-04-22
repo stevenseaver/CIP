@@ -45,7 +45,7 @@
             <div class="row mx-4 my-3">
                 <div class="table-responsive">
                     <div class="table-responsive">
-                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-hover" id="table1" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -135,3 +135,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    var table = $('#table1').DataTable({
+        order: [2, 'asc']
+    });
+</script>

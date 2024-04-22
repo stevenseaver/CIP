@@ -39,7 +39,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <div class="table-responsive">
-                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-hover" id="table1" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -63,7 +63,7 @@
                                             <?php 
                                                 foreach ($dataCart as $amount) :
                                                     if ($amount['ref'] == $items['ref']) {
-                                                        $value = $amount['price'] * $amount['qty'];
+                                                        $value = ($amount['price']-$amount['discount']) * $amount['qty'];
                                                         $temp = $temp + $value; 
                                                     } else {
                                                         
@@ -117,3 +117,9 @@
 
 </div>
 <!-- /.container-fluid -->
+
+<script>
+    var table = $('#table1').DataTable({
+        order: [3, 'asc']
+    });
+</script>

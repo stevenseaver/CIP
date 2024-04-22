@@ -354,7 +354,7 @@
                       ?>
                 </tr>
                 <tr>
-                    <td colspan="10"> </td>
+                    <td colspan="11"> </td>
                     <td class="text-left"><strong>Other Waste</strong></td>
                     <?php 
                         $data['items'] = $this->db->get_where('settings', ['parameter' => 'other_waste'])->row_array();

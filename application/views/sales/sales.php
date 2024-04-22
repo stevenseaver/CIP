@@ -23,9 +23,10 @@
         $date = time();
         $year = date('y');
         $month = date('m');
-        $n = 3;
+        $day = date('d');
+        $n = 2;
         $result = bin2hex(random_bytes($n));
-        $ref = 'S' . $year . $month . $result . $user['id'];
+        $ref = 'S' . $year . $month . $day . $result;
     ?>
 
     <a href="<?= base_url('sales/add_salesorder/') . $ref  ?>" class="btn btn-primary btn-icon-split mb-3">
@@ -45,7 +46,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <div class="table-responsive">
-                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-hover" id="table1" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -73,7 +74,7 @@
                                                 <?php 
                                                     foreach ($dataCart as $amount) :
                                                         if ($amount['ref'] == $items['ref']) {
-                                                            $value = $amount['price'] * $amount['qty'];
+                                                            $value = ($amount['price']-$amount['discount']) * $amount['qty'];
                                                             $temp = $temp + $value; 
                                                         } else {
                                                             
@@ -166,3 +167,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    var table = $('#table1').DataTable({
+        order: [3, 'asc']
+    });
+</script>

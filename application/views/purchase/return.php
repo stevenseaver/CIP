@@ -42,7 +42,7 @@
         <div class="card border-left-primary mb-3">
             <div class="row mx-4 my-3">
                 <div class="table-responsive">
-                    <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-hover" id="table1" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -50,6 +50,7 @@
                                 <th>Date</th>
                                 <th>Supplier</th>
                                 <th>Amount</th>
+                                <th>Reference</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -85,8 +86,9 @@
                                                     
                                                 }
                                                 echo number_format($temp, 2, ',', '.'); 
-                                            ?>
+                                                ?>
                                         </td>
+                                        <td><?= $inv_rcv['description'] ?></td>
                                         <?php $value = $inv_rcv['price'] * $inv_rcv['in_stock'];
                                         $temp = $temp + $value;  ?>
                                         <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
@@ -117,3 +119,9 @@
 
 </div>
 <!-- End of Main Content -->
+
+<script>
+    var table = $('#table1').DataTable({
+        order: [2, 'asc']
+    });
+</script>
