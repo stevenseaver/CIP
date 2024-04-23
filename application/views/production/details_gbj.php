@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <!-- back button -->
+    <!-- back button -->    
     <a href="<?= base_url('production/gbj_report') ?>" class="btn btn-white btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-arrow-left text-dark"></i>
@@ -24,6 +24,34 @@
         <span class="text">View PDF</span>
     </a>
 
+    <a href="<?= base_url('production/changeStatus/index?status=') . '2&prodID=' . $getID['transaction_id'] ?>" class="btn btn-danger btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-file-earmark-pdf"></i>
+        </span>
+        <span class="text">Roll Started</span>
+    </a>
+
+    <a href="<?= base_url('production/changeStatus/index?status=') . '3&prodID=' . $getID['transaction_id'] ?>" class="btn btn-primary btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-file-earmark-pdf"></i>
+        </span>
+        <span class="text">Roll Completed</span>
+    </a>
+    
+    <a href="<?= base_url('production/changeStatus/index?status=') . '4&prodID=' . $getID['transaction_id'] ?>" class="btn btn-warning btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-file-earmark-pdf"></i>
+        </span>
+        <span class="text">Cutting Started</span>
+    </a>
+
+    <a href="<?= base_url('production/changeStatus/index?status=') . '5&prodID=' . $getID['transaction_id']?>" class="btn btn-success btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-file-earmark-pdf"></i>
+        </span>
+        <span class="text">Finished Goods Completed</span>
+    </a>
+
     <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">
             <p class="text-dark mb-1">Prod Order Ref : </p>
@@ -34,6 +62,18 @@
             <p class="text-dark font-weight-bold"> <?= $getID['product_name'] ?></p>
             <p class="text-dark mb-1">Batch : </p>
             <p class="text-dark font-weight-bold"> <?= $getID['description'] ?></p>
+            <p class="text-dark mb-1">Status : </p>
+            <?php if($getID['transaction_status'] == 1){ ?>
+                <td><p class="badge badge-secondary">Order dibuat</p></td>
+            <?php } else if($getID['transaction_status'] == 2){ ?>
+                <td><p class="badge badge-danger">Mulai roll</p></td>
+            <?php } else if($getID['transaction_status'] == 3){ ?>
+                <td><p class="badge badge-primary">Roll selesai</p></td>   
+            <?php } else if($getID['transaction_status'] == 4){ ?>
+                <td><p class="badge badge-warning">Mulai potong</p></td>   
+            <?php } else if($getID['transaction_status'] == 5){ ?>
+                <td><p class="badge badge-success">Selesai</p></td>   
+            <?php }; ?>
         </div>
     </div>
 

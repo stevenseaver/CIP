@@ -58,60 +58,71 @@
         $temp = 0;
         $before = '';
     ?>
-        <div class="card border-left-primary mb-3">
-            <div class="row mx-4 my-3">
-                <div class="table-responsive">
-                    <div class="table-responsive">
-                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
+    
+    <div class="card border-left-primary mb-3">
+        <div class="row mx-4 my-3">
+            <div class="table-responsive">
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Production ID</th>
+                            <th>Date</th>
+                            <th>Product Name</th>
+                            <th>Batch</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1;
+                        $temp = 0; ?>
+                        <?php foreach ($materialStock as $inv) :
+                            if ($before != $inv['transaction_id']) { ?>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Production ID</th>
-                                    <th>Date</th>
-                                    <th>Product Name</th>
-                                    <th>Batch</th>
-                                    <th>Action</th>
+                                    <td><?= $i ?></td>
+                                    <td><?= $inv['transaction_id'] ?></td>
+                                    <td><?= date('d F Y H:i:s', $inv['date']); ?></td>
+                                    <td><?= $inv['product_name'] ?></td>
+                                    <td><?= $inv['description'] ?></td>
+                                    <?php $value = $inv['price'] * $inv['in_stock'];
+                                    $temp = $temp + $value;  ?>
+                                    <?php if($inv['transaction_status'] == 1){ ?>
+                                        <td><p class="badge badge-secondary">Order dibuat</p></td>
+                                    <?php } else if($inv['transaction_status'] == 2){ ?>
+                                        <td><p class="badge badge-danger">Mulai roll</p></td>
+                                    <?php } else if($inv['transaction_status'] == 3){ ?>
+                                        <td><p class="badge badge-primary">Roll selesai</p></td>   
+                                    <?php } else if($inv['transaction_status'] == 4){ ?>
+                                        <td><p class="badge badge-warning">Mulai potong</p></td>   
+                                    <?php } else if($inv['transaction_status'] == 5){ ?>
+                                        <td><p class="badge badge-success">Selesai</p></td>   
+                                    <?php }; ?>
+                                    <td>
+                                        <a href="<?= base_url('production/prod_details/') . $inv['transaction_id'] ?>" class="badge badge-primary clickable"><i class="bi bi-info-circle-fill"> </i>Details</a>
+                                        <a href="<?= base_url('production/edit_prod/') . $inv['transaction_id'] ?>" class="badge badge-warning clickable"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                        <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete Production Order</a>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1;
-                                $temp = 0; ?>
-                                <?php foreach ($materialStock as $inv) :
-                                    if ($before != $inv['transaction_id']) { ?>
-                                        <tr>
-                                            <td><?= $i ?></td>
-                                            <td><?= $inv['transaction_id'] ?></td>
-                                            <td><?= date('d F Y H:i:s', $inv['date']); ?></td>
-                                            <td><?= $inv['product_name'] ?></td>
-                                            <td><?= $inv['description'] ?></td>
-                                            <?php $value = $inv['price'] * $inv['in_stock'];
-                                            $temp = $temp + $value;  ?>
-                                            <td>
-                                                <a href="<?= base_url('production/prod_details/') . $inv['transaction_id'] ?>" class="badge badge-primary clickable"><i class="bi bi-info-circle-fill"> </i>Details</a>
-                                                <a href="<?= base_url('production/edit_prod/') . $inv['transaction_id'] ?>" class="badge badge-warning clickable"><i class="bi bi-pencil-fill"> </i>Edit</a>
-                                                <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete Production Order</a>
-                                            </td>
-                                        </tr>
-                                    <?php
-                                        $before = $inv['transaction_id'];
-                                        $i++;
-                                    } else {
-                                    } ?>
-                                <?php endforeach; ?>
-                            </tbody>
-                            <!-- <tfoot>
-                            <tr class="text-right align-items-center">
-                                <td colspan="7"> </td>
-                                <td class="right"><strong>Total</strong></td>
-                                <?php $grandTotal = $temp; ?>
-                                <td class="right">IDR <?= $this->cart->format_number($grandTotal, '-', ',', '.'); ?></td>
-                            </tr>
-                        </tfoot> -->
-                        </table>
-                    </div>
-                </div>
+                            <?php
+                                $before = $inv['transaction_id'];
+                                $i++;
+                            } else {
+                            } ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                    <!-- <tfoot>
+                    <tr class="text-right align-items-center">
+                        <td colspan="7"> </td>
+                        <td class="right"><strong>Total</strong></td>
+                        <?php $grandTotal = $temp; ?>
+                        <td class="right">IDR <?= $this->cart->format_number($grandTotal, '-', ',', '.'); ?></td>
+                    </tr>
+                </tfoot> -->
+                </table>
             </div>
         </div>
+    </div>
     <?php
     } else { ?>
         <div class="alert alert-danger" role="alert">There's no transaction! </a></div>

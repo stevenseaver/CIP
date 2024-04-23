@@ -51,7 +51,8 @@ class Production extends CI_Controller
         $this->load->model('Warehouse_model', 'warehouse_id');
         $transaction_query = 1; //unprocessed production order data
         $status = 3; //production order data only
-        $data['materialStock'] = $this->warehouse_id->prodOrderwithTimeFrame($transaction_query, $status, $start_date, $end_date);
+        $data['materialStock'] = $this->warehouse_id->prodOrderwithTimeFrame($status, $start_date, $end_date);
+        // $data['materialStock'] = $this->warehouse_id->prodOrderwithTimeFrame($transaction_query, $status, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -493,7 +494,8 @@ class Production extends CI_Controller
         $this->load->model('Warehouse_model', 'warehouse_id');
         $transaction_query = 1; //unprocessed production order data
         $status = 3; //production order data only
-        $data['materialStock'] = $this->warehouse_id->prodOrderwithTimeFrame($transaction_query, $status, $start_date, $end_date);
+        $data['materialStock'] = $this->warehouse_id->prodOrderwithTimeFrame($status, $start_date, $end_date);
+        // $data['materialStock'] = $this->warehouse_id->prodOrderwithTimeFrame($transaction_query, $status, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -640,7 +642,7 @@ class Production extends CI_Controller
             $this->db->where('code', $code);
             $this->db->update('stock_roll', $data2);
             
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Roll added!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Roll ' . $item . ' with amount ' . $amount . ' kg added!</div>');
             redirect('production/add_roll/' . $prodID);
         }
     }
@@ -735,7 +737,7 @@ class Production extends CI_Controller
             $this->db->where('code', $materialCode);
             $this->db->update('stock_material', $data2);
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material added!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Additional material added!</div>');
             redirect('production/add_roll/' . $po_id);
         }
     }
@@ -820,16 +822,18 @@ class Production extends CI_Controller
         $this->db->update('stock_roll', $data);
     }
 
-    public function rollToGBJ($prodID){
-        $transaction_status = 2;
-        $data3 = [
+    public function changeStatus($prodID){
+        $transaction_status = $this->input->get('status');
+        $prodID = $this->input->get('prodID');
+        
+        $data = [
             'transaction_status' => $transaction_status
         ];
 
         $this->db->where('transaction_id', $prodID);
-        $this->db->update('stock_material', $data3);
+        $this->db->update('stock_material', $data);
 
-        redirect('production/gbj_report');
+        redirect('production/gbj_details/' . $prodID);
     }
 
     //delete Input Roll per item
@@ -972,7 +976,8 @@ class Production extends CI_Controller
         $this->load->model('Warehouse_model', 'warehouse_id');
         $transaction_query = 1; //unprocessed  data
         $status = 3; //production order data only
-        $data['materialStock'] = $this->warehouse_id->prodOrderwithTimeFrame($transaction_query, $status, $start_date, $end_date);
+        // $data['materialStock'] = $this->warehouse_id->prodOrderwithTimeFrame($transaction_query, $status, $start_date, $end_date);
+        $data['materialStock'] = $this->warehouse_id->prodOrderwithTimeFrame($status, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -1164,7 +1169,7 @@ class Production extends CI_Controller
                 $this->db->update('stock_finishedgoods', $data2);
             }
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Finished goods added!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Finished goods ' . $item . ' with amount ' . $amount . ' kg added!</div>');
             redirect('production/add_gbj/' . $prodID);
         }
     }

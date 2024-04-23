@@ -183,7 +183,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" id="dataTable2" width="100%" cellspacing="0">
+                            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>PO Number</th>
@@ -271,7 +271,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" id="dataTable2" width="100%" cellspacing="0">
+                            <table class="table table-hover" id="table1" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Invoice Number</th>
@@ -301,7 +301,7 @@
                                                         <?php 
                                                             foreach ($sales_data as $amount) :
                                                                 if ($amount['ref'] == $sales['ref']) {
-                                                                    $value = $amount['price'] * $amount['qty'];
+                                                                    $value = ($amount['price']-$amount['discount']) * $amount['qty'];
                                                                     $temp = $temp + $value; 
                                                                 } else {
 
@@ -503,3 +503,10 @@
 </div>
 </div>
 <!-- End of Main Content -->
+
+<script>
+    var table1 = $('#table1').DataTable({
+        order: [1, 'asc'],
+        paging: true
+    });
+</script>

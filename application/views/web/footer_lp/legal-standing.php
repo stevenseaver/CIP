@@ -11,7 +11,7 @@
         </div>
 
         <p class="text-dark text-justify">
-            CV. Rukun Gemilang Perkasa adalah perusahaan badan swasta PMDN yang terdaftar dengan NIB 1503240288248 dibawah Kementrian Investasi Indonesia. SK Akta pendirian nomor AHU-0021138-AH.01.14 Tahun 2024 terdaftar di Kementrian Hukum dan Hak Asasi Manusia. NPWP nomor 12.800.415.7-643.000 terdaftar di Direktorat Jenderal Pajak - Kementrian Keuangan Indonesia.
+            CV. Rukun Gemilang Perkasa adalah perusahaan badan swasta PMDN yang terdaftar dengan NIB 1503240288248 dibawah Kementrian Investasi Indonesia. SK Akta pendirian nomor AHU-0021138-AH.01.14 Tahun 2024 terdaftar di Kementrian Hukum dan Hak Asasi Manusia. NPWP terdaftar di Direktorat Jenderal Pajak - Kementrian Keuangan Indonesia.
         </p>
 
         <p class="text-dark text-justify">

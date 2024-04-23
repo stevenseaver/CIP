@@ -39,6 +39,38 @@
         </span>
         <span class="text">Print for Staff</span>
     </a>
+    <?php 
+        $tester = $getID['description'];
+        if ($tester != 1){ ?>
+            <div class="card rounded shadow border-0 mb-3">
+                <div class="card-body mb-0">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p class="text-dark mb-0">Product : </p>
+                            <p class="text-dark font-weight-bold mb-0"> <?= $getID['product_name'] ?></p>
+                        </div>
+                        <div class="col-lg-6">
+                            <p class="text-dark mb-0">Status : </p>
+                            <?php if($getID['transaction_status'] == 1){ ?>
+                                <td><p class="badge badge-secondary">Order dibuat</p></td>
+                            <?php } else if($getID['transaction_status'] == 2){ ?>
+                                <td><p class="badge badge-danger">Mulai roll</p></td>
+                            <?php } else if($getID['transaction_status'] == 3){ ?>
+                                <td><p class="badge badge-primary">Roll selesai</p></td>   
+                            <?php } else if($getID['transaction_status'] == 4){ ?>
+                                <td><p class="badge badge-warning">Mulai potong</p></td>   
+                            <?php } else if($getID['transaction_status'] == 5){ ?>
+                                <td><p class="badge badge-success">Selesai</p></td>   
+                            <?php }; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <?php
+        } else {
+            
+        };
+    ?>
     
     <form action="<?= base_url('production/add_item_prod/') . $po_id . '/3' ?>" method="post">
         <div class="form-group">

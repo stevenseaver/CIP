@@ -50,6 +50,7 @@
                                     <th>Date</th>
                                     <th>Product Name</th>
                                     <th>Batch</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -66,6 +67,17 @@
                                             <td><?= $inv['description'] ?></td>
                                             <?php $value = $inv['price'] * $inv['in_stock'];
                                             $temp = $temp + $value;  ?>
+                                            <?php if($inv['transaction_status'] == 1){ ?>
+                                                <td><p class="badge badge-secondary">Order dibuat</p></td>
+                                            <?php } else if($inv['transaction_status'] == 2){ ?>
+                                                <td><p class="badge badge-danger">Mulai roll</p></td>
+                                            <?php } else if($inv['transaction_status'] == 3){ ?>
+                                                <td><p class="badge badge-primary">Roll selesai</p></td>   
+                                            <?php } else if($inv['transaction_status'] == 4){ ?>
+                                                <td><p class="badge badge-warning">Mulai potong</p></td>   
+                                            <?php } else if($inv['transaction_status'] == 5){ ?>
+                                                <td><p class="badge badge-success">Selesai</p></td>   
+                                            <?php }; ?>
                                             <td>
                                                 <a href="<?= base_url('production/roll_details/') . $inv['transaction_id'] ?>" class="badge badge-primary clickable"><i class="bi bi-info-circle-fill"> </i>Details</a>
                                                 <a href="<?= base_url('production/add_roll/') . $inv['transaction_id'] ?>" class="badge badge-warning clickable"><i class="bi bi-pencil-fill"> </i>Input Roll</a>

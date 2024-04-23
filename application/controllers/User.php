@@ -67,7 +67,7 @@ class User extends CI_Controller
         $data['inventory_item_received'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
         //get sales info
         $this->load->model('Sales_model', 'custID');
-        $data['sales_data'] = $this->custID->getSaleswithTimeFrameDualParameters(1, 4, $start_date, $end_date);
+        $data['sales_data'] = $this->custID->getSaleswithTimeFrameDualParameters(0, 4, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

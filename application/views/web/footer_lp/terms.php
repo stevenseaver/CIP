@@ -47,7 +47,7 @@
                         <p class="card-text">CV. Rukun Gemilang Perkasa (Us/We/Our) are a private company that produces and trades plastic products, registered in Indonesia with following details. </p>
                         <p class="card-text mb-0 font-weight-bold">Addess</p>
                         <p class="card-text">Pergudangan dan Industri Sinar Gedangan A-20, Sidoarjo, East Java, Indonesia 61254</p>
-                        <p class="card-text">NIB/Business License Number 1503240288249 and Tax Number 12.800.415.7-643.000</p>
+                        <p class="card-text">NIB/Business License Number 1503240288249</p>
                         <p class="card-text mb-0">Rukun&trade; and its derrivatives are registered trade marks under Ministry of Legal and Human Rights of Indonesia. All rights reserved. Violation to such intellectual properties will be dealt severly according the regulations.</p>
                     </div>
                 </div>
@@ -339,7 +339,7 @@
                         <p class="card-text">CV. Rukun Gemilang Perkasa (Kami) adalah perusahaan swasta yang membuat dan memperdagangkan produk plastik, terdaftar di Indonesia dengan detail sebagai berikut.</p>
                         <p class="card-text mb-0 font-weight-bold">Alamat</p>
                         <p class="card-text">Pergudangan dan Industri Sinar Gedangan A-20, Sidoarjo, Jawa Timur, Indonesia 61254</p>
-                        <p class="card-text">Nomor NIB 1503240288249 dan NPWP 12.800.415.7-643.000</p>
+                        <p class="card-text">Nomor NIB 1503240288249</p>
                         <p class="card-text mb-0">Rukun&trade; dan merek turunannya adalah merek dagang terdaftar di Kementrian Hukum dan HAM Republik Indonesia. Pelanggaran terhadap hak kekayaan intelektual kami akan diproses secara tegas berdasarkan hukum yang berlaku.</p>
                     </div>
                 </div>
