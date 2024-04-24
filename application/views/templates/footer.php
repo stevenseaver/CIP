@@ -145,6 +145,8 @@
          const qtyID = document.getElementById("qtyAmount-" + id).value;
          const priceID = $(this).data('price');
          const discID = $(this).data('discount');
+         const sackID = $(this).data('sack');
+         const weightID = $(this).data('weight');
          const refID = $(this).data('description');
 
          $.ajax({
@@ -157,6 +159,8 @@
                  id: id,
                  priceID: priceID,
                  discID: discID,
+                 sackID: sackID,
+                 weightID: weightID,
                  refID: refID
              },
              success: function() {
@@ -174,6 +178,8 @@
          const priceID = document.getElementById("priceAmount-" + id).value;
          const qtyID = $(this).data('amount');
          const discID = $(this).data('discount');
+         const sackID = $(this).data('sack');
+         const weightID = $(this).data('weight');
          const refID = $(this).data('description');
 
          $.ajax({
@@ -186,6 +192,8 @@
                  id: id,
                  priceID: priceID,
                  discID: discID,
+                 sackID: sackID,
+                 weightID: weightID,
                  refID: refID
              },
              success: function() {
@@ -203,6 +211,8 @@
          const priceID = $(this).data('price');
          const discID = document.getElementById("discountAmount-" + id).value;
          const qtyID = $(this).data('amount');
+         const sackID = $(this).data('sack');
+         const weightID = $(this).data('weight');
          const refID = $(this).data('description');
 
          $.ajax({
@@ -215,6 +225,8 @@
                  id: id,
                  priceID: priceID,
                  discID: discID,
+                 sackID: sackID,
+                 weightID: weightID,
                  refID: refID
              },
              success: function() {
@@ -224,6 +236,72 @@
      });
 
      //js for menu change cart discount on input on change
+     $('.input-sack-so').on('change', function() {
+         //const qtyID = $(this).data('qty');
+         const item_name = $(this).data('item');
+         const ref = $(this).data('ref');
+         const id = $(this).data('id');
+         const qtyID = $(this).data('amount');
+         const discID = $(this).data('discount');
+         const priceID = $(this).data('price');
+         const sackID = document.getElementById("sackEdit-" + id).value;
+         const weightID = $(this).data('weight');
+         const refID = $(this).data('description');
+
+         $.ajax({
+             url: "<?= base_url('sales/update_so'); ?>",
+             type: 'post',
+             data: {
+                 ref: ref,
+                 qtyID: qtyID,
+                 item_name: item_name,
+                 id: id,
+                 priceID: priceID,
+                 discID: discID,
+                 sackID: sackID,
+                 weightID: weightID,
+                 refID: refID
+             },
+             success: function() {
+                 window.location.reload();  
+             }
+         });
+     });
+
+     //js for menu change cart discount on input on change
+     $('.input-weight-so').on('change', function() {
+         //const qtyID = $(this).data('qty');
+         const item_name = $(this).data('item');
+         const ref = $(this).data('ref');
+         const id = $(this).data('id');
+         const qtyID = $(this).data('amount');
+         const discID = $(this).data('discount');
+         const priceID = $(this).data('price');
+         const sackID = $(this).data('sack');
+         const weightID = document.getElementById("weightEdit-" + id).value;
+         const refID = $(this).data('description');
+
+         $.ajax({
+             url: "<?= base_url('sales/update_so'); ?>",
+             type: 'post',
+             data: {
+                 ref: ref,
+                 qtyID: qtyID,
+                 item_name: item_name,
+                 id: id,
+                 priceID: priceID,
+                 discID: discID,
+                 sackID: sackID,
+                 weightID: weightID,
+                 refID: refID
+             },
+             success: function() {
+                 window.location.reload();  
+             }
+         });
+     });
+     
+     //js for menu change cart discount on input on change
      $('.input-reference-so').on('change', function() {
          //const qtyID = $(this).data('qty');
          const item_name = $(this).data('item');
@@ -232,6 +310,8 @@
          const qtyID = $(this).data('amount');
          const discID = $(this).data('discount');
          const priceID = $(this).data('price');
+         const sackID = $(this).data('sack');
+         const weightID = $(this).data('weight');
          const refID = document.getElementById("referenceEdit-" + id).value;
 
          $.ajax({
@@ -244,6 +324,8 @@
                  id: id,
                  priceID: priceID,
                  discID: discID,
+                 sackID: sackID,
+                 weightID: weightID,
                  refID: refID
              },
              success: function() {

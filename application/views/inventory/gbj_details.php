@@ -88,6 +88,7 @@
                                 <th>Inbound</th>
                                 <th>Outbound</th>
                                 <th>Stock</th>
+                                <th>Weight/Pack</th>
                                 <th>Price</th>
                                 <th>Batch</th>
                                 <th>Description</th>
@@ -119,6 +120,18 @@
                                          ?> </td>
                                         <td><?= number_format($fs['outgoing'], 2, ',', '.') .' '. $fs['unit_satuan'] . '(s)'; ?> </td>
                                         <td><?= number_format($fs['in_stock'], 2, ',', '.') .' '. $fs['unit_satuan'] . '(s)'; ?> </td>
+                                        <td>
+                                            <?php 
+                                                if ($fs['outgoing'] != 0){
+                                                    $calculate_weight_persack = $fs['before_convert']/$fs['outgoing'];
+                                                } else if ($fs['incoming'] != 0) {
+                                                    $calculate_weight_persack = $fs['before_convert']/$fs['incoming'];
+                                                }else {
+                                                    $calculate_weight_persack = '0';
+                                                };
+                                                echo number_format($calculate_weight_persack, 2, ',', '.') . ' kg/pack'; 
+                                            ?> 
+                                        </td>
                                         <td><?= number_format($fs['price'], 2, ',', '.') ?> </td>
                                         <td><?= $fs['batch'] ?> </td>
                                         <td><?= $fs['description'] ?> </td>

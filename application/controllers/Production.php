@@ -621,7 +621,7 @@ class Production extends CI_Controller
                 'incoming' => $amount,
                 'outgoing' => 0,
                 'in_stock' => 0,
-                // 'in_stock' => $stock_old + $amount,
+                'in_stock' => $stock_old + $amount,
                 'price' => $price,
                 'status' => 3,
                 'warehouse' => 2,
@@ -765,7 +765,7 @@ class Production extends CI_Controller
         $data3 = [
             'date' => $date,
             'incoming' => $amount,
-            // 'in_stock' => $update_stock
+            'in_stock' => $update_stock
         ];
 
         $this->db->where('id', $id);

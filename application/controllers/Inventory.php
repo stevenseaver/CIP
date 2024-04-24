@@ -710,7 +710,7 @@ class Inventory extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('inventory/material_details', $data);
+            $this->load->view('inventory/prod_details', $data);
             $this->load->view('templates/footer');
         } else {
             $code = $this->input->post('code');
@@ -735,6 +735,7 @@ class Inventory extends CI_Controller
                     'price' => $price,
                     'status' => $transaction_status,
                     'incoming' => $amount,
+                    'in_stock' => $in_stockOld + $amount,
                     'date' => $date,
                     'weight' => $weight,
                     'lipatan' => $lipatan,
@@ -765,6 +766,7 @@ class Inventory extends CI_Controller
                     'price' => $price,
                     'status' => $transaction_status,
                     'outgoing' => $amount,
+                    'in_stock' => $in_stockOld - $amount,
                     'date' => $date,
                     'weight' => $weight,
                     'lipatan' => $lipatan,
@@ -797,7 +799,7 @@ class Inventory extends CI_Controller
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['rollStock'] = $this->warehouse_id->getProduction();
         $data['getID'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
-        $code = $data['getID']['code'];
+        $data['code'] = $data['getID']['code'];
         $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
 
         $this->form_validation->set_rules('categories', 'categories', 'required|trim');
@@ -808,7 +810,7 @@ class Inventory extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('inventory/gbj_details', $data);
+            $this->load->view('inventory/prod_details', $data);
             $this->load->view('templates/footer');
         } else {
             $idToEdit = $this->input->post('id');
@@ -849,26 +851,36 @@ class Inventory extends CI_Controller
             } else {
                 //production adds to final stocks
                 if ($category == 'Production') {
-                    $this->db->set('incoming', $adjust_amount);
-                    $this->db->set('date', $date);
+                    $data3 = [
+                        'date' => $date,
+                        'incoming' => $adjust_amount,
+                        'in_stock' => ($stock_end_before - $stock_adjust_before) + $adjust_amount,
+                    ];
+                    // $this->db->set('incoming', $adjust_amount);
+                    // $this->db->set('date', $date);
                     $this->db->where('id', $idToEdit);
-                    $this->db->update('stock_roll');
-
+                    $this->db->update('stock_roll', $data3);
+                    
                     $data2 = [
                         'in_stock' => ($stock_end_before - $stock_adjust_before) + $adjust_amount,
                         'date' => $date
                     ];
-
+                    
                     $this->db->where('code', $code);
                     $this->db->update('stock_roll', $data2, 'status = 7');
                 }
                 //other than that, it reduces the final stocks
                 else {
-                    $this->db->set('outgoing', $adjust_amount);
-                    $this->db->set('date', $date);
+                    $data3 = [
+                        'date' => $date,
+                        'outgoing' => $adjust_amount,
+                        'in_stock' => ($stock_end_before + $stock_adjust_before) - $adjust_amount,
+                    ];
+                    // $this->db->set('outgoing', $adjust_amount);
+                    // $this->db->set('date', $date);
                     $this->db->where('id', $idToEdit);
-                    $this->db->update('stock_roll');
-
+                    $this->db->update('stock_roll', $data3);
+                    
                     $data2 = [
                         'in_stock' => ($stock_end_before + $stock_adjust_before) - $adjust_amount,
                         'date' => $date
@@ -1141,7 +1153,7 @@ class Inventory extends CI_Controller
         //join warehouse database 
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
-        $data['cat'] = $this->db->get('product_menu')->result_array();
+        $data['cat'] = $this->db->order_by('unit','ASC')->get('product_category')->result_array();
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
@@ -1358,6 +1370,7 @@ class Inventory extends CI_Controller
         //get item code by using ID as anchor
         $data['getID'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
         $data['code'] = $data['getID']['code'];
+        $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
         $code = $data['code'];
 
         $this->form_validation->set_rules('categories', 'categories', 'required|trim');

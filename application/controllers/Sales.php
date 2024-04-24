@@ -169,7 +169,9 @@ class Sales extends CI_Controller
         $this->form_validation->set_rules('price', 'price', 'numeric|required|trim');
         $this->form_validation->set_rules('amount', 'amount', 'numeric|required|trim');
         $this->form_validation->set_rules('discount', 'discount', 'numeric|trim');
-        $this->form_validation->set_rules('notes', 'notes', 'required|trim');
+        $this->form_validation->set_rules('bal', 'sack amount', 'required|numeric|trim');
+        $this->form_validation->set_rules('weight', 'weight', 'required|numeric|trim');
+        $this->form_validation->set_rules('notes', 'reference', 'required|trim');
         
         //to get cust data
         $data['custDetails'] = $this->db->get_where('cart', ['ref' => $ref])->row_array();
@@ -199,9 +201,15 @@ class Sales extends CI_Controller
             $code = $this->input->post('code');
             $price = $this->input->post('price');
             $amount = $this->input->post('amount');
+            $sack = $this->input->post('bal');
+            $weight = $this->input->post('weight');
             $discount = $this->input->post('discount');
             $desc = $this->input->post('notes');
-            $subtotal = ($price-$discount) * $amount;
+            if($discount != 0){
+                $subtotal = ($price-$discount) * $amount;
+            } else {
+                $subtotal = $price * $amount;
+            };
 
             //get selected item
             $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['code' => $code, 'status' => 7])->row_array();
@@ -221,6 +229,8 @@ class Sales extends CI_Controller
                 'prod_cat' => $prod_cat,
                 'deliveryTo' => $cust_address,
                 'qty' => $amount,
+                'sack' => $sack,
+                'weight' => $weight,
                 'unit' => $unit,
                 'price' => $price,
                 'discount' => $discount,
@@ -252,6 +262,7 @@ class Sales extends CI_Controller
                 'incoming' => 0,
                 'outgoing' => $amount,
                 'unit_satuan' => $unit,
+                'before_convert' => $weight,
                 'status' => $transaction_status,
                 'warehouse' => $warehouse,
                 'transaction_id' => $ref,
@@ -285,6 +296,8 @@ class Sales extends CI_Controller
         $id = $this->input->post('id');
         $price = $this->input->post('priceID');
         $discount = $this->input->post('discID');
+        $sack = $this->input->post('sackID');
+        $weight = $this->input->post('weightID');
         $desc = $this->input->post('refID');
 
         $data_cart = array(
@@ -292,6 +305,8 @@ class Sales extends CI_Controller
             'price' => $price,
             'discount' => $discount,
             'subtotal' => ($price - $discount) * $qty,
+            'sack' => $sack,
+            'weight' => $weight,
             'description' => $desc
         );
         //to do: update inventory database due to amount change
@@ -300,6 +315,7 @@ class Sales extends CI_Controller
 
         $data_warehouse = array(
             'outgoing' => $qty,
+            'before_convert' => $weight,
             'price' => ($price - $discount),
             'description' => $desc
         );

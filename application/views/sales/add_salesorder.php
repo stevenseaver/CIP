@@ -128,7 +128,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-3">
+                    <div class="col-lg-2">
                         <div class="form-group">
                             <!-- Item code -->
                             <label for="amount" class="col-form-label">Amount</label>
@@ -150,7 +150,7 @@
                             <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-4">
                         <div class="form-group">
                             <!-- Item price -->
                             <label for="discount" class="col-form-label">Discount</label>
@@ -168,7 +168,26 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <!-- Item price -->
+                            <label for="discount" class="col-form-label">Weight</label>
+                            <div class="input-group">
+                                <!-- Item code -->
+                                <input type="number" step=".01" class="form-control" id="bal" name="bal" value="<?= set_value('bal'); ?>" placeholder="Sack amount">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="unit" name="unit">sack</span>
+                                </div>
+                                <input type="number" step=".01" class="form-control" id="weight" name="weight" value="<?= set_value('weight'); ?>" placeholder="Weight">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="unit" name="unit">Kg</span>
+                                </div>
+                            </div>
+                            <?= form_error('weight', '<small class="text-danger pl-2">', '</small>') ?>
+                            <?= form_error('bal', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                    <div class="col-lg-1">
                         <div class="form-group">
                             <!-- Item price -->
                             <label for="notes" class="col-form-label">Reference</label>
@@ -199,6 +218,8 @@
                                     <th>Unit Price</th>
                                     <th>Discount</th>
                                     <th class="text-right">Subtotal</th>
+                                    <th>Weight/Sack</th>
+                                    <th>Weight/Pack</th>
                                     <th>Reference</th>
                                     <th>Action</th>
                                 </tr>
@@ -216,22 +237,44 @@
                                         <td><?= $items['item_name']; ?></td>
                                         <td style="width: 100px">
                                             <?php if ($items['prod_cat'] != '6' and $items['prod_cat'] != '7') { ?>
-                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-discount="<?= $items['discount']?>" data-description="<?= $items['description']; ?>"  data-ref="<?= $ref?>" value="<?= number_format($items['qty'], '2', ',', '.'); ?>">
+                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-discount="<?= $items['discount']?>" data-sack="<?= $items['sack']?>" data-weight="<?= $items['weight'] ?>" data-description="<?= $items['description']; ?>"  data-ref="<?= $ref?>" value="<?= number_format($items['qty'], '2', ',', '.'); ?>">
                                                 <p class="text-center">pack</p>
                                             <?php } else { ?>
-                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-discount="<?= $items['discount']?>" data-description="<?= $items['description']; ?>"  data-ref="<?= $ref?>" value="<?= number_format($items['qty'], '2', ',', '.'); ?>">
+                                                <input id="qtyAmount-<?= $items['id']; ?>" class="input-qty-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-price="<?= $items['price']; ?>" data-discount="<?= $items['discount']?>" data-sack="<?= $items['sack']?>" data-weight="<?= $items['weight'] ?>" data-description="<?= $items['description']; ?>"  data-ref="<?= $ref?>" value="<?= number_format($items['qty'], '2', ',', '.'); ?>">
                                                 <p class="text-center">kg</p>
                                             <?php }?>
                                         </td>
                                         <td style="width: 150px">
-                                            <input id="priceAmount-<?= $items['id']; ?>" class="input-price-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-amount="<?= $items['qty']; ?>" data-discount="<?= $items['discount']?>" data-description="<?= $items['description'];?>"  data-ref="<?= $ref?>" value="<?= number_format($items['price'], '2', ',', '.'); ?>">
+                                            <input id="priceAmount-<?= $items['id']; ?>" class="input-price-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-amount="<?= $items['qty']; ?>" data-discount="<?= $items['discount']?>" data-sack="<?= $items['sack']?>" data-weight="<?= $items['weight'] ?>" data-description="<?= $items['description'];?>"  data-ref="<?= $ref?>" value="<?= number_format($items['price'], '2', ',', '.'); ?>">
                                         </td>
                                         <td style="width: 120px"> 
-                                            <input id="discountAmount-<?= $items['id']; ?>" class="input-discount-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-amount="<?= $items['qty']; ?>" data-price="<?= $items['price']; ?>" data-description="<?= $items['description'];?>"   data-ref="<?= $ref?>" value="<?= number_format($items['discount'], '2', ',', '.'); ?>">
+                                            <input id="discountAmount-<?= $items['id']; ?>" class="input-discount-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-amount="<?= $items['qty']; ?>" data-price="<?= $items['price']; ?>" data-sack="<?= $items['sack']?>" data-weight="<?= $items['weight'] ?>" data-description="<?= $items['description'];?>"   data-ref="<?= $ref?>" value="<?= number_format($items['discount'], '2', ',', '.'); ?>">
                                         </td>
                                         <td class="text-right">IDR <?= number_format($items['subtotal'], '2', ',', '.'); ?></td>
+                                        <td class="text-center">
+                                            <?php
+                                                if ($items['sack']!=0){
+                                                    $calculate_weight_persack = $items['weight']/$items['sack'];
+                                                } else {
+                                                    $calculate_weight_persack = 0;
+                                                };
+                                                echo number_format($calculate_weight_persack, '2', ',', '.'). ' kg/sack'; 
+                                            ?>
+                                            <input id="sackEdit-<?= $items['id']; ?>" class="input-sack-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-amount="<?= $items['qty']; ?>" data-price="<?= $items['price']; ?>" data-weight="<?= $items['weight'] ?>" data-discount="<?= $items['discount']?>" data-description="<?= $items['description'];?>" data-ref="<?= $ref?>" value="<?= $items['sack']; ?>">
+                                        </td>
+                                        <td class="text-center">
+                                            <?php
+                                                if ($items['sack']!=0){
+                                                    $calculate_weight_perpack = $items['weight']/$items['qty'];
+                                                } else {
+                                                    $calculate_weight_perpack = 0;
+                                                };
+                                                echo number_format($calculate_weight_perpack, '2', ',', '.') . ' kg/pack'; 
+                                            ?>
+                                            <input id="weightEdit-<?= $items['id']; ?>" class="input-weight-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-amount="<?= $items['qty']; ?>" data-price="<?= $items['price']; ?>" data-discount="<?= $items['discount']?>" data-sack="<?= $items['sack']?>" data-description="<?= $items['description'];?>" data-ref="<?= $ref?>" value="<?= $items['weight']; ?>">
+                                        </td>
                                         <td style="width:110px" class="text-right">
-                                            <input id="referenceEdit-<?= $items['id']; ?>" class="input-reference-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-amount="<?= $items['qty']; ?>" data-price="<?= $items['price']; ?>" data-discount="<?= $items['discount']?>" data-ref="<?= $ref?>" value="<?= $items['description']; ?>">
+                                            <input id="referenceEdit-<?= $items['id']; ?>" class="input-reference-so text-center form-control" data-item="<?= $items['item_name']; ?>" data-id="<?= $items['id']; ?>" data-amount="<?= $items['qty']; ?>" data-price="<?= $items['price']; ?>" data-discount="<?= $items['discount']?>" data-sack="<?= $items['sack']?>" data-weight="<?= $items['weight'] ?>" data-ref="<?= $ref?>" value="<?= $items['description']; ?>">
                                         </td>
                                         <td>
                                             <a data-toggle="modal" data-target="#deleteCartIndividualItem" data-id="<?= $items['id'] ?>" data-cust="<?= $items['customer_id'] ?>" data-name="<?= $items['item_name']; ?>" data-amount="<?= $items['qty'] ?>" class="badge badge-danger clickable ml-3">Delete</a>
