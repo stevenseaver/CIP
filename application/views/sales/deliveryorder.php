@@ -42,7 +42,7 @@
                         <table class="table table-hover" id="table1" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <!-- <th>No</th> -->
                                     <th>Customer</th>
                                     <th>Invoice Number</th>
                                     <th>Date</th>
@@ -55,7 +55,7 @@
                             <tbody>
                                 <?php foreach ($dataCart as $items) : 
                                     if ($before != $items['ref']) { ?>
-                                        <td><?= $i ?></td>
+                                        <!-- <td><?= $i ?></td> -->
                                         <td><?= $items['name']; ?></td>
                                         <td><?= $items['ref']; ?></td>
                                         <td><?= date('d F Y H:i', $items['date']); ?></td>
@@ -120,6 +120,6 @@
 
 <script>
     var table = $('#table1').DataTable({
-        order: [3, 'asc']
+        order: [2, 'asc']
     });
 </script>

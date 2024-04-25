@@ -13,13 +13,6 @@
     </div>
 
     <?php 
-        // $date = time();
-        // $year = date('y');
-        // $month = date('m');
-        // $time = date('s');
-        // $serial = rand(100, 999);
-        // //ref invoice
-        // $ref = 'INV-' . $year . $month . $time . '-' . $user['id'] . $serial;
         $date = time();
         $year = date('y');
         $month = date('m');
@@ -49,7 +42,7 @@
                         <table class="table table-hover" id="table1" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <!-- <th>No</th> -->
                                     <th>Customer</th>
                                     <th>Invoice Number</th>
                                     <th>Date</th>
@@ -66,7 +59,7 @@
                                         continue;
                                     } else {
                                         if ($before != $items['ref']) { ?>
-                                            <td><?= $i ?></td>
+                                            <!-- <td><?= $i ?></td> -->
                                             <td><?= $items['name']; ?></td>
                                             <td><?= $items['ref']; ?></td>
                                             <td><?= date('d F Y H:i', $items['date']); ?></td>
@@ -170,6 +163,6 @@
 
 <script>
     var table = $('#table1').DataTable({
-        order: [3, 'asc']
+        order: [2, 'asc']
     });
 </script>

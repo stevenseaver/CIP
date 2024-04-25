@@ -55,7 +55,12 @@ class User extends CI_Controller
         $data['dataCartSO'] = $this->db->get_where('cart', ['status' => '1'])->result_array();
         //get material database
         $data['materialStock'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
-        $data['prodOrder'] = $this->db->order_by('transaction_id', 'ASC')->get_where('stock_material', ['status' => 3, 'transaction_status' => 1, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
+        $data['prodOrder1'] = $this->db->order_by('transaction_id', 'ASC')->get_where('stock_material', ['status' => 3, 'transaction_status' => 1, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
+        $data['prodOrder2'] = $this->db->order_by('transaction_id', 'ASC')->get_where('stock_material', ['status' => 3, 'transaction_status' => 2, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
+        $data['prodOrder3'] = $this->db->order_by('transaction_id', 'ASC')->get_where('stock_material', ['status' => 3, 'transaction_status' => 3, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
+        $data['prodOrder4'] = $this->db->order_by('transaction_id', 'ASC')->get_where('stock_material', ['status' => 3, 'transaction_status' => 4, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
+        $data['prodOrder5'] = $this->db->order_by('transaction_id', 'ASC')->get_where('stock_material', ['status' => 3, 'transaction_status' => 5, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
+        $data['prodOrder6'] = $this->db->order_by('transaction_id', 'ASC')->get_where('stock_material', ['status' => 3, 'transaction_status' => 6, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
         //get roll database
         $data['rollStock'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
         //get FG database

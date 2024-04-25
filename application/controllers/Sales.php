@@ -599,6 +599,7 @@ class Sales extends CI_Controller
         //get cart database
         $this->load->model('Sales_model', 'custID');
         $data['dataCart'] = $this->custID->getSaleswithTimeFrame(0, $start_date, $end_date);
+        $data['dataCartperItem'] = $this->custID->getSalesPerItem(0, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

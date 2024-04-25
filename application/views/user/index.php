@@ -34,36 +34,168 @@
         <!-- Content Row for Admin, Employee, Internal-->
         <?php 
             $temp = 0;
-            $prodOrderCount = $temp;
+            $prodOrderCount1 = 0;
+            $prodOrderCount2 = 0;
+            $prodOrderCount3 = 0;
+            $prodOrderCount4 = 0;
+            $prodOrderCount5 = 0;
+            $prodOrderCount6 = 0;
             $before = '';
-            foreach ($prodOrder as $items) :
+            foreach ($prodOrder1 as $items) :
                 if ($before != $items['transaction_id']) {
                     $before = $items['transaction_id'];
                     $temp++;
                 } else {
                 }
-                $prodOrderCount = $temp;
+                $prodOrderCount1 = $temp;
             endforeach;
+            $temp = 0;
+            foreach ($prodOrder2 as $items) :
+                if ($before != $items['transaction_id']) {
+                    $before = $items['transaction_id'];
+                    $temp++;
+                } else {
+                }
+                $prodOrderCount2 = $temp;
+            endforeach;
+            $temp = 0;
+            foreach ($prodOrder3 as $items) :
+                if ($before != $items['transaction_id']) {
+                    $before = $items['transaction_id'];
+                    $temp++;
+                } else {
+                }
+                $prodOrderCount3 = $temp;
+            endforeach;
+            $temp = 0;
+            foreach ($prodOrder4 as $items) :
+                if ($before != $items['transaction_id']) {
+                    $before = $items['transaction_id'];
+                    $temp++;
+                } else {
+                }
+                $prodOrderCount4 = $temp;
+            endforeach;
+            $temp = 0;
+            foreach ($prodOrder5 as $items) :
+                if ($before != $items['transaction_id']) {
+                    $before = $items['transaction_id'];
+                    $temp++;
+                } else {
+                }
+                $prodOrderCount5 = $temp;
+            endforeach;
+            $temp = 0;
+            foreach ($prodOrder6 as $items) :
+                if ($before != $items['transaction_id']) {
+                    $before = $items['transaction_id'];
+                    $temp++;
+                } else {
+                }
+                $prodOrderCount6 = $temp;
+            endforeach;
+            
         ?>
         <div class="row">
             <!-- Earnings (Monthly) Card Example -->
-            <a class="col-xl-3 col-md-6 mb-4" href=" <?= base_url('production') ?>" style="text-decoration:none">
-                <div class="card border-left-primary shadow h-100 py-2">
+            <a class="col-lg-2 mb-4" href=" <?= base_url('production') ?>" style="text-decoration:none">
+                <div class="card border-left-secondary py-1">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Production Order</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $prodOrderCount ?></div>
+                                    Production Queue</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $prodOrderCount1 ?></div>
                             </div>
                             <div class="col-auto">
-                                <i class="bi bi-gear-fill fa-2x text-gray-300"></i>
+                                <i class="bi bi-1-circle fa-2x text-gray-600"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </a>
-            
+            <a class="col-lg-2 mb-4" href=" <?= base_url('production') ?>" style="text-decoration:none">
+                <div class="card border-left-info py-1">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Extrusion Starting</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $prodOrderCount2 ?></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-2-circle fa-2x text-gray-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a class="col-lg-2 mb-4" href=" <?= base_url('production') ?>" style="text-decoration:none">
+                <div class="card border-left-primary py-1">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Extrusion Complete</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $prodOrderCount3 ?></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-3-circle fa-2x text-gray-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a class="col-lg-2 mb-4" href=" <?= base_url('production') ?>" style="text-decoration:none">
+                <div class="card border-left-warning py-1">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Cutting Started</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $prodOrderCount4 ?></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-4-circle fa-2x text-gray-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a class="col-lg-2 mb-4" href=" <?= base_url('production') ?>" style="text-decoration:none">
+                <div class="card border-left-success py-1">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Production Finished</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $prodOrderCount5 ?></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-5-circle fa-2x text-gray-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a class="col-lg-2 mb-4" href=" <?= base_url('production') ?>" style="text-decoration:none">
+                <div class="card border-left-danger py-1">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Production Problems</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $prodOrderCount6 ?></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-6-circle fa-2x text-gray-600"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="row">
             <?php
             $temp = 0;
             $salesOrder = $temp;
@@ -78,7 +210,7 @@
             endforeach;
             ?>
             <!-- Earnings (Monthly) Card Example -->
-            <a class="col-xl-3 col-md-6 mb-4" href=" <?= base_url('sales') ?>" style="text-decoration:none">
+            <a class="col-xl-4 col-md-6 mb-4" href=" <?= base_url('sales') ?>" style="text-decoration:none">
                 <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -104,7 +236,7 @@
                 </div>
             </a>
             <!-- Cust Message -->
-            <a class="col-xl-3 col-md-6 mb-4" href=" <?= base_url('contact') ?>" style="text-decoration:none">
+            <a class="col-xl-4 col-md-6 mb-4" href=" <?= base_url('contact') ?>" style="text-decoration:none">
                 <div class="card border-left-success shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -122,7 +254,7 @@
             </a>
 
             <!-- Employee Leave Card -->
-            <a href="<?= base_url('hr/index') ?>" class="col-xl-3 col-md-6 mb-4" style="text-decoration:none">
+            <a class="col-xl-4 col-md-6 mb-4" href="<?= base_url('hr/index') ?>" style="text-decoration:none">
                 <div class="card border-left-warning shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">

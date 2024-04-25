@@ -24,7 +24,7 @@
         <span class="text">View PDF</span>
     </a>
 
-    <a href="<?= base_url('production/changeStatus/index?status=') . '2&prodID=' . $getID['transaction_id'] ?>" class="btn btn-danger btn-icon-split mb-3">
+    <a href="<?= base_url('production/changeStatus/index?status=') . '2&prodID=' . $getID['transaction_id'] ?>" class="btn btn-info btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-file-earmark-pdf"></i>
         </span>
@@ -52,6 +52,13 @@
         <span class="text">Finished Goods Completed</span>
     </a>
 
+    <a href="<?= base_url('production/changeStatus/index?status=') . '6&prodID=' . $getID['transaction_id']?>" class="btn btn-danger btn-icon-split mb-3">
+        <span class="icon text-white-50">
+            <i class="bi bi-file-earmark-pdf"></i>
+        </span>
+        <span class="text">Need Attention</span>
+    </a>
+
     <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">
             <p class="text-dark mb-1">Prod Order Ref : </p>
@@ -66,13 +73,15 @@
             <?php if($getID['transaction_status'] == 1){ ?>
                 <td><p class="badge badge-secondary">Order dibuat</p></td>
             <?php } else if($getID['transaction_status'] == 2){ ?>
-                <td><p class="badge badge-danger">Mulai roll</p></td>
+                <td><p class="badge badge-info">Mulai roll</p></td>
             <?php } else if($getID['transaction_status'] == 3){ ?>
                 <td><p class="badge badge-primary">Roll selesai</p></td>   
             <?php } else if($getID['transaction_status'] == 4){ ?>
                 <td><p class="badge badge-warning">Mulai potong</p></td>   
             <?php } else if($getID['transaction_status'] == 5){ ?>
                 <td><p class="badge badge-success">Selesai</p></td>   
+            <?php } else if($getID['transaction_status'] == 6){ ?>
+                <td><p class="badge badge-danger">Butuh perhatian</p></td>   
             <?php }; ?>
         </div>
     </div>

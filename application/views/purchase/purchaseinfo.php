@@ -137,7 +137,7 @@
                     <table class="table table-hover" id="table1" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                <th style="display:none">No</th>
                                 <th>PO Number</th>
                                 <th>Date</th>
                                 <th>Due Date</th>
@@ -154,7 +154,7 @@
                             <?php foreach ($inventory_item_received as $inv_rcv) :
                                 if ($before != $inv_rcv['transaction_id']) { ?>
                                     <tr>
-                                        <td><?= $i ?></td>
+                                        <td style="display:none"><?= $i ?></td>
                                         <td><?= $inv_rcv['transaction_id'] ?></td>
                                         <td><?= date('d F Y H:i:s', $inv_rcv['date']); ?></td>
                                         <td><?= date('d F Y H:i:s', $inv_rcv['date'] + $inv_rcv['term'] * 24 * 3600); ?></td>

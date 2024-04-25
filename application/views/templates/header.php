@@ -16,7 +16,7 @@
     <link rel="icon" href="<?= base_url('asset/img/webpage/3.png'); ?>" type="image/gif">
 
     <!-- Bootstrap CSS -->
-    <link href="<?= base_url('asset/'); ?>css/bootstrap.css" rel="stylesheet" type="text/css">
+    <!-- <link href="<?= base_url('asset/'); ?>css/bootstrap.css" rel="stylesheet" type="text/css"> -->
 
     <!-- Bootstrap Icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">

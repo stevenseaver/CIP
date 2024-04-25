@@ -44,7 +44,7 @@
                         <table class="table table-hover" id="table1" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>No</th>
+                                    <!-- <th>No</th> -->
                                     <th>PO Number</th>
                                     <th>Date</th>
                                     <th>Supplier</th>
@@ -60,7 +60,7 @@
                                 <?php foreach ($inventory_item as $inv) :
                                     if ($before != $inv['transaction_id']) { ?>
                                         <tr>
-                                            <td><?= $i ?></td>
+                                            <!-- <td><?= $i ?></td> -->
                                             <td><?= $inv['transaction_id'] ?></td>
                                             <td><?= date('d F Y H:i:s', $inv['date']); ?></td>
                                             <td><?= $inv['supplier_name'] ?></td>
@@ -159,6 +159,6 @@
 
 <script>
     var table = $('#table1').DataTable({
-        order: [2, 'asc']
+        order: [1, 'asc']
     });
 </script>
