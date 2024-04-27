@@ -68,6 +68,40 @@ class Warehouse_model extends CI_Model
             ";
     return $this->db->query($query)->result_array();
   }
+  
+  public function purchasePerItem($trans_id, $status, $start_date, $end_date)
+  {
+    $query = "SELECT `stock_material`.*,`warehouse`.`warehouse_name`,`transaction_status`.`status_name`,`material_category`.`categories_name`,`supplier`.`supplier_name`
+                    FROM `stock_material` JOIN `warehouse`
+                      ON `stock_material`.`warehouse` = `warehouse`.`warehouse_id`
+                    JOIN `transaction_status`
+                      ON `stock_material`.`status` = `transaction_status`.`status_id`
+                      JOIN `material_category`
+                      ON `stock_material`.`categories` = `material_category`.`id`
+                      JOIN `supplier`
+                      ON `stock_material`.`supplier` = `supplier`.`id`
+                   WHERE `transaction_status` = $trans_id  AND `status` = $status AND `date` >= $start_date AND `date` <= $end_date
+                ORDER BY `name`
+            ";
+    return $this->db->query($query)->result_array();
+  }
+
+  public function usagePerItem($status, $start_date, $end_date)
+  {
+    $query = "SELECT `stock_material`.*,`warehouse`.`warehouse_name`,`transaction_status`.`status_name`,`material_category`.`categories_name`,`supplier`.`supplier_name`
+                    FROM `stock_material` JOIN `warehouse`
+                      ON `stock_material`.`warehouse` = `warehouse`.`warehouse_id`
+                    JOIN `transaction_status`
+                      ON `stock_material`.`status` = `transaction_status`.`status_id`
+                      JOIN `material_category`
+                      ON `stock_material`.`categories` = `material_category`.`id`
+                      JOIN `supplier`
+                      ON `stock_material`.`supplier` = `supplier`.`id`
+                   WHERE `status` = $status AND `date` >= $start_date AND `date` <= $end_date
+                ORDER BY `name`
+            ";
+    return $this->db->query($query)->result_array();
+  }
 
   public function getProductionWarehouseID()
   {

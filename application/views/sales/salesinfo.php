@@ -10,20 +10,22 @@
             $sales_tax = $data['sales_tax']['value'];
         ?>
 
-        <div class="dropdown text-right align-items-center mb-3">
-            <button class="btn btn-<?= $color?> dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                <a id="periode_show" name="periode_show"><?= $current_periode ?></a>
-            </button>
 
-            <div class="dropdown-menu">
-                <?php $j = 0; 
-                foreach($periode as $per) : ?>
-                    <a class="dropdown-item" href="<?= base_url('sales/salesinfo?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
+<div class="dropdown text-right align-items-center mb-3">
+    <button class="btn btn-<?= $color?> dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+        <a id="periode_show" name="periode_show"><?= $current_periode ?></a>
+    </button>
+    
+    
+    <div class="dropdown-menu">
+        <?php $j = 0; 
+            foreach($periode as $per) : ?>
+                <a class="dropdown-item" href="<?= base_url('sales/salesinfo?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
                 <?php endforeach; ?>
             </div>
         </div>
     </div>
-
+    
     <div class="row">
         <div class="col mb-0">
             <?= $this->session->flashdata('message'); ?>
@@ -35,8 +37,7 @@
         <a class="list-group-item list-group-item-action" id="list-perItem-list" data-toggle="list" href="#list-perItem" role="tab" aria-controls="backup">Per Item</a>
         <a class="list-group-item list-group-item-action" id="list-raw-list" data-toggle="list" href="#list-raw" role="tab" aria-controls="backup">Raw</a>
     </div>
-
-
+        
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="list-perInvoice" role="tabpanel" aria-labelledby="list-perInvoice-list">
             <?php if ($dataCart != null) {
@@ -283,7 +284,7 @@
             ?>
         </div>                           
         <div class="tab-pane fade" id="list-raw" role="tabpanel" aria-labelledby="list-raw-list">
-        <?php if ($dataCartperItem != null) {
+            <?php if ($dataCart != null) {
                 $i = 1;
                 $subtotal = 0;
                 $total_sack = 0;
@@ -302,6 +303,7 @@
                                         <th>Item Name</th>
                                         <th>Amount</th>
                                         <th>Unit Price</th>
+                                        <th>Discount</th>
                                         <th>Subtotal</th>
                                         <th>Sack</th>
                                         <th>Weight</th>
@@ -318,6 +320,7 @@
                                             <td><?= $items['item_name']; ?></td>
                                             <td><?= number_format($items['qty'], 2, ',', '.') . ' ' . $items['unit']; ?></td>
                                             <td><?= number_format($items['price'], 2, ',', '.'); ?></td>
+                                            <td><?= number_format($items['discount'], 2, ',', '.'); ?></td>
                                             <td><?= number_format($items['subtotal'], 2, ',', '.'); ?></td>
                                             <td><?= number_format($items['sack'], 2, ',', '.') . ' sack'; ?></td>
                                             <td><?= number_format($items['weight'], 2, ',', '.') . ' kg'; ?></td>
@@ -328,7 +331,7 @@
                                                     } else {
                                                         $weightPerPack = 0;
                                                     }
-                                                    echo number_format($weightPerPack, 2, ',', '.') . ' kg'; 
+                                                    echo number_format($weightPerPack, 3, ',', '.') . ' kg'; 
                                                 ?>
                                             </td>
                                             <td>
@@ -338,7 +341,7 @@
                                                     } else {
                                                         $weightPerSack = 0;
                                                     }
-                                                    echo number_format($weightPerSack, 2, ',', '.') . ' kg'; 
+                                                    echo number_format($weightPerSack, 3, ',', '.') . ' kg'; 
                                                 ?>
                                             </td>
                                         </tr>
@@ -352,11 +355,12 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="5"></td>
+                                        <td colspan="6"></td>
                                         <td class="text-right"><strong>Total</strong></td>
                                         <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
                                         <td><?= number_format($total_sack, 2, ',', '.') . ' sack'; ?></td>
                                         <td><?= number_format($total_weight, 2, ',', '.') . ' kg'; ?></td>
+                                        <td colspan="2"></td>
                                     </tr>
                                 </tfoot>
                             </table>

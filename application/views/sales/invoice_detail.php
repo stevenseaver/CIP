@@ -171,7 +171,7 @@
                                                     } else {
                                                         $calculate_weight_persack = 0;
                                                     };
-                                                    echo number_format($calculate_weight_persack, '2', ',', '.'). ' kg/sack'; 
+                                                    echo number_format($calculate_weight_persack, '3', ',', '.'). ' kg/sack'; 
                                                 ?>
                                             </td>
                                             <td class="text-left">
@@ -181,7 +181,7 @@
                                                     } else {
                                                         $calculate_weight_perpack = 0;
                                                     };
-                                                    echo number_format($calculate_weight_perpack, '2', ',', '.') . ' kg/pack'; 
+                                                    echo number_format($calculate_weight_perpack, '3', ',', '.') . ' kg/pack'; 
                                                 ?>
                                             </td>
                                         </tr>

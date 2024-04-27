@@ -162,8 +162,8 @@
                                             <td><?= $i; ?></td>
                                             <td><?= $items['item_name']; ?></td>
                                             <td><?= number_format($items['qty'], '2', ',', '.') . ' ' . $items['unit']; ?></td>
-                                            <td style=" text-align:right">IDR <?= number_format($items['price'], '2', ',', '.'); ?></td>
-                                            <td style=" text-align:right">IDR <?= number_format($items['discount'], '2', ',', '.'); ?></td>
+                                            <td style="text-align:right">IDR <?= number_format($items['price'], '2', ',', '.'); ?></td>
+                                            <td style="text-align:right">IDR <?= number_format($items['discount'], '2', ',', '.'); ?></td>
                                             <td style="text-align:right">IDR <?= number_format($items['subtotal'], '2', ',', '.'); ?></td>
                                             <td class="text-left">
                                                 <?php
@@ -172,7 +172,7 @@
                                                     } else {
                                                         $calculate_weight_persack = 0;
                                                     };
-                                                    echo number_format($calculate_weight_persack, '2', ',', '.'). ' kg/sack'; 
+                                                    echo number_format($calculate_weight_persack, '3', ',', '.'). ' kg/sack'; 
                                                 ?>
                                             </td>
                                             <td class="text-left">
@@ -182,7 +182,7 @@
                                                     } else {
                                                         $calculate_weight_perpack = 0;
                                                     };
-                                                    echo number_format($calculate_weight_perpack, '2', ',', '.') . ' kg/pack'; 
+                                                    echo number_format($calculate_weight_perpack, '3', ',', '.') . ' kg/pack'; 
                                                 ?>
                                             </td>
                                         </tr>

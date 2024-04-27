@@ -424,12 +424,14 @@ class Purchasing extends CI_Controller
             $data['current_periode'] = $data['selectedMonth']['period'];
         }
 
-        $transaction_query = 1; //unreceived purchase order only
         $status = 8; //purchase order data only
-        // $data['inventory_item'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
 
         $transaction_query = 2; //received order only
         $data['inventory_item_received'] = $this->warehouse_id->purchaseOrderwithTimeFrame($transaction_query, $status, $start_date, $end_date);
+        $data['purchasePerItem'] = $this->warehouse_id->purchasePerItem($transaction_query, $status, $start_date, $end_date);
+
+        $query = 3;
+        $data['usagePerItem'] = $this->warehouse_id->purchasePerItem($query, $status, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

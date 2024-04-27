@@ -522,6 +522,7 @@ class Sales extends CI_Controller
         $status = 3;
         $this->load->model('Sales_model', 'custID');
         $data['dataCart'] = $this->custID->getSaleswithTimeFrameEqualTo($status, $start_date, $end_date);
+        $data['dataCartperItem'] = $this->custID->getSaleswithTimeFrameEqualToperItem($status, $start_date, $end_date);
 
         // $data['inv'] = $this->input->post('invoiceID');
 
