@@ -104,7 +104,17 @@
                                     <tr>
                                         <td><?= $i ?></td>
                                         <td><?= $fs['name'] ?></td>
-                                        <td><?= $fs['transaction_id'] ?></td>
+                                        <td>
+                                            <?php 
+                                                if($fs['status'] == 3 or $fs['status'] == 9) { ?>
+                                                    <a href="<?= base_url('production/gbj_details/') . $fs['transaction_id']; ?>"><?= $fs['transaction_id']; ?></a>
+                                                <?php } else if($fs['status'] == 4) { ?>
+                                                    <a href="<?= base_url('sales/invoice_detail/') . $fs['transaction_id']; ?>"><?= $fs['transaction_id']; ?></a>
+                                                <?php } else {
+                                                    echo $fs['transaction_id'];
+                                                };
+                                            ?>
+                                        </td>
                                         <td><?= date('d F Y H:i:s', $fs['date']); ?></td>
                                         <td><?php 
                                         if ($fs['status'] == 3 and ($fs['categories'] != 6 and $fs['categories'] != 7)){
@@ -135,7 +145,6 @@
                                         <td><?= number_format($fs['price'], 2, ',', '.') ?> </td>
                                         <td><?= $fs['batch'] ?> </td>
                                         <td><?= $fs['description'] ?> </td>
-                                        <!-- <td><?= $fs['warehouse_name'] ?></td> -->
                                         <td><?php echo $fs['status_name'];
                                             if($fs['status'] == 4){ 
                                                 if ($fs['transaction_status'] == 0) {
@@ -146,10 +155,10 @@
                                             } else {
                                                 if ($fs['status'] == 3 and ($fs['categories'] != 6 and $fs['categories'] != 7))  {
                                                     if ($fs['transaction_status'] != 2) {
-                                                        echo ' <p class="badge badge-danger">Still in weight</p>';
+                                                        echo '<p class="badge badge-danger">Still in weight</p>';
                                                     }
                                                     else {
-                                                        echo ' <p class="badge badge-success">Converted to pack</p>';
+                                                        echo '<p class="badge badge-success">Converted to pack</p>';
                                                     }
                                                 } else {
                                                     

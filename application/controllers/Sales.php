@@ -241,6 +241,8 @@ class Sales extends CI_Controller
 
             $this->db->insert('cart', $data_cart);
 
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Process interupted!</div>');
+
             //add data to stock_finishedgoods database
             $transaction_status = 4;
             $warehouse = 3;
@@ -282,7 +284,7 @@ class Sales extends CI_Controller
             // $this->db->where('code', $code);
             // $this->db->update('stock_finishedgoods', $data2_warehouse, 'status = 7');
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item added to cart!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $name .  ' with amount ' . $amount . ' ' . $unit .' added to cart!</div>');
 
             redirect('sales/add_salesorder/' . $ref);
         }

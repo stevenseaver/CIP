@@ -307,15 +307,15 @@
             <div class="col-lg-3">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="price" class="col-form-label">Price</label>
+                    <label for="price_gbj" class="col-form-label">Price</label>
                     <div class="input-group">
                         <!-- Item code -->
                         <div class="input-group-prepend">
                             <span class="input-group-text">IDR</span>
                         </div>
-                        <input type="text" class="form-control" id="price" name="price" value="<?= set_value('price'); ?>" placeholder="Input COGS per kg">
+                        <input type="text" class="form-control" id="price_gbj" name="price_gbj" value="<?= set_value('price_gbj'); ?>" placeholder="Input COGS per kg">
                     </div>
-                    <small>Automatically. But you can update to the latest price per unit.</small>
+                    <small>Make sure this value is similar to COGS.</small>
                     <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>

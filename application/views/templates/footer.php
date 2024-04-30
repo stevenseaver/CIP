@@ -817,9 +817,7 @@
          document.getElementById("code").value = $code;
          document.getElementById("weight").value = $weight;
          document.getElementById("lipatan").value = $lipatan;
-         document.getElementById("price").value = $price;
-        //  document.getElementById("pcsperpack").value = pcs;
-        //  document.getElementById("packpersack").value = pack;
+         document.getElementById("price_roll").value = $price;
      });
      
      //  JavaScript for add item to sales order database cart
@@ -838,7 +836,7 @@
          document.getElementById("code").value = $code;
          document.getElementById("pcsperpack").value = $pcsperpack;
          document.getElementById("packpersack").value = $packpersack;
-         document.getElementById("price").value = $price;
+         document.getElementById("price_gbj").value = $price;
          document.getElementById("instock").value = $in_stock;
         //  document.getElementById("pcsperpack").value = pcs;
         //  document.getElementById("packpersack").value = pack;

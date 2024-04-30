@@ -259,6 +259,14 @@
                     <?= form_error('rollName', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
+            <div class="col-lg-2">
+                <div class="form-group"> 
+                    <!-- Material in stock -->
+                    <label for="code" class="col-form-label">Code</label>
+                    <input type="text" class="form-control" id="code" name="code" readonly value="<?= set_value('code'); ?>">
+                    <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
             <div class="col-lg-3">
                 <div class="form-group">
                     <!-- Item code -->
@@ -273,14 +281,6 @@
                     <label for="lipatan" class="col-form-label">Lipatan</label>
                     <input type="text" class="form-control" id="lipatan" name="lipatan" readonly value="<?= set_value('lipatan'); ?>">
                     <?= form_error('lipatan', '<small class="text-danger pl-2">', '</small>') ?>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="form-group"> 
-                    <!-- Material in stock -->
-                    <label for="code" class="col-form-label">Code</label>
-                    <input type="text" class="form-control" id="code" name="code" readonly value="<?= set_value('code'); ?>">
-                    <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
         </div>
@@ -336,7 +336,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">IDR</span>
                         </div>
-                        <input type="text" class="form-control" id="price" name="price" value="<?= set_value('price'); ?>" placeholder="COGS">
+                        <input type="text" class="form-control" id="price_roll" name="price_roll" value="<?= set_value('price'); ?>">
                     </div>
                     <small>Make sure the COGS is similar with the materials cost.</small>
                     <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>

@@ -75,15 +75,25 @@
                                     <tr>
                                         <td><?= $i ?></td>
                                         <td><?= $ms['name'] ?></td>
-                                        <td><?= $ms['transaction_id'] ?></td>
+                                        <td>
+                                            <?php 
+                                                if($ms['status'] == 8) { ?>
+                                                    <a href="<?= base_url('purchasing/info_details/') . $ms['transaction_id'] . '/' . $ms['supplier'] . '/' . $ms['date']; ?>"><?= $ms['transaction_id']; ?></a>
+                                                <?php } else if($ms['status'] == 3) { ?>
+                                                    <a href="<?= base_url('production/gbj_details/') . $ms['transaction_id']; ?>"><?= $ms['transaction_id']; ?></a>
+                                                <?php } else {
+                                                    echo $ms['transaction_id'];
+                                                };
+                                            ?>
+                                        </td>
                                         <td><?= date('d F Y H:i:s', $ms['date']); ?></td>
-                                        <td><?= number_format($ms['incoming'], 2, ',', '.') ?></td>
-                                        <td><?= number_format($ms['outgoing'], 2, ',', '.') ?></td>
-                                        <td><?= number_format($ms['in_stock'], 2, ',', '.') . ' ' . $ms['unit_satuan'] ?></td>
-                                        <td><?= number_format($ms['price'], 2, ',', '.') ?></td>
-                                        <td><?= $ms['description'] ?></td>
-                                        <td><?= $ms['item_desc'] ?></td>
-                                        <td><?= $ms['status_name'] ?>
+                                        <td><?= number_format($ms['incoming'], 2, ',', '.'); ?></td>
+                                        <td><?= number_format($ms['outgoing'], 2, ',', '.'); ?></td>
+                                        <td><?= number_format($ms['in_stock'], 2, ',', '.') . ' ' . $ms['unit_satuan']; ?></td>
+                                        <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
+                                        <td><?= $ms['description']; ?></td>
+                                        <td><?= $ms['item_desc']; ?></td>
+                                        <td><?= $ms['status_name']; ?>
                                         <?php
                                             if ($ms['status'] == 1 or $ms['status'] == 6 or $ms['status'] == 3 or $ms['status'] == 7)  {
 

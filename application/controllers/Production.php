@@ -585,7 +585,7 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('rollName', 'roll item', 'trim|required');
         $this->form_validation->set_rules('code', 'code', 'trim|required');
         $this->form_validation->set_rules('amount', 'amount', 'trim|required');
-        $this->form_validation->set_rules('price', 'price', 'trim|required');
+        $this->form_validation->set_rules('price_roll', 'price', 'trim|required');
         $this->form_validation->set_rules('batch', 'batch', 'trim|required');
         $this->form_validation->set_rules('roll_no', 'roll description', 'trim|required');
 
@@ -603,7 +603,7 @@ class Production extends CI_Controller
             $lipatan = $this->input->post('lipatan');
             $date = time();
             $amount = $this->input->post('amount');
-            $price = $this->input->post('price');
+            $price = $this->input->post('price_roll');
             $batch = $this->input->post('batch');
             $roll_no = $this->input->post('roll_no');
             $transaction_status = 2;
@@ -779,6 +779,7 @@ class Production extends CI_Controller
         $this->db->where('status', '7');
         $this->db->where('code', $materialID);
         $this->db->update('stock_roll', $data2);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Production item amount updated to ' . $amount . '!</div>');
     }
 
     //update production order material amount
@@ -820,6 +821,7 @@ class Production extends CI_Controller
         //update transaksi
         $this->db->where('id', $id);
         $this->db->update('stock_roll', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Production item details updated!</div>');
     }
 
     public function changeStatus($prodID){
@@ -1092,7 +1094,7 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('gbjSelect', 'finished goods item', 'trim|required');
         $this->form_validation->set_rules('code', 'code', 'trim|required');
         $this->form_validation->set_rules('amount', 'amount', 'trim|required');
-        $this->form_validation->set_rules('price', 'price', 'trim|required');
+        $this->form_validation->set_rules('price_gbj', 'price', 'trim|required');
         $this->form_validation->set_rules('batch', 'batch', 'trim|required');
         $this->form_validation->set_rules('pack_no', 'description', 'trim|required');
 
@@ -1107,7 +1109,7 @@ class Production extends CI_Controller
             $item = $this->input->post('gbjSelect');
             $code = $this->input->post('code');
             $amount = $this->input->post('amount');
-            $price = $this->input->post('price');
+            $price = $this->input->post('price_gbj');
             $pcsperpack = $this->input->post('pcsperpack');
             $packpersack = $this->input->post('packpersack');
             $batch = $this->input->post('batch');
@@ -1145,6 +1147,8 @@ class Production extends CI_Controller
             ];
 
             $this->db->insert('stock_finishedgoods', $data);
+
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Process interupted, please check input items!</div>');
 
             if ($category == 6 or $category == 7){
                 $stock_old = $gbjSelect['in_stock'];
@@ -1317,6 +1321,7 @@ class Production extends CI_Controller
         $data['material_edited'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
         $materialID = $data['material_edited']['code'];
         $adjust_old = $data['material_edited']['incoming'];
+        $last_price = $data['material_edited']['price'];
 
         //get selected material stock_akhir or stock akhir from id = 7
         $data['material_selected'] = $this->db->get_where('stock_finishedgoods', ['code' => $materialID, 'status' => 7])->row_array();
@@ -1326,19 +1331,20 @@ class Production extends CI_Controller
         if ($cat == 6 or $cat == 7 or $unit_satuan == 'kg' or $status == 2){
             //if item has been converted into packs, or bulk products, or weighted, update transaksi dan stock akhir
             $update_stock = ($stock_akhir - $adjust_old) + $amount;
-
+            $update_price = ($last_price * $adjust_old)/$amount;
+            
             $data2 = [
                 'in_stock' => $update_stock,
                 'date' => $date
             ];
-
+            
             //update transaksi
             $this->db->where('id', $id);
             $this->db->set('incoming', $amount);
-            if ($cat == 6 or $cat == 7  or $unit_satuan == 'kg') {
+            if ($cat == 6 or $cat == 7 or $unit_satuan == 'kg') {
                 $this->db->set('before_convert', $amount);
             } else {
-
+                $this->db->set('price', $update_price);
             };
             $this->db->update('stock_finishedgoods');
             //update stock akhir
@@ -1353,7 +1359,7 @@ class Production extends CI_Controller
             $this->db->update('stock_finishedgoods');
         }
 
-        // $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Items updated!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Amount updated!</div>');
         // redirect('production/add_gbj/' . $prodID);
     }
 
@@ -1485,7 +1491,7 @@ class Production extends CI_Controller
             $this->db->where('code', $materialCode);
             $this->db->update('stock_material', $data2);
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material added!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Additional material added!</div>');
             redirect('production/add_gbj/' . $po_id);
         }
     }
@@ -1527,6 +1533,8 @@ class Production extends CI_Controller
         //update transaksi
         $this->db->where('id', $id);
         $this->db->update('stock_finishedgoods', $data);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Details updated!</div>');
     }
     
     //delete individual gbj input

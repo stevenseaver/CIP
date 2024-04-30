@@ -79,16 +79,24 @@
                                 ?>
                                 <tr>
                                     <td><?= $i ?></td>
-                                    <td><?= $rs['name'] ?></td>
-                                    <td><?= $rs['transaction_id'] ?></td>
+                                    <td><?= $rs['name']; ?></td>
+                                    <td>
+                                        <?php 
+                                            if($rs['status'] == 3 or $rs['status'] == 9) { ?>
+                                                <a href="<?= base_url('production/gbj_details/') . $rs['transaction_id']; ?>"><?= $rs['transaction_id']; ?></a>
+                                        <?php } else {
+                                                echo $rs['transaction_id'];
+                                            };
+                                        ?>
+                                    </td>
                                     <td><?= date('d F Y H:i:s', $rs['date']); ?></td>
-                                    <td><?= number_format($rs['incoming'], 2, ',', '.') ?></td>
-                                    <td><?= number_format($rs['outgoing'], 2, ',', '.') ?></td>
-                                    <td><?= number_format($rs['in_stock'], 2, ',', '.') ?></td>
-                                    <td><?= number_format($rs['price'], 2, ',', '.') ?></td>
-                                    <td><?= $rs['batch'] ?></td>
-                                    <td><?= $rs['transaction_desc'] ?></td>
-                                    <td><?= $rs['status_name']?></td>
+                                    <td><?= number_format($rs['incoming'], 2, ',', '.'); ?></td>
+                                    <td><?= number_format($rs['outgoing'], 2, ',', '.'); ?></td>
+                                    <td><?= number_format($rs['in_stock'], 2, ',', '.'); ?></td>
+                                    <td><?= number_format($rs['price'], 2, ',', '.'); ?></td>
+                                    <td><?= $rs['batch']; ?></td>
+                                    <td><?= $rs['transaction_desc']; ?></td>
+                                    <td><?= $rs['status_name']; ?></td>
                                     <td>
                                         <?php
                                         if ($rs['status_name'] == 'Saldo Awal' or $rs['status_name'] == 'Saldo Akhir') { ?>
