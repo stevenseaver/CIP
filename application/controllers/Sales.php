@@ -197,6 +197,7 @@ class Sales extends CI_Controller
             $cust_id = $this->input->post('cust_id');
             $cust_address = $this->input->post('address');
 
+            // $date = strtotime($this->input->post('transDate'));
             $name = $this->input->post('name');
             $code = $this->input->post('code');
             $price = $this->input->post('price');
@@ -218,7 +219,6 @@ class Sales extends CI_Controller
             $item_id = $data['itemselect']['id'];
             $unit = $data['itemselect']['unit_satuan'];
 
-            $date = time();
             // add data to cart database
             $data_cart = array(
                 'ref' => $ref,
@@ -250,6 +250,14 @@ class Sales extends CI_Controller
             $packpersack = $data['itemselect']['packpersack'];
             $in_stockOld = $data['itemselect']['in_stock'];
             $conversion = $data['itemselect']['conversion'];
+            if($discount != 0 or $discount != null){
+                $netprice = $price-$discount;
+            } else {
+                $netprice = $price;
+            };
+            //get cart ID ref
+            $data['getitemID'] = $this->db->get_where('cart', ['ref' => $ref, 'item_name' => $name, 'date' => $date])->row_array();
+            $cartID = $data['getitemID']['id'];
 
             $data_warehouse = [
                 'name' => $name,
@@ -258,13 +266,14 @@ class Sales extends CI_Controller
                 'packpersack' => $packpersack,
                 'conversion' => $conversion,
                 'date' => $date,
-                'price' => $price-$discount,
+                'price' => $netprice,
                 'categories' => $prod_cat,
                 'in_stock' => 0,
                 'incoming' => 0,
                 'outgoing' => $amount,
                 'unit_satuan' => $unit,
-                'before_convert' => $weight,
+                'before_convert' => $weight, //before_convert col is used to store the item's weight
+                'picture' => $cartID,
                 'status' => $transaction_status,
                 'warehouse' => $warehouse,
                 'transaction_id' => $ref,
@@ -323,7 +332,7 @@ class Sales extends CI_Controller
         );
 
         $this->db->where('transaction_id', $ref);
-        $this->db->where('name', $item_name);
+        $this->db->where('picture', $id);
         $this->db->update('stock_finishedgoods', $data_warehouse);
 
         $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">' . $item_name . ' details changed!</div>');
@@ -357,7 +366,7 @@ class Sales extends CI_Controller
         $this->db->where('id', $ItemID);
         $this->db->delete('cart');
 
-        $this->db->where('transaction_id', $ref);
+        $this->db->where('picture', $ItemID); //picture column is used to store cart ID
         $this->db->where('name', $ItemName);
         $this->db->delete('stock_finishedgoods');
 

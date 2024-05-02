@@ -20,7 +20,8 @@
                 <p class="text-dark mb-1">Invoice Ref. : </p>
                 <p class="text-dark font-weight-bold"> <?= $ref ?></p>
                 <p class="text-dark mb-1">Date : </p>
-                <p class="text-dark font-weight-bold"> <?= date('d F Y h:i', $date); ?></p>
+                <p class="text-dark font-weight-bold"> <?= date('d F Y H:i', $date); ?></p>
+                <!-- <input type="date" id="transDate" name="transDate"></input> -->
             </div>
         </div>
         

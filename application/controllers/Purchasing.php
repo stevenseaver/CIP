@@ -85,6 +85,7 @@ class Purchasing extends CI_Controller
             $po_id = $id;
             $po_status = 1;
             $materialID = $this->input->post('material');
+            $date = time();
             $price = $this->input->post('price');
             $amount = $this->input->post('amount');
             $supplier = $this->input->post('supplier');
@@ -106,7 +107,7 @@ class Purchasing extends CI_Controller
                 'code' => $materialCode,
                 'name' => $materialName,
                 'categories' => $materialCat,
-                'date' => time(),
+                'date' => $date,
                 'price' => $price,
                 'incoming' => $amount,
                 'unit_satuan' => $unit,
