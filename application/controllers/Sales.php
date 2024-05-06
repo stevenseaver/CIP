@@ -72,10 +72,10 @@ class Sales extends CI_Controller
                 $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['name' => $ci['name'], 'status' => 7])->row_array();
                 
                 $amount = $ci['outgoing'];
-
+                
                 $code = $data['itemselect']['code'];
                 $in_stockOld = $data['itemselect']['in_stock'];
-                
+
                 // data to update inventory stock akhir
                 $data = [
                     'in_stock' => $in_stockOld - $amount
@@ -86,7 +86,8 @@ class Sales extends CI_Controller
                 $this->db->update('stock_finishedgoods', $data);
 
                 $data_warehouse = [
-                    'transaction_status' => 1
+                    'transaction_status' => 1,
+                    'in_stock' => $in_stockOld - $amount
                 ];
 
                 $this->db->where('code', $code);

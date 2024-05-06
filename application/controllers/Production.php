@@ -1123,38 +1123,39 @@ class Production extends CI_Controller
             $picture = $gbjSelect['picture'];
             $category = $gbjSelect['categories'];
             $satuan = $gbjSelect['unit_satuan'];
-            
-            $data = [
-                'name' => $item,
-                'code' => $code,
-                'pcsperpack' => $pcsperpack,
-                'packpersack' => $packpersack,
-                'date' => $date,
-                'price' => $price,
-                'in_stock' => 0,
-                'incoming' => $amount,
-                'before_convert' => $amount,
-                'outgoing' => 0,
-                'status' => 3,
-                'transaction_status' => 1,
-                'categories' => $category,
-                'warehouse' => 3,
-                'picture' => $picture,
-                'transaction_id' => $prodID,
-                'batch' => $batch,
-                'description' => $pack_no,
-                'unit_satuan' => $satuan
-            ];
-
-            $this->db->insert('stock_finishedgoods', $data);
+            $stock_old = $gbjSelect['in_stock'];
 
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Process interupted, please check input items!</div>');
 
             if ($category == 6 or $category == 7){
-                $stock_old = $gbjSelect['in_stock'];
+                $updatedStock = $stock_old + $amount;
+
+                $data = [
+                    'name' => $item,
+                    'code' => $code,
+                    'pcsperpack' => $pcsperpack,
+                    'packpersack' => $packpersack,
+                    'date' => $date,
+                    'price' => $price,
+                    'in_stock' => $updatedStock,
+                    'incoming' => $amount,
+                    'before_convert' => $amount,
+                    'outgoing' => 0,
+                    'status' => 3,
+                    'transaction_status' => 1,
+                    'categories' => $category,
+                    'warehouse' => 3,
+                    'picture' => $picture,
+                    'transaction_id' => $prodID,
+                    'batch' => $batch,
+                    'description' => $pack_no,
+                    'unit_satuan' => $satuan
+                ];
     
+                $this->db->insert('stock_finishedgoods', $data);
+                
                 $data2 = [
-                    'in_stock' => $stock_old + $amount,
+                    'in_stock' => $updatedStock,
                     'date' => $date,
                     'price' => $price
                 ];
@@ -1163,6 +1164,30 @@ class Production extends CI_Controller
                 $this->db->where('code', $code);
                 $this->db->update('stock_finishedgoods', $data2);
             } else {
+                $data = [
+                    'name' => $item,
+                    'code' => $code,
+                    'pcsperpack' => $pcsperpack,
+                    'packpersack' => $packpersack,
+                    'date' => $date,
+                    'price' => $price,
+                    'in_stock' => 0,
+                    'incoming' => $amount,
+                    'before_convert' => $amount,
+                    'outgoing' => 0,
+                    'status' => 3,
+                    'transaction_status' => 1,
+                    'categories' => $category,
+                    'warehouse' => 3,
+                    'picture' => $picture,
+                    'transaction_id' => $prodID,
+                    'batch' => $batch,
+                    'description' => $pack_no,
+                    'unit_satuan' => $satuan
+                ];
+    
+                $this->db->insert('stock_finishedgoods', $data);
+                
                 $data2 = [
                     'date' => $date,
                     'price' => $price
@@ -1295,6 +1320,7 @@ class Production extends CI_Controller
             
             $data1 = [
                 'incoming' => $pack,
+                'in_stock' => $stock_old + $pack,
                 'transaction_status' => 2,
                 'price' => $priceperPack
             ];
