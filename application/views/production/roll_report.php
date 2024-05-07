@@ -42,7 +42,7 @@
             <div class="row mx-4 my-3">
                 <div class="table-responsive">
                     <div class="table-responsive">
-                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-hover" id="rollTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -137,3 +137,9 @@
     </div>
 </div>
 <!-- End of Main Content -->
+
+<script>
+    var table = $('#rollTable').DataTable({
+        order: [2, 'asc']
+    });
+</script>

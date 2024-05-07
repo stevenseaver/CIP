@@ -1367,6 +1367,7 @@ class Production extends CI_Controller
             //update transaksi
             $this->db->where('id', $id);
             $this->db->set('incoming', $amount);
+            $this->db->set('in_stock', $update_stock);
             if ($cat == 6 or $cat == 7 or $unit_satuan == 'kg') {
                 $this->db->set('before_convert', $amount);
             } else {

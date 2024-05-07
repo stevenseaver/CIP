@@ -315,7 +315,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" id="table1" width="100%" cellspacing="0">
+                            <table class="table table-hover" id="tablePurchase" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>PO Number</th>
@@ -403,7 +403,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" id="table2" width="100%" cellspacing="0">
+                            <table class="table table-hover" id="tableSales" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Invoice Number</th>
@@ -421,73 +421,67 @@
                                     $total_revenue = 0; ?>
                                     <?php foreach ($sales_data as $sales) :
                                         if ($before != $sales['ref']) { 
-                                            $date_now = time();
-                                            // $due_date = $sales['date'] + $sales['term'] * 24 * 3600;
-                                            // if($sales['is_paid'] == 0 and $due_date < $date_now ) { ?>
-                                                <tr>
-                                                    <td><?= $sales['ref'] ?></td>
-                                                    <td><?= date('d F Y H:i:s', $sales['date']); ?></td>
-                                                    <!-- <td><?= date('d F Y H:i:s', $due_date); ?></td> -->
-                                                    <td><?= $sales['name'] ?></td>
-                                                    <td>
-                                                        <?php 
-                                                            foreach ($sales_data as $amount) :
-                                                                if ($amount['ref'] == $sales['ref']) {
-                                                                    $value = ($amount['price']-$amount['discount']) * $amount['qty'];
-                                                                    $temp = $temp + $value; 
-                                                                } else {
+                                            $date_now = time(); ?>
+                                            <tr>
+                                                <td><?= $sales['ref'] ?></td>
+                                                <td><?= date('d F Y H:i:s', $sales['date']); ?></td>
+                                                <!-- <td><?= date('d F Y H:i:s', $due_date); ?></td> -->
+                                                <td><?= $sales['name'] ?></td>
+                                                <td>
+                                                    <?php 
+                                                        foreach ($sales_data as $amount) :
+                                                            if ($amount['ref'] == $sales['ref']) {
+                                                                $value = ($amount['price']-$amount['discount']) * $amount['qty'];
+                                                                $temp = $temp + $value; 
+                                                            } else {
 
-                                                                }
-                                                            endforeach;
-                                                            // if($sales['tax'] == 0){
+                                                            }
+                                                        endforeach;
+                                                        // if($sales['tax'] == 0){
 
-                                                            // } else if ($sales['tax'] == 1) {
-                                                            //     $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
-                                                            //     $purchase_tax = $data['purchase_tax']['value'];
-                                                                
-                                                            //     $tax = $purchase_tax/100 * $temp;
+                                                        // } else if ($sales['tax'] == 1) {
+                                                        //     $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
+                                                        //     $purchase_tax = $data['purchase_tax']['value'];
+                                                            
+                                                        //     $tax = $purchase_tax/100 * $temp;
 
-                                                            //     $temp = $temp + $tax;
-                                                                
-                                                            // }
-                                                            echo number_format($temp, 2, ',', '.'); 
-                                                        ?>
-                                                    </td>
-                                                    <td><?php 
-                                                        if ($sales['status'] == 1) {
-                                                            echo '<p class="badge badge-warning">Not yet delivered</p>';
-                                                        } else if ($sales['status'] == 2){
-                                                            echo '<p class="badge badge-primary">Delivering</p>';
-                                                        } else if ($sales['status'] == 3){
-                                                            echo '<p class="badge badge-success">Delivered</p>';
-                                                        } else if ($sales['status'] == 4){
-                                                            echo '<p class="badge badge-danger">Declined</p>';
-                                                        }
+                                                        //     $temp = $temp + $tax;
+                                                            
+                                                        // }
+                                                        echo number_format($temp, 2, ',', '.'); 
                                                     ?>
-                                                    </td>
-                                                    <td><?php 
-                                                        if ($sales['is_paid'] == 1) {
-                                                            echo '<p class="badge badge-success">Paid</p>';
-                                                        } else {
-                                                            echo '<p class="badge badge-warning">Unpaid</p>';
-                                                        } ?>
-                                                    </td>
-                                                    <?php
-                                                        $total_revenue = $temp + $total_revenue;
-                                                        $total_revenue;
-                                                    ?>
-                                                    <td>
-                                                        <a href="<?= base_url('sales/info_detail/') . $sales['ref']; ?>" class="badge badge-primary"><i class="bi bi-info-circle"> </i>Details</a>
-                                                    </td>
-                                                </tr>
-                                               
+                                                </td>
+                                                <td><?php 
+                                                    if ($sales['status'] == 1) {
+                                                        echo '<p class="badge badge-warning">Not yet delivered</p>';
+                                                    } else if ($sales['status'] == 2){
+                                                        echo '<p class="badge badge-primary">Delivering</p>';
+                                                    } else if ($sales['status'] == 3){
+                                                        echo '<p class="badge badge-success">Delivered</p>';
+                                                    } else if ($sales['status'] == 4){
+                                                        echo '<p class="badge badge-danger">Declined</p>';
+                                                    }
+                                                ?>
+                                                </td>
+                                                <td><?php 
+                                                    if ($sales['is_paid'] == 1) {
+                                                        echo '<p class="badge badge-success">Paid</p>';
+                                                    } else {
+                                                        echo '<p class="badge badge-warning">Unpaid</p>';
+                                                    } ?>
+                                                </td>
+                                                <?php
+                                                    $total_revenue = $temp + $total_revenue;
+                                                    $total_revenue;
+                                                ?>
+                                                <td>
+                                                    <a href="<?= base_url('sales/info_detail/') . $sales['ref']; ?>" class="badge badge-primary"><i class="bi bi-info-circle"> </i>Details</a>
+                                                </td>
+                                            </tr> 
                                         <?php
                                             $before = $sales['ref'];
                                             $temp = 0;
                                             $tax = 0;
-                                            // } else {
-
-                                            // }
                                         } else {
                                         } ?>
                                     <?php endforeach; ?>
@@ -637,12 +631,12 @@
 <!-- End of Main Content -->
 
 <script>
-    var table = $('#table1').DataTable({
+    var table = $('#tablePurchase').DataTable({
         order: [2, 'asc'],
         paging: true
     });
 
-    var table = $('#table2').DataTable({
+    var table = $('#tableSales').DataTable({
         order: [1, 'asc'],
         paging: true,
         columnDefs: [

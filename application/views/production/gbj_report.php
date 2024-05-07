@@ -42,7 +42,7 @@
             <div class="row mx-4 my-3">
                 <div class="table-responsive">
                     <div class="table-responsive">
-                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table table-hover" id="gbjTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -107,3 +107,9 @@
 
 </div>
 <!-- End of Main Content -->
+
+<script>
+    var table = $('#gbjTable').DataTable({
+        order: [2, 'asc']
+    });
+</script>

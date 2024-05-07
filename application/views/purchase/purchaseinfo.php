@@ -57,7 +57,7 @@
             <div class="card border-left-primary mb-3">
                 <div class="row mx-4 my-3">
                     <div class="table-responsive">
-                        <table class="table table-hover" id="table1" width="100%" cellspacing="0">
+                        <table class="table table-hover" id="tableInfo" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th style="display:none">No</th>
@@ -165,7 +165,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="table-responsive">
-                            <table class="table table-hover" id="table2" width="100%" cellspacing="0">
+                            <table class="table table-hover" id="tableItem" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Item Name</th>
@@ -233,7 +233,7 @@
             <div class="card border-left-primary mb-3">
                 <div class="row mx-4 my-3">
                     <div class="table-responsive">
-                        <table class="table table-hover" id="table3" width="100%" cellspacing="0">
+                        <table class="table table-hover" id="tableRaw" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th>Date</th>
@@ -329,38 +329,15 @@
 </div>
 
 <script>
-    function left_click() {
-        document.getElementById("periode_show").innerHTML = 'LEFT';
-    }
-
-    function right_click() {
-        document.getElementById("periode_show").innerHTML = 'RIGHT';
-    }
-
-    var table = $('#table1').DataTable({
+    var table = $('#tableInfo').DataTable({
         order: [2, 'asc']
     });
 
-    var table = $('#table2').DataTable({
-        paging: true,
-        columnDefs: [
-            {
-                targets:[0,1],
-                orderable: true,
-                searchable: true
-            }
-        ]
+    var table = $('#tableItem').DataTable({
+        paging: true
     });
 
-    var table = $('#table3').DataTable({
-        order: [0, 'asc'],
-        paging: true,
-        columnDefs: [
-            {
-                targets:[0,1],
-                orderable: true,
-                searchable: true
-            }
-        ]
+    var table = $('#tableRaw').DataTable({
+        order: [3, 'asc']
     });
 </script>
