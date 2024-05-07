@@ -84,7 +84,11 @@
                                                 <a href="<?= base_url('production/roll_details/') . $inv['transaction_id'] ?>" class="badge badge-primary clickable"><i class="bi bi-info-circle-fill"> </i>Details</a>
                                                 <a href="<?= base_url('production/add_roll/') . $inv['transaction_id'] ?>" class="badge badge-warning clickable"><i class="bi bi-pencil-fill"> </i>Input Roll</a>
                                                 <!-- <a href="<?= base_url('production/rollToGBJ/') . $inv['transaction_id']?>" class="badge badge-success">Transfer to GBJ</a> -->
-                                                <a data-toggle="modal" data-target="#deleteRollModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete Roll Input</a>
+                                                <?php if ($inv['transaction_status'] == 1){ ?>
+                                                    <a data-toggle="modal" data-target="#deleteRollModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete Roll Input</a>
+                                                <?php } else { ?>
+                                                    <a href="" class="badge badge-secondary clickable" disabled><i class="bi bi-trash-fill"> </i>Delete Roll Input</a>
+                                                <?php }; ?>
                                             </td>
                                         </tr>
                                     <?php

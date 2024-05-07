@@ -103,7 +103,11 @@
                                     <td>
                                         <a href="<?= base_url('production/prod_details/') . $inv['transaction_id'] ?>" class="badge badge-primary clickable"><i class="bi bi-info-circle-fill"> </i>Details</a>
                                         <a href="<?= base_url('production/edit_prod/') . $inv['transaction_id'] ?>" class="badge badge-warning clickable"><i class="bi bi-pencil-fill"> </i>Edit</a>
-                                        <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete Production Order</a>
+                                        <?php if ($inv['transaction_status'] == 1){ ?>
+                                            <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete Production Order</a>
+                                        <?php } else { ?>
+                                            <a href="" class="badge badge-secondary clickable" disabled><i class="bi bi-trash-fill"> </i>Delete Production Order</a>
+                                        <?php }; ?>
                                     </td>
                                 </tr>
                             <?php
