@@ -246,7 +246,11 @@
                     <td class="text-left">Rp <?= number_format($grandTotal, '2', ',', '.'); ?></td>
                     <td class="text-right"><strong>Process Waste</strong></td>
                     <?php $depretiation = $temp-$totalWeight;
-                    $percent_depretiation = ($depretiation / $totalWeight) * 100;
+                        if($totalWeight != 0){ 
+                            $percent_depretiation = ($depretiation / $totalWeight) * 100;
+                        } else { ?>
+                            <td class="text-left">No data</td>
+                        <?php };
                     if ($percent_depretiation <= $max_process_waste) {?>
                         <td class="text-left text-danger"><?= number_format($depretiation, '2', ',', '.'); ?> kg or <?= number_format($percent_depretiation, '2', ',', '.'); ?>%</td>
                     <?php } else { ?>
@@ -260,7 +264,12 @@
                     <td class="text-left text-primary"><?= number_format($net_weight, '2', ',', '.'); ?> kg</td>
                     <td colspan="2"> </td>
                     <td class="text-right"><strong>Extrusion Waste</strong></td>
-                    <?php $percent_waste = ($waste / $totalWeight) * 100; 
+                    <?php 
+                        if($totalWeight != 0){ 
+                            $percent_waste = ($waste / $totalWeight) * 100; 
+                        } else { ?>
+                           <td class="text-left">No data</td>
+                        <?php };
                     if ($percent_waste >= $max_waste) {?>
                         <td class="text-left text-danger"><?= number_format($waste, '2', ',', '.'); ?> kg or <?= number_format($percent_waste, '2', ',', '.'); ?>%</td>
                     <?php } else { ?>
@@ -374,8 +383,8 @@
                     <td class="text-left">IDR <?= number_format($grandTotal, '2', ',', '.'); ?></td>
                     <td class="text-left"><strong>Roll Waste</strong></td>
                     <?php
-                        if($total != 0){
-                            $percent_waste = ($waste_roll / $total) * 100;
+                        if($totalWeight != 0){
+                            $percent_waste = ($waste_roll / $totalWeight) * 100;
                             if ($percent_waste >= $max_waste) {?>
                                 <td class="text-left text-danger"><?= number_format($waste_roll, '2', ',', '.'); ?> kg or <?= number_format($percent_waste, '2', ',', '.'); ?>%</td>
                             <?php } else { ?>
