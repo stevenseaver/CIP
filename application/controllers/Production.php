@@ -200,6 +200,24 @@ class Production extends CI_Controller
         }
     }
 
+    //update production order product name
+    public function update_product_name()
+    {
+        $id = $this->input->post('id');
+        $newName = $this->input->post('newName');
+
+        $data['material_edited'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+        $materialID = $data['material_edited']['transaction_id'];
+
+        $data = [
+            'product_name' => $newName
+        ];
+
+        //update transaksi
+        $this->db->where('transaction_id', $materialID);
+        $this->db->update('stock_material', $data);
+    }
+
     //update production order material amount
     public function update_amount()
     {

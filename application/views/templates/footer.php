@@ -452,11 +452,32 @@
          });
      });
 
+     //js for amount change on production order product name
+     $('.change_prod_name').on('change', function() {
+         const id = $(this).data('id');
+
+         const newName = document.getElementById("change_product_name").value;
+
+         $.ajax({
+             url: "<?= base_url('production/update_product_name'); ?>",
+             type: 'post',
+             data: {
+                 id : id,
+                 newName: newName
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
+
      //js for amount change on production order quantity per item input on change
      $('.material-qty').on('change', function() {
          const id = $(this).data('id');
          const prodID = $(this).data('prodID');
-
+         
          const qtyID = document.getElementById("materialAmount-" + id).value;
 
          $.ajax({

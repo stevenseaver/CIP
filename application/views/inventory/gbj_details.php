@@ -34,9 +34,17 @@
                     <p class="text-dark font-weight-bold"> 
                         <?php
                             if ($getID['categories'] == '6' or $getID['categories'] == '7') {
-                                echo number_format($getID['in_stock'], 2, ',', '.') . ' ' . $getID['unit_satuan'] . ' or ' . number_format(($getID['in_stock'] / $getID['conversion']), 2, ',', '.') . ' sack';
+                                if($getID['conversion'] != 0){
+                                    echo number_format($getID['in_stock'], 2, ',', '.') . ' ' . $getID['unit_satuan'] . ' or ' . number_format(($getID['in_stock'] / $getID['conversion']), 2, ',', '.') . ' sack';
+                                } else {
+                                    echo number_format($getID['in_stock'], 2, ',', '.') . ' ' . $getID['unit_satuan'];
+                                }
                             } else {
-                                echo number_format($getID['in_stock'], 2, ',', '.') . ' ' . $getID['unit_satuan'] . ' or ' . number_format(($getID['in_stock'] / $getID['packpersack']), 2, ',', '.') . ' sack' ;
+                                if($getID['packpersack'] != 0){
+                                    echo number_format($getID['in_stock'], 2, ',', '.') . ' ' . $getID['unit_satuan'] . ' or ' . number_format(($getID['in_stock'] / $getID['packpersack']), 2, ',', '.') . ' sack' ;
+                                } else {
+                                    echo number_format($getID['in_stock'], 2, ',', '.') . ' ' . $getID['unit_satuan'];
+                                }
                             } 
                         ?>
                     </p>

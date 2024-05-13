@@ -37,7 +37,24 @@
             <div class="row">
                 <div class="col-lg-6">
                     <p class="text-dark mb-0">Product : </p>
-                    <p class="text-dark font-weight-bold mb-0"> <?= $getID['product_name'] ?></p>
+                    <p id="product_name" class="text-dark font-weight-bold mb-0"> 
+                        <?= $getID['product_name']; ?>
+                        <i type="button" id="editNameButton" class="small text-primary bi bi-pencil-fill"></i>
+                    </p>
+                    <input style="display:none" id="change_product_name" class="change_prod_name text-left form-control"  data-id="<?= $getID['id']; ?>" value="<?= $getID['product_name']; ?>">
+                    <script>
+                        const button = document.getElementById('editNameButton');
+                        const div = document.getElementById('change_product_name');
+
+                        // define the function to change the HTML content
+                        function changeContent() {
+                            document.getElementById('change_product_name').style.display = 'block';
+                            document.getElementById('product_name').style.display = 'none';
+                        }
+
+                        // add event listener to the button
+                        button.addEventListener('click', changeContent);
+                    </script>
                 </div>
                 <div class="col-lg-6">
                     <p class="text-dark mb-0">Status : </p>
