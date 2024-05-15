@@ -11,14 +11,14 @@
 
     <!-- back button -->
     <a href="<?= base_url('production/gbj_report') ?>" class="btn btn-white btn-icon-split mb-3">
-        <span class="icon text-white-50">
-            <i class="bi bi-arrow-left text-dark"></i>
+        <span class="icon text-dark">
+            <i class="bi bi-arrow-left"></i>
         </span>
         <span class="text text-dark">Back</span>
     </a>
 
     <!-- Button to add Item -->
-    <a href="" class="btn btn-primary btn-icon-split mb-3 ml-3" data-toggle="modal" data-target="#newItem">
+    <a href="" class="btn btn-primary btn-icon-split mb-3 mx-1" data-toggle="modal" data-target="#newItem">
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
         </span>
@@ -26,7 +26,7 @@
     </a>
 
     <a href="" class="btn btn-light btn-icon-split mb-3" data-toggle="collapse" data-target="#addMaterial" aria-expanded="false" aria-controls="addMaterial">
-        <span class="icon text-white-50">
+        <span class="icon text-dark">
             <i class="bi bi-plus-lg"></i>
         </span>
         <span class="text">Add Additional Materials</span>
@@ -36,7 +36,7 @@
         <div class="card-body mb-0">
             <div class="row">
                 <div class="col-lg-6">
-                    <p class="text-dark mb-0">Product : </p>
+                    <p class="text-dark mb-1">Product : </p>
                     <p id="product_name" class="text-dark font-weight-bold mb-0"> 
                         <?= $getID['product_name']; ?>
                         <i type="button" id="editNameButton" class="small text-primary bi bi-pencil-fill"></i>
@@ -57,7 +57,7 @@
                     </script>
                 </div>
                 <div class="col-lg-6">
-                    <p class="text-dark mb-0">Status : </p>
+                    <p class="text-dark mb-1">Status : </p>
                     <?php if($getID['transaction_status'] == 1){ ?>
                         <td><p class="badge badge-secondary">Order dibuat</p></td>
                     <?php } else if($getID['transaction_status'] == 2){ ?>
@@ -261,11 +261,31 @@
     </div>
 
     <form action="<?= base_url('production/add_gbj_item/') . $po_id . '/2/2/' ?>" method="post">
-        <div class="form-group">
-            <!-- Item code -->
-            <label for="po_id" class="col-form-label">Production Order ID</label>
-            <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
-            <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
+        <div class="row">                       
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="po_id" class="col-form-label">Production Order ID</label>
+                    <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
+                    <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="report_date" class="col-form-label">Date</label>
+                    <?php 
+                        $month = date('m');
+                        $day = date('d');
+                        $year = date('Y');
+                        $hour = date('H');
+                        $minute = date('m');
+                        
+                        $today = $day . '/' . $month . '/' . $year . ',' . $hour . ':' . $minute;
+                    ?>
+                    <input type="datetime-local" class="form-control" id="report_date" name="report_date" value="<?= $today; ?>">
+                    <?= form_error('report_date', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-lg-5">

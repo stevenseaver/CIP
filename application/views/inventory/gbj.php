@@ -74,12 +74,8 @@
                                             echo ' or ' . number_format(($fs['in_stock'] / $fs['packpersack']), 2, ',', '.') . ' sack';
                                         } ?>
                                     </td>
-                                    <td><?php
-                                        if ($fs['categories'] != '6' and $fs['categories'] != '7') {
-                                            echo number_format($fs['price'], 0, ',', '.') . '/pack';
-                                        } else {
-                                            echo number_format($fs['price'], 0, ',', '.') . '/kg';
-                                        } ?></td>
+                                    <td><?= number_format($fs['price'], 0, ',', '.') . '/'. $fs['unit_satuan']; ?>
+                                    </td>
                                     <?php $value = $fs['price'] * $fs['in_stock'];
                                     $temp = $temp + $value;  ?>
                                     <td><?= number_format($value, 2, ',', '.') ?></td>

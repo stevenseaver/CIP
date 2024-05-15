@@ -11,22 +11,22 @@
 
     <!-- back button -->
     <a href="<?= base_url('production/inputRoll') ?>" class="btn btn-white btn-icon-split mb-3">
-        <span class="icon text-white-50">
+        <span class="icon text-dark">
             <i class="bi bi-arrow-left text-dark"></i>
         </span>
         <span class="text text-dark">Back</span>
     </a>
 
     <!-- Button to add Item -->
-    <a href="" class="btn btn-primary btn-icon-split mb-3 mx-3" data-toggle="modal" data-target="#newItem">
-        <span class="icon text-white-50">
+    <a href="" class="btn btn-primary btn-icon-split mb-3 mx-1" data-toggle="modal" data-target="#newItem">
+        <span class="icon text-white-70">
             <i class="bi bi-plus-lg"></i>
         </span>
         <span class="text">Add New Item</span>
     </a>
 
     <a href="" class="btn btn-light btn-icon-split mb-3" data-toggle="collapse" data-target="#addMaterial" aria-expanded="false" aria-controls="addMaterial">
-        <span class="icon text-white-50">
+        <span class="icon text-dark">
             <i class="bi bi-plus-lg"></i>
         </span>
         <span class="text">Add Additional Materials</span>
@@ -267,6 +267,17 @@
             <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
             <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
         </div>
+        <!-- <div class="row">                       
+            <div class="col-lg-6">
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="report_date" class="col-form-label">Date</label>
+                    <input type="datetime-local" class="form-control" id="report_date" name="report_date" value="<?= set_value('report_date') ?>">
+                    <?= form_error('report_date', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+        </div> -->
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-group">

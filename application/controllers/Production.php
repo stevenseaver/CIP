@@ -1115,6 +1115,7 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('price_gbj', 'price', 'trim|required');
         $this->form_validation->set_rules('batch', 'batch', 'trim|required');
         $this->form_validation->set_rules('pack_no', 'description', 'trim|required');
+        $this->form_validation->set_rules('report_date', 'description', 'required');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -1132,7 +1133,7 @@ class Production extends CI_Controller
             $packpersack = $this->input->post('packpersack');
             $batch = $this->input->post('batch');
             $pack_no = $this->input->post('pack_no');
-            $date = time();
+            $date = strtotime($this->input->post('report_date'));
             $transaction_status = 3;
 
             $gbjSelect = $this->db->get_where('stock_finishedgoods', ['code' => $code, 'status' => 7])->row_array();
@@ -1247,7 +1248,7 @@ class Production extends CI_Controller
     
             $data2 = [
                 'in_stock' => $update_stock,
-                'date' => $date
+                // 'date' => $date
             ];
     
             $setStatus = 9;
@@ -1379,7 +1380,7 @@ class Production extends CI_Controller
             
             $data2 = [
                 'in_stock' => $update_stock,
-                'date' => $date
+                // 'date' => $date
             ];
             
             //update transaksi
@@ -1553,14 +1554,14 @@ class Production extends CI_Controller
 
             $data = [
                 'description' => $desc,
-                'date' => $date
+                // 'date' => $date
             ];
         } else if ($type == 2){ //price
             $price = $this->input->post('priceGBJ');
 
             $data = [
                 'price' => $price,
-                'date' => $date
+                // 'date' => $date
             ];
             //delete this portion if edit price don't affect stock akhir price  
             $this->db->where('status', '7');
@@ -1571,7 +1572,7 @@ class Production extends CI_Controller
 
             $data = [
                 'batch' => $batchDesc,
-                'date' => $date
+                // 'date' => $date
             ];
         } 
 
