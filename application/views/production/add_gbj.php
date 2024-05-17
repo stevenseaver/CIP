@@ -273,23 +273,14 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="report_date" class="col-form-label">Date</label>
-                    <?php 
-                        $month = date('m');
-                        $day = date('d');
-                        $year = date('Y');
-                        $hour = date('H');
-                        $minute = date('m');
-                        
-                        $today = $day . '/' . $month . '/' . $year . ',' . $hour . ':' . $minute;
-                    ?>
-                    <input type="datetime-local" class="form-control" id="report_date" name="report_date" value="<?= $today; ?>">
+                    <input type="datetime-local" class="form-control" id="report_date" name="report_date" value="<?= set_value('report_date'); ?>">
                     <?= form_error('report_date', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-lg-5">
-            <div class="form-group">
+                <div class="form-group">
                     <!-- Item categories -->
                     <label for="gbjSelect" class="col-form-label">Item Name</label>
                     <input type="text" class="form-control" id="gbjSelect" name="gbjSelect" readonly value="<?= set_value('gbjSelect'); ?>">

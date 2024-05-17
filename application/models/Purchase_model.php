@@ -11,6 +11,16 @@ class Purchase_model extends CI_Model
             ";
         return $this->db->query($query)->result_array();
     }
+
+    public function getSupplierData()
+    {
+        $query = "SELECT `supplier`.*,`payment_terms`.`multiplier`
+                    FROM `supplier` JOIN `payment_terms`
+                      ON `payment_terms`.`id` = `supplier`.`terms_id`
+            ";
+        return $this->db->query($query)->result_array();
+    }
+
     public function calc_due_date()
     {
         $query = "SELECT `supplier`.*,`payment_terms`.`multiplier`

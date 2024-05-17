@@ -42,6 +42,25 @@ class Purchasing extends CI_Controller
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
 
+        //get supplier data
+        $this->load->model('Purchase_model', 'terms_id');
+        $data['supplier'] = $this->terms_id->getSupplierData();
+
+        $data['supDetails'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+        if($data['supDetails']){
+            $data['input_sup_id'] = $data['supDetails']['supplier'];
+            $data['input_sup_term']= $data['supDetails']['term'];
+            $data['existing_date']= $data['supDetails']['date'];
+            
+            $data['supName'] = $this->db->get_where('supplier', ['id' => $data['input_sup_id']])->row_array();
+            $data['input_sup_name'] = $data['supName']['supplier_name'];
+        } else {
+            $data['input_sup_name'] = null;
+            $data['input_sup_id'] = null;
+            $data['input_sup_term']= null;
+            $data['existing_date']= null;
+        }
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -65,7 +84,27 @@ class Purchasing extends CI_Controller
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
 
-        $this->form_validation->set_rules('supplier', 'supplier', 'required|trim');
+        //get supplier data
+        $this->load->model('Purchase_model', 'terms_id');
+        $data['supplier'] = $this->terms_id->getSupplierData();
+
+        $data['supDetails'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+        if($data['supDetails']){
+            $data['input_sup_id'] = $data['supDetails']['supplier'];
+            $data['input_sup_term']= $data['supDetails']['term'];
+            $data['existing_date']= $data['supDetails']['date'];
+            
+            $data['supName'] = $this->db->get_where('supplier', ['id' => $data['input_sup_id']])->row_array();
+            $data['input_sup_name'] = $data['supName']['supplier_name'];
+        } else {
+            $data['input_sup_name'] = null;
+            $data['input_sup_id'] = null;
+            $data['input_sup_term']= null;
+            $data['existing_date']= null;
+        }
+
+        $this->form_validation->set_rules('sup_name', 'sup_name', 'required|trim');
+        $this->form_validation->set_rules('po_date', 'po_date', 'required|trim');
         $this->form_validation->set_rules('material', 'material', 'required|trim');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('amount', 'amount', 'required|trim');
@@ -85,10 +124,15 @@ class Purchasing extends CI_Controller
             $po_id = $id;
             $po_status = 1;
             $materialID = $this->input->post('material');
-            $date = time();
+            $data['supDetails'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->row_array();
+            if($data['supDetails']){
+                $date = $this->input->post('po_date');
+            } else {
+                $date = strtotime($this->input->post('po_date'));
+            }
             $price = $this->input->post('price');
             $amount = $this->input->post('amount');
-            $supplier = $this->input->post('supplier');
+            $supplier = $this->input->post('sup_id');
             $description = $this->input->post('description');
             $item_desc = $this->input->post('item_desc');
             $tax = $this->input->post('tax');
@@ -123,7 +167,7 @@ class Purchasing extends CI_Controller
             ];
 
             $this->db->insert('stock_material', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material added!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Purchase item added!</div>');
             redirect('purchasing/add_item_po/' . $po_id . '/8/1');
         }
     }
@@ -754,6 +798,7 @@ class Purchasing extends CI_Controller
                 'bank_account' => $account,
                 'terms_id' => $terms,
             ];
+
             $this->db->where('id', $id);
             $this->db->update('supplier', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Customer: ' . $name . ' edited!</div>');

@@ -1065,7 +1065,7 @@ class Production extends CI_Controller
             $data['IDCheck']['description'] = 1;
             $data['IDCheck']['product_name'] = 1;
         };
-
+        
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);

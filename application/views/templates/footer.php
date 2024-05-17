@@ -743,8 +743,20 @@
          document.getElementById("cust_name").value = $cust_name;
          document.getElementById("cust_id").value = $id;
          document.getElementById("address").value = $address;
-        //  document.getElementById("pcsperpack").value = pcs;
-        //  document.getElementById("packpersack").value = pack;
+     });
+
+     //  JavaScript for add supplier to purchase order form
+     $(".select-supplier").click(function() {
+         //extract data from data-* attributes of modal's add button
+         var $row = $(this).closest("tr"); // Find the row
+         var $sup_name = $row.find(".supplier_name").text();
+         var $id = $row.find(".supplier_id").text();
+         var $term = $row.find(".supplier_term").text();
+
+         // input passed data using JS to object INPUT from modal #newItem 
+         document.getElementById("sup_name").value = $sup_name;
+         document.getElementById("sup_id").value = $id;
+         document.getElementById("term").value = $term;
      });
 
      //  JavaScript for add item to sales order database cart
@@ -779,12 +791,14 @@
          var $name = $row.find(".name").text();
          var $unit = $row.find(".unit").text();
          var $price = $row.find(".price").text();
+         var $in_stock = $row.find(".in_stock").text();
 
          // input passed data using JS to object INPUT from modal #newItem 
          document.getElementById("material").value = $id;
          document.getElementById("materialName").value = $name;
          document.getElementById("price").value = $price;
          document.getElementById("unit_amount").innerText = $unit;
+         document.getElementById("in_stock").value = $in_stock;
      });
 
      //  JavaScript for add item to sales order database cart

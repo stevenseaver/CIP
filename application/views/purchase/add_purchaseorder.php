@@ -18,22 +18,58 @@
     </a>
 
     <!-- Button to add Item -->
-    <a href="" class="btn btn-primary btn-icon-split mb-3 mx-3" data-toggle="modal" data-target="#newItem">
+    <a href="" class="btn btn-primary btn-icon-split mb-3 mx-1" data-toggle="modal" data-target="#newItem">
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
         </span>
         <span class="text">Add New Item</span>
     </a>
 
+    <!-- Button to add customer -->
+    <a href="" class="btn btn-light btn-icon-split mb-3" data-toggle="modal" data-target="#newSupplier">
+        <span class="icon text-white-50">
+            <i class="fas fa-fw fa-user-plus"></i>
+        </span>
+        <span class="text">Select Supplier</span>
+    </a>
+
     <form action="<?= base_url('purchasing/add_item_po/') . $po_id . '/8/1' ?>" method="post">
-        <div class="form-group">
-            <!-- Item code -->
-            <label for="po_id" class="col-form-label">Purchase Order ID</label>
-            <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
-            <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
+        <div class="row">
+            <?php if($existing_date){ ?>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <!-- Item code -->
+                        <label for="po_id" class="col-form-label">Purchase Order ID</label>
+                        <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
+                        <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                </div>
+                <div class="col-lg-6" style="display:none">
+                    <div class="form-group">
+                        <label for="po_date" class="col-form-label">Date</label>
+                        <input readonly type="text" class="form-control" id="po_date" name="po_date" value="<?= $existing_date ?>">
+                        <?= form_error('po_date', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                </div>
+            <?php } else { ?>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <!-- Item code -->
+                        <label for="po_id" class="col-form-label">Purchase Order ID</label>
+                        <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
+                        <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="po_date" class="col-form-label">Date</label>
+                        <input type="datetime-local" class="form-control" id="po_date" name="po_date" value="<?= set_value('po_date'); ?>">
+                        <?= form_error('po_date', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                </div>
+            <?php };?>
         </div>
-        <div class="form-group">
-            <!-- Item name -->
+        <!-- <div class="form-group">
             <label for="supplier" class="col-form-label">Supplier</label>
             <select name="supplier" id="supplier" class="form-control" value="<?= set_value('supplier') ?>">
                 <option value="">--Select Supplier--</option>
@@ -42,6 +78,44 @@
                 <?php endforeach; ?>
             </select>
             <?= form_error('supplier', '<small class="text-danger pl-2">', '</small>') ?>
+        </div> -->
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="form-group">
+                    <!-- Customer Name -->
+                    <label for="sup_name" class="col-form-label">Supplier</label>
+                    <?php if ($input_sup_name) { ?>
+                        <input type="text" class="form-control" id="sup_name" name="sup_name" readonly value="<?= $input_sup_name; ?>">
+                    <?php } else { ?>
+                        <input type="text" class="form-control" id="sup_name" name="sup_name" readonly value="<?= set_value('sup_name'); ?>">
+                    <?php } ?>
+                    <?= form_error('sup_name', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <!-- customer ID -->
+                    <label for="sup_id" class="col-form-label">ID</label>
+                    <?php if ($input_sup_id) { ?>
+                        <input type="text" class="form-control" id="sup_id" name="sup_id" readonly value="<?= $input_sup_id ?>">
+                    <?php } else { ?>
+                        <input type="text" class="form-control" id="sup_id" name="sup_id" readonly value="<?= set_value('customer_id'); ?>">
+                    <?php } ?>
+                    <?= form_error('sup_id', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-1">
+                <div class="form-group">
+                    <!-- customer address -->
+                    <label for="term" class="col-form-label">Term</label>
+                    <?php if ($input_sup_term) { ?>
+                        <input type="text" class="form-control" id="term" name="term" readonly value="<?= $input_sup_term ?>">
+                    <?php } else { ?>
+                        <input type="text" class="form-control" id="term" name="term" readonly value="<?= set_value('term'); ?>">
+                    <?php } ?>
+                    <?= form_error('term', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
         </div>
         
         <div class="row">
@@ -61,7 +135,7 @@
                     <?= form_error('material', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-lg-1">
+            <div class="col-lg-2">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="price" class="col-form-label">Price</label>
@@ -95,14 +169,14 @@
                     <?= form_error('tax', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-lg-1">
-                <div class="form-group">
+            <!-- <div class="col-lg-1">
+                <div class="form-group"> -->
                     <!-- Terms -->
-                    <label for="term" class="col-form-label">Terms</label>
+                    <!-- <label for="term" class="col-form-label">Terms</label>
                     <input type="text" class="form-control mb-1" id="term" name="term" readonly>
                     <?= form_error('term', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
-            </div>
+            </div> -->
             <div class="col-lg-6">
                 <div class="form-group">
                     <!-- Item code -->
@@ -337,6 +411,55 @@
     </div>
 </div>
 
+<!-- Modal for supplier -->
+<div class="modal fade" id="newSupplier" tabindex="-1" aria-labelledby="newSupplierLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newSupplierLabel">Add New Customer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table2 table-responsive">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="table2" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Supplier</th>
+                                    <th>ID</th>
+                                    <th>Term</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1;
+                                $temp = 0; ?>
+                                <?php foreach ($supplier as $cd) : ?>
+                                    <tr>
+                                        <td><?= $i ?></td>
+                                        <td class="supplier_name"><?= $cd['supplier_name'] ?></td>
+                                        <td class="supplier_id"><?= $cd['id'] ?></td>
+                                        <td class="supplier_term"><?= $cd['multiplier'] ?></td>
+                                        <td>
+                                            <!-- link this with a javascript -->
+                                            <a data-dismiss="modal" type="button" class="select-supplier badge badge-primary">Add</a> 
+                                        </td>
+                                    </tr>
+                                    <?php $i++; ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
     //js for setting purchase tax input onchange
     function change_purchase_tax($amount){
@@ -345,5 +468,20 @@
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
+    });
+
+    var table2 = $('#table2').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+
     });
 </script>

@@ -37,13 +37,14 @@
                         <?php foreach ($supplier as $sup) : ?>
                             <tr>
                                 <td><?= $i ?></td>
-                                <?php if ($sup['id'] < 10) { ?>
+                                <!-- <?php if ($sup['id'] < 10) { ?>
                                     <td>SUP-000<?= $sup['id']; ?></td>
                                 <?php } else if ($sup['id'] < 100) { ?>
                                     <td>SUP-00<?= $sup['id']; ?></td>
                                 <?php } else if ($sup['id'] >= 100) { ?>
                                     <td>SUP-0<?= $sup['id']; ?></td>
-                                <?php }; ?>
+                                <?php }; ?> -->
+                                <td><?= $sup['id']; ?></td>
                                 <td><?= $sup['supplier_name']; ?></td>
                                 <td><?= $sup['address']; ?></td>
                                 <td><?= $sup['phone']; ?></td>
@@ -52,7 +53,7 @@
                                 <td><?= $sup['terms']; ?></td>
                                 </td>
                                 <td>
-                                    <a data-toggle="modal" data-target="#editSupplierModal" data-id="<?= $sup['id'] ?>" data-name="<?= $sup['supplier_name'] ?>" data-address="<?= $sup['address'] ?>" data-phone="<?= $sup['phone'] ?>" data-email="<?= $sup['email'] ?>" data-account="<?= $sup['bank_account'] ?>" data-terms="<?= $sup['terms_id'] ?>" class="badge badge-success clickable"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                    <a data-toggle="modal" data-target="#editSupplierModal" data-id="<?= $sup['id'] ?>" data-name="<?= $sup['supplier_name'] ?>" data-address="<?= $sup['address'] ?>" data-phone="<?= $sup['phone'] ?>" data-email="<?= $sup['email'] ?>" data-account="<?= $sup['bank_account'] ?>" data-terms="<?= $sup['terms_id'] ?>" class="badge badge-warning clickable"><i class="bi bi-pencil-fill"> </i>Edit</a>
                                     <a data-toggle="modal" data-target="#deleteSupplierModal" data-id="<?= $sup['id'] ?>" data-name="<?= $sup['supplier_name'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete</a>
                                 </td>
                             </tr>
