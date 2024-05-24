@@ -425,7 +425,6 @@
                                             <tr>
                                                 <td><?= $sales['ref'] ?></td>
                                                 <td><?= date('d F Y H:i:s', $sales['date']); ?></td>
-                                                <!-- <td><?= date('d F Y H:i:s', $due_date); ?></td> -->
                                                 <td><?= $sales['name'] ?></td>
                                                 <td>
                                                     <?php 
@@ -635,16 +634,8 @@
         order: [2, 'asc'],
         paging: true
     });
-
     var table = $('#tableSales').DataTable({
-        order: [1, 'asc'],
-        paging: true,
-        columnDefs: [
-            {
-                targets:[0,1,2,3,4,5,6],
-                orderable: true,
-                searchable: true
-            }
-        ]
+        order: [2, 'asc'],
+        paging: true
     });
 </script>

@@ -489,6 +489,13 @@
         </table>
     </div>
     
+    <a href="" class="btn btn-primary btn-icon-split mb-3 mx-1" style="display:none" data-toggle="modal" data-target="#cutBulk">
+        <span class="icon text-white-70">
+            <i class="bi bi-plus-lg"></i>
+        </span>
+        <span class="text">Bulk Roll Cut</span>
+    </a>
+
     <div class="table-responsive my-3">
         <table class="table table-hover" id="table2" width="100%" cellspacing="0">
             <thead>
@@ -879,6 +886,72 @@
     </div>
 </div>
 
+<!-- Modal for bulk cut roll items -->
+<div class="modal fade" id="cutBulk" tabindex="-1" aria-labelledby="cutBulkLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cutBulkLabel">Cut Roll Item in Bulk</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="table4" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Date</th>
+                                <th>Item</th>
+                                <th>Amount</th>
+                                <th>Batch</th>
+                                <th>Roll Number</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i = 1;
+                            $temp = 0; ?>
+                            <?php foreach ($rollType as $ms) : 
+                                if ($ms['status'] == 9) { 
+
+                                } else { ?>
+                                <tr>
+                                    <td><?= $i ?></td>
+                                    <td><?= date('d F Y H:i', $ms['date']);?></td>
+                                    <td><?= $ms['name'] ?></td>
+                                    <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                                    <td><?= $ms['batch'] ?></td>
+                                    <td><?= $ms['transaction_desc'] ?></td>
+                                    <td>
+                                        <input class="check-plus form-check-input" type="checkbox" value="<?= $ms['incoming'];?>">   
+                                    </td>
+                                </tr>
+                                <?php $i++; ?>
+                            <?php } endforeach; ?>
+                        </tbody>
+                    </table>
+                    <p id="display">
+                </div>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cut selected</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.check-plus').click(function(e){
+        let sum = -20;
+        $(":checked").each(function(){
+            sum = sum + Number($(this).val());
+        });
+        $('#display').html("Total Amount is : "+sum);  
+    });
+</script>
 
 <!-- Modal For Print -->
 <div class="modal fade" id="printDetailsGBJ" tabindex="-1" role="dialog" aria-labelledby="printDetailsGBJLabel" aria-hidden="true">
@@ -1038,5 +1111,9 @@
             }
         ]
 
+    });
+    var table3 = $('#table4').DataTable({
+        paging: false,
+        searchable: true
     });
 </script>

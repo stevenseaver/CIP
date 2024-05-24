@@ -152,9 +152,9 @@ class Sales extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
-        $date = time();
+        // $date = time();
         $data['ref'] = $ref;    
-        $data['date'] = $date;
+        // $data['date'] = $date;
 
         //get cart database
         $data['dataCart'] = $this->db->get_where('cart', ['ref' => $ref])->result_array();
@@ -164,6 +164,7 @@ class Sales extends CI_Controller
         $this->form_validation->set_rules('cust_name', 'customer name', 'required|trim');
         $this->form_validation->set_rules('cust_id', 'customer ID', 'required|trim');
         $this->form_validation->set_rules('address', 'address', 'required|trim');
+        $this->form_validation->set_rules('so_date', 'sales order date', 'required|trim');
         
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('code', 'code', 'trim');
@@ -179,6 +180,7 @@ class Sales extends CI_Controller
         if($data['custDetails']){
             $data['input_cust_id'] = $data['custDetails']['customer_id'];
             $data['input_cust_address']= $data['custDetails']['deliveryTo'];
+            $data['date'] = $data['custDetails']['date'];
             
             $data['custName'] = $this->db->get_where('user', ['id' => $data['input_cust_id']])->row_array();
             $data['input_cust_name'] = $data['custName']['name'];
@@ -186,6 +188,7 @@ class Sales extends CI_Controller
             $data['input_cust_name'] = null;
             $data['input_cust_id'] = null;
             $data['input_cust_address']= null;
+            $data['date'] = null;
         }
 
         if($this->form_validation->run() == false){
@@ -198,7 +201,12 @@ class Sales extends CI_Controller
             $cust_id = $this->input->post('cust_id');
             $cust_address = $this->input->post('address');
 
-            // $date = strtotime($this->input->post('transDate'));
+            if($data['date']){
+                $date = $this->input->post('so_date');
+            } else {
+                $date = strtotime($this->input->post('so_date'));
+            };
+            
             $name = $this->input->post('name');
             $code = $this->input->post('code');
             $price = $this->input->post('price');

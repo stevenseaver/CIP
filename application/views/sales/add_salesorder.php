@@ -19,9 +19,11 @@
             <div class="card-body">
                 <p class="text-dark mb-1">Invoice Ref. : </p>
                 <p class="text-dark font-weight-bold"> <?= $ref ?></p>
-                <p class="text-dark mb-1">Date : </p>
-                <p class="text-dark font-weight-bold"> <?= date('d F Y H:i', $date); ?></p>
-                <!-- <input type="date" id="transDate" name="transDate"></input> -->
+                <?php if ($date) { ?>
+                    <p class="text-dark mb-1">Date : </p>
+                    <p class="text-dark font-weight-bold"> <?= date('d F Y H:i', $date); ?></p>
+                <?php } else { ?>
+                <?php } ?>
             </div>
         </div>
         
@@ -53,6 +55,23 @@
         <div>
             <form action="<?= base_url('sales/add_salesorder/' . $ref) ?>" method="post">
                 <div class="row">
+                    <?php if ($date) { ?>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="so_date" class="col-form-label">Date</label>
+                                <input readonly type="text" class="form-control" id="so_date" name="so_date" value="<?= $date ?>">
+                            </div>
+                        </div>
+                    <?php } else { ?>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label for="so_date" class="col-form-label">Date</label>
+                                <input type="datetime-local" class="form-control" id="so_date" name="so_date" value="<?= set_value('so_date'); ?>">
+                                <?= form_error('so_date', '<small class="text-danger pl-2">', '</small>') ?>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    
                     <div class="col-lg-3">
                         <div class="form-group">
                             <!-- Customer Name -->
@@ -77,7 +96,7 @@
                             <?= form_error('cust_id', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
-                    <div class="col-lg-8">
+                    <div class="col-lg-6">
                         <div class="form-group">
                             <!-- customer address -->
                             <label for="address" class="col-form-label">Address</label>
@@ -329,9 +348,9 @@
             else : ?>
         </div>
         <div class="row mx-3 my-0 justify-content-center">
-            <h1 class="text-gray-400"><i class="bi bi-bag-plus fa-5x"></i></h1>
+            <i class="text-gray-400"><i class="bi bi-bag-plus fa-5x"></i></i>
         </div>
-        <div class="row mx-3 justify-content-center">
+        <div class="row mx-3 mb-3 justify-content-center">
             <div class="" role="alert">Sales order is empty.</a></div>
         </div>
         <?php endif;

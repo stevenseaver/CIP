@@ -563,11 +563,13 @@
                         <td><?= $ms['code']; ?></td>
                         <td><?= $ms['weight']; ?></td>
                         <td><?= $ms['lipatan']; ?></td>
-                        <!-- <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td> -->
-                        <td style="width: 100px"><input id="rollAmount-<?= $ms['id'] ?>" class="roll-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
-                        <!-- <td><?= number_format($ms['price'], 2, ',', '.'); ?></td> -->
-                        <td style="width: 110px"><input id="rollPrice-<?= $ms['id'] ?>" class="roll-price text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['price'], 2, ',', '.'); ?>"></td>
-                        <?php 
+                        <?php if ($ms['status'] != 9){ ?>
+                            <td style="width: 100px"><input id="rollAmount-<?= $ms['id'] ?>" class="roll-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
+                            <td style="width: 110px"><input id="rollPrice-<?= $ms['id'] ?>" class="roll-price text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['price'], 2, ',', '.'); ?>"></td>
+                        <?php } else { ?>
+                            <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                            <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
+                        <?php };
                             $subtotal = $ms['incoming'] * $ms['price'];
                         ?>
                         <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
@@ -575,7 +577,11 @@
                         <td><input id="rollDesc-<?= $ms['id'] ?>" class="roll-desc text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['transaction_desc']; ?>"></td>
                         <td>
                             <a data-toggle="modal" data-target="#printDetails" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['weight'] ?>" data-lipatan="<?= $ms['lipatan']?>" data-desc="<?= $ms['transaction_desc']?>" class="badge badge-primary clickable">Print</a>
-                            <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
+                            <?php if ($ms['status'] != 9){ ?>
+                                <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
+                            <?php } else { 
+
+                            }; ?>
                         </td>
                     </tr>
                     <?php 

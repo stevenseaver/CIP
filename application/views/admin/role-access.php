@@ -45,7 +45,7 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
-                        <small class="text-primary pb-1">*) Role Access doesn't show administator option. </small>
+                        <small class="text-primary pb-1">*) Role Access doesn't show administrator option. </small>
                     </div>
                 </div>
             </div>

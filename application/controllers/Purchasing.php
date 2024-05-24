@@ -129,7 +129,7 @@ class Purchasing extends CI_Controller
                 $date = $this->input->post('po_date');
             } else {
                 $date = strtotime($this->input->post('po_date'));
-            }
+            };
             $price = $this->input->post('price');
             $amount = $this->input->post('amount');
             $supplier = $this->input->post('sup_id');
