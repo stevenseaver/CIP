@@ -800,6 +800,7 @@ class Inventory extends CI_Controller
         $data['rollStock'] = $this->warehouse_id->getProduction();
         $data['getID'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
         $data['code'] = $data['getID']['code'];
+        $code = $data['code'];
         $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
 
         $this->form_validation->set_rules('categories', 'categories', 'required|trim');
@@ -867,7 +868,8 @@ class Inventory extends CI_Controller
                     ];
                     
                     $this->db->where('code', $code);
-                    $this->db->update('stock_roll', $data2, 'status = 7');
+                    $this->db->where('status', 7);
+                    $this->db->update('stock_roll', $data2);
                 }
                 //other than that, it reduces the final stocks
                 else {
@@ -887,8 +889,9 @@ class Inventory extends CI_Controller
                     ];
 
                     $this->db->where('code', $code);
-                    $this->db->update('stock_roll', $data2, 'status = 7');
-                }
+                    $this->db->where('status', 7);
+                    $this->db->update('stock_roll', $data2);
+                };
             }
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $code .  ' adjusted!</div>');

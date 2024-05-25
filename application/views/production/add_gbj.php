@@ -489,7 +489,7 @@
         </table>
     </div>
     
-    <a href="" class="btn btn-primary btn-icon-split mb-3 mx-1" style="display:none" data-toggle="modal" data-target="#cutBulk">
+    <a href="" style="display:none" class="btn btn-primary btn-icon-split mb-3 mx-1" data-toggle="modal" data-target="#cutBulk">
         <span class="icon text-white-70">
             <i class="bi bi-plus-lg"></i>
         </span>
@@ -538,13 +538,16 @@
                         <td><?= $ms['code'] ?></td>
                         <td><?= $ms['weight'] ?></td>
                         <td><?= $ms['lipatan'] ?></td>
-                        <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                        <?php if ($ms['status'] != 9){ ?>
+                            <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                        <?php } else { ?>
+                            <td>-<?= number_format($ms['outgoing'], 2, ',', '.'); ?> kg</td>
+                        <?php }; ?>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php 
                             $subtotal = $ms['incoming'] * $ms['price'];
                         ?>
                         <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
-                        <!-- <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> -->
                         <td><?= $ms['batch'] ?></td>
                         <td><?= $ms['transaction_desc'] ?></td>
                         <td>
@@ -896,60 +899,97 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="table-responsive">
-                    <table class="table table-hover" id="table4" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Date</th>
-                                <th>Item</th>
-                                <th>Amount</th>
-                                <th>Batch</th>
-                                <th>Roll Number</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i = 1;
-                            $temp = 0; ?>
-                            <?php foreach ($rollType as $ms) : 
-                                if ($ms['status'] == 9) { 
-
-                                } else { ?>
+            <form action="<?= base_url('production/cut_roll_bulk') ?>" method="post">
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="table4" width="100%" cellspacing="0">
+                            <thead>
                                 <tr>
-                                    <td><?= $i ?></td>
-                                    <td><?= date('d F Y H:i', $ms['date']);?></td>
-                                    <td><?= $ms['name'] ?></td>
-                                    <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
-                                    <td><?= $ms['batch'] ?></td>
-                                    <td><?= $ms['transaction_desc'] ?></td>
-                                    <td>
-                                        <input class="check-plus form-check-input" type="checkbox" value="<?= $ms['incoming'];?>">   
-                                    </td>
+                                    <th>No</th>
+                                    <th>Date</th>
+                                    <th>Item</th>
+                                    <th>Amount</th>
+                                    <th>Batch</th>
+                                    <th>Roll Number</th>
+                                    <th>Action</th>
                                 </tr>
-                                <?php $i++; ?>
-                            <?php } endforeach; ?>
-                        </tbody>
-                    </table>
-                    <p id="display">
+                            </thead>
+                            <tbody>
+                                <?php $i = 1;
+                                $temp = 0; ?>
+                                <?php foreach ($rollType as $ms) : 
+                                    if ($ms['status'] == 9) { 
+
+                                    } else { ?>
+                                    <tr>
+                                        <td><?= $i ?></td>
+                                        <td><?= date('d F Y H:i', $ms['date']);?></td>
+                                        <td><?= $ms['name']; ?></td>
+                                        <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                                        <td><?= $ms['batch']; ?></td>
+                                        <td><?= $ms['transaction_desc']; ?></td>
+                                        <td>
+                                            <input class="check-bulk" type="checkbox" value="<?= $ms['incoming'];?>" data-id="<?= $ms['id']; ?>" data-code="<?= $ms['code']; ?>" data-trxid="<?= $ms['transaction_id']?>" data-batch="<?= $ms['batch']; ?>">   
+                                        </td>
+                                    </tr>
+                                    <?php $i++; ?>
+                                <?php } endforeach; ?>
+                            </tbody>
+                        </table>
+                        <div class="form-group">
+                            <!-- trans ID -->
+                            <label for="trans_id" class="col-form-label">Transaction ID</label>
+                            <input type="text" class="form-control" id="trans_id" name="trans_id" readonly >    
+                            <!-- batch -->
+                            <label for="bulk_batch" style="display:none" class="col-form-label">Batch</label>
+                            <input type="text" style="display:none" class="form-control" id="bulk_batch" name="bulk_batch" readonly >    
+                            <!-- amount to cut -->
+                            <label for="roll_item" class="col-form-label">Roll Item</label>
+                            <input type="text" class="form-control" id="roll_item" name="roll_item" readonly >    
+                            <!-- amount to cut -->
+                            <label for="cut_amount" class="col-form-label">Amount</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="cut_amount" name="cut_amount" readonly>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">kg</span>
+                                </div>
+                            </div>  
+                            <!-- amount to cut -->
+                            <label for="iteration" class="col-form-label">Iteration</label>
+                            <input type="text" class="form-control" id="iteration" name="iteration" readonly>    
+                        </div>
+                    </div>
                 </div>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cut selected</button>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Cut selected</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 <script>
-    $('.check-plus').click(function(e){
+    $('.check-bulk').click(function(e){
         let sum = -20;
+        let i=0;
         $(":checked").each(function(){
             sum = sum + Number($(this).val());
+            id[i] = $(this).data('id');
+            console.log(id[i]);
+            i++;
         });
-        $('#display').html("Total Amount is : "+sum);  
+
+        const code = $(this).data('code');
+        const transID = $(this).data('trxid');
+        const batch = $(this).data('batch');
+
+        // $('#cut_amount').value("Total Amount is : "+sum+" kg");  
+        document.getElementById("roll_item").value = code;
+        document.getElementById("trans_id").value = transID;
+        document.getElementById("bulk_batch").value = batch;
+        document.getElementById("cut_amount").value = sum;
+        document.getElementById("iteration").value = i;
     });
 </script>
 
