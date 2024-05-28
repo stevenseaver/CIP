@@ -538,11 +538,12 @@
                         <td><?= $ms['code'] ?></td>
                         <td><?= $ms['weight'] ?></td>
                         <td><?= $ms['lipatan'] ?></td>
-                        <?php if ($ms['status'] != 9){ ?>
+                        <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                        <!-- <?php if ($ms['status'] != 9){ ?>
                             <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
                         <?php } else { ?>
                             <td>-<?= number_format($ms['outgoing'], 2, ',', '.'); ?> kg</td>
-                        <?php }; ?>
+                        <?php }; ?> -->
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php 
                             $subtotal = $ms['incoming'] * $ms['price'];

@@ -1433,10 +1433,21 @@
          //extract data from data-* attributes of modal's toggle button
          var id = $(event.relatedTarget).data('id');
          var status = $(event.relatedTarget).data('categories');
+         var qty = $(event.relatedTarget).data('qty');
+         var price = $(event.relatedTarget).data('price');
+         var desc = $(event.relatedTarget).data('desc');
+         var desc2 = $(event.relatedTarget).data('desc2');
+         var label = $(event.relatedTarget).data('label');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
          $(event.currentTarget).find('.modal-body input[name="categories"]').val(status);
+         $(event.currentTarget).find('.modal-body input[name="adjust_amount"]').val(qty);
+         $(event.currentTarget).find('.modal-body input[name="adjust_price"]').val(price);
+         $(event.currentTarget).find('.modal-body input[name="adjust_desc"]').val(desc);
+         $(event.currentTarget).find('.modal-body input[name="adjust_desc2"]').val(desc2);
+        //  $(event.currentTarget).find('.modal-body input[name="adjust_desc_label"]').val(label);
+         document.getElementById("adjust_desc_label").innerText = label;
      });
 
      //  JavaScript for Sales Info Payment 

@@ -354,22 +354,29 @@ class Inventory extends CI_Controller
         $data['materialStock'] = $this->warehouse_id->getMaterial();
         $data['getID'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
         $code = $data['getID']['code'];
+        $data['code'] = $data['getID']['code'];
         $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
 
         $this->form_validation->set_rules('categories', 'categories', 'required|trim');
-        $this->form_validation->set_rules('adjust_amount', 'adjust_amount', 'required|trim');
+        $this->form_validation->set_rules('adjust_amount', 'amount', 'required|trim');
+        $this->form_validation->set_rules('adjust_price', 'price', 'required|trim');
+        $this->form_validation->set_rules('adjust_desc', 'transaction description', 'required|trim');
+        $this->form_validation->set_rules('adjust_desc2', 'item description', 'trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops, something is are missing!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('inventory/gbj_details', $data);
+            $this->load->view('inventory/material_details', $data);
             $this->load->view('templates/footer');
         } else {
             $idToEdit = $this->input->post('id');
             $category = $this->input->post('categories');
             $adjust_amount = $this->input->post('adjust_amount');
+            $adjust_price = $this->input->post('adjust_price');
+            $adjust_desc = $this->input->post('adjust_desc');
+            $adjust_desc2 = $this->input->post('adjust_desc2');
             $date = time();
 
             $data['stockOld'] = $this->db->get_where('stock_material', ['id' => $idToEdit])->row_array();
@@ -384,17 +391,28 @@ class Inventory extends CI_Controller
             }
 
             if ($category == 'Saldo Akhir') {
+                $data = [
+                    'description' => $adjust_desc,
+                    'item_desc' => $adjust_desc2
+                ];
                 // $this->db->set('in_stock', $adjust_amount);
                 // $this->db->set('date', $date);
-                // $this->db->where('id', $idToEdit);
-                // $this->db->update('stock_material');
+                $this->db->where('id', $idToEdit);
+                $this->db->update('stock_material', $data);
+                
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Saldo Akhir can not be adjusted!</div>');
                 redirect('inventory/material_details/' . $id);
             } else if ($category == 'Saldo Awal') {
-                $this->db->set('in_stock', $adjust_amount);
-                $this->db->set('date', $date);
+                $data = [
+                    'in_stock' => $adjust_amount,
+                    'date' => $date,
+                    'description' => $adjust_desc,
+                    'item_desc' => $adjust_desc2
+                ];
+                // $this->db->set('in_stock', $adjust_amount);
+                // $this->db->set('date', $date);
                 $this->db->where('id', $idToEdit);
-                $this->db->update('stock_material');
+                $this->db->update('stock_material', $data);
 
                 $data2 = [
                     'in_stock' => $stock_end_before + ($adjust_amount - $stock_awal_before),
@@ -411,11 +429,17 @@ class Inventory extends CI_Controller
                 if ($category == 'Purchasing') {
                     $update_stock = ($stock_end_before - $stock_adjust_before) + $adjust_amount;
 
-                    $this->db->set('incoming', $adjust_amount);
-                    $this->db->set('in_stock', $update_stock);
-                    $this->db->set('date', $date);
+                    $data = [
+                        'incoming' => $adjust_amount,
+                        'in_stock' => $update_stock,
+                        'date' => $date,
+                        'price' => $adjust_price,
+                        'description' => $adjust_desc,
+                        'item_desc' => $adjust_desc2
+                    ];
+
                     $this->db->where('id', $idToEdit);
-                    $this->db->update('stock_material');
+                    $this->db->update('stock_material', $data);
 
                     $data2 = [
                         'in_stock' => $update_stock,
@@ -432,11 +456,20 @@ class Inventory extends CI_Controller
                 else {
                     $update_stock = ($stock_end_before + $stock_adjust_before) - $adjust_amount;
 
-                    $this->db->set('outgoing', $adjust_amount);
-                    $this->db->set('in_stock', $update_stock);
-                    $this->db->set('date', $date);
+                    $data = [
+                        'outgoing' => $adjust_amount,
+                        'in_stock' => $update_stock,
+                        'date' => $date,
+                        'price' => $adjust_price,
+                        'description' => $adjust_desc,
+                        'item_desc' => $adjust_desc2
+                    ];
+
+                    // $this->db->set('outgoing', $adjust_amount);
+                    // $this->db->set('in_stock', $update_stock);
+                    // $this->db->set('date', $date);
                     $this->db->where('id', $idToEdit);
-                    $this->db->update('stock_material');
+                    $this->db->update('stock_material', $data);
 
                     $data2 = [
                         'in_stock' => $update_stock,
