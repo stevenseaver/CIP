@@ -56,7 +56,7 @@
             <form action="<?= base_url('sales/add_salesorder/' . $ref) ?>" method="post">
                 <div class="row">
                     <?php if ($date) { ?>
-                        <div class="col-lg-2">
+                        <div class="col-lg-2" style="display:none">
                             <div class="form-group">
                                 <label for="so_date" class="col-form-label">Date</label>
                                 <input readonly type="text" class="form-control" id="so_date" name="so_date" value="<?= $date ?>">

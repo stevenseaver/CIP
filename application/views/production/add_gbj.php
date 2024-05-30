@@ -273,7 +273,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="report_date" class="col-form-label">Date</label>
-                    <input type="datetime-local" class="form-control" id="report_date" name="report_date" value="<?= set_value('report_date'); ?>">
+                    <input type="date" class="form-control" id="report_date" name="report_date" value="<?= set_value('report_date'); ?>">
                     <?= form_error('report_date', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
@@ -489,7 +489,7 @@
         </table>
     </div>
     
-    <a href="" style="display:none" class="btn btn-primary btn-icon-split mb-3 mx-1" data-toggle="modal" data-target="#cutBulk">
+    <a href="" class="btn btn-primary btn-icon-split mb-3 mx-1" data-toggle="modal" data-target="#cutBulk">
         <span class="icon text-white-70">
             <i class="bi bi-plus-lg"></i>
         </span>
@@ -900,7 +900,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('production/cut_roll_bulk') ?>" method="post">
+            <form action="<?= base_url('production/cut_roll_bulk/' . $po_id) ?>" method="post">
                 <div class="modal-body">
                     <div class="table-responsive">
                         <table class="table table-hover" id="table4" width="100%" cellspacing="0">
@@ -918,10 +918,8 @@
                             <tbody>
                                 <?php $i = 1;
                                 $temp = 0; ?>
-                                <?php foreach ($rollType as $ms) : 
-                                    if ($ms['status'] == 9) { 
-
-                                    } else { ?>
+                                <?php foreach ($rollType as $ms) : ?>
+                                   
                                     <tr>
                                         <td><?= $i ?></td>
                                         <td><?= date('d F Y H:i', $ms['date']);?></td>
@@ -930,14 +928,19 @@
                                         <td><?= $ms['batch']; ?></td>
                                         <td><?= $ms['transaction_desc']; ?></td>
                                         <td>
-                                            <input class="check-bulk" type="checkbox" value="<?= $ms['incoming'];?>" data-id="<?= $ms['id']; ?>" data-code="<?= $ms['code']; ?>" data-trxid="<?= $ms['transaction_id']?>" data-batch="<?= $ms['batch']; ?>">   
+                                            <?php if ($ms['status'] == 9) { ?>
+                                                <!-- <input class="uncheck-bulk" type="checkbox" value="<?= $ms['incoming'];?>" checked data-id="<?= $ms['id']; ?>" data-code="<?= $ms['code']; ?>" data-trxid="<?= $ms['transaction_id']?>" data-batch="<?= $ms['batch']; ?>">    -->
+                                                <!-- <a onclick="undo_status_change()" class="badge btn btn-primary clickable" data-id="<?= $ms['id']; ?>">Undo</a> -->
+                                            <?php } else { ?>
+                                                <input class="check-bulk" type="checkbox" value="<?= $ms['incoming'];?>" data-id="<?= $ms['id']; ?>" data-code="<?= $ms['code']; ?>" data-trxid="<?= $ms['transaction_id']?>" data-batch="<?= $ms['batch']; ?>">   
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                     <?php $i++; ?>
-                                <?php } endforeach; ?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
-                        <div class="form-group">
+                        <div class="form-group"> 
                             <!-- trans ID -->
                             <label for="trans_id" class="col-form-label">Transaction ID</label>
                             <input type="text" class="form-control" id="trans_id" name="trans_id" readonly >    
@@ -954,10 +957,7 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text">kg</span>
                                 </div>
-                            </div>  
-                            <!-- amount to cut -->
-                            <label for="iteration" class="col-form-label">Iteration</label>
-                            <input type="text" class="form-control" id="iteration" name="iteration" readonly>    
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -973,12 +973,21 @@
 <script>
     $('.check-bulk').click(function(e){
         let sum = -20;
-        let i=0;
+
         $(":checked").each(function(){
             sum = sum + Number($(this).val());
-            id[i] = $(this).data('id');
-            console.log(id[i]);
-            i++;
+        });
+
+        id = $(this).data('id');
+        
+        id_check = JSON.stringify(id);
+        $.ajax({
+            type: 'POST',
+            url: '<?= base_url("production/change_to_cut"); ?>', 
+            data: {id_check: id_check}, 
+            success: function(resp) { 
+               
+            }
         });
 
         const code = $(this).data('code');
@@ -990,8 +999,23 @@
         document.getElementById("trans_id").value = transID;
         document.getElementById("bulk_batch").value = batch;
         document.getElementById("cut_amount").value = sum;
-        document.getElementById("iteration").value = i;
     });
+
+    function undo_status_change(){
+        // var id = $(event.relatedTarget).data('id');
+        id = $(this).data('id');
+        id_check = JSON.stringify(id);
+
+        $.ajax({
+            type: 'POST',
+            url: '<?= base_url("production/change_to_cut"); ?>', 
+            data: {id_check: id_check}, 
+            success: function(resp) { 
+               alert('Undo change status success');
+               console.log(id_check);
+            }
+        });
+    };
 </script>
 
 <!-- Modal For Print -->

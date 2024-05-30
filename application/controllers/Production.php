@@ -1050,7 +1050,7 @@ class Production extends CI_Controller
         } else {
             $data['getRollID']['batch'] = 'No roll yet';
         };
-
+        
         //gbj items
         $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
 
@@ -1266,46 +1266,72 @@ class Production extends CI_Controller
         };
     }
 
-    public function cut_roll_bulk(){
-        $code = $this->input->post('roll_item');
-        $amount = $this->input->post('cut_amount');
-        $po_id = $this->input->post('trans_id');
-
-        $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $code, 'status' => 7])->row_array();
-        $stock_akhir = $data['material_selected']['in_stock'];
-    
-        $update_stock = $stock_akhir - $amount;
-
-        $data2 = [
-            'in_stock' => $update_stock
-        ];
-
-        $data = [
-            'name' => $data['material_selected']['name'],
-            'code' => $code,
-            'date' => time(),
-            'price' => $data['material_selected']['price'],
-            'weight' => $data['material_selected']['weight'],
-            'lipatan' => $data['material_selected']['lipatan'],
-            'in_stock' => $update_stock,
-            'incoming' => 0,
-            'outgoing' => $amount,
-            'status' => 9,
-            'warehouse' => 2,
-            'transaction_id' => $this->input->post('trans_id'),
-            'transaction_desc' => 'Bulk cut',
-            'batch' => $this->input->post('bulk_batch')
-        ];
-
-        //update stock akhir
-        $this->db->where('status', '7');
-        $this->db->where('code', $code);
-        $this->db->update('stock_roll', $data2);
+    public function change_to_cut(){
+        $id = $this->input->post('id_check');
 
         //insert transaction
-        $this->db->insert('stock_roll', $data);
+        $data['check_status'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
 
-        redirect('production/add_gbj/' . $po_id);
+        if($data['check_status']['status'] == 9) {
+            $this->db->where('id', $id);    
+            $this->db->set('status', 3);    
+            $this->db->update('stock_roll');
+        } else {
+            $this->db->where('id', $id);    
+            $this->db->set('status', 9);    
+            $this->db->update('stock_roll');
+        }
+    }
+
+    public function cut_roll_bulk($po_id){
+        $this->form_validation->set_rules('roll_item', 'roll item', 'trim|required');
+        $this->form_validation->set_rules('cut_amount', 'cut amount', 'trim|required');
+        $this->form_validation->set_rules('trans_id', 'trans_id', 'trim|required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
+            redirect('production/add_gbj/' . $po_id);
+        } else {
+            $code = $this->input->post('roll_item');
+            $amount = $this->input->post('cut_amount');
+            $po_id = $this->input->post('trans_id');
+    
+            $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $code, 'status' => 7])->row_array();
+            $stock_akhir = $data['material_selected']['in_stock'];
+        
+            $update_stock = $stock_akhir - $amount;
+    
+            $data2 = [
+                'in_stock' => $update_stock
+            ];
+    
+            $data = [
+                'name' => $data['material_selected']['name'],
+                'code' => $code,
+                'date' => time(),
+                'price' => $data['material_selected']['price'],
+                'weight' => $data['material_selected']['weight'],
+                'lipatan' => $data['material_selected']['lipatan'],
+                'in_stock' => $update_stock,
+                'incoming' => 0,
+                'outgoing' => $amount,
+                'status' => 9,
+                'warehouse' => 2,
+                'transaction_id' => $this->input->post('trans_id'),
+                'transaction_desc' => 'Bulk cut',
+                'batch' => $this->input->post('bulk_batch')
+            ];
+    
+            //update stock akhir
+            $this->db->where('status', '7');
+            $this->db->where('code', $code);
+            $this->db->update('stock_roll', $data2);
+    
+            //insert transaction
+            $this->db->insert('stock_roll', $data);
+    
+            redirect('production/add_gbj/' . $po_id);
+        };
     }
 
     public function convert_to_pack($prodID){
