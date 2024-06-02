@@ -512,6 +512,7 @@
                     <th>Subtotal</th>
                     <th>Batch</th>
                     <th>Roll Number</th>
+                    <!-- <th id="bulk2" style="display:none">Select Bulk</th> -->
                     <th>Action</th>
                 </tr>
             </thead>
@@ -524,6 +525,7 @@
                 $percent_waste = 0;
                 $depretiation = 0;
                 $percent_depretiation = 0;
+                // $numberOfRoll = 0;
                 
                 $data['items'] = $this->db->get_where('settings', ['parameter' => 'process_waste'])->row_array();
                 $max_process_waste = $data['items']['value'];
@@ -930,7 +932,7 @@
                                         <td>
                                             <?php if ($ms['status'] == 9) { ?>
                                                 <!-- <input class="uncheck-bulk" type="checkbox" value="<?= $ms['incoming'];?>" checked data-id="<?= $ms['id']; ?>" data-code="<?= $ms['code']; ?>" data-trxid="<?= $ms['transaction_id']?>" data-batch="<?= $ms['batch']; ?>">    -->
-                                                <!-- <a onclick="undo_status_change()" class="badge btn btn-primary clickable" data-id="<?= $ms['id']; ?>">Undo</a> -->
+                                                <a onclick="undo_status_change()" class="badge btn btn-primary clickable" data-id="<?= $ms['id']; ?>">Undo</a>
                                             <?php } else { ?>
                                                 <input class="check-bulk" type="checkbox" value="<?= $ms['incoming'];?>" data-id="<?= $ms['id']; ?>" data-code="<?= $ms['code']; ?>" data-trxid="<?= $ms['transaction_id']?>" data-batch="<?= $ms['batch']; ?>">   
                                             <?php } ?>
@@ -962,7 +964,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Cut selected</button>
                 </div>
             </form>
