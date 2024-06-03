@@ -1294,10 +1294,15 @@ class Production extends CI_Controller
         } else {
             $code = $this->input->post('roll_item');
             $amount = $this->input->post('cut_amount');
-            $po_id = $this->input->post('trans_id');
+            $transID = $this->input->post('trans_id');
+            $batch = $this->input->post('bulk_batch');
     
             $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $code, 'status' => 7])->row_array();
             $stock_akhir = $data['material_selected']['in_stock'];
+            $name = $data['material_selected']['name'];
+            $weight = $data['material_selected']['weight'];
+            $lip = $data['material_selected']['lipatan'];
+            $price = $data['material_selected']['price'];
         
             $update_stock = $stock_akhir - $amount;
     
@@ -1306,20 +1311,20 @@ class Production extends CI_Controller
             ];
     
             $data = [
-                'name' => $data['material_selected']['name'],
+                'name' => $name,
                 'code' => $code,
                 'date' => time(),
-                'price' => $data['material_selected']['price'],
-                'weight' => $data['material_selected']['weight'],
-                'lipatan' => $data['material_selected']['lipatan'],
+                'price' => $price,
+                'weight' => $weight,
+                'lipatan' => $lip,
                 'in_stock' => $update_stock,
                 'incoming' => 0,
                 'outgoing' => $amount,
                 'status' => 9,
                 'warehouse' => 2,
-                'transaction_id' => $this->input->post('trans_id'),
+                'transaction_id' => $transID,
                 'transaction_desc' => 'Bulk cut',
-                'batch' => $this->input->post('bulk_batch')
+                'batch' => $batch
             ];
     
             //update stock akhir
@@ -1329,7 +1334,8 @@ class Production extends CI_Controller
     
             //insert transaction
             $this->db->insert('stock_roll', $data);
-    
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Bulk cut ' . $name . ' successful with total amount ' . $amount . ' kg!</div>');
             redirect('production/add_gbj/' . $po_id);
         };
     }

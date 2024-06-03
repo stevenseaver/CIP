@@ -123,7 +123,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">Rp</span>
                         </div>
-                        <input type="currency" class="form-control" id="price" name="price" value="<?= set_value('price'); ?>" readonly>
+                        <input type="currency" class="form-control" id="price" name="price" value="<?= set_value('price'); ?>">
                     </div>
                 </div>
             </div>
