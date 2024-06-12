@@ -1411,6 +1411,8 @@ class Inventory extends CI_Controller
 
         $this->form_validation->set_rules('categories', 'categories', 'required|trim');
         $this->form_validation->set_rules('adjust_amount', 'adjust_amount', 'required|trim');
+        $this->form_validation->set_rules('edit_desc1', 'reference number', 'trim');
+        $this->form_validation->set_rules('edit_desc2', 'description', 'trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops, something is are missing!</div>');
@@ -1423,6 +1425,8 @@ class Inventory extends CI_Controller
             $idToEdit = $this->input->post('id');
             $category = $this->input->post('categories');
             $adjust_amount = $this->input->post('adjust_amount');
+            $edit_desc1 = $this->input->post('edit_desc1');
+            $edit_desc2 = $this->input->post('edit_desc2');
             $date = time();
 
             $data['stockOld'] = $this->db->get_where('stock_finishedgoods', ['id' => $idToEdit])->row_array();
@@ -1438,15 +1442,23 @@ class Inventory extends CI_Controller
             }
 
             if ($category == 'Saldo Akhir') {
-                $this->db->set('in_stock', $adjust_amount);
-                $this->db->set('date', $date);
+                $data_update = [
+                    'in_stock' => $adjust_amount,
+                    'date' => $date,
+                    'batch' => $edit_desc1,
+                    'description' => $edit_desc2
+                ];
                 $this->db->where('id', $idToEdit);
-                $this->db->update('stock_finishedgoods');
+                $this->db->update('stock_finishedgoods', $data_update);
             } else if ($category == 'Saldo Awal') {
-                $this->db->set('in_stock', $adjust_amount);
-                $this->db->set('date', $date);
+                $data_update = [
+                    'in_stock' => $adjust_amount,
+                    'date' => $date,
+                    'batch' => $edit_desc1,
+                    'description' => $edit_desc2
+                ];
                 $this->db->where('id', $idToEdit);
-                $this->db->update('stock_finishedgoods');
+                $this->db->update('stock_finishedgoods', $data_update);
 
                 $data2 = [
                     'in_stock' => $stock_end_before + ($adjust_amount - $stock_awal_before),
@@ -1458,10 +1470,16 @@ class Inventory extends CI_Controller
             } else {
                 //production, purchasing, and return sales adds to final stocks
                 if ($category == 'Production' or $category == 'Return Sales' or $category == 'Purchasing') {
-                    $this->db->set('incoming', $adjust_amount);
-                    $this->db->set('date', $date);
+                    $data_update = [
+                        'incoming' => $adjust_amount,
+                        'date' => $date,
+                        'batch' => $edit_desc1,
+                        'description' => $edit_desc2
+                    ];
+                    // $this->db->set('incoming', $adjust_amount);
+                    // $this->db->set('date', $date);
                     $this->db->where('id', $idToEdit);
-                    $this->db->update('stock_finishedgoods');
+                    $this->db->update('stock_finishedgoods', $data_update);
 
                     $data2 = [
                         'in_stock' => ($stock_end_before - $stock_adjust_before) + $adjust_amount,
@@ -1473,10 +1491,16 @@ class Inventory extends CI_Controller
                 }
                 //other than that, it reduce the final stocks
                 else {
-                    $this->db->set('outgoing', $adjust_amount);
-                    $this->db->set('date', $date);
+                    $data_update = [
+                        'outgoing' => $adjust_amount,
+                        'date' => $date,
+                        'batch' => $edit_desc1,
+                        'description' => $edit_desc2
+                    ];
+                    // $this->db->set('outgoing', $adjust_amount);
+                    // $this->db->set('date', $date);
                     $this->db->where('id', $idToEdit);
-                    $this->db->update('stock_finishedgoods');
+                    $this->db->update('stock_finishedgoods', $data_update);
 
                     $data2 = [
                         'in_stock' => ($stock_end_before + $stock_adjust_before) - $adjust_amount,

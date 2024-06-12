@@ -309,6 +309,7 @@
                                         <th>Weight</th>
                                         <th>Weight/Pack</th>
                                         <th>Weight/Sack</th>
+                                        <th>Price/kg</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -342,6 +343,16 @@
                                                         $weightPerSack = 0;
                                                     }
                                                     echo number_format($weightPerSack, 3, ',', '.') . ' kg'; 
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                    if($weightPerPack != 0){
+                                                        $priceperweight = $items['price']/$weightPerPack;
+                                                    } else {
+                                                        $priceperweight = 0;
+                                                    }
+                                                    echo 'Rp ' . number_format($priceperweight, 2, ',', '.'); 
                                                 ?>
                                             </td>
                                         </tr>

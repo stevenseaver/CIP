@@ -179,13 +179,13 @@
                                         <td>
                                             <?php
                                             if ($fs['status_name'] == 'Saldo Awal' or $fs['status_name'] == 'Saldo Akhir') { ?>
-                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-categories="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>">Edit</a>
+                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-id="<?= $fs['id']; ?>" data-categories="<?= $fs['status_name']; ?>" data-amount="<?= $fs['in_stock'];?>" data-desc1="<?= $fs['batch'];?>" data-desc2="<?= $fs['description'];?>">Edit</a>
                                             <?php } else { ?>
                                                 <?php if ($fs['status_name'] == 'Production' or $fs['status_name'] == 'Return Sales' or $fs['status_name'] == 'Purchasing') { ?>
-                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-categories="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>">Edit</a>
-                                                    <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteTransaction" data-cat="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-amount="<?= $fs['incoming'] ?>">Delete</a>
+                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-categories="<?= $fs['status_name']; ?>" data-id="<?= $fs['id']; ?>" data-amount="<?= $fs['incoming'];?>" data-desc1="<?= $fs['batch'];?>" data-desc2="<?= $fs['description'];?>">Edit</a>
+                                                    <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteTransaction" data-cat="<?= $fs['status_name']; ?>" data-id="<?= $fs['id']; ?>" data-name="<?= $fs['name']; ?>" data-code="<?= $fs['code'] ?>" data-amount="<?= $fs['incoming'] ?>">Delete</a>
                                                 <?php } else { ?>
-                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-categories="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>">Edit</a>
+                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-categories="<?= $fs['status_name']; ?>" data-id="<?= $fs['id']; ?>" data-amount="<?= $fs['outgoing'];?>" data-desc1="<?= $fs['batch'];?>" data-desc2="<?= $fs['description'];?>">Edit</a>
                                                     <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteTransaction" data-cat="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-amount="<?= $fs['outgoing'] ?>">Delete</a>
                                                 <?php } ?>
                                             <?php } ?>
@@ -300,10 +300,22 @@
                         <?= form_error('categories', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
-                        <!-- Stock -->
+                        <!-- Amount -->
                         <label for="url" class="col-form-label">Amount Adjusted</label>
                         <input type="text" class="form-control mb-1" id="adjust_amount" name="adjust_amount" placeholder="Item Amount">
                         <?= form_error('adjust_amount', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Desc 1 -->
+                        <label for="url" class="col-form-label">Batch/Reference</label>
+                        <input type="text" class="form-control mb-1" id="edit_desc1" name="edit_desc1" placeholder="Desc 1">
+                        <?= form_error('edit_desc1', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Desc 2  -->
+                        <label for="url" class="col-form-label">Description</label>
+                        <input type="text" class="form-control mb-1" id="edit_desc2" name="edit_desc2" placeholder="Desc 2">
+                        <?= form_error('edit_desc2', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                 </div>
                 <div class="modal-footer">

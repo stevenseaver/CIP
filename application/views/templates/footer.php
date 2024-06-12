@@ -1475,10 +1475,16 @@
          //extract data from data-* attributes of modal's toggle button
          var id = $(event.relatedTarget).data('id');
          var status = $(event.relatedTarget).data('categories');
+         var amount = $(event.relatedTarget).data('amount');
+         var desc1 = $(event.relatedTarget).data('desc1');
+         var desc2 = $(event.relatedTarget).data('desc2');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
          $(event.currentTarget).find('.modal-body input[name="categories"]').val(status);
+         $(event.currentTarget).find('.modal-body input[name="adjust_amount"]').val(amount);
+         $(event.currentTarget).find('.modal-body input[name="edit_desc1"]').val(desc1);
+         $(event.currentTarget).find('.modal-body input[name="edit_desc2"]').val(desc2);
      });
 
      //  JavaScript for Adjust GBJ details transaction
