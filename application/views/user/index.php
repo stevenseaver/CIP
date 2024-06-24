@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <?php if ($user['role_id'] != 3) { ?>
+    <?php if ($user['role_id'] != 3 and $user['role_id'] != 2) { ?>
         <!-- Content Row for Admin, Employee, Internal-->
         <?php 
             $temp = 0;
@@ -533,6 +533,31 @@
         <!-- Content Row for Customer-->
         <!-- Content Row for Customer-->
         <!-- Content Row for Customer-->
+    <?php } else if ($user['role_id'] == 2){ ?>
+        <div class="row">
+            <div class="col-lg mb-2">
+                <h4>Welcome, <span class="text-primary"><?= $user['name'] . '!'; ?></span></h4>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Earnings (Monthly) Card Example -->
+            <a class="col-lg-4 mb-4" href=" <?= base_url('inventory/gbj_wh') ?>" style="text-decoration:none">
+                <div class="card border-left-primary py-1">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="font-weight-bold text-primary mb-1">
+                                    Finished Goods Warehouse</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-boxes fa-2x text-gray-800"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
     <?php } else {
         $userID = $user['id'];
         $temp = 0;
