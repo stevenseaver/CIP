@@ -921,7 +921,6 @@
                                 <?php $i = 1;
                                 $temp = 0; ?>
                                 <?php foreach ($rollType as $ms) : ?>
-                                   
                                     <tr>
                                         <td><?= $i ?></td>
                                         <td><?= date('d F Y H:i', $ms['date']);?></td>

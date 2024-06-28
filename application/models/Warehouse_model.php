@@ -86,23 +86,6 @@ class Warehouse_model extends CI_Model
     return $this->db->query($query)->result_array();
   }
 
-  public function usagePerItem($status, $start_date, $end_date)
-  {
-    $query = "SELECT `stock_material`.*,`warehouse`.`warehouse_name`,`transaction_status`.`status_name`,`material_category`.`categories_name`,`supplier`.`supplier_name`
-                    FROM `stock_material` JOIN `warehouse`
-                      ON `stock_material`.`warehouse` = `warehouse`.`warehouse_id`
-                    JOIN `transaction_status`
-                      ON `stock_material`.`status` = `transaction_status`.`status_id`
-                      JOIN `material_category`
-                      ON `stock_material`.`categories` = `material_category`.`id`
-                      JOIN `supplier`
-                      ON `stock_material`.`supplier` = `supplier`.`id`
-                   WHERE `status` = $status AND `date` >= $start_date AND `date` <= $end_date
-                ORDER BY `name`
-            ";
-    return $this->db->query($query)->result_array();
-  }
-
   public function getProductionWarehouseID()
   {
     $query = "SELECT `stock_roll`.*,`warehouse`.`warehouse_name`,`transaction_status`.`status_name`
@@ -187,6 +170,46 @@ class Warehouse_model extends CI_Model
                       ON `stock_material`.`supplier` = `supplier`.`id`
                     WHERE `status` = $status AND `date` >= $start_date AND `date` <= $end_date
                   ORDER BY `transaction_id` ASC, `date` ASC
+            ";
+    return $this->db->query($query)->result_array();
+  }
+
+  public function MaterialUsagePerItem($status, $start_date, $end_date)
+  {
+    $query = "SELECT `stock_material`.*,`warehouse`.`warehouse_name`,`transaction_status`.`status_name`,`material_category`.`categories_name`,`supplier`.`supplier_name`
+                    FROM `stock_material` JOIN `warehouse`
+                      ON `stock_material`.`warehouse` = `warehouse`.`warehouse_id`
+                    JOIN `transaction_status`
+                      ON `stock_material`.`status` = `transaction_status`.`status_id`
+                      JOIN `material_category`
+                      ON `stock_material`.`categories` = `material_category`.`id`
+                      JOIN `supplier`
+                      ON `stock_material`.`supplier` = `supplier`.`id`
+                   WHERE `status` = $status AND `date` >= $start_date AND `date` <= $end_date
+                ORDER BY `name`
+            ";
+    return $this->db->query($query)->result_array();
+  }
+
+  public function rollProduced($start_date, $end_date)
+  {
+    $query = "SELECT `stock_roll`.*,`warehouse`.`warehouse_name`,`transaction_status`.`status_name`
+                FROM `stock_roll` JOIN `warehouse`
+                  ON `stock_roll`.`warehouse` = `warehouse`.`warehouse_id`
+                JOIN `transaction_status`
+                  ON `stock_roll`.`status` = `transaction_status`.`status_id`
+               WHERE `date` >= $start_date AND `date` <= $end_date
+            ORDER BY `name`
+            ";
+    return $this->db->query($query)->result_array();
+  }
+
+  public function fgProduced($status, $start_date, $end_date)
+  {
+    $query = "SELECT `stock_finishedgoods`.*
+                FROM `stock_finishedgoods`
+               WHERE `status` = $status AND `date` >= $start_date AND `date` <= $end_date
+            ORDER BY `name`
             ";
     return $this->db->query($query)->result_array();
   }

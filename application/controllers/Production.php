@@ -1862,7 +1862,7 @@ class Production extends CI_Controller
     // USAGE
     public function usage()
     {
-        $data['title'] = 'Materials Usage';
+        $data['title'] = 'Production Summary';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         
@@ -1901,7 +1901,9 @@ class Production extends CI_Controller
         $status = 3; //produciton order data only
         //get materials usage data
         $this->load->model('Warehouse_model', 'warehouse_id');
-        $data['usagePerItem'] = $this->warehouse_id->usagePerItem($status, $start_date, $end_date);
+        $data['materialUsage'] = $this->warehouse_id->MaterialUsagePerItem($status, $start_date, $end_date);
+        $data['rollProduced'] = $this->warehouse_id->rollProduced($start_date, $end_date);
+        $data['fgProduced'] = $this->warehouse_id->fgProduced($status, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
