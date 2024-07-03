@@ -99,7 +99,7 @@
                     <?php if ($input_sup_id) { ?>
                         <input type="text" class="form-control" id="sup_id" name="sup_id" readonly value="<?= $input_sup_id ?>">
                     <?php } else { ?>
-                        <input type="text" class="form-control" id="sup_id" name="sup_id" readonly value="<?= set_value('customer_id'); ?>">
+                        <input type="text" class="form-control" id="sup_id" name="sup_id" readonly value="<?= set_value('sup_id'); ?>">
                     <?php } ?>
                     <?= form_error('sup_id', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>

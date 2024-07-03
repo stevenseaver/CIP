@@ -75,12 +75,11 @@ class Purchasing extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get supplier data
-        // $data['supplier'] = $this->db->get('supplier')->result_array();
         $this->load->model('Purchase_model', 'terms_id');
         $data['supplier'] = $this->terms_id->calc_due_date();
         //get inventory warehouse data
         $data['inventory_wh'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
-        $data['inventory_item'] = $this->db->get_where('stock_material')->result_array();
+        // $data['inventory_item'] = $this->db->get_where('stock_material')->result_array();
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
 

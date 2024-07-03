@@ -127,35 +127,35 @@
                                 <tbody>
                                     <?php foreach ($rollProduced as $items) :
                                         //only shown if status == 3 or 9
-                                        if ($items['status'] == 3 or $items['status'] == 9) {
+                                        if ($items['status'] == 1 or $items['status'] == 7) {
                                             continue;
                                         } else {
+                                            if ($before != $items['name']) { ?>
+                                            <tr>
+                                                <td><?= $items['name']; ?></td>
+                                                <td>
+                                                    <?php 
+                                                        foreach ($rollProduced as $amount) :
+                                                            if ($amount['name'] == $items['name']) {
+                                                                $temp = $temp + $amount['incoming']; 
+                                                            } else {
+    
+                                                            };
+                                                        endforeach;
+                                                        echo number_format($temp , 2, ',', '.'); 
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                                $before = $items['name'];
+                                                $total_weight = $total_weight + $temp;
+                                                $total_item = $total_item + $temp1;
+                                                $temp = 0;
+                                                $temp1 = 0;
+                                                $i++;
+                                            } else {
+                                            };
                                         };
-                                        if ($before != $items['name']) { ?>
-                                        <tr>
-                                            <td><?= $items['name']; ?></td>
-                                            <td>
-                                                <?php 
-                                                    foreach ($rollProduced as $amount) :
-                                                        if ($amount['name'] == $items['name']) {
-                                                            $temp = $temp + $amount['incoming']; 
-                                                        } else {
-
-                                                        };
-                                                    endforeach;
-                                                    echo number_format($temp , 2, ',', '.'); 
-                                                ?>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                            $before = $items['name'];
-                                            $total_weight = $total_weight + $temp;
-                                            $total_item = $total_item + $temp1;
-                                            $temp = 0;
-                                            $temp1 = 0;
-                                            $i++;
-                                    } else {
-                                    };
                                     endforeach; ?>
                                 </tbody>
                                 <tfoot>
