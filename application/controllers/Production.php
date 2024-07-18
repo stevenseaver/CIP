@@ -625,9 +625,21 @@ class Production extends CI_Controller
             $batch = $this->input->post('batch');
             $roll_no = $this->input->post('roll_no');
             $transaction_status = 2;
-            
+
             $rollSelect = $this->db->get_where('stock_roll', ['code' => $code, 'status' => 7])->row_array();
             $stock_old = $rollSelect['in_stock'];
+
+            // if ($item == 'AVALAN ROLL' or $item == 'PRONGKOLAN ROLL'){
+            //     $price_inputed = $this->input->post('price_roll');
+            //     $price_before = $rollSelect['price'];
+
+            //     $amount_inputed = $amount;
+            //     $amount_before = $stock_old;
+
+            //     $price_update = ($price_inputed*$amount_inputed)+($price_before*$amount_before)/($amount_inputed+$amount_before);
+            // } else {
+            //     $price_update = $price;
+            // };
 
             $data = [
                 'name' => $item,
@@ -653,7 +665,7 @@ class Production extends CI_Controller
             $data2 = [
                 'in_stock' => $stock_old + $amount,
                 'date' => $date,
-                'price' => $price
+                'price' => $$price
             ];
 
             $this->db->where('status', '7');

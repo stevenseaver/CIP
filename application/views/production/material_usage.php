@@ -47,6 +47,8 @@
                 $temp1 = 0;
                 $total_weight = 0;
                 $total_item = 0;
+                $subtotal = 0;
+                $grandTotal = 0;
                 $before = '';
             ?>
             <div class="card rounded border-0 shadow mb-3">
@@ -58,6 +60,8 @@
                                     <tr>
                                         <th>Item Name</th>
                                         <th>Production Usage</th>
+                                        <th>Price</th>
+                                        <th>Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -69,14 +73,29 @@
                                                 <?php 
                                                     foreach ($materialUsage as $amount) :
                                                         if ($amount['name'] == $items['name'] and $amount['unit_satuan'] == 'kg') {
-                                                            $temp = $temp + $amount['outgoing']; 
+                                                            $temp = $temp + $amount['outgoing'];
                                                         } else if($amount['name'] == $items['name']){
-                                                            $temp1 = $temp1 + $amount['outgoing']; 
+                                                            $temp1 = $temp1 + $amount['outgoing'];
                                                         };
                                                     endforeach;
-                                                    echo number_format($temp , 2, ',', '.') . ' '. $items['unit_satuan']; 
+                                                    if($temp != 0){
+                                                        echo number_format($temp, 2, ',', '.') . ' '. $items['unit_satuan']; 
+                                                    } else {
+                                                        echo number_format($temp1, 2, ',', '.') . ' '. $items['unit_satuan']; 
+                                                    };
                                                 ?>
                                             </td>
+                                            <?php
+                                                $price = $items['price'];
+                                                if($temp != 0){
+                                                    $subtotal = $temp * $price;
+                                                } else {
+                                                    $subtotal = $temp1 * $price;
+                                                };
+                                                $grandTotal = $grandTotal + $subtotal;
+                                            ?>
+                                            <td><?= number_format($price, 2, ',', '.'); ?></td>
+                                            <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
                                         </tr>
                                         <?php
                                             $before = $items['name'];
@@ -84,6 +103,7 @@
                                             $total_item = $total_item + $temp1;
                                             $temp = 0;
                                             $temp1 = 0;
+                                            $subtotal = 0;
                                             $i++;
                                     } else {
                                     };
@@ -93,6 +113,8 @@
                                     <tr>
                                         <td class="text-right"><strong>Total</strong></td>
                                         <td><?= number_format($total_weight, 2, ',', '.') . ' kg and ' . number_format($total_item, 2, ',', '.') . ' pcs'; ?></td>
+                                        <td></td>
+                                        <td><?= 'Rp '. number_format($grandTotal, 2, ',', '.'); ?></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -111,17 +133,21 @@
                 $temp1 = 0;
                 $total_weight = 0;
                 $total_item = 0;
+                $subtotal = 0;
+                $grandTotal = 0;
                 $before = '';
             ?>
             <div class="card rounded border-0 shadow mb-3">
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="table-responsive">
-                            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-hover" id="table2" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Item Name</th>
                                         <th>Production Usage</th>
+                                        <th>Price</th>
+                                        <th>Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -139,19 +165,30 @@
                                                             if ($amount['name'] == $items['name']) {
                                                                 $temp = $temp + $amount['incoming']; 
                                                             } else {
-    
+                                                                
                                                             };
                                                         endforeach;
                                                         echo number_format($temp , 2, ',', '.'); 
-                                                    ?>
+                                                        ?>
                                                 </td>
+                                                <?php
+                                                    $price = $items['price'];
+                                                    if($temp != 0){
+                                                        $subtotal = $temp * $price;
+                                                    } else {
+                                                        $subtotal = $temp1 * $price;
+                                                    };
+                                                    $grandTotal = $grandTotal + $subtotal;
+                                                ?>
+                                                <td><?= number_format($price, 2, ',', '.'); ?></td>
+                                                <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
                                             </tr>
                                             <?php
                                                 $before = $items['name'];
                                                 $total_weight = $total_weight + $temp;
                                                 $total_item = $total_item + $temp1;
                                                 $temp = 0;
-                                                $temp1 = 0;
+                                                $subtotal = 0;
                                                 $i++;
                                             } else {
                                             };
@@ -162,6 +199,8 @@
                                     <tr>
                                         <td class="text-right"><strong>Total</strong></td>
                                         <td><?= number_format($total_weight, 2, ',', '.') . ' kg'; ?></td>
+                                        <td></td>
+                                        <td><?= 'Rp '. number_format($grandTotal, 2, ',', '.'); ?></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -186,7 +225,7 @@
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="table-responsive">
-                            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-hover" id="table3" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Item Name</th>
@@ -280,4 +319,32 @@
     function right_click() {
         document.getElementById("periode_show").innerHTML = 'RIGHT';
     }
+
+    var table2 = $('#table2').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+    });
+    
+    var table3 = $('#table2').DataTable({
+        paging: false,
+        select: {
+            style: 'single'
+        },
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
+    });
 </script>
