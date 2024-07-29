@@ -9,12 +9,13 @@
         </div>
     </div>
     <!-- Add new asset inventory -->
-    <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newCustModal">
+    <!-- <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newCustModal">
         <span class="icon text-white-50">
             <i class="bi bi-plus-lg"></i>
         </span>
         <span class="text">Add New Customer</span>
-    </a>
+    </a> -->
+
     <div class="card shadow border-left-primary mb-4">
         <div class="card-body">
             <div class="table-responsive">
@@ -27,8 +28,8 @@
                             <th>Address</th>
                             <th>Phone</th>
                             <th>Email</th>
-                            <th>Bank Account</th>
-                            <th>Terms</th>
+                            <!-- <th>Bank Account</th> -->
+                            <!-- <th>Terms</th> -->
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -45,15 +46,15 @@
                                     <td>CUST-0<?= $cust['id']; ?></td>
                                 <?php }; ?>
                                 <td><?= $cust['name']; ?></td>
-                                <td><?= $cust['address']; ?></td>
-                                <td><?= $cust['phone']; ?></td>
+                                <td><?= $cust['address'] . ' ' . $cust['province'] . ' ' . $cust['country'] . ' ' . $cust['postal']; ?></td>
+                                <td><?= $cust['phone_number']; ?></td>
                                 <td><?= $cust['email']; ?></td>
-                                <td><?= $cust['bank_account']; ?></td>
-                                <td><?= $cust['terms']; ?></td>
+                                <!-- <td><?= $cust['bank_account']; ?></td> -->
+                                <!-- <td><?= $cust['terms']; ?></td> -->
                                 </td>
                                 <td>
-                                    <a data-toggle="modal" data-target="#editCustomerModal" class="badge badge-warning clickable" data-id="<?= $cust['id'] ?>" data-name="<?= $cust['name'] ?>" data-address="<?= $cust['address'] ?>" data-phone="<?= $cust['phone'] ?>" data-email="<?= $cust['email'] ?>" data-account="<?= $cust['bank_account'] ?>" data-terms="<?= $cust['terms_id'] ?>"><i class="bi bi-pencil-fill"> </i>Edit</a>
-                                    <a data-toggle="modal" data-target="#deleteCustomerModal" data-id="<?= $cust['id'] ?>" data-name="<?= $cust['name'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete</a>
+                                    <a data-toggle="modal" data-target="#editCustomerModal" class="badge badge-warning clickable" data-id="<?= $cust['id'] ?>" data-name="<?= $cust['name'] ?>" data-address="<?= $cust['address'] ?>" data-phone="<?= $cust['phone_number'] ?>" data-email="<?= $cust['email'] ?>"><i class="bi bi-pencil-fill"></i>Edit</a>
+                                    <!-- <a data-toggle="modal" data-target="#deleteCustomerModal" data-id="<?= $cust['id'] ?>" data-name="<?= $cust['name'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete</a> -->
                                 </td>
                             </tr>
                             <?php $i++; ?>
@@ -172,23 +173,7 @@
                         <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Add customer's phone number">
                         <?= form_error('phone_number', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
-                    <div class="form-group">
-                        <!-- cust bank account assigned -->
-                        <label for="account" class="col-form-label">Bank Account</label>
-                        <input type="text" class="form-control" id="account" name="account" placeholder="Bank Account">
-                        <?= form_error('spec', '<small class="text-danger pl-2">', '</small>') ?>
-                    </div>
-                    <div class="form-group">
-                        <!-- payment Terms -->
-                        <label for="terms" class="col-form-label">Terms</label>
-                        <select name="terms" id="terms" class="form-control" value="<?= set_value('terms') ?>">
-                            <option value="">--Select Type--</option>
-                            <?php foreach ($terms as $tm) : ?>
-                                <option value="<?= $tm['id'] ?>"><?= $tm['terms'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <?= form_error('terms', '<small class="text-danger pl-2">', '</small>') ?>
-                    </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

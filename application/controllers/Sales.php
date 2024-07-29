@@ -681,8 +681,9 @@ class Sales extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         //get data
-        $this->load->model('Sales_model', 'terms_id');
-        $data['customer'] = $this->terms_id->getTerms();
+        // $this->load->model('Sales_model', 'terms_id');
+        // $data['customer'] = $this->terms_id->getTerms();
+        $data['customer'] = $this->db->get_where('user', ['role_id' => 3])->result_array();
         $data['terms'] = $this->db->get('payment_terms')->result_array();
 
         $this->load->view('templates/header', $data);
@@ -691,6 +692,7 @@ class Sales extends CI_Controller
         $this->load->view('sales/customer', $data);
         $this->load->view('templates/footer');
     }
+
     //add customer data
     public function add_customer()
     {
@@ -757,7 +759,7 @@ class Sales extends CI_Controller
         $this->form_validation->set_rules('address', 'address', 'required|trim');
         $this->form_validation->set_rules('email', 'email', 'trim|valid_email');
         $this->form_validation->set_rules('phone_number', 'phone number', 'required|trim');
-        $this->form_validation->set_rules('account', 'account', 'trim');
+        // $this->form_validation->set_rules('account', 'account', 'trim');
         // $this->form_validation->set_rules('terms', 'terms', 'required|trim');
 
         if ($this->form_validation->run() == false) {
@@ -773,19 +775,19 @@ class Sales extends CI_Controller
             $address = $this->input->post('address');
             $email = $this->input->post('email');
             $phone_number = $this->input->post('phone_number');
-            $account = $this->input->post('account');
-            $terms = $this->input->post('terms');
+            // $account = $this->input->post('account');
+            // $terms = $this->input->post('terms');
 
             $data = [
                 'name' => $name,
                 'address' => $address,
                 'email' => $email,
-                'phone' => $phone_number,
-                'bank_account' => $account,
-                'terms_id' => $terms,
+                'phone_number' => $phone_number,
+                // 'bank_account' => $account,
+                // 'terms_id' => $terms,
             ];
             $this->db->where('id', $id);
-            $this->db->update('customer', $data);
+            $this->db->update('user', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Customer: ' . $name . ' edited!</div>');
             redirect('sales/customer');
         }

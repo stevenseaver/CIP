@@ -145,7 +145,7 @@
                                 <thead>
                                     <tr>
                                         <th>Item Name</th>
-                                        <th>Production Usage</th>
+                                        <th>Production Made</th>
                                         <th>Price</th>
                                         <th>Subtotal</th>
                                     </tr>
@@ -168,16 +168,12 @@
                                                                 
                                                             };
                                                         endforeach;
-                                                        echo number_format($temp , 2, ',', '.'); 
+                                                        echo number_format($temp , 2, ',', '.') . ' kg'; 
                                                         ?>
                                                 </td>
                                                 <?php
                                                     $price = $items['price'];
-                                                    if($temp != 0){
-                                                        $subtotal = $temp * $price;
-                                                    } else {
-                                                        $subtotal = $temp1 * $price;
-                                                    };
+                                                    $subtotal = $temp * $price;
                                                     $grandTotal = $grandTotal + $subtotal;
                                                 ?>
                                                 <td><?= number_format($price, 2, ',', '.'); ?></td>
@@ -186,7 +182,6 @@
                                             <?php
                                                 $before = $items['name'];
                                                 $total_weight = $total_weight + $temp;
-                                                $total_item = $total_item + $temp1;
                                                 $temp = 0;
                                                 $subtotal = 0;
                                                 $i++;
@@ -216,55 +211,66 @@
             <?php if ($fgProduced != null) {
                 $i = 1;
                 $temp = 0;
-                $temp1 = 0;
                 $total_weight = 0;
                 $total_item = 0;
+                $subtotal = 0;
+                $grandTotal = 0;
                 $before = '';
             ?>
             <div class="card rounded border-0 shadow mb-3">
                 <div class="card-body">
                     <div class="table-responsive">
                         <div class="table-responsive">
-                            <table class="table table-hover" id="table3" width="100%" cellspacing="0">
+                            <table class="table table-hover" id="table1" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Item Name</th>
-                                        <th>Production Usage</th>
+                                        <th>Production Made</th>
+                                        <th>Price</th>
+                                        <th>Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($fgProduced as $items) :
                                         if ($before != $items['name']) { ?>
-                                        <tr>
-                                            <td><?= $items['name']; ?></td>
-                                            <td>
-                                                <?php 
-                                                    foreach ($fgProduced as $amount) :
-                                                        if ($amount['name'] == $items['name']) {
-                                                            $temp = $temp + $amount['before_convert']; 
-                                                        } else {
+                                            <tr>
+                                                <td><?= $items['name']; ?></td>
+                                                <td>
+                                                    <?php 
+                                                        foreach ($fgProduced as $amount) :
+                                                            if ($amount['name'] == $items['name']) {
+                                                                $temp = $temp + $amount['before_convert']; 
+                                                            } else {
 
-                                                        };
-                                                    endforeach;
-                                                    echo number_format($temp , 2, ',', '.'); 
+                                                            };
+                                                        endforeach;
+                                                        echo number_format($temp , 2, ',', '.') . ' kg'; 
+                                                    ?>
+                                                </td>
+                                                <?php
+                                                    $price = $items['price'];
+                                                    $subtotal = $temp * $price;
+                                                    $grandTotal = $grandTotal + $subtotal;
                                                 ?>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                            $before = $items['name'];
-                                            $total_weight = $total_weight + $temp;
-                                            $total_item = $total_item + $temp1;
-                                            $temp = 0;
-                                            $temp1 = 0;
-                                            $i++;
-                                    } else {
-                                    };
+                                                <td><?= number_format($price, 2, ',', '.'); ?></td>
+                                                <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
+                                            </tr>
+                                            <?php
+                                                $before = $items['name'];
+                                                $total_weight = $total_weight + $temp;
+                                                $temp = 0;
+                                                $subtotal = 0;
+                                                $i++;
+                                        } else {
+                                        };
                                     endforeach; ?>
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td class="text-right"><strong>Total</strong></td>
                                         <td><?= number_format($total_weight, 2, ',', '.') . ' kg'; ?></td>
+                                        <td></td>
+                                        <td><?= 'Rp '. number_format($grandTotal, 2, ',', '.'); ?></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -283,34 +289,6 @@
 </div>
 <!-- End of Main Content -->
 
-<!-- Modal For Delete Data -->
-<div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="paymentModalLabel">Yipikay yay!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <p class="mx-3 mt-3 mb-0">Are you sure this is paid?</p>
-            <form action="<?= base_url('purchasing/paid/') ?>" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <!-- item id -->
-                        <label for="url" class="col-form-label">Invoice ID</label>
-                        <input type="text" class="form-control" id="ref_id" name="ref_id" readonly>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success">Pay</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 <script>
     function left_click() {
         document.getElementById("periode_show").innerHTML = 'LEFT';
@@ -321,7 +299,7 @@
     }
 
     var table2 = $('#table2').DataTable({
-        paging: false,
+        paging: true,
         select: {
             style: 'single'
         },
@@ -334,8 +312,8 @@
         ]
     });
     
-    var table3 = $('#table2').DataTable({
-        paging: false,
+    var table1 = $('#table1').DataTable({
+        paging: true,
         select: {
             style: 'single'
         },

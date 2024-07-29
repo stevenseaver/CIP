@@ -148,6 +148,7 @@ class Inventory extends CI_Controller
 
         //validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
+        $this->form_validation->set_rules('code', 'code', 'required|trim');
         $this->form_validation->set_rules('category', 'category', 'required|trim');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('supplier', 'supplier', 'required|trim');
@@ -161,6 +162,7 @@ class Inventory extends CI_Controller
             $this->load->view('inventory/material', $data);
             $this->load->view('templates/footer');
         } else {
+            // $id = $this->input->post('id');
             $name = $this->input->post('name');
             $code = $this->input->post('code');
             $price = $this->input->post('price');

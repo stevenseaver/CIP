@@ -215,6 +215,11 @@
             </div>
             <form action="<?= base_url('inventory/edit_material') ?>" method="post">
                 <div class="modal-body">
+                    <!-- <div class="form-group">
+                        <label for="id" class="col-form-label">Item ID</label>
+                        <input type="text" class="form-control mb-1" id="id" name="id">
+                        <?= form_error('id', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div> -->
                     <div class="form-group">
                         <!-- Material name -->
                         <label for="url" class="col-form-label">Item Name</label>

@@ -637,8 +637,8 @@
                     <th>Date</th>
                     <th>Item</th>
                     <th>Code</th>
-                    <th>Pcs per pack</th>
-                    <th>Pack per Sack</th>
+                    <!-- <th>Pcs per pack</th>
+                    <th>Pack per Sack</th> -->
                     <th>Amount</th>
                     <th>Weight of Packed Goods</th>
                     <th>Weight per Pack</th>
@@ -667,8 +667,8 @@
                         <td style="width: 110px;"><?= date('d F Y H:i', $ms['date']);?></td>
                         <td><?= $ms['name'] ?></td>
                         <td><?= $ms['code'] ?></td>
-                        <td><?= number_format($ms['pcsperpack'], 0, ',', '.'); ?> </td>
-                        <td><?= number_format($ms['packpersack'], 0, ',', '.'); ?> </td>
+                        <!-- <td><?= number_format($ms['pcsperpack'], 0, ',', '.'); ?> </td> -->
+                        <!-- <td><?= number_format($ms['packpersack'], 0, ',', '.'); ?> </td> -->
                         <?php if($ms['transaction_status'] != 2){  ?>  
                             <!-- IF trans status is other than 2 -->
                             <td><input id="gbjAmount-<?= $ms['id'] ?>" class="gbj-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>">kg</td>
@@ -680,7 +680,7 @@
                             $weightPerPack = $ms['before_convert'] / $ms['incoming'];
                         ?>
                         <td><?= $ms['before_convert'] . ' kg'?></td>
-                        <td><?= $weightPerPack ?></td>
+                        <td><?= number_format($weightPerPack, 4, ',', '.') . ' kg'; ?></td>
                         <!-- <td><?= number_format($ms['price'], 2, ',', '.'); ?></td> -->
                         <td><input id="gbjPrice-<?= $ms['id'] ?>" class="gbj-price text-left form-control number" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['price'], 2, ',', '.'); ?>"></td>
                         <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
@@ -738,7 +738,7 @@
             </tbody>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="6"> </td>
+                    <td colspan="4"> </td>
                     <td class="text-left"><strong>Total Weight</strong></td>
                     <?php $total = $temp; ?>
                     <td class="text-left"><?= number_format($total, '2', ',', '.'); ?> kg</td>
@@ -761,7 +761,7 @@
                     ?>
                 </tr>
                 <tr>
-                    <td colspan="6"> </td>
+                    <td colspan="4"> </td>
                     <td class="text-left"><strong>Net Item Weight</strong></td>
                     <?php $net_weight_gbj = $total - $waste_roll - $waste_plong - $waste_other; ?>
                     <td class="text-left text-primary"><?= number_format($net_weight_gbj, '2', ',', '.'); ?> kg</td>
@@ -777,7 +777,7 @@
                       ?>
                 </tr>
                 <tr>
-                    <td colspan="11"> </td>
+                    <td colspan="9"> </td>
                     <td class="text-left"><strong>Other Waste</strong></td>
                     <?php 
                         $data['items'] = $this->db->get_where('settings', ['parameter' => 'other_waste'])->row_array();

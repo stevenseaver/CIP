@@ -195,7 +195,7 @@ class Production extends CI_Controller
             $this->db->where('code', $materialCode);
             $this->db->update('stock_material', $data2);
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material added!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">'. $materialName . ' with amount ' . $amount . ' ' . $unit . ' added!</div>');
             redirect('production/add_item_prod/' . $po_id . '/3/1');
         }
     }
@@ -644,7 +644,6 @@ class Production extends CI_Controller
             $data = [
                 'name' => $item,
                 'code' => $code,
-                'price' => 0,
                 'date' => $date,
                 'weight' => $weight,
                 'lipatan' => $lipatan,
@@ -665,7 +664,7 @@ class Production extends CI_Controller
             $data2 = [
                 'in_stock' => $stock_old + $amount,
                 'date' => $date,
-                'price' => $$price
+                'price' => $price
             ];
 
             $this->db->where('status', '7');
