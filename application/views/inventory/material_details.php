@@ -59,6 +59,7 @@
                                 <th>Outgouing</th>
                                 <th>Stock</th>
                                 <th>Price</th>
+                                <th>Product Name</th>
                                 <th>Weight Document/Batch</th>
                                 <th>Description</th>
                                 <th>Status</th>
@@ -91,6 +92,7 @@
                                         <td><?= number_format($ms['outgoing'], 2, ',', '.'); ?></td>
                                         <td><?= number_format($ms['in_stock'], 2, ',', '.') . ' ' . $ms['unit_satuan']; ?></td>
                                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
+                                        <td><?= $ms['product_name']; ?></td>
                                         <td><?= $ms['description']; ?></td>
                                         <td><?= $ms['item_desc']; ?></td>
                                         <td><?= $ms['status_name']; ?>

@@ -100,7 +100,8 @@ class Sales extends CI_Controller
         } else if ($status_change_to == 3) {
             //invoice
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Transaction finished, send invoice to customer!</div>');
-            redirect('sales/invoice');
+            redirect('sales/salesinfo');
+            // redirect('sales/invoice');
         } else if ($status_change_to == 4) {
             // USE THIS IF ITEM STOCK AKHIR IS CHANGED ON PAYMENT
             // reset all in_stock on stock_finishedgoods database to the previous value

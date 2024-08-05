@@ -315,7 +315,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" id="tablePurchase" width="100%" cellspacing="0">
+                            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>PO Number</th>
@@ -396,14 +396,13 @@
         <!-- Sales Info -->
         <div class="row">
             <div class="col-lg-12 mb-2">
-                <!-- Project Card Example -->
                 <div class="card shadow mb-1">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Sales Info in This Period</h6>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover" id="tableSales" width="100%" cellspacing="0">
+                            <table class="table table-hover" id="table1" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Invoice Number</th>
@@ -418,8 +417,8 @@
                                 <tbody>
                                     <?php
                                     $temp = 0;
-                                    $total_revenue = 0; ?>
-                                    <?php foreach ($sales_data as $sales) :
+                                    $total_revenue = 0;
+                                    foreach ($sales_data as $sales) :
                                         if ($before != $sales['ref']) { 
                                             $date_now = time(); ?>
                                             <tr>
@@ -484,6 +483,9 @@
                                         } else {
                                         } ?>
                                     <?php endforeach; ?>
+                                </tbody>
+                                <tfoot>
+                                    
                                     <td colspan="2"></td>
                                     <td>
                                         <p class="font-weight-bold text-primary text-left">Total Revenue IDR</p>
@@ -492,7 +494,7 @@
                                         <p class="font-weight-bold text-primary text-left"><?= number_format($total_revenue, 2, ',', '.'); ?></p>
                                     </td>
                                     <td colspan="3"></td>
-                                </tbody>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -655,12 +657,14 @@
 <!-- End of Main Content -->
 
 <script>
-    var table = $('#tablePurchase').DataTable({
-        order: [2, 'asc'],
-        paging: true
-    });
-    var table = $('#tableSales').DataTable({
-        order: [2, 'asc'],
-        paging: true
+    var table = $('#table1').DataTable({
+        paging: true,
+        columnDefs: [
+            {
+                targets:[0,1,2,3],
+                orderable: true,
+                searchable: true
+            }
+        ]
     });
 </script>
