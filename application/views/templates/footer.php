@@ -374,6 +374,27 @@
              }
          });
      });
+     
+     //js for reference description change on purchase order form on input change
+     $('.edit-pur-desc').on('change', function() {
+         const id = $(this).data('id');
+         const refID = document.getElementById("editDESCrder-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('purchasing/update_desc'); ?>",
+             type: 'post',
+             data: {
+                 selector : 3,
+                 id: id,
+                 refID: refID
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
     
      //js for price change on purchase order form on input change
      $('.edit-POprice').on('change', function() {
@@ -460,6 +481,27 @@
 
          $.ajax({
              url: "<?= base_url('production/update_product_name'); ?>",
+             type: 'post',
+             data: {
+                 id : id,
+                 newName: newName
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
+
+     //js for amount change on production order product name
+     $('.change_ref_purchasing').on('change', function() {
+         const id = $(this).data('id');
+
+         const newName = document.getElementById("change_ref_item").value;
+
+         $.ajax({
+             url: "<?= base_url('purchasing/update_purchasing_ref'); ?>",
              type: 'post',
              data: {
                  id : id,

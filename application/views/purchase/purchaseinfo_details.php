@@ -43,8 +43,25 @@
                 <div class="col-lg">
                     <p class="text-dark mb-1">PO Ref : </p>
                     <p class="text-dark font-weight-bold"> <?= $getID['transaction_id'] ?></p>
-                    <p class="text-dark mb-1">Weighting Doc. : </p>
-                    <p class="text-dark font-weight-bold"> <?= $getID['description'] ?></p>
+                    <p class="text-dark mb-1">Internal Ref : </p>
+                    <p id="ref_item" class="text-dark font-weight-bold mb-3"> 
+                        <?= $getID['description']; ?>
+                        <i type="button" id="editRefNameplate" class="small text-primary bi bi-pencil-fill"></i>
+                    </p>
+                    <input style="display:none" id="change_ref_item" class="change_ref_purchasing text-left form-control mb-3"  data-id="<?= $getID['id']; ?>" value="<?= $getID['description']; ?>">
+                    <script>
+                        const button = document.getElementById('editRefNameplate');
+                        const div = document.getElementById('change_ref_item');
+
+                        // define the function to change the HTML content
+                        function changeContent() {
+                            document.getElementById('change_ref_item').style.display = 'block';
+                            document.getElementById('ref_item').style.display = 'none';
+                        }
+
+                        // add event listener to the button
+                        button.addEventListener('click', changeContent);
+                    </script>
                     <p class="text-dark mb-1">Date : </p>
                     <p class="text-dark font-weight-bold"> <?= date('d F Y H:i:s', $getID['date']) ?></p>
                 </div>

@@ -388,7 +388,13 @@ class Purchasing extends CI_Controller
             $this->db->where('id', $id);
             $this->db->set('price', $price);
             $this->db->update('stock_material');
-        };
+        } else if ($selector == 3){
+            $reference = $this->input->post('refID');
+    
+            $this->db->where('id', $id);
+            $this->db->set('item_desc', $reference);
+            $this->db->update('stock_material');
+        }
     }
 
     public function createPDF($type, $po_id, $supplier, $date, $tax)
@@ -505,6 +511,24 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('purchase/purchaseinfo_details', $data);
         $this->load->view('templates/footer');
+    }
+
+    //update production order product name
+    public function update_purchasing_ref()
+    {
+        $id = $this->input->post('id');
+        $newName = $this->input->post('newName');
+
+        $data['material_edited'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+        $materialID = $data['material_edited']['transaction_id'];
+
+        $data = [
+            'description' => $newName
+        ];
+
+        //update transaksi
+        $this->db->where('transaction_id', $materialID);
+        $this->db->update('stock_material', $data);
     }
 
     public function paid() {
