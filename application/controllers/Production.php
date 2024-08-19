@@ -277,6 +277,23 @@ class Production extends CI_Controller
         // $this->db->set('item_desc', $amount);
         $this->db->update('stock_material', $data);
     }
+    
+    //update production order material mixed usage aggregate amount
+    public function update_usage()
+    {
+        $id = $this->input->post('id');
+        $prodID = $this->input->post('prodID');
+        $amount = $this->input->post('qtyID');
+
+        $data = [
+            'term' => $amount
+        ];
+
+        //update transaksi
+        $this->db->where('id', $id);
+        // $this->db->set('item_desc', $amount);
+        $this->db->update('stock_material', $data);
+    }
 
     //get PO details
     public function prod_details($id)

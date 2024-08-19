@@ -560,6 +560,29 @@
              }
          });
      });
+     
+     //js for amount change on material mixing usage per item input on change (mixed materials aggregate)
+     $('.usage-qty').on('change', function() {
+         const id = $(this).data('id');
+         const prodID = $(this).data('prodID');
+
+         const qtyID = document.getElementById("usageAmount-" + id).value;
+
+         $.ajax({
+             url: "<?= base_url('production/update_usage'); ?>",
+             type: 'post',
+             data: {
+                 id: id,
+                 qtyID: qtyID,
+                 prodID: prodID
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
 
      //js for amount change on roll item prod order quantity input on change
      $('.roll-qty').on('change', function() {

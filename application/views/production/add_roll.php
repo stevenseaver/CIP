@@ -462,6 +462,8 @@
                     <th class="text-right">Subtotal (IDR)</th>
                     <th>Mix Amount</th>
                     <th>Formula</th>
+                    <th>Used/Mixed</th>
+                    <th>Remaining</th>
                 </tr>
             </thead>
             <tbody>
@@ -484,10 +486,16 @@
                         <td><?= $ms['name'] ?></td>
                         <td><?= number_format($ms['outgoing'], 2, ',', '.') . ' ' . $ms['unit_satuan']; ?></td>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
-                        <?php $subtotal = $ms['outgoing'] * $ms['price'] ?>
+                        <?php 
+                            $subtotal = $ms['outgoing'] * $ms['price'];
+                            $remaining = $ms['item_desc'] - $ms['term']; 
+                        ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><?= $ms['item_desc'] ?></td>
                         <td><?= $formula ?></td>
+                        <td><input id="usageAmount-<?= $ms['id'] ?>" class="usage-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['term'], 0, ',', '.'); ?>"></td>
+                        <td><?= $remaining ?></td>
+                        <!-- Column term is used so no additional column to check the materials mixing usage -->
                     </tr>
                     <?php 
                     $temp = $temp + $subtotal; 
