@@ -263,7 +263,7 @@
     </div>
 
     <div class="table-responsive my-3">
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-hover" id="table0" width="100%" cellspacing="0">
             <thead>
                 <tr>
                     <th>No</th>
@@ -439,5 +439,9 @@
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
+    });
+
+    var table0 = $('#table0').DataTable({
+        paging: false
     });
 </script>

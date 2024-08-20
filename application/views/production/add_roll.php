@@ -450,7 +450,7 @@
     <!-- Material data -->
     <!-- Material data -->
     <div class="table-responsive my-3">
-        <table class="table table-hover" id="table1" width="100%" cellspacing="0">
+        <table class="table table-hover" id="table0" width="100%" cellspacing="0">
             <thead>
                 <tr>
                     <div class="h5 text-primary">Materials</div>
@@ -493,7 +493,7 @@
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><?= $ms['item_desc'] ?></td>
                         <td><?= $formula ?></td>
-                        <td><input id="usageAmount-<?= $ms['id'] ?>" class="usage-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['term'], 0, ',', '.'); ?>"></td>
+                        <td><input id="usageAmount-<?= $ms['id'] ?>" class="usage-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['term'], 2, ',', '.'); ?>"></td>
                         <td><?= $remaining ?></td>
                         <!-- Column term is used so no additional column to check the materials mixing usage -->
                     </tr>
@@ -788,6 +788,10 @@
 </script>
 
 <script>
+    var table0 = $('#table0').DataTable({
+        paging: false
+    });
+
     var table1 = $('#table1').DataTable({
         paging: true,
         select: {
@@ -800,8 +804,8 @@
                 searchable: true
             }
         ]
- 
     });
+
     var table2 = $('#table2').DataTable({
         paging: false,
         select: {
