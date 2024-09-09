@@ -100,6 +100,7 @@
                                 <th>Price</th>
                                 <th>Batch</th>
                                 <th>Description</th>
+                                <!-- <th>Customer</th> -->
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -155,6 +156,7 @@
                                         <td><?= number_format($fs['price'], 2, ',', '.') ?> </td>
                                         <td><?= $fs['batch'] ?> </td>
                                         <td><?= $fs['description'] ?> </td>
+                                        <!-- <td><?= $fs['customer_id'] ?> </td> -->
                                         <td><?php echo $fs['status_name'];
                                             if($fs['status'] == 4){ 
                                                 if ($fs['transaction_status'] == 0) {

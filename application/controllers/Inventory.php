@@ -200,11 +200,20 @@ class Inventory extends CI_Controller
         $itemtoDelete = $this->input->post('delete_code');
         // get data on deleted sub menu
         $deletedItem = $this->db->get_where('stock_material', array('code' => $itemtoDelete))->row_array();
-        // delete the sub menu
-        $this->db->delete('stock_material', array('code' => $itemtoDelete));
-        // send message
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Item named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
-        redirect('inventory/material_wh');
+        $countData = $this->db->get_where('stock_material', array('code' => $itemtoDelete))->result_array();
+
+        $counter = count($countData);
+
+        if($counter > 2){
+            $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Item named ' . $deletedItem["name"] . ' can not be deleted because already transacted!</div>');
+            redirect('inventory/material_wh');
+        } else {
+            // delete the item
+            $this->db->delete('stock_material', array('code' => $itemtoDelete));
+            // send message
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Item named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
+            redirect('inventory/material_wh');
+        };
     }
 
     public function material_details($id)
@@ -695,11 +704,20 @@ class Inventory extends CI_Controller
         $itemtoDelete = $this->input->post('code');
         // get data on deleted sub menu
         $deletedItem = $this->db->get_where('stock_roll', array('code' => $itemtoDelete))->row_array();
-        // delete the sub menu
-        $this->db->delete('stock_roll', array('code' => $itemtoDelete));
-        // send message
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Item named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
-        redirect('inventory/prod_wh');
+        $countData = $this->db->get_where('stock_roll', array('code' => $itemtoDelete))->result_array();
+
+        $counter = count($countData);
+
+        if($counter > 2){
+            $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Item named ' . $deletedItem["name"] . ' can not be deleted because already transacted!</div>');
+            redirect('inventory/prod_wh');
+        } else {
+            // delete the PROD ITEM
+            $this->db->delete('stock_roll', array('code' => $itemtoDelete));
+            // send message
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Item named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
+            redirect('inventory/prod_wh');
+        };
     }
 
     public function prod_details($id)
@@ -1279,11 +1297,21 @@ class Inventory extends CI_Controller
         $itemtoDelete = $this->input->post('delete_code');
         // get data on deleted sub menu
         $deletedItem = $this->db->get_where('stock_finishedgoods', array('code' => $itemtoDelete))->row_array();
-        // delete the sub menu
-        $this->db->delete('stock_finishedgoods', array('code' => $itemtoDelete));
-        // send message
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Item named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
-        redirect('inventory/gbj_wh');
+        //count data, if transacted (>2) can;t be deleted
+        $countData = $this->db->get_where('stock_finishedgoods', array('code' => $itemtoDelete))->result_array();
+
+        $counter = count($countData);
+
+        if($counter > 2){
+            $this->session->set_flashdata('message', '<div class="alert alert-info" role="alert">Item named ' . $deletedItem["name"] . ' can not be deleted because already transacted!</div>');
+            redirect('inventory/gbj_wh');
+        } else {
+            // delete GBJ item
+            $this->db->delete('stock_finishedgoods', array('code' => $itemtoDelete));
+            // send message
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Item named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
+            redirect('inventory/gbj_wh');
+        };
     }
 
     public function add_trans_gbj($id)

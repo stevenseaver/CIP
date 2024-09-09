@@ -352,96 +352,109 @@ class Production extends CI_Controller
 
     public function delete_all_prod_order()
     {
+        $this->form_validation->set_rules('confirm_key', 'confirmation key', 'required|trim');
+
         $po_id = $this->input->post('delete_po_id');
+        $confirm_key = $this->input->post('confirm_key');
 
-        //delete related PO items
-        $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $po_id])->result_array();
-        $data['roll_selected'] = $this->db->get_where('stock_roll', ['transaction_id' => $po_id])->result_array();
-        $data['gbj_selected'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $po_id])->result_array();
-        $date = time();
-        // var_dump($data['material_selected']);
-        foreach ($data['material_selected'] as $ms) :
-            //get selected material stock_akhir or stock akhir from id = 7
-            $data['updatestock'] = $this->db->get_where('stock_material', ['code' => $ms['code'], 'status' => 7])->row_array();
-            $stock_akhir = $data['updatestock']['in_stock'];
-
-            $update_stock = ($stock_akhir + $ms['outgoing']);
-            // var_dump($update_stock);
-
-            $data2 = [
-                'in_stock' => $update_stock,
-                'date' => $date
-            ];
-
-            //update stock akhir
-            $this->db->where('status', '7');
-            $this->db->where('code', $ms['code']);
-            $this->db->update('stock_material', $data2);
-        endforeach;
-
-        $this->db->where('transaction_id', $po_id);
-        $this->db->delete('stock_material');
-
-        if(!empty($data['roll_selected'])){
-            //delete related PO items in roll_warehouse
-            $date = time();
-
-            foreach ($data['roll_selected'] as $rs) :
-                $data['updatestock'] = $this->db->get_where('stock_roll', ['code' => $rs['code'], 'status' => 7])->row_array();
-                $stock_akhir = $data['updatestock']['in_stock'];
-                if ($rs['status'] == 3) { 
-                    $update_stock = ($stock_akhir - $rs['incoming']);
-                    $stock_akhir = $update_stock;
-
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Production order not deleted, confirm key is missing!</div>');
+            redirect('production/');
+        } else {
+            if($confirm_key == 'hapus'){
+                //delete related PO items
+                $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $po_id])->result_array();
+                $data['roll_selected'] = $this->db->get_where('stock_roll', ['transaction_id' => $po_id])->result_array();
+                $data['gbj_selected'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $po_id])->result_array();
+                $date = time();
+                // var_dump($data['material_selected']);
+                foreach ($data['material_selected'] as $ms) :
+                    //get selected material stock_akhir or stock akhir from id = 7
+                    $data['updatestock'] = $this->db->get_where('stock_material', ['code' => $ms['code'], 'status' => 7])->row_array();
+                    $stock_akhir = $data['updatestock']['in_stock'];
+        
+                    $update_stock = ($stock_akhir + $ms['outgoing']);
+                    // var_dump($update_stock);
+        
                     $data2 = [
                         'in_stock' => $update_stock,
                         'date' => $date
                     ];
-
-                    // update stock akhir
-                    $this->db->where('status', '7');
-                    $this->db->where('code', $rs['code']);
-                    $this->db->update('stock_roll', $data2);
-                } else {
-
-                }
-            endforeach;
-        }
         
-        $this->db->where('transaction_id', $po_id);
-        $this->db->delete('stock_roll');   
-        
-        if(!empty($data['gbj_selected'])){
-            //delete related PO items in stock_finishedgoods warehouse
-            $date = time();
-
-            foreach ($data['gbj_selected'] as $gs) :
-                $data['updatestock'] = $this->db->get_where('stock_finishedgoods', ['code' => $gs['code'], 'status' => 7])->row_array();
-                $stock_akhir = $data['updatestock']['in_stock'];
-                if ($gs['transaction_status'] == 2 or $gs['unit_satuan'] != 'pack') { 
-                    //only update if item is already converted to pack or item unit is in weight
-                    $update_stock = ($stock_akhir - $gs['incoming']);
-                    $stock_akhir = $update_stock;
-    
-                    $data2 = [
-                        'in_stock' => $update_stock,
-                        'date' => $date
-                    ];
-                    // update stock akhir
+                    //update stock akhir
                     $this->db->where('status', '7');
-                    $this->db->where('code', $gs['code']);
-                    $this->db->update('stock_finishedgoods', $data2);
-                } else {
-
+                    $this->db->where('code', $ms['code']);
+                    $this->db->update('stock_material', $data2);
+                endforeach;
+        
+                $this->db->where('transaction_id', $po_id);
+                $this->db->delete('stock_material');
+        
+                if(!empty($data['roll_selected'])){
+                    //delete related PO items in roll_warehouse
+                    $date = time();
+        
+                    foreach ($data['roll_selected'] as $rs) :
+                        $data['updatestock'] = $this->db->get_where('stock_roll', ['code' => $rs['code'], 'status' => 7])->row_array();
+                        $stock_akhir = $data['updatestock']['in_stock'];
+                        if ($rs['status'] == 3) { 
+                            $update_stock = ($stock_akhir - $rs['incoming']);
+                            $stock_akhir = $update_stock;
+        
+                            $data2 = [
+                                'in_stock' => $update_stock,
+                                'date' => $date
+                            ];
+        
+                            // update stock akhir
+                            $this->db->where('status', '7');
+                            $this->db->where('code', $rs['code']);
+                            $this->db->update('stock_roll', $data2);
+                        } else {
+        
+                        }
+                    endforeach;
                 }
-            endforeach;
-        }
-
-        $this->db->where('transaction_id', $po_id);
-        $this->db->delete('stock_finishedgoods');   
-
-        $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Production order unsaved, item(s) are deleted!</div>');
-        redirect('production/');
+                
+                $this->db->where('transaction_id', $po_id);
+                $this->db->delete('stock_roll');   
+                
+                if(!empty($data['gbj_selected'])){
+                    //delete related PO items in stock_finishedgoods warehouse
+                    $date = time();
+        
+                    foreach ($data['gbj_selected'] as $gs) :
+                        $data['updatestock'] = $this->db->get_where('stock_finishedgoods', ['code' => $gs['code'], 'status' => 7])->row_array();
+                        $stock_akhir = $data['updatestock']['in_stock'];
+                        if ($gs['transaction_status'] == 2 or $gs['unit_satuan'] != 'pack') { 
+                            //only update if item is already converted to pack or item unit is in weight
+                            $update_stock = ($stock_akhir - $gs['incoming']);
+                            $stock_akhir = $update_stock;
+            
+                            $data2 = [
+                                'in_stock' => $update_stock,
+                                'date' => $date
+                            ];
+                            // update stock akhir
+                            $this->db->where('status', '7');
+                            $this->db->where('code', $gs['code']);
+                            $this->db->update('stock_finishedgoods', $data2);
+                        } else {
+        
+                        }
+                    endforeach;
+                }
+        
+                $this->db->where('transaction_id', $po_id);
+                $this->db->delete('stock_finishedgoods');   
+        
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Production order unsaved, item(s) are deleted!</div>');
+                redirect('production/');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Production order not deleted, confirm key is not correct!</div>');
+                redirect('production/');
+            };
+        };
     }
 
     public function createPDF($po_id)

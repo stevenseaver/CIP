@@ -155,8 +155,14 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- item id -->
-                        <label for="url" class="col-form-label">Production Order ID</label>
+                        <label for="delete_po_id" class="col-form-label">Production Order ID</label>
                         <input type="text" class="form-control" id="delete_po_id" name="delete_po_id" readonly>
+                    </div>
+                    <div class="form-group">
+                        <!-- confirm key -->
+                        <label for="confirm_key" class="col-form-label">Confirm Key</label>
+                        <p for="confirm_key" class="col-form-label">Mohon tulis "hapus" di kolom dibawah ini:</p>
+                        <input type="text" class="form-control" id="confirm_key" name="confirm_key">
                     </div>
                 </div>
                 <div class="modal-footer">

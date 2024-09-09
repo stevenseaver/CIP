@@ -288,6 +288,7 @@ class Sales extends CI_Controller
                 'warehouse' => $warehouse,
                 'transaction_id' => $ref,
                 'description' => $desc
+                // 'customer_id' => $cust_id
             ];
             
             // USE THIS IF ITEM STOCK AKHIR IS CHANGED ON PAYMENT

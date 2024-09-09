@@ -128,6 +128,7 @@ class Warehouse_model extends CI_Model
 
   public function getGBJ()
   {
+    // $query = "SELECT `stock_finishedgoods`.*,`warehouse`.`warehouse_name`,`transaction_status`.`status_name`,`product_category`.`title`,`user`.*
     $query = "SELECT `stock_finishedgoods`.*,`warehouse`.`warehouse_name`,`transaction_status`.`status_name`,`product_category`.`title`
                     FROM `stock_finishedgoods` 
                     JOIN `warehouse`
@@ -136,6 +137,8 @@ class Warehouse_model extends CI_Model
                       ON `stock_finishedgoods`.`status` = `transaction_status`.`status_id`
                     JOIN `product_category`
                       ON `stock_finishedgoods`.`categories` = `product_category`.`id`
+                    -- JOIN `user`
+                    --   ON `stock_finishedgoods`.`customer_id` = `user`.`id`
             ";
     return $this->db->query($query)->result_array();
   }
