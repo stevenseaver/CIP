@@ -250,6 +250,7 @@ class Sales extends CI_Controller
             );
 
             $this->db->insert('cart', $data_cart);
+            $inserted_id = $this->db->insert_id();
 
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Process interupted!</div>');
 
@@ -265,9 +266,6 @@ class Sales extends CI_Controller
             } else {
                 $netprice = $price;
             };
-            //get cart ID ref
-            $data['getitemID'] = $this->db->get_where('cart', ['ref' => $ref, 'item_name' => $name, 'date' => $date])->row_array();
-            $cartID = $data['getitemID']['id'];
 
             $data_warehouse = [
                 'name' => $name,
@@ -283,7 +281,7 @@ class Sales extends CI_Controller
                 'outgoing' => $amount,
                 'unit_satuan' => $unit,
                 'before_convert' => $weight, //before_convert col is used to store the item's weight
-                'picture' => $cartID,
+                'picture' => $inserted_id,
                 'status' => $transaction_status,
                 'warehouse' => $warehouse,
                 'transaction_id' => $ref,
