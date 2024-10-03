@@ -22,10 +22,19 @@
             </button> -->
     
             <div class="dropdown-menu">
-                <?php $j = 0; 
-                foreach($periode as $per) : ?>
-                    <a class="dropdown-item" href="<?= base_url('user/index?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
-                <?php endforeach; ?>
+                <?php $j = 0;
+                $current_time = time();
+                $year = 0; 
+                $year = date('Y', $current_time);
+                foreach($periode as $per) : 
+                    if($per['year'] == $year or $per['year'] == '0') { ?>
+                        <a class="dropdown-item" href="<?= base_url('user/index?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
+                    <?php
+                    }
+                    else { 
+
+                    };
+                endforeach; ?>
             </div>
         </div>
     </div>
@@ -44,6 +53,7 @@
             foreach ($prodOrder1 as $items) :
                 if ($before != $items['transaction_id']) {
                     $before = $items['transaction_id'];
+                    // echo $items['transaction_id'] . ' ';
                     $temp++;
                 } else {
                 }
@@ -110,6 +120,17 @@
                             <div class="col-auto">
                                 <i class="bi bi-1-circle fa-2x text-gray-600"></i>
                             </div>
+                            <!-- <?php 
+                                // foreach ($prodOrder1 as $items) :
+                                //     if ($before != $items['transaction_id']) {
+                                //         $before = $items['transaction_id']; ?>
+                                //         <span><a href=""><?= $items['transaction_id'] . ' ';?></a></span>
+                                //         <?php $temp++;
+                                //     } else {
+                                //     }
+                                //     $prodOrderCount1 = $temp;
+                                // endforeach;
+                            ?> -->
                         </div>
                     </div>
                 </div>

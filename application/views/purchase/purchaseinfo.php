@@ -19,10 +19,20 @@
             </button> -->
     
             <div class="dropdown-menu">
-                <?php $j = 0; 
-                foreach($periode as $per) : ?>
-                    <a class="dropdown-item" href="<?= base_url('purchasing/purchaseinfo?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
-                <?php endforeach; ?>
+                <?php 
+                $j = 0;
+                $current_time = time();
+                $year = 0; 
+                $year = date('Y', $current_time);
+                foreach($periode as $per) : 
+                    if($per['year'] == $year or $per['year'] == '0') { ?>
+                        <a class="dropdown-item" href="<?= base_url('purchasing/purchaseinfo?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
+                    <?php
+                    }
+                    else { 
+                        
+                    };
+                endforeach; ?>
             </div>
         </div>
     </div>

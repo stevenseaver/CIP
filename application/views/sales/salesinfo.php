@@ -11,21 +11,31 @@
         ?>
 
 
-<div class="dropdown text-right align-items-center mb-3">
-    <button class="btn btn-<?= $color?> dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-        <a id="periode_show" name="periode_show"><?= $current_periode ?></a>
-    </button>
+        <div class="dropdown text-right align-items-center mb-3">
+            <button class="btn btn-<?= $color?> dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                <a id="periode_show" name="periode_show"><?= $current_periode ?></a>
+            </button>
     
-    
-    <div class="dropdown-menu">
-        <?php $j = 0; 
-            foreach($periode as $per) : ?>
-                <a class="dropdown-item" href="<?= base_url('sales/salesinfo?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
-                <?php endforeach; ?>
+            <div class="dropdown-menu">
+                <?php 
+                $j = 0;
+                $current_time = time();
+                $year = 0; 
+                $year = date('Y', $current_time);
+                foreach($periode as $per) : 
+                    if($per['year'] == $year or $per['year'] == '0') { ?>
+                        <a class="dropdown-item" href="<?= base_url('sales/salesinfo?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
+                        <?php
+                    }
+                    else { 
+                        
+                    };
+                endforeach; ?>
             </div>
         </div>
     </div>
     
+    <!-- body -->
     <div class="row">
         <div class="col mb-0">
             <?= $this->session->flashdata('message'); ?>
