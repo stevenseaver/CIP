@@ -28,10 +28,10 @@
         <div class="card-body pb-1">
             <?php if ($status == 1) { ?>
                 <div class="row justify-content-center mx-3 my-2">
-                    <span class="icon text-primary mx-2">
+                    <span class="icon text-warning mx-2">
                         <i class="bi bi-1-circle"></i>
                     </span>
-                    <span class="text-primary">Payment Confirmation</span>
+                    <span class="text-warning">Payment Confirmation</span>
 
                     <!-- Separator -->
                     <span class="icon text-secondary mx-2">
@@ -42,7 +42,7 @@
                     <span class="icon text-secondary mx-2">
                         <i class="bi bi-2-circle"></i>
                     </span>
-                    <span class="text">Delivering</span>
+                    <span class="text">Out for Delivery</span>
 
                     <!-- Separator -->
                     <span class="icon text-secondary mx-2">
@@ -71,7 +71,7 @@
                     <span class="icon text-primary mx-2">
                         <i class="bi bi-2-circle"></i>
                     </span>
-                    <span class="text-primary">Delivering</span>
+                    <span class="text-primary">Out for Delivery</span>
 
                     <!-- Separator -->
                     <span class="icon text-secondary mx-2">
@@ -97,11 +97,11 @@
                         <i class="bi bi-arrow-right"></i>
                     </span>
                     <!-- Separator -->
-                    <!-- Status = 2 delivering -->
+                    <!-- Status = 2 Out for Delivery -->
                     <span class="icon text-secondary mx-2">
                         <i class="bi bi-2-circle"></i>
                     </span>
-                    <span class="text-secondary">Delivering</span>
+                    <span class="text-secondary">Out for Delivery</span>
 
                     <!-- Separator -->
                     <span class="icon text-secondary mx-2">
@@ -109,10 +109,10 @@
                     </span>
                     <!-- Separator -->
                     <!-- Status = 3 delivered -->
-                    <span class="icon text-primary mx-2">
+                    <span class="icon text-success mx-2">
                         <i class="bi bi-3-circle"></i>
                     </span>
-                    <span class="text-primary">Goods Delivered</span>
+                    <span class="text-success">Goods Delivered</span>
                 </div>
             <?php } ?>
             <p class="text-dark mb-1">Customer Name. : </p>
@@ -124,7 +124,24 @@
             <p class="text-dark mb-1">Delivery Address:</p>
             <p class="text-dark font-weight-bold"><?= $address; ?></p>
             <p class="text-dark mb-1">Reference:</p>
-            <p class="text-dark font-weight-bold"><?= $reference; ?></p>
+            <p id="ref_item" class="text-dark font-weight-bold mb-3"> 
+                <?= $reference; ?>
+                <i type="button" id="editRefNameplate" class="small text-primary bi bi-pencil-fill"></i>
+            </p>
+            <input style="display:none" id="change_ref_sales" class="change_ref_sales text-left form-control mb-3"  data-id="<?= $ref; ?>" value="<?= $reference; ?>">
+            <script>
+                const button = document.getElementById('editRefNameplate');
+                const div = document.getElementById('change_ref_sales');
+
+                // define the function to change the HTML content
+                function changeContent() {
+                    document.getElementById('change_ref_sales').style.display = 'block';
+                    document.getElementById('ref_item').style.display = 'none';
+                }
+
+                // add event listener to the button
+                button.addEventListener('click', changeContent);
+            </script>
         </div>
     </div>
 

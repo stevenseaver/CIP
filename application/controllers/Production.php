@@ -934,34 +934,48 @@ class Production extends CI_Controller
 
     public function delete_all_roll()
     {
+        $this->form_validation->set_rules('confirm_key', 'confirmation key', 'required|trim');
+
         $po_id = $this->input->post('delete_roll_id');
+        $confirm_key = $this->input->post('confirm_key');
 
         //delete related PO items
         $data['roll_selected'] = $this->db->get_where('stock_roll', ['transaction_id' => $po_id])->result_array();
         $date = time();
 
-        foreach ($data['roll_selected'] as $rs) :
-            $data['updatestock'] = $this->db->get_where('stock_roll', ['code' => $rs['code'], 'status' => 7])->row_array();
-            $stock_akhir = $data['updatestock']['in_stock'];
-
-            $update_stock = ($stock_akhir - $rs['incoming']);
-            $stock_akhir = $update_stock;
-
-            $data2 = [
-                'in_stock' => $update_stock,
-                'date' => $date
-            ];
-
-            // update stock akhir
-            $this->db->where('status', '7');
-            $this->db->where('code', $rs['code']);
-            $this->db->update('stock_roll', $data2);
-        endforeach;
-        $this->db->where('transaction_id', $po_id);
-        $this->db->delete('stock_roll');
-
-        $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Production order deleted, item(s) are adjusted!</div>');
-        redirect('production/inputRoll');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Production order not deleted, confirm key is missing!</div>');
+            redirect('production/');
+        } else {
+            if($confirm_key == 'hapus'){
+                foreach ($data['roll_selected'] as $rs) :
+                    $data['updatestock'] = $this->db->get_where('stock_roll', ['code' => $rs['code'], 'status' => 7])->row_array();
+                    $stock_akhir = $data['updatestock']['in_stock'];
+        
+                    $update_stock = ($stock_akhir - $rs['incoming']);
+                    $stock_akhir = $update_stock;
+        
+                    $data2 = [
+                        'in_stock' => $update_stock,
+                        'date' => $date
+                    ];
+        
+                    // update stock akhir
+                    $this->db->where('status', '7');
+                    $this->db->where('code', $rs['code']);
+                    $this->db->update('stock_roll', $data2);
+                endforeach;
+                $this->db->where('transaction_id', $po_id);
+                $this->db->delete('stock_roll');
+        
+                $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Production order deleted, item(s) are adjusted!</div>');
+                redirect('production/inputRoll');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Production order not deleted, confirm key is not correct!</div>');
+                redirect('production/');
+            };
+        }
+        
     }
 
     public function print_ticket(){

@@ -124,7 +124,24 @@
             <p class="text-dark mb-1">Delivery Address:</p>
             <p class="text-dark font-weight-bold"><?= $address; ?></p>
             <p class="text-dark mb-1">Reference:</p>
-            <p class="text-dark font-weight-bold"><?= $reference; ?></p>
+            <p id="ref_item" class="text-dark font-weight-bold mb-3"> 
+                <?= $reference; ?>
+                <i type="button" id="editRefNameplate" class="small text-primary bi bi-pencil-fill"></i>
+            </p>
+            <input style="display:none" id="change_ref_sales" class="change_ref_sales text-left form-control mb-3"  data-id="<?= $ref; ?>" value="<?= $reference; ?>">
+            <script>
+                const button = document.getElementById('editRefNameplate');
+                const div = document.getElementById('change_ref_sales');
+
+                // define the function to change the HTML content
+                function changeContent() {
+                    document.getElementById('change_ref_sales').style.display = 'block';
+                    document.getElementById('ref_item').style.display = 'none';
+                }
+
+                // add event listener to the button
+                button.addEventListener('click', changeContent);
+            </script>
         </div>
     </div>
 

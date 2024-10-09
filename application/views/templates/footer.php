@@ -515,6 +515,27 @@
          });
      });
 
+     //js for amount change on production order product name
+     $('.change_ref_sales').on('change', function() {
+         const id = $(this).data('id');
+
+         const newName = document.getElementById("change_ref_sales").value;
+
+         $.ajax({
+             url: "<?= base_url('sales/update_sales_ref'); ?>",
+             type: 'post',
+             data: {
+                 id : id,
+                 newName: newName
+             },
+             success: function() {
+                $(document).ajaxStop(function(){
+                    window.location.reload();   
+                });
+             }
+         });
+     });
+
      //js for amount change on production order quantity per item input on change
      $('.material-qty').on('change', function() {
          const id = $(this).data('id');

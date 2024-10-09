@@ -19,17 +19,24 @@
 
     <!-- view pdf PO  -->
     <a href="<?= base_url('production/createPDF/') . $getID['transaction_id']?>" class="btn btn-primary btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
-        <span class="icon text-white-50">
+        <span class="icon text-white">
             <i class="bi bi-eye"></i>
         </span>
         <span class="text">View Production Order</span>
     </a>
 
     <a href="<?= base_url('production/createPDF_prod/') . $po_id?>" class="btn btn-light btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
-        <span class="icon text-white-50">
+        <span class="icon text-white">
             <i class="bi bi-eye"></i>
         </span>
         <span class="text">Print for Staff</span>
+    </a>
+
+    <a href="<?= base_url('production/edit_prod/') . $po_id?>" class="btn btn-warning btn-icon-split mb-3" rel="noopener noreferrer">
+        <span class="icon text-white">
+            <i class="bi bi-pencil-fill"></i>
+        </span>
+        <span class="text">Edit</span>
     </a>
 
     <div class="card rounded shadow border-0 mb-3">

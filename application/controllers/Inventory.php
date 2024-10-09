@@ -73,7 +73,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('supplier', 'supplier', 'required|trim');
         $this->form_validation->set_rules('unit', 'unit', 'required|trim');
-        $this->form_validation->set_rules('min_stock', 'min_stock', 'required|trim');
+        $this->form_validation->set_rules('min_stock', 'minimal stock', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -152,7 +152,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('category', 'category', 'required|trim');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('supplier', 'supplier', 'required|trim');
-        $this->form_validation->set_rules('min_stock', 'supplier', 'required|trim');
+        $this->form_validation->set_rules('min_stock', 'minimal stock', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -857,7 +857,7 @@ class Inventory extends CI_Controller
         $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
 
         $this->form_validation->set_rules('categories', 'categories', 'required|trim');
-        $this->form_validation->set_rules('adjust_amount', 'adjust_amount', 'required|trim');
+        $this->form_validation->set_rules('adjust_amount', 'adjust amount', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops, something is are missing!</div>');
@@ -1078,7 +1078,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('category', 'category', 'required|trim');
         $this->form_validation->set_rules('unit', 'unit', 'required|trim');
-        $this->form_validation->set_rules('min_stock', 'min_stock', 'required|trim');
+        $this->form_validation->set_rules('min_stock', 'minimum stock', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('msg_failed_gbj', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -1219,7 +1219,7 @@ class Inventory extends CI_Controller
         $this->form_validation->set_rules('conversion', 'conversion', 'trim|numeric');
         $this->form_validation->set_rules('price', 'price', 'required|trim');
         $this->form_validation->set_rules('category', 'category', 'required|trim');
-        $this->form_validation->set_rules('min_stock', 'minimal stock', 'required|trim');
+        $this->form_validation->set_rules('min_stock', 'minimum stock', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -1440,7 +1440,7 @@ class Inventory extends CI_Controller
         $code = $data['code'];
 
         $this->form_validation->set_rules('categories', 'categories', 'required|trim');
-        $this->form_validation->set_rules('adjust_amount', 'adjust_amount', 'required|trim');
+        $this->form_validation->set_rules('adjust_amount', 'adjust amount', 'required|trim');
         $this->form_validation->set_rules('edit_desc1', 'reference number', 'trim');
         $this->form_validation->set_rules('edit_desc2', 'description', 'trim');
 
@@ -1461,6 +1461,7 @@ class Inventory extends CI_Controller
 
             $data['stockOld'] = $this->db->get_where('stock_finishedgoods', ['id' => $idToEdit])->row_array();
 
+            $ref = $data['stockOld']['transaction_id']; //stock awal sebelumnya
             $stock_awal_before = $data['stockOld']['in_stock']; //stock awal sebelumnya
             $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
 
@@ -1539,6 +1540,13 @@ class Inventory extends CI_Controller
 
                     $this->db->where('code', $code);
                     $this->db->update('stock_finishedgoods', $data2, 'status = 7');
+
+                    $cart_update = [
+                        'description' => $edit_desc2
+                    ];
+
+                    $this->db->where('ref', $ref);
+                    $this->db->update('cart', $cart_update);
                 }
             }
 
@@ -2031,11 +2039,11 @@ class Inventory extends CI_Controller
         //get maintenance data
         $data['asset_maintenance'] = $this->db->get_where('asset_maintenance', array('inv_code' => $data['inventory']['code']))->result_array();
 
-        $this->form_validation->set_rules('code', 'Code', 'required|trim');
-        $this->form_validation->set_rules('analysis', 'Analysis', 'required|trim');
-        $this->form_validation->set_rules('solution', 'Solution', 'required|trim');
-        $this->form_validation->set_rules('result', 'Result', 'required|trim');
-        $this->form_validation->set_rules('pic', 'pic', 'required|trim');
+        $this->form_validation->set_rules('code', 'code', 'required|trim');
+        $this->form_validation->set_rules('analysis', 'analysis', 'required|trim');
+        $this->form_validation->set_rules('solution', 'solution', 'required|trim');
+        $this->form_validation->set_rules('result', 'result', 'required|trim');
+        $this->form_validation->set_rules('pic', 'picture', 'trim');
         // $this->form_validation->set_rules('photos', 'photos', 'required|trim');
 
         if ($this->form_validation->run() == false){

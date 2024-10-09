@@ -17,6 +17,13 @@
         <span class="text text-dark">Back</span>
     </a>
 
+    <a href="<?= base_url('production/add_gbj/') . $po_id?>" class="btn btn-light border-warning btn-icon-split mb-3" rel="noopener noreferrer">
+        <span class="icon text-white">
+            <i class="bi bi-pencil-fill"></i>
+        </span>
+        <span class="text">Edit</span>
+    </a>
+
     <a href="<?= base_url('production/pdf_prodReport/') . $getID['transaction_id']?>" target="_blank" class="btn btn-primary btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-file-earmark-pdf"></i>

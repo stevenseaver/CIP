@@ -654,6 +654,24 @@ class Sales extends CI_Controller
         $this->load->view('sales/info_detail', $data);
         $this->load->view('templates/footer');
     }
+
+    //update production order product name
+    public function update_sales_ref()
+    {
+        $ref = $this->input->post('id');
+        $newName = $this->input->post('newName');
+
+        $data = [
+            'description' => $newName
+        ];
+
+        //update transaksi
+        $this->db->where('transaction_id', $ref);
+        $this->db->update('stock_finishedgoods', $data);
+
+        $this->db->where('ref', $ref);
+        $this->db->update('cart', $data);
+    }
     
     public function paid()
     {

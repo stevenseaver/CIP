@@ -17,6 +17,13 @@
         <span class="text text-dark">Back</span>
     </a>
 
+    <a href="<?= base_url('production/add_roll/') . $po_id?>" class="btn btn-warning btn-icon-split mb-3" rel="noopener noreferrer">
+        <span class="icon text-white">
+            <i class="bi bi-pencil-fill"></i>
+        </span>
+        <span class="text">Edit</span>
+    </a>
+
     <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">
             <p class="text-dark mb-1">Prod Order Ref : </p>
