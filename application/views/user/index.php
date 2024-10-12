@@ -106,7 +106,8 @@
             endforeach;
             
         ?>
-        <div class="row">
+        
+        <div class="row mb-0">
             <!-- Kanban Board Prod Summary -->
             <a class="col-lg-2 mb-4" href=" <?= base_url('production') ?>" style="text-decoration:none">
                 <div class="card border-left-secondary py-1">
@@ -205,127 +206,129 @@
                 </div>
             </a>
         </div>
-        <!-- <div class="row">
-            <a class="col-lg-2 mb-4" href="">
-                <div class="card border-left-secondary py-1">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <?php 
-                                foreach ($prodOrder1 as $items) : ?>
-                                    <div class="d-flex">
-                                        <?php if ($before != $items['transaction_id']) {
-                                            $before = $items['transaction_id'];
-                                            echo $items['transaction_id'] . ' ';
-                                            echo $items['product_name'] . ' ';
-                                        } else {
-                                        }; ?>
-                                    </div>
-                                <?php endforeach; ?>
+        <div class="row">
+            <div class="col-lg text-center">
+                <p class="text-primary mb-0" type="button" data-toggle="collapse" data-target="#collapseKanban" aria-expanded="false" aria-controls="collapseKanban">
+                    Expand Kanban Board
+                </p>
+            </div>
+        </div>
+        </p>
+        <div class="collapse" id="collapseKanban">
+            <div class="card card-body px-0 bg-gray-100 border-0">
+                <div class="row">
+                    <div class="col-lg-2 mb-4">
+                        <div class="card border-left-secondary py-0">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <?php 
+                                        foreach ($prodOrder1 as $items) : ?>
+                                            <div class="d-flex bg-gray-100 rounded px-3 py-1 mb-3">
+                                                <?php if ($before != $items['transaction_id']) {
+                                                    $before = $items['transaction_id']; ?>
+                                                    <a class="" href="<?= base_url('production/gbj_details/') . $items['transaction_id'] ?>"><?= $items['transaction_id'] . ' ' .  $items['product_name'];?></a>
+                                                <?php } else {
+                                                }; ?>
+                                            </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 mb-4">
+                        <div class="card border-left-info py-1">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <?php 
+                                        foreach ($prodOrder2 as $items) :
+                                            if ($before != $items['transaction_id']) {
+                                                $before = $items['transaction_id']; ?>
+                                                <div class="d-flex bg-gray-100 rounded px-3 py-1 mb-3">
+                                                    <a class="" href="<?= base_url('production/gbj_details/') . $items['transaction_id'] ?>"><?= $items['transaction_id'] . ' ' .  $items['product_name'];?></a>
+                                                </div>
+                                                <?php } else {
+                                                }; ?>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 mb-4">
+                        <div class="card border-left-primary py-1">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <?php 
+                                        foreach ($prodOrder3 as $items) :
+                                            if ($before != $items['transaction_id']) {
+                                                $before = $items['transaction_id']; ?>
+                                                <div class="d-flex bg-gray-100 rounded px-3 py-1 mb-3">
+                                                    <a class="" href="<?= base_url('production/gbj_details/') . $items['transaction_id'] ?>"><?= $items['transaction_id'] . ' ' .  $items['product_name'];?></a>
+                                                </div>
+                                                <?php } else {
+                                                }; ?>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 mb-4">
+                        <div class="card border-left-warning py-1">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <?php 
+                                        foreach ($prodOrder4 as $items) :
+                                            if ($before != $items['transaction_id']) {
+                                                $before = $items['transaction_id']; ?>
+                                                <div class="d-flex bg-gray-100 rounded px-3 py-1 mb-3">
+                                                    <a class="" href="<?= base_url('production/gbj_details/') . $items['transaction_id'] ?>"><?= $items['transaction_id'] . ' ' .  $items['product_name'];?></a>
+                                                </div>
+                                                <?php } else {
+                                                }; ?>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 mb-4">
+                        <div class="card border-left-success py-1">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <?php 
+                                        foreach ($prodOrder5 as $items) :
+                                            if ($before != $items['transaction_id']) {
+                                                $before = $items['transaction_id']; ?>
+                                                <div class="d-flex bg-gray-100 rounded px-3 py-1 mb-3">
+                                                    <a class="" href="<?= base_url('production/gbj_details/') . $items['transaction_id'] ?>"><?= $items['transaction_id'] . ' ' .  $items['product_name'];?></a>
+                                                </div>
+                                                <?php } else {
+                                                }; ?>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 mb-4">
+                        <div class="card border-left-danger py-1">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <?php 
+                                        foreach ($prodOrder6 as $items) :
+                                            if ($before != $items['transaction_id']) {
+                                                $before = $items['transaction_id']; ?>
+                                                <div class="d-flex bg-gray-100 rounded px-3 py-1 mb-3">
+                                                    <a class="" href="<?= base_url('production/gbj_details/') . $items['transaction_id'] ?>"><?= $items['transaction_id'] . ' ' .  $items['product_name'];?></a>
+                                                </div>
+                                                <?php } else {
+                                                }; ?>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </a>
-            <a class="col-lg-2 mb-4" href="">
-                <div class="card border-left-info py-1">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <?php 
-                                foreach ($prodOrder2 as $items) : ?>
-                                    <div class="d-flex my-1">
-                                        <?php if ($before != $items['transaction_id']) {
-                                            $before = $items['transaction_id'];
-                                            echo $items['transaction_id'] . ' ';
-                                            echo $items['product_name'] . ' ';
-                                        } else {
-                                        }; ?>
-                                    </div>
-                                <?php  endforeach;
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a class="col-lg-2 mb-4" href="">
-                <div class="card border-left-primary py-1">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <?php 
-                                foreach ($prodOrder3 as $items) : ?>
-                                    <div class="d-flex my-1">
-                                        <?php if ($before != $items['transaction_id']) {
-                                            $before = $items['transaction_id'];
-                                            echo $items['transaction_id'] . ' ';
-                                            echo $items['product_name'] . ' ';
-                                        } else {
-                                        }; ?>
-                                    </div>
-                                <?php  endforeach;
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a class="col-lg-2 mb-4" href="">
-                <div class="card border-left-warning py-1">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <?php 
-                                foreach ($prodOrder4 as $items) : ?>
-                                    <div class="d-flex my-1">
-                                        <?php if ($before != $items['transaction_id']) {
-                                            $before = $items['transaction_id'];
-                                            echo $items['transaction_id'] . ' ';
-                                            echo $items['product_name'] . ' ';
-                                        } else {
-                                        }; ?>
-                                    </div>
-                                <?php  endforeach;
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a class="col-lg-2 mb-4" href="">
-                <div class="card border-left-success py-1">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <?php 
-                                foreach ($prodOrder5 as $items) : ?>
-                                    <div class="d-flex my-1">
-                                        <?php if ($before != $items['transaction_id']) {
-                                            $before = $items['transaction_id'];
-                                            echo $items['transaction_id'] . ' ';
-                                            echo $items['product_name'] . ' ';
-                                        } else {
-                                        }; ?>
-                                    </div>
-                                <?php  endforeach;
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a class="col-lg-2 mb-4" href="">
-                <div class="card border-left-danger py-1">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <?php 
-                                foreach ($prodOrder6 as $items) : ?>
-                                    <div class="d-flex my-1">
-                                        <?php if ($before != $items['transaction_id']) {
-                                            $before = $items['transaction_id'];
-                                            echo $items['transaction_id'] . ' ';
-                                            echo $items['product_name'] . ' ';
-                                        } else {
-                                        }; ?>
-                                    </div>
-                                <?php  endforeach;
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div> -->
+            </div>
+        </div>
+        
         <div class="row">
             <?php
             $temp = 0;
