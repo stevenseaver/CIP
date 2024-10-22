@@ -893,7 +893,7 @@
 </div>
 
 <!-- Modal for bulk cut roll items -->
-<div class="modal fade" id="cutBulk" tabindex="-1" aria-labelledby="cutBulkLabel" aria-hidden="true">
+<div class="modal fade" id="cutBulk" tabindex="-1" aria-labelledby="cutBulkLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">

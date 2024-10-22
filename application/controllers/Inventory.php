@@ -291,6 +291,7 @@ class Inventory extends CI_Controller
                     'code' => $code,
                     'status' => $transaction_status,
                     'incoming' => $amount,
+                    'in_stock' => $in_stockOld + $amount,
                     'categories' => $category,
                     'supplier' => $supplier,
                     'date' => $date,
@@ -298,8 +299,7 @@ class Inventory extends CI_Controller
                     'unit_satuan' => $unit,
                     'transaction_id' => $trans_id,
                     'description' => $info,
-                    'transaction_status' => $trans_stat,
-                    'in_stock' => $in_stockOld + $amount
+                    'transaction_status' => $trans_stat
                     // 'item_desc' => $info2
                 ];
                 $data2 = [
@@ -328,6 +328,7 @@ class Inventory extends CI_Controller
                     'code' => $code,
                     'status' => $transaction_status,
                     'outgoing' => $amount,
+                    'in_stock' => $in_stockOld - $amount,
                     'categories' => $category,
                     'supplier' => $supplier,
                     'date' => $date,
@@ -335,8 +336,7 @@ class Inventory extends CI_Controller
                     'unit_satuan' => $unit,
                     'transaction_id' => $trans_id,
                     'description' => $info,
-                    'transaction_status' => $trans_stat,
-                    'in_stock' => $in_stockOld - $amount
+                    'transaction_status' => $trans_stat
                     // 'item_desc' => $info2
                 ];
                 $data2 = [
@@ -1373,11 +1373,12 @@ class Inventory extends CI_Controller
                     'code' => $code,
                     'status' => $transaction_status,
                     'incoming' => $amount,
+                    'in_stock' => $in_stockOld + $amount,
                     'categories' => $category,
                     'date' => $date,
                     'warehouse' => $warehouse,
                     'transaction_id' => $trans_id,
-                    'description' => $description
+                    'description' => $description,
                 ];
                 $data2 = [
                     'in_stock' => $in_stockOld + $amount,
@@ -1403,6 +1404,7 @@ class Inventory extends CI_Controller
                     'code' => $code,
                     'status' => $transaction_status,
                     'outgoing' => $amount,
+                    'in_stock' => $in_stockOld - $amount,
                     'categories' => $category,
                     'date' => $date,
                     'warehouse' => $warehouse,
@@ -1503,6 +1505,7 @@ class Inventory extends CI_Controller
                 if ($category == 'Production' or $category == 'Return Sales' or $category == 'Purchasing') {
                     $data_update = [
                         'incoming' => $adjust_amount,
+                        'in_stock' => ($stock_end_before - $stock_adjust_before) + $adjust_amount,
                         'date' => $date,
                         'batch' => $edit_desc1,
                         'description' => $edit_desc2
@@ -1524,6 +1527,7 @@ class Inventory extends CI_Controller
                 else {
                     $data_update = [
                         'outgoing' => $adjust_amount,
+                        'in_stock' => ($stock_end_before + $stock_adjust_before) - $adjust_amount,
                         'date' => $date,
                         'batch' => $edit_desc1,
                         'description' => $edit_desc2

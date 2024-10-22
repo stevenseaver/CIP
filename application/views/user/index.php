@@ -218,18 +218,18 @@
             <div class="card card-body px-0 bg-gray-100 border-0">
                 <div class="row">
                     <div class="col-lg-2 mb-4">
-                        <div class="card border-left-secondary py-0">
+                        <div class="card border-left-secondary py-1">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <?php 
-                                        foreach ($prodOrder1 as $items) : ?>
-                                            <div class="d-flex bg-gray-100 rounded px-3 py-1 mb-3">
-                                                <?php if ($before != $items['transaction_id']) {
-                                                    $before = $items['transaction_id']; ?>
+                                        foreach ($prodOrder1 as $items) :
+                                            if ($before != $items['transaction_id']) {
+                                                $before = $items['transaction_id']; ?>
+                                                <div class="d-flex bg-gray-100 rounded px-3 py-1 mb-3">
                                                     <a class="" href="<?= base_url('production/gbj_details/') . $items['transaction_id'] ?>"><?= $items['transaction_id'] . ' ' .  $items['product_name'];?></a>
+                                                </div>
                                                 <?php } else {
                                                 }; ?>
-                                            </div>
                                     <?php endforeach; ?>
                                 </div>
                             </div>

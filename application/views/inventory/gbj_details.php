@@ -310,13 +310,14 @@
                     <div class="form-group">
                         <!-- Desc 1 -->
                         <label for="url" class="col-form-label">Batch/Reference</label>
-                        <input type="text" class="form-control mb-1" id="edit_desc1" name="edit_desc1" placeholder="Desc 1">
+                        <input type="text" class="form-control mb-1" id="edit_desc1" name="edit_desc1" placeholder="Production batch">
+                        <small>Not compulsory.</small>
                         <?= form_error('edit_desc1', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Desc 2  -->
                         <label for="url" class="col-form-label">Description</label>
-                        <input type="text" class="form-control mb-1" id="edit_desc2" name="edit_desc2" placeholder="Desc 2">
+                        <input type="text" class="form-control mb-1" id="edit_desc2" name="edit_desc2" placeholder="Cutting line/operator or invoice reference">
                         <?= form_error('edit_desc2', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                 </div>
