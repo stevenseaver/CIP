@@ -275,16 +275,23 @@ class Inventory extends CI_Controller
 
             $in_stockOld = $data['getID']['in_stock'];
             $trans_stat = 2;
-            // 8 is purchasing, the only transaction that adds to the final stock
-            if ($transaction_status == 8) {
+            // 8 is purchasing, 2 is stock adjustment, the only transaction that adds to the final stock
+            if ($transaction_status == 8 or $transaction_status == 2){
                 $date = time();
                 $year = date('y');
                 $month = date('m');
 
-                // ref invoice
-                $n = 3;
-                $result = bin2hex(random_bytes($n));
-                $trans_id = 'A' . $year . $month . $result;
+                //ref invoice=
+                if ($transaction_status == 8){
+                    $n = 3;
+                    $result = bin2hex(random_bytes($n));
+                    $trans_id = 'A' . $year . $month . $result;
+                } else if ($transaction_status == 2) {
+                    $n = 3;
+                    $result = bin2hex(random_bytes($n));
+                    $trans_id = 'AS' . $year . $month . $result;
+                    // $trans_id = 'ADJ-' . $year . $month . $day . '-' . $serial;
+                };
 
                 $data = [
                     'name' => $name,
@@ -312,13 +319,13 @@ class Inventory extends CI_Controller
                 $year = date('y');
                 $month = date('m');
                 $day = date('d');
-                $serial = rand(1000, 9999);
                 
                 //ref po
                 if ($transaction_status == 6){
-                    $trans_id = 'RB-' . $year . $month . $day . '-' . $serial;
-                } else if ($transaction_status == 2) {
-                    $trans_id = 'ADJ-' . $year . $month . $day . '-' . $serial;
+                    // $trans_id = 'RB-' . $year . $month . $day . '-' . $serial;
+                    $n = 3;
+                    $result = bin2hex(random_bytes($n));
+                    $trans_id = 'RB' . $year . $month . $result;
                 } else {
                     $trans_id = 'UNAUTHORIZED';
                 };
@@ -395,7 +402,7 @@ class Inventory extends CI_Controller
             $stock_awal_before = $data['stockOld']['in_stock']; //stock akhir yg akan diubah
             $stock_end_before = $data['getID']['in_stock']; //stock akhir item
 
-            if ($category == 'Purchasing') {
+            if ($category == 'Purchasing' or $category == 'Stock Adjustment') {
                 $stock_adjust_before = $data['stockOld']['incoming']; //adjustment transaksi sebelum di edit
             } else {
                 $stock_adjust_before = $data['stockOld']['outgoing']; //adjustment transaksi sebelum di edit
@@ -416,7 +423,7 @@ class Inventory extends CI_Controller
             } else if ($category == 'Saldo Awal') {
                 $data = [
                     'in_stock' => $adjust_amount,
-                    'date' => $date,
+                    // 'date' => $date,
                     'description' => $adjust_desc,
                     'item_desc' => $adjust_desc2
                 ];
@@ -427,7 +434,7 @@ class Inventory extends CI_Controller
 
                 $data2 = [
                     'in_stock' => $stock_end_before + ($adjust_amount - $stock_awal_before),
-                    'date' => $date
+                    // 'date' => $date
                 ];
 
                 $this->db->where('code', $code);
@@ -437,13 +444,13 @@ class Inventory extends CI_Controller
                 redirect('inventory/material_details/' . $id);
             } else {
                 //purchasing adds to final stocks
-                if ($category == 'Purchasing') {
+                if ($category == 'Purchasing' or $category == 'Stock Adjustment') {
                     $update_stock = ($stock_end_before - $stock_adjust_before) + $adjust_amount;
 
                     $data = [
                         'incoming' => $adjust_amount,
                         'in_stock' => $update_stock,
-                        'date' => $date,
+                        // 'date' => $date,
                         'price' => $adjust_price,
                         'description' => $adjust_desc,
                         'item_desc' => $adjust_desc2
@@ -454,7 +461,7 @@ class Inventory extends CI_Controller
 
                     $data2 = [
                         'in_stock' => $update_stock,
-                        'date' => $date
+                        // 'date' => $date
                     ];
 
                     $this->db->where('code', $code);
@@ -470,7 +477,7 @@ class Inventory extends CI_Controller
                     $data = [
                         'outgoing' => $adjust_amount,
                         'in_stock' => $update_stock,
-                        'date' => $date,
+                        // 'date' => $date,
                         'price' => $adjust_price,
                         'description' => $adjust_desc,
                         'item_desc' => $adjust_desc2
@@ -484,7 +491,7 @@ class Inventory extends CI_Controller
 
                     $data2 = [
                         'in_stock' => $update_stock,
-                        'date' => $date
+                        // 'date' => $date
                     ];
 
                     $this->db->where('code', $code);
@@ -509,38 +516,56 @@ class Inventory extends CI_Controller
         // $data['code'] = $data['getID']['code'];
         $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
 
-        $idToDelete = $this->input->post('delete_trans_id');
-        $code = $this->input->post('delete_trans_code');
-        $category = $this->input->post('delete_trans_cat');
-        $amount = $this->input->post('delete_amount');
+        $this->form_validation->set_rules('delete_trans_id', 'ID', 'required|trim');
+        $this->form_validation->set_rules('delete_trans_code', 'code', 'required|trim');
+        $this->form_validation->set_rules('delete_trans_cat', 'categories', 'required|trim');
+        $this->form_validation->set_rules('delete_amount', 'amount', 'required|trim');
 
-        $data['stockOld'] = $this->db->get_where('stock_material', ['id' => $idToDelete])->row_array();
-
-        $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
-
-        if ($category == 'Purchasing') {
-            //purchasing menambah stock, jika dihapus, stock berkurang
-            $this->db->delete('stock_material', array('id' => $idToDelete));
-
-            $data2 = [
-                'in_stock' => $stock_end_before - $amount
-            ];
-
-            $this->db->where('code', $code);
-            $this->db->update('stock_material', $data2, 'status = 7');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops, something is are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/material_details', $data);
+            $this->load->view('templates/footer');
         } else {
-            $this->db->delete('stock_material', array('id' => $idToDelete));
+            $idToDelete = $this->input->post('delete_trans_id');
+            $code = $this->input->post('delete_trans_code');
+            $category = $this->input->post('delete_trans_cat');
+            $amount = $this->input->post('delete_amount');
 
-            $data2 = [
-                'in_stock' => $stock_end_before + $amount
-            ];
+            $data['stockOld'] = $this->db->get_where('stock_material', ['id' => $idToDelete])->row_array();
 
-            $this->db->where('code', $code);
-            $this->db->update('stock_material', $data2, 'status = 7');
-        }
+            $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
 
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction ID ' . $idToDelete . ' with type ' . $category . ' deleted!</div>');
-        redirect('inventory/material_details/' . $id);
+            if ($category == 'Purchasing' or $category == 'Stock Adjustment') {
+                //purchasing dan SA menambah stock, jika dihapus, stock berkurang
+                $this->db->delete('stock_material', array('id' => $idToDelete));
+
+                $data2 = [
+                    'in_stock' => $stock_end_before - $amount
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->update('stock_material', $data2, 'status = 7');
+
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction ID ' . $idToDelete . ' with type ' . $category . ' deleted!</div>');
+                redirect('inventory/material_details/' . $id);
+            } else {
+                //other than that, it reduce the final stocks
+                $this->db->delete('stock_material', array('id' => $idToDelete));
+
+                $data2 = [
+                    'in_stock' => $stock_end_before + $amount
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->update('stock_material', $data2, 'status = 7');
+
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction ID ' . $idToDelete . ' with type ' . $category . ' deleted!</div>');
+                redirect('inventory/material_details/' . $id);
+            };
+        };
     }
 
     // Production warehouse //
@@ -778,9 +803,20 @@ class Inventory extends CI_Controller
             $warehouse = 1;
 
             $in_stockOld = $data['getID']['in_stock'];
-            // 3 is production, the only transaction that adds to the final stock
-            if ($transaction_status == 3) {
-                $trans_id = 'PROD-' . $year . $month . $day . '-' . $serial; //PROD
+            // 3 is production and 2 is SA, the only transaction that adds to the final stock
+            if ($transaction_status == 3 or $transaction_status == 2) {
+                $year = date('y');
+                $month = date('m');
+
+                if($transaction_status == 3){
+                    $n = 3;
+                    $result = bin2hex(random_bytes($n));
+                    $trans_id = 'P' . $year . $month . $result;//PROD
+                } else if($transaction_status == 2){
+                    $n = 3;
+                    $result = bin2hex(random_bytes($n));
+                    $trans_id = 'SA' . $year . $month . $result;//PROD
+                }
 
                 $data = [
                     'name' => $name,
@@ -878,7 +914,7 @@ class Inventory extends CI_Controller
             $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
 
             $data['stockAdjust'] = $this->db->get_where('stock_roll', ['id' => $idToEdit])->row_array();
-            if ($category == 'Production') {
+            if ($category == 'Production' or $category == 'Stock Adjustment') {
                 $stock_adjust_before = $data['stockAdjust']['incoming']; //stock adjustment transaksi sebelum di edit
             } else {
                 $stock_adjust_before = $data['stockAdjust']['outgoing']; //stock adjustment transaksi sebelum di edit
@@ -886,27 +922,27 @@ class Inventory extends CI_Controller
 
             if ($category == 'Saldo Akhir') {
                 $this->db->set('in_stock', $adjust_amount);
-                $this->db->set('date', $date);
+                // $this->db->set('date', $date);
                 $this->db->where('id', $idToEdit);
                 $this->db->update('stock_roll');
             } else if ($category == 'Saldo Awal') {
                 $this->db->set('in_stock', $adjust_amount);
-                $this->db->set('date', $date);
+                // $this->db->set('date', $date);
                 $this->db->where('id', $idToEdit);
                 $this->db->update('stock_roll');
 
                 $data2 = [
                     'in_stock' => $stock_end_before + ($adjust_amount - $stock_awal_before),
-                    'date' => $date
+                    // 'date' => $date
                 ];
 
                 $this->db->where('code', $code);
                 $this->db->update('stock_roll', $data2, 'status = 7');
             } else {
-                //production adds to final stocks
-                if ($category == 'Production') {
+                //production and SA adds to final stocks
+                if ($category == 'Production' or $category == 'Stock Adjustment') {
                     $data3 = [
-                        'date' => $date,
+                        // 'date' => $date,
                         'incoming' => $adjust_amount,
                         'in_stock' => ($stock_end_before - $stock_adjust_before) + $adjust_amount,
                     ];
@@ -917,7 +953,7 @@ class Inventory extends CI_Controller
                     
                     $data2 = [
                         'in_stock' => ($stock_end_before - $stock_adjust_before) + $adjust_amount,
-                        'date' => $date
+                        // 'date' => $date
                     ];
                     
                     $this->db->where('code', $code);
@@ -927,7 +963,7 @@ class Inventory extends CI_Controller
                 //other than that, it reduces the final stocks
                 else {
                     $data3 = [
-                        'date' => $date,
+                        // 'date' => $date,
                         'outgoing' => $adjust_amount,
                         'in_stock' => ($stock_end_before + $stock_adjust_before) - $adjust_amount,
                     ];
@@ -938,7 +974,7 @@ class Inventory extends CI_Controller
                     
                     $data2 = [
                         'in_stock' => ($stock_end_before + $stock_adjust_before) - $adjust_amount,
-                        'date' => $date
+                        // 'date' => $date
                     ];
 
                     $this->db->where('code', $code);
@@ -964,38 +1000,56 @@ class Inventory extends CI_Controller
         $data['code'] = $data['getID']['code'];
         $data['transactionStatus'] = $this->db->get('transaction_status')->result_array();
 
-        $idToDelete = $this->input->post('delete_trans_id');
-        $code = $this->input->post('delete_trans_code');
-        $category = $this->input->post('delete_trans_cat');
-        $amount = $this->input->post('delete_amount');
+        $this->form_validation->set_rules('delete_trans_id', 'ID', 'required|trim');
+        $this->form_validation->set_rules('delete_trans_code', 'code', 'required|trim');
+        $this->form_validation->set_rules('delete_trans_cat', 'category', 'required|trim');
+        $this->form_validation->set_rules('delete_amount', 'amount', 'required|trim');
 
-        $data['stockOld'] = $this->db->get_where('stock_roll', ['id' => $idToDelete])->row_array();
-
-        $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
-
-        if ($category == 'Production') {
-            //production menambah stock, jika dihapus, stock berkurang
-            $this->db->delete('stock_roll', array('id' => $idToDelete));
-
-            $data2 = [
-                'in_stock' => $stock_end_before - $amount
-            ];
-
-            $this->db->where('code', $code);
-            $this->db->update('stock_roll', $data2, 'status = 7');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops, something is are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/prod_details', $data);
+            $this->load->view('templates/footer');
         } else {
-            $this->db->delete('stock_roll', array('id' => $idToDelete));
+            $idToDelete = $this->input->post('delete_trans_id');
+            $code = $this->input->post('delete_trans_code');
+            $category = $this->input->post('delete_trans_cat');
+            $amount = $this->input->post('delete_amount');
 
-            $data2 = [
-                'in_stock' => $stock_end_before + $amount
-            ];
+            $data['stockOld'] = $this->db->get_where('stock_roll', ['id' => $idToDelete])->row_array();
 
-            $this->db->where('code', $code);
-            $this->db->update('stock_roll', $data2, 'status = 7');
-        }
+            $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
 
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction ID ' . $idToDelete . ' with type ' . $category . ' deleted!</div>');
-        redirect('inventory/prod_details/' . $id);
+            if ($category == 'Production' or $category == 'Stock Adjustment') {
+                //production menambah stock, jika dihapus, stock berkurang
+                $this->db->delete('stock_roll', array('id' => $idToDelete));
+
+                $data2 = [
+                    'in_stock' => $stock_end_before - $amount
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->update('stock_roll', $data2, 'status = 7');
+                
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction ID ' . $idToDelete . ' with type ' . $category . ' deleted!</div>');
+                redirect('inventory/prod_details/' . $id);
+            } else {
+                //other than that, it adds to the final stocks
+                $this->db->delete('stock_roll', array('id' => $idToDelete));
+
+                $data2 = [
+                    'in_stock' => $stock_end_before + $amount
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->update('stock_roll', $data2, 'status = 7');
+                
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction ID ' . $idToDelete . ' with type ' . $category . ' deleted!</div>');
+                redirect('inventory/prod_details/' . $id);
+            };
+        };
     }
 
     // GBJ Warehouse //
@@ -1352,7 +1406,7 @@ class Inventory extends CI_Controller
 
             $in_stockOld = $data['getID']['in_stock'];
             //3 is prod, 5 is return sales, 8 is purchasing, all adds to the final stock
-            if ($transaction_status == 3 or $transaction_status == 5 or $transaction_status == 8) {
+            if ($transaction_status == 2 or $transaction_status == 3 or $transaction_status == 5 or $transaction_status == 8) {
                 $date = time();
                 $year = date('y');
                 $month = date('m');
@@ -1361,12 +1415,25 @@ class Inventory extends CI_Controller
                 
                 //ref po
                 if ($transaction_status == 3){
-                    $trans_id = 'PROD-' . $year . $month . $day . '-' . $serial; //PROD
+                    $n = 3;
+                    $result = bin2hex(random_bytes($n));
+                    $trans_id = 'P' . $year . $month . $result;//PROD
+                    // $trans_id = 'PROD-' . $year . $month . $day . '-' . $serial; 
                 } else if ($transaction_status == 5){
-                    $trans_id = 'RS-' . $year . $month . $day . '-' . $serial; //RETURN SALES
+                    $n = 3;
+                    $result = bin2hex(random_bytes($n));
+                    $trans_id = 'RS' . $year . $month . $result; //RETURN SALES
+                    // $trans_id = 'RS-' . $year . $month . $day . '-' . $serial;
                 } else if ($transaction_status == 8){
-                    $trans_id = 'PO-' . $year . $month . $day . '-' . $serial; //purchasing
-                }
+                    $n = 3;
+                    $result = bin2hex(random_bytes($n));
+                    $trans_id = 'PO' . $year . $month . $result; //purchasing
+                    // $trans_id = 'PO-' . $year . $month . $day . '-' . $serial; 
+                } else if ($transaction_status == 2){
+                    $n = 3;
+                    $result = bin2hex(random_bytes($n));
+                    $trans_id = 'SA' . $year . $month . $result; //purchasing
+                };
 
                 $data = [
                     'name' => $name,
@@ -1393,11 +1460,13 @@ class Inventory extends CI_Controller
                 $serial = rand(1000, 9999);
                 
                 //ref po
-                if ($transaction_status == 2){
-                    $trans_id = 'ADJ-' . $year . $month . $day . '-' . $serial; //ADJ
-                } else if ($transaction_status == 4){
-                    $trans_id = 'INV-' . $year . $month . $time . '-'  . $data['user']['id'] . $serial; //SALES
-                } 
+                if ($transaction_status == 4){
+                    $n = 3;
+                    $result = bin2hex(random_bytes($n));
+                    $trans_id = 'S' . $year . $month . $result; //SALES
+                } else {
+                    $trans_id = 'UNAUTHORIZED'; //SALES
+                };
 
                 $data = [
                     'name' => $name,
@@ -1468,7 +1537,7 @@ class Inventory extends CI_Controller
             $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
 
             $data['stockAdjust'] = $this->db->get_where('stock_finishedgoods', ['id' => $idToEdit])->row_array();
-            if ($category == 'Production' or $category == 'Return Sales' or $category == 'Purchasing') {
+            if ($category == 'Stock Adjustment' or $category == 'Production' or $category == 'Return Sales' or $category == 'Purchasing') {
                 $stock_adjust_before = $data['stockAdjust']['incoming']; //stock adjustment transaksi sebelum di edit
             } else {
                 $stock_adjust_before = $data['stockAdjust']['outgoing']; //stock adjustment transaksi sebelum di edit
@@ -1477,7 +1546,7 @@ class Inventory extends CI_Controller
             if ($category == 'Saldo Akhir') {
                 $data_update = [
                     'in_stock' => $adjust_amount,
-                    'date' => $date,
+                    // 'date' => $date,
                     'batch' => $edit_desc1,
                     'description' => $edit_desc2
                 ];
@@ -1486,7 +1555,7 @@ class Inventory extends CI_Controller
             } else if ($category == 'Saldo Awal') {
                 $data_update = [
                     'in_stock' => $adjust_amount,
-                    'date' => $date,
+                    // 'date' => $date,
                     'batch' => $edit_desc1,
                     'description' => $edit_desc2
                 ];
@@ -1495,18 +1564,18 @@ class Inventory extends CI_Controller
 
                 $data2 = [
                     'in_stock' => $stock_end_before + ($adjust_amount - $stock_awal_before),
-                    'date' => $date
+                    // 'date' => $date
                 ];
 
                 $this->db->where('code', $code);
                 $this->db->update('stock_finishedgoods', $data2, 'status = 7');
             } else {
                 //production, purchasing, and return sales adds to final stocks
-                if ($category == 'Production' or $category == 'Return Sales' or $category == 'Purchasing') {
+                if ($category == 'Stock Adjustment' or $category == 'Production' or $category == 'Return Sales' or $category == 'Purchasing') {
                     $data_update = [
                         'incoming' => $adjust_amount,
                         'in_stock' => ($stock_end_before - $stock_adjust_before) + $adjust_amount,
-                        'date' => $date,
+                        // 'date' => $date,
                         'batch' => $edit_desc1,
                         'description' => $edit_desc2
                     ];
@@ -1517,7 +1586,7 @@ class Inventory extends CI_Controller
 
                     $data2 = [
                         'in_stock' => ($stock_end_before - $stock_adjust_before) + $adjust_amount,
-                        'date' => $date
+                        // 'date' => $date
                     ];
 
                     $this->db->where('code', $code);
@@ -1528,7 +1597,7 @@ class Inventory extends CI_Controller
                     $data_update = [
                         'outgoing' => $adjust_amount,
                         'in_stock' => ($stock_end_before + $stock_adjust_before) - $adjust_amount,
-                        'date' => $date,
+                        // 'date' => $date,
                         'batch' => $edit_desc1,
                         'description' => $edit_desc2
                     ];
@@ -1539,7 +1608,7 @@ class Inventory extends CI_Controller
 
                     $data2 = [
                         'in_stock' => ($stock_end_before + $stock_adjust_before) - $adjust_amount,
-                        'date' => $date
+                        // 'date' => $date
                     ];
 
                     $this->db->where('code', $code);
@@ -1551,8 +1620,8 @@ class Inventory extends CI_Controller
 
                     $this->db->where('ref', $ref);
                     $this->db->update('cart', $cart_update);
-                }
-            }
+                };
+            };
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $code .  ' adjusted!</div>');
             redirect('inventory/gbj_details/' . $id);
@@ -1570,39 +1639,57 @@ class Inventory extends CI_Controller
         //get item code by using ID as anchor
         $data['getID'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
 
-        $idToDelete = $this->input->post('delete_trans_id');
-        $name = $this->input->post('delete_trans_name');
-        $code = $this->input->post('delete_trans_code');
-        $category = $this->input->post('delete_trans_cat');
-        $amount = $this->input->post('delete_amount');
+        $this->form_validation->set_rules('delete_trans_id', 'ID', 'required|trim');
+        $this->form_validation->set_rules('delete_trans_name', 'name', 'required|trim');
+        $this->form_validation->set_rules('delete_trans_code', 'code', 'required|trim');
+        $this->form_validation->set_rules('delete_trans_cat', 'categories', 'required|trim');
+        $this->form_validation->set_rules('delete_amount', 'amount', 'required|trim');
 
-        $data['stockOld'] = $this->db->get_where('stock_finishedgoods', ['id' => $idToDelete])->row_array();
-
-        $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
-
-        if ($category == 'Production' or $category == 'Return Sales' or $category == 'Purchasing') {
-            //prod and return sales adds stocks, jika dihapus stock berkurang
-            $this->db->delete('stock_finishedgoods', array('id' => $idToDelete));
-
-            $data2 = [
-                'in_stock' => $stock_end_before - $amount
-            ];
-
-            $this->db->where('code', $code);
-            $this->db->update('stock_finishedgoods', $data2, 'status = 7');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops, something is are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/material_details', $data);
+            $this->load->view('templates/footer');
         } else {
-            $this->db->delete('stock_finishedgoods', array('id' => $idToDelete));
+            $idToDelete = $this->input->post('delete_trans_id');
+            $name = $this->input->post('delete_trans_name');
+            $code = $this->input->post('delete_trans_code');
+            $category = $this->input->post('delete_trans_cat');
+            $amount = $this->input->post('delete_amount');
 
-            $data2 = [
-                'in_stock' => $stock_end_before + $amount
-            ];
+            $data['stockOld'] = $this->db->get_where('stock_finishedgoods', ['id' => $idToDelete])->row_array();
 
-            $this->db->where('code', $code);
-            $this->db->update('stock_finishedgoods', $data2, 'status = 7');
-        }
+            $stock_end_before = $data['getID']['in_stock']; //stock akhir sebelumnya
 
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction id ' . $idToDelete . ' for item named ' . $name . ' with type ' . $category . ' deleted!</div>');
-        redirect('inventory/gbj_details/' . $id);
+            if ($category == 'Stock Adjustment' or $category == 'Production' or $category == 'Return Sales' or $category == 'Purchasing') {
+                //SA, prod and return sales adds stocks, jika dihapus stock berkurang
+                $this->db->delete('stock_finishedgoods', array('id' => $idToDelete));
+
+                $data2 = [
+                    'in_stock' => $stock_end_before - $amount
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->update('stock_finishedgoods', $data2, 'status = 7');
+                
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction id ' . $idToDelete . ' for item named ' . $name . ' with type ' . $category . ' deleted!</div>');
+                redirect('inventory/gbj_details/' . $id);
+            } else {
+                $this->db->delete('stock_finishedgoods', array('id' => $idToDelete));
+
+                $data2 = [
+                    'in_stock' => $stock_end_before + $amount
+                ];
+
+                $this->db->where('code', $code);
+                $this->db->update('stock_finishedgoods', $data2, 'status = 7');
+                
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction id ' . $idToDelete . ' for item named ' . $name . ' with type ' . $category . ' deleted!</div>');
+                redirect('inventory/gbj_details/' . $id);
+            };
+        };
     }
 
     // INVENTORY ASSET

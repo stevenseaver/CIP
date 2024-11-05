@@ -117,9 +117,9 @@
                                         <td>
                                             <?php
                                             if ($ms['status'] == 1 or $ms['status'] == 7) { ?>
-                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>" data-qty="<?= $ms['in_stock'];?>" data-price="<?= $ms['price'];?>" data-desc="<?= $ms['description'] ?>" data-desc2="<?= $ms['item_desc'];?>" data-label="<?= 'Status'; ?>">Edit</a>
+                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>" data-qty="<?= $ms['in_stock'];?>" data-price="<?= $ms['price'];?>" data-desc="<?= $ms['description'] ?>" data-desc2="<?= $ms['item_desc'];?>" data-label="<?= 'Reason'; ?>">Edit</a>
                                             <?php } else { ?>
-                                                <?php if ($ms['status'] == '8') { //8 for purchasing?> 
+                                                <?php if ($ms['status'] == '8' or $ms['status'] == '2') { //8 for purchasing and 2 for SA?> 
                                                     <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name']; ?>" data-qty="<?= $ms['incoming'];?>" data-id="<?= $ms['id']; ?>" data-price="<?= $ms['price'];?>" data-desc="<?= $ms['description']; ?>" data-desc2="<?= $ms['item_desc'];?>" data-label="<?= 'Reference'; ?>">Edit</a>
                                                     <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMaterialTransaction" data-cat="<?= $ms['status_name']; ?>" data-id="<?= $ms['id']; ?>" data-name="<?= $ms['name']; ?>" data-code="<?= $ms['code'] ?>" data-amount="<?= $ms['incoming']; ?>">Delete</a>
                                                 <?php } else { ?>
@@ -249,19 +249,19 @@
                     <div class="form-group">
                         <!-- price -->
                         <label for="adjust_price" class="col-form-label">Price</label>
-                        <input type="text" class="form-control mb-1" id="adjust_price" name="adjust_price" placeholder="Item Amount">
+                        <input type="text" class="form-control mb-1" id="adjust_price" name="adjust_price" placeholder="Item Price">
                         <?= form_error('adjust_price', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Description 1 -->
                         <label for="adjust_desc" id="adjust_desc_label" class="col-form-label"></label>
-                        <input type="text" class="form-control mb-1" id="adjust_desc" name="adjust_desc" placeholder="Item Amount">
+                        <input type="text" class="form-control mb-1" id="adjust_desc" name="adjust_desc" placeholder="">
                         <?= form_error('adjust_desc', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Description 2 -->
                         <label for="adjust_desc2" class="col-form-label">Item Description</label>
-                        <input type="text" class="form-control mb-1" id="adjust_desc2" name="adjust_desc2" placeholder="Item Amount">
+                        <input type="text" class="form-control mb-1" id="adjust_desc2" name="adjust_desc2" placeholder="Item description">
                         <?= form_error('adjust_desc2', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                 </div>

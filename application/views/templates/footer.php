@@ -1552,10 +1552,12 @@
          //extract data from data-* attributes of modal's toggle button
          var id = $(event.relatedTarget).data('id');
          var status = $(event.relatedTarget).data('categories');
+         var amount = $(event.relatedTarget).data('amount');
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
          $(event.currentTarget).find('.modal-body input[name="categories"]').val(status);
+         $(event.currentTarget).find('.modal-body input[name="adjust_amount"]').val(amount);
      });
 
      //  JavaScript for Adjust GBJ WH transaction details 

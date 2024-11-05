@@ -102,12 +102,13 @@
                                         if ($rs['status_name'] == 'Saldo Awal' or $rs['status_name'] == 'Saldo Akhir') { ?>
                                             <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustProdTrans" data-categories="<?= $rs['status_name'] ?>" data-id="<?= $rs['id'] ?>">Edit</a>
                                         <?php } else { ?>
-                                            <?php if ($rs['status_name'] == 'Production') { ?>
-                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustProdTrans" data-categories="<?= $rs['status_name'] ?>" data-id="<?= $rs['id'] ?>">Edit</a>
-                                                <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteProdTransaction" data-cat="<?= $rs['status_name'] ?>" data-id="<?= $rs['id'] ?>" data-name="<?= $rs['name'] ?>" data-code="<?= $rs['code'] ?>" data-amount="<?= $rs['incoming'] ?>">Delete</a>
+                                            <!-- prod and SA adds final stock, shows incoming, vice versa -->
+                                            <?php if ($rs['status_name'] == 'Production' or $rs['status_name'] == 'Stock Adjustment') { ?>
+                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustProdTrans" data-categories="<?= $rs['status_name']; ?>" data-id="<?= $rs['id']; ?>" data-amount="<?= $rs['incoming'];?>">Edit</a>
+                                                <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteProdTransaction" data-cat="<?= $rs['status_name']; ?>" data-id="<?= $rs['id']; ?>" data-name="<?= $rs['name']; ?>" data-code="<?= $rs['code']; ?>" data-amount="<?= $rs['incoming']; ?>">Delete</a>
                                             <?php } else { ?>
-                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustProdTrans" data-categories="<?= $rs['status_name'] ?>" data-id="<?= $rs['id'] ?>">Edit</a>
-                                                <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteProdTransaction" data-cat="<?= $rs['status_name'] ?>" data-id="<?= $rs['id'] ?>" data-name="<?= $rs['name'] ?>" data-code="<?= $rs['code'] ?>" data-amount="<?= $rs['outgoing'] ?>">Delete</a>
+                                                <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustProdTrans" data-categories="<?= $rs['status_name'] ?>" data-id="<?= $rs['id']; ?>" data-amount="<?= $rs['outgoing'];?>">Edit</a>
+                                                <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteProdTransaction" data-cat="<?= $rs['status_name']; ?>" data-id="<?= $rs['id']; ?>" data-name="<?= $rs['name']; ?>" data-code="<?= $rs['code']; ?>" data-amount="<?= $rs['outgoing']; ?>">Delete</a>
                                             <?php } ?>
                                         <?php } ?>
                                     </td>
