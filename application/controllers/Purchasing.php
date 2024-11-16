@@ -534,16 +534,31 @@ class Purchasing extends CI_Controller
     public function paid() {
         $is_paid = 0;
         $trans_id = $this->input->post('ref_id');
+
+        $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $trans_id])->row_array();
+        $current_time = $data['getID']['date'];
+        $current_year = date('Y', $current_time);
+        
+        $data['periode'] = $this->db->get_where('periode_counter', ['year =' => $current_year])->result_array();
+        
+        foreach($data['periode'] as $per) :
+            if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
+                $date_ID = $per['id'];
+                $start_date = $per['start_date'];
+                $end_date = $per['end_date'];
+            };
+        endforeach;
+
         if($is_paid == 0){
             $this->db->where('transaction_id', $trans_id);
             $this->db->set('is_paid', 1);
             $this->db->update('stock_material');
             $this->session->set_flashdata('message_is_paid', '<div class="alert alert-success" role="alert">Good news!</div>');
-            redirect('purchasing/purchaseinfo/');
+            redirect('purchasing/purchaseinfo/index?start_date=' . $start_date . '&end_date=' . $end_date .'&name=' . $date_ID . '');
         } else {
             $this->session->set_flashdata('message_is_paid', '<div class="alert alert-secondary" role="alert">Already paid!</div>');
-            redirect('purchasing/purchaseinfo/');
-        }
+            redirect('purchasing/purchaseinfo/index?start_date=' . $start_date . '&end_date=' . $end_date .'&name=' . $date_ID . '');
+        };
     }
 
     //***                **//

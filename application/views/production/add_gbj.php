@@ -10,11 +10,35 @@
     </div>
 
     <!-- back button -->
-    <a href="<?= base_url('production/gbj_report') ?>" class="btn btn-white btn-icon-split mb-3">
+    <!-- url : http://localhost/cip/production/index?start_date=1727715600&end_date=1730393999&name=22 -->
+    <!-- <a href="<?= base_url('production/') ?>" class="btn btn-white btn-icon-split mb-3"> -->
+    <?php 
+        $date_to_check = $getID['date'];
+        // $current_month = date('m', $date_to_check);
+        $current_year = date('Y', $date_to_check);
+        $periode_count = $this->db->get_where('periode_counter', ['year =' => $current_year])->result_array();
+            
+        foreach($periode_count as $per) :
+            if ($date_to_check >= $per['start_date'] and $date_to_check <= $per['end_date']){
+                $date_ID = $per['id'];
+                $start_date = $per['start_date'];
+                $end_date = $per['end_date'];
+            };
+        endforeach;
+    ?>
+
+    <a href="<?= base_url('production/gbj_report/index?start_date=' . $start_date . '&end_date=' . $end_date .'&name=' . $date_ID . '') ?>" class="btn btn-white btn-icon-split mb-3">
         <span class="icon text-dark">
             <i class="bi bi-arrow-left"></i>
         </span>
         <span class="text text-dark">Back</span>
+    </a>
+
+    <a href="<?= base_url('production/gbj_details/') . $po_id?>" class="btn btn-light border-success btn-icon-split mb-3" rel="noopener noreferrer">
+        <span class="icon text-white">
+            <i class="bi bi-floppy-fill"></i>
+        </span>
+        <span class="text">Save</span>
     </a>
 
     <!-- Button to add Item -->

@@ -45,7 +45,7 @@ class Production extends CI_Controller
             $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
 
             $data['current_periode'] = $data['selectedMonth']['period'];
-        }
+        };
 
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
@@ -74,7 +74,7 @@ class Production extends CI_Controller
         } else {
             $data['getID']['description'] = 1;
             $data['getID']['product_name'] = 1;
-        }
+        };
 
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;

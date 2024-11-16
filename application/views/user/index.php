@@ -199,7 +199,7 @@
                                 <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $prodOrderCount6 ?></div>
                             </div>
                             <div class="col-auto">
-                                <i class="bi bi-6-circle fa-2x text-gray-600"></i>
+                                <i class="bi bi-6-circle fa-2x text-gray-600"></i>`
                             </div>
                         </div>
                     </div>
@@ -208,12 +208,13 @@
         </div>
         <div class="row">
             <div class="col-lg text-center">
-                <p class="text-primary mb-0" type="button" data-toggle="collapse" data-target="#collapseKanban" aria-expanded="false" aria-controls="collapseKanban">
+                <p class="text-primary mb-3" type="button" data-toggle="collapse" id="collapseKanbanBtn" data-target="#collapseKanban" aria-expanded="false" aria-controls="collapseKanban">
                     Expand Kanban Board
                 </p>
             </div>
         </div>
-        </p>
+        <!-- </p> -->
+        
         <div class="collapse" id="collapseKanban">
             <div class="card card-body px-0 bg-gray-100 border-0">
                 <div class="row">
@@ -791,14 +792,24 @@
 <!-- End of Main Content -->
 
 <script>
-    var table = $('#table1').DataTable({
-        paging: true,
-        columnDefs: [
-            {
-                targets:[0,1,2,3],
+    $(document).ready(function() {
+        // Initialize DataTable
+        var table = $('#table1').DataTable({
+            paging: true,
+            columnDefs: [{
+                targets: [0, 1, 2, 3],
                 orderable: true,
                 searchable: true
-            }
-        ]
+            }]
+        });
+
+        // Kanban toggle text-change functionality
+        $('#collapseKanban').on('show.bs.collapse', function() {
+            $('#collapseKanbanBtn').text('Collapse Kanban Board');
+        });
+        
+        $('#collapseKanban').on('hide.bs.collapse', function() {
+            $('#collapseKanbanBtn').text('Expand Kanban Board');  
+        });
     });
 </script>
