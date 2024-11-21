@@ -74,6 +74,7 @@ class Production extends CI_Controller
         } else {
             $data['getID']['description'] = 1;
             $data['getID']['product_name'] = 1;
+            $data['getID']['date'] = time();
         };
 
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
