@@ -683,10 +683,26 @@ class Sales extends CI_Controller
         
         $this->db->where('ref', $ref);
         $this->db->update('cart', $data);
+
+        //to get the correct period to redirect after a sales invoice is set to paid
+        $data['getID'] = $this->db->get_where('cart', ['ref' => $ref])->row_array();
+        $current_time = $data['getID']['date'];
+        $current_year = date('Y', $current_time);
+        
+        $data['periode'] = $this->db->get_where('periode_counter', ['year =' => $current_year])->result_array();
+        
+        foreach($data['periode'] as $per) :
+            if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
+                $date_ID = $per['id'];
+                $start_date = $per['start_date'];
+                $end_date = $per['end_date'];
+            };
+        endforeach;
         
         // send message
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Invoice ' . $ref . ' paid!</div>');
-        redirect('sales/salesinfo');
+        redirect('sales/salesinfo/index?start_date=' . $start_date . '&end_date=' . $end_date .'&name=' . $date_ID . '');
+        // redirect('sales/salesinfo');
     }
 
     

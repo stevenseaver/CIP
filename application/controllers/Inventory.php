@@ -2151,7 +2151,7 @@ class Inventory extends CI_Controller
             $result = $this->input->post('result');
             $pic = $this->input->post('pic');
 
-            $description = 'Problems: ' . $analysis . '. Solution: ' . $solution . '. Result: ' . $result;
+            $description = 'Problems/Analysis: ' . $analysis . '. <br> Resolution: ' . $solution . '. <br> Result: ' . $result;
 
             // cek jika ada gambar yang akan di upload
             $upload_image = $_FILES['image']['name'];
@@ -2183,11 +2183,43 @@ class Inventory extends CI_Controller
                     $this->db->insert('asset_maintenance', $data1);
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
-                    redirect('inventory/maintenance/' . $id);
-                }
-            }
+                    // redirect('inventory/maintenance/' . $id);
+                };
+            } else {
+                $data1 = [
+                    'inv_code' => $code,
+                    'analysis' => $description,
+                    'pic' => $pic,
+                    // 'photos' => $new_image
+                ];
+    
+                $this->db->insert('asset_maintenance', $data1);
+            };
             redirect('inventory/maintenance/' . $id);
         }
+    }
+
+    public function delete_maintenance_data()
+    {
+        //form validation
+        $this->form_validation->set_rules('asset_id', 'asset ID', 'required|numeric|trim');
+        $this->form_validation->set_rules('delete_id', 'maintenance ID', 'required|numeric|trim');
+
+        //asset ID FOR REDIRECT
+        $id = $this->input->post('asset_id');
+        // get data ID to delete
+        $idToDelete = $this->input->post('delete_id');
+
+        if ($this->form_validation->run() == false){
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something is wrong!</div>');
+            redirect('inventory/maintenance/' . $id);
+        } else {
+            // delete item
+            $this->db->delete('asset_maintenance', array('id' => $idToDelete));
+            // send message
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Maintenance item deleted!</div>');
+            redirect('inventory/maintenance/' . $id);
+        };
     }
 
     // public function qr_code()

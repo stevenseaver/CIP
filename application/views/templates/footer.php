@@ -1372,7 +1372,7 @@
          $(event.currentTarget).find('.modal-body input[name="delete_code"]').val(code);
      });
 
-     //  JavaScript for Delete GBJ item Modal
+     //  JavaScript for Delete Material item Modal
      $('#deleteMaterialItem').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var name = $(event.relatedTarget).data('name');
@@ -1609,6 +1609,15 @@
          $(event.currentTarget).find('.modal-body input[name="delete_trans_code"]').val(code);
          $(event.currentTarget).find('.modal-body input[name="delete_trans_cat"]').val(cat);
          $(event.currentTarget).find('.modal-body input[name="delete_amount"]').val(amount);
+     });
+
+     //  JavaScript for Delete GBJ item Modal
+     $('#deleteMaintenanceData').on('show.bs.modal', function(event) {
+         //extract data from data-* attributes of modal's toggle button
+         var id = $(event.relatedTarget).data('id');
+
+         // input passed data using JS to object INPUT inside modal #editModal
+         $(event.currentTarget).find('.modal-body input[name="delete_id"]').val(id);
      });
 
      //  JavaScript for Adjust GBJ details transaction
