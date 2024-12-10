@@ -182,7 +182,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Name</span>
                             </div>
-                            <input type="text" readonly class="form-control" id="version" name="version" value="Stocky">
+                            <input type="text" readonly class="form-control" id="version" name="version" value="Invitex">
                             <?= form_error('version', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
