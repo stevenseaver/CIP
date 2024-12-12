@@ -17,9 +17,9 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('user') ?>">
                 <div class="sidebar-brand-icon">
-                    <i class="bi bi-envelope text-<?= $icon ?>"></i>
+                    <i class="bi bi-box-fill text-<?= $icon ?>"></i>
                 </div>
-                <div class="sidebar-brand-text mx-1 text-<?= $icon ?>">Invitex</div>
+                <div class="sidebar-brand-text mx-1 text-<?= $icon ?>">Stocky</div>
             </a>
 
             <!-- Divider -->

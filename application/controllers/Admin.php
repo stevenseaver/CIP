@@ -14,6 +14,8 @@ class Admin extends CI_Controller
         $data['title'] = 'Admin Dashboard';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['employeeLeaveCount'] = $this->db->count_all_results('leave_list');
+        $data['custMessage'] = $this->db->count_all_results('contact_us');
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -141,7 +143,7 @@ class Admin extends CI_Controller
 
     public function userManagement()
     {
-        $data['title'] = 'Events Management';
+        $data['title'] = 'User Management';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
@@ -154,13 +156,13 @@ class Admin extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('admin/events-management', $data);
+        $this->load->view('admin/user-management', $data);
         $this->load->view('templates/footer');
     }
 
     public function adduser()
     {
-        $data['title'] = 'Events Management';
+        $data['title'] = 'User Management';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
@@ -169,18 +171,12 @@ class Admin extends CI_Controller
         $data['role'] = $this->db->get('user_role')->result_array();
         //form validation rules
         $this->form_validation->set_rules('name', 'name', 'required|trim');
-        $this->form_validation->set_rules('nik', 'username', 'required|trim|is_unique[user.nik]', [
+        $this->form_validation->set_rules('nik', 'ERN', 'required|trim|is_unique[user.nik]', [
             'is_unique' => 'This ERN has already been used!'
         ]);
         $this->form_validation->set_rules('noktp', 'ID card number', 'required|trim');
         $this->form_validation->set_rules('dob', 'date of birth', 'required|trim');
         $this->form_validation->set_rules('address', 'address', 'required|trim');
-        $this->form_validation->set_rules('event_id', 'event id', 'required|trim');
-        $this->form_validation->set_rules('event_name', 'event name', 'required|trim');
-        $this->form_validation->set_rules('event_start_date', 'event start date', 'required|trim');
-        $this->form_validation->set_rules('event_end_date', 'event end date', 'required|trim');
-        $this->form_validation->set_rules('event_location', 'event location', 'trim');
-        $this->form_validation->set_rules('event_description', 'event description', 'trim');
         $this->form_validation->set_rules('city', 'city', 'required|trim');
         $this->form_validation->set_rules('province', 'province', 'required|trim');
         $this->form_validation->set_rules('country', 'country', 'required|trim');
@@ -199,22 +195,14 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('password2', 'password', 'required|trim|min_length[8]|matches[password1]');
 
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('admin/events-management', $data);
+            $this->load->view('admin/user-management', $data);
             $this->load->view('templates/footer');
         } else {
             $name = $this->input->post('name', true);
             $email = $this->input->post('email', true);
-            $nik = $this->input->post('nik', true);
-            $event_id = $this->input->post('event_id', true);
-            $event_name = $this->input->post('event_name', true);
-            $event_start_date = strtotime($this->input->post('event_start_date', true));
-            $event_end_date = strtotime($this->input->post('event_end_date', true));
-            $event_location = $this->input->post('event_location', true);
-            $event_description = $this->input->post('event_description', true);
             $nik = $this->input->post('nik', true);
             $dob = $this->input->post('dob', true);
             $noktp = $this->input->post('noktp', true);
@@ -230,12 +218,6 @@ class Admin extends CI_Controller
             $data = [
                 'name' => htmlspecialchars($name),
                 'nik' => htmlspecialchars($nik),
-                'event_id' => htmlspecialchars($event_id),
-                'event_name' => htmlspecialchars($event_name),
-                'event_start_date' => htmlspecialchars($event_start_date),
-                'event_end_date' => htmlspecialchars($event_end_date),
-                'event_location' => htmlspecialchars($event_location),
-                'event_description' => htmlspecialchars($event_description),
                 'email' => htmlspecialchars($email),
                 'noktp' => htmlspecialchars($noktp),
                 'dob' => htmlspecialchars($dob),
@@ -249,11 +231,12 @@ class Admin extends CI_Controller
                 'password' => $password,
                 'role_id' => $role_id,
                 'is_active' => 1,
+                'leave_count' => 12,
                 'date_created' => time()
             ];
             $this->db->insert('user', $data);
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Event and account successfully created and is active!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Account successfully created and is active!</div>');
             redirect('admin/usermanagement');
         }
     }

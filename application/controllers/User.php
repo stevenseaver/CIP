@@ -46,11 +46,37 @@ class User extends CI_Controller
             $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
 
             $data['current_periode'] = $data['selectedMonth']['period'];
-        };
+        }
+
+        $data['employeeLeaveCount'] = $this->db->count_all_results('leave_list');
+        $data['custMessage'] = $this->db->count_all_results('contact_us');
+        //get cart database
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id'], 'status!=' => '4', 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
+        $data['dataCartSO'] = $this->db->get_where('cart', ['status' => '1'])->result_array();
+        //get material database
+        $data['materialStock'] = $this->db->get_where('stock_material', ['status' => 7])->result_array();
+        $data['prodOrder1'] = $this->db->order_by('transaction_id', 'ASC')->get_where('stock_material', ['status' => 3, 'transaction_status' => 1, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
+        $data['prodOrder2'] = $this->db->order_by('transaction_id', 'ASC')->get_where('stock_material', ['status' => 3, 'transaction_status' => 2, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
+        $data['prodOrder3'] = $this->db->order_by('transaction_id', 'ASC')->get_where('stock_material', ['status' => 3, 'transaction_status' => 3, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
+        $data['prodOrder4'] = $this->db->order_by('transaction_id', 'ASC')->get_where('stock_material', ['status' => 3, 'transaction_status' => 4, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
+        $data['prodOrder5'] = $this->db->order_by('transaction_id', 'ASC')->get_where('stock_material', ['status' => 3, 'transaction_status' => 5, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
+        $data['prodOrder6'] = $this->db->order_by('transaction_id', 'ASC')->get_where('stock_material', ['status' => 3, 'transaction_status' => 6, 'date >=' => $start_date, 'date <= ' => $end_date])->result_array();
+        //get roll database
+        $data['rollStock'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
+        //get FG database
+        $data['fgStock'] = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+        //get Receive order
+        $transaction_query = 2; //received order only
+        $status = 8; //purchase order data only
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['inventory_item_received'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
+        //get sales info
+        $this->load->model('Sales_model', 'custID');
+        $data['sales_data'] = $this->custID->getSaleswithTimeFrameDualParameters(0, 4, $start_date, $end_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/topbar_cust', $data);
         $this->load->view('user/index', $data);
         $this->load->view('templates/footer');
     }
@@ -60,10 +86,11 @@ class User extends CI_Controller
         $data['title'] = 'My Profile';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/topbar_cust', $data);
         $this->load->view('user/my_profile', $data);
         $this->load->view('templates/footer');
     }
@@ -73,7 +100,7 @@ class User extends CI_Controller
         $data['title'] = 'Edit Profile';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
-
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
         // set rules to input form validation
         $this->form_validation->set_rules('name', 'name', 'required|trim');
         $this->form_validation->set_rules('email', 'email', 'required|trim|valid_email', [
@@ -90,7 +117,7 @@ class User extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
+            $this->load->view('templates/topbar_cust', $data);
             $this->load->view('user/edit', $data);
             $this->load->view('templates/footer');
         } else {
@@ -148,6 +175,7 @@ class User extends CI_Controller
         $data['title'] = 'Change Password';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['dataCart'] = $this->db->get_where('cart', ['customer_id' => $data['user']['id']])->result_array();
 
         $this->form_validation->set_rules('current_password', 'current password', 'required|trim');
         $this->form_validation->set_rules('new_password1', 'new password', 'required|trim|min_length[8]');
@@ -156,7 +184,7 @@ class User extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
+            $this->load->view('templates/topbar_cust', $data);
             $this->load->view('user/changepassword', $data);
             $this->load->view('templates/footer');
         } else {
