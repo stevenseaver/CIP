@@ -3,10 +3,13 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
-    <?= $this->session->flashdata('event_management_message'); ?>
 
     <div class="row">
         <div class="col-lg-12">
+            
+            <?= $this->session->flashdata('message'); ?>
+
+            <!-- <a href="" class="btn btn-primary mb-3">Add New User</a> -->
             <a href="" class="btn btn-primary btn-icon-split mb-3" data-toggle="modal" data-target="#newUser">
                 <span class="icon text-white-50">
                     <i class="fas fa-fw fa-user-plus"></i>
@@ -72,7 +75,7 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
-                <!-- <small class="text-primary pb-1">*) Date format is in YYYY-MM-DD</small> -->
+                <small class="text-primary pb-1">*) Date format is in YYYY-MM-DD</small>
             </div>
         </div>
     </div>
@@ -171,22 +174,28 @@
                         </div>
                     </div>
                     <div class="row form group mb-3">
+                        <!-- input alamat noktp -->
+                        <div class="col">
+                            <label for="noktp" class="col-form-label">ID Card Number</label>
+                            <input type="text" class="form-control" id="noktp" name="noktp" placeholder="ID Card Number">
+                            <?= form_error('noktp', '<small class="text-danger pl-3">', '</small>') ?>
+                        </div>
                         <!-- input alamat dob -->
                         <div class="col">
                             <label for="dob" class="col-form-label">Date of Birth</label>
                             <input type="date" class="form-control" id="dob" name="dob" placeholder="Date of Birth">
                             <?= form_error('dob', '<small class="text-danger pl-3">', '</small>') ?>
                         </div>
-                        <!-- input nomor HP -->
-                        <div class="col">
-                            <label for="hp" class="col-form-label">Mobile Phone Number</label>
-                            <input type="text" class="form-control" id="hp" name="hp" placeholder="Mobile Phone Number">
-                            <?= form_error('hp', '<small class="text-danger pl-3">', '</small>') ?>
-                        </div>
+                    </div>
+                    <!-- input nomor HP -->
+                    <div class="form-group">
+                        <label for="hp" class="col-form-label">Mobile Phone Number</label>
+                        <input type="text" class="form-control" id="hp" name="hp" placeholder="Mobile Phone Number">
+                        <?= form_error('hp', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
                     <!-- input alamat -->
                     <div class="form-group">
-                        <label for="address" class="col-form-label">Event Complete Address</label>
+                        <label for="address" class="col-form-label">Address</label>
                         <input type="text" class="form-control" id="address" name="address" placeholder="Address">
                         <?= form_error('address', '<small class="text-danger pl-3">', '</small>') ?>
                     </div>
@@ -201,7 +210,7 @@
                             <?= form_error('province', '<small class="text-danger pl-3">', '</small>') ?>
                         </div>
                     </div>
-                    <div class="form-group row mb-0">
+                    <div class="form-group row">
                         <div class="col-lg-9 mb-2">
                             <input type="text" class="form-control form-control-user" id="country" name="country" placeholder="Country">
                             <?= form_error('country', '<small class="text-danger pl-3">', '</small>') ?>
@@ -212,7 +221,6 @@
                             <?= form_error('postal', '<small class="text-danger pl-3">', '</small>') ?>
                         </div>
                     </div>
-                    <small>Can be added later.</small>
                     <!-- input user_role -->
                     <div class="form-group">
                         <label for="role_id" class="col-form-label">Role</label>

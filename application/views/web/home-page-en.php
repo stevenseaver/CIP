@@ -1,18 +1,11 @@
 	<!-- Begin Page Content -->
 	<div class="no-gutter pt-5 mt-5 bg-light">
 		<!-- Core Value Prop 1 -->
-		<!-- <div class="no-gutter bg-light mt-1 mb-4">
-			<div class="row align-items-center">
-				<div class="col-lg text-center">
-					<img class="img-fluid rounded" style="width: 100rem;" src="<?= base_url('asset/img/webpage/lebaran2024.png') ?>" alt="Main Cards">
-				</div>
-			</div>
-		</div> -->
 		<div class="no-gutter shadow bg-white mt-1 mb-4">
 			<div class="row align-items-center">
 				<div class="col-lg text-center mt-4 mx-4">
-					<h1 class="card-title text-primary mb-3">Ekonomi Sirkular.</h1>
-					<h5 class="card-text text-dark">Kita membuat sekaligus mendaur ulang. Untuk anda dan Bumi.</h5>
+					<h1 class="card-title text-primary mb-3">Sirkular. Selamanya.</h1>
+					<h5 class="card-text text-dark">Kita membuat. Kita mendaur ulang. Kita lakukan untuk anda dan Bumi.</h5>
 					<a data-toggle="modal" data-target="#circulatryModal" class="card-text clickable">
 						<p class="card-text mb-3">Pelajari bagaimana kami mengolah sisa produksi kami dengan ekonomi sirkular &rarr;
 					</a>
@@ -89,7 +82,7 @@
 							</div>
 							<div class="col-lg text-center my-3">
 								<h1 class="card-title text-primary mb-2">Kantong Sampah Rukun</h1>
-								<h5 class="card-text mx-5 text-dark">Tiga ukuran dan dua warna  berbeda. Menjaga lingkungan anda tetap bersih.</h5>
+								<h5 class="card-text mx-5 text-dark">Three differnet sizes. Two different colors. To keep your trash tidy.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-4">
 										<a href="<?= base_url('products/trashbag') ?>" class="card-text" style="text-decoration:none">
@@ -117,8 +110,8 @@
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center mt-4">
-							<h1 class="card-title text-primary mb-2">Kresek Jumbo Rukun</h1>
-								<h5 class="card-text mx-4 text-dark">Dibuat dari bahan daur ulang pilihan. 6 pilihan warna yang cerah. Cocok untuk kebutuhan kresek jumbo anda.</h5>
+								<h1 class="card-title text-primary mb-3">Rukun Jumbo Bag</h1>
+								<h5 class="card-text mx-4 text-dark">Made from selected recycled materials. 6 gorgeous colors. Smooth surface. Your perfect options for jumbo bag needs.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-3">
 										<a href="<?= base_url('products/jumbobag') ?>" class="card-text" style="text-decoration:none">
@@ -145,8 +138,8 @@
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center mt-4">
-								<h1 class="card-title text-primary mb-2">Kantong Belanja</h1>
-								<h5 class="card-text mx-4 text-dark">Kuat dan tebal. 6 warna saturasi tinggi. Cocok untuk kantong belanja usaha anda.</h5>	
+								<h1 class="card-title text-primary mb-3">Belanjaping Bag</h1>
+								<h5 class="card-text mx-5 text-dark">Strong and durable surface quality. 6 high saturarion colors. Your perfect options for online business shopping bag.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-3">
 										<a href="<?= base_url('products/shoppingbag') ?>" class="card-text" style="text-decoration:none">
@@ -155,7 +148,7 @@
 									</div>
 									<div class="col-lg-3">
 										<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
-											<p class="card-text">Belanja &rarr;
+											<p class="card-text">Shop &rarr;
 										</a>
 									</div>
 								</div>
@@ -173,8 +166,8 @@
 					<div class="text-center">
 						<div class="row align-items-center">
 							<div class="col-lg text-center mt-4">
-							<h1 class="card-title text-primary mb-2">Kantong Sampah Rukun</h1>
-								<h5 class="card-text mx-5 text-dark">Tiga ukuran dan dua warna  berbeda. Menjaga lingkungan anda tetap bersih.</h5>
+								<h1 class="card-title text-primary mb-3">Rukun Trash Bag</h1>
+								<h5 class="card-text mx-5 text-dark">Three differnet sizes. Two different colors. To keep your trash tidy.</h5>
 								<div class="row align-items-center justify-content-center my-4">
 									<div class="col-lg-3">
 										<a href="<?= base_url('products/trashbag') ?>" class="card-text" style="text-decoration:none">
@@ -183,7 +176,7 @@
 									</div>
 									<div class="col-lg-3">
 										<a href="<?= base_url('auth') ?>" class="card-text" style="text-decoration:none">
-											<p class="card-text">Belanja &rarr;
+											<p class="card-text">Shop &rarr;
 										</a>
 									</div>
 								</div>
@@ -199,7 +192,7 @@
 
 		<!-- Secondary Card -->
 		<div class="container justify-content-center pt-3 my-4">
-			<h3 class="text-primary text-center font-weight-bold mb-3">Kenapa memilih kami?</h3>
+			<h3 class="text-primary text-center font-weight-bold mb-3"> Why Choose Us?</h3>
 		</div>
 		<div class="row px-3 mx-3 mb-4">
 			<!-- Secondary Value Prop Card #1 -->
@@ -209,8 +202,8 @@
 						<div class="text-center">
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="<?= base_url('asset/') ?>img/stock/undraw_upgrade_re_gano.svg" alt="High Quality">
 						</div>
-						<h5 class="text-primary">Kualitas Tinggi</h5>
-						<p class="text-dark">Produk kami dibuat dengan bahan daur ulang pilihan. Peningkatan kualitas produk dan efisiensi proses produksi dilakukan secara terus menerus.</p>
+						<h5 class="text-primary">High Quality</h5>
+						<p class="text-dark">Our plastic bag and packaging use carefully selected recycled material with continually improved formula to achieve highest quality possible. </p>
 						<!-- arahkan ke landing page soal high quality -->
 						<!-- <a href="<?= base_url('web/lp1_quality') ?>">Pelajari lebih &rarr;</a> -->
 						<a data-toggle="modal" data-target="#highQualityModal" class="card-text clickable">
@@ -221,16 +214,16 @@
 			</div>
 			<!-- Secondary Card #2 -->
 			<div class="col-lg-4">
-				<div class="card border-primary mb-3 bg-light" style="border-radius: 50px 20px;">
+				<div class="card border mb-3 bg-primary" style="border-radius: 50px 20px;">
 					<div class="card-body">
 						<div class="text-center">
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 16rem;" src="<?= base_url('asset/') ?>img/stock/undraw_together_re_a8x4.svg" alt="Eco-mindful">
 						</div>
-						<h5 class="text-primary">Peduli Lingkungan</h5>
-						<p class="text-dark">Penggunaan plastik daur ulang mencapai >95% kapasitas kami, membantu mengurangi sampah plastik dan mendorong ekonomi sirkular yang berkelanjutan. Selain itu, kami juga memiliki bank sampah yang siap menampung sampah plastik anda.</p>
+						<h5 class="text-white">Eco-Mindful</h5>
+						<p class="text-white">We use more than 95% recycled plastic materials, thus helping to reduce plastic waste and promote sustainable circulatory economy. </p>
 						<!-- <a href="<?= base_url('web/lp2_eco') ?>" class="text-white">Pelajari lebih &rarr;</a> -->
-						<a data-toggle="modal" data-target="#ecoMindfulModal" class="card-text text-primary clickable">
-							<p class="card-text">Pelajari lebih &rarr;
+						<a data-toggle="modal" data-target="#ecoMindfulModal" class="card-text text-white clickable">
+							<p class="card-text ">Pelajari lebih &rarr;
 						</a>
 					</div>
 				</div>
@@ -242,8 +235,8 @@
 						<div class="text-center">
 							<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="<?= base_url('asset/') ?>img/stock/undraw_specs_re_546x.svg" alt="Highly Customizable">
 						</div>
-						<h5 class="text-primary">Mudah Dipersonalisasi</h5>
-						<p class="text-dark">Plastik tersedia dalam bentuk dan ukuran yang beragam. Jadilah unik! Buat desain kemasan dan kantong plastik anda dengan kami!</p>
+						<h5 class="text-primary">Highly Customizable</h5>
+						<p class="text-dark">Plastic comes with many shape and sizes. Be unique! Customize your own using our plastic bag and packaging design guidlines. </p>
 						<!-- arahkan ke landing page soal high quality -->
 						<!-- <a href="<?= base_url('web/lp3_guideline') ?>">Guideline &rarr;</a> -->
 						<a data-toggle="modal" data-target="#customizableModal" class="card-text text-primary clickable">
@@ -257,57 +250,57 @@
 		<div class="no-gutter bg-white shadow mt-2 mb-3">
 			<!-- Value Prop 4 -->
 			<div class="row justify-content-center">
-				<h3 class="text-primary text-center font-weight-bold mb-1 pt-2 mt-5">Dengan kata lain..</h3>
+				<h3 class="text-primary text-center font-weight-bold mb-1 pt-2 mt-5">In other words..</h3>
 			</div>
 			<div class="row justify-content-center text-center mt-2 mb-3">
 				<div class="col-lg-3">
 					<i class="bi bi-arrow-up-circle fa-3x text-primary"></i>
-					<p class="nav-label text-dark">Peningkatan Kualitas Berkelanjutan</p>
+					<p class="nav-label text-dark">Continual Quality Improvement</p>
 				</div>
 				<div class="col-lg-3 mx-2">
 					<i class="bi bi-currency-dollar fa-3x text-success"></i>
-					<p class="nav-label text-dark">Produk dengan Harga Efektif</p>
+					<p class="nav-label text-dark">Cost-Effective Products</p>
 				</div>
 				<div class="col-lg-3">
 					<i class="bi bi-trophy fa-3x text-primary"></i>
-					<p class="nav-label text-dark">Kualitas Produk Lebih Tinggi<sup>1</sup></p>
+					<p class="nav-label text-dark">Higher Quality Products<sup>1</sup></p>
 				</div>
 				<div class="col-lg-3">
 					<i class="bi bi-recycle fa-3x text-warning"></i>
-					<p class="nav-label text-dark">Bahan Daur Ulang Pilihan</p>
+					<p class="nav-label text-dark">Selected Recycled Materials</p>
 				</div>
 				<div class="col-lg-3">
 					<i class="bi bi-shield-check fa-3x text-danger"></i>
-					<p class="nav-label text-dark">Kendali Kualitas Ekstensif</p>
+					<p class="nav-label text-dark">Extensive Quality Control</p>
 				</div>
 			</div>
 			<div class="row justify-content-center">
-				<h3 class="text-primary text-center font-weight-bold mb-1 mt-3 mx-4"> Jangan ragu untuk hubungi kami.</h3>
+				<h3 class="text-primary text-center font-weight-bold mb-1 mt-3"> So, don't hesitate to visit or contact us.</h3>
 			</div>
-			<div class="row justify-content-center mb-0 mx-4">
-				<p class="text-dark text-center">Kami sangat senang mengirim perwakilan kami ke tempat Anda. Atau jika Anda ingin tahu kami lebih lagi, Anda dapat mengunjungi kami di alamat kami.</p>
+			<div class="row justify-content-center mb-0 mx-3">
+				<p class="text-dark text-center">We would love to sent you our representatives. Or if you want to know us more, you can visit us at our address.</p>
 			</div>
 			<div class="row justify-content-center pb-5">
 				<div class="col-lg-3 py-3 px-3 mb-1 text-center">
 					<i class="bi bi-geo fa-3x mb-3 text-primary"></i>
-					<p class="text-primary mb-0">Pergudangan dan Industri Sinar Gedangan</p>
+					<p class="text-primary mb-0">Pergudangan & Industri Sinar Gedangan A-20</p>
 					<p class="text-dark mb-0">Gedangan, Sidoarjo</p>
-					<p class="text-dark mb-0">Jawa Timur, Indonesia 61245</p>
-					<a href="https://goo.gl/maps/zRBAk5gr9dujTFc48" class="" target="_blank">Petunjuk arah &rarr; </a>
+					<p class="text-dark mb-0">East Java, Indonesia 61245</p>
+					<a href="https://goo.gl/maps/zRBAk5gr9dujTFc48" class="" target="_blank">Directions &rarr; </a>
 				</div>
 				<div class="col-lg-3 py-3 px-3 mb-1 text-center">
 					<i class="bi bi-whatsapp fa-3x mb-3 text-success"></i>
-					<p class="text-primary mb-0">+62-878-6241-3070</p>
-					<p class="text-dark mb-0">Whatsapp dengan Perwakilan Kami</p>
+					<p class="text-primary mb-0">+62822-3205-7755</p>
+					<p class="text-dark mb-0">Whatsapp with Customer Service</p>
 					<p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
-					<a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" target="_blank" rel="noopener noreferer" class="text-success">Hubungi kami di <i class="bi bi-whatsapp mr-1"></i> </a>
+					<a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20products?" target="_blank" rel="noopener noreferer" class="text-success">Contact us now <i class="bi bi-whatsapp mr-1"></i> </a>
 				</div>
 				<div class="col-lg-3 py-3 px-3 mb-1 text-center">
 					<i class="bi bi-instagram fa-3x mb-3" style="color: #962fbf"></i>
-					<p class="text-primary mb-0">@ciplastik.id</p>
-					<p class="text-dark mb-0">Kirim pesan di Instagram</p>
+					<p class="text-primary mb-0">@sbplastik</p>
+					<p class="text-dark mb-0">Chat on Instagram</p>
 					<p class="text-dark mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
-					<a href="https://instagram.com/ciplastik.id" target="_blank" rel="noopener noreferer" style="color: #962fbf">Kirim pesan di <i class="bi bi-instagram mr-1"></i> </a>
+					<a href="https://instagram.com/sbplastik" target="_blank" rel="noopener noreferer" style="color: #962fbf">Chat with us <i class="bi bi-instagram mr-1"></i> </a>
 				</div>
 			</div>
 		</div>
@@ -326,34 +319,34 @@
 						<!-- Page Heading -->
 						<div class="row-lg-12 mb-3 text-center">
 							<i class="bi bi-recycle fa-4x"></i>
-							<h3 class="mb-3 text-primary font-weight-bold">Plastik Sirkuler 101 </h3>
+							<h3 class="mb-3 text-primary font-weight-bold">Plastic Circulatry 101 </h3>
 						</div>
 						<!-- Page Body -->
 						<div class="row justify-content-center text-justify pt-1">
 							<!-- Background -->
 							<div class="col-lg-12 mb-1 text-dark">
-								<p>Dalam ekonomi masa kini, kita mengambil sumber daya alam, membuat suatu produk yang dalam prosesnya menghasilkan sisa, dan orang membeli produk tersebut. Di akhir siklus hidup produk tersebut pada akhirnya dibuang. Proses ini menghasilkan sisa yang harus dibuang ke suatu tempat bukan? Tebak! Mereka kebanyakan dibuang ke laut. Praktek ini tidak berkelanjutan dan merusak planet kita. Dengan ekonomi sirkular, kami berjuang untuk merevolusi industri plastik menjadi lebih baik dan lebih berkelanjutan.
+								<p>In our current economy, we take resources from the mother nature, manufactured a product (with its corresponding wastes), people buy it and throw it as a waste eventually. Its linear, and all the waste has to go somewhere right? Well guess what, they went to the ocean. This practice is not sustainable and harming our planet. With circular economy, we thrive to revolutionize the industry for the better and made it more circular, more sustainable.
 								</p>
 								<div class="row justify-content-center text-center my-2">
 									<div class="col-lg-3">
 										<i class="bi bi-sort-numeric-down-alt fa-3x text-danger"></i>
-										<p class="nav-label">Mengurangi Sampah</p>
+										<p class="nav-label">Reducing Waste</p>
 									</div>
 									<div class="col-lg-3 mx-2">
 										<i class="bi bi-recycle fa-3x text-primary"></i>
-										<p class="nav-label">Produk Sirkular</p>
+										<p class="nav-label">Circulate Products</p>
 									</div>
 									<div class="col-lg-3">
 										<i class="bi bi-tree fa-3x text-success"></i>
-										<p class="nav-label">Merawat Lingkungan</p>
+										<p class="nav-label">Regenerate Nature</p>
 									</div>
 								</div>
-								<p>Ekonomi sirkular bertumpu pada tiga poin utama: mengurangi sampah, membuat sistem produk agar sirkular, dan merawat lingkungan. Dalam siklus produksi, pabrikan harus mendesain suatu sistem produksi yang mana limbah produksi tidak dibuang ke Tempat Pembuangan Akhir umum, namun di daur ulang untuk mengurangi limbah produksi. Ketika produk mencapai akhir siklus hidupnya, produk dapat di daut ulang untuk digunakan atau dialih-gunakan terus menerus, sehingga menambah nilai tambah ekonomis produk tersebut. Dengan mengimplementasikan ini, kami berharap dapat membantu melestarikan lingkungan.</p>
+								<p>Circular economy implies three major points: reducing waste to a minimum, circulate products, and regenerate the nature. In the production stage, manufactures should design a system where production waste should not enter the municipal landfill, but to be recycled again with the goal of minimizing waste. When a product reaches the end of its life, its materials are recycled to be used again and again, thereby creating further value. With all this steps implemented, we hope we can help regenerate the environment.</p>
 							</div>
 						</div>
 						<div class="row-lg-12 mb-3 text-center">
 							<i class="bi bi-question-circle fa-4x"></i>
-							<h3 class="mb-3 text-primary font-weight-bold">Bagaimana kita mengimplementasikan ekonomi sirkular?</h3>
+							<h3 class="mb-3 text-primary font-weight-bold">How do we implement circular economy?</h3>
 						</div>
 						<!-- Main Content -->
 						<div class="row mb-3 justify-content-center text-justify">
@@ -361,25 +354,26 @@
 								<img src="<?= base_url('asset/img/webpage/infinite_loop.png') ?>" class=" my-4 rounded img-fluid" style="width: 40rem;">
 							</div>
 							<div class="col-lg-8 text-dark">
-								<p>Fasilitas produksi kami mengaplikasikan filosofi 'Limbah Minimum, Untung Maksimal'. Setiap sisa produksi yang dihasilkan disortir, dikumpulkan sesuai jenisnya, dan didaur ulang menjadi bahan mentah untuk digunakan lagi.</p>
-								<p class="mb-1">Dengan metode ini, kami dapat mencegah dan mendaur ulang</p>
-								<h3 class="text-primary font-weight-bold mb-1">>50.000 kilogram plastik</h3>
-								<p class="mb-3">sisa produksi kami sejak 2020.</p>
-								<h3 class="font-weight-bold text-primary mb-1">Apa selanjutnya?</h3>
+								<p>Our production facilities incorporate minimum waste philosophy. Every waste ever produced by our production facilities are immidiately sorted based on materials and colors to increase the likelyhood to be recycled. After that, the waste are reprocessed as raw materials to be reused. </p>
+								<p class="mb-1">Using this method, we manage to recycle and reuse more than</p>
+								<h3 class="text-primary font-weight-bold mb-1">19.5 tons</h3>
+								<p class="mb-3">of potential plastic waste to the landfill in 2021 alone.</p>
+								<h3 class="font-weight-bold text-primary mb-1">What's next?</h3>
 								<p class="mb-3"> We want to make sure that every plastic products are recycled again into the production line so there's no waste being disposed to our environment.</p>
 								<h5 class="text-primary font-weight-bold mb-1">Plastic Buy Back Programme</h5>
 								<p class="mb-1"> We will buy back plastic waste with the following conditions:</p>
 								<ul class="text-justify">
-									<li>Semua warna, bentuk, dan ukuran.</li>
-									<li>Tanpa aditif biodegradable, barang dengan aditid biodegradable tidak dapat di daur ulang.</li>
-									<li>Bersih dan kering. Bebas dari kontaminan seperti sisa makanan, minyak, dll.</li>
-									<li>Kami menerima high-density polyehtylene (HDPE), low-density polyethylene (LDPE), polypropylene (PP), dan polyethylene terephthalate (PET).</li>
+									<li>All colors and sizes.</li>
+									<li>No biodegradable agent, it is not recycleable.</li>
+									<li>Clean and dry. Free of contaminant such as food waste etc.</li>
+									<li>High-density polyehtylene (HDPE) is preferable.</li>
+									<li>Other plastic type such as LDPE, PP, and PET are also acceptable.</li>
 								</ul>
-								<p class="mb-1">Kami akan menyesuaikan harga dengan kondisi pasar. Kirimkan ke gudang kami segera!</p>
+								<p class="mb-1"> We will adjust the price accordingly based on the market supply and demands.</p>
 							</div>
 						</div>
 						<div class="text-center mb-3">
-							<a class="small" href="<?= base_url('web') ?>"> &larr; Kembali ke beranda</a>
+							<a class="small" href="<?= base_url('web') ?>"> &larr; Back to Home</a>
 						</div>
 						<!-- /container-fluid -->
 					</div>
@@ -399,48 +393,48 @@
 						<!-- Begin Page Content -->
 						<div class="row-lg-12 mb-3 text-center">
 							<i class="bi bi-hand-thumbs-up fa-4x"></i>
-							<h3 class="mb-3 text-primary font-weight-bold">Produk Kualitas Tinggi. Kualitas yang Bisa Anda Percaya.</h3>
+							<h3 class="mb-3 text-primary font-weight-bold">High Quality Products. Quality You Can Trust. </h3>
 						</div>
 						<!-- Page Body -->
 						<div class="row justify-content-center text-justify pt-1">
 							<!-- Content -->
 							<div class="col-lg-12 mb-1 text-dark">
-								<p>Meskipun kami kecil, kami menaruh perhatian dan usaha ekstra untuk mendesain sistem manufaktur Kaizen yang mengedepankan kepuasan pelanggan sembari menjaga kepentingan dari stakeholder kami. Kami dapat mencapai tujuan ini dengan tiga fondasi utama:
+								<p>We are a small company who put our effort on creating a flexible manufacturing standards that anchored on customer satisfaction and product quality as a number 1 priority. We achieve this with three core tenets.
 								</p>
 								<div class="row justify-content-center text-center my-2">
-									<div class="col-3">
+									<div class="col-lg-3">
 										<i class="bi bi-award fa-3x text-danger"></i>
-										<p class="nav-label">Mempertahankan dan meningkatkan kualitas</p>
+										<p class="nav-label">Maintaining Quality</p>
 									</div>
-									<div class="col-3 mx-2">
+									<div class="col-lg-3 mx-2">
 										<i class="bi bi-currency-dollar fa-3x text-primary"></i>
-										<p class="nav-label">Proses produksi yang efisien</p>
+										<p class="nav-label">Cost-Effective Production</p>
 									</div>
-									<div class="col-3">
+									<div class="col-lg-3">
 										<i class="bi bi-recycle fa-3x text-success"></i>
-										<p class="nav-label">Mendaur ulang sisa produksi</p>
+										<p class="nav-label">Recycle the Waste</p>
 									</div>
 								</div>
-								<p>Harga plastik sangat volatil, dapat meningkat ataupun berkurang sehingga sangat mempengaruhi harga dan/atau kualitas akhir barang jadi. Ketika pabrikan lain mengurangi kualitas, kerapian pengerjaan, dan ukuran barang ketika harga naik, kami berkomitmen untuk tetap menjaga standar kualitas yang sama dalam lini produksi kami. Selain itu, biji plastik daur ulang memiliki kualitas yang tidak konsisten seperti biji plastik original, sehingga kami memiliki formula produksi yang fleksibel untuk menjamin keseragaman produksi kami dan memastikan kepuasan pelanggan.</p>
-								<p>Menjaga kualitas produk memperlukan sistem produksi yang matang dan efektif-efisien biaya. Ketika proses produksi dimulai, kami menentukan formula produk terbaik berdasarkan arsip kami. Setelah itu kami menjalankan proses trial produksi untuk melihat kualitas produksi. Selama proses produksi, kami menerapkan konsep Kaizen, peningkatan kualitas produksi terus menerus dan mengurangi sisa produksi seminimal mungkin. Selain itu, kami memiliki delapan (8) proses kontrol kualitas: satu saat trial, 3 saat proses ekstrusi, 3 saat pemotongan dan pengemasan, dan satu lagi saat pemeriksaan barang keluar.</p>
-								<p>Dengan metode produksi yang ekstensif, bagaimana kami dapat mempertahankan efisiensi lini produksi kami? Dengan mendaur ulang dan menggunakan kembali sisa produksi. Sejak 2020, kami berhasil mendaur ulang lebih dari 50 ton plastik yang mungkin berakhir di tempat pembuangan sampah atau laut. Kami berhasil menyortir limbah produksi menjadi bahan mentah yang dapat digunakan, mengurangi ongkos produksi dan beban lingkungan kami.</p>
+								<p>Plastic market is volatile, hence a sudden rise (or drop) on material prices can affects finished product's price and/or quality. While other manufacturer reduce their quality when the material price rises, we strive to keep the same quality standards throughout our production batch. Recycled plastic materials also are not quite consistent compared to virgin materials, hence we have to had flexible manufacturing formula to create a better uniformity in our finished products quality to ensure customer's satisfaction.</p>
+								<p>Maintaining product quality requires robust and cost-effective production method. In the start of production process, we formulate best possible materials based on our previous batch archive. Then we run a production trial to see if the product's quality is acceptable. During our production processes, we incorporate Kaizen, a continual improvement on product's quality and minimizing waste wherever possible. And we also have 8 series of Quality Control measures; one QC checkpoint from production trial, 3 on extrution process, 3 on cutting and packaging process, and one more on outgoing process.</p>
+								<p>With extensive production method, how are we able to maintain our cost-effective jargon? By recycling and reusing our waste of course. In 2021 alone, we manage to save more than 19.6 ton of plastic waste that otherwise would've been thrown to industrial landfill. We successfully sort all the production waste and recycle it into a usable raw materials, hence reducing both the production cost and our environmental impact.</p>
 							</div>
 						</div>
 						<div class="row-lg-12 mb-3 text-center">
 							<i class="bi bi-question-circle fa-4x"></i>
-							<h3 class="mb-3 text-primary font-weight-bold">Apa artinya untuk pelanggan?</h3>
+							<h3 class="mb-3 text-primary font-weight-bold">What this means for customers?</h3>
 						</div>
 						<!-- Main Content -->
 						<div class="row justify-content-center text-justify">
 							<div class="col-lg-12 text-dark">
-								<p>Artinya, pelanggan diyakinkan bahwa semua produk yang dibeli dari kami diproduksi dengan efisien dan standar kualitas yang tinggi.</p>
-								<p class="mb-1">Sehingga, produk kualitas tinggi bukan hanya jargon yang klise,</p>
-								<h4 class="text-primary font-weight-bold mb-1">tetapi merupakan wujud nyata dari prinsip proses produksi dan kualitas produk kami,</h4>
-								<p class="mb-4">yang memberikan ketenangan untuk Anda.</p>
+								<p>This means you can be sure that every products you buy from us are thoroughly manufactured with cost-effective production processes and high quality standards. </p>
+								<p class="mb-1">Hence, high-quality products isn't just a cliché jargon,</p>
+								<h4 class="text-primary font-weight-bold mb-1">but the very embodiment of our principle reflected on our production methods and products quality</h4>
+								<p class="mb-4">so that we give you peace of mind.</p>
 							</div>
 						</div>
 						<div class="text-center mb-3">
-							<a class="small" href="<?= base_url('web') ?>"> &larr; Kembali ke beranda</a>
+							<a class="small" href="<?= base_url('web') ?>"> &larr; Back to Home</a>
 						</div>
 					</div>
 					<!-- /container-fluid -->
@@ -463,26 +457,26 @@
 						<!-- Begin Page Content -->
 						<div class="row-lg-12 mb-3 text-center">
 							<i class="bi bi-tree text-success fa-4x"></i>
-							<h3 class="mb-3 text-primary font-weight-bold">Ekologi. Ada logika di dalamnya.</h3>
+							<h3 class="mb-3 text-primary font-weight-bold">Ecological. There's logic in it. </h3>
 						</div>
 						<!-- Page Body -->
 						<div class="row justify-content-center text-justify pt-1">
 							<!-- Content -->
 							<div class="col-lg-12 mb-1 text-dark">
-								<p>Tidak seperti saudara kami yang biodradable, produk kami terbuat dari bahan daur ulang dan dapat didaur ulang tanpa batas<sup>1</sup>. Terdapat tiga sumber utama bahan baku produksi kami:
+								<p>Unlike our biodegradable counterparts, our products are made from recycled plastic material and can be recycled perpetually. There are three main sources of our materials:
 								</p>
 								<div class="row justify-content-center text-center my-2">
 									<div class="col-lg-3">
 										<i class="bi bi-trash fa-2x text-success"></i>
-										<p class="nav-label">Sisa produksi kami sendiri</p>
+										<p class="nav-label">Our Own Waste</p>
 									</div>
 									<div class="col-lg-3 mx-2">
 										<i class="bi bi-recycle fa-2x text-success"></i>
-										<p class="nav-label">Biji plastik daur ulang</p>
+										<p class="nav-label">Recyled Plastic Sources</p>
 									</div>
 									<div class="col-lg-3 mx-2">
 										<i class="bi bi-grid-3x3-gap fa-2x text-primary"></i>
-										<p class="nav-label">Biji plastik virgin/original</p>
+										<p class="nav-label">Virgin Plastic Sources</p>
 									</div>
 								</div>
 								<!-- Image Chart -->
@@ -491,20 +485,17 @@
 										<img src="<?= base_url('asset/img/knowledge/lp2_eco.png') ?>" class="mb-3 rounded img-fluid text-center" style="width: 22rem;" alt="recycled plastic usage.png">
 									</div>
 								</div>
-								<p>Kami secara aktif menggunakan lebih dari 40 ton bahan daur ulang setiap bulannya, menyediakan permintaan bagi industri daur ulang plastik disekitar kami. Pemasok kami memiliki total kapasitas kombinasi sampai 10.000 ton plastik per bulan. Dengan usaha ini, kami berharap meminimalisir sampah plastik yang dibuang ke laut secara khusus dan di lingkungan kita secara umum.</p>
-								<p>Kami juga percaya bahwa plastik daur ulang lebih baik dari solusi biodegradable. Karena plastik biodegradable tidak dapat didaur ulang dan dapat terpecah menjadi mikroplastik dalam paparan sinar UV, yang dapat mencemari sumber air kita.<sup>1</sup>. Hal ini akan mengakibatkan permasalahan lingkungan lebih lanjut karena mikroplastik sangat kecil dan sulit dideteksi mata, sementara produk plastik biasa dapat didaur ulang terus menerus dengan metode pengumpulan dan penanganan sampah yang tepat. Sehingga, permasalahan plastik yang ada dapat diselesaikan dengan implementasi ekonomi sirkular yang tepat.</p>
-            					<h4 class="text-primary font-weight-bold">Daur ulang untuk lingkungan. Jadilah cerdas dan bertanggung jawab.</h4>
+								<p>We actively use recycled more than 40 tons of recycled materials for our production, creating demand for recycled plastic materials from our vicinity. Our suppliers have recycling capacities of up to 10.000 tons per month. With this effort, we hope that we can reduce the number of plastic bag thrown into the ocean in particular and our environment in general. </p>
+								<p>We also believe that recycled plastic is better than any biodegradable solution. This is because biodegradable plastics are not recycleable and under UV-light, they break down into smaller microplastic and side products which are actually toxic for our watersupply<sup>1</sup>. This will create further problems to both us and the environment. On the other hand, recycled plastic products can be recycled perpetually using the correct collection and waste handling methods. Hence, the current plastic problems can be solved with proper circular economy implementation.</p>
+								<h4 class="text-primary font-weight-bold">Recycle for the environment. Be responsible and smart.</h4>
 							</div>
 						</div>
 						<div class="text-center mb-3">
-							<a class="small" href="<?= base_url('web') ?>"> &larr; Kembali ke beranda</a>
+							<a class="small" href="<?= base_url('web') ?>"> &larr; Back to Home</a>
 						</div>
 						<div class="row justify-content-front mx-1">
 							<small>
-								1. Dengan penurunan kualitas.
-							</small>
-							<small>
-								2. Wei, Xin-Feng et al. 2021. Microplastic generated from a biodegradable plastic in freshwater and seawater. Jorunal of Water Research Vol. 198: Elsevier Ltd.
+								1. Wei, Xin-Feng et al. 2021. Microplastic generated from a biodegradable plastic in freshwater and seawater. Jorunal of Water Research Vol. 198: Elsevier Ltd.
 							</small>
 						</div>
 					</div>
@@ -525,16 +516,16 @@
 						<!-- Page Heading -->
 						<div class="row-lg-8 mb-3 text-center">
 							<i class="bi bi-hand-thumbs-up fa-4x"></i>
-							<h3 class="mb-3 text-primary font-weight-bold">Produk Personalisasi. Hanya Untuk Anda. </h3>
+							<h3 class="mb-3 text-primary font-weight-bold">Highly Customizable Products. Only for you. </h3>
 						</div>
 						<!-- Page Body -->
 						<div class="row justify-content-center text-center pt-1 mb-0">
 							<!-- Content -->
 							<div class="col-lg-8 text-dark">
-								<p>Ikuti petunjuk desain kami untuk membuat personalisasi produk yang cocok untuk kebutuhan anda.
+								<p>Follow our design guidelines to create your unique set of plastic packaging needs.
 								</p>
-								<a href="https://wa.me/+6287862413070/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="btn btn-success rounded-pill">
-									<i class="bi bi-whatsapp mr-1"></i>Hubungi kami
+								<a href="https://wa.me/+6282232057755/?text=Halo,%20boleh%20minta%20informasi%20soal%20produk%20kresek%20anda?%20|%20Hello,%20can%20I%20have%20any%20information%20of%20your%20plastic%20bag%20products?" target="_blank" rel="noopener noreferrer" class="btn btn-success rounded-pill">
+									<i class="bi bi-whatsapp mr-1"></i>Contact Us Now
 								</a>
 							</div>
 						</div>
@@ -546,7 +537,7 @@
 							</div>
 						</div>
 						<div class="text-center mb-3">
-							<a class="small" href="<?= base_url('web') ?>"> &larr; Kembali ke beranda</a>
+							<a class="small" href="<?= base_url('web') ?>"> &larr; Back to Home</a>
 						</div>
 						<!-- /.container-fluid -->
 						<!-- /container-fluid -->

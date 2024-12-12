@@ -3,11 +3,12 @@
     <!-- Section: Social media -->
     <section class="d-flex align-items-center justify-content-center justify-content-lg-between p-4 border-bottom mx-2">
         <div class="container text-left text-md-start mt-1">
-        <p class="small"></p>
-            <p class="small"></p>
-            <p class="small"></p>
-            <p class="small"></p>
-            <p class="small"></p>
+            <p class="small">1. Kualitas lebih tinggi dari barang bermerk lain yang berharga mirip berdasarkan spesifikasi produk atau tampilan fisik.</p>
+            <p class="small">2. Rukun&reg; dan Gemah&reg; adalah merk dagang terdaftar dari CV. Rukun Gemilang Perkasa.</p>
+            <p class="small">3. Produk kami terbuat dari bahan daur ulang pilihan, perubahan warna dan karakteristik bahan plastik dapat terjadi antar batch produksi. Hal ini tidak mempengaruhi kualitas dan keandalan produk.</p>
+            <p class="small">4. Kami dapat mengganti spesifikasi dan harga produk sesuai kondisi pasar tanpa pemberitahuan lebih dahulu. Spesifikasi produk dan kenyataannya dapat sedikit berbeda tergantung dari proses produksi dan peningkatan kualitas.</p>
+            <p class="small">5. Order khusus tersedia dengan kuantitas order minimum (MOQ) 500 kg.</p>
+            <p class="small">6. Gambar produk adalah untuk ilustrasi semata. Produk sesungguhnya mungkin berbeda.</p>
         </div>
         <!-- Right -->
     </section>

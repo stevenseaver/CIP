@@ -6,7 +6,7 @@
 
     <div class="row">
         <div class="col-lg-8">
-            <div class="card border-0 rounded shadow mb-3">
+            <div class="card border-left-primary mb-3">
                 <div class="card-body">
                     <?= form_open_multipart(base_url('user/edit')); ?>
                     <div class="form-group row">
@@ -25,29 +25,13 @@
                             <?= form_error('name', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
-                    <div class="form-group row mb-0">
-                        <!-- DOB -->
-                        <label for="dob" class="col-sm-3 col-form-label">Birth Date</label>
-                        <?php if ($user['dob']) { ?>
+                    <div class="form-group row">
+                        <!-- edit name -->
+                        <label for="noktp" class="col-sm-3 col-form-label">ID Number</label>
                         <div class="col-sm-9">
-                            <div class="form-group">
-                                <input readonly type="text" class="form-control" id="so_date" name="so_date" value="<?= $user['dob'] ?>">
-                            </div>
+                            <input type="text" class="form-control" id="noktp" name="noktp" value="<?= $user['noktp']; ?>">
+                            <?= form_error('noktp', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
-                        <?php } else { ?>
-                        <div class="col-sm-9">
-                            <label for="dob" class="col-sm-3 col-form-label">Birth Date</label>
-                            <div class="form-group">
-                                <input type="datetime-local" class="form-control" id="dob" name="dob" value="<?= set_value($user['dob']); ?>">
-                                <?= form_error('so_date', '<small class="text-danger pl-2">', '</small>') ?>
-                            </div>
-                        </div>
-                        <?php }; ?>
-                        <!-- <label for="dob" class="col-sm-3 col-form-label">Birth Date</label>
-                        <div class="col-sm-9">
-                            <input type="date" class="form-control" id="dob" name="dob" value="<?= $user['dob']; ?>">
-                            <?= form_error('dob', '<small class="text-danger pl-2">', '</small>') ?>
-                        </div> -->
                     </div>
                     <div class="form-group row">
                         <!-- edit email -->
@@ -65,8 +49,8 @@
                             <?= form_error('hp', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                     </div>
-                    <!-- <div class="form-group row">
-                        edit address
+                    <div class="form-group row">
+                        <!-- edit address -->
                         <label for="address" class="col-sm-3 col-form-label">Address</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="address" name="address" value="<?= $user['address']; ?>">
@@ -79,7 +63,7 @@
                             <input type="text" class="form-control form-control-user" id="city" name="city" placeholder="City" value="<?= $user['city']; ?>">
                             <?= form_error('city', '<small class="text-danger pl-3">', '</small>') ?>
                         </div>
-                        state/province
+                        <!-- state/province -->
                         <div class="col-sm-5">
                             <input type="text" class="form-control form-control-user" id="province" name="province" placeholder="Province or State" value="<?= $user['province']; ?>">
                             <?= form_error('province', '<small class="text-danger pl-3">', '</small>') ?>
@@ -91,12 +75,12 @@
                             <input type="text" class="form-control form-control-user" id="country" name="country" placeholder="Country" value="<?= $user['country']; ?>">
                             <?= form_error('country', '<small class="text-danger pl-3">', '</small>') ?>
                         </div>
-                        zipcode
+                        <!-- zipcode -->
                         <div class="col-sm-3 mb-2">
                             <input type="text" class="form-control form-control-user" id="postal" name="postal" placeholder="Postal Code" value="<?= $user['postal']; ?>">
                             <?= form_error('postal', '<small class="text-danger pl-3">', '</small>') ?>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="form-group row">
                         <!-- edit profile picture -->
                         <div class="col-sm-3">Picture</div>

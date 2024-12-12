@@ -1078,51 +1078,15 @@
      });
 
      //  JavaScript for Delete Product Menu/Category Modal
-     $('#editGuest').on('show.bs.modal', function(event) {
+     $('#deleteProductMenuModal').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          //extract data from data-* attributes of modal's toggle button
-         var guest_id = $(event.relatedTarget).data('guest-id');
-         var name = $(event.relatedTarget).data('name');
-         var num_pax = $(event.relatedTarget).data('num-pax');
-         var cat = $(event.relatedTarget).data('category');
-         var address = $(event.relatedTarget).data('address');
-         var email = $(event.relatedTarget).data('email');
-         var phone = $(event.relatedTarget).data('phone');
-         var rsvp = $(event.relatedTarget).data('rsvp');
+         var menuid = $(event.relatedTarget).data('menu-id');
+         var menuname = $(event.relatedTarget).data('menu-name');
 
          // input passed data using JS to object INPUT inside modal #editModal
-         $(event.currentTarget).find('.modal-body input[name="guest_id"]').val(guest_id);
-         $(event.currentTarget).find('.modal-body input[name="full_name"]').val(name);
-         $(event.currentTarget).find('.modal-body input[name="num_pax"]').val(num_pax);
-         $(event.currentTarget).find('.modal-body select[name="category"]').val(cat);
-         $(event.currentTarget).find('.modal-body input[name="address"]').val(address);
-         $(event.currentTarget).find('.modal-body input[name="email"]').val(email);
-         $(event.currentTarget).find('.modal-body input[name="phone"]').val(phone);
-         $(event.currentTarget).find('.modal-body select[name="rsvp_status"]').val(rsvp);
-     });
-
-     //  JavaScript for Delete Product Menu/Category Modal
-     $('#deleteGuest').on('show.bs.modal', function(event) {
-         //extract data from data-* attributes of modal's toggle button
-         //extract data from data-* attributes of modal's toggle button
-         var guest_id = $(event.relatedTarget).data('guest-id');
-         var name = $(event.relatedTarget).data('guest-name');
-
-         // input passed data using JS to object INPUT inside modal #editModal
-         $(event.currentTarget).find('.modal-body input[name="delete_guest_id"]').val(guest_id);
-         $(event.currentTarget).find('.modal-body input[name="delete_guest_name"]').val(name);
-     });
-
-     //  JavaScript for Delete Product Menu/Category Modal
-     $('#deleteGuestCategory').on('show.bs.modal', function(event) {
-         //extract data from data-* attributes of modal's toggle button
-         //extract data from data-* attributes of modal's toggle button
-         var id = $(event.relatedTarget).data('cat-id');
-         var name = $(event.relatedTarget).data('cat-name');
-
-         // input passed data using JS to object INPUT inside modal #editModal
-         $(event.currentTarget).find('.modal-body input[name="delete_cat_id"]').val(id);
-         $(event.currentTarget).find('.modal-body input[name="delete_cat_name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="delete_productmenu_id"]').val(menuid);
+         $(event.currentTarget).find('.modal-body input[name="delete_productmenu_name"]').val(menuname);
      });
 
      //  JavaScript for Delete Material Category Modal
@@ -1153,29 +1117,16 @@
      });
 
      //  JavaScript for Edit Product Menu/Category Modal
-     $('#editGuestCategory').on('show.bs.modal', function(event) {
+     $('#editProductMenu').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
-         var guest_cat_id = $(event.relatedTarget).data('id');
-         var guest_category_title = $(event.relatedTarget).data('title');
-         var guest_seating = $(event.relatedTarget).data('seating');
+         var prod_category_id = $(event.relatedTarget).data('id');
+         var prod_category_name = $(event.relatedTarget).data('title');
+         var prod_category_unit = $(event.relatedTarget).data('unit');
 
          // input passed data using JS to object INPUT inside modal #editModal
-         $(event.currentTarget).find('.modal-body input[name="id"]').val(guest_cat_id);
-         $(event.currentTarget).find('.modal-body input[name="title"]').val(guest_category_title);
-         $(event.currentTarget).find('.modal-body input[name="seating"]').val(guest_seating);
-     });
-     
-     //  JavaScript for Edit Product Menu/Category Modal
-     $('#editGuestCategory').on('show.bs.modal', function(event) {
-         //extract data from data-* attributes of modal's toggle button
-         var guest_cat_id = $(event.relatedTarget).data('id');
-         var guest_category_title = $(event.relatedTarget).data('title');
-         var guest_seating = $(event.relatedTarget).data('seating');
-
-         // input passed data using JS to object INPUT inside modal #editModal
-         $(event.currentTarget).find('.modal-body input[name="id"]').val(guest_cat_id);
-         $(event.currentTarget).find('.modal-body input[name="title"]').val(guest_category_title);
-         $(event.currentTarget).find('.modal-body input[name="seating"]').val(guest_seating);
+         $(event.currentTarget).find('.modal-body input[name="id"]').val(prod_category_id);
+         $(event.currentTarget).find('.modal-body input[name="title"]').val(prod_category_name);
+         $(event.currentTarget).find('.modal-body input[name="unit"]').val(prod_category_unit);
      });
 
      //  JavaScript for Edit Material Category Modal
