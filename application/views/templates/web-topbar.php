@@ -10,11 +10,11 @@
     <div id="content">
         <!-- Topbar -->
         <!-- <img class="img-fluid" style="width: 14rem;" src="<?= base_url('asset/') ?>img/blob.svg" alt="This is a blob."> -->
-        <nav class="mx-3 my-3 navbar rounded navbar-expand-lg fixed-top navbar-dark bg-primary mb-4">
+        <nav class="mx-3 my-3 navbar rounded navbar-expand-lg fixed-top navbar-dark bg-primary mb-4 navbar-center">
             <!-- Topbar - Brand -->
-            <a class="navbar-brand d-flex align-items-center justify-content-center" href="<?= base_url('web') ?>">
+            <!-- <a class="navbar-brand d-flex align-items-center justify-content-center" href="<?= base_url('web') ?>">
                 <div class="navbar-brand-text mx-2 text-white font-weight-bold"><img class="img-profile" style="height:30px" src="<?= base_url($header_img)?>"></div>
-            </a>
+            </a> -->
             <!-- Toggler -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

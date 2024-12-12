@@ -172,23 +172,21 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('nik', 'username', 'required|trim|is_unique[user.nik]', [
             'is_unique' => 'This ERN has already been used!'
         ]);
-        $this->form_validation->set_rules('noktp', 'ID card number', 'required|trim');
         $this->form_validation->set_rules('dob', 'date of birth', 'required|trim');
-        $this->form_validation->set_rules('address', 'address', 'required|trim');
-        $this->form_validation->set_rules('event_id', 'event id', 'required|trim');
+        $this->form_validation->set_rules('address', 'address', 'trim');
+        $this->form_validation->set_rules('event_id', 'event id', 'required|trim|is_unique[user.event_id]');
         $this->form_validation->set_rules('event_name', 'event name', 'required|trim');
         $this->form_validation->set_rules('event_start_date', 'event start date', 'required|trim');
         $this->form_validation->set_rules('event_end_date', 'event end date', 'required|trim');
         $this->form_validation->set_rules('event_location', 'event location', 'trim');
         $this->form_validation->set_rules('event_description', 'event description', 'trim');
-        $this->form_validation->set_rules('city', 'city', 'required|trim');
-        $this->form_validation->set_rules('province', 'province', 'required|trim');
-        $this->form_validation->set_rules('country', 'country', 'required|trim');
-        $this->form_validation->set_rules('postal', 'postal', 'required|trim');
+        $this->form_validation->set_rules('city', 'city', 'trim');
+        $this->form_validation->set_rules('province', 'province', 'trim');
+        $this->form_validation->set_rules('country', 'country', 'trim');
+        $this->form_validation->set_rules('postal', 'postal', 'trim');
         $this->form_validation->set_rules('email', 'email', 'required|trim|valid_email|is_unique[user.email]', [
             'is_unique' => 'This email has already been used!'
         ]);
-        $this->form_validation->set_rules('noktp', 'ID card number', 'required|trim');
         $this->form_validation->set_rules('dob', 'date of birth', 'required|trim');
         $this->form_validation->set_rules('hp', 'phone number', 'required|trim|numeric');
         $this->form_validation->set_rules('role_id', 'role', 'required');
@@ -199,7 +197,7 @@ class Admin extends CI_Controller
         $this->form_validation->set_rules('password2', 'password', 'required|trim|min_length[8]|matches[password1]');
 
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
+            $this->session->set_flashdata('event_management_message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
@@ -217,7 +215,6 @@ class Admin extends CI_Controller
             $event_description = $this->input->post('event_description', true);
             $nik = $this->input->post('nik', true);
             $dob = $this->input->post('dob', true);
-            $noktp = $this->input->post('noktp', true);
             $hp = $this->input->post('hp', true);
             $role_id = $this->input->post('role_id', true);
             $address = $this->input->post('address');
@@ -237,7 +234,6 @@ class Admin extends CI_Controller
                 'event_location' => htmlspecialchars($event_location),
                 'event_description' => htmlspecialchars($event_description),
                 'email' => htmlspecialchars($email),
-                'noktp' => htmlspecialchars($noktp),
                 'dob' => htmlspecialchars($dob),
                 'phone_number' => htmlspecialchars($hp),
                 'address' => htmlspecialchars($address),
@@ -253,7 +249,7 @@ class Admin extends CI_Controller
             ];
             $this->db->insert('user', $data);
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Event and account successfully created and is active!</div>');
+            $this->session->set_flashdata('event_management_message', '<div class="alert alert-success" role="alert">Event and account successfully created and is active!</div>');
             redirect('admin/usermanagement');
         }
     }
@@ -274,7 +270,7 @@ class Admin extends CI_Controller
             $this->db->where('id', $usertoToggle);
             $this->db->update('user');
         }
-        $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">' . urldecode($name) . ' status changed!</div>');
+        $this->session->set_flashdata('event_management_message', '<div class="alert alert-warning" role="alert">' . urldecode($name) . ' status changed!</div>');
         redirect('admin/usermanagement');
     }
 
@@ -287,12 +283,12 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         if ($itemtoDelete == $data['user']['id']) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Deleting logged in user are forbidden! </div>');
+            $this->session->set_flashdata('event_management_message', '<div class="alert alert-danger" role="alert">Deleting logged in user are forbidden! </div>');
             redirect('admin/usermanagement');
         } else {
             $this->db->delete('user', array('id' => $itemtoDelete));
             $this->db->delete('cart', array('customer_id' => $itemtoDelete));
-            $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert"> ' . urldecode($name) . ' deleted!</div>');
+            $this->session->set_flashdata('event_management_message', '<div class="alert alert-warning" role="alert"> ' . urldecode($name) . ' deleted!</div>');
             redirect('admin/usermanagement');
         }
     }

@@ -21,19 +21,22 @@ class Web extends CI_Controller
 	}
 
 	//load view product
-	public function product()
+	public function rsvp()
 	{
-		$data['title'] = 'Produk';
+		$data['title'] = 'RSVP';
 		$data['webmenu'] = $this->db->get('web_menu')->result_array();
 		$data['user'] = $this->db->get_where('user', ['nik' =>
 		$this->session->userdata('nik')])->row_array();
-		$data['products'] = $this->db->get('product_menu')->result_array();
+
+		//get Event ID
+		$data['event_id'] = $this->input->get('event_id');
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/web-topbar', $data);
-		$this->load->view('web/product', $data);
+		$this->load->view('web/rsvp', $data);
 		$this->load->view('templates/web-footer');
 	}
+
 	//load page contact us
 	public function contact_us()
 	{
