@@ -9,26 +9,28 @@
             $color = $data['items']['value'];
             $sales_tax = $data['sales_tax']['value'];
         ?>
-
-
-        <div class="dropdown text-right align-items-center mb-3">
+        <!-- button to select period -->
+        <div class="dropdown text-center my-2">
             <button class="btn btn-<?= $color?> dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                 <a id="periode_show" name="periode_show"><?= $current_periode ?></a>
             </button>
     
             <div class="dropdown-menu">
-                <?php 
-                $j = 0;
+                <?php $j = 0;
                 $current_time = time();
-                $year = 0; 
                 $year = date('Y', $current_time);
+                $month = date('m', $current_time);
                 foreach($periode as $per) : 
-                    if($per['year'] == $year or $per['year'] == '0') { ?>
-                        <a class="dropdown-item" href="<?= base_url('sales/salesinfo?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
-                        <?php
+                    if($per['year'] <= $year and $per['year'] >= $year-1 or $per['year'] == '0') { 
+                        if($per['month'] <= $month) {?>
+                            <a class="dropdown-item" href="<?= base_url('sales/salesinfo?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
+                        <?php } else {
+                        
+                        }?>
+                    <?php
                     }
                     else { 
-                        
+
                     };
                 endforeach; ?>
             </div>

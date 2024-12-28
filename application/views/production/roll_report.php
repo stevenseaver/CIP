@@ -10,22 +10,22 @@
         ?>
     
         <div class="dropdown text-center my-2">
-            <!-- <button class="btn text-<?= $color?> bi bi-caret-left-fill" onclick="left_click()" type="button">
-            </button> -->
             <button class="btn btn-<?= $color?> dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
                 <a id="periode_show" name="periode_show"><?= $current_periode ?></a>
             </button>
-            <!-- <button class="btn text-<?= $color?> bi bi-caret-right-fill" onclick="right_click()" type="button">
-            </button> -->
     
             <div class="dropdown-menu">
                 <?php $j = 0;
                 $current_time = time();
-                $year = 0; 
                 $year = date('Y', $current_time);
+                $month = date('m', $current_time);
                 foreach($periode as $per) : 
-                    if($per['year'] == $year or $per['year'] == '0') { ?>
-                        <a class="dropdown-item" href="<?= base_url('production/inputRoll?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
+                    if($per['year'] <= $year and $per['year'] >= $year-1 or $per['year'] == '0') { 
+                        if($per['month'] <= $month) {?>
+                            <a class="dropdown-item" href="<?= base_url('production/inputRoll?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
+                        <?php } else {
+                        
+                        }?>
                     <?php
                     }
                     else { 
