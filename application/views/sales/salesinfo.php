@@ -22,7 +22,7 @@
                 $month = date('m', $current_time);
                 foreach($periode as $per) : 
                     if($per['year'] <= $year and $per['year'] >= $year-1 or $per['year'] == '0') { 
-                        if($per['month'] <= $month) {?>
+                        if($per['year'] < $year or $per['month'] <= $month) {?>
                             <a class="dropdown-item" href="<?= base_url('sales/salesinfo?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
                         <?php } else {
                         
