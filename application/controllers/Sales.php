@@ -66,37 +66,44 @@ class Sales extends CI_Controller
             // delivery order
             // USE THIS IF ITEM STOCK AKHIR IS CHANGED ON DELIVERY
             $data['salesData'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $ref])->result_array();
+            //integrity_check to prevent multiple input on slow network or double press on button
+            $data['integrity_check'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $ref])->row_array();
+            if($data['integrity_check']['transaction_status'] == 0){
+                foreach ($data['salesData'] as $ci) :
+                    //get selected item
+                    $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['name' => $ci['name'], 'status' => 7])->row_array();
+                    
+                    $amount = $ci['outgoing'];
+                    
+                    $code = $data['itemselect']['code'];
+                    $in_stockOld = $data['itemselect']['in_stock'];
+    
+                    // data to update inventory stock akhir
+                    $data = [
+                        'in_stock' => $in_stockOld - $amount
+                    ];
+                    
+                    $this->db->where('code', $code);
+                    $this->db->where('status', 7);
+                    $this->db->update('stock_finishedgoods', $data);
+    
+                    $data_warehouse = [
+                        'transaction_status' => 1,
+                        'in_stock' => $in_stockOld - $amount
+                    ];
+    
+                    $this->db->where('code', $code);
+                    $this->db->where('transaction_id', $ref);
+                    $this->db->update('stock_finishedgoods', $data_warehouse);
+                endforeach;
+                
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Status changed into deliveries, final stock updated!</div>');
+                redirect('sales/deliveryorder');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Data integrity maintained!</div>');
+                redirect('sales/deliveryorder');
+            };
             
-            foreach ($data['salesData'] as $ci) :
-                //get selected item
-                $data['itemselect'] = $this->db->get_where('stock_finishedgoods', ['name' => $ci['name'], 'status' => 7])->row_array();
-                
-                $amount = $ci['outgoing'];
-                
-                $code = $data['itemselect']['code'];
-                $in_stockOld = $data['itemselect']['in_stock'];
-
-                // data to update inventory stock akhir
-                $data = [
-                    'in_stock' => $in_stockOld - $amount
-                ];
-                
-                $this->db->where('code', $code);
-                $this->db->where('status', 7);
-                $this->db->update('stock_finishedgoods', $data);
-
-                $data_warehouse = [
-                    'transaction_status' => 1,
-                    'in_stock' => $in_stockOld - $amount
-                ];
-
-                $this->db->where('code', $code);
-                $this->db->where('transaction_id', $ref);
-                $this->db->update('stock_finishedgoods', $data_warehouse);
-            endforeach;
-            
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Status changed into deliveries, final stock updated!</div>');
-            redirect('sales/deliveryorder');
         } else if ($status_change_to == 3) {
             //invoice
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Transaction finished, send invoice to customer!</div>');
@@ -144,7 +151,7 @@ class Sales extends CI_Controller
             // return to page
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Transaction declined!</div>');
             redirect('sales/');
-        }
+        };
     }
 
     public function add_salesorder($ref){

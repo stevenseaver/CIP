@@ -320,7 +320,7 @@ class Purchasing extends CI_Controller
         $this->load->view('purchase/receiveorder_details', $data);
         $this->load->view('templates/footer');
     }
-
+    // public function receiveItem($id, $token)
     public function receiveItem($id)
     {
         //get inventory warehouse data
@@ -333,30 +333,38 @@ class Purchasing extends CI_Controller
         $supplier_id = $data['inventory_selected']['supplier'];
         $price = $data['inventory_selected']['price'];
 
-        //get stock akhir data
-        $data['getID'] = $this->db->get_where('stock_material', ['code' => $code, 'status' => '7'])->row_array();
-        $in_stockOld = $data['getID']['in_stock'];;
+        if($data['inventory_selected']['transaction_status'] == 1){
+    
+            //get stock akhir data
+            $data['getID'] = $this->db->get_where('stock_material', ['code' => $code, 'status' => '7'])->row_array();
+            $in_stockOld = $data['getID']['in_stock'];;
+    
+            $data = [
+                'transaction_status' => 2,
+                'in_stock' => $in_stockOld + $amount
+            ];
+    
+            $this->db->where('id', $id);
+            // $this->db->set('transaction_status', 2);
+            $this->db->update('stock_material', $data);
+    
+            $data2 = [
+                'in_stock' => $in_stockOld + $amount,
+                'date' => $date,
+                'price' => $price
+            ];
+    
+            $this->db->where('status', '7');
+            $this->db->where('code', $code);
+            $this->db->update('stock_material', $data2);
+            //redirect to receive_details
+            redirect('purchasing/transaction_status_change/' . $poID . '/' . $supplier_id . '/' . $date);
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Data integrity maintained!</div>');
+            //redirect to receive_details
+            redirect('purchasing/transaction_status_change/' . $poID . '/' . $supplier_id . '/' . $date);
+        };
 
-        $data = [
-            'transaction_status' => 2,
-            'in_stock' => $in_stockOld + $amount
-        ];
-
-        $this->db->where('id', $id);
-        // $this->db->set('transaction_status', 2);
-        $this->db->update('stock_material', $data);
-
-        $data2 = [
-            'in_stock' => $in_stockOld + $amount,
-            'date' => $date,
-            'price' => $price
-        ];
-
-        $this->db->where('status', '7');
-        $this->db->where('code', $code);
-        $this->db->update('stock_material', $data2);
-        //redirect to receive_details
-        redirect('purchasing/transaction_status_change/' . $poID . '/' . $supplier_id . '/' . $date);
     }
 
     //update received item quantity on database

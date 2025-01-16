@@ -283,9 +283,25 @@
             </form>
         </div>
     </div>
-
+    <?php 
+        $tokenData = array(
+            'token'  => md5(session_id() . time())
+        );
+        $this->session->set_userdata($tokenData);
+        
+        $token = $this->session->token; 
+        echo $token;
+    ?>
     <form action="<?= base_url('production/add_gbj_item/') . $po_id . '/2/2/' ?>" method="post">
         <div class="row">                       
+            <div class="col-lg-6" style="display: ">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="token" class="col-form-label">Token</label>
+                    <input type="text" class="form-control mb-1" id="token" name="token" readonly value="<?= $_SESSION['token'] ?>">
+                    <?= form_error('token', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <!-- Item code -->

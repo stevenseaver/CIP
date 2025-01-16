@@ -1129,6 +1129,20 @@ class Production extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function receive_purchase_token(){
+        $token =  time();
+		$receive_purchase = array(
+			'token' => $token
+		);
+
+		$this->session->set_userdata($receive_purchase);
+
+		$receive_token = $this->session->userdata('token');
+
+		return $token;
+	}
+
+
     public function add_gbj_item($prodID, $status, $warehouse)
     {
         $data['title'] = 'Finished Goods Input';
@@ -1271,11 +1285,11 @@ class Production extends CI_Controller
                 $this->db->where('status', '7');
                 $this->db->where('code', $code);
                 $this->db->update('stock_finishedgoods', $data2);
-            }
+            };
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Finished goods ' . $item . ' with amount ' . $amount . ' kg added!</div>');
             redirect('production/add_gbj/' . $prodID);
-        }
+        };
     }
 
     //CUT Input Roll per item
