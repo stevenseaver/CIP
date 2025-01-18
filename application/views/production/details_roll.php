@@ -177,7 +177,11 @@
                         <td><?= $ms['code'] ?></td>
                         <td><?= $ms['weight'] ?></td>
                         <td><?= $ms['lipatan'] ?></td>
-                        <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                        <?php if($ms['transaction_desc'] == 'Bulk cut'){ ?>
+                            <td class="text-danger">-<?= number_format($ms['outgoing'], 2, ',', '.'); ?> kg</td>
+                        <? } else {  ?>
+                            <td class="text-primary"><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                        <?php }; ?>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php 
                             $subtotal = $ms['incoming'] * $ms['price'];

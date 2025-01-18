@@ -1303,34 +1303,61 @@ class Production extends CI_Controller
         $date = time();
 
         $data['material_edited'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
-        $materialID = $data['material_edited']['code'];
         $materialStatus = $data['material_edited']['status'];
-
+        
         if($materialStatus == 9){ 
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Material ' . $name . ' with amount ' . $amount . '  is already cut!</div>');
             redirect('production/add_gbj/' . $po_id);
         } else {
             //get selected material stock_akhir or stock akhir from id = 7
-            $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $materialID, 'status' => 7])->row_array();
+            $code = $data['material_edited']['code'];
+            $batch = $data['material_edited']['batch'];
+
+            $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $code, 'status' => 7])->row_array();
             $stock_akhir = $data['material_selected']['in_stock'];
-    
-            $update_stock = $stock_akhir - $amount;
-    
-            $data2 = [
-                'in_stock' => $update_stock,
-                // 'date' => $date
-            ];
-    
+            $name = $data['material_selected']['name'];
+            $weight = $data['material_selected']['weight'];
+            $lip = $data['material_selected']['lipatan'];
+            $price = $data['material_selected']['price'];
+
             $setStatus = 9;
-    
-            //update stock akhir
-            $this->db->where('status', '7');
-            $this->db->where('code', $materialID);
-            $this->db->update('stock_roll', $data2);
-            //cut
             $this->db->where('id', $id);
             $this->db->set('status', $setStatus);
             $this->db->update('stock_roll');
+
+            //update stock akhir
+            $update_stock = $stock_akhir - $amount;
+    
+            $data2 = [
+                'in_stock' => $update_stock
+            ];
+            
+            //insert transaction
+            $data = [
+                'name' => $name,
+                'code' => $code,
+                'date' => time(),
+                'price' => $price,
+                'weight' => $weight,
+                'lipatan' => $lip,
+                'in_stock' => $update_stock,
+                'incoming' => 0,
+                'outgoing' => $amount,
+                'status' => 9,
+                'warehouse' => 2,
+                'transaction_id' => $po_id,
+                'transaction_desc' => 'Bulk cut',
+                'batch' => $batch
+            ];
+    
+            //update stock akhir
+            $this->db->where('status', '7');
+            $this->db->where('code', $code);
+            $this->db->update('stock_roll', $data2);
+    
+            //insert transaction
+            $this->db->insert('stock_roll', $data);
+
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material ' . $name . ' with amount ' . $amount . '  cut!</div>');
             redirect('production/add_gbj/' . $po_id);
         };
@@ -1366,47 +1393,54 @@ class Production extends CI_Controller
             $amount = $this->input->post('cut_amount');
             $transID = $this->input->post('trans_id');
             $batch = $this->input->post('bulk_batch');
+            $timestamp = time();
     
             $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $code, 'status' => 7])->row_array();
-            $stock_akhir = $data['material_selected']['in_stock'];
-            $name = $data['material_selected']['name'];
-            $weight = $data['material_selected']['weight'];
-            $lip = $data['material_selected']['lipatan'];
-            $price = $data['material_selected']['price'];
+            $data['double_data'] = $this->db->get_where('stock_roll', ['transaction_id' => $transID, 'outgoing' => $amount, 'date' => $timestamp])->row_array();
+            if(!$data['double_data']){
+                $stock_akhir = $data['material_selected']['in_stock'];
+                $name = $data['material_selected']['name'];
+                $weight = $data['material_selected']['weight'];
+                $lip = $data['material_selected']['lipatan'];
+                $price = $data['material_selected']['price'];
+            
+                $update_stock = $stock_akhir - $amount;
         
-            $update_stock = $stock_akhir - $amount;
+                $data2 = [
+                    'in_stock' => $update_stock
+                ];
+        
+                $data = [
+                    'name' => $name,
+                    'code' => $code,
+                    'date' => $timestamp,
+                    'price' => $price,
+                    'weight' => $weight,
+                    'lipatan' => $lip,
+                    'in_stock' => $update_stock,
+                    'incoming' => 0,
+                    'outgoing' => $amount,
+                    'status' => 9,
+                    'warehouse' => 2,
+                    'transaction_id' => $transID,
+                    'transaction_desc' => 'Bulk cut',
+                    'batch' => $batch
+                ];
+        
+                //update stock akhir
+                $this->db->where('status', '7');
+                $this->db->where('code', $code);
+                $this->db->update('stock_roll', $data2);
+        
+                //insert transaction
+                $this->db->insert('stock_roll', $data);
     
-            $data2 = [
-                'in_stock' => $update_stock
-            ];
-    
-            $data = [
-                'name' => $name,
-                'code' => $code,
-                'date' => time(),
-                'price' => $price,
-                'weight' => $weight,
-                'lipatan' => $lip,
-                'in_stock' => $update_stock,
-                'incoming' => 0,
-                'outgoing' => $amount,
-                'status' => 9,
-                'warehouse' => 2,
-                'transaction_id' => $transID,
-                'transaction_desc' => 'Bulk cut',
-                'batch' => $batch
-            ];
-    
-            //update stock akhir
-            $this->db->where('status', '7');
-            $this->db->where('code', $code);
-            $this->db->update('stock_roll', $data2);
-    
-            //insert transaction
-            $this->db->insert('stock_roll', $data);
-
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Bulk cut ' . $name . ' successful with total amount ' . $amount . ' kg!</div>');
-            redirect('production/add_gbj/' . $po_id);
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Bulk cut ' . $name . ' successful with total amount ' . $amount . ' kg!</div>');
+                redirect('production/add_gbj/' . $po_id);
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Data integrity maintained!</div>');
+                redirect('production/add_gbj/' . $po_id);
+            };
         };
     }
 
@@ -1430,69 +1464,73 @@ class Production extends CI_Controller
             $data['getRollID']['batch'] = 'No roll yet';
         };
 
-        //gbj items
-        $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
+        //gbj items check if transaction status is = 2, meaning already converted, to prevent double input
+        $id = $this->input->post('id');
+        $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
+        $check_GBJ_stat = $data['gbjItems']['transaction_status'];
 
-        //MATERIAL ITEMS HERE
-        //MATERIAL ITEMS HERE
-        //get material data
-        $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
-        $data['IDCheck'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+        if($check_GBJ_stat != 2){
+            //get material data
+            $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
+            $data['IDCheck'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
 
-        if ($data['IDCheck'] != null) {
+            if ($data['IDCheck'] != null) {
+            } else {
+                $data['IDCheck']['description'] = 1;
+                $data['IDCheck']['product_name'] = 1;
+            };
+
+            $this->form_validation->set_rules('pack_amount', 'pack amount', 'trim|required');
+
+            if ($this->form_validation->run() == false) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops pack amount is missing!</div>');
+                $this->load->view('templates/header', $data);
+                $this->load->view('templates/sidebar', $data);
+                $this->load->view('templates/topbar', $data);
+                $this->load->view('production/add_gbj', $data);
+                $this->load->view('templates/footer');
+            } else {
+                $name = $this->input->post('name');
+                $code = $this->input->post('code');
+                $weight = $this->input->post('kg_amount');
+                $priceperkg = $this->input->post('kg_price');
+                $pack = $this->input->post('pack_amount');
+                $date = time();
+        
+                $gbjSelect = $this->db->get_where('stock_finishedgoods', ['code' => $code, 'status' => 7])->row_array();
+
+                $stock_old = $gbjSelect['in_stock'];
+
+                $totalPrice = $weight * $priceperkg;
+                $priceperPack = $totalPrice / $pack;
+
+                $data = [
+                    'in_stock' => $stock_old + $pack,
+                    'date' => $date,
+                    'price' => $priceperPack
+                ];
+                
+                $this->db->where('status', '7');
+                $this->db->where('code', $code);
+                $this->db->update('stock_finishedgoods', $data);
+                
+                $data1 = [
+                    'incoming' => $pack,
+                    'in_stock' => $stock_old + $pack,
+                    'transaction_status' => 2,
+                    'price' => $priceperPack
+                ];
+
+                $this->db->where('id', $id);
+                $this->db->update('stock_finishedgoods', $data1);
+        
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Amount converted!</div>');
+                redirect('production/add_gbj/' . $prodID);
+            };
         } else {
-            $data['IDCheck']['description'] = 1;
-            $data['IDCheck']['product_name'] = 1;
-        };
-
-        $this->form_validation->set_rules('pack_amount', 'pack amount', 'trim|required');
-
-        if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops pack amount is missing!</div>');
-            $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
-            $this->load->view('templates/topbar', $data);
-            $this->load->view('production/add_gbj', $data);
-            $this->load->view('templates/footer');
-        } else {
-            $id = $this->input->post('id');
-            $name = $this->input->post('name');
-            $code = $this->input->post('code');
-            $weight = $this->input->post('kg_amount');
-            $priceperkg = $this->input->post('kg_price');
-            $pack = $this->input->post('pack_amount');
-            $date = time();
-    
-            $gbjSelect = $this->db->get_where('stock_finishedgoods', ['code' => $code, 'status' => 7])->row_array();
-
-            $stock_old = $gbjSelect['in_stock'];
-
-            $totalPrice = $weight * $priceperkg;
-            $priceperPack = $totalPrice / $pack;
-
-            $data = [
-                'in_stock' => $stock_old + $pack,
-                'date' => $date,
-                'price' => $priceperPack
-            ];
-            
-            $this->db->where('status', '7');
-            $this->db->where('code', $code);
-            $this->db->update('stock_finishedgoods', $data);
-            
-            $data1 = [
-                'incoming' => $pack,
-                'in_stock' => $stock_old + $pack,
-                'transaction_status' => 2,
-                'price' => $priceperPack
-            ];
-
-            $this->db->where('id', $id);
-            $this->db->update('stock_finishedgoods', $data1);
-    
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Amount converted!</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Data integrity maintained!</div>');
             redirect('production/add_gbj/' . $prodID);
-        }
+        };
     }
 
     //update production order roll amount

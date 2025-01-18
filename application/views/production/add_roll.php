@@ -589,10 +589,13 @@
                         <td><?= $ms['weight']; ?></td>
                         <td><?= $ms['lipatan']; ?></td>
                         <?php if ($ms['status'] != 9){ ?>
-                            <td style="width: 100px"><input id="rollAmount-<?= $ms['id'] ?>" class="roll-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
-                            <td style="width: 110px"><input id="rollPrice-<?= $ms['id'] ?>" class="roll-price text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['price'], 2, ',', '.'); ?>"></td>
-                        <?php } else { ?>
-                            <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                            <td style="width: 100px"><input id="rollAmount-<?= $ms['id'] ?>" class="roll-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> 
+                        <?php } else {
+                            if($ms['transaction_desc'] == 'Bulk cut'){ ?>
+                                <td class="text-danger">-<?= number_format($ms['outgoing'], 2, ',', '.'); ?> kg</td>
+                            <? } else {  ?>
+                                <td class="text-primary"><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                            <?php }; ?>
                             <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php };
                             $subtotal = $ms['incoming'] * $ms['price'];

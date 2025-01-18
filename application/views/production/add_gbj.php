@@ -289,12 +289,11 @@
         );
         $this->session->set_userdata($tokenData);
         
-        $token = $this->session->token; 
-        echo $token;
+        $token = $this->session->token;
     ?>
     <form action="<?= base_url('production/add_gbj_item/') . $po_id . '/2/2/' ?>" method="post">
         <div class="row">                       
-            <div class="col-lg-6" style="display: ">
+            <div class="col-lg-6" style="display: none">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="token" class="col-form-label">Token</label>
@@ -580,12 +579,11 @@
                         <td><?= $ms['code'] ?></td>
                         <td><?= $ms['weight'] ?></td>
                         <td><?= $ms['lipatan'] ?></td>
-                        <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
-                        <!-- <?php if ($ms['status'] != 9){ ?>
-                            <td><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
-                        <?php } else { ?>
-                            <td>-<?= number_format($ms['outgoing'], 2, ',', '.'); ?> kg</td>
-                        <?php }; ?> -->
+                        <?php if($ms['transaction_desc'] == 'Bulk cut'){ ?>
+                            <td class="text-danger">-<?= number_format($ms['outgoing'], 2, ',', '.'); ?> kg</td>
+                        <? } else {  ?>
+                            <td class="text-primary"><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
+                        <?php }; ?>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php 
                             $subtotal = $ms['incoming'] * $ms['price'];
