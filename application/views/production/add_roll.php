@@ -595,11 +595,11 @@
                                 <td class="text-danger">-<?= number_format($ms['outgoing'], 2, ',', '.'); ?> kg</td>
                             <? } else {  ?>
                                 <td class="text-primary"><?= number_format($ms['incoming'], 2, ',', '.'); ?> kg</td>
-                            <?php }; ?>
-                            <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
-                        <?php };
-                            $subtotal = $ms['incoming'] * $ms['price'];
+                            <?php };
+                        };
+                        $subtotal = $ms['incoming'] * $ms['price'];
                         ?>
+                        <td style="width: 110px"><input id="rollPrice-<?= $ms['id'] ?>" class="roll-price text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['price'], 2, ',', '.'); ?>"></td>
                         <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><input id="rollBatch-<?= $ms['id'] ?>" class="roll-batch text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['batch']; ?>"></td>
                         <td><input id="rollDesc-<?= $ms['id'] ?>" class="roll-desc text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['transaction_desc']; ?>"></td>
