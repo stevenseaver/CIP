@@ -57,12 +57,12 @@
                             </div>
                         </div>
                         <form action="?" method="POST">
-                            <div class="g-recaptcha" data-sitekey="6LfDc9ciAAAAAOvs9TRP8ISo26wwrdQkg3Ln1ih7"></div>
+                            <div class="g-recaptcha" data-sitekey="6LcjAtwqAAAAAM5D3BA8egvFcUSJPPOY2KdHsmSG"></div>
                             <button type="submit" class="btn btn-primary btn-icon-split mt-3">
                                 <span class="icon text-white-60">
                                     <i class="fas fa-fw fa-arrow-right"></i>
                                 </span>
-                                <span class="text">Submit</span>
+                                <span class="text">Send</span>
                             </button>
                         </form>
                         </body>

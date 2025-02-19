@@ -12,6 +12,7 @@
     <title><?= $title ?></title>
 
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!--<script src="https://www.google.com/recaptcha/enterprise.js?render=6LcjAtwqAAAAAM5D3BA8egvFcUSJPPOY2KdHsmSG"></script>-->
 
     <link rel="icon" href="<?= base_url('asset/img/webpage/3.png'); ?>" type="image/gif">
 

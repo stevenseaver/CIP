@@ -70,7 +70,7 @@ class Web extends CI_Controller
         $data['products'] = $this->db->get('product_menu')->result_array();
 
         $this->form_validation->set_rules('invoice', 'invoice', 'required|trim');
-        $this->form_validation->set_rules('email', 'email', 'required|trim');
+        $this->form_validation->set_rules('email', 'email', 'required|trim|valid_email');
         $this->form_validation->set_rules('phone', 'phone', 'required|trim');
         $this->form_validation->set_rules('message', 'message', 'required|trim');
 
@@ -84,7 +84,7 @@ class Web extends CI_Controller
             $captcha_response = trim($this->input->post('g-recaptcha-response'));
 
             if ($captcha_response != '') {
-                $keySecret = '6LfDc9ciAAAAAP15GqjPpohPOH8eTpljKTbGMnFc';
+                $keySecret = '6LcjAtwqAAAAAPBtYL9k588N63gqyRyxCviCm0ha';
 
                 $check = array(
                     'secret' => $keySecret,
