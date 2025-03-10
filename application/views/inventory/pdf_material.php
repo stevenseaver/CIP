@@ -39,23 +39,27 @@ $total_value = 0;
 $total_weight = 0;
 
 foreach ($materialStock as $data) {
-    $subtotal = $data['price'] * $data['in_stock'];
-    $pdf->Cell(8, 7, $i, 1, 0, 'C');
-    $pdf->Cell(57, 7, $data['name'], 1, 0);
-    $pdf->Cell(35, 7, $data['code'], 1, 0);
-    $pdf->Cell(30, 7, $data['categories_name'], 1, 0);
-    $pdf->Cell(25, 7, number_format($data['in_stock'], 2, ',', '.') . ' '. $data['unit_satuan'], 1, 0);
-    $pdf->Cell(20, 7, number_format($data['price'], 2, ',', '.'), 1, 0);
-    $pdf->Cell(25, 7, number_format($subtotal, 2, ',', '.'), 1, 0);
-    $pdf->Cell(50, 7, $data['supplier_name'], 1, 0);
-    $pdf->Cell(15, 7, ' ', 1, 0);
-    $pdf->Cell(15, 7, ' ', 1, 1);
+    if($data['in_stock'] != 0){
+        $subtotal = $data['price'] * $data['in_stock'];
+        $pdf->Cell(8, 7, $i, 1, 0, 'C');
+        $pdf->Cell(57, 7, $data['name'], 1, 0);
+        $pdf->Cell(35, 7, $data['code'], 1, 0);
+        $pdf->Cell(30, 7, $data['categories_name'], 1, 0);
+        $pdf->Cell(25, 7, number_format($data['in_stock'], 2, ',', '.') . ' '. $data['unit_satuan'], 1, 0);
+        $pdf->Cell(20, 7, number_format($data['price'], 2, ',', '.'), 1, 0);
+        $pdf->Cell(25, 7, number_format($subtotal, 2, ',', '.'), 1, 0);
+        $pdf->Cell(50, 7, $data['supplier_name'], 1, 0);
+        $pdf->Cell(15, 7, ' ', 1, 0);
+        $pdf->Cell(15, 7, ' ', 1, 1);
+    
+        if($data['unit_satuan'] == 'kg') {
+            $temp1 = $temp1 + $data['in_stock'];
+        }
+        $temp2 = $temp2 + $subtotal;
+        $i++;
+    } else {
 
-    if($data['unit_satuan'] == 'kg') {
-        $temp1 = $temp1 + $data['in_stock'];
-    }
-    $temp2 = $temp2 + $subtotal;
-    $i++;
+    };
 }
 $total_value = $temp2;
 $total_weight = $temp1;
