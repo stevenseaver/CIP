@@ -586,6 +586,17 @@ class Production extends CI_Controller
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
         $data['po_id'] = $prodID;
 
+        // Get the last roll item used in this production order
+        $lastRoll = $this->db->select('name, code, weight, lipatan, price, batch, transaction_desc')
+                            ->where('transaction_id', $prodID)
+                            ->where('status', 3)
+                            ->order_by('date', 'DESC')
+                            ->limit(1)
+                            ->get('stock_roll')
+                            ->row_array();
+        
+        $data['lastRoll'] = $lastRoll;
+
         //MATERIAL ITEMS HERE
         //MATERIAL ITEMS HERE
         //get material data

@@ -300,7 +300,8 @@
                 <div class="form-group">
                     <!-- Item categories -->
                     <label for="rollName" class="col-form-label">Item Name</label>
-                    <input type="text" class="form-control" id="rollName" name="rollName" readonly value="<?= set_value('rollName'); ?>">
+                    <!-- <input type="text" class="form-control" id="rollName" name="rollName" readonly value="<?= set_value('rollName'); ?>"> -->
+                    <input type="text" class="form-control" id="rollName" name="rollName" value="<?= isset($lastRoll['name']) ? $lastRoll['name'] : set_value('rollName'); ?>" readonly>
                     <?= form_error('rollName', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
@@ -308,7 +309,7 @@
                 <div class="form-group"> 
                     <!-- Material in stock -->
                     <label for="code" class="col-form-label">Code</label>
-                    <input type="text" class="form-control" id="code" name="code" readonly value="<?= set_value('code'); ?>">
+                    <input type="text" class="form-control" id="code" name="code" readonly value="<?= isset($lastRoll['code']) ? $lastRoll['code'] : set_value('code'); ?>">
                     <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
@@ -316,7 +317,7 @@
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="weight" class="col-form-label">Weight</label>
-                    <input type="text" class="form-control" id="weight" name="weight" value="<?= set_value('weight'); ?>" readonly>
+                    <input type="text" class="form-control" id="weight" name="weight" value="<?= isset($lastRoll['weight']) ? $lastRoll['weight'] : set_value('weight'); ?>" readonly>
                     <?= form_error('weight', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
@@ -324,7 +325,7 @@
                 <div class="form-group">
                     <!-- Material in stock -->
                     <label for="lipatan" class="col-form-label">Lipatan</label>
-                    <input type="text" class="form-control" id="lipatan" name="lipatan" readonly value="<?= set_value('lipatan'); ?>">
+                    <input type="text" class="form-control" id="lipatan" name="lipatan" readonly value="<?= isset($lastRoll['lipatan']) ? $lastRoll['lipatan'] : set_value('lipatan'); ?>">
                     <?= form_error('lipatan', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
@@ -381,7 +382,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">IDR</span>
                         </div>
-                        <input type="text" class="form-control" id="price_roll" name="price_roll" value="<?= set_value('price'); ?>">
+                        <input type="text" class="form-control" id="price_roll" name="price_roll" value="<?= isset($lastRoll['price']) ? $lastRoll['price'] : set_value('price'); ?>">
                     </div>
                     <small>Make sure the COGS is similar with the materials cost.</small>
                     <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
@@ -391,7 +392,7 @@
                 <div class="form-group">
                     <!-- Item batch -->
                     <label for="batch" class="col-form-label">Batch</label>
-                    <input type="text" class="form-control mb-1" id="batch" name="batch" value="<?= $getID['description'] . '-' ?>">
+                    <input type="text" class="form-control mb-1" id="batch" name="batch" value="<?= isset($lastRoll['batch']) ? $lastRoll['batch'] : set_value('batch'); ?>">
                     <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
                     <small>Batch number YEARrandomWEEK-Extruder Line-Shift. Mandatory to add Extruder Line (ES) and shift (S).</small>
                 </div>
@@ -400,7 +401,7 @@
                 <div class="form-group">
                     <!-- Item roll number -->
                     <label for="roll_no" class="col-form-label">Roll Number/Description</label>
-                    <input type="text" class="form-control mb-1" id="roll_no" name="roll_no" placeholder="Input roll description (number, type, etc)..">
+                    <input type="text" class="form-control mb-1" id="roll_no" name="roll_no" placeholder="Input roll description (number, type, etc).." value="<?= isset($lastRoll['transaction_desc']) ? $lastRoll['transaction_desc']+1 : set_value('transaction_desc'); ?>">
                     <?= form_error('roll_no', '<small class="text-danger pl-2">', '</small>') ?>
                     <small>Alpha numerical.</small>
                 </div>
