@@ -312,7 +312,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="report_date" class="col-form-label">Date</label>
-                    <input type="date" class="form-control" id="report_date" name="report_date" value="<?= set_value('report_date'); ?>">
+                    <input type="date" class="form-control" id="report_date" name="report_date" value="<?= set_value('report_date', $last_date); ?>">
                     <?= form_error('report_date', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>

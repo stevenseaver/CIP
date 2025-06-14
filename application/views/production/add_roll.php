@@ -392,7 +392,7 @@
                 <div class="form-group">
                     <!-- Item batch -->
                     <label for="batch" class="col-form-label">Batch</label>
-                    <input type="text" class="form-control mb-1" id="batch" name="batch" value="<?= isset($lastRoll['batch']) ? $lastRoll['batch'] : set_value('batch'); ?>">
+                    <input type="text" class="form-control mb-1" id="batch" name="batch" value="<?= isset($lastRoll['batch']) ? $lastRoll['batch'] : $getID['description'] . '-' ?>">
                     <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
                     <small>Batch number YEARrandomWEEK-Extruder Line-Shift. Mandatory to add Extruder Line (ES) and shift (S).</small>
                 </div>
@@ -401,7 +401,16 @@
                 <div class="form-group">
                     <!-- Item roll number -->
                     <label for="roll_no" class="col-form-label">Roll Number/Description</label>
-                    <input type="text" class="form-control mb-1" id="roll_no" name="roll_no" placeholder="Input roll description (number, type, etc).." value="<?= isset($lastRoll['transaction_desc']) ? $lastRoll['transaction_desc']+1 : set_value('transaction_desc'); ?>">
+                    <input type="text" class="form-control mb-1" id="roll_no" name="roll_no" placeholder="Input roll description (number, type, etc).." value="<?php 
+                        if(isset($lastRoll['transaction_desc'])){
+                            if(is_numeric($lastRoll['transaction_desc'])){
+                                echo $lastRoll['transaction_desc']+1;
+                            } else {
+                                echo $lastRoll['transaction_desc'];
+                            }
+                        } else {
+                            echo set_value('transaction_desc'); }
+                        ?>">
                     <?= form_error('roll_no', '<small class="text-danger pl-2">', '</small>') ?>
                     <small>Alpha numerical.</small>
                 </div>

@@ -100,6 +100,7 @@ class Production extends CI_Controller
         } else {
             $data['getID']['description'] = 1;
             $data['getID']['product_name'] = 1;
+            $data['getID']['date'] = time();
         }
         
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
@@ -126,6 +127,7 @@ class Production extends CI_Controller
         } else {
             $data['getID']['description'] = 1;
             $data['getID']['product_name'] = 1;
+            $data['getID']['date'] = time();
         }
         
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
@@ -661,7 +663,7 @@ class Production extends CI_Controller
             $code = $this->input->post('code');
             $weight = $this->input->post('weight');
             $lipatan = $this->input->post('lipatan');
-            $date = time();
+            $date = time() - 86400;
             $amount = $this->input->post('amount');
             $price = $this->input->post('price_roll');
             $batch = $this->input->post('batch');
@@ -1120,6 +1122,17 @@ class Production extends CI_Controller
         
         //gbj items
         $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
+
+         // Get the last roll item used in this production order
+        $last_record = $this->db->select('date')
+                       ->where('transaction_id', $prodID)
+                       ->order_by('id', 'DESC')
+                       ->limit(1)
+                       ->get('stock_finishedgoods')
+                       ->row_array();
+
+        // Convert timestamp to Y-m-d format for HTML date input
+        $data['last_date'] = $last_record ? date('Y-m-d', $last_record['date']) : date('Y-m-d');
 
         //MATERIAL ITEMS HERE
         //MATERIAL ITEMS HERE
