@@ -3,6 +3,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
+    // Configuration constants
+    const MAX_FAILED_ATTEMPTS = 3;
+    const LOCKOUT_DURATION = 1; // minutes
+    const RESET_ATTEMPTS_AFTER = 2; // minutes
+
     public function __construct()
     {
         parent::__construct();
@@ -32,34 +37,149 @@ class Auth extends CI_Controller
     {
         $nik = $this->input->post('nik');
         $password = $this->input->post('password');
-
+        
         $user = $this->db->get_where('user', ['nik' => $nik])->row_array();
-        //user ada
-        if ($user) {
-            //user aktif
-            if ($user['is_active'] == 1) {
-                //cek password
-                if (password_verify($password, $user['password'])) {
-                    $data = [
-                        'nik' => $user['nik'],
-                        'role_id' => $user['role_id']
-                    ];
-                    $this->session->set_userdata($data);
-                    redirect('user');
-                } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong password!</div>');
-                    redirect('auth');
-                }
-            } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">User is not active!</div>');
-                redirect('auth');
-            }
+        
+        if (!$user) {
+            $this->session->set_flashdata('message', 
+                '<div class="alert alert-danger" role="alert">User is not registered!</div>');
+            redirect('auth');
+            return;
+        }
+        
+        // Check if account is currently locked
+        if ($this->_isAccountLocked($user)) {
+            $lockout_remaining = $this->_getLockoutTimeRemaining($user);
+            $this->session->set_flashdata('message', 
+                '<div class="alert alert-danger" role="alert">
+                    Account is locked due to too many failed attempts. 
+                    Try again in ' . $lockout_remaining . ' minutes.
+                </div>');
+            redirect('auth');
+            return;
+        }
+        
+        // Check if user is active
+        if ($user['is_active'] != 1) {
+            $this->session->set_flashdata('message', 
+                '<div class="alert alert-danger" role="alert">User is not active!</div>');
+            redirect('auth');
+            return;
+        }
+        
+        // Verify password
+        if (password_verify($password, $user['password'])) {
+            // Successful login - reset failed attempts
+            $this->_resetFailedAttempts($nik);
+            
+            // Set session data
+            $data = [
+                'nik' => $user['nik'],
+                'role_id' => $user['role_id']
+            ];
+            $this->session->set_userdata($data);
+            redirect('user');
+            
         } else {
-            //tidak ada user
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">User is not registered!</div>');
+            // Failed login - increment failed attempts
+            $this->_recordFailedAttempt($nik);
+            
+            $user = $this->db->get_where('user', ['nik' => $nik])->row_array(); // Get updated data
+            $remaining_attempts = self::MAX_FAILED_ATTEMPTS - $user['failed_attempts'];
+            
+            if ($remaining_attempts <= 0) {
+                $this->session->set_flashdata('message', 
+                    '<div class="alert alert-danger" role="alert">
+                        Account locked due to too many failed attempts. 
+                        Try again in ' . self::LOCKOUT_DURATION . ' minutes.
+                    </div>');
+            } else {
+                $this->session->set_flashdata('message', 
+                    '<div class="alert alert-danger" role="alert">
+                        Wrong password! ' . $remaining_attempts . ' attempts remaining.
+                    </div>');
+            }
             redirect('auth');
         }
     }
+    
+    private function _isAccountLocked($user)
+    {
+        // Check if account has failed attempts
+        if ($user['failed_attempts'] < self::MAX_FAILED_ATTEMPTS) {
+            return false;
+        }
+        
+        // Check if lockout period has expired
+        if ($user['locked_until'] && strtotime($user['locked_until']) > time()) {
+            return true;
+        }
+        
+        // Lockout expired, reset the account
+        if ($user['locked_until'] && strtotime($user['locked_until']) <= time()) {
+            $this->_resetFailedAttempts($user['nik']);
+            return false;
+        }
+        
+        return false;
+    }
+    
+    private function _getLockoutTimeRemaining($user)
+    {
+        if (!$user['locked_until']) {
+            return 0;
+        }
+        
+        $remaining_seconds = strtotime($user['locked_until']) - time();
+        return max(0, ceil($remaining_seconds / 60)); // Convert to minutes
+    }
+    
+    private function _recordFailedAttempt($nik)
+    {
+        // Get current failed attempts
+        $user = $this->db->get_where('user', ['nik' => $nik])->row_array();
+        $current_attempts = $user['failed_attempts'];
+        
+        // Check if we should reset attempts (if last attempt was too long ago)
+        if ($user['last_failed_attempt']) {
+            $last_attempt_time = strtotime($user['last_failed_attempt']);
+            $reset_time = time() - (self::RESET_ATTEMPTS_AFTER * 60);
+            
+            if ($last_attempt_time < $reset_time) {
+                $current_attempts = 0; // Reset if last attempt was more than 30 minutes ago
+            }
+        }
+        
+        $new_attempts = $current_attempts + 1;
+        $now = date('Y-m-d H:i:s');
+        
+        $update_data = [
+            'failed_attempts' => $new_attempts,
+            'last_failed_attempt' => $now
+        ];
+        
+        // If max attempts reached, set lockout time
+        if ($new_attempts >= self::MAX_FAILED_ATTEMPTS) {
+            $lockout_until = date('Y-m-d H:i:s', time() + (self::LOCKOUT_DURATION * 60));
+            $update_data['locked_until'] = $lockout_until;
+        }
+        
+        $this->db->where('nik', $nik);
+        $this->db->update('user', $update_data);
+    }
+    
+    private function _resetFailedAttempts($nik)
+    {
+        $update_data = [
+            'failed_attempts' => 0,
+            'locked_until' => null,
+            'last_failed_attempt' => null
+        ];
+        
+        $this->db->where('nik', $nik);
+        $this->db->update('user', $update_data);
+    }
+
 
     //fucntion callback for TOS and privacy
     function accept_terms()
