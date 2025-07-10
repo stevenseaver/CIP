@@ -80,6 +80,16 @@ class Production extends CI_Controller
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
 
+        $lastMaterial = $this->db->select('date')
+                            ->where('transaction_id', $id)
+                            ->where('status', 3)
+                            ->order_by('id', 'DESC')
+                            ->limit(1)
+                            ->get('stock_material')
+                            ->row_array();
+        
+        $data['last_date'] = $lastMaterial ? date('Y-m-d', $lastMaterial['date']) : date('Y-m-d', time());
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -105,6 +115,16 @@ class Production extends CI_Controller
         
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
+
+        $lastMaterial = $this->db->select('date')
+                            ->where('transaction_id', $id)
+                            ->where('status', 3)
+                            ->order_by('id', 'DESC')
+                            ->limit(1)
+                            ->get('stock_material')
+                            ->row_array();
+        
+        $data['last_date'] = $lastMaterial ? date('Y-m-d', $lastMaterial['date']) : date('Y-m-d', time());
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -133,11 +153,22 @@ class Production extends CI_Controller
         $data['material_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $id])->result_array();
         $data['po_id'] = $id;
 
+        $lastMaterial = $this->db->select('date')
+                            ->where('transaction_id', $id)
+                            ->where('status', 3)
+                            ->order_by('id', 'DESC')
+                            ->limit(1)
+                            ->get('stock_material')
+                            ->row_array();
+        
+        $data['last_date'] = $lastMaterial ? date('Y-m-d', $lastMaterial['date']) : date('Y-m-d', time());
+
         $this->form_validation->set_rules('materialSelect', 'material', 'required');
         $this->form_validation->set_rules('amount', 'amount', 'required|trim');
         $this->form_validation->set_rules('description', 'description', 'required|trim');
         $this->form_validation->set_rules('campuran', 'mix amount', 'required|trim|numeric');
         $this->form_validation->set_rules('product_name', 'product name', 'required|trim');
+        $this->form_validation->set_rules('report_date', 'date', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             // $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops something sure is missing!</div>');
@@ -153,7 +184,8 @@ class Production extends CI_Controller
             $materialID = $this->input->post('materialSelect');
             $price = $this->input->post('price');
             $product_name = $this->input->post('product_name');
-            $date = time();
+            // $date = time();
+            $date = strtotime($this->input->post('report_date'));
             $amount = $this->input->post('amount');
             $description = $this->input->post('description');
             $campuran = $this->input->post('campuran');
@@ -589,17 +621,17 @@ class Production extends CI_Controller
         $data['po_id'] = $prodID;
 
         // Get the last roll item used in this production order
-        $lastRoll = $this->db->select('name, code, weight, lipatan, price, batch, transaction_desc')
+        $lastRoll = $this->db->select('name, code, weight, lipatan, price, batch, transaction_desc, date')
                             ->where('transaction_id', $prodID)
                             ->where('status', 3)
-                            ->order_by('date', 'DESC')
+                            ->order_by('id', 'DESC')
                             ->limit(1)
                             ->get('stock_roll')
                             ->row_array();
         
         $data['lastRoll'] = $lastRoll;
+        $data['last_date'] = $data['lastRoll'] ? date('Y-m-d', $data['lastRoll']['date']) : date('Y-m-d', time());
 
-        //MATERIAL ITEMS HERE
         //MATERIAL ITEMS HERE
         //get material data
         $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
@@ -650,6 +682,7 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('price_roll', 'price', 'trim|required');
         $this->form_validation->set_rules('batch', 'batch', 'trim|required');
         $this->form_validation->set_rules('roll_no', 'roll description', 'trim|required');
+        $this->form_validation->set_rules('report_date', 'date', 'trim|required');
 
         if ($this->form_validation->run() == false) {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
@@ -663,7 +696,8 @@ class Production extends CI_Controller
             $code = $this->input->post('code');
             $weight = $this->input->post('weight');
             $lipatan = $this->input->post('lipatan');
-            $date = time() - 86400;
+            $date = strtotime($this->input->post('report_date'));
+            // $date = time() - 86400;
             $amount = $this->input->post('amount');
             $price = $this->input->post('price_roll');
             $batch = $this->input->post('batch');
@@ -1132,7 +1166,7 @@ class Production extends CI_Controller
                        ->row_array();
 
         // Convert timestamp to Y-m-d format for HTML date input
-        $data['last_date'] = $last_record ? date('Y-m-d', $last_record['date']) : date('Y-m-d');
+        $data['last_date'] = $last_record ? date('Y-m-d', $last_record['date']) : date('Y-m-d', time());
 
         //MATERIAL ITEMS HERE
         //MATERIAL ITEMS HERE

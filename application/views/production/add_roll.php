@@ -278,23 +278,23 @@
     </div>
 
     <form action="<?= base_url('production/add_roll_item/') . $po_id . '/2/2/' ?>" method="post">
-        <div class="form-group">
-            <!-- Item code -->
-            <label for="po_id" class="col-form-label">Production Order ID</label>
-            <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
-            <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
-        </div>
-        <!-- <div class="row">                       
+        <div class="row">                       
             <div class="col-lg-6">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="po_id" class="col-form-label">Production Order ID</label>
+                    <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
+                    <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="report_date" class="col-form-label">Date</label>
-                    <input type="datetime-local" class="form-control" id="report_date" name="report_date" value="<?= set_value('report_date') ?>">
+                    <input type="date" class="form-control" id="report_date" name="report_date" value="<?= isset($lastRoll['date']) ? $last_date : set_value('report_date'); ?>">
                     <?= form_error('report_date', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-        </div> -->
+        </div>
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-group">

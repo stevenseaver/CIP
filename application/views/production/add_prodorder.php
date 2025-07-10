@@ -109,11 +109,22 @@
     ?>
     
     <form action="<?= base_url('production/add_item_prod/') . $po_id . '/3' ?>" method="post">
-        <div class="form-group">
-            <!-- Item code -->
-            <label for="po_id" class="col-form-label">Production Order ID</label>
-            <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
-            <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
+        <div class="row">                       
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="po_id" class="col-form-label">Production Order ID</label>
+                    <input type="text" class="form-control mb-1" id="po_id" name="po_id" readonly value="<?= $po_id ?>">
+                    <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="report_date" class="col-form-label">Date</label>
+                    <input type="date" class="form-control" id="report_date" name="report_date" value="<?= isset($last_date) ? $last_date : set_value('report_date'); ?>">
+                    <?= form_error('report_date', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-lg-6">
