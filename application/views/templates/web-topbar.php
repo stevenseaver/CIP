@@ -45,10 +45,19 @@
                 <div class="topbar-divider d-none d-sm-block"></div>
 
                 <ul class="navbar-nav">
+                    <!-- Nav Item - shop Button -->
+                    <li class="nav-item">
+                        <a class="nav-link" href='https://store.plastikrukun.com/' target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-cart"></i>
+                            <span>Belanja</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
                     <!-- Nav Item - login Button -->
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('auth'); ?>" target="_blank" rel="noopener noreferrer">
-                            <i class="bi bi-cart"></i>
+                            <i class="bi bi-box-arrow-in-rightcart"></i>
                             <span>Masuk</span>
                         </a>
                     </li>

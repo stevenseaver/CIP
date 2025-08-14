@@ -1,0 +1,66 @@
+<?php
+$pdf = new \TCPDF();
+
+// set document information
+$pdf->SetCreator('comp');
+$pdf->SetAuthor('CIP Information System');
+$pdf->SetTitle('Production Order');
+$pdf->SetSubject('PO List');
+$pdf->SetKeywords('production','order','material');
+
+$pdf->AddPage('P', 'mm', 'A4');
+$pdf->SetFont('', 'B', 14);
+$pdf->Cell(180, 10, "Order Produksi", 0, 1, 'C');
+$pdf->SetAutoPageBreak(true, 0);
+
+//PROD-ID
+$pdf->SetFont('', '', 12);
+$pdf->Cell(35, 7, 'ID Transaksi', 0, 0, 'L');
+$pdf->SetFont('', 'B', 12);
+$pdf->Cell(100, 7, $ref, 0, 1, 'L');
+//DATE
+$pdf->SetFont('', '', 12);
+$pdf->Cell(35, 7, 'Tanggal', 0, 0, 'L');
+$pdf->SetFont('', 'B', 12);
+$pdf->Cell(100, 7, date('d F Y H:i:s', $date), 0, 1, 'L');
+//Product name
+$pdf->SetFont('', '', 12);
+$pdf->Cell(35, 7, 'Nama Produk', 0, 0, 'L');
+$pdf->SetFont('', 'B', 12);
+$pdf->Cell(100, 7, $product_name, 0, 1, 'L');
+//Batch
+$pdf->SetFont('', '', 12);
+$pdf->Cell(35, 7, 'Partai', 0, 0, 'L');
+$pdf->SetFont('', 'B', 12);
+$pdf->Cell(100, 7, $batch, 0, 1, 'L');
+
+$temp = 0;
+$temp2 = 0;
+
+// Add Header
+$pdf->Ln(10);
+$pdf->SetFont('', 'B', 12);
+$pdf->Cell(8, 8, "No", 1, 0, 'C');
+$pdf->Cell(80, 8, "Jenis", 1, 0, 'C');
+$pdf->Cell(55, 8, "Berat", 1, 0, 'C');
+$pdf->Cell(25, 8, "Formula", 1, 1, 'C');
+$pdf->SetFont('', '', 12);
+$order = $this->db->get_where('stock_material', ['transaction_id' => $ref])->result();
+$i = 0;
+foreach ($order as $data) {
+    $i++;
+    $pdf->Cell(8, 7, $i, 1, 0, 'C');
+    $pdf->Cell(80, 7, $data->name, 1, 0);
+    $pdf->Cell(55, 7, number_format($data->outgoing, 3, ',', '.') . ' ' . $data->unit_satuan, 1, 0);
+    $formula = $data->outgoing/($data->item_desc*10) * 10;
+    $pdf->Cell(25, 7, $formula, 1, 1);
+    $temp = $temp + $data->outgoing;
+    $temp2 = $temp2 + $formula;
+}
+$pdf->Cell(88, 8, "Total", 1, 0, 'R');
+$pdf->Cell(55, 8, number_format($temp, 2, ',', '.') . ' kg', 1, 0, 'L');
+$pdf->Cell(25, 8, number_format($temp2, 2, '.', ','), 1, 1, 'L');
+
+$pdf->SetFont('', 'B', 8);
+$pdf->Cell(277, 10, "Order produksi ini tervalidasi otomatis.", 0, 1, 'L');
+$pdf->Output($ref . '.pdf');

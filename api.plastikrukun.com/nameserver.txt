@@ -1,0 +1,3 @@
+database : plar2935_cip_login
+username : plar2935_admin
+password : #RVw2VET)==K
