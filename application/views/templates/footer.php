@@ -1521,6 +1521,17 @@
          //extract data from data-* attributes of modal's toggle button
          var id = $(event.relatedTarget).data('id');
          var status = $(event.relatedTarget).data('categories');
+
+         var timestamp = $(event.relatedTarget).data('date');
+         var date = new Date(timestamp * 1000);
+
+         // Use LOCAL date components (not UTC)
+         var year = date.getFullYear();
+         var month = String(date.getMonth() + 1).padStart(2, '0');
+         var day = String(date.getDate()).padStart(2, '0');
+
+         var dateOnly = year + '-' + month + '-' + day;
+
          var qty = $(event.relatedTarget).data('qty');
          var price = $(event.relatedTarget).data('price');
          var desc = $(event.relatedTarget).data('desc');
@@ -1529,6 +1540,7 @@
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="edit_date"]').val(dateOnly);
          $(event.currentTarget).find('.modal-body input[name="categories"]').val(status);
          $(event.currentTarget).find('.modal-body input[name="adjust_amount"]').val(qty);
          $(event.currentTarget).find('.modal-body input[name="adjust_price"]').val(price);
@@ -1568,9 +1580,20 @@
          var amount = $(event.relatedTarget).data('amount');
          var desc1 = $(event.relatedTarget).data('desc1');
          var desc2 = $(event.relatedTarget).data('desc2');
+         
+         var timestamp = $(event.relatedTarget).data('date');
+         var date = new Date(timestamp * 1000);
+
+         // Use LOCAL date components (not UTC)
+         var year = date.getFullYear();
+         var month = String(date.getMonth() + 1).padStart(2, '0');
+         var day = String(date.getDate()).padStart(2, '0');
+
+         var dateOnly = year + '-' + month + '-' + day;
 
          // input passed data using JS to object INPUT inside modal #editModal
          $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="edit_date"]').val(dateOnly);
          $(event.currentTarget).find('.modal-body input[name="categories"]').val(status);
          $(event.currentTarget).find('.modal-body input[name="adjust_amount"]').val(amount);
          $(event.currentTarget).find('.modal-body input[name="edit_desc1"]').val(desc1);

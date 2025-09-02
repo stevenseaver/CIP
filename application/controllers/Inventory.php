@@ -266,9 +266,7 @@ class Inventory extends CI_Controller
             $transaction_status = $this->input->post('status');
             $amount = $this->input->post('amount');
             $info = $this->input->post('info');
-            // $info2 = $this->input->post('info2');
             $category = $data['getID']['categories'];
-            $date = time();
             $warehouse = 1;
             $supplier = $data['getID']['supplier'];
             $unit = $data['getID']['unit_satuan'];
@@ -277,9 +275,10 @@ class Inventory extends CI_Controller
             $trans_stat = 2;
             // 8 is purchasing, 2 is stock adjustment, the only transaction that adds to the final stock
             if ($transaction_status == 8 or $transaction_status == 2){
-                $date = time();
-                $year = date('y');
-                $month = date('m');
+                // $date = time();
+                $date = strtotime($this->input->post('date'));
+                $year = date('y', $date);
+                $month = date('m', $date);
 
                 //ref invoice=
                 if ($transaction_status == 8){
@@ -315,10 +314,9 @@ class Inventory extends CI_Controller
                 ];
             } else {
                 //other than purchasing, it reduces the final stock
-                $date = time();
-                $year = date('y');
-                $month = date('m');
-                $day = date('d');
+                $date = strtotime($this->input->post('date'));
+                $year = date('y', $date);
+                $month = date('m', $date);
                 
                 //ref po
                 if ($transaction_status == 6){
@@ -395,7 +393,9 @@ class Inventory extends CI_Controller
             $adjust_price = $this->input->post('adjust_price');
             $adjust_desc = $this->input->post('adjust_desc');
             $adjust_desc2 = $this->input->post('adjust_desc2');
-            $date = time();
+            $date = strtotime($this->input->post('edit_date'));
+            $year = date('y', $date);
+            $month = date('m', $date);
 
             $data['stockOld'] = $this->db->get_where('stock_material', ['id' => $idToEdit])->row_array();
 
@@ -410,6 +410,7 @@ class Inventory extends CI_Controller
 
             if ($category == 'Saldo Akhir') {
                 $data = [
+                    'date' => $date,
                     'description' => $adjust_desc,
                     'item_desc' => $adjust_desc2
                 ];
@@ -422,8 +423,8 @@ class Inventory extends CI_Controller
                 redirect('inventory/material_details/' . $id);
             } else if ($category == 'Saldo Awal') {
                 $data = [
+                    'date' => $date,
                     'in_stock' => $adjust_amount,
-                    // 'date' => $date,
                     'description' => $adjust_desc,
                     'item_desc' => $adjust_desc2
                 ];
@@ -448,9 +449,9 @@ class Inventory extends CI_Controller
                     $update_stock = ($stock_end_before - $stock_adjust_before) + $adjust_amount;
 
                     $data = [
+                        'date' => $date,
                         'incoming' => $adjust_amount,
                         'in_stock' => $update_stock,
-                        // 'date' => $date,
                         'price' => $adjust_price,
                         'description' => $adjust_desc,
                         'item_desc' => $adjust_desc2
@@ -475,9 +476,9 @@ class Inventory extends CI_Controller
                     $update_stock = ($stock_end_before + $stock_adjust_before) - $adjust_amount;
 
                     $data = [
+                        'date' => $date,
                         'outgoing' => $adjust_amount,
                         'in_stock' => $update_stock,
-                        // 'date' => $date,
                         'price' => $adjust_price,
                         'description' => $adjust_desc,
                         'item_desc' => $adjust_desc2
@@ -1401,13 +1402,13 @@ class Inventory extends CI_Controller
             $amount = $this->input->post('amount');
             $description = $this->input->post('description');
             $category = $data['getID']['categories'];
-            $date = time();
+            // $date = time();
             $warehouse = 3;
 
             $in_stockOld = $data['getID']['in_stock'];
             //3 is prod, 5 is return sales, 8 is purchasing, all adds to the final stock
             if ($transaction_status == 2 or $transaction_status == 3 or $transaction_status == 5 or $transaction_status == 8) {
-                $date = time();
+                $date = strtotime($this->input->post('date'));
                 $year = date('y');
                 $month = date('m');
                 $day = date('d');
@@ -1446,13 +1447,14 @@ class Inventory extends CI_Controller
                     'warehouse' => $warehouse,
                     'transaction_id' => $trans_id,
                     'description' => $description,
+                    'unit_satuan' => $data['getID']['unit_satuan']
                 ];
                 $data2 = [
                     'in_stock' => $in_stockOld + $amount,
                     'date' => $date
                 ];
             } else {
-                $date = time();
+                $date = strtotime($this->input->post('date'));
                 $year = date('y');
                 $month = date('m');
                 $day = date('d');
@@ -1478,7 +1480,8 @@ class Inventory extends CI_Controller
                     'date' => $date,
                     'warehouse' => $warehouse,
                     'transaction_id' => $trans_id,
-                    'description' => $description
+                    'description' => $description,
+                    'unit_satuan' => $data['getID']['unit_satuan']
                 ];
                 $data2 = [
                     'in_stock' => $in_stockOld - $amount,
@@ -1528,7 +1531,7 @@ class Inventory extends CI_Controller
             $adjust_amount = $this->input->post('adjust_amount');
             $edit_desc1 = $this->input->post('edit_desc1');
             $edit_desc2 = $this->input->post('edit_desc2');
-            $date = time();
+            $date = strtotime($this->input->post('edit_date'));
 
             $data['stockOld'] = $this->db->get_where('stock_finishedgoods', ['id' => $idToEdit])->row_array();
 
@@ -1575,7 +1578,7 @@ class Inventory extends CI_Controller
                     $data_update = [
                         'incoming' => $adjust_amount,
                         'in_stock' => ($stock_end_before - $stock_adjust_before) + $adjust_amount,
-                        // 'date' => $date,
+                        'date' => $date,
                         'batch' => $edit_desc1,
                         'description' => $edit_desc2
                     ];
@@ -1597,7 +1600,7 @@ class Inventory extends CI_Controller
                     $data_update = [
                         'outgoing' => $adjust_amount,
                         'in_stock' => ($stock_end_before + $stock_adjust_before) - $adjust_amount,
-                        // 'date' => $date,
+                        'date' => $date,
                         'batch' => $edit_desc1,
                         'description' => $edit_desc2
                     ];

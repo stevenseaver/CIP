@@ -21,6 +21,7 @@ class Api extends CI_Controller {
         }
 
         // Query the stock
+        $this->db->select('unit_satuan');
         $this->db->select_sum('in_stock');
         $this->db->from('stock_finishedgoods');
         $this->db->like('LOWER(name)', strtolower($name));
@@ -34,7 +35,7 @@ class Api extends CI_Controller {
                 ->set_output(json_encode([
                     'success' => true,
                     'item' => $name,
-                    'final_stock' => (float)$result->in_stock
+                    'final_stock' => (float)$result->in_stock . ' ' . $result->unit_satuan
                 ]));
         } else {
             $this->output

@@ -120,10 +120,10 @@
                                                 <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name'] ?>" data-id="<?= $ms['id'] ?>" data-qty="<?= $ms['in_stock'];?>" data-price="<?= $ms['price'];?>" data-desc="<?= $ms['description'] ?>" data-desc2="<?= $ms['item_desc'];?>" data-label="<?= 'Reason'; ?>">Edit</a>
                                             <?php } else { ?>
                                                 <?php if ($ms['status'] == '8' or $ms['status'] == '2') { //8 for purchasing and 2 for SA?> 
-                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name']; ?>" data-qty="<?= $ms['incoming'];?>" data-id="<?= $ms['id']; ?>" data-price="<?= $ms['price'];?>" data-desc="<?= $ms['description']; ?>" data-desc2="<?= $ms['item_desc'];?>" data-label="<?= 'Reference'; ?>">Edit</a>
+                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name']; ?>" data-qty="<?= $ms['incoming'];?>" data-id="<?= $ms['id']; ?>" data-price="<?= $ms['price'];?>" data-desc="<?= $ms['description']; ?>" data-desc2="<?= $ms['item_desc'];?>" data-label="<?= 'Reference'; ?>" data-date="<?= $ms['date']; ?>">Edit</a>
                                                     <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMaterialTransaction" data-cat="<?= $ms['status_name']; ?>" data-id="<?= $ms['id']; ?>" data-name="<?= $ms['name']; ?>" data-code="<?= $ms['code'] ?>" data-amount="<?= $ms['incoming']; ?>">Delete</a>
                                                 <?php } else { ?>
-                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name']; ?>" data-qty="<?= $ms['outgoing'];?>" data-id="<?= $ms['id']; ?>" data-price="<?= $ms['price'];?>" data-desc="<?= $ms['description'];?>" data-desc2="<?= $ms['item_desc'];?>" data-label="<?= 'Batch'; ?>">Edit</a>
+                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustMatTrans" data-categories="<?= $ms['status_name']; ?>" data-qty="<?= $ms['outgoing'];?>" data-id="<?= $ms['id']; ?>" data-price="<?= $ms['price'];?>" data-desc="<?= $ms['description'];?>" data-desc2="<?= $ms['item_desc'];?>" data-label="<?= 'Batch'; ?>" data-date="<?= $ms['date']; ?>">Edit</a>
                                                     <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteMaterialTransaction" data-cat="<?= $ms['status_name']; ?>" data-id="<?= $ms['id']; ?>" data-name="<?= $ms['name']; ?>" data-code="<?= $ms['code'] ?>" data-amount="<?= $ms['outgoing'] ?>">Delete</a>
                                                 <?php } ?>
                                             <?php } ?>
@@ -170,6 +170,12 @@
                         <label for="url" class="col-form-label">Code</label>
                         <input type="text" class="form-control mb-1" id="code" name="code" placeholder="Item code" readonly>
                         <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
+                        <!-- Trans Date -->
+                        <label for="date" class="col-form-label">Date</label>
+                        <input type="date" class="form-control mb-1" id="date" name="date" value="<?= date('Y-m-d', time()); ?>">
+                        <?= form_error('date', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
                         <!-- Item categories -->
@@ -241,6 +247,12 @@
                         <?= form_error('categories', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
+                        <!-- Trans Date -->
+                        <label for="edit_date" class="col-form-label">Date</label>
+                        <input type="date" class="form-control mb-1" id="edit_date" name="edit_date" value="<?= date('Y-m-d', $getID['date']); ?>">
+                        <?= form_error('edit_date', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
                         <!-- Stock -->
                         <label for="url" class="col-form-label">Amount Adjusted</label>
                         <input type="text" class="form-control mb-1" id="adjust_amount" name="adjust_amount" placeholder="Item Amount">
@@ -263,6 +275,7 @@
                         <label for="adjust_desc2" class="col-form-label">Item Description</label>
                         <input type="text" class="form-control mb-1" id="adjust_desc2" name="adjust_desc2" placeholder="Item description">
                         <?= form_error('adjust_desc2', '<small class="text-danger pl-2">', '</small>') ?>
+                        <small>Optional</small>
                     </div>
                 </div>
                 <div class="modal-footer">

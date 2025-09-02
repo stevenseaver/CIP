@@ -184,10 +184,10 @@
                                                 <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-id="<?= $fs['id']; ?>" data-categories="<?= $fs['status_name']; ?>" data-amount="<?= $fs['in_stock'];?>" data-desc1="<?= $fs['batch'];?>" data-desc2="<?= $fs['description'];?>">Edit</a>
                                             <?php } else { ?>
                                                 <?php if ($fs['status'] == '2' or $fs['status'] == '3' or $fs['status'] == '5' or $fs['status'] == '8') { ?>
-                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-categories="<?= $fs['status_name']; ?>" data-id="<?= $fs['id']; ?>" data-amount="<?= $fs['incoming'];?>" data-desc1="<?= $fs['batch'];?>" data-desc2="<?= $fs['description'];?>">Edit</a>
+                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-categories="<?= $fs['status_name']; ?>" data-id="<?= $fs['id']; ?>" data-amount="<?= $fs['incoming'];?>" data-desc1="<?= $fs['batch'];?>" data-desc2="<?= $fs['description'];?>" data-date="<?= $fs['date']; ?>">Edit</a>
                                                     <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteTransaction" data-cat="<?= $fs['status_name']; ?>" data-id="<?= $fs['id']; ?>" data-name="<?= $fs['name']; ?>" data-code="<?= $fs['code'] ?>" data-amount="<?= $fs['incoming'] ?>">Delete</a>
                                                 <?php } else { ?>
-                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-categories="<?= $fs['status_name']; ?>" data-id="<?= $fs['id']; ?>" data-amount="<?= $fs['outgoing'];?>" data-desc1="<?= $fs['batch'];?>" data-desc2="<?= $fs['description'];?>">Edit</a>
+                                                    <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-categories="<?= $fs['status_name']; ?>" data-id="<?= $fs['id']; ?>" data-amount="<?= $fs['outgoing'];?>" data-desc1="<?= $fs['batch'];?>" data-desc2="<?= $fs['description'];?>" data-date="<?= $fs['date']; ?>">Edit</a>
                                                     <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteTransaction" data-cat="<?= $fs['status_name'] ?>" data-id="<?= $fs['id'] ?>" data-name="<?= $fs['name'] ?>" data-code="<?= $fs['code'] ?>" data-amount="<?= $fs['outgoing'] ?>">Delete</a>
                                                 <?php } ?>
                                             <?php } ?>
@@ -239,12 +239,18 @@
                         <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
+                        <!-- Trans Date -->
+                        <label for="date" class="col-form-label">Date</label>
+                        <input type="date" class="form-control mb-1" id="date" name="date" value="<?= date('Y-m-d', time()); ?>">
+                        <?= form_error('date', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
                         <!-- Item categories -->
                         <label for="status" class="col-form-label">Categories</label>
                         <select name="status" id="status" class="form-control" value="<?= set_value('status') ?>">
                             <option value="">--Select Transactions--</option>
                             <?php foreach ($transactionStatus as $ts) : ?>
-                                <?php if ($ts['status_id'] != 1 and $ts['status_id'] != 7 and $ts['status_id'] != 6 and $ts['status_id'] != 9 and $ts['status_id'] != 10) {
+                                <?php if ($ts['status_id'] != 1 and $ts['status_id'] != 7 and $ts['status_id'] != 6 and $ts['status_id'] != 9 and $ts['status_id'] != 10 and $ts['status_id'] != 3) {
                                 ?> <option value="<?= $ts['status_id'] ?>"><?= $ts['status_name']; ?></option>
                                 <?
                                 } else {
@@ -252,7 +258,7 @@
                                 } ?>
                             <?php endforeach; ?>
                         </select>
-                        <small class="text-danger">Stock adjustment deduct Stock Akhir.</small>
+                        <small class="text-danger">Minus stock adjustment deduct final stock vice versa.</small>
                         <?= form_error('status', '<small class="text-danger">', '</small>') ?>
                     </div>
                     <div class="form-group">
@@ -302,6 +308,12 @@
                         <?= form_error('categories', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
+                        <!-- Trans Date -->
+                        <label for="edit_date" class="col-form-label">Date</label>
+                        <input type="date" class="form-control mb-1" id="edit_date" name="edit_date" value="<?= date('Y-m-d', $getID['date']); ?>">
+                        <?= form_error('edit_date', '<small class="text-danger pl-2">', '</small>') ?>
+                    </div>
+                    <div class="form-group">
                         <!-- Amount -->
                         <label for="url" class="col-form-label">Amount Adjusted</label>
                         <input type="text" class="form-control mb-1" id="adjust_amount" name="adjust_amount" placeholder="Item Amount">
@@ -311,7 +323,7 @@
                         <!-- Desc 1 -->
                         <label for="url" class="col-form-label">Batch/Reference</label>
                         <input type="text" class="form-control mb-1" id="edit_desc1" name="edit_desc1" placeholder="Production batch">
-                        <small>Not compulsory.</small>
+                        <small>Optional.</small>
                         <?= form_error('edit_desc1', '<small class="text-danger pl-2">', '</small>') ?>
                     </div>
                     <div class="form-group">
