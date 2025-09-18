@@ -322,7 +322,8 @@
                 <div class="form-group">
                     <!-- Item categories -->
                     <label for="gbjSelect" class="col-form-label">Item Name</label>
-                    <input type="text" class="form-control" id="gbjSelect" name="gbjSelect" readonly value="<?= set_value('gbjSelect'); ?>">
+                    <input type="text" class="form-control" id="gbjSelect" name="gbjSelect" readonly value="<?= isset($last_record['name']) ? $last_record['name'] : set_value('gbjSelect'); ?>">
+                    <small class="text-danger">Jangan lupa mengganti item jika item yang dimasukkan berbeda.</small>
                     <?= form_error('gbjSelect', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
@@ -330,21 +331,21 @@
                 <div class="form-group">
                     <!-- GBJ code -->
                     <label for="code" class="col-form-label">Code</label>
-                    <input type="text" class="form-control" id="code" name="code" readonly value="<?= set_value('code'); ?>">
+                    <input type="text" class="form-control" id="code" name="code" readonly value="<?= isset($last_record['code']) ? $last_record['code'] : set_value('code'); ?>">
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
                     <!-- Material in stock -->
                     <label for="instock" class="col-form-label">In Stock</label>
-                    <input type="text" class="form-control" id="instock" name="instock" readonly value="<?= set_value('instock'); ?>">
+                    <input type="text" class="form-control" id="instock" name="instock" readonly value="<?= isset($last_record['in_stock']) ? $last_record['in_stock'] : set_value('instock'); ?>">
                 </div>
             </div>
             <div class="col-lg-1">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="pcsperpack" class="col-form-label">Packing</label>
-                    <input type="text" class="form-control" id="pcsperpack" name="pcsperpack" value="<?= set_value('pcsperpack'); ?>" readonly>
+                    <input type="text" class="form-control" id="pcsperpack" name="pcsperpack" value="<?= isset($last_record['pcsperpack']) ? $last_record['pcsperpack'] : set_value('pcsperpack'); ?>" readonly>
                     <?= form_error('pcsperpack', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
@@ -352,7 +353,7 @@
                 <div class="form-group">
                     <!-- Pack per sack -->
                     <label for="packpersack" class="col-form-label">Pack/sack</label>
-                    <input type="text" class="form-control" id="packpersack" name="packpersack" readonly value="<?= set_value('packpersack'); ?>">
+                    <input type="text" class="form-control" id="packpersack" name="packpersack" readonly value="<?= isset($last_record['packpersack']) ? $last_record['packpersack'] : set_value('packpersack'); ?>">
                 </div>
             </div>
         </div>
@@ -380,7 +381,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">IDR</span>
                         </div>
-                        <input type="text" class="form-control" id="price_gbj" name="price_gbj" value="<?= set_value('price_gbj'); ?>" placeholder="Input COGS per kg">
+                        <input type="text" class="form-control" id="price_gbj" name="price_gbj" value="<?= isset($last_record['price']) ? $last_record['price'] : set_value('price_gbj'); ?>" placeholder="Input COGS per kg">
                     </div>
                     <small>Make sure this value is similar to COGS.</small>
                     <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
@@ -390,7 +391,8 @@
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="batch" class="col-form-label">Batch</label>
-                    <input type="text" class="form-control mb-1" id="batch" name="batch" placeholder="Product name/batch number" value="<?= $getRollID['batch'] . '-' ?> ">
+                    <!-- <input type="text" class="form-control mb-1" id="batch" name="batch" placeholder="Product name/batch number" value="<?= $getRollID['batch'] . '-' ?>"> -->
+                    <input type="text" class="form-control mb-1" id="batch" name="batch" placeholder="Product name/batch number" value="<?= isset($last_record['batch']) ? $last_record['batch'] : $getRollID['batch'] . '-'; ?>">
                     <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
                     <small>Batch number YEARrandomWEEK-EL-S-Cutting Line. Mandatory to add Cutting Line (CL).</small>
                 </div>

@@ -1158,7 +1158,7 @@ class Production extends CI_Controller
         $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
 
          // Get the last roll item used in this production order
-        $last_record = $this->db->select('date')
+        $last_record = $this->db->select('name, code, in_stock, pcsperpack, packpersack, date, price, batch')
                        ->where('transaction_id', $prodID)
                        ->order_by('id', 'DESC')
                        ->limit(1)
@@ -1166,6 +1166,7 @@ class Production extends CI_Controller
                        ->row_array();
 
         // Convert timestamp to Y-m-d format for HTML date input
+        $data['last_record'] = $last_record;
         $data['last_date'] = $last_record ? date('Y-m-d', $last_record['date']) : date('Y-m-d', time());
 
         //MATERIAL ITEMS HERE
@@ -1199,7 +1200,6 @@ class Production extends CI_Controller
 
 		return $token;
 	}
-
 
     public function add_gbj_item($prodID, $status, $warehouse)
     {
