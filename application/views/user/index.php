@@ -330,27 +330,170 @@
             </div>
         </div>
         
+        <?php if ($user['role_id'] == 1 or $user['role_id'] == 2 or $user['role_id'] == 7) { ?>
+            <div class="row">
+                <?php
+                    $temp = 0;
+                    $total_revenue = 0;
+                    //current periode revenue
+                    foreach ($sales_data as $sales) :
+                        if ($before != $sales['ref']) { 
+                            $date_now = time(); 
+                            foreach ($sales_data as $amount) :
+                                if ($amount['ref'] == $sales['ref']) {
+                                    $value = ($amount['price']-$amount['discount']) * $amount['qty'];
+                                    $temp = $temp + $value; 
+                                } else {
+
+                                }
+                            endforeach;
+                            // echo number_format($temp, 2, ',', '.'); 
+                            $total_revenue = $temp + $total_revenue;
+                            $total_revenue;
+                            $before = $sales['ref'];
+                            $temp = 0;
+                            $tax = 0;
+                        } else {
+                        }
+                    endforeach; 
+                    //year to date revenue (annually)
+                    $temp = 0;
+                    $ytd_revenue = 0;
+                    foreach ($ytd_sales as $sales) :
+                        if ($before != $sales['ref']) { 
+                            $date_now = time(); 
+                            foreach ($ytd_sales as $amount) :
+                                if ($amount['ref'] == $sales['ref']) {
+                                    $value = ($amount['price']-$amount['discount']) * $amount['qty'];
+                                    $temp = $temp + $value; 
+                                } else {
+
+                                }
+                            endforeach;
+                            // echo number_format($temp, 2, ',', '.'); 
+                            $ytd_revenue = $temp + $ytd_revenue;
+                            $ytd_revenue;
+                            $before = $sales['ref'];
+                            $temp = 0;
+                            $tax = 0;
+                        } else {
+                        }
+                    endforeach; 
+                    //all time payables
+                    $temp = 0; 
+                    $payables = 0;
+                    foreach ($inventory_item_received as $inv_rcv) :
+                        if ($before != $inv_rcv['transaction_id']) { 
+                            $date_now = time();
+                            $due_date = $inv_rcv['date'] + $inv_rcv['term'] * 24 * 3600;
+                            if($inv_rcv['is_paid'] == 0 and $due_date < $date_now ) {
+                                foreach ($inventory_item_received as $amount) :
+                                    if ($amount['transaction_id'] == $inv_rcv['transaction_id']) {
+                                        $value = $amount['price'] * $amount['incoming'];
+                                        $temp = $temp + $value; 
+                                    } else {
+
+                                    }
+                                endforeach;
+                                if($inv_rcv['tax'] == 0){
+
+                                } else if ($inv_rcv['tax'] == 1) {
+                                    $data['purchase_tax'] = $this->db->get_where('settings', ['parameter' => 'purchase_tax'])->row_array();
+                                    $purchase_tax = $data['purchase_tax']['value'];
+                                    
+                                    $tax = $purchase_tax/100 * $temp;
+
+                                    $temp = $temp + $tax;
+                                }
+                                $payables = $temp + $payables;
+                                $before = $inv_rcv['transaction_id'];
+                                $temp = 0;
+                                $tax = 0;
+                            } else {
+
+                            }
+                        } else {
+                        }  
+                    endforeach; 
+                ?>
+                <!-- Earnings (Monthly) Card -->
+                <a class="col-xl-4 col-md-6 mb-4" href=" <?= base_url('sales/salesinfo?start_date=' . $start_date . '&end_date=' . $end_date . '') ?>" style="text-decoration:none">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="font-weight-bold text-primary mb-1">
+                                        Earnings (This Month)</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">IDR <?= number_format($total_revenue, 2, ',', '.'); ?></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="bi bi-currency-dollar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <!-- Earnings (Year-to-date) Card -->
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="font-weight-bold text-primary mb-1">
+                                        Earnings (Year-to-Date)</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">IDR <?= number_format($ytd_revenue, 2, ',', '.'); ?></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="bi bi-currency-dollar fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Employee Leave Card -->
+                <a class="col-xl-4 col-md-6 mb-4" href="<?= base_url('purchasing/purchaseinfo') ?>" style="text-decoration:none">
+                    <div class="card border-left-warning shadow h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="font-weight-bold text-warning mb-1">
+                                        Accounts Payable (Due to-date)</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">IDR <?= number_format($payables, 2, ',', '.'); ?></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        <?php } else {
+             
+        } ?>
+
         <div class="row">
             <?php
-            $temp = 0;
-            $salesOrder = $temp;
-            $before = '';
-            foreach ($dataCartSO as $items) :
-                if ($before != $items['ref']) {
-                    $before = $items['ref'];
-                    $temp++;
-                } else {
-                }
+                $temp = 0;
                 $salesOrder = $temp;
-            endforeach;
+                $before = '';
+                foreach ($dataCartSO as $items) :
+                    if ($before != $items['ref']) {
+                        $before = $items['ref'];
+                        $temp++;
+                    } else {
+                    }
+                    $salesOrder = $temp;
+                endforeach;
             ?>
-            <!-- Earnings (Monthly) Card Example -->
+            
+            <!-- Sales order -->
             <a class="col-xl-4 col-md-6 mb-4" href=" <?= base_url('sales') ?>" style="text-decoration:none">
                 <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Sales Order
+                                <div class="font-weight-bold text-info mb-1">Sales Order
                                 </div>
                                 <div class="row no-gutters align-items-center">
                                     <div class="col-auto">
@@ -376,7 +519,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                <div class="font-weight-bold text-success mb-1">
                                     Message from Customer</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $custMessage ?></div>
                             </div>
@@ -394,7 +537,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                <div class="font-weight-bold text-warning mb-1">
                                     Employee Leave Requests</div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $employeeLeaveCount ?></div>
                             </div>
@@ -406,44 +549,44 @@
                 </div>
             </a>
         </div>
+
         <?php
-        $i = 1;
-        $temp = 0;
-        foreach ($materialStock as $ms) :
-            $value = $ms['price'] * $ms['in_stock'];
-            $temp = $temp + $value;
-        endforeach;
-        $materialValue = $temp;
+            $i = 1;
+            $temp = 0;
+            foreach ($materialStock as $ms) :
+                $value = $ms['price'] * $ms['in_stock'];
+                $temp = $temp + $value;
+            endforeach;
+            $materialValue = $temp;
 
-        $temp = 0;
-        foreach ($rollStock as $rs) :
-            $value = $rs['price'] * $rs['in_stock'];
-            $temp = $temp + $value;
-        endforeach;
-        $prodValue = $temp;
+            $temp = 0;
+            foreach ($rollStock as $rs) :
+                $value = $rs['price'] * $rs['in_stock'];
+                $temp = $temp + $value;
+            endforeach;
+            $prodValue = $temp;
 
-        $temp = 0;
-        foreach ($fgStock as $fg) :
-            $value = $fg['price'] * $fg['in_stock'];
-            $temp = $temp + $value;
-        endforeach;
-        $gbjValue = $temp;
+            $temp = 0;
+            foreach ($fgStock as $fg) :
+                $value = $fg['price'] * $fg['in_stock'];
+                $temp = $temp + $value;
+            endforeach;
+            $gbjValue = $temp;
 
-        $totalWarehouseValue = $materialValue + $prodValue + $gbjValue;
-        if ($totalWarehouseValue != 0){
-            $percentMaterial = ($materialValue / $totalWarehouseValue) * 100;
-            $percentProd = ($prodValue / $totalWarehouseValue) * 100;
-            $percentGBJ = ($gbjValue / $totalWarehouseValue) * 100;
-        } else {
-            $percentMaterial = 0;
-            $percentProd = 0;
-            $percentGBJ = 0;
-        }
+            $totalWarehouseValue = $materialValue + $prodValue + $gbjValue;
+            if ($totalWarehouseValue != 0){
+                $percentMaterial = ($materialValue / $totalWarehouseValue) * 100;
+                $percentProd = ($prodValue / $totalWarehouseValue) * 100;
+                $percentGBJ = ($gbjValue / $totalWarehouseValue) * 100;
+            } else {
+                $percentMaterial = 0;
+                $percentProd = 0;
+                $percentGBJ = 0;
+            }
         ?>
         <!-- Content Row -->
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-lg-12 mb-2">
-                <!-- Project Card Example -->
                 <div class="card shadow mb-1">
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">Accounts Payable Due Purchase Info</h6>
@@ -526,10 +669,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Sales Info -->
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-lg-12 mb-2">
                 <div class="card shadow mb-1">
                     <div class="card-header py-3">
@@ -635,7 +778,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Content Row -->
         <div class="row">

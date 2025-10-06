@@ -52,21 +52,33 @@
                                     <th>PO Number</th>
                                     <th>Date</th>
                                     <th>Supplier</th>
+                                    <th>Amount</th>
                                     <th>Reference</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $i = 1;
-                                $temp = 0; ?>
+                                $temp = 0;
+                                $total_amount = 0; ?>
                                 <?php foreach ($inventory_item as $inv) :
                                     if ($before != $inv['transaction_id']) { ?>
                                         <tr>
                                             <!-- <td><?= $i ?></td> -->
-                                            <td><?= $inv['transaction_id'] ?></td>
+                                            <td><?= $inv['transaction_id']; ?></td>
                                             <td><?= date('d F Y H:i:s', $inv['date']); ?></td>
-                                            <td><?= $inv['supplier_name'] ?></td>
-                                            <td><?= $inv['description'] ?></td>
+                                            <td><?= $inv['supplier_name']; ?></td>
+                                            <?php 
+                                                foreach ($inventory_item as $amount) :
+                                                    if ($amount['transaction_id'] == $inv['transaction_id']) {
+                                                        $total_amount = $total_amount + $amount['price'] * $amount['incoming'];
+                                                    } else {
+                                                        
+                                                    }
+                                                endforeach;
+                                            ?>
+                                            <td><?= number_format($total_amount, 0, ',', '.'); ?></td>
+                                            <td><?= $inv['description']; ?></td>
                                             <?php $value = $inv['price'] * $inv['in_stock'];
                                             $temp = $temp + $value;  ?>
                                             <!-- <td><?= number_format($value, 0, ',', '.') ?></td> -->
@@ -79,6 +91,7 @@
                                         </tr>
                                     <?php
                                         $before = $inv['transaction_id'];
+                                        $total_amount = 0;
                                         $i++;
                                     } else {
                                     } ?>

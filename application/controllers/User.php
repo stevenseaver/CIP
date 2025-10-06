@@ -29,6 +29,7 @@ class User extends CI_Controller
             
             foreach($data['periode'] as $per) :
                 if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
+                    $data['periode_id'] = $per['id'];
                     $data['current_periode'] = $per['period'];
                     $data['start_date'] = $per['start_date'];
                     $data['end_date'] = $per['end_date'];
@@ -45,7 +46,10 @@ class User extends CI_Controller
             $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
             $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
 
+            $data['periode_id'] = $data['selectedMonth']['id'];
             $data['current_periode'] = $data['selectedMonth']['period'];
+            $data['start_date'] = $data['selectedMonth']['start_date'];
+            $data['end_date'] = $data['selectedMonth']['end_date'];
         }
 
         $data['employeeLeaveCount'] = $this->db->count_all_results('leave_list');
@@ -65,14 +69,28 @@ class User extends CI_Controller
         $data['rollStock'] = $this->db->get_where('stock_roll', ['status' => 7])->result_array();
         //get FG database
         $data['fgStock'] = $this->db->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+
         //get Receive order
         $transaction_query = 2; //received order only
         $status = 8; //purchase order data only
         $this->load->model('Warehouse_model', 'warehouse_id');
         $data['inventory_item_received'] = $this->warehouse_id->purchaseOrderMaterialWH($transaction_query, $status);
-        //get sales info
+
+        //get this periode sales info
         $this->load->model('Sales_model', 'custID');
         $data['sales_data'] = $this->custID->getSaleswithTimeFrameDualParameters(0, 4, $start_date, $end_date);
+        
+        //get this year sales info
+        //get current year
+        $currentYear = date('Y');
+        //calculate the timestamp for the beginning of the current year (January 1st, 00:00:00)
+        $startOfYearTimestamp = strtotime("{$currentYear}-01-01 00:00:00");
+
+        //calculate the timestamp for the end of the current year (December 31st, 23:59:59)
+        $endOfYearTimestamp = strtotime("{$currentYear}-12-31 23:59:59");
+
+        $this->load->model('Sales_model', 'custID');
+        $data['ytd_sales'] = $this->custID->getSaleswithTimeFrameDualParameters(0, 4, $startOfYearTimestamp, $endOfYearTimestamp);
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

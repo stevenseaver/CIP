@@ -15,37 +15,21 @@ class Production extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
+        // Get date parameters
         $start_date = $this->input->get('start_date');
         $end_date = $this->input->get('end_date');
-        $periode_id = $this->input->get('name');
-
-        if($this->input->get('start_date') == null){
-            //show data in current periode
+        
+        // If no dates provided, use current month
+        if ($start_date == null || $end_date == null) {
             $current_time = time();
-            $current_year = date('Y', $current_time);
-            
-            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
-            
-            foreach($data['periode'] as $per) :
-                if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
-                    $data['current_periode'] = $per['period'];
-                    $data['start_date'] = $per['start_date'];
-                    $data['end_date'] = $per['end_date'];
-                };
-            endforeach;
-            
-            $start_date = $data['start_date'];
-            $end_date = $data['end_date'];
-        } else {
-            //get data parameters
-            $current_time = time();
-            $current_year = date('Y', $current_time);
-            
-            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
-            $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
-
-            $data['current_periode'] = $data['selectedMonth']['period'];
-        };
+            $year = date('Y', $current_time);
+            $month = date('n', $current_time);
+            $start_date = mktime(0, 0, 0, $month, 1, $year);
+            $end_date = mktime(23, 59, 59, $month, date('t', $start_date), $year);
+        }
+        
+        $data['start_date'] = $start_date;
+        $data['end_date'] = $end_date;
 
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
@@ -541,37 +525,21 @@ class Production extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
+        // Get date parameters
         $start_date = $this->input->get('start_date');
         $end_date = $this->input->get('end_date');
-        $periode_id = $this->input->get('name');
-
-        if($this->input->get('start_date') == null){
-            //show data in current periode
+        
+        // If no dates provided, use current month
+        if ($start_date == null || $end_date == null) {
             $current_time = time();
-            $current_year = date('Y', $current_time);
-            
-            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
-            
-            foreach($data['periode'] as $per) :
-                if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
-                    $data['current_periode'] = $per['period'];
-                    $data['start_date'] = $per['start_date'];
-                    $data['end_date'] = $per['end_date'];
-                };
-            endforeach;
-            
-            $start_date = $data['start_date'];
-            $end_date = $data['end_date'];
-        } else {
-            //get data parameters
-            $current_time = time();
-            $current_year = date('Y', $current_time);
-            
-            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
-            $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
-
-            $data['current_periode'] = $data['selectedMonth']['period'];
+            $year = date('Y', $current_time);
+            $month = date('n', $current_time);
+            $start_date = mktime(0, 0, 0, $month, 1, $year);
+            $end_date = mktime(23, 59, 59, $month, date('t', $start_date), $year);
         }
+        
+        $data['start_date'] = $start_date;
+        $data['end_date'] = $end_date;
 
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
@@ -1063,37 +1031,52 @@ class Production extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
+        // $start_date = $this->input->get('start_date');
+        // $end_date = $this->input->get('end_date');
+        // $periode_id = $this->input->get('name');
+
+        // if($this->input->get('start_date') == null){
+        //     //show data in current periode
+        //     $current_time = time();
+        //     $current_year = date('Y', $current_time);
+            
+        //     $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+            
+        //     foreach($data['periode'] as $per) :
+        //         if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
+        //             $data['current_periode'] = $per['period'];
+        //             $data['start_date'] = $per['start_date'];
+        //             $data['end_date'] = $per['end_date'];
+        //         };
+        //     endforeach;
+            
+        //     $start_date = $data['start_date'];
+        //     $end_date = $data['end_date'];
+        // } else {
+        //     //get data parameters
+        //     $current_time = time();
+        //     $current_year = date('Y', $current_time);
+            
+        //     $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+        //     $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
+
+        //     $data['current_periode'] = $data['selectedMonth']['period'];
+        // }
+        // Get date parameters
         $start_date = $this->input->get('start_date');
         $end_date = $this->input->get('end_date');
-        $periode_id = $this->input->get('name');
-
-        if($this->input->get('start_date') == null){
-            //show data in current periode
+        
+        // If no dates provided, use current month
+        if ($start_date == null || $end_date == null) {
             $current_time = time();
-            $current_year = date('Y', $current_time);
-            
-            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
-            
-            foreach($data['periode'] as $per) :
-                if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
-                    $data['current_periode'] = $per['period'];
-                    $data['start_date'] = $per['start_date'];
-                    $data['end_date'] = $per['end_date'];
-                };
-            endforeach;
-            
-            $start_date = $data['start_date'];
-            $end_date = $data['end_date'];
-        } else {
-            //get data parameters
-            $current_time = time();
-            $current_year = date('Y', $current_time);
-            
-            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
-            $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
-
-            $data['current_periode'] = $data['selectedMonth']['period'];
+            $year = date('Y', $current_time);
+            $month = date('n', $current_time);
+            $start_date = mktime(0, 0, 0, $month, 1, $year);
+            $end_date = mktime(23, 59, 59, $month, date('t', $start_date), $year);
         }
+        
+        $data['start_date'] = $start_date;
+        $data['end_date'] = $end_date;
 
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
