@@ -8,32 +8,6 @@
             $data['items'] = $this->db->get_where('settings', ['parameter' => 'header_color'])->row_array();
             $color = $data['items']['value'];
         ?>
-    
-        <!-- <div class="dropdown text-center my-2">
-            <button class="btn btn-<?= $color?> dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                <a id="periode_show" name="periode_show"><?= $current_periode ?></a>
-            </button>
-    
-            <div class="dropdown-menu">
-                <?php $j = 0;
-                $current_time = time();
-                $year = date('Y', $current_time);
-                $month = date('m', $current_time);
-                foreach($periode as $per) : 
-                    if($per['year'] <= $year and $per['year'] >= $year-1 or $per['year'] == '0') { 
-                        if($per['year'] < $year or $per['month'] <= $month) {?>
-                            <a class="dropdown-item" href="<?= base_url('production/gbj_report?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
-                        <?php } else {
-                        
-                        }?>
-                    <?php
-                    }
-                    else { 
-
-                    };
-                endforeach; ?>
-            </div>
-        </div> -->
     </div>
 
     <div class="row">

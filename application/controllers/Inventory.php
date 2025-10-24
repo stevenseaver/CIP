@@ -2133,6 +2133,7 @@ class Inventory extends CI_Controller
         //get maintenance data
         $data['asset_maintenance'] = $this->db->get_where('asset_maintenance', array('inv_code' => $data['inventory']['code']))->result_array();
 
+        $this->form_validation->set_rules('report_date', 'date', 'required|trim');
         $this->form_validation->set_rules('code', 'code', 'required|trim');
         $this->form_validation->set_rules('analysis', 'analysis', 'required|trim');
         $this->form_validation->set_rules('solution', 'solution', 'required|trim');
@@ -2148,6 +2149,7 @@ class Inventory extends CI_Controller
             $this->load->view('inventory/maintenance', $data);
             $this->load->view('templates/footer');
         } else {
+            $date = strtotime($this->input->post('report_date'));
             $code = $this->input->post('code');
             $analysis = $this->input->post('analysis');
             $solution = $this->input->post('solution');
@@ -2161,43 +2163,43 @@ class Inventory extends CI_Controller
             $file_ext = pathinfo($upload_image, PATHINFO_EXTENSION);
 
             if ($upload_image) {
-                $config['file_name']            = $data['inventory']['code'] . '_' . time() . '.' . $file_ext;
-                $config['upload_path']          = './asset/img/maintenance/';
-                $config['allowed_types']        = 'gif|jpg|png';
-                $config['max_size']             = 5120;
-                $config['overwrite']            = TRUE;
-                $config['remove_spaces']        = FALSE;
-
+                //cek jika ada gambar yang akan di upload
+                $config['file_name'] = $code . '_' . time() . '.' . $file_ext;
+                $config['upload_path'] = './asset/img/maintenance/';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg|heif';
+                $config['max_size'] = 5120;
+                
                 $this->load->library('upload', $config);
                 $this->upload->initialize($config);
-
+                
                 if ($this->upload->do_upload('image')) {
-                    // $new_image = $this->upload->data('file_name');
                     $new_image = $this->upload->data('file_name');
-                    // echo $new_image;
-
+                    
                     $data1 = [
+                        'date' => $date,
                         'inv_code' => $code,
                         'analysis' => $description,
                         'pic' => $pic,
                         'photos' => $new_image
                     ];
-        
                     $this->db->insert('asset_maintenance', $data1);
+                    
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
-                    // redirect('inventory/maintenance/' . $id);
-                };
+                    redirect('inventory/maintenance/' . $id);
+                    return;
+                }
             } else {
+                // No image uploaded
                 $data1 = [
+                    'date' => $date,
                     'inv_code' => $code,
                     'analysis' => $description,
-                    'pic' => $pic,
-                    // 'photos' => $new_image
+                    'pic' => $pic
                 ];
-    
                 $this->db->insert('asset_maintenance', $data1);
-            };
+            }
+
             redirect('inventory/maintenance/' . $id);
         }
     }

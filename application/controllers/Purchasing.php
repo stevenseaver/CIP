@@ -231,36 +231,18 @@ class Purchasing extends CI_Controller
 
         $start_date = $this->input->get('start_date');
         $end_date = $this->input->get('end_date');
-        $periode_id = $this->input->get('name');
 
-        if($this->input->get('start_date') == null){
-            //show data in current periode
+        if ($start_date == null || $end_date == null) {
             $current_time = time();
-            $current_year = date('Y', $current_time);
-            
-            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
-            
-            foreach($data['periode'] as $per) :
-                if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
-                    $data['current_periode'] = $per['period'];
-                    $data['start_date'] = $per['start_date'];
-                    $data['end_date'] = $per['end_date'];
-                };
-            endforeach;
-            
-            $start_date = $data['start_date'];
-            $end_date = $data['end_date'];
-        } else {
-            //get data parameters
-            $current_time = time();
-            $current_year = date('Y', $current_time);
-            
-            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
-            $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
-
-            $data['current_periode'] = $data['selectedMonth']['period'];
+            $year = date('Y', $current_time);
+            $month = date('n', $current_time);
+            $start_date = mktime(0, 0, 0, $month, 1, $year);
+            $end_date = mktime(23, 59, 59, $month, date('t', $start_date), $year);
         }
-
+        
+        $data['start_date'] = $start_date;
+        $data['end_date'] = $end_date;
+        
         //load inventory item of trans status = 2
         $transaction_query = 2; //receive order data
         $status = 8; //purchase order data only
@@ -452,35 +434,45 @@ class Purchasing extends CI_Controller
 
         $start_date = $this->input->get('start_date');
         $end_date = $this->input->get('end_date');
-        $periode_id = $this->input->get('name');
+        // $periode_id = $this->input->get('name');
 
-        if($this->input->get('start_date') == null){
-            //show data in current periode
-            $current_time = time();
-            $current_year = date('Y', $current_time);
+        // if($this->input->get('start_date') == null){
+        //     //show data in current periode
+        //     $current_time = time();
+        //     $current_year = date('Y', $current_time);
             
-            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+        //     $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
             
-            foreach($data['periode'] as $per) :
-                if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
-                    $data['current_periode'] = $per['period'];
-                    $data['start_date'] = $per['start_date'];
-                    $data['end_date'] = $per['end_date'];
-                };
-            endforeach;
+        //     foreach($data['periode'] as $per) :
+        //         if ($current_time >= $per['start_date'] and $current_time <= $per['end_date']){
+        //             $data['current_periode'] = $per['period'];
+        //             $data['start_date'] = $per['start_date'];
+        //             $data['end_date'] = $per['end_date'];
+        //         };
+        //     endforeach;
             
-            $start_date = $data['start_date'];
-            $end_date = $data['end_date'];
-        } else {
-            //get data parameters
-            $current_time = time();
-            $current_year = date('Y', $current_time);
+        //     $start_date = $data['start_date'];
+        //     $end_date = $data['end_date'];
+        // } else {
+        //     //get data parameters
+        //     $current_time = time();
+        //     $current_year = date('Y', $current_time);
             
-            $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
-            $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
+        //     $data['periode'] = $this->db->get_where('periode_counter', ['year <=' => $current_year])->result_array();
+        //     $data['selectedMonth'] = $this->db->get_where('periode_counter', ['id' => $periode_id])->row_array();
 
-            $data['current_periode'] = $data['selectedMonth']['period'];
+        //     $data['current_periode'] = $data['selectedMonth']['period'];
+        // }
+        if ($start_date == null || $end_date == null) {
+            $current_time = time();
+            $year = date('Y', $current_time);
+            $month = date('n', $current_time);
+            $start_date = mktime(0, 0, 0, $month, 1, $year);
+            $end_date = mktime(23, 59, 59, $month, date('t', $start_date), $year);
         }
+        
+        $data['start_date'] = $start_date;
+        $data['end_date'] = $end_date;
 
         $status = 8; //purchase order data only
 

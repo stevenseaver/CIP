@@ -38,10 +38,16 @@
                 <div class="modal-body">
                     <form action="<?= base_url('inventory/add_maintenance_data/' . $inventory['id']); ?>" method="post">
                         <div class="form-group">
-                            <!-- Item code -->
+                            <!-- Inventory code -->
                             <label for="code" class="col-form-label">Item Code</label>
                             <input type="text" class="form-control mb-1" id="code" name="code" readonly value="<?= $inventory['code'] ?> ">
                             <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                        <!-- Date -->
+                        <div class="form-group">
+                            <label for="report_date" class="col-form-label">Date</label>
+                            <input type="datetime-local" class="form-control" id="report_date" name="report_date" value="">
+                            <?= form_error('report_date', '<small class="text-danger pl-2">', '</small>') ?>
                         </div>
                         <div class="form-group">
                             <!-- Analysis -->
@@ -125,6 +131,7 @@
                 <div class="h5 text-dark">Maintenance data</div>
                 <tr>
                     <th>No</th>
+                    <th>Date</th>
                     <th>Analysis</th>
                     <th>PIC</th>
                     <th>Photos</th>
@@ -138,6 +145,7 @@
                 <?php foreach ($asset_maintenance as $am) : ?>
                     <tr>
                         <td><?= $i ?></td>
+                        <td><?= date('d F Y H:i:s', $am['date']); ?></td>
                         <td><?= $am['analysis'] ?></td>
                         <td><?= $am['pic'] ?></td>
                         <td><img class="img-fluid rounded" src="<?= base_url('asset/img/maintenance/') . $am['photos'] ?>" alt="" style="width: 15rem;"></td>
