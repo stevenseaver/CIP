@@ -97,7 +97,7 @@
                         </a>
                     </p>
                     <p>
-                        <a href="mailto:info@plastikrukun.com" class="text-dark" target="_blank" rel="noopener noreferrer">
+                        <a href="mailto:info@plastikrukun.com?subject=web-&cc=rukun.gemilang.perkasa@gmail.com" class="text-dark" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-envelope mr-1"></i>
                             <span>info@plastikrukun.com</span>
                         </a>

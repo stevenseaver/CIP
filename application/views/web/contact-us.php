@@ -24,7 +24,7 @@
                             <p class="text-primary mb-0">info@plastikrukun.com</p>
                             <p class="text-secondary mb-0">Senin - Jumat</p>
                             <p class="text-secondary mb-0">09.00 - 16.00 (WIB/GMT+7)</p>
-                            <a href="mailto:info@plastikrukun.com" class="text-dark" target="_blank" rel="noopener noreferrer">
+                            <a href="mailto:info@plastikrukun.com?subject=web-&cc=rukun.gemilang.perkasa@gmail.com" class="text-dark" target="_blank" rel="noopener noreferrer">
                                 <p class="text-primary mb-0">E-mail kami &rarr; </p>
                             </a>
                         </div>
