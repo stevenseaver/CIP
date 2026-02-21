@@ -288,8 +288,8 @@
                 <tr class="align-items-center">
                     <td colspan="5"> </td>
                     <td class="text-left"><strong>Net Roll Weight</strong></td>
-                    <?php $net_weight = $total - $waste; ?>
-                    <td class="text-left text-primary"><?= number_format($net_weight, '2', ',', '.'); ?> kg</td>
+                    <?php $net_roll_weight = $total - $waste; ?>
+                    <td class="text-left text-primary"><?= number_format($net_roll_weight, '2', ',', '.'); ?> kg</td>
                     <td colspan="2"> </td>
                     <td class="text-right"><strong>Extrusion Waste</strong></td>
                     <?php 
@@ -333,15 +333,16 @@
             </thead>
             <tbody>
                 <?php
-                    $i = 1;
-                    $temp = 0;
-                    $waste_roll = 0;
-                    $waste_plong = 0;
-                    $waste_other = 0;
-                    $temp_total = 0;
-                    $percent_waste = 0;
-                    $percent_plong = 0;
-                    $percent_other = 0;
+                $i = 1;
+                $temp = 0;
+                $waste_roll = 0;
+                $waste_plong = 0;
+                $waste_other = 0;
+                $temp_total = 0;
+                $percent_waste = 0;
+                $percent_plong = 0;
+                $percent_other = 0;
+                $temp_finishgood = 0;
                 foreach ($gbjItems as $ms) : ?>
                     <tr>
                         <td><?= $i ?></td>
@@ -395,6 +396,11 @@
                             $waste_other = $waste_other + $ms['incoming'];
                         };
 
+                        if($ms['unit_satuan'] == 'pack'){
+                            $temp_finishgood = $temp_finishgood + $ms['incoming'];
+                        } else {
+                        }
+
                         $i++;
                     ?>
                 <?php endforeach; ?>
@@ -426,7 +432,14 @@
                 <tr>
                     <td colspan="4"> </td>
                     <td class="text-left"><strong>Net Item Weight</strong></td>
-                    <?php $net_weight_gbj = $total - $waste_roll - $waste_plong - $waste_other; ?>
+                    <?php 
+                        $net_weight_gbj = $total - $waste_roll - $waste_plong - $waste_other;
+                        if($temp_finishgood == 0){
+                            $total_finishedgoods = $net_weight_gbj; 
+                        } else {
+                            $total_finishedgoods = $temp_finishgood; 
+                        }
+                    ?>
                     <td class="text-left text-primary"><?= number_format($net_weight_gbj, '2', ',', '.'); ?> kg</td>
                     <td colspan="3"> </td>
                     <td class="text-left"><strong>Plong Waste</strong></td>
@@ -460,6 +473,80 @@
                 </tr>
             </tfoot>
         </table>
+    </div>
+
+    <!-- <div>
+        <?php 
+            //this should be input from user
+            $price_per_unit = 9750; 
+            $production_cost = 4000;
+            //this should be input from user
+
+            $total_cogs = $hpp + $production_cost;
+            $total_value_prod = $total_cogs * $totalWeight;
+            $total_fg_value = $price_per_unit * $total_finishedgoods;
+            $semi_net_margin = ($total_fg_value - $total_value_prod) / $total_value_prod;
+        ?>
+        <p>Total COGS Rp <?= number_format($total_cogs, '2', ',', '.'); ?> x <?= number_format($totalWeight, '2', ',', '.');?> = Rp <?= number_format($total_value_prod, '2', ',', '.'); ?> </p>
+        <p>Total Finished Goods: <?= number_format($total_finishedgoods, '2', ',', '.'); ?> x <?= $price_per_unit; ?> = Rp <?= number_format($total_fg_value, '2', ',', '.'); ?></p>
+        <p>Semi-net margin = <?= number_format($semi_net_margin *100, '2', ',', '.'); ?>%</p>
+    </div> -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-chart-line mr-2"></i>Financial Summary</h5>
+        </div>
+        <div class="card-body">
+            <!-- Inputs -->
+            <div class="row mb-4">
+                <div class="col-md-6 mb-3">
+                    <label class="font-weight-bold text-muted small text-uppercase">Price per Unit (Rp)</label>
+                    <input type="number" id="price_per_unit" class="form-control" value="0">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="font-weight-bold text-muted small text-uppercase">Production Cost (Rp)</label>
+                    <input type="number" id="production_cost" class="form-control" value="4000">
+                </div>
+            </div>
+
+            <div class="row text-center mb-3">
+                <!-- COGS Card -->
+                <div class="col-md-4 mb-3">
+                    <div class="card border-left-danger h-100">
+                        <div class="card-body">
+                            <p class="text-muted small text-uppercase font-weight-bold mb-1">Total COGS</p>
+                            <h5 class="font-weight-bold">Rp <span id="display_cogs">-</span></h5>
+                            <p class="text-muted small mb-1">× <?= number_format($totalWeight, 2, ',', '.') ?> kg</p>
+                            <hr>
+                            <h6 class="text-danger font-weight-bold">Rp <span id="display_total_value_prod">-</span></h6>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Finished Goods Card -->
+                <div class="col-md-4 mb-3">
+                    <div class="card border-left-success h-100">
+                        <div class="card-body">
+                            <p class="text-muted small text-uppercase font-weight-bold mb-1">Total Finished Goods</p>
+                            <h5 class="font-weight-bold"><?= number_format($total_finishedgoods, 2, ',', '.') ?> units</h5>
+                            <p class="text-muted small mb-1">× Rp <span id="display_price_per_unit">9.750</span></p>
+                            <hr>
+                            <h6 class="text-success font-weight-bold">Rp <span id="display_fg_value">-</span></h6>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Margin Card -->
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100" id="margin_card">
+                        <div class="card-body d-flex flex-column justify-content-center">
+                            <p class="text-muted small text-uppercase font-weight-bold mb-1">Semi-Net Margin</p>
+                            <h2 class="font-weight-bold" id="display_margin">-</h2>
+                            <p class="text-muted small mb-0" id="display_margin_label"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- /.container-fluid -->
@@ -565,5 +652,44 @@
             }
         ]
 
+    });
+
+    $(document).ready(function () {
+        const hpp = <?= $hpp ?>;
+        const totalWeight = <?= $totalWeight ?>;
+        const totalFinishedGoods = <?= $total_finishedgoods ?>;
+
+        function formatNumber(val) {
+            return val.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function calculate() {
+            const pricePerUnit   = parseFloat($('#price_per_unit').val()) || 0;
+            const productionCost = parseFloat($('#production_cost').val()) || 0;
+
+            const totalCogs        = hpp + productionCost;
+            const totalValueProd   = totalCogs * totalWeight;
+            const totalFgValue     = pricePerUnit * totalFinishedGoods;
+            const semiNetMargin    = totalValueProd > 0 ? (totalFgValue - totalValueProd) / totalValueProd : 0;
+            const marginPercent    = semiNetMargin * 100;
+            const profitable       = semiNetMargin >= 0;
+
+            $('#display_cogs').text(formatNumber(totalCogs));
+            $('#display_total_value_prod').text(formatNumber(totalValueProd));
+            $('#display_price_per_unit').text(formatNumber(pricePerUnit));
+            $('#display_fg_value').text(formatNumber(totalFgValue));
+            $('#display_margin').text(formatNumber(marginPercent) + '%')
+                .removeClass('text-success text-danger')
+                .addClass(profitable ? 'text-success' : 'text-danger');
+            $('#display_margin_label').text(profitable ? 'Profitable ✓' : 'Loss ✗');
+            $('#margin_card')
+                .removeClass('border-left-success border-left-danger')
+                .addClass(profitable ? 'border-left-success' : 'border-left-danger');
+        }
+
+        $('#price_per_unit, #production_cost').on('input', calculate);
+
+        // Run on page load
+        calculate();
     });
 </script>

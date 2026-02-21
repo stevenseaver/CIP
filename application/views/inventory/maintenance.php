@@ -35,8 +35,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form action="<?= base_url('inventory/add_maintenance_data/' . $inventory['id']); ?>" method="post">
+                <form action="<?= base_url('inventory/add_maintenance_data/' . $inventory['id']); ?>" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
                         <div class="form-group">
                             <!-- Inventory code -->
                             <label for="code" class="col-form-label">Item Code</label>
@@ -148,7 +148,8 @@
                         <td><?= date('d F Y H:i:s', $am['date']); ?></td>
                         <td><?= $am['analysis'] ?></td>
                         <td><?= $am['pic'] ?></td>
-                        <td><img class="img-fluid rounded" src="<?= base_url('asset/img/maintenance/') . $am['photos'] ?>" alt="" style="width: 15rem;"></td>
+                        <!-- <td><img class="img-fluid rounded" src="<?= base_url('asset/img/maintenance/') . $am['photos']; ?>" alt="" style="width: 15rem;"></td> -->
+                        <td><a data-toggle="modal" data-target="#imageModal" data-img="<?= base_url('asset/img/maintenance/') . $am['photos']; ?>"><img class="rounded mb-3" style="width:10rem" src="<?= base_url('asset/img/maintenance/') . $am['photos']; ?>"></img></a></td>
                         <td>
                             <!-- <a data-toggle="modal" data-target="#editMaintenanceData" class="badge badge-warning text-white clickable" data-id="<?= $am['id'] ?>"><i class="bi bi-pencil-fill"> </i>Edit</a> -->
                             <a data-toggle="modal" data-target="#deleteMaintenanceData" data-id="<?= $am['id'] ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete</a>
@@ -199,3 +200,38 @@
         </div>
     </div>
 </div>
+
+<!-- Modal for sertifikasi halal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body pt-0">
+                <div class="row text-center">
+                    <div class="col p-0">
+                        <img id="modalImage" src="" class="my-4 rounded img-fluid" style="width: 50rem;">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-end">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <script>
+    $('#imageModal').on('show.bs.modal', function (event) {
+        var imgSrc = $(event.relatedTarget).data('img');
+        $('#modalImage').attr('src', imgSrc);
+    });
+</script> -->
+<script>
+    $(document).ready(function() {
+        $('#imageModal').on('show.bs.modal', function (event) {
+            var imgSrc = $(event.relatedTarget).data('img');
+            $('#modalImage').attr('src', imgSrc);
+        });
+    });
+</script>
