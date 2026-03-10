@@ -588,6 +588,17 @@ class Production extends CI_Controller
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
         $data['po_id'] = $prodID;
 
+        // Get the last material item used in this production order
+        $lastMaterial = $this->db->select('date')
+                            ->where('transaction_id', $prodID)
+                            ->where('status', 3)
+                            ->order_by('id', 'DESC')
+                            ->limit(1)
+                            ->get('stock_material')
+                            ->row_array();
+        
+        $data['last_material_date'] = $lastMaterial ? date('Y-m-d', $lastMaterial['date']) : date('Y-m-d', time());
+
         // Get the last roll item used in this production order
         $lastRoll = $this->db->select('name, code, weight, lipatan, price, batch, transaction_desc, date')
                             ->where('transaction_id', $prodID)
@@ -609,7 +620,6 @@ class Production extends CI_Controller
             $data['getID']['description'] = 1;
             $data['getID']['product_name'] = 1;
         };
-        //MATERIAL ITEMS HERE
         //MATERIAL ITEMS HERE
 
         $this->load->view('templates/header', $data);
@@ -767,7 +777,7 @@ class Production extends CI_Controller
             $materialID = $this->input->post('materialSelect');
             $price = $this->input->post('price');
             $product_name = $this->input->post('product_name');
-            $date = time();
+            $date = strtotime($this->input->post('report_date'));
             $amount = $this->input->post('mat_amount');
             $description = $this->input->post('description');
             $campuran = $this->input->post('campuran');
@@ -1140,7 +1150,18 @@ class Production extends CI_Controller
         //gbj items
         $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
 
-         // Get the last roll item used in this production order
+        // Get the last material item used in this production order
+        $lastMaterial = $this->db->select('date')
+                            ->where('transaction_id', $prodID)
+                            ->where('status', 3)
+                            ->order_by('id', 'DESC')
+                            ->limit(1)
+                            ->get('stock_material')
+                            ->row_array();
+        
+        $data['last_material_date'] = $lastMaterial ? date('Y-m-d', $lastMaterial['date']) : date('Y-m-d', time());
+
+        // Get the last roll item used in this production order
         $last_record = $this->db->select('name, code, in_stock, pcsperpack, packpersack, date, price, batch')
                        ->where('transaction_id', $prodID)
                        ->order_by('id', 'DESC')
@@ -1153,16 +1174,16 @@ class Production extends CI_Controller
         $data['last_date'] = $last_record ? date('Y-m-d', $last_record['date']) : date('Y-m-d', time());
 
         //MATERIAL ITEMS HERE
-        //MATERIAL ITEMS HERE
         //get material data
         $data['material'] = $this->db->order_by('categories','ASC')->get_where('stock_material', ['status' => 7])->result_array();
         $data['IDCheck'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
-
+        //MATERIAL ITEMS HERE
+        
         if ($data['IDCheck'] != null) {
-        } else {
-            $data['IDCheck']['description'] = 1;
-            $data['IDCheck']['product_name'] = 1;
-        };
+            } else {
+                $data['IDCheck']['description'] = 1;
+                $data['IDCheck']['product_name'] = 1;
+                };
         
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -1714,7 +1735,7 @@ class Production extends CI_Controller
             $materialID = $this->input->post('materialSelect');
             $price = $this->input->post('price');
             $product_name = $this->input->post('product_name');
-            $date = time();
+            $date = strtotime($this->input->post('report_date'));
             $amount = $this->input->post('amount');
             $description = $this->input->post('description');
             $campuran = $this->input->post('campuran');
