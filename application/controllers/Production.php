@@ -203,6 +203,7 @@ class Production extends CI_Controller
             ];
 
             $this->db->insert('stock_material', $data);
+            // log_audit('stock_material', $po_id, 'CREATE');
 
             $data2 = [
                 'in_stock' => $stock_old - $amount,
@@ -275,6 +276,7 @@ class Production extends CI_Controller
         $this->db->where('status', '7');
         $this->db->where('code', $materialID);
         $this->db->update('stock_material', $data2);
+        // log_audit('stock_material', $prodID, 'UPDATE');
     }
 
     //update production order material amount

@@ -51,7 +51,7 @@
                             // Display current selected period
                             $current_period_name = 'Select Month';
                             for ($i = 0; $i < 12; $i++) {
-                                $month_time = strtotime("-$i months");
+                                $month_time = strtotime("-$i months", mktime(0, 0, 0, date('n'), 1, date('Y')));
                                 $year = date('Y', $month_time);
                                 $month = date('n', $month_time);
                                 $month_start = mktime(0, 0, 0, $month, 1, $year);
@@ -70,7 +70,7 @@
                             <?php
                             // Generate last 12 months
                             for ($i = 0; $i < 12; $i++) {
-                                $month_time = strtotime("-$i months");
+                                $month_time = strtotime("-$i months", mktime(0, 0, 0, date('n'), 1, date('Y')));
                                 $year = date('Y', $month_time);
                                 $month = date('n', $month_time);
                                 $month_start = mktime(0, 0, 0, $month, 1, $year);

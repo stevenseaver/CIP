@@ -118,7 +118,7 @@
                                                 if($fs['status'] == 3 or $fs['status'] == 9) { ?>
                                                     <a href="<?= base_url('production/gbj_details/') . $fs['transaction_id']; ?>"><?= $fs['transaction_id']; ?></a>
                                                 <?php } else if($fs['status'] == 4) { ?>
-                                                    <a href="<?= base_url('sales/invoice_detail/') . $fs['transaction_id']; ?>"><?= $fs['transaction_id']; ?></a>
+                                                    <a href="<?= base_url('sales/info_detail/') . $fs['transaction_id']; ?>"><?= $fs['transaction_id']; ?></a>
                                                 <?php } else {
                                                     echo $fs['transaction_id'];
                                                 };
