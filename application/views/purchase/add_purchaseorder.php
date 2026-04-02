@@ -6,6 +6,7 @@
     <div class="row">
         <div class="col-lg-12">
             <?= $this->session->flashdata('message'); ?>
+            <?= $this->session->flashdata('audit_message'); ?>
         </div>
     </div>
 

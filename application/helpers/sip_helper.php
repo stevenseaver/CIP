@@ -50,18 +50,3 @@ function load_cart()
     $result = $ci->db->get('cart')->result_array();
     return $result;
 }
-
-// function log_audit($table_name, $reference, $action, $old_value = null, $new_value = null) {
-function log_audit($table_name, $reference, $action) {
-    $ci = get_instance();
-    $ci->db->insert('audit_trail', [
-        'user_id'    => $ci->session->userdata('user_id'),
-        'username'   => $ci->session->userdata('username'),
-        'action'     => strtoupper($action),
-        'table_name' => $table_name,
-        'reference'  => $reference,
-        // 'old_value'  => $old_value ? json_encode($old_value) : null,
-        // 'new_value'  => $new_value ? json_encode($new_value) : null,
-        'ip_address' => $ci->input->ip_address(),
-    ]);
-}

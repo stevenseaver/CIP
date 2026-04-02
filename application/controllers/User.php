@@ -168,6 +168,18 @@ class User extends CI_Controller
                 }
             }
 
+            $old_data = [
+                'name' => $data['user']['name'],
+                'noktp' => $data['user']['noktp'],
+                'email' => $data['user']['email'],
+                'address' => $data['user']['address'],
+                'city' => $data['user']['city'],
+                'province' => $data['user']['province'],
+                'country' => $data['user']['country'],
+                'postal' => $data['user']['postal'],
+                'phone_number' => $data['user']['phone_number']
+            ];
+
             $data = [
                 'name' => $this->input->post('name'),
                 'noktp' => $this->input->post('noktp'),
@@ -181,10 +193,19 @@ class User extends CI_Controller
             ];
 
             $this->db->where('nik', $nik);
-            $this->db->update('user', $data);
-
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profile successfully updated!</div>');
-            redirect('user/my_profile');
+            if ($this->db->update('user', $data)) {
+                $this->load->model('Audit_model', 'audit');
+                $audit_id = $this->audit->log_audit('user', $nik, 'UPDATE', $old_data, $data);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed: ' . $data['user']['id']);
+                    $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
+                } 
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Profile successfully updated!</div>');
+                redirect('user/my_profile');
+            } else {
+                $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Profile update failed!</div>');
+                redirect('user/my_profile');
+            }
         }
     }
 
@@ -216,15 +237,25 @@ class User extends CI_Controller
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">New password must not be similar to old password!</div>');
                     redirect('user/changepassword');
                 } else {
+                    $old_password_hash = password_hash($current_password, PASSWORD_DEFAULT);
                     $password_hash = password_hash($new_password, PASSWORD_DEFAULT);
                     $nik = $this->session->userdata('nik');
 
                     $this->db->set('password', $password_hash);
                     $this->db->where('nik', $nik);
-                    $this->db->update('user');
-
-                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Password changed!</div>');
-                    redirect('user/changepassword');
+                    if($this->db->update('user')){
+                        $this->load->model('Audit_model', 'audit');
+                        $audit_id = $this->audit->log_audit('user', $nik, 'UPDATE', $old_password_hash, $password_hash);
+                        if (!$audit_id) {
+                            log_message('error', 'Audit log failed: ' . $data['user']['id']);
+                            $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
+                        }
+                        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Password changed!</div>');
+                        redirect('user/changepassword');
+                    } else {
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Password change failed!</div>');
+                        redirect('user/changepassword');
+                    }
                 }
             }
         }
