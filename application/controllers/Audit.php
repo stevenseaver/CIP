@@ -14,6 +14,7 @@ class Audit extends CI_Controller
         $data['title'] = 'Audit Trails';
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
+        $data['audit'] = $this->db->get('audit_trail')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);

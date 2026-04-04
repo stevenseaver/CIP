@@ -79,8 +79,14 @@ class Auth extends CI_Controller
                 'role_id' => $user['role_id'],
                 'username' => $user['name']
             ];
-            
-            $this->session->set_userdata($data);
+            $this->session->set_userdata($data); 
+
+            $this->load->model('Audit_model', 'audit');
+            $audit_id = $this->audit->log_audit('-', $nik, 'LOGIN', '-', '-');
+            var_dump($nik);
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            }
             redirect('user');
             
         } else {
