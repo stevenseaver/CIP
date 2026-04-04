@@ -539,7 +539,7 @@
      //js for amount change on production order quantity per item input on change
      $('.material-qty').on('change', function() {
          const id = $(this).data('id');
-         const prodID = $(this).data('prodID');
+         const prodID = $(this).data('prodid');
          
          const qtyID = document.getElementById("materialAmount-" + id).value;
 
@@ -562,7 +562,7 @@
      //js for amount change on production order quantity per item input on change
      $('.desc-qty').on('change', function() {
          const id = $(this).data('id');
-         const prodID = $(this).data('prodID');
+         const prodID = $(this).data('prodid');
 
          const qtyID = document.getElementById("descAmount-" + id).value;
 
@@ -585,7 +585,7 @@
      //js for amount change on material mixing usage per item input on change (mixed materials aggregate)
      $('.usage-qty').on('change', function() {
          const id = $(this).data('id');
-         const prodID = $(this).data('prodID');
+         const prodID = $(this).data('prodid');
 
          const qtyID = document.getElementById("usageAmount-" + id).value;
 
@@ -608,7 +608,7 @@
      //js for amount change on roll item prod order quantity input on change
      $('.roll-qty').on('change', function() {
          const id = $(this).data('id');
-         const prodID = $(this).data('prodID');
+         const prodID = $(this).data('prodid');
 
          const qtyID = document.getElementById("rollAmount-" + id).value;
 

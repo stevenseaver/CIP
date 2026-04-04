@@ -531,7 +531,7 @@
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><?= $ms['item_desc'] ?></td>
                         <td><?= $formula ?></td>
-                        <td><input id="usageAmount-<?= $ms['id'] ?>" class="usage-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['term'], 2, ',', '.'); ?>"></td>
+                        <td><input id="usageAmount-<?= $ms['id'] ?>" class="usage-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodid="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['term'], 2, ',', '.'); ?>"></td>
                         <td><?= $remaining ?></td>
                         <!-- Column term is used so no additional column to check the materials mixing usage -->
                     </tr>
@@ -610,7 +610,7 @@
                         <td><?= $ms['weight']; ?></td>
                         <td><?= $ms['lipatan']; ?></td>
                         <?php if ($ms['status'] != 9){ ?>
-                            <td style="width: 100px"><input id="rollAmount-<?= $ms['id'] ?>" class="roll-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> 
+                            <td style="width: 100px"><input id="rollAmount-<?= $ms['id'] ?>" class="roll-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodid="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> 
                         <?php } else {
                             if($ms['transaction_desc'] == 'Bulk cut'){ ?>
                                 <td class="text-danger">-<?= number_format($ms['outgoing'], 2, ',', '.'); ?> kg</td>

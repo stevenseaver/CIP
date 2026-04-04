@@ -169,6 +169,7 @@ class User extends CI_Controller
             }
 
             $old_data = [
+                'id' => $data['user']['id'],
                 'name' => $data['user']['name'],
                 'noktp' => $data['user']['noktp'],
                 'email' => $data['user']['email'],
@@ -195,7 +196,7 @@ class User extends CI_Controller
             $this->db->where('nik', $nik);
             if ($this->db->update('user', $data)) {
                 $this->load->model('Audit_model', 'audit');
-                $audit_id = $this->audit->log_audit('user', $nik, 'UPDATE', $old_data, $data);
+                $audit_id = $this->audit->log_audit('user', $old_data['id'], $nik, 'UPDATE', $old_data, $data);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed: ' . $data['user']['id']);
                     $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
@@ -245,7 +246,7 @@ class User extends CI_Controller
                     $this->db->where('nik', $nik);
                     if($this->db->update('user')){
                         $this->load->model('Audit_model', 'audit');
-                        $audit_id = $this->audit->log_audit('user', $nik, 'UPDATE', $old_password_hash, $password_hash);
+                        $audit_id = $this->audit->log_audit('user', $data['user']['id'], $nik, 'UPDATE', $old_password_hash, $password_hash);
                         if (!$audit_id) {
                             log_message('error', 'Audit log failed: ' . $data['user']['id']);
                             $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');

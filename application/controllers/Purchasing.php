@@ -59,7 +59,7 @@ class Purchasing extends CI_Controller
             $data['input_sup_id'] = null;
             $data['input_sup_term']= null;
             $data['existing_date']= null;
-        }
+        };
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -166,19 +166,20 @@ class Purchasing extends CI_Controller
             ];
             
             if($this->db->insert('stock_material', $data)){
+                $inserted_id = $this->db->insert_id();
                 $this->load->model('Audit_model', 'audit');
-                $audit_id = $this->audit->log_audit('stock_material', $po_id, 'CREATE', '-', 'Added item: ' . $materialName);
+                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'CREATE', '-', $materialName);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed on Purchasing/add_item_po()');
                     $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
-                }
+                };
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Purchase item added!</div>');
                 redirect('purchasing/add_item_po/' . $po_id . '/8/1');
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Purchase item add failed!</div>');
                 redirect('purchasing/add_item_po/' . $po_id . '/8/1');
-            }
-        }
+            };
+        };
     }
 
     //get PO details
@@ -215,15 +216,15 @@ class Purchasing extends CI_Controller
         $this->db->where('id', $id);
         if($this->db->delete('stock_material')){
             $this->load->model('Audit_model', 'audit');
-            $audit_id = $this->audit->log_audit('stock_material', $po_id, 'DELETE', 'Existed item: ' . $name, 'Deleted item: ' . $name);
+            $audit_id = $this->audit->log_audit('stock_material', $id, $po_id, 'DELETE', 'Existed item: ' . $name, 'Deleted item: ' . $name);
             if (!$audit_id) {
                 log_message('error', 'Audit log failed on Purchasing/delete_item()');
                 $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
-            }
+            };
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $name . ' with amount ' . $amount . '  deleted!</div>');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Item ' . $name . ' with amount ' . $amount . '  failed to be deleted!</div>');
-        }
+        };
         redirect('purchasing/add_po/' . $po_id);
     }
 
@@ -235,15 +236,15 @@ class Purchasing extends CI_Controller
         $this->db->where('transaction_id', $po_id);
         if($this->db->delete('stock_material')){
             $this->load->model('Audit_model', 'audit');
-            $audit_id = $this->audit->log_audit('stock_material', $po_id, 'DELETE', 'Existed PO: ' . $po_id, 'Deleted PO: ' . $po_id);
+            $audit_id = $this->audit->log_audit('stock_material', 'multiple', $po_id, 'DELETE', 'Existed PO: ' . $po_id, 'Deleted PO: ' . $po_id);
             if (!$audit_id) {
                 log_message('error', 'Audit log failed on Purchasing/delete_all_po()');
                 $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
-            }
+            };
             $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">PO unsaved, unsaved item are deleted!</div>');
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">PO still intact!</div>');
-        }
+        };
         redirect('purchasing/');
     }
 
@@ -366,7 +367,7 @@ class Purchasing extends CI_Controller
             $this->db->where('code', $code);
             if($this->db->update('stock_material', $data2)){
                 $this->load->model('Audit_model', 'audit');
-                $audit_id = $this->audit->log_audit('stock_material', $poID, 'UPDATE', 'Stock before: ' . $in_stockOld, 'Stock after:' . $receivedStock);
+                $audit_id = $this->audit->log_audit('stock_material', $id, $poID, 'UPDATE', $in_stockOld, 'Updated stock:' . $receivedStock);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed on Purchasing/delete_item()');
                     $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
@@ -389,18 +390,19 @@ class Purchasing extends CI_Controller
         $id = $this->input->post('id');
         $data['before'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
         $before_value = $data['before']['incoming'];
+        $po_id = $data['before']['transaction_id'];
         $amount = $this->input->post('qtyID');
 
         $this->db->where('id', $id);
         $this->db->set('incoming', $amount);
         if($this->db->update('stock_material')){
             $this->load->model('Audit_model', 'audit');
-            $audit_id = $this->audit->log_audit('stock_material', 'row: '. $id, 'UPDATE', 'Update amount: ' . $before_value, $amount);
+            $audit_id = $this->audit->log_audit('stock_material', $id, $po_id, 'UPDATE', $before_value, 'Update amount: ' . $amount);
             if (!$audit_id) {
                 log_message('error', 'Audit log failed');
                 $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
-            }
-        }
+            };
+        };
     }
 
     //update received item quantity on database
@@ -419,12 +421,12 @@ class Purchasing extends CI_Controller
             $this->db->set('description', $reference);
             if($this->db->update('stock_material')){
                 $this->load->model('Audit_model', 'audit');
-                $audit_id = $this->audit->log_audit('stock_material', $po_id, 'UPDATE', 'Update description: ' . $before_ref, $reference);
+                $audit_id = $this->audit->log_audit('stock_material', $id, $po_id, 'UPDATE', $before_ref, 'Update description: ' . $reference);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed');
                     $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
-                }
-            }
+                };
+            };
         } else if ($selector == 2){
             $price = $this->input->post('priceID');
             $before_price = $data['before']['price'];
@@ -433,12 +435,12 @@ class Purchasing extends CI_Controller
             $this->db->set('price', $price);
             if($this->db->update('stock_material')){
                 $this->load->model('Audit_model', 'audit');
-                $audit_id = $this->audit->log_audit('stock_material', $po_id, 'UPDATE', 'Update price: ' . $before_price, $price);
+                $audit_id = $this->audit->log_audit('stock_material', $id, $po_id, 'UPDATE', $before_price, 'Update price: ' . $price);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed');
                     $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
-                }
-            }
+                };
+            };
         } else if ($selector == 3){
             $item_desc = $this->input->post('refID');
             $before_desc = $data['before']['item_desc'];
@@ -447,13 +449,13 @@ class Purchasing extends CI_Controller
             $this->db->set('item_desc', $item_desc);
             if($this->db->update('stock_material')){
                 $this->load->model('Audit_model', 'audit');
-                $audit_id = $this->audit->log_audit('stock_material', $po_id, 'UPDATE', 'Update additional description: ' . $before_desc, $item_desc);
+                $audit_id = $this->audit->log_audit('stock_material', $id, $po_id, 'UPDATE', $before_desc, 'Update additional description: ' . $item_desc);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed');
                     $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
                 }
-            }
-        }
+            };
+        };
     }
 
     public function createPDF($type, $po_id, $supplier, $date, $tax)
@@ -601,7 +603,7 @@ class Purchasing extends CI_Controller
         $this->db->where('transaction_id', $materialID);
         if($this->db->update('stock_material', $data)){
             $this->load->model('Audit_model', 'audit');
-            $audit_id = $this->audit->log_audit('stock_material', $po_id, 'UPDATE', 'Update description: ' . $oldName, $newName);
+            $audit_id = $this->audit->log_audit('stock_material', $id, $po_id, 'UPDATE', 'Update description: ' . $oldName, $newName);
             if (!$audit_id) {
                 log_message('error', 'Audit log failed');
                 $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
@@ -632,12 +634,12 @@ class Purchasing extends CI_Controller
             $this->db->set('is_paid', 1);
             if($this->db->update('stock_material')){
                 $this->load->model('Audit_model', 'audit');
-                $audit_id = $this->audit->log_audit('stock_material', $trans_id, 'UPDATE', 'unpaid', 'paid');
+                $audit_id = $this->audit->log_audit('stock_material', 'multiple', $trans_id, 'UPDATE', 'Unpaid', 'Paid');
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed');
                     $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
-                }
-            }
+                };
+            };
             $this->session->set_flashdata('message_is_paid', '<div class="alert alert-success" role="alert">Good news!</div>');
         } else {
             $this->session->set_flashdata('message_is_paid', '<div class="alert alert-secondary" role="alert">Already paid!</div>');
@@ -817,13 +819,14 @@ class Purchasing extends CI_Controller
             ];
     
             if($this->db->insert('stock_material', $data2)){
+                $inserted_id = $this->db->insert_id();
                 $this->load->model('Audit_model', 'audit');
-                $audit_id = $this->audit->log_audit('stock_material', $po_id, 'UPDATE', 'Purchase return: ' .  $in_stockOld, $newStock);
+                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'UPDATE', 'Purchase return on item ' . $data2['name'] .': ' .  $in_stockOld, $newStock);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed');
                     $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
-                }
-            }
+                };
+            };
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Return order complete!</div>');
             redirect('purchasing/purchase_return');
         }
@@ -893,14 +896,14 @@ class Purchasing extends CI_Controller
             ];
             
             if($this->db->insert('supplier', $data)){
-                $lastcount = $this->db->insert_id();
+                $inserted_id = $this->db->insert_id();
                 $this->load->model('Audit_model', 'audit');
-                $audit_id = $this->audit->log_audit('supplier', 'row: ' . $lastcount, 'CREATE', 'Not exist', $data);
+                $audit_id = $this->audit->log_audit('supplier', $inserted_id, '-', 'CREATE', 'Supplier not exist', $data);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed');
                     $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
-                }
-            }
+                };
+            };
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New supplier: ' . $name . ' added!</div>');
             redirect('purchasing/supplier');
         }
@@ -955,12 +958,12 @@ class Purchasing extends CI_Controller
             $this->db->where('id', $id);
             if($this->db->update('supplier', $data)){
                 $this->load->model('Audit_model', 'audit');
-                $audit_id = $this->audit->log_audit('supplier', 'row: ' .  $id, 'UPDATE', $data_supplier_before, $data);
+                $audit_id = $this->audit->log_audit('supplier', $id, '-', 'UPDATE', $data_supplier_before, $data);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed');
                     $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
-                }
-            }
+                };
+            };
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Customer: ' . $name . ' edited!</div>');
             redirect('purchasing/supplier');
         }
@@ -975,12 +978,12 @@ class Purchasing extends CI_Controller
         // delete supplier
         if($this->db->delete('supplier', array('id' => $itemtoDelete))){
             $this->load->model('Audit_model', 'audit');
-            $audit_id = $this->audit->log_audit('supplier', 'row: ' . $itemtoDelete, 'DELETE', 'Delete supplier data: '. $deleteSupplier['supplier_name'], '-');
+            $audit_id = $this->audit->log_audit('supplier', $itemtoDelete, '-', 'DELETE', 'Delete supplier data: '. $deleteSupplier['supplier_name'], '-');
             if (!$audit_id) {
                 log_message('error', 'Audit log failed');
                 $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
-            }
-        }
+            };
+        };
         // send message
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Supplier named ' . $deleteSupplier["supplier_name"] . ' with ID ' . $deleteSupplier["id"] . ' deleted!</div>');
         redirect('purchasing/supplier');

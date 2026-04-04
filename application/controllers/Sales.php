@@ -7,6 +7,7 @@ class Sales extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('Audit_model', 'audit');
     }
 
     public function index()
@@ -96,16 +97,22 @@ class Sales extends CI_Controller
                     $this->db->where('transaction_id', $ref);
                     $this->db->update('stock_finishedgoods', $data_warehouse);
                 endforeach;
-                
+                $audit_id = $this->audit->log_audit('stock_finishedgoods', 'multiple', $ref, 'UPDATE', 'Sales Order', 'Delivery');
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                }
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Status changed into deliveries, final stock updated!</div>');
                 redirect('sales/deliveryorder');
             } else {
                 $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Data integrity maintained!</div>');
                 redirect('sales/deliveryorder');
             };
-            
         } else if ($status_change_to == 3) {
             //invoice
+            $audit_id = $this->audit->log_audit('stock_finishedgoods', 'multiple', $ref, 'UPDATE', 'Delivery', 'Delivered! Sales Invoice ' . $ref . ' created.');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            }
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Transaction finished, send invoice to customer!</div>');
             redirect('sales/salesinfo');
             // redirect('sales/invoice');
@@ -142,7 +149,12 @@ class Sales extends CI_Controller
                     
             //delete all that has $ref on stock_finishedgoods database
             $this->db->where('transaction_id', $ref);
-            $this->db->delete('stock_finishedgoods');
+            if($this->db->delete('stock_finishedgoods')){
+                $audit_id = $this->audit->log_audit('stock_finishedgoods', 'multiple', $ref, 'DELETE', '-', 'Sales ' . $ref . ' deleted.');
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
 
             //delete all that has $ref on cart database
             // $this->db->where('ref', $ref);
@@ -288,7 +300,7 @@ class Sales extends CI_Controller
                 'outgoing' => $amount,
                 'unit_satuan' => $unit,
                 'before_convert' => $weight, //before_convert col is used to store the item's weight
-                'picture' => $inserted_id,
+                'picture' => $inserted_id, //used to store inserted id on cart database, so don't get confused!
                 'status' => $transaction_status,
                 'warehouse' => $warehouse,
                 'transaction_id' => $ref,
@@ -303,7 +315,13 @@ class Sales extends CI_Controller
             // ];
 
             // update inventory
-            $this->db->insert('stock_finishedgoods', $data_warehouse);
+            if($this->db->insert('stock_finishedgoods', $data_warehouse)){
+                $inserted_id_on_fgw = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('stock_finishedgoods and cart', $inserted_id_on_fgw . ' | ' . $inserted_id, $ref, 'CREATE', '-', $data_warehouse);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
             // USE THIS IF ITEM STOCK AKHIR IS CHANGED ON PAYMENT
             // update inventory stock_akhir
             // $this->db->where('code', $code);
@@ -327,6 +345,17 @@ class Sales extends CI_Controller
         $weight = $this->input->post('weightID');
         $desc = $this->input->post('refID');
 
+        $data['old'] = $this->db->get_where('cart', ['id' => $id])->row_array();
+        $olddata_cart = array(
+            'qty' => $data['old']['qty'],
+            'price' => $data['old']['price'],
+            'discount' => $data['old']['discount'],
+            'subtotal' => $data['old']['subtotal'],
+            'sack' => $data['old']['sack'],
+            'weight' => $data['old']['weight'],
+            'description' => $data['old']['description']
+        );
+
         $data_cart = array(
             'qty' => $qty,
             'price' => $price,
@@ -339,7 +368,9 @@ class Sales extends CI_Controller
         //to do: update inventory database due to amount change
         $this->db->where('id', $id);
         $this->db->update('cart', $data_cart);
-
+            
+        $data['fgw_old'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $ref, 'picture' => $id])->row_array();
+        $fgw_id = $data['fgw_old']['id'];
         $data_warehouse = array(
             'outgoing' => $qty,
             'before_convert' => $weight,
@@ -348,8 +379,13 @@ class Sales extends CI_Controller
         );
 
         $this->db->where('transaction_id', $ref);
-        $this->db->where('picture', $id);
-        $this->db->update('stock_finishedgoods', $data_warehouse);
+        $this->db->where('picture', $id); //id as in cart's table id
+        if($this->db->update('stock_finishedgoods', $data_warehouse)){
+            $audit_id = $this->audit->log_audit('stock_finishedgoods and cart', $fgw_id . ' | ' . $id, $ref, 'UPDATE', $olddata_cart, $data_cart);
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
 
         $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">' . $item_name . ' details changed!</div>');
     }
@@ -380,11 +416,24 @@ class Sales extends CI_Controller
         $ItemName = $this->input->post('delete_item_name');
 
         $this->db->where('id', $ItemID);
-        $this->db->delete('cart');
+        if($this->db->delete('cart')){
+            $audit_id = $this->audit->log_audit('cart', $ItemID, $ref, 'DELETE', $ItemName, '-');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
+
+        $data_old_id = $this->db->get_where('stock_finishedgoods', ['picture' => $ItemID, 'transaction_id' => $ref])->row_array();
+        $oldID = $data_old_id['id'];
 
         $this->db->where('picture', $ItemID); //picture column is used to store cart ID
         $this->db->where('name', $ItemName);
-        $this->db->delete('stock_finishedgoods');
+        if($this->db->delete('stock_finishedgoods')){
+            $audit_id = $this->audit->log_audit('stock_finishedgoods', $oldID, $ref, 'DELETE', $ItemName, '-');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
 
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $ItemName . ' on ' . $CustName . ' cart deleted!</div>');
         redirect('sales/add_salesorder/' . $ref);
@@ -393,10 +442,20 @@ class Sales extends CI_Controller
     public function clear_cart()
     {
         $refID = $this->input->post('delete_id');
-        $this->db->delete('cart', array('ref' => $refID));
+        if($this->db->delete('cart', array('ref' => $refID))){
+            $audit_id = $this->audit->log_audit('cart', 'multiple', $refID, 'DELETE', 'Delete multiple cart transaction', '-');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
 
         $this->db->where('transaction_id', $refID);
-        $this->db->delete('stock_finishedgoods');
+        if($this->db->delete('stock_finishedgoods')){
+            $audit_id = $this->audit->log_audit('stock_finishedgoods', 'multiple', $refID, 'DELETE', 'Delete multiple warehouse transaction', '-');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
 
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Cart deleted!</div>');
         redirect('sales/add_salesorder/' . $refID);
@@ -670,16 +729,29 @@ class Sales extends CI_Controller
         $ref = $this->input->post('id');
         $newName = $this->input->post('newName');
 
+        $data_old = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $ref])->row_array();
+        $old_data['description'] = $data_old['description'];
+
         $data = [
             'description' => $newName
         ];
 
         //update transaksi
         $this->db->where('transaction_id', $ref);
-        $this->db->update('stock_finishedgoods', $data);
+        if($this->db->update('stock_finishedgoods', $data)){
+            $audit_id = $this->audit->log_audit('stock_finishedgoods', 'multiple', $ref, 'UPDATE', $old_data['description'], $data['description']);
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
 
         $this->db->where('ref', $ref);
-        $this->db->update('cart', $data);
+        if($this->db->update('cart', $data)){
+            $audit_id = $this->audit->log_audit('cart', 'multiple', $ref, 'UPDATE', $old_data['description'], $data['description']);
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
     }
     
     public function paid()
@@ -691,7 +763,12 @@ class Sales extends CI_Controller
         ];
         
         $this->db->where('ref', $ref);
-        $this->db->update('cart', $data);
+        if($this->db->update('cart', $data)){
+            $audit_id = $this->audit->log_audit('cart', 'multiple', $ref, 'UPDATE', 'Unpaid', 'Paid');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
 
         //to get the correct period to redirect after a sales invoice is set to paid
         $data['getID'] = $this->db->get_where('cart', ['ref' => $ref])->row_array();
@@ -779,8 +856,13 @@ class Sales extends CI_Controller
                 'bank_account' => $account,
                 'terms_id' => $terms,
             ];
-            $this->db->insert('customer', $data);
-            $lastcount = $this->db->insert_id();
+            if($this->db->insert('customer', $data)){
+                $lastcount = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('customer', $lastcount, $name, 'CREATE', '-', 'Customer created: ' . $data);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New customer: ' . $name . ' added!</div>');
             redirect('sales/customer');
         }
@@ -821,6 +903,14 @@ class Sales extends CI_Controller
             // $account = $this->input->post('account');
             // $terms = $this->input->post('terms');
 
+            $data['old'] = $this->db->get_where('user', ['id' => $id])->row_array();
+            $olddata_customer = array(
+                'name' => $data['old']['name'],
+                'address' => $data['old']['address'],
+                'email' => $data['old']['email'],
+                'phone_number' => $data['old']['phone_number']
+            );
+
             $data = [
                 'name' => $name,
                 'address' => $address,
@@ -829,8 +919,14 @@ class Sales extends CI_Controller
                 // 'bank_account' => $account,
                 // 'terms_id' => $terms,
             ];
+
             $this->db->where('id', $id);
-            $this->db->update('user', $data);
+            if($this->db->update('user', $data)){
+                $audit_id = $this->audit->log_audit('user', $id, $name, 'UPDATE', $olddata_customer, $data);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Customer: ' . $name . ' edited!</div>');
             redirect('sales/customer');
         }
@@ -843,7 +939,12 @@ class Sales extends CI_Controller
         // get data on deleted sub menu
         $deleteCust = $this->db->get_where('customer', array('id' => $itemtoDelete))->row_array();
         // delete customer
-        $this->db->delete('customer', array('id' => $itemtoDelete));
+        if($this->db->delete('customer', array('id' => $itemtoDelete))){
+            $audit_id = $this->audit->log_audit('user', $itemtoDelete, $deleteCust['name'], 'DELETE', $deleteCust['name'] . ' existed' , '-');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
         // send message
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Customer named ' . $deleteCust["name"] . ' with ID ' . $deleteCust["id"] . ' deleted!</div>');
         redirect('sales/customer');

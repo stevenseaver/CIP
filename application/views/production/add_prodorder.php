@@ -328,11 +328,11 @@
                         <td><?= date('d F Y H:i:s', $ms['date']);?></td>
                         <td><?= $ms['name']; ?></td>
                         <!-- <td><?= number_format($ms['outgoing'], 2, ',', '.'); ?></td> -->
-                        <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['outgoing'], 2, ',', '.'); ?>"></td>
+                        <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodid="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['outgoing'], 2, ',', '.'); ?>"></td>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
                         <?php $subtotal = $ms['outgoing'] * $ms['price'] ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
-                        <td><input id="descAmount-<?= $ms['id'] ?>" class="desc-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['item_desc'], 1, ',', '.'); ?>"></td>
+                        <td><input id="descAmount-<?= $ms['id'] ?>" class="desc-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodid="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['item_desc'], 1, ',', '.'); ?>"></td>
                         <td><?= $formula ?></td>
                         <td>
                             <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['outgoing'] ?>" class="badge badge-danger clickable">Delete</a>

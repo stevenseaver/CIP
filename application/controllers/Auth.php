@@ -12,6 +12,7 @@ class Auth extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+        $this->load->model('Audit_model', 'audit');
     }
     
     public function index()
@@ -41,6 +42,10 @@ class Auth extends CI_Controller
         $user = $this->db->get_where('user', ['nik' => $nik])->row_array();
         
         if (!$user) {
+            $audit_id = $this->audit->log_audit('-', '-', $nik, 'LOGIN', '-', 'User is not registered');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            }
             $this->session->set_flashdata('message', 
                 '<div class="alert alert-danger" role="alert">User is not registered!</div>');
             redirect('auth');
@@ -50,6 +55,10 @@ class Auth extends CI_Controller
         // Check if account is currently locked
         if ($this->_isAccountLocked($user)) {
             $lockout_remaining = $this->_getLockoutTimeRemaining($user);
+            $audit_id = $this->audit->log_audit('-', '-', $nik, 'LOGIN', '-', 'User is locked due to too many attempts');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            }
             $this->session->set_flashdata('message', 
                 '<div class="alert alert-danger" role="alert">
                     Account is locked due to too many failed attempts. 
@@ -61,6 +70,10 @@ class Auth extends CI_Controller
         
         // Check if user is active
         if ($user['is_active'] != 1) {
+            $audit_id = $this->audit->log_audit('-', '-', $nik, 'LOGIN', '-', 'User not active');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            }
             $this->session->set_flashdata('message', 
                 '<div class="alert alert-danger" role="alert">User is not active!</div>');
             redirect('auth');
@@ -80,10 +93,7 @@ class Auth extends CI_Controller
                 'username' => $user['name']
             ];
             $this->session->set_userdata($data); 
-
-            $this->load->model('Audit_model', 'audit');
-            $audit_id = $this->audit->log_audit('-', $nik, 'LOGIN', '-', '-');
-            var_dump($nik);
+            $audit_id = $this->audit->log_audit('-', '-', $nik, 'LOGIN', '-', 'User login successful');
             if (!$audit_id) {
                 log_message('error', 'Audit log failed');
             }
@@ -276,7 +286,13 @@ class Auth extends CI_Controller
                 'date_created' => time()
             ];
 
-            $this->db->insert('user', $data);
+            if($this->db->insert('user', $data)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('user', $inserted_id, $name, 'CREATE', '-', 'User account creation: ' . $data);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
             $this->db->insert('user_token', $user_token);
 
             $this->_sendEmail($token, 'verify');
@@ -415,7 +431,14 @@ class Auth extends CI_Controller
 
     public function logout()
     {
+        $nik  = $this->session->userdata('nik');
+        $audit_id = $this->audit->log_audit('-', '-', $nik, 'LOGOUT', '-', 'User logout success');
+        if (!$audit_id) {
+            log_message('error', 'Audit log failed');
+        }
+        $this->session->unset_userdata('id');
         $this->session->unset_userdata('nik');
+        $this->session->unset_userdata('name');
         $this->session->unset_userdata('role_id');
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Log out successful!</div>');
         redirect('auth');

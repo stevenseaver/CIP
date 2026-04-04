@@ -17,9 +17,9 @@ class Audit_model extends CI_Model
     //         'ip_address' => $ci->input->ip_address(),
     //     ]);
     // }
-    public function log_audit($table_name, $reference, $action, $state_before, $state_after) {
+    public function log_audit($table_name, $row, $reference, $action, $state_before, $state_after) {
         // Validate required parameters
-        if (empty($table_name) || empty($reference) || empty($action)) {
+        if (empty($table_name) || empty($row) || empty($reference) || empty($action)) {
             log_message('error', 'Audit_model::log_audit - Missing required parameters: table_name, reference, or action.');
             return false;
         }
@@ -40,6 +40,7 @@ class Audit_model extends CI_Model
             'username'   => $username,
             'action'     => strtoupper($action),
             'table_name' => $table_name,
+            'row' => $row,
             'reference'  => $reference,
             'state_before' => is_array($state_before) ? json_encode($state_before) : $state_before,
             'state_after'  => is_array($state_after)  ? json_encode($state_after)  : $state_after,

@@ -7,6 +7,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('Audit_model', 'audit');
     }
 
     public function index()
@@ -75,7 +76,13 @@ class Admin extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $addNewRole = $this->input->post('role');
-            $this->db->insert('user_role', ['role' => $addNewRole]);
+            if($this->db->insert('user_role', ['role' => $addNewRole])){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('user_role', $inserted_id, '-', 'CREATE', '-', $addNewRole);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                }
+            };
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Role added!</div>');
             redirect('admin/role');
         }
@@ -91,11 +98,26 @@ class Admin extends CI_Controller
             'menu_id' => $menu_id
         ];
 
+        $query = $this->db->get_where('user_access_menu', $data);
+        $row = $query->row();
+        $id = $row ? $row->id : null;
+
         $result = $this->db->get_where('user_access_menu', $data);
         if ($result->num_rows() < 1) {
-            $this->db->insert('user_access_menu', $data);
+            if($this->db->insert('user_access_menu', $data)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('user_access_menu', $inserted_id, '-', 'CREATE', '-', $data);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
         } else {
-            $this->db->delete('user_access_menu', $data);
+            if($this->db->delete('user_access_menu', $data)){
+                $audit_id = $this->audit->log_audit('user_access_menu', $id, '-', 'DELETE', $data, '-');
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
         }
 
         $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Access changed!</div>');
@@ -124,7 +146,12 @@ class Admin extends CI_Controller
             $editedMenu = $this->db->get_where('user_role', array('id' => $edit_id))->row_array();
             // edit DB
             $this->db->where('id', $edit_id);
-            $this->db->update('user_role', array('role' => $edit_role));
+            if($this->db->update('user_role', array('role' => $edit_role))){
+                $audit_id = $this->audit->log_audit('user_role', $edit_id, '-', 'UPDATE', $editedMenu['role'], $edit_role);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
             $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Role ' . $editedMenu["role"] . ' edited into ' . $edit_role . '!</div>');
             redirect('admin/role');
         }
@@ -136,7 +163,12 @@ class Admin extends CI_Controller
         $deleteditem = $this->db->get_where('user_role', array('id' => $itemtoDelete))->row_array();
 
         //Delete DB
-        $this->db->delete('user_role', array('id' => $itemtoDelete));
+        if($this->db->delete('user_role', array('id' => $itemtoDelete))){
+            $audit_id = $this->audit->log_audit('user_role', $itemtoDelete, '-', 'DELETE', $deleteditem, '-');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Role ' . $deleteditem["role"] . ' deleted!</div>');
         redirect('admin/role');
     }
@@ -234,7 +266,14 @@ class Admin extends CI_Controller
                 'leave_count' => 12,
                 'date_created' => time()
             ];
-            $this->db->insert('user', $data);
+            
+            if($this->db->insert('user', $data)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('user', $inserted_id, '-', 'CREATE', 'Create new user account via admin', $data);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Account successfully created and is active!</div>');
             redirect('admin/usermanagement');
@@ -251,11 +290,23 @@ class Admin extends CI_Controller
         if ($is_active == 1) {
             $this->db->set('is_active', 0);
             $this->db->where('id', $usertoToggle);
-            $this->db->update('user');
+            if($this->db->update('user')){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('user', $usertoToggle, '-', 'UPDATE', 'User: ' . $name . 'is active', 'User: ' . $name . ' is not active');
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
         } else if ($is_active == 0) {
             $this->db->set('is_active', 1);
             $this->db->where('id', $usertoToggle);
-            $this->db->update('user');
+            if($this->db->update('user')){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('user', $usertoToggle, '-', 'UPDATE', 'User: ' . $name . 'is not active', 'User: ' . $name . ' is active');
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
         }
         $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">' . urldecode($name) . ' status changed!</div>');
         redirect('admin/usermanagement');
@@ -273,7 +324,13 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Deleting logged in user are forbidden! </div>');
             redirect('admin/usermanagement');
         } else {
-            $this->db->delete('user', array('id' => $itemtoDelete));
+            if($this->db->delete('user', array('id' => $itemtoDelete))){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('user', $itemtoDelete, '-', 'DELETE', '-', 'User: ' . $name . ' is deleted');
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
             $this->db->delete('cart', array('customer_id' => $itemtoDelete));
             $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert"> ' . urldecode($name) . ' deleted!</div>');
             redirect('admin/usermanagement');

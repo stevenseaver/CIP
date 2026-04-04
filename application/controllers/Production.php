@@ -7,6 +7,7 @@ class Production extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('Audit_model', 'audit');
     }
 
     public function index()
@@ -182,6 +183,7 @@ class Production extends CI_Controller
             $supplier = $material_selected["supplier"];
             $unit = $material_selected["unit_satuan"];
             $stock_old = $material_selected["in_stock"];
+            $updated_stock = $stock_old - $amount;
 
             $data = [
                 'transaction_id' => $po_id,
@@ -191,7 +193,7 @@ class Production extends CI_Controller
                 'date' => $date,
                 'price' => $price,
                 'outgoing' => $amount,
-                'in_stock' => $stock_old - $amount,
+                'in_stock' => $updated_stock,
                 'unit_satuan' => $unit,
                 'status' => $status,
                 'warehouse' => $warehouse,
@@ -202,8 +204,13 @@ class Production extends CI_Controller
                 'item_desc' => $campuran
             ];
 
-            $this->db->insert('stock_material', $data);
-            // log_audit('stock_material', $po_id, 'CREATE');
+            if($this->db->insert('stock_material', $data)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'CREATE', 'Initial stock of ' . $item . ': ' . $stock_old, 'Production order material added: ' . $materialName . ' with amount ' . $amount. ' ' . $unit . '. Updated stock: ' . $updated_stock);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
 
             $data2 = [
                 'in_stock' => $stock_old - $amount,
@@ -228,6 +235,7 @@ class Production extends CI_Controller
 
         $data['material_edited'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
         $materialID = $data['material_edited']['transaction_id'];
+        $data_old = $data['material_edited']['product_name'];
 
         $data = [
             'product_name' => $newName
@@ -235,7 +243,12 @@ class Production extends CI_Controller
 
         //update transaksi
         $this->db->where('transaction_id', $materialID);
-        $this->db->update('stock_material', $data);
+        if($this->db->update('stock_material', $data)){
+            $audit_id = $this->audit->log_audit('stock_material', 'multiple', $materialID, 'UPDATE', $data_old, 'Updated production name/title: ' . $newName);
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
     }
 
     //update production order material amount
@@ -257,7 +270,13 @@ class Production extends CI_Controller
 
         $update_stock = ($stock_akhir + $adjust_old) - $amount;
 
-        $data3 = [
+        $old_amount = [
+            'date' => $data['material_edited']['date'],
+            'in_stock' => $data['material_edited']['in_stock'],
+            'outgoing' => $data['material_edited']['outgoing']
+        ];
+
+        $updated_amount = [
             'date' => $date,
             'in_stock' => $update_stock,
             'outgoing' => $amount
@@ -266,7 +285,12 @@ class Production extends CI_Controller
         //update transaksi
         $this->db->where('id', $id);
         // $this->db->set('outgoing', $amount);
-        $this->db->update('stock_material', $data3);
+        if($this->db->update('stock_material', $updated_amount)){
+            $audit_id = $this->audit->log_audit('stock_material', $id, $prodID, 'UPDATE', $old_amount, $updated_amount);
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
         
         $data2 = [
             'in_stock' => $update_stock,
@@ -288,6 +312,12 @@ class Production extends CI_Controller
 
         $date = time();
 
+        $data['material_edited'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+        $old_data = [
+            'item_desc' => $data['material_edited']['item_desc'],
+            'date' => $data['material_edited']['date']
+        ];
+
         $data = [
             'item_desc' => $amount,
             'date' => $date
@@ -296,7 +326,12 @@ class Production extends CI_Controller
         //update transaksi
         $this->db->where('id', $id);
         // $this->db->set('item_desc', $amount);
-        $this->db->update('stock_material', $data);
+        if($this->db->update('stock_material', $data)){
+            $audit_id = $this->audit->log_audit('stock_material', $id, $prodID, 'UPDATE', $old_data, $data);
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
     }
     
     //update production order material mixed usage aggregate amount
@@ -306,6 +341,11 @@ class Production extends CI_Controller
         $prodID = $this->input->post('prodID');
         $amount = $this->input->post('qtyID');
 
+        $data['material_edited'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+        $old_data = [
+            'term' => $data['material_edited']['term']
+        ];
+
         $data = [
             'term' => $amount
         ];
@@ -313,7 +353,12 @@ class Production extends CI_Controller
         //update transaksi
         $this->db->where('id', $id);
         // $this->db->set('item_desc', $amount);
-        $this->db->update('stock_material', $data);
+        if($this->db->update('stock_material', $data)){
+            $audit_id = $this->audit->log_audit('stock_material', $id, $prodID, 'UPDATE', $old_data, $data);
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
     }
 
     //get PO details
@@ -366,7 +411,12 @@ class Production extends CI_Controller
         $this->db->update('stock_material', $data2);
         //delete_item
         $this->db->where('id', $id);
-        $this->db->delete('stock_material');
+        if($this->db->delete('stock_material')){
+            $audit_id = $this->audit->log_audit('stock_material', $id, $po_id, 'DELETE', 'Material ' . $data['material_edited']['name'] . ' used.', 'Material ' . $data['material_edited']['name'] . ' deleted.');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material ' . $name . ' with amount ' . $amount . '  deleted!</div>');
         redirect('production/add_prod/' . $po_id);
     }
@@ -409,7 +459,12 @@ class Production extends CI_Controller
                 endforeach;
         
                 $this->db->where('transaction_id', $po_id);
-                $this->db->delete('stock_material');
+                if($this->db->delete('stock_material')){
+                    $audit_id = $this->audit->log_audit('stock_material', 'multiple', $po_id, 'DELETE', 'Production order ' . $po_id . ' existed',  'Production order ' . $po_id . ' deleted');
+                    if (!$audit_id) {
+                        log_message('error', 'Audit log failed');
+                    };
+                };
         
                 if(!empty($data['roll_selected'])){
                     //delete related PO items in roll_warehouse
@@ -435,10 +490,15 @@ class Production extends CI_Controller
         
                         }
                     endforeach;
+                    $this->db->where('transaction_id', $po_id);
+                    if($this->db->delete('stock_roll')){
+                        $audit_id = $this->audit->log_audit('stock_roll', 'multiple', $po_id, 'DELETE', 'Roll item on Prod. Order ' . $po_id . ' existed',  'Roll item on Prod. Order ' . $po_id . ' deleted');
+                        if (!$audit_id) {
+                            log_message('error', 'Audit log failed');
+                        };
+                    }; 
                 }
                 
-                $this->db->where('transaction_id', $po_id);
-                $this->db->delete('stock_roll');   
                 
                 if(!empty($data['gbj_selected'])){
                     //delete related PO items in stock_finishedgoods warehouse
@@ -464,10 +524,16 @@ class Production extends CI_Controller
         
                         }
                     endforeach;
+                    $this->db->where('transaction_id', $po_id);
+                    // $this->db->delete('stock_finishedgoods');   
+                    if($this->db->delete('stock_finishedgoods')){
+                        $audit_id = $this->audit->log_audit('stock_finishedgoods', 'multiple', $po_id, 'DELETE', 'FG item on Prod. Order ' . $po_id . ' existed',  'FG item on Prod. Order ' . $po_id . ' deleted');
+                        if (!$audit_id) {
+                            log_message('error', 'Audit log failed');
+                        };
+                    }; 
                 }
         
-                $this->db->where('transaction_id', $po_id);
-                $this->db->delete('stock_finishedgoods');   
         
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Production order unsaved, item(s) are deleted!</div>');
                 redirect('production/');
@@ -717,7 +783,13 @@ class Production extends CI_Controller
                 'transaction_desc' => $roll_no
             ];
 
-            $this->db->insert('stock_roll', $data);
+            if($this->db->insert('stock_roll', $data)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('stock_roll', $inserted_id, $prodID, 'CREATE', 'Initial stock of ' . $item . ': ' . $stock_old, 'Production order roll added: ' . $item . ' with amount ' . $amount. ' kg. Updated stock: ' . $updated_stock);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
 
             $data2 = [
                 'in_stock' => $stock_old + $amount,
@@ -774,7 +846,7 @@ class Production extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             //get data to be inserted to inventory stock_material warehouse
-            $po_id = $id;
+            $po_id = $prodID;
             $po_status = 1;
             $materialID = $this->input->post('materialSelect');
             $price = $this->input->post('price');
@@ -812,7 +884,13 @@ class Production extends CI_Controller
                 'item_desc' => $campuran
             ];
 
-            $this->db->insert('stock_material', $data);
+            if($this->db->insert('stock_material', $data)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'CREATE', 'Initial stock of ' . $materialName . ': '  . $stock_old . ' kg', 'Production order material added: ' . $materialName . ' with amount ' . $amount. ' ' . $unit . '. Updated stock: ' . $updated_stock . ' ' . $unit);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
 
             $data2 = [
                 'in_stock' => $stock_old - $amount,
@@ -848,15 +926,26 @@ class Production extends CI_Controller
 
         $update_stock = ($stock_akhir - $adjust_old) + $amount;
 
+        $old_amount = [
+            'date' => $data['material_edited']['date'],
+            'incoming' => $data['material_edited']['incoming'],
+            'in_stock' => $data['material_edited']['in_stock']
+        ];
+                    
         //update transaksi
-        $data3 = [
+        $updated_amount = [
             'date' => $date,
             'incoming' => $amount,
             'in_stock' => $update_stock
         ];
 
         $this->db->where('id', $id);
-        $this->db->update('stock_roll', $data3);
+        if($this->db->update('stock_roll', $updated_amount)){
+            $audit_id = $this->audit->log_audit('stock_roll', $id, $prodID, 'UPDATE', $old_amount, $updated_amount);
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
         
         //update stock akhir
         $data2 = [
@@ -876,6 +965,7 @@ class Production extends CI_Controller
         $date = time();
 
         $data['rollEdited'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
+        $prodID = $data['rollEdited']['transaction_id']; 
         $rollID = $data['rollEdited']['code']; 
 
         if ($type == 1) { //roll number/description
@@ -907,7 +997,12 @@ class Production extends CI_Controller
 
         //update transaksi
         $this->db->where('id', $id);
-        $this->db->update('stock_roll', $data);
+        if($this->db->update('stock_roll', $data)){
+            $audit_id = $this->audit->log_audit('stock_roll', $id, $prodID, 'UPDATE', '-', $data);
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Production item details updated!</div>');
     }
 
@@ -955,7 +1050,12 @@ class Production extends CI_Controller
         $this->db->update('stock_roll', $data2);
         //delete_item
         $this->db->where('id', $id);
-        $this->db->delete('stock_roll');
+        if($this->db->delete('stock_roll')){
+            $audit_id = $this->audit->log_audit('stock_roll', $id, $po_id, 'DELETE', 'Roll item ' . $po_id . ': ' . $name . '  with amount ' . $amount, 'Deleted');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        }; 
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material ' . $name . ' with amount ' . $amount . '  deleted!</div>');
         redirect('production/add_roll/' . $po_id);
     }
@@ -994,7 +1094,12 @@ class Production extends CI_Controller
                     $this->db->update('stock_roll', $data2);
                 endforeach;
                 $this->db->where('transaction_id', $po_id);
-                $this->db->delete('stock_roll');
+                if($this->db->delete('stock_roll')){
+                    $audit_id = $this->audit->log_audit('stock_roll', 'multiple', $po_id, 'DELETE', 'All roll item on ' . $po_id, 'Deleted');
+                    if (!$audit_id) {
+                        log_message('error', 'Audit log failed');
+                    };
+                }; 
         
                 $this->session->set_flashdata('message', '<div class="alert alert-primary" role="alert">Production order deleted, item(s) are adjusted!</div>');
                 redirect('production/inputRoll');
@@ -1305,7 +1410,13 @@ class Production extends CI_Controller
                     'unit_satuan' => $satuan
                 ];
     
-                $this->db->insert('stock_finishedgoods', $data);
+                if($this->db->insert('stock_finishedgoods', $data)){
+                    $inserted_id = $this->db->insert_id();
+                    $audit_id = $this->audit->log_audit('stock_finishedgoods', $inserted_id, $prodID, 'CREATE', 'Initial stock of ' . $item . ': ' . $stock_old, 'Finished goods item: ' . $item . ' added with amount ' . $amount . ' ' . $satuan . '. Stock updated to: ' . $updatedStock);
+                    if (!$audit_id) {
+                        log_message('error', 'Audit log failed');
+                    };
+                };
                 
                 $data2 = [
                     'in_stock' => $updatedStock,
@@ -1339,7 +1450,13 @@ class Production extends CI_Controller
                     'unit_satuan' => $satuan
                 ];
     
-                $this->db->insert('stock_finishedgoods', $data);
+                if($this->db->insert('stock_finishedgoods', $data)){
+                    $inserted_id = $this->db->insert_id();
+                    $audit_id = $this->audit->log_audit('stock_finishedgoods', $inserted_id, $prodID, 'CREATE', 'Initial stock of ' . $item . ': ' . $stock_old, 'Finished goods item: ' . $item . ' added with amount ' . $amount . ' kg');
+                    if (!$audit_id) {
+                        log_message('error', 'Audit log failed');
+                    };
+                };
                 
                 $data2 = [
                     'date' => $date,
@@ -1420,7 +1537,13 @@ class Production extends CI_Controller
             $this->db->update('stock_roll', $data2);
     
             //insert transaction
-            $this->db->insert('stock_roll', $data);
+            if($this->db->insert('stock_roll', $data)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('stock_roll', $inserted_id, $po_id, 'CREATE', 'Initial stock of ' . $name . ': ' . $stock_akhir, 'Roll item: ' . $name . ' with amount ' . $amount . ' kg cut. Stock updated to: ' . $update_stock . ' kg.');
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material ' . $name . ' with amount ' . $amount . '  cut!</div>');
             redirect('production/add_gbj/' . $po_id);
@@ -1436,7 +1559,12 @@ class Production extends CI_Controller
         if($data['check_status']['status'] == 9) {
             $this->db->where('id', $id);    
             $this->db->set('status', 3);    
-            $this->db->update('stock_roll');
+            if($this->db->update('stock_roll')){
+                $audit_id = $this->audit->log_audit('stock_roll', $id, '-', 'UPDATE', '-', 'Production Order status updated to Cut');
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
         } else {
             $this->db->where('id', $id);    
             $this->db->set('status', 9);    
@@ -1497,7 +1625,13 @@ class Production extends CI_Controller
                 $this->db->update('stock_roll', $data2);
         
                 //insert transaction
-                $this->db->insert('stock_roll', $data);
+                if($this->db->insert('stock_roll', $data)){
+                    $inserted_id = $this->db->insert_id();
+                    $audit_id = $this->audit->log_audit('stock_roll', $inserted_id, $po_id, 'CREATE', 'Initial stock of ' . $name . ': ' . $stock_akhir, 'Roll item: ' . $name . ' with amount ' . $amount . ' kg bulk cut! Stock updated to: ' . $update_stock . ' kg.');
+                    if (!$audit_id) {
+                        log_message('error', 'Audit log failed');
+                    };
+                };
     
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Bulk cut ' . $name . ' successful with total amount ' . $amount . ' kg!</div>');
                 redirect('production/add_gbj/' . $po_id);
@@ -1567,9 +1701,10 @@ class Production extends CI_Controller
 
                 $totalPrice = $weight * $priceperkg;
                 $priceperPack = $totalPrice / $pack;
+                $update_stock = $stock_old + $pack;
 
                 $data = [
-                    'in_stock' => $stock_old + $pack,
+                    'in_stock' => $update_stock,
                     'date' => $date,
                     'price' => $priceperPack
                 ];
@@ -1580,13 +1715,18 @@ class Production extends CI_Controller
                 
                 $data1 = [
                     'incoming' => $pack,
-                    'in_stock' => $stock_old + $pack,
+                    'in_stock' => $update_stock ,
                     'transaction_status' => 2,
                     'price' => $priceperPack
                 ];
 
                 $this->db->where('id', $id);
-                $this->db->update('stock_finishedgoods', $data1);
+                if($this->db->update('stock_finishedgoods', $data1)){
+                    $audit_id = $this->audit->log_audit('stock_finishedgoods', $id, $prodID, 'UPDATE', 'FG item: ' . $name . ' with initial stock ' . $stock_old, 'FG item: ' . $name . ' with amount ' . $weight . ' kg converted to: ' . $pack . ' pack. Stock updated to: ' . $update_stock);
+                    if (!$audit_id) {
+                        log_message('error', 'Audit log failed');
+                    };
+                };
         
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Amount converted!</div>');
                 redirect('production/add_gbj/' . $prodID);
@@ -1770,7 +1910,13 @@ class Production extends CI_Controller
                 'item_desc' => $campuran
             ];
 
-            $this->db->insert('stock_material', $data);
+            if($this->db->insert('stock_material', $data)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'CREATE', 'Initial stock of ' . $materialName . ': '  . $stock_old . ' kg', 'Production order material added: ' . $materialName . ' with amount ' . $amount. ' ' . $unit . '. Updated stock: ' . $updated_stock . ' ' . $unit);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
 
             $data2 = [
                 'in_stock' => $stock_old - $amount,

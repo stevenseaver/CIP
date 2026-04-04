@@ -19,9 +19,11 @@
                                                 <th>Username</th>
                                                 <th>Action</th>
                                                 <th>Table Name</th>
+                                                <th>Row Affected</th>
                                                 <th>Reference</th>
                                                 <th>State Before</th>
                                                 <th>State After</th>
+                                                <th>Difference</th>
                                                 <th>IP Address</th>
                                                 <th>Timestamps</th>
                                             </tr>
@@ -35,9 +37,26 @@
                                                     <td><?= $au['username']; ?></td>
                                                     <td><?= $au['action']; ?></td>
                                                     <td><?= $au['table_name']; ?></td>
+                                                    <td><?= $au['row']; ?></td>
                                                     <td><?= $au['reference']; ?></td>
                                                     <td><?= $au['state_before']; ?></td>
                                                     <td><?= $au['state_after']; ?></td>
+                                                   <?php 
+                                                        $diff = [];
+
+                                                        $before = is_array($au['state_before']) 
+                                                                    ? $au['state_before'] 
+                                                                    : json_decode($au['state_before'], true);
+
+                                                        $after = is_array($au['state_after']) 
+                                                                    ? $au['state_after'] 
+                                                                    : json_decode($au['state_after'], true);
+
+                                                        if (is_array($before) && is_array($after)) {
+                                                            $diff = array_diff_assoc($before, $after);
+                                                        };
+                                                    ?>
+                                                    <td><?= !empty($diff) ? print_r($diff, true) : 'Clear'; ?></td>
                                                     <td><?= $au['ip_address']; ?></td>
                                                     <td><?= $au['created_at']; ?></td>
                                                 </tr>
