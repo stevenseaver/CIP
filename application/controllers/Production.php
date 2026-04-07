@@ -206,7 +206,7 @@ class Production extends CI_Controller
 
             if($this->db->insert('stock_material', $data)){
                 $inserted_id = $this->db->insert_id();
-                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'CREATE', 'Initial stock of ' . $item . ': ' . $stock_old, 'Production order material added: ' . $materialName . ' with amount ' . $amount. ' ' . $unit . '. Updated stock: ' . $updated_stock);
+                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'CREATE', 'Initial stock of ' . $materialName . ': ' . $stock_old, 'Production order material added: ' . $materialName . ' with amount ' . $amount. ' ' . $unit . '. Updated stock: ' . $updated_stock);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed');
                 };
@@ -1912,6 +1912,7 @@ class Production extends CI_Controller
             $supplier = $material_selected["supplier"];
             $unit = $material_selected["unit_satuan"];
             $stock_old = $material_selected["in_stock"];
+            $updated_stock = $stock_old - $amount;
 
             $data = [
                 'transaction_id' => $po_id,
@@ -1921,7 +1922,7 @@ class Production extends CI_Controller
                 'date' => $date,
                 'price' => $price,
                 'outgoing' => $amount,
-                'in_stock' => $stock_old - $amount,
+                'in_stock' => $updated_stock,
                 'unit_satuan' => $unit,
                 'status' => $status,
                 'warehouse' => $warehouse,
