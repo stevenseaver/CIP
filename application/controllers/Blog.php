@@ -3,6 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Blog extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        // is_logged_in();
+        $this->load->model('Audit_model', 'audit');
+    }
+
     public function blogpost()
     {
         //load user data per session
@@ -276,7 +283,12 @@ class Blog extends CI_Controller
             ];
 
             $this->db->where('id', $id);
-            $this->db->update('blogpost', $data);
+            if($this->db->update('blogpost', $data)){
+                $audit_id = $this->audit->log_audit('blogpost', $id, '-', 'UPDATE', '-', 'Blogpost ' . $data['title'] . ' edited.');
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
 
             //cek jika ada gambar yang akan di upload
             $upload_image = $_FILES['image']['name'];
@@ -311,7 +323,12 @@ class Blog extends CI_Controller
     {
         $this->db->set('status', 1);
         $this->db->where('id', $usertoToggle);
-        $this->db->update('blogpost');
+        if($this->db->update('blogpost')){
+            $audit_id = $this->audit->log_audit('blogpost', $usertoToggle, '-', 'UPDATE', 'Unapproved', 'Blogpost approved.');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Upload approved!</div>');
         redirect('blog/blogpost');
     }
@@ -321,7 +338,12 @@ class Blog extends CI_Controller
     {
         $this->db->set('status', 2);
         $this->db->where('id', $usertoToggle);
-        $this->db->update('blogpost');
+        if($this->db->update('blogpost')){
+            $audit_id = $this->audit->log_audit('blogpost', $usertoToggle, '-', 'UPDATE', 'Unapproved', 'Blogpost declined.');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Upload declined!</div>');
         redirect('blog/blogpost');
     }
@@ -333,7 +355,12 @@ class Blog extends CI_Controller
         // get data on deleted sub menu
         $deletedItem = $this->db->get_where('blogpost', array('id' => $itemtoDelete))->row_array();
         // delete the sub menu
-        $this->db->delete('blogpost', array('id' => $itemtoDelete));
+        if($this->db->delete('blogpost', array('id' => $itemtoDelete))){
+            $audit_id = $this->audit->log_audit('blogpost', $itemtoDelete, '-', 'DELETE', 'Blog post id ' . $itemtoDelete . ' existed.', 'Blog post id ' . $itemtoDelete . ' deleted.');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
         // send message
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Post titled' . $deletedItem["title"] . ' deleted!</div>');
         redirect('blog/blogpost');

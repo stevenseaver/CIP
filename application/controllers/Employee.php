@@ -7,6 +7,7 @@ class Employee extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('Audit_model', 'audit');
     }
     //leave form
     public function leaveform()
@@ -47,7 +48,7 @@ class Employee extends CI_Controller
         $type = $this->input->post('leave_type');
         $start = $this->input->post('start_date');
         $finish = $this->input->post('finish_date');
-        $num_days = $start - $finish;
+        // $num_days = $start - $finish;
         $reason = $this->input->post('reason');
         $status = 0;
 
@@ -88,7 +89,7 @@ class Employee extends CI_Controller
                         'user_name' => $name,
                         'type' => $type,
                         'start_date' => $start,
-                        'finish_Date' => $finish,
+                        'finish_date' => $finish,
                         'reason' => $reason,
                         'status' => $status,
                         'document' => $new_file
@@ -108,13 +109,20 @@ class Employee extends CI_Controller
                 'user_name' => $name,
                 'type' => $type,
                 'start_date' => $start,
-                'finish_Date' => $finish,
-                'num_days' => $num_days,
+                'finish_date' => $finish,
+                // 'num_days' => $num_days,
                 'reason' => $reason,
                 'status' => $status,
                 'document' => ''
             ];
-            $this->db->insert('leave_list', $input);
+
+            if($this->db->insert('leave_list', $input)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('leave_list', $inserted_id, $input['user_nik'], 'CREATE', '-', $input['user_name'] . ' querries employe leave request from ' . $input['start_date'] . ' to ' . $input['finish_date'] . ' with reason: ' . $input['reason']);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Request submitted!</div>');
 
             redirect('employee/leaveform');
@@ -185,7 +193,14 @@ class Employee extends CI_Controller
                 'updated_at' => $date_updated,
                 'content' => $content
             ];
-            $this->db->insert('blogpost', $data);
+            
+            if($this->db->insert('blogpost', $data)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('blogpost', $inserted_id, '-', 'CREATE', '-', 'Blogpost ' . $data['title'] . ' added.');
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
 
             //cek jika ada gambar yang akan di upload
             $upload_image = $_FILES['image']['name'];
@@ -277,7 +292,12 @@ class Employee extends CI_Controller
                     $new_image = $this->upload->data('file_name');
                     $this->db->set('image', 'asset/img/blogs/' . $new_image);
                     $this->db->where('id', $id);
-                    $this->db->update('blogpost');
+                    if($this->db->update('blogpost')){
+                        $audit_id = $this->audit->log_audit('blogpost', $id, '-', 'UPDATE', '-', 'Blogpost ' . $data['title'] . ' edited.');
+                        if (!$audit_id) {
+                            log_message('error', 'Audit log failed');
+                        };
+                    };
                 } else {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
                     redirect('employee/blogpost');
@@ -296,6 +316,12 @@ class Employee extends CI_Controller
         $this->db->set('status', 1);
         $this->db->where('id', $usertoToggle);
         $this->db->update('blogpost');
+        if($this->db->update('blogpost')){
+            $audit_id = $this->audit->log_audit('blogpost', $usertoToggle, '-', 'UPDATE', 'Unapproved', 'Blogpost approved.');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Upload approved!</div>');
         redirect('employee/blogpost');
     }
@@ -305,7 +331,12 @@ class Employee extends CI_Controller
     {
         $this->db->set('status', 2);
         $this->db->where('id', $usertoToggle);
-        $this->db->update('blogpost');
+        if($this->db->update('blogpost')){
+            $audit_id = $this->audit->log_audit('blogpost', $usertoToggle, '-', 'UPDATE', 'Unapproved', 'Blogpost declined.');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Upload declined!</div>');
         redirect('employee/blogpost');
     }

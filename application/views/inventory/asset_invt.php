@@ -24,6 +24,14 @@
         <span class="text">View List Item</span>
     </a>
 
+    <!-- Print sticker  -->
+    <a href="<?= base_url('inventory/print_sticker') ?>" class="btn btn-light btn-icon-split mb-3" target="_blank" rel="noopener noreferrer">
+        <span class="icon text-dark">
+            <i class="bi bi-qr-code"></i>
+        </span>
+        <span class="text">Print QR</span>
+    </a>
+
     <div class="card border-left-primary mb-3">
         <div class="row mx-4 my-3">
             <div class="table-responsive">

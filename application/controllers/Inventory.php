@@ -2093,7 +2093,21 @@ class Inventory extends CI_Controller
         // $data['inventory'] = $this->inventory_id->getRoomName();
         // $data['room'] = $this->db->get('rooms')->result_array();
 
-        $this->load->view('inventory/view_list', $data);
+        $this->load->view('inventory/view_list2', $data);
+    }
+
+    public function print_sticker()
+    {
+        $data['title'] = 'Print Sticker';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        // //join database room and asset_inventory
+        // $this->load->model('Inventory_model', 'inventory_id');
+        // //get invt database
+        // $data['inventory'] = $this->inventory_id->getRoomName();
+        // $data['room'] = $this->db->get('rooms')->result_array();
+
+        $this->load->view('inventory/print_assetqr', $data);
     }
 
     public function maintenance($id)
