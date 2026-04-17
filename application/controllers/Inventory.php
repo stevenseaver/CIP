@@ -7,6 +7,7 @@ class Inventory extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model('Audit_model', 'audit');
     }
 
     //Material Warehouse //
@@ -124,8 +125,13 @@ class Inventory extends CI_Controller
                 'item_desc' => $min_stock //using item_desc column on stock akhir (cat 7) for min stock
             ];
 
-            $this->db->insert('stock_material', $data1);
-            $this->db->insert('stock_material', $data2);
+            if($this->db->insert('stock_material', $data1) and $this->db->insert('stock_material', $data2)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $code, 'CREATE', '-', 'Material item ' . $name . ' (' . $code  . ') created with initial stock ' . $initial_stock . ' ' . $unit);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New item ' . $name . ' added!</div>');
             redirect('inventory/material_wh');
         }
@@ -170,6 +176,9 @@ class Inventory extends CI_Controller
             $supplier = $this->input->post('supplier');
             $min_stock = $this->input->post('min_stock');
 
+            $material_edited = $this->db->get_where('stock_material', ['code' => $code, 'status' => 7])->row_array();
+            $edited_id = $material_edited['id'];
+
             //intital stock
             $data1 = [
                 'name' => $name,
@@ -187,7 +196,12 @@ class Inventory extends CI_Controller
             
             $this->db->where('code', $code);
             $this->db->where('status', 7);
-            $this->db->update('stock_material', $data2);
+            if($this->db->update('stock_material', $data2)){
+                $audit_id = $this->audit->log_audit('stock_material', $edited_id, $code, 'UPDATE', $material_edited['name'] . ', supplier: ' . $material_edited['supplier'] . ', category: ' . $material_edited['categories'] . ', material: ' . $material_edited['price'] . ', with min. stock: ' . $material_edited['item_desc'], 'Material item edited name: ' . $name . ', supplier: ' . $supplier . ', category: ' . $category . ', price: ' . $price . ', min stock: ' . $min_stock);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $name . ' edited!</div>');
             redirect('inventory/material_wh');
@@ -209,7 +223,12 @@ class Inventory extends CI_Controller
             redirect('inventory/material_wh');
         } else {
             // delete the item
-            $this->db->delete('stock_material', array('code' => $itemtoDelete));
+            if($this->db->delete('stock_material', array('code' => $itemtoDelete))){
+                $audit_id = $this->audit->log_audit('stock_material', 'multiple', $itemtoDelete, 'DELETE', 'Material ' . $deletedItem['name'] . ' existed.', 'Material ' . $deletedItem['name'] . ' deleted. ');
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
             // send message
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Item named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
             redirect('inventory/material_wh');
@@ -671,8 +690,13 @@ class Inventory extends CI_Controller
                 // 'transaction_status' => $trans_stat
             ];
 
-            $this->db->insert('stock_roll', $data1);
-            $this->db->insert('stock_roll', $data2);
+            if($this->db->insert('stock_roll', $data1) and $this->db->insert('stock_roll', $data2)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('stock_roll', $inserted_id, $code, 'CREATE', '-', 'Roll item ' . $name . ' (' . $code  . ') created with initial stock ' . $initial_stock . ' kg');
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New item ' . $name . ' added!</div>');
             redirect('inventory/prod_wh');
         }
@@ -709,6 +733,9 @@ class Inventory extends CI_Controller
             $grammage = $this->input->post('grammage');
             $lipatan = $this->input->post('lipatan');
 
+            $roll_edited = $this->db->get_where('stock_roll', ['code' => $code, 'status' => 7])->row_array();
+            $edited_id = $roll_edited['id'];
+
             //data to be updated
             $data = [
                 'name' => $name,
@@ -718,7 +745,13 @@ class Inventory extends CI_Controller
             ];
 
             $this->db->where('code', $code);
-            $this->db->update('stock_roll', $data);
+            if($this->db->update('stock_roll', $data)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('stock_roll', $edited_id, $code, 'UPDATE', 'Roll item ' . $name . ' initial price: ' . $roll_edited['price'] . ', grammature: ' . $roll_edited['weight'] . ', gusset: ' . $roll_edited['lipatan'], 'Roll item ' . $name . ' updated price: ' . $cogs . ', grammature: ' . $grammage . ', gusset: ' . $lipatan);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $name . ' edited!</div>');
             redirect('inventory/prod_wh');
         }
@@ -739,7 +772,12 @@ class Inventory extends CI_Controller
             redirect('inventory/prod_wh');
         } else {
             // delete the PROD ITEM
-            $this->db->delete('stock_roll', array('code' => $itemtoDelete));
+            if($this->db->delete('stock_roll', array('code' => $itemtoDelete))){
+                $audit_id = $this->audit->log_audit('stock_material', 'multiple', $itemtoDelete, 'DELETE', 'Roll ' . $deletedItem['name'] . ' existed.', 'Roll ' . $deletedItem['name'] . ' deleted. ');
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
             // send message
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Item named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
             redirect('inventory/prod_wh');
@@ -1191,8 +1229,13 @@ class Inventory extends CI_Controller
                 'description' => $min_stock
             ];
 
-            $this->db->insert('stock_finishedgoods', $data1);
-            $this->db->insert('stock_finishedgoods', $data2);
+            if($this->db->insert('stock_finishedgoods', $data1) and $this->db->insert('stock_finishedgoods', $data2)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('stock_finishedgoods', $inserted_id, $code, 'CREATE', '-', 'Finished goods item ' . $name . ' (' . $code  . ') created with initial stock ' . $initial_stock . ' ' . $unit);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
 
             //cek jika ada gambar yang akan di upload
             $upload_image = $_FILES['image']['name'];
@@ -1293,6 +1336,9 @@ class Inventory extends CI_Controller
             $conv = $this->input->post('conversion');
             $min_stock = $this->input->post('min_stock');
 
+            $fg_edited = $this->db->get_where('stock_finishedgoods', ['code' => $code, 'status' => 7])->row_array();
+            $edited_id = $fg_edited['id'];
+
             //cek jika ada gambar yang akan di upload
             $upload_image = $_FILES['image']['name'];
 
@@ -1339,7 +1385,12 @@ class Inventory extends CI_Controller
             
             $this->db->where('code', $code);
             $this->db->where('status', 7);
-            $this->db->update('stock_finishedgoods', $data2);
+            if($this->db->update('stock_finishedgoods', $data2)){
+                $audit_id = $this->audit->log_audit('stock_finishedgoods', $edited_id, $code, 'UPDATE', 'FG item ' . $fg_edited['name'] . ' initial price: ' . $fg_edited['price'] . ', pcs per pack: ' . $fg_edited['pcsperpack'] . ', pack per sack: ' . $fg_edited['packpersack'] . ', category: ' . $fg_edited['categories'] . ', conversion: ' . $fg_edited['conversion'], 'FG item ' . $name . ' updated price: ' . $price . ', pcs per pack: ' . $pcs . ', pack per sack: ' . $pack . ', category: ' . $category . ', conversion: ' . $conv);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Item ' . $name . ' edited!</div>');
             redirect('inventory/gbj_wh');
@@ -1362,7 +1413,12 @@ class Inventory extends CI_Controller
             redirect('inventory/gbj_wh');
         } else {
             // delete GBJ item
-            $this->db->delete('stock_finishedgoods', array('code' => $itemtoDelete));
+            if($this->db->delete('stock_finishedgoods', array('code' => $itemtoDelete))){
+                $audit_id = $this->audit->log_audit('stock_finishedgoods', 'multiple', $itemtoDelete, 'DELETE', 'FG item ' . $deletedItem['name'] . ' existed.', 'FG item ' . $deletedItem['name'] . ' deleted. ');
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
             // send message
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Item named ' . $deletedItem["name"] . ' with code ' . $deletedItem["code"] . ' deleted!</div>');
             redirect('inventory/gbj_wh');

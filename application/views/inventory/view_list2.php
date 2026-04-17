@@ -130,7 +130,7 @@ foreach ($inventory as $data) {
     $qrY = $yStart;
     $pdf->Cell($colW[9], $rowH, '', 1, 0, 'C', $fill);
 
-    $qrFile = APPPATH . '../asset/img/QRcode/' . $data->code . '.png';
+    $qrFile = APPPATH . '../asset/img/QRCode/' . $data->code . '.png';
     if (file_exists($qrFile)) {
         $imgSize = $rowH - 2;
         $imgX    = $qrX + ($colW[9] - $imgSize) / 2;
