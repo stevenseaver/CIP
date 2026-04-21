@@ -9,32 +9,97 @@
     ?>
 
     <!-- Page Heading -->
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 text-gray-800"><?= $title ?></h1>
-        <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-        <div class="dropdown text-center">
-            <!-- <button class="btn text-<?= $color?> bi bi-caret-left-fill" onclick="left_click()" type="button">
-            </button> -->
-            <button class="btn btn-<?= $color?> dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                <a id="periode_show" name="periode_show"><?= $current_periode ?></a>
-            </button>
-            <!-- <button class="btn text-<?= $color?> bi bi-caret-right-fill" onclick="right_click()" type="button">
-            </button> -->
-    
-            <div class="dropdown-menu">
-                <?php $j = 0;
-                $current_time = time();
-                $year = 0; 
-                $year = date('Y', $current_time);
-                foreach($periode as $per) : 
-                    if($per['year'] == $year or $per['year'] == '0') { ?>
-                        <a class="dropdown-item" href="<?= base_url('user/index?start_date=' . $per['start_date'] . '&end_date=' . $per['end_date'] . '&name=' . $per['id'])?>" onclick="select_date($per['id'])"><?= $per['period'];?></a>
-                    <?php
-                    }
-                    else { 
-
-                    };
-                endforeach; ?>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="row align-items-end mb-3">
+                <!-- Start Date -->
+                <div class="col-md-3">
+                    <label for="start_date">Start Date</label>
+                    <input type="date" class="form-control" id="start_date" name="start_date" 
+                        value="<?= date('Y-m-d', $start_date) ?>">
+                </div>
+                
+                <!-- End Date -->
+                <div class="col-md-3">
+                    <label for="end_date">End Date</label>
+                    <input type="date" class="form-control" id="end_date" name="end_date" 
+                        value="<?= date('Y-m-d', $end_date) ?>">
+                </div>
+                
+                <!-- Apply Button -->
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-primary btn-block" onclick="applyDateRange()">
+                        <i class="fas fa-search"></i> Apply
+                    </button>
+                </div>
+                
+                <!-- Month Shortcuts Dropdown -->
+                <div class="col-md-4">
+                    <label>Quick Select Month</label>
+                    <div class="dropdown">
+                        <button class="btn btn-<?= $color ?? 'secondary' ?> dropdown-toggle btn-block" 
+                                type="button" data-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-calendar"></i> <span id="selected_period">
+                            <?php
+                            // Display current selected period
+                            $current_period_name = 'Select Month';
+                            for ($i = 0; $i < 12; $i++) {
+                                $month_time = strtotime("-$i months", mktime(0, 0, 0, date('n'), 1, date('Y')));
+                                $year = date('Y', $month_time);
+                                $month = date('n', $month_time);
+                                $month_start = mktime(0, 0, 0, $month, 1, $year);
+                                $month_end = mktime(23, 59, 59, $month, date('t', $month_start), $year);
+                                
+                                if ($start_date == $month_start && $end_date == $month_end) {
+                                    $current_period_name = date('F Y', $month_time);
+                                    break;
+                                }
+                            }
+                            echo $current_period_name;
+                            ?>
+                            </span>
+                        </button>
+                        <div class="dropdown-menu" style="max-height: 300px; overflow-y: auto;">
+                            <?php
+                            // Generate last 12 months
+                            for ($i = 0; $i < 12; $i++) {
+                                $month_time = strtotime("-$i months", mktime(0, 0, 0, date('n'), 1, date('Y')));
+                                $year = date('Y', $month_time);
+                                $month = date('n', $month_time);
+                                $month_start = mktime(0, 0, 0, $month, 1, $year);
+                                $month_end = mktime(23, 59, 59, $month, date('t', $month_start), $year);
+                                $month_name = date('F Y', $month_time);
+                                
+                                // Check if this month is currently selected
+                                $is_active = ($start_date == $month_start && $end_date == $month_end) ? 'active' : '';
+                            ?>
+                                <a class="dropdown-item <?= $is_active ?>" 
+                                href="<?= base_url('user/index?start_date=' . $month_start . '&end_date=' . $month_end) ?>">
+                                    <?= $month_name ?>
+                                </a>
+                            <?php } ?>
+                            
+                            <div class="dropdown-divider"></div>
+                            
+                            <!-- Additional shortcuts -->
+                            <a class="dropdown-item" href="#" onclick="setDateRange('today'); return false;">
+                                <i class="bi bi-calendar-date"></i> Today
+                            </a>
+                            <a class="dropdown-item" href="#" onclick="setDateRange('yesterday'); return false;">
+                                <i class="bi bi-calendar-minus"></i> Yesterday
+                            </a>
+                            <a class="dropdown-item" href="#" onclick="setDateRange('last7days'); return false;">
+                                <i class="bi bi-calendar-week"></i> Last 7 Days
+                            </a>
+                            <a class="dropdown-item" href="#" onclick="setDateRange('last30days'); return false;">
+                                <i class="bi bi-calendar3"></i> Last 30 Days
+                            </a>
+                            <a class="dropdown-item" href="#" onclick="setDateRange('alltime'); return false;">
+                                <i class="bi bi-calendar3"></i> All Time
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -779,40 +844,154 @@
                 </div>
             </div>
         </div> -->
-
-        <!-- Content Row -->
+        <!-- Inventory Value Card -->
         <div class="row">
-            <!-- Content Column -->
-            <div class="col-lg-6 mb-1">
-                <!-- Project Card Example -->
+            <div class="col-lg-6 mb-3">
                 <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Real Time Inventory Value</h6>
+                    <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Inventory Value</h6>
+                        <span class="badge badge-pill badge-success">Live</span>
                     </div>
                     <div class="card-body">
-                        <a href="<?= base_url('inventory/material_wh')?>" style="text-decoration:none"><p class="font-weight-bold">Material Warehouse <span class="float-right">IDR <?= number_format($materialValue, 2, ',', '.'); ?></span></p></a>
-                        <div class="progress mb-4">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: <?= $percentMaterial ?>%" aria-valuenow="<?= $percentMaterial ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="d-flex flex-column flex-md-row align-items-center align-items-md-start">
+                            <div style="position:relative; width:150px; height:150px; flex-shrink:0;">
+                                <canvas id="inventoryDonut"></canvas>
+                                <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;">
+                                    <small class="text-muted" style="font-size:10px;">Total</small>
+                                    <span class="font-weight-bold" style="font-size:12px;">
+                                    IDR <?= number_format($totalWarehouseValue / 1e9, 1) ?>B
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- Material warehouse -->
+                            <div class="flex-fill mt-3 mt-md-0 ml-md-3" style="min-width:0; width:100%;">
+                            <a href="<?= base_url('inventory/material_wh') ?>" class="text-decoration-none">
+                                <div class="d-flex align-items-center py-2 border-bottom" style="gap:6px;">
+                                <span style="width:9px;height:9px;background:#E74A3B;border-radius:2px;flex-shrink:0;"></span>
+                                <!-- FIX 3: truncate long name, whitespace nowrap on numbers -->
+                                <span class="flex-fill font-weight-bold text-dark" style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Material warehouse</span>
+                                <span class="text-muted" style="white-space:nowrap;">IDR <?= number_format($materialValue, 2, ',', '.') ?></span>
+                                <span class="text-muted" style="white-space:nowrap;min-width:32px;text-align:right;"><?= number_format($percentMaterial, 1) ?>%</span>
+                                </div>
+                            </a>
+                            <!-- Production warehouse -->
+                            <a href="<?= base_url('inventory/prod_wh') ?>" class="text-decoration-none">
+                                <div class="d-flex align-items-center py-2 border-bottom" style="gap:6px;">
+                                <span style="width:9px;height:9px;background:#F6C23E;border-radius:2px;flex-shrink:0;"></span>
+                                <span class="flex-fill font-weight-bold text-dark" style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Production warehouse</span>
+                                <span class="text-muted" style="white-space:nowrap;">IDR <?= number_format($prodValue, 2, ',', '.') ?></span>
+                                <span class="text-muted" style="white-space:nowrap;min-width:32px;text-align:right;"><?= number_format($percentProd, 1) ?>%</span>
+                                </div>
+                            </a>
+                            <!-- GBJ Warehouse -->
+                            <a href="<?= base_url('inventory/gbj_wh') ?>" class="text-decoration-none">
+                                <div class="d-flex align-items-center py-2" style="gap:6px;">
+                                <span style="width:9px;height:9px;background:#1CC88A;border-radius:2px;flex-shrink:0;"></span>
+                                <span class="flex-fill font-weight-bold text-dark" style="min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Finished goods warehouse</span>
+                                <span class="text-muted" style="white-space:nowrap;">IDR <?= number_format($gbjValue, 2, ',', '.') ?></span>
+                                <span class="text-muted" style="white-space:nowrap;min-width:32px;text-align:right;"><?= number_format($percentGBJ, 1) ?>%</span>
+                                </div>
+                            </a>
+
+                            <div class="d-flex justify-content-between align-items-baseline pt-2 mt-1" style="border-top:1px solid #e3e6f0;">
+                                <span class="font-weight-bold text-secondary">Total warehouse value</span>
+                                <span class="font-weight-bold text-primary" style="white-space:nowrap;">IDR <?= number_format($totalWarehouseValue, 2, ',', '.') ?></span>
+                            </div>
+
+                            </div>
                         </div>
-                        <a href="<?= base_url('inventory/prod_wh')?>" style="text-decoration:none"><p class="font-weight-bold">Production Warehouse <span class="float-right">IDR <?= number_format($prodValue, 2, ',', '.'); ?></span></p></a>
-                        <div class="progress mb-4">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: <?= $percentProd ?>%" aria-valuenow="<?= $percentProd ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <a href="<?= base_url('inventory/gbj_wh')?>" style="text-decoration:none"><p class="font-weight-bold">Finished Good Warehouse <span class="float-right">IDR <?= number_format($gbjValue, 2, ',', '.'); ?></span></p></a>
-                        <div class="progress mb-4">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: <?= $percentGBJ ?>%" aria-valuenow="<?= $percentGBJ ?>" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <p class="font-weight-bold text-primary">Total Warehouse Value <span class="float-right">IDR <?= number_format($totalWarehouseValue, 2, ',', '.'); ?></span></p>
+                    </div>
+                </div>
+            </div>
+            <!-- Material Inventory Level Card -->
+            <div class="col-lg-6 mb-3">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3 d-flex align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            <i class="bi bi-dropbox mr-1"></i> Color and Additives Stock Levels
+                        </h6>
+                        <?php
+                            $dataNotif = $this->db->where('status', 7)->where_in('categories', [4, 5])->get('stock_material')->result_array();
+                            $lowCount = 0;
+                            foreach ($dataNotif as $dn) {
+                                if ((float)$dn['in_stock'] < (float)$dn['item_desc']) $lowCount++;
+                            }
+                        ?>
+                        <?php if ($lowCount > 0): ?>
+                            <span class="badge badge-pill badge-danger"><?= $lowCount ?> low</span>
+                        <?php else: ?>
+                            <span class="badge badge-pill badge-success">All OK</span>
+                        <?php endif; ?>
+                    </div>
+
+                    <!-- scrollable body -->
+                    <div class="card-body p-0" style="max-height:360px; overflow-y:auto;">
+                        <table class="table table-sm table-hover mb-0">
+                            <thead class="thead-light" style="position:sticky;top:0;z-index:1;">
+                            <tr>
+                                <th class="pl-3">Item</th>
+                                <th class="text-right">Stock</th>
+                                <th class="text-right">Min</th>
+                                <th class="text-center">Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            usort($dataNotif, function($a, $b) {
+                                $pctA = (float)$a['item_desc'] > 0 ? (float)$a['in_stock'] / (float)$a['item_desc'] : 1;
+                                $pctB = (float)$b['item_desc'] > 0 ? (float)$b['in_stock'] / (float)$b['item_desc'] : 1;
+                                return $pctA <=> $pctB;
+                            });
+                            foreach ($dataNotif as $dn):
+                                $stock = (float)$dn['in_stock'];
+                                $minVal = (float)$dn['item_desc'];
+                                if ($minVal == 0) continue;
+                                $pct = $minVal != 0 ? min(100, round($stock / $minVal * 100)) : 100;
+                                if($pct <= 50) { 
+                                    $barClass = 'bg-danger';  $badgeClass = 'badge-danger';  $label = 'Critical'; 
+                                }
+                                else if($pct <= 100){ 
+                                    $barClass = 'bg-warning'; $badgeClass = 'badge-warning'; $label = 'Low'; 
+                                }
+                                else { 
+                                    $barClass = 'bg-success'; $badgeClass = 'badge-success'; $label = 'OK'; 
+                                }
+                            ?>
+                            <tr>
+                                <td class="pl-3" style="max-width:160px;">
+                                <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500;">
+                                    <?= htmlspecialchars($dn['name']) ?>
+                                </div>
+                                <!-- mini progress bar -->
+                                <div class="progress mt-1" style="height:4px;">
+                                    <div class="progress-bar <?= $barClass ?>" style="width:<?= $pct ?>%"></div>
+                                </div>
+                                </td>
+                                <td class="text-right align-middle" style="white-space:nowrap;">
+                                    <?= number_format($stock, 2, '.', ',') ?> <small class="text-muted"><?= $dn['unit_satuan'] ?></small>
+                                </td>
+                                <td class="text-right align-middle text-muted" style="white-space:nowrap;">
+                                    <?= number_format($minVal, 2, '.', ',') ?> <small><?= $dn['unit_satuan'] ?></small>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <span class="badge <?= $badgeClass ?>"><?= $label ?></span>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card-footer text-muted small py-2 px-3">
+                        <?= count($dataNotif) ?> items tracked &nbsp;·&nbsp;
+                        <span class="text-danger"><?= $lowCount ?> below minimum</span>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- /.container-fluid -->
-
-        <!-- Content Row for Customer-->
-        <!-- Content Row for Customer-->
-        <!-- Content Row for Customer-->
+    <!-- Content Row for Customer-->
+    <!-- Content Row for Customer-->
+    <!-- Content Row for Customer-->
     <?php } else if ($user['role_id'] == 2){ ?>
         <div class="row">
             <div class="col-lg mb-2">
@@ -935,6 +1114,115 @@
 <!-- End of Main Content -->
 
 <script>
+    function applyDateRange() {
+        const startDate = document.getElementById('start_date').value;
+        const endDate = document.getElementById('end_date').value;
+        
+        if (!startDate || !endDate) {
+            alert('Please select both start and end dates');
+            return;
+        }
+        
+        // Convert to timestamps
+        const startTimestamp = new Date(startDate).getTime() / 1000;
+        const endTimestamp = new Date(endDate + ' 23:59:59').getTime() / 1000;
+        
+        if (startTimestamp > endTimestamp) {
+            alert('Start date must be before end date');
+            return;
+        }
+        
+        window.location.href = '<?= base_url('user/index') ?>?start_date=' + startTimestamp + '&end_date=' + endTimestamp;
+    }
+
+    function setDateRange(range) {
+        const now = new Date();
+        let startDate, endDate;
+        let rangeName = '';
+        
+        switch(range) {
+            case 'today':
+                startDate = endDate = now;
+                rangeName = 'Today';
+                break;
+                
+            case 'yesterday':
+                startDate = endDate = new Date(now.setDate(now.getDate() - 1));
+                rangeName = 'Yesterday';
+                break;
+                
+            case 'last7days':
+                endDate = new Date();
+                startDate = new Date(now.setDate(now.getDate() - 6));
+                rangeName = 'Last 7 Days';
+                break;
+                
+            case 'last30days':
+                endDate = new Date();
+                startDate = new Date(now.setDate(now.getDate() - 29));
+                rangeName = 'Last 30 Days';
+                break;
+            case 'alltime':
+                endDate = new Date();
+                startDate = new Date(now.setDate(now.getDate() - 20362));
+                rangeName = 'All time';
+                break;
+        }
+        
+        // Update the button text
+        document.getElementById('selected_period').textContent = rangeName;
+        
+        // Format dates as YYYY-MM-DD
+        document.getElementById('start_date').value = formatDate(startDate);
+        document.getElementById('end_date').value = formatDate(endDate);
+        
+        // Auto apply
+        applyDateRange();
+    }
+
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    // Allow pressing Enter to apply date range
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('start_date').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') applyDateRange();
+        });
+        document.getElementById('end_date').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') applyDateRange();
+        });
+    });
+
+    new Chart(document.getElementById('inventoryDonut'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Material', 'Production', 'Finished Goods'],
+            datasets: [{
+            data: [<?= $percentMaterial ?>, <?= $percentProd ?>, <?= $percentGBJ ?>],
+            backgroundColor: ['#E74A3B', '#F6C23E', '#1CC88A'],
+            borderWidth: 0,
+            hoverOffset: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '72%',
+            plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                label: (ctx) => ` ${ctx.label}: ${ctx.parsed.toFixed(1)}%`
+                }
+            }
+            }
+        }
+    });
+        
     $(document).ready(function() {
         // Initialize DataTable
         var table = $('#table1').DataTable({

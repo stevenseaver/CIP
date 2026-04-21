@@ -46,7 +46,12 @@ $pdf->AddPage();
 // DATA
 // ============================================================================
 
-$inventory = $this->db->get_where('inventory_asset', ['status' => 1])->result();
+// $inventory = $this->db->get_where('inventory_asset', ['status' => 1])->result();
+$this->db->select('inventory_asset.*, rooms.room_name');
+$this->db->from('inventory_asset');
+$this->db->join('rooms', 'rooms.id = inventory_asset.position', 'left');
+$this->db->where('status', 1);
+$inventory = $this->db->get()->result();
 
 // ============================================================================
 // HELPERS
@@ -168,7 +173,7 @@ foreach ($inventory as $data) {
 
     $fields = [
         'User'     => truncate($data->user,     24),
-        'Location' => truncate($data->position, 24),
+        'Location' => truncate($data->room_name, 24),
         'Acquired' => $data->date_in,
     ];
 
