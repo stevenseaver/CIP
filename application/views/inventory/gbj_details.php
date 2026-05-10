@@ -183,6 +183,11 @@
                                             if ($fs['status'] == '1' or $fs['status'] == '7') { ?>
                                                 <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-id="<?= $fs['id']; ?>" data-categories="<?= $fs['status_name']; ?>" data-amount="<?= $fs['in_stock'];?>" data-desc1="<?= $fs['batch'];?>" data-desc2="<?= $fs['description'];?>">Edit</a>
                                             <?php } else { ?>
+                                                <!-- if($fs['incoming'] != 0){
+                                                    $amount_edited = $fs['incoming'];
+                                                } else {
+                                                    $amount_edited = $fs['outgoing'];
+                                                } -->
                                                 <?php if ($fs['status'] == '2' or $fs['status'] == '3' or $fs['status'] == '5' or $fs['status'] == '8') { ?>
                                                     <a href="" class="badge badge-primary" data-toggle="modal" data-target="#adjustGBJTrans" data-categories="<?= $fs['status_name']; ?>" data-id="<?= $fs['id']; ?>" data-amount="<?= $fs['incoming'];?>" data-desc1="<?= $fs['batch'];?>" data-desc2="<?= $fs['description'];?>" data-date="<?= $fs['date']; ?>">Edit</a>
                                                     <a href="" class="badge badge-danger" data-toggle="modal" data-target="#deleteTransaction" data-cat="<?= $fs['status_name']; ?>" data-id="<?= $fs['id']; ?>" data-name="<?= $fs['name']; ?>" data-code="<?= $fs['code'] ?>" data-amount="<?= $fs['incoming'] ?>">Delete</a>

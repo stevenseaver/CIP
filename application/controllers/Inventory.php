@@ -1262,41 +1262,316 @@ class Inventory extends CI_Controller
             redirect('inventory/gbj_wh');
         }
     }
-    //quick adjust
-    // public function adjust_gbj()
-    // {
-    //     $data['title'] = 'Finished Goods Warehouse';
-    //     $data['user'] = $this->db->get_where('user', ['nik' =>
-    //     $this->session->userdata('nik')])->row_array();
-    //     $data['rollType'] = $this->db->get('stock_roll')->result_array();
-    //     //join warehouse database 
-    //     $this->load->model('Warehouse_model', 'warehouse_id');
-    //     $data['finishedStock'] = $this->warehouse_id->getGBJ();
-    //     $data['cat'] = $this->db->get('product_menu')->result_array();
 
-    //     //validation
-    //     $this->form_validation->set_rules('adjust_amount', 'stock amount', 'required|trim');
+    //convert one of fg item to another
+    public function convert_gbj($prodID){
+        $data['title'] = 'Finished Goods Stock Adjustment';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get GBJ item data
+        $data['gbjSelect'] = $this->db->order_by('name','ASC')->get_where('stock_finishedgoods', ['status' => 7])->result_array();
 
-    //     if ($this->form_validation->run() == false) {
-    //         $this->session->set_flashdata('message_adjust', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
-    //         $this->load->view('templates/header', $data);
-    //         $this->load->view('templates/sidebar', $data);
-    //         $this->load->view('templates/topbar', $data);
-    //         $this->load->view('inventory/gbj', $data);
-    //         $this->load->view('templates/footer');
-    //     } else {
-    //         $name = $this->input->post('adjust_name');
-    //         $code = $this->input->post('adjust_code');
-    //         $amount = $this->input->post('adjust_amount');
-    //         $data = [
-    //             'in_stock' => $amount
-    //         ];
-    //         $this->db->where('code', $code);
-    //         $this->db->update('stock_finishedgoods', $data, 'status = 7');
-    //         $this->session->set_flashdata('message_adjust', '<div class="alert alert-success" role="alert">Item ' . $name . ' adjusted!</div>');
-    //         redirect('inventory/gbj_wh');
-    //     }
-    // }
+        $data['po_id'] = $prodID;
+
+        //gbj items
+        $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
+
+        // Get the last roll item used in this production order
+        $last_record = $this->db->select('name, code, in_stock, pcsperpack, packpersack, date, price, batch')
+                       ->where('transaction_id', $prodID)
+                       ->order_by('id', 'DESC')
+                       ->limit(1)
+                       ->get('stock_finishedgoods')
+                       ->row_array();
+
+        // Convert timestamp to Y-m-d format for HTML date input
+        $data['last_record'] = $last_record;
+        $data['last_date'] = $last_record ? date('Y-m-d', $last_record['date']) : date('Y-m-d', time());
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('inventory/add_gbj_trans', $data);
+        $this->load->view('templates/footer');
+        // $data['title'] = 'Finished Goods Warehouse';
+        // $data['user'] = $this->db->get_where('user', ['nik' =>
+        // $this->session->userdata('nik')])->row_array();
+        // // $data['rollType'] = $this->db->get('stock_roll')->result_array();
+        // //join warehouse database 
+        // $this->load->model('Warehouse_model', 'warehouse_id');
+        // $data['finishedStock'] = $this->warehouse_id->getGBJWarehouseID();
+        // $data['cat'] = $this->db->order_by('unit','ASC')->get('product_category')->result_array();
+
+        // //validation
+        // $this->form_validation->set_rules('item_from', 'name', 'required|trim');
+        // $this->form_validation->set_rules('before_amount', 'code', 'required|trim|is_unique[stock_finishedgoods.code]', [
+        //     'is_unique' => 'Code used, choose a unique code!'
+        // ]);
+        // $this->form_validation->set_rules('item_to', 'product amount', 'required|trim|numeric');
+        // $this->form_validation->set_rules('after_amount', 'product pack/sack', 'required|trim|numeric');
+
+        // if ($this->form_validation->run() == false) {
+        //     $this->session->set_flashdata('msg_failed_gbj', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+        //     $this->load->view('templates/header', $data);
+        //     $this->load->view('templates/sidebar', $data);
+        //     $this->load->view('templates/topbar', $data);
+        //     $this->load->view('inventory/gbj', $data);
+        //     $this->load->view('templates/footer');
+        // } else {
+        //     //item converted from
+        //     $item_from_id = $this->input->post('item_from');
+        //     $before_amount = $this->input->post('before_amount');
+        //     $convert_from = $this->db->get_where('stock_finishedgoods', ['id' => $item_from_id, 'status' => 7])->row_array();
+        //     $item_from = $convert_from['name'];
+        //     $code = $convert_from['code'];
+        //     $pcs = $convert_from['pcsperpack'];
+        //     $pack = $convert_from['packpersack'];
+        //     $conv = $convert_from['conversion'];
+        //     $date = time();
+        //     $price = $convert_from['price'];
+        //     $category = $convert_from['categories'];
+        //     $initial_stock = $convert_from['in_stock'];
+        //     $unit_before = $convert_from['unit_satuan'];
+
+        //     //item converted into
+        //     $item_to_id = $this->input->post('item_to');
+        //     $after_amount = $this->input->post('after_amount');
+        //     $convert_to = $this->db->get_where('stock_finishedgoods', ['id' => $item_to_id, 'status' => 7])->row_array();
+        //     $item_to = $convert_to['name'];
+        //     $code_to = $convert_to['code'];
+        //     $pcs_to = $convert_to['pcsperpack'];
+        //     $pack_to = $convert_to['packpersack'];
+        //     $conv_to = $convert_to['conversion'];
+        //     $price_to = $convert_to['price'];
+        //     $category_to = $convert_to['categories'];
+        //     $initial_stock_to = $convert_to['in_stock'];
+        //     $unit_after = $convert_to['unit_satuan'];
+
+        //     $status = 2; //2 is stock adjustment
+        //     $warehouse = 3; //3 is FG warehouse
+        //     $year = date('y');
+        //     $month = date('m');
+        //     $n = 3;
+        //     $result = bin2hex(random_bytes($n));
+        //     $trans_id = 'CV' . $year . $month . $result;
+
+        //     //intital stock
+        //     $initial_item = [
+        //         'name' => $item_from,
+        //         'code' => $code,
+        //         'pcsperpack' => $pcs,
+        //         'packpersack' => $pack,
+        //         'conversion' => $conv,
+        //         'date' => $date,
+        //         'price' => $price,
+        //         'categories' => $category,
+        //         'in_stock' => $initial_stock - $before_amount,
+        //         'incoming' => -$before_amount,
+        //         'outgoing' => 0,
+        //         'unit_satuan' => $unit_before,
+        //         'before_convert' => 0,
+        //         'status' => $status,
+        //         'warehouse' => $warehouse,
+        //         'transaction_id' => $trans_id,
+        //         'batch' => 'Converted to' . item_to,
+        //         'description' => 'via Convert Menu',
+        //         'tax' => 0,
+        //         'is_paid' => 0
+        //     ];
+        //     $update_initial_stock = [
+        //         'in_stock' => $initial_stock - $before_amount,
+        //         'date' => $date
+        //     ];
+        //     $this->db->where('code', $code);
+        //     $this->db->update('stock_finishedgoods', $update_initial_stock, 'status = 7');
+
+        //     //final stock
+        //     $converted_item = [
+        //         'name' => $item_to,
+        //         'code' => $code_to,
+        //         'pcsperpack' => $pcs_to,
+        //         'packpersack' => $pack_to,
+        //         'conversion' => $conv_to,
+        //         'date' => $date,
+        //         'price' => $price_to,
+        //         'categories' => $category_to,
+        //         'in_stock' => $initial_stock_to + $after_amount,
+        //         'incoming' => $after_amount,
+        //         'outgoing' => 0,
+        //         'unit_satuan' => $unit_after,
+        //         'before_convert' => 0,
+        //         'status' => $status,
+        //         'warehouse' => $warehouse,
+        //         'transaction_id' => $trans_id,
+        //         'batch' => 'Converted from' . $item_from,
+        //         'description' => 'via Convert Menu',
+        //         'tax' => 0,
+        //         'is_paid' => 0
+        //     ];
+        //     $update_converted_stock = [
+        //         'in_stock' => $initial_stock_to + $after_amount,
+        //         'date' => $date
+        //     ];
+        //     $this->db->where('code', $code_to);
+        //     $this->db->update('stock_finishedgoods', $update_converted_stock, 'status = 7');
+
+        //     if($this->db->insert('stock_finishedgoods', $initial_item) and $this->db->insert('stock_finishedgoods', $converted_item)){
+        //         $inserted_id = $this->db->insert_id();
+        //         $audit_id = $this->audit->log_audit('stock_finishedgoods', $inserted_id, $code, 'CREATE', '-', 'Finished goods item ' . $name . ' with amount: ' . $initial_stock . ' ' . $unit . ' converted into ' . $$item_to . ' with amount ' . $initial_stock . ' ' . $unit_after);
+        //         if (!$audit_id) {
+        //             log_message('error', 'Audit log failed');
+        //         };
+        //     };
+
+        //     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Convert success!</div>');
+        //     redirect('inventory/gbj_wh');
+        // }
+    }
+    public function add_gbj_trans($prodID, $status, $warehouse)
+    {
+        $data['title'] = 'Finished Goods Input';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        //get GBJ item data
+        $data['gbjSelect'] = $this->db->order_by('name','ASC')->get_where('stock_finishedgoods', ['status' => 7])->result_array();
+       
+        $data['po_id'] = $prodID;
+        //gbj items
+        $data['gbjItems'] = $this->db->get_where('stock_finishedgoods', ['transaction_id' => $prodID])->result_array();
+
+        $last_record = $this->db->select('name, code, in_stock, pcsperpack, packpersack, date, price, batch')
+                       ->where('transaction_id', $prodID)
+                       ->order_by('id', 'DESC')
+                       ->limit(1)
+                       ->get('stock_finishedgoods')
+                       ->row_array();
+
+        // Convert timestamp to Y-m-d format for HTML date input
+        $data['last_record'] = $last_record;
+        $data['last_date'] = $last_record ? date('Y-m-d', $last_record['date']) : date('Y-m-d', time());
+
+        $this->form_validation->set_rules('gbjSelect', 'finished goods item', 'trim|required');
+        $this->form_validation->set_rules('code', 'code', 'trim|required');
+        $this->form_validation->set_rules('amount', 'amount', 'trim|required');
+        $this->form_validation->set_rules('price_gbj', 'price', 'trim|required');
+        $this->form_validation->set_rules('batch', 'batch', 'trim|required');
+        $this->form_validation->set_rules('report_date', 'date', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Oops some inputs are missing!</div>');
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('inventory/add_gbj_trans', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $item = $this->input->post('gbjSelect');
+            $code = $this->input->post('code');
+            $amount = $this->input->post('amount');
+            $price = $this->input->post('price_gbj');
+            $pcsperpack = $this->input->post('pcsperpack');
+            $packpersack = $this->input->post('packpersack');
+            $batch = $this->input->post('batch');
+            $date = strtotime($this->input->post('report_date'));
+            $status = 2;
+            
+            $gbjSelect = $this->db->get_where('stock_finishedgoods', ['code' => $code, 'status' => 7])->row_array();
+            
+            // $price = $gbjSelect['price'];
+            $picture = $gbjSelect['picture'];
+            $category = $gbjSelect['categories'];
+            $satuan = $gbjSelect['unit_satuan'];
+            $stock_old = $gbjSelect['in_stock'];
+            $conv_to = $gbjSelect['conversion'];
+            $descriptions = 'via Converter';
+
+            $updatedStock = $stock_old + $amount;
+
+            $data = [
+                'name' => $item,
+                'code' => $code,
+                'pcsperpack' => $pcsperpack,
+                'packpersack' => $packpersack,
+                'conversion' => $conv_to,
+                'date' => $date,
+                'price' => $price,
+                'categories' => $category,
+                'in_stock' => $updatedStock,
+                'incoming' => $amount,
+                'outgoing' => 0,
+                'unit_satuan' => $satuan,
+                'before_convert' => $amount,
+                'status' => $status,
+                'warehouse' => $warehouse,
+                'transaction_id' => $prodID,
+                'picture' => $picture,
+                'batch' => $batch,
+                'description' => $descriptions,
+                'tax' => 0,
+                'is_paid' => 0
+            ];
+
+            if($this->db->insert('stock_finishedgoods', $data)){
+                $inserted_id = $this->db->insert_id();
+                $audit_id = $this->audit->log_audit('stock_finishedgoods', $inserted_id, $prodID, 'CREATE', 'Initial stock of ' . $item . ': ' . $stock_old, 'Item: ' . $item . ' adjusted with amount ' . $amount . ' ' . $satuan . '. Stock updated to: ' . $updatedStock);
+                if (!$audit_id) {
+                    log_message('error', 'Audit log failed');
+                };
+            };
+            
+            $data2 = [
+                'in_stock' => $updatedStock,
+                'date' => $date,
+                'price' => $price
+            ];
+
+            $this->db->where('status', '7');
+            $this->db->where('code', $code);
+            $this->db->update('stock_finishedgoods', $data2);
+        
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Finished goods ' . $item . ' with amount ' . $amount . ' ' . $satuan .  ' adjusted!</div>');
+            redirect('inventory/convert_gbj/' . $prodID);
+        };
+    }
+
+    //delete individual gbj input
+    public function delete_gbj_input(){
+        $prodID = $this->input->post('delete_po_id');
+        $id = $this->input->post('delete_id');
+        $name = $this->input->post('delete_name');
+        $amount = $this->input->post('delete_amount');
+        
+        $date = time();
+        
+        $data['item_deleted'] = $this->db->get_where('stock_finishedgoods', ['id' => $id])->row_array();
+        $materialID = $data['item_deleted']['code'];
+        
+        //get selected material stock_akhir or stock akhir from id = 7
+        $data['gbjitem_selected'] = $this->db->get_where('stock_finishedgoods', ['code' => $materialID, 'status' => 7])->row_array();
+        $stock_akhir = $data['gbjitem_selected']['in_stock'];
+        $update_stock = $stock_akhir - $amount;
+        
+        $data2 = [
+            'in_stock' => $update_stock,
+            'date' => $date
+        ];
+        
+        //update transaction
+        $this->db->where('id', $id);
+        if($this->db->delete('stock_finishedgoods')){
+            $audit_id = $this->audit->log_audit('stock_finishedgoods', $id, $prodID, 'DELETE', 'Adjustment trans. of item ' . $name . ' with amount ' . $amount . '. Initial stock: ' . $stock_akhir, 'Adj. transaction deleted. Updated stock: ' . $update_stock);
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        };
+        //update stock akhir
+        $this->db->where('status', '7');
+        $this->db->where('code', $materialID);
+        $this->db->update('stock_finishedgoods', $data2);
+        
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Items deleted!</div>');
+        redirect('inventory/convert_gbj/' . $prodID);
+    }
 
     public function edit_gbj()
     {
@@ -1489,8 +1764,8 @@ class Inventory extends CI_Controller
                 } else if ($transaction_status == 2){
                     $n = 3;
                     $result = bin2hex(random_bytes($n));
-                    $trans_id = 'SA' . $year . $month . $result; //purchasing
-                };
+                    $trans_id = 'SA' . $year . $month . $result; //sotck adjustment
+                }
 
                 $data = [
                     'name' => $name,

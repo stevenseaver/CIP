@@ -18,13 +18,31 @@
         <span class="text">Add New Item</span>
     </a>
 
-    <a href="<?= base_url('inventory/pdf_gbj') ?>" target="_blank" class="btn btn-success btn-icon-split mb-3">
+    <!-- Creaye pdf / export inventory list to PDF -->
+    <a href="<?= base_url('inventory/pdf_gbj') ?>" target="_blank" class="btn btn-success btn-icon-split mb-3" rel="noopener noreferrer">
         <span class="icon text-white-50">
             <i class="bi bi-file-earmark-pdf"></i>
         </span>
         <span class="text">View PDF</span>
     </a>
+
+    <?php 
+        $year = date('y');
+        $month = date('m');
+        $n = 3;
+        $result = bin2hex(random_bytes($n));
+        $trans_id = 'CV' . $year . $month . $result;
+    ?>
+
+    <!-- Convert item to another item -->
+    <a href="<?= base_url('inventory/convert_gbj/' . $trans_id) ?>"  class="btn btn-warning btn-icon-split mb-3" rel="noopener noreferrer">
+        <span class="icon text-white-50">
+            <i class="bi bi-arrow-left-right"></i>
+        </span>
+        <span class="text">Convert Item</span>
+    </a>
     
+    <!-- setting product category -->
     <a href="<?= base_url('inventory/product_category') ?>" class="btn btn-light btn-icon-split mb-3">
         <span class="icon text-white-50">
             <i class="bi bi-gear-wide-connected"></i>
@@ -65,13 +83,18 @@
                                     <td><?= $fs['title'] ?></td>
                                     <td><?php
                                         if ($fs['categories'] == '6') {
+                                            // category 6 is bulk product 25 kg / sack
                                             echo number_format($fs['in_stock'], 2, ',', '.') . ' ' . $fs['unit_satuan'];
                                             echo ' or ' . ($fs['in_stock'] / 25) . ' sack';
                                         } else if ($fs['categories'] == '7' or $fs['categories'] == '4') {
+                                            // category 4is shopping bag and 7 is weighted products
                                             echo number_format($fs['in_stock'], 2, ',', '.') . ' ' . $fs['unit_satuan'];
                                         } else {
+                                            // else is packed products
                                             echo number_format($fs['in_stock'], 2, ',', '.') . ' ' . $fs['unit_satuan'];
-                                            echo ' or ' . number_format(($fs['in_stock'] / $fs['packpersack']), 2, ',', '.') . ' sack';
+                                            if($fs['packpersack'] != 0){
+                                                echo ' or ' . number_format(($fs['in_stock'] / $fs['packpersack']), 2, ',', '.') . ' sack';
+                                            }
                                         } ?>
                                     </td>
                                     <td><?= number_format($fs['price'], 0, ',', '.') . '/'. $fs['unit_satuan']; ?>
@@ -391,6 +414,74 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal For Convert Item -->
+<div class="modal fade" id="convertItem" tabindex="-1" aria-labelledby="convertItemLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="convertItemLabel">Convert Item</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('inventory/convert_gbj'); ?>" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg">
+                            <div class="form-group">
+                                <!-- Item converted from -->
+                                <label for="item_from" class="col-form-label">Convert from..</label>
+                                <div class="mb-1">
+                                    <select name="item_from" id="item_from" class="form-control">
+                                        <option value="">--Select Item--</option>
+                                        <?php foreach ($finishedStock as $inv) : ?>
+                                            <option value="<?= $inv['id'] ?>"><?= $inv['name'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <?= form_error('item_from', '<small class="text-danger pl-2">', '</small>') ?>
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="before_amount" name="before_amount">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="unit_amount"></span>
+                                    </div>
+                                </div>
+                                <?= form_error('before_amount', '<small class="text-danger pl-2">', '</small>') ?>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 d-flex align-items-center justify-content-center">
+                            <i class="bi bi-arrow-left-right"></i>
+                        </div>
+                        <div class="col-lg">
+                            <!-- Converted into -->
+                            <label for="item_to" class="col-form-label">into..</label>
+                            <div class="mb-1">
+                                <select name="item_to" id="item_to" class="form-control">
+                                    <option value="">--Select Item--</option>
+                                    <?php foreach ($finishedStock as $inv) : ?>
+                                        <option value="<?= $inv['id'] ?>"><?= $inv['name'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="after_amount" name="after_amount">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="unit_amount"></span>
+                                </div>
+                            </div>
+                            <?= form_error('after_amount', '<small class="text-danger pl-2">', '</small>') ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Convert</button>
                 </div>
             </form>
         </div>

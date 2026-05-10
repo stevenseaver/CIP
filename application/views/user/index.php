@@ -914,8 +914,10 @@
                             $dataNotif = $this->db->where('status', 7)->where_in('categories', [4, 5])->get('stock_material')->result_array();
                             $lowCount = 0;
                             foreach ($dataNotif as $dn) {
-                                if ((float)$dn['in_stock'] < (float)$dn['item_desc']) $lowCount++;
-                            }
+                                if ((float)$dn['item_desc'] > 0 && (float)$dn['in_stock'] < (float)$dn['item_desc']) {
+                                    $lowCount++;
+                                };
+                            };
                         ?>
                         <?php if ($lowCount > 0): ?>
                             <span class="badge badge-pill badge-danger"><?= $lowCount ?> low</span>
@@ -942,15 +944,19 @@
                                 $pctB = (float)$b['item_desc'] > 0 ? (float)$b['in_stock'] / (float)$b['item_desc'] : 1;
                                 return $pctA <=> $pctB;
                             });
+                            $itemTracked = 0;
                             foreach ($dataNotif as $dn):
                                 $stock = (float)$dn['in_stock'];
                                 $minVal = (float)$dn['item_desc'];
-                                if ($minVal == 0) continue;
+                                if ($minVal == 0) {
+                                    $itemTracked++;
+                                    continue;
+                                }
                                 $pct = $minVal != 0 ? min(100, round($stock / $minVal * 100)) : 100;
                                 if($pct <= 50) { 
                                     $barClass = 'bg-danger';  $badgeClass = 'badge-danger';  $label = 'Critical'; 
                                 }
-                                else if($pct <= 100){ 
+                                else if($pct <= 99){ 
                                     $barClass = 'bg-warning'; $badgeClass = 'badge-warning'; $label = 'Low'; 
                                 }
                                 else { 
@@ -983,7 +989,7 @@
                     </div>
 
                     <div class="card-footer text-muted small py-2 px-3">
-                        <?= count($dataNotif) ?> items tracked &nbsp;·&nbsp;
+                        <?= $itemTracked ?> items tracked &nbsp;·&nbsp;
                         <span class="text-danger"><?= $lowCount ?> below minimum</span>
                     </div>
                 </div>

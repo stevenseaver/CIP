@@ -12,7 +12,7 @@
                 $background = 'white';
             };
         ?>
-
+        
         <ul class="navbar-nav bg-gradient-<?= $color ?> sidebar sidebar-<?= $text ?> accordion" id="accordionSidebar">
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('user') ?>">
