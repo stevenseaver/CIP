@@ -8,6 +8,7 @@ class Inventory extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model('Audit_model', 'audit');
+        $this->load->library('ciqrcode');
     }
 
     //Material Warehouse //

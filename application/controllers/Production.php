@@ -815,6 +815,54 @@ class Production extends CI_Controller
         }
     }
 
+    // FOR THE EASE OF EXTRUSION PRODUCTION STAFF to ENTER THE ROLL PRODUCED, WE USE A GENERAL INPUT ROLL FORM THAT AUTOMATICALLY DETECTS THE PRODUCTION BATCH AND THE ROLL USED USING QR-CODES
+    public function add_roll_general()
+    {
+        $data['title'] = 'General Roll Input From';
+        $data['user'] = $this->db->get_where('user', ['nik' =>
+        $this->session->userdata('nik')])->row_array();
+        $data['rollSelect'] = $this->db->order_by('name','ASC')->get_where('stock_roll', ['status' => 7])->result_array();
+        $data['rollType'] = $this->db->get_where('stock_roll', ['status' => 11])->result_array();
+
+        // $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+
+        //get inventory warehouse data
+        // $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+        // $data['po_id'] = $prodID;
+
+        // Get the last roll item used in this production order
+        $lastRoll = $this->db->select('name, code, weight, lipatan, price, batch, transaction_desc, date')
+                            ->where('status', 3)
+                            ->order_by('id', 'DESC')
+                            ->limit(1)
+                            ->get('stock_roll')
+                            ->row_array();
+        if (!$lastRoll) {
+            $lastRoll = $this->db->select('name, code, weight, lipatan, price, batch, transaction_desc, date')
+                                ->order_by('id', 'DESC')
+                                ->limit(1)
+                                ->get('stock_roll')
+                                ->row_array();
+        };
+        
+        $data['lastRoll'] = $lastRoll;
+        $data['getID'] = $lastRoll;
+        $data['last_date'] = $data['lastRoll'] ? date('Y-m-d', $data['lastRoll']['date']) : date('Y-m-d', time());
+
+        if ($data['getID'] != null) {
+        } else {
+            $data['getID']['description'] = 1;
+            $data['getID']['product_name'] = 1;
+        };
+        //MATERIAL ITEMS HERE
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('production/add_general_roll', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function add_item_prod_after_roll($prodID, $status)
     {
         $data['title'] = 'Add Roll Input';

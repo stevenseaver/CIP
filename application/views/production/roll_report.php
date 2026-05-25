@@ -42,6 +42,13 @@
         </div>
     </div>
 
+    <a href="<?= base_url('production/add_roll_general') ?>" class="btn btn-<?= $color ?? 'secondary' ?> btn-icon-split mb-3">
+        <span class="icon">
+            <i class="bi bi-arrow-right"></i>
+        </span>
+        <span class="text">Input Roll for Production</span>
+    </a>
+
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="row align-items-end mb-3">

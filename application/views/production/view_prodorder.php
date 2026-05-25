@@ -34,6 +34,11 @@ $pdf->Cell(35, 7, 'Batch', 0, 0, 'L');
 $pdf->SetFont('', 'B', 12);
 $pdf->Cell(100, 7, $batch, 0, 1, 'L');
 
+// QR Code
+$pdf->write2DBarcode($ref, 'QRCODE,H', 255, 15, 30, 30, ['border' => false, 'padding' => 1]);
+
+$pdf->Ln(1); // small spacing after batch row
+
 $temp = 0;
 $temp2 = 0;
 

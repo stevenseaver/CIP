@@ -335,7 +335,7 @@
             <div class="col-lg-3">
                 <div class="form-group">
                     <!-- Material in stock -->
-                    <label for="lipatan" class="col-form-label">Lipatan</label>
+                    <label for="lipatan" class="col-form-label">Gusset</label>
                     <input type="text" class="form-control" id="lipatan" name="lipatan" readonly value="<?= isset($lastRoll['lipatan']) ? $lastRoll['lipatan'] : set_value('lipatan'); ?>">
                     <?= form_error('lipatan', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
