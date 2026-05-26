@@ -2,7 +2,7 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <div class="d-flex align-items-center justify-content-between mb-4">
+    <div class="d-flex align-items-center justify-content-between mb-3">
         <div class="h3 text-gray-800"><?= $title ?></div>
         <?php 
             $data['items'] = $this->db->get_where('settings', ['parameter' => 'header_color'])->row_array();

@@ -809,6 +809,10 @@ class Production extends CI_Controller
             $this->db->where('status', '7');
             $this->db->where('code', $code);
             $this->db->update('stock_roll', $data2);
+
+            $this->db->where('transaction_id', $prodID)->update('stock_material', [
+                'transaction_status' => 2
+            ]);
             
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Roll ' . $item . ' with amount ' . $amount . ' kg added!</div>');
             redirect('production/add_roll/' . $prodID);
@@ -818,49 +822,187 @@ class Production extends CI_Controller
     // FOR THE EASE OF EXTRUSION PRODUCTION STAFF to ENTER THE ROLL PRODUCED, WE USE A GENERAL INPUT ROLL FORM THAT AUTOMATICALLY DETECTS THE PRODUCTION BATCH AND THE ROLL USED USING QR-CODES
     public function add_roll_general()
     {
-        $data['title'] = 'General Roll Input From';
-        $data['user'] = $this->db->get_where('user', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
-        $data['rollSelect'] = $this->db->order_by('name','ASC')->get_where('stock_roll', ['status' => 7])->result_array();
+        $data['title'] = 'General Roll Input Form';
+        $data['user'] = $this->db->get_where('user', ['nik' => $this->session->userdata('nik')])->row_array();
+
+        if ($this->input->post()) {
+            $this->_process_add_roll_general();
+            return;
+        }
+
+        $data['rollSelect'] = $this->db->order_by('name', 'ASC')->get_where('stock_roll', ['status' => 7])->result_array();
         $data['rollType'] = $this->db->get_where('stock_roll', ['status' => 11])->result_array();
 
-        // $data['getID'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
-
-        //get inventory warehouse data
-        // $data['inventory_selected'] = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
-        // $data['po_id'] = $prodID;
-
-        // Get the last roll item used in this production order
-        $lastRoll = $this->db->select('name, code, weight, lipatan, price, batch, transaction_desc, date')
-                            ->where('status', 3)
+        $lastRoll = $this->db->select('name, code, weight, lipatan, price, batch, transaction_desc, date, transaction_id')
+                            ->where('status', 11)
                             ->order_by('id', 'DESC')
                             ->limit(1)
                             ->get('stock_roll')
                             ->row_array();
+
         if (!$lastRoll) {
-            $lastRoll = $this->db->select('name, code, weight, lipatan, price, batch, transaction_desc, date')
+            $lastRoll = $this->db->select('name, code, weight, lipatan, price, batch, transaction_desc, date, transaction_id')
                                 ->order_by('id', 'DESC')
                                 ->limit(1)
                                 ->get('stock_roll')
                                 ->row_array();
-        };
-        
+        }
+
         $data['lastRoll'] = $lastRoll;
         $data['getID'] = $lastRoll;
-        $data['last_date'] = $data['lastRoll'] ? date('Y-m-d', $data['lastRoll']['date']) : date('Y-m-d', time());
+        $data['last_date'] = $lastRoll ? date('Y-m-d', $lastRoll['date']) : date('Y-m-d');
 
-        if ($data['getID'] != null) {
-        } else {
-            $data['getID']['description'] = 1;
+        if (empty($data['getID'])) {
+            $data['getID']['description']  = 1;
             $data['getID']['product_name'] = 1;
-        };
-        //MATERIAL ITEMS HERE
+        }
+
+        $data['last_po_id'] = $this->session->flashdata('last_po_id') ?? $data['lastRoll']['transaction_id'];
 
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('production/add_general_roll', $data);
         $this->load->view('templates/footer');
+    }
+
+    private function _process_add_roll_general()
+    {
+        $item    = $this->input->post('rollName');
+        $code    = $this->input->post('code');
+        $weight  = $this->input->post('weight');
+        $lipatan = $this->input->post('lipatan');
+        $date    = strtotime($this->input->post('report_date'));
+        $amount  = $this->input->post('amount');
+        $price   = $this->input->post('price_roll');
+        $batch   = $this->input->post('batch');
+        $roll_no = $this->input->post('roll_no');
+        $prodID  = $this->input->post('po_id');
+
+        $rollSelect = $this->db->get_where('stock_roll', ['code' => $code, 'status' => 7])->row_array();
+
+        if (!$rollSelect) {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Roll dengan kode <strong>' . $code . '</strong> tidak ditemukan di stok.</div>');
+            redirect('production/add_roll_general');
+            return;
+        }
+
+        $stock_old     = $rollSelect['in_stock'];
+        $updated_stock = $stock_old + $amount;
+
+        $data = [
+            'name'             => $item,
+            'code'             => $code,
+            'date'             => $date,
+            'weight'           => $weight,
+            'lipatan'          => $lipatan,
+            'incoming'         => $amount,
+            'outgoing'         => 0,
+            'in_stock'         => $updated_stock,
+            'price'            => $price,
+            'status'           => 11,
+            'warehouse'        => 2,
+            'transaction_id'   => $prodID,
+            'batch'            => $batch,
+            'transaction_desc' => $roll_no
+        ];
+
+        if ($this->db->insert('stock_roll', $data)) {
+            $inserted_id = $this->db->insert_id();
+            $audit_id = $this->audit->log_audit('stock_roll', $inserted_id, $prodID, 'CREATE', 'Initial stock of ' . $item . ': ' . $stock_old, 'Production order roll added: ' . $item . ' with amount ' . $amount . ' kg. Updated stock: ' . $updated_stock);
+
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            }
+
+            $data2 = [
+                'in_stock' => $updated_stock,
+                'date'     => $date,
+                'price'    => $price
+            ];
+            $this->db->where('status', 7);
+            $this->db->where('code', $code);
+            $this->db->update('stock_roll', $data2);
+
+            $this->db->where('transaction_id', $prodID)->update('stock_material', [
+                'transaction_status' => 2
+            ]);
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Roll <strong>' . $item . '</strong> dengan jumlah <strong>' . $amount . ' kg</strong> berhasil ditambahkan!</div>');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Gagal menyimpan data. Silakan coba lagi.</div>');
+        }
+
+        $this->session->set_flashdata('last_po_id', $prodID);
+        redirect('production/add_roll_general');
+    }
+
+    public function check_po_id()
+    {
+        $po_id = $this->input->get('po_id');
+        $result = $this->db->get_where('stock_material', ['transaction_id' => $po_id])->row_array();
+
+        $this->output->set_content_type('application/json');
+        if ($result) {
+            echo json_encode([
+                'status' => 'found',
+                'data'   => $result
+            ]);
+        } else {
+            echo json_encode(['status' => 'not_found']);
+        }
+    }
+
+    public function get_roll_by_code()
+    {
+        $code = $this->input->get('code');
+        $roll = $this->db->get_where('stock_roll', ['code' => $code, 'status' => 7])->row_array();
+
+        if ($roll) {
+            echo json_encode(['status' => 'found', 'data' => $roll]);
+        } else {
+            echo json_encode(['status' => 'not_found']);
+        }
+    }
+
+     //delete Input Roll per item
+    public function delete_item_roll_general_form()
+    {
+        $po_id = $this->input->post('delete_po_id');
+        $id = $this->input->post('delete_id');
+        $name = $this->input->post('delete_name');
+        $amount = $this->input->post('delete_amount');
+
+        $date = time();
+
+        $data['material_deleted'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
+        $materialID = $data['material_deleted']['code'];
+
+        //get selected material stock_akhir or stock akhir from id = 7
+        $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $materialID, 'status' => 7])->row_array();
+        $stock_akhir = $data['material_selected']['in_stock'];
+
+        $update_stock = ($stock_akhir - $amount);
+
+        $data2 = [
+            'in_stock' => $update_stock,
+            'date' => $date
+        ];
+
+        //update stock akhir
+        $this->db->where('status', '7');
+        $this->db->where('code', $materialID);
+        $this->db->update('stock_roll', $data2);
+
+        //delete_item
+        $this->db->where('id', $id);
+        if($this->db->delete('stock_roll')){
+            $audit_id = $this->audit->log_audit('stock_roll', $id, $po_id, 'DELETE', 'Roll item ' . $po_id . ': ' . $name . '  with amount ' . $amount, 'Deleted');
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
+            };
+        }; 
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material <strong>' . $name . '</strong> with amount <strong>' . $amount . '</strong>  kg deleted!</div>');
+        redirect('production/add_roll_general');
     }
 
     public function add_item_prod_after_roll($prodID, $status)
@@ -1013,7 +1155,7 @@ class Production extends CI_Controller
         $this->db->where('status', '7');
         $this->db->where('code', $materialID);
         $this->db->update('stock_roll', $data2);
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Production item amount updated to ' . $amount . '!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Production item amount <strong>' . $data['material_edited']['name'] . '</strong> updated to <strong>' . $amount . '</strong> kg!</div>');
     }
 
     //update production order material amount
@@ -1069,7 +1211,7 @@ class Production extends CI_Controller
                 log_message('error', 'Audit log failed');
             };
         };
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Production item details updated!</div>');
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Production item details updated from ' . $before_item . ' to <strong>' . $updated_item . '</strong>!</div>');
     }
 
     public function changeStatus($prodID){

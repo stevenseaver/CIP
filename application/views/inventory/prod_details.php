@@ -11,26 +11,49 @@
 
     <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">
-            <div class="row justify-content-left">
-                <div class="col-lg-4">
+            <div class="row justify-content-left align-items-center">
+                <div class="col-lg-3">
                     <p class="text-dark mb-1">Product Name : </p>
-                    <p class="text-dark font-weight-bold"> <?= $getID['name'] ?></p>
+                    <p class="text-dark font-weight-bold"><?= $getID['name'] ?></p>
                     <p class="text-dark mb-1">Code : </p>
-                    <p class="text-dark font-weight-bold"> <?= $getID['code'] ?></p>
+                    <p class="text-dark font-weight-bold"><?= $getID['code'] ?></p>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <p class="text-dark mb-1">Lipatan : </p>
-                    <p class="text-dark font-weight-bold"> <?= $getID['lipatan'] ?></p>
+                    <p class="text-dark font-weight-bold"><?= $getID['lipatan'] ?></p>
                     <p class="text-dark mb-1">Gramatur : </p>
-                    <p class="text-dark font-weight-bold"> <?= $getID['weight'] ?></p>
+                    <p class="text-dark font-weight-bold"><?= $getID['weight'] ?></p>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <p class="text-dark mb-1">In Stock : </p>
-                    <p class="text-dark font-weight-bold"> <?= number_format($getID['in_stock'], 2, ',', '.') . ' kg' ?></p>
+                    <p class="text-dark font-weight-bold"><?= number_format($getID['in_stock'], 2, ',', '.') . ' kg' ?></p>
+                </div>
+                <!-- <div class="col-lg-3 text-center">
+                    <p class="text-dark mb-1 small">Scan Roll Code</p>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=<?= urlencode($getID['code']) ?>" alt="QR <?= $getID['code'] ?>" class="border p-1 rounded" >
+                    <p class="text-muted small mt-1 mb-0"><?= $getID['code'] ?></p>
+                </div> -->
+                <div class="col-lg-3 text-center">
+                    <p class="text-dark mb-1 small">Scan Roll Code</p>
+                    <div id="roll-qrcode" class="d-inline-block border p-1 rounded"></div>
+                    <p class="text-muted small mt-1 mb-0"><?= $getID['code'] ?></p>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            new QRCode(document.getElementById('roll-qrcode'), {
+                text: "<?= $getID['code'] ?>",
+                width: 100,
+                height: 100,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        });
+    </script>
 
     <!-- back button -->
     <a href="<?= base_url('inventory/prod_wh/') ?>" class="btn btn-white btn-icon-split mb-3">

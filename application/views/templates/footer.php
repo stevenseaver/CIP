@@ -58,6 +58,7 @@
  <!-- Page level datatables custom scripts -->
  <script src="<?= base_url('asset/') ?>js/demo/datatables-demo.js"></script>
 
+ <!-- Built In scripts -->
  <script src="<?= base_url('asset/js/scipts.js') ?>"></script>
 
  <script>

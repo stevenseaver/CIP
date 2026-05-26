@@ -6,6 +6,8 @@
     <div class="row">
         <div class="col-lg-12">
             <?= $this->session->flashdata('message'); ?>
+            <div id="po-alert" class="d-none"></div>
+            <div id="roll-alert" class="d-none"></div>
         </div>
     </div>
 
@@ -39,7 +41,7 @@
         <span class="icon text-white-70">
             <i class="bi bi-plus-lg"></i>
         </span>
-        <span class="text">Tambah Item Baru Manual</span>
+        <span class="text">Tambah Item Roll Baru Manual</span>
     </a>
 
     <!-- <div class="card rounded shadow border-0 mb-3">
@@ -62,14 +64,14 @@
             </div>
         </div>
     </div> -->
-
-    <form action="<?= base_url('production/add_roll_general/') ?>" method="post">
+    
+    <form action="<?= base_url('production/add_roll_general') ?>" method="post">
         <div class="row">                       
             <div class="col-lg-6">
                 <div class="form-group">
                     <label for="po_id" class="col-form-label">ID Order Produksi</label>
                     <div class="input-group mb-1">
-                        <input type="text" class="form-control" id="po_id" name="po_id" readonly value="">
+                        <input type="text" class="form-control" id="po_id" name="po_id" readonly value="<?= isset($last_po_id) ? $last_po_id : '' ?>">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary" type="button" id="btn-scan">
                                 <i class="fa fa-qrcode"></i> Scan
@@ -79,7 +81,7 @@
                     <?= form_error('po_id', '<small class="text-danger pl-2">', '</small>') ?>
 
                     <!-- Scanner container, hidden by default -->
-                    <div id="qr-scanner-container" style="display:none;">
+                    <div id="qr-scanner-container" style="display:none; max-width: 25rem;">
                         <div id="qr-reader" style="width:100%;"></div>
                         <button class="btn btn-sm btn-danger mt-1" type="button" id="btn-stop-scan">
                             <i class="fa fa-times"></i> Tutup Scanner
@@ -108,7 +110,22 @@
             <div class="col-lg-2">
                 <div class="form-group"> 
                     <label for="code" class="col-form-label">Kode</label>
-                    <input type="text" class="form-control" id="code" name="code" readonly value="<?= isset($lastRoll['code']) ? $lastRoll['code'] : set_value('code'); ?>">
+                    <div class="input-group mb-1">
+                        <input type="text" class="form-control" id="code" name="code" readonly 
+                            value="<?= isset($lastRoll['code']) ? $lastRoll['code'] : set_value('code'); ?>">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="btn-scan-roll">
+                                <i class="fa fa-qrcode"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Roll scanner container -->
+                    <div id="qr-roll-scanner-container" style="display:none; max-width:300px;">
+                        <div id="qr-roll-reader" style="width:100%;"></div>
+                        <button class="btn btn-sm btn-danger mt-1" type="button" id="btn-stop-scan-roll">
+                            <i class="fa fa-times"></i> Tutup Scanner
+                        </button>
+                    </div>
                     <?= form_error('code', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
@@ -388,9 +405,9 @@
                         <td><input id="rollBatch-<?= $ms['id'] ?>" class="roll-batch text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['batch']; ?>"></td>
                         <td><input id="rollDesc-<?= $ms['id'] ?>" class="roll-desc text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['transaction_desc']; ?>"></td>
                         <td>
-                            <a data-toggle="modal" data-target="#printDetails" data-po="" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['weight'] ?>" data-lipatan="<?= $ms['lipatan']?>" data-desc="<?= $ms['transaction_desc']?>" class="badge badge-primary clickable">Print</a>
+                            <a data-toggle="modal" data-target="#printDetails" data-po="<?= $ms['transaction_id'] ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['weight'] ?>" data-lipatan="<?= $ms['lipatan']?>" data-desc="<?= $ms['transaction_desc']?>" class="badge badge-primary clickable">Print</a>
                             <?php if ($ms['status'] != 9){ ?>
-                                <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
+                                <a data-toggle="modal" data-target="#deleteItemProdOrder" data-po="<?= $ms['transaction_id'] ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" class="badge badge-danger clickable">Delete</a>
                             <?php } else { 
 
                             }; ?>
@@ -416,6 +433,31 @@
                     ?>
                 <?php endforeach; ?>
             </tbody>
+            <tfoot class="text-right">
+                <tr class="align-items-center">
+                    <td colspan="5"> </td>
+                    <td class="text-left"><strong>Total Weight</strong></td>
+                    <?php $total = $temp; ?>
+                    <td class="text-left"><?= number_format($total, '2', ',', '.'); ?> kg</td>
+                    <td class="text-right"><strong>Production Value</strong></td>
+                    <?php $grandTotal = $temp_value; ?>
+                    <td class="text-left">Rp <?= number_format($grandTotal, '2', ',', '.'); ?></td>
+                </tr>
+                <tr class="align-items-center">
+                    <td colspan="5"> </td>
+                    <td class="text-left"><strong>Net Roll Weight</strong></td>
+                    <?php $net_weight = $total - $waste; ?>
+                    <td class="text-left text-primary"><?= number_format($net_weight, '2', ',', '.'); ?> kg</td>
+                    <td colspan="2"> </td>
+                    <td class="text-right"><strong>Extrusion Waste</strong></td>
+                    <?php
+                    if ($percent_waste >= $max_waste) {?>
+                        <td class="text-left text-danger"><?= number_format($waste, '2', ',', '.'); ?> kg</td>
+                    <?php } else { ?>
+                        <td class="text-left text-success"><?= number_format($waste, '2', ',', '.'); ?> kg</td>
+                    <?php }?>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </div>
@@ -444,7 +486,7 @@
                         <input type="text" class="form-control" id="id" name="id" style="display:none" readonly>
                         <!-- item batch ID -->
                         <label for="batch" class="col-form-label">Batch</label>
-                        <input type="text" class="form-control" id="batch" name="batch" readonly>
+                        <input type="text" class="form-control" id="print_batch" name="batch" readonly>
                         <!-- item name -->
                         <label for="name" class="col-form-label">Item</label>
                         <input type="text" class="form-control" id="name" name="name" readonly>
@@ -488,7 +530,7 @@
                 </button>
             </div>
             <p class="mx-3 mt-3 mb-0">You're about to delete this item. Are you sure?</p>
-            <form action="<?= base_url('production/delete_item_roll') ?>" method="post">
+            <form action="<?= base_url('production/delete_item_roll_general_form') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- prod id -->
@@ -503,34 +545,6 @@
                         <!-- item amount -->
                         <label for="url" class="col-form-label">Amount</label>
                         <input type="text" class="form-control" id="delete_amount" name="delete_amount" readonly>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Modal For Delete Data -->
-<div class="modal fade" id="deleteRollModal" tabindex="-1" role="dialog" aria-labelledby="deleteRollModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteRollModalLabel">Whoops!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <p class="mx-3 mt-3 mb-0">Closing this window will delete all production order data you've entered. Are you sure?</p>
-            <form action="<?= base_url('production/delete_all_roll/') ?>" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <!-- item id -->
-                        <label for="url" class="col-form-label">Production Order ID</label>
-                        <input type="text" class="form-control" id="delete_roll_id" name="delete_roll_id" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -567,6 +581,9 @@
  
     });
 
+    // =====================
+    // PO ID SCANNER
+    // =====================
     let html5QrCode = null;
 
     document.getElementById('btn-scan').addEventListener('click', function () {
@@ -577,20 +594,22 @@
         html5QrCode = new Html5Qrcode("qr-reader");
 
         html5QrCode.start(
-            { facingMode: "environment" }, // use rear camera
-            {
-                fps: 10,
-                qrbox: { width: 250, height: 250 }
+            { facingMode: "user" },
+            { fps: 10, qrbox: { width: 150, height: 150 } 
             },
             function (decodedText) {
-                // On successful scan
                 document.getElementById('po_id').value = decodedText;
+                checkPoId(decodedText);
                 stopScanner();
             },
-            function (errorMessage) {
-                // Scan errors are normal while searching, ignore them
+            function (errorMessage) {}
+        ).then(function () {
+            // After camera starts, fix the mirror on front camera
+            const video = document.querySelector('#qr-reader video');
+            if (video) {
+                video.style.transform = 'scaleX(-1)';
             }
-        ).catch(function (err) {
+        }).catch(function (err) {
             console.error("Camera error:", err);
             alert("Tidak dapat mengakses kamera. Pastikan izin kamera diberikan.");
             stopScanner();
@@ -612,5 +631,171 @@
             document.getElementById('qr-scanner-container').style.display = 'none';
             document.getElementById('btn-scan').disabled = false;
         }
+    }
+
+    // =====================
+    // PO ID VALIDATION
+    // =====================
+    function showPoAlert(type, message) {
+        const el = document.getElementById('po-alert');
+        el.className = 'alert alert-' + type + ' alert-dismissible fade show mt-1';
+        el.innerHTML = message +
+            '<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>';
+    }
+
+    let lastValidPoId = '';
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const poInput = document.getElementById('po_id');
+        lastValidPoId = poInput.value;
+
+        if (poInput.value) {
+            checkPoId(poInput.value);
+        }
+    });
+
+    function checkPoId(po_id) {
+        if (!po_id) return;
+
+        showPoAlert('secondary',
+            '<i class="fas fa-spinner fa-spin mr-1"></i> Memeriksa ID <strong>' + po_id + '</strong>...'
+        );
+
+        fetch('<?= base_url('production/check_po_id') ?>?po_id=' + encodeURIComponent(po_id))
+            .then(response => response.json())
+            .then(function (res) {
+
+            console.log(res);
+                if (res.status === 'found') {
+                    lastValidPoId = po_id;
+                    showPoAlert('success',
+                        '<i class="fas fa-check-circle mr-1"></i>' +
+                        'ID <strong>' + po_id + '</strong> ditemukan' +
+                        (res.data.product_name ? ' &mdash; <span>' + res.data.product_name + '</span>' : '')
+                    );
+                    document.querySelector('input[type="submit"]').disabled = false;
+                } else {
+                    // restore previous valid PO ID
+                    document.getElementById('po_id').value = lastValidPoId;
+
+                    showPoAlert('danger',
+                        '<i class="fas fa-times-circle mr-1"></i>' +
+                        'ID <strong>"' + po_id + '"</strong> tidak ditemukan di database.'
+                    );
+                    document.querySelector('input[type="submit"]').disabled = true;
+                }
+            })
+            .catch(function (err) {
+                console.error('Check PO error:', err);
+                document.getElementById('po_id').value = lastValidPoId;
+                showPoAlert('warning',
+                    '<i class="fas fa-exclamation-triangle mr-1"></i>' +
+                    'Gagal memeriksa ID. Periksa koneksi dan coba lagi.'
+                );
+            });
+    }
+
+    // Also check if po_id already has a value on page load (persisted via flashdata)
+    document.addEventListener('DOMContentLoaded', function () {
+        const existingPoId = document.getElementById('po_id').value;
+        if (existingPoId) checkPoId(existingPoId);
+    });
+        
+    // =====================
+    // ROLL ITEM SCANNER
+    // =====================             
+    let html5QrCodeRoll = null;
+
+    document.getElementById('btn-scan-roll').addEventListener('click', function () {
+        const container = document.getElementById('qr-roll-scanner-container');
+        container.style.display = 'block';
+        this.disabled = true;
+
+        html5QrCodeRoll = new Html5Qrcode("qr-roll-reader");
+        html5QrCodeRoll.start(
+            { facingMode: "user" },
+            { fps: 10, qrbox: { width: 150, height: 150 } },
+            function (decodedText) {
+                stopRollScanner();
+                lookupRollByCode(decodedText);
+            },
+            function (errorMessage) {}
+        ).then(function () {
+            const video = document.querySelector('#qr-roll-reader video'); // ← add this block
+            if (video) {
+                video.style.transform = 'scaleX(-1)';
+            }
+        }).catch(function (err) {
+            console.error("Camera error:", err);
+            alert("Tidak dapat mengakses kamera. Pastikan izin kamera diberikan.");
+            stopRollScanner();
+        });
+    });
+
+    document.getElementById('btn-stop-scan-roll').addEventListener('click', stopRollScanner);
+
+    function stopRollScanner() {
+        if (html5QrCodeRoll && html5QrCodeRoll.isScanning) {
+            html5QrCodeRoll.stop().then(function () {
+                html5QrCodeRoll.clear();
+                document.getElementById('qr-roll-scanner-container').style.display = 'none';
+                document.getElementById('btn-scan-roll').disabled = false;
+            }).catch(function (err) {
+                console.error("Stop error:", err);
+            });
+        } else {
+            document.getElementById('qr-roll-scanner-container').style.display = 'none';
+            document.getElementById('btn-scan-roll').disabled = false;
+        }
+    }
+
+    // =====================
+    // ROLL ITEM VALIDATION
+    // =====================
+    function showRollAlert(type, message) {
+        const el = document.getElementById('roll-alert');
+        el.className = 'alert alert-' + type + ' alert-dismissible fade show';
+        el.innerHTML = message +
+            '<button type="button" class="close" data-dismiss="alert">' +
+            '<span>&times;</span>' +
+            '</button>';
+    }
+
+    function lookupRollByCode(code) {
+        fetch('<?= base_url('production/get_roll_by_code') ?>?code=' + encodeURIComponent(code))
+            .then(response => response.json())
+            .then(function (res) {
+                if (res.status === 'found') {
+                    const roll = res.data;
+                    document.getElementById('rollName').value   = roll.name    ?? '';
+                    document.getElementById('code').value       = roll.code    ?? '';
+                    document.getElementById('weight').value     = roll.weight  ?? '';
+                    document.getElementById('lipatan').value    = roll.lipatan ?? '';
+                    document.getElementById('price_roll').value = roll.price   ?? '';
+
+                    showRollAlert('success',
+                        '<i class="fas fa-check-circle mr-1"></i>' +
+                        '<strong>' + roll.name + '</strong> ditemukan &mdash; Kode: <strong>' + roll.code + '</strong>'
+                    );
+                } else {
+                    document.getElementById('rollName').value   = '';
+                    document.getElementById('code').value       = '';
+                    document.getElementById('weight').value     = '';
+                    document.getElementById('lipatan').value    = '';
+                    document.getElementById('price_roll').value = '';
+
+                    showRollAlert('danger',
+                        '<i class="fas fa-times-circle mr-1"></i>' +
+                        'Roll dengan kode <strong>"' + code + '"</strong> tidak ditemukan.'
+                    );
+                }
+            })
+            .catch(function (err) {
+                console.error('Lookup error:', err);
+                showRollAlert('warning',
+                    '<i class="fas fa-exclamation-triangle mr-1"></i>' +
+                    'Gagal mengambil data roll. Periksa koneksi dan coba lagi.'
+                );
+            });
     }
 </script>
