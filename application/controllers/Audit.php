@@ -9,6 +9,122 @@ class Audit extends CI_Controller
         is_logged_in();
     }
 
+    // public function trail()
+    // {
+    //     $data['title'] = 'Audit Trails';
+    //     $data['user'] = $this->db->get_where('user', ['nik' =>
+    //         $this->session->userdata('nik')])->row_array();
+
+    //     // Just load the empty shell view — no DB query here
+    //     $this->load->view('templates/header', $data);
+    //     $this->load->view('templates/sidebar', $data);
+    //     $this->load->view('templates/topbar', $data);
+    //     $this->load->view('audit/audit_trail', $data);
+    //     $this->load->view('templates/footer');
+    // }
+
+    // public function trailData()
+    // {
+    //     $draw   = (int) $this->input->get('draw');
+    //     $start  = (int) $this->input->get('start');
+    //     $length = (int) $this->input->get('length');
+    //     $search = $this->input->get('search')['value'] ?? '';
+
+    //     // Match exact DB columns
+    //     $columns = [
+    //         0  => 'id',
+    //         1  => 'user_id',
+    //         2  => 'username',
+    //         3  => 'action',
+    //         4  => 'table_name',
+    //         5  => 'row',
+    //         6  => 'reference',
+    //         7  => 'state_before',
+    //         8  => 'state_after',
+    //         9  => 'ip_address',
+    //         10 => 'created_at',
+    //     ];
+
+    //     // Total unfiltered
+    //     $totalRecords = $this->db->count_all('audit_trail');
+
+    //     // Search
+    //     $this->db->from('audit_trail');
+    //     if (!empty($search)) {
+    //         $this->db->group_start();
+    //         $searchable = ['username', 'action', 'table_name', 'row', 'reference', 'ip_address'];
+    //         foreach ($searchable as $col) {
+    //             $this->db->or_like($col, $search);
+    //         }
+    //         $this->db->group_end();
+    //     }
+    //     $totalFiltered = $this->db->count_all_results('', false);
+
+    //     // Order
+    //     $orderColIndex = (int) ($this->input->get('order')[0]['column'] ?? 10);
+    //     $orderDir      = in_array($this->input->get('order')[0]['dir'] ?? '', ['asc', 'desc'])
+    //                         ? $this->input->get('order')[0]['dir']
+    //                         : 'desc';
+    //     $orderCol = $columns[$orderColIndex] ?? 'created_at';
+    //     $this->db->order_by($orderCol, $orderDir);
+
+    //     $rows = $this->db->limit($length, $start)->get('audit_trail')->result_array();
+
+    //     $formatted = [];
+    //     foreach ($rows as $i => $au) {
+    //         $before = json_decode($au['state_before'], true);
+    //         $after  = json_decode($au['state_after'],  true);
+
+    //         $diff = (is_array($before) && is_array($after))
+    //                     ? array_diff_assoc($before, $after)
+    //                     : [];
+
+    //         $formatted[] = [
+    //             'no'           => $start + $i + 1,
+    //             'user_id'      => $au['user_id'],
+    //             'username'     => htmlspecialchars($au['username']),
+    //             'action'       => $this->_actionBadge($au['action']),
+    //             'table_name'   => htmlspecialchars($au['table_name']),
+    //             'row'          => htmlspecialchars($au['row'] ?? '-'),
+    //             'reference'    => htmlspecialchars($au['reference'] ?? '-'),
+    //             'state_before' => !empty($au['state_before'])
+    //                                 ? '<pre class="m-0 small">' . htmlspecialchars($au['state_before']) . '</pre>'
+    //                                 : '-',
+    //             'state_after'  => !empty($au['state_after'])
+    //                                 ? '<pre class="m-0 small">' . htmlspecialchars($au['state_after']) . '</pre>'
+    //                                 : '-',
+    //             'diff'         => !empty($diff)
+    //                                 ? '<pre class="m-0 small text-danger">' . htmlspecialchars(print_r($diff, true)) . '</pre>'
+    //                                 : '<span class="badge badge-success">Clear</span>',
+    //             'ip_address'   => htmlspecialchars($au['ip_address'] ?? '-'),
+    //             'created_at'   => $au['created_at'],
+    //         ];
+    //     }
+
+    //     $this->output
+    //         ->set_content_type('application/json')
+    //         ->set_output(json_encode([
+    //             'draw'            => $draw,
+    //             'recordsTotal'    => $totalRecords,
+    //             'recordsFiltered' => $totalFiltered,
+    //             'data'            => $formatted,
+    //         ]));
+    // }
+
+    // // Color-code action badges
+    // private function _actionBadge($action)
+    // {
+    //     $map = [
+    //         'INSERT' => 'badge-primary',
+    //         'UPDATE' => 'badge-warning',
+    //         'DELETE' => 'badge-danger',
+    //         'LOGIN'  => 'badge-info',
+    //         'LOGOUT' => 'badge-secondary',
+    //     ];
+    //     $class = $map[strtoupper($action)] ?? 'badge-dark';
+    //     return '<span class="badge ' . $class . '">' . htmlspecialchars($action) . '</span>';
+    // }
+
     public function trail()
     {
         $data['title'] = 'Audit Trails';

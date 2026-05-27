@@ -50,3 +50,19 @@ function load_cart()
     $result = $ci->db->get('cart')->result_array();
     return $result;
 }
+
+function getPeriodeByDate($timestamp)
+{
+    $year  = (int) date('Y', $timestamp);
+    $month = (int) date('n', $timestamp);
+
+    $start_date = mktime(0,  0,  0, $month, 1, $year);
+    $end_date   = mktime(23, 59, 59, $month, date('t', $timestamp), $year);
+
+    return [
+        'id'         => date('Ym', $start_date),
+        'start_date' => $start_date,
+        'end_date'   => $end_date,
+        'label'      => date('F Y', $start_date), 
+    ];
+}

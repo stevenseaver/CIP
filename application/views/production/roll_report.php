@@ -3,7 +3,7 @@
 
     <!-- Page Heading -->
     <div class="d-flex align-items-center justify-content-between mb-3">
-        <div class="col-lg-9">
+        <div class="col-lg-9 mx-0 px-0">
             <div class="h3 text-gray-800"><?= $title ?></div>
             <?php 
             $data['items'] = $this->db->get_where('settings', ['parameter' => 'header_color'])->row_array();
@@ -36,8 +36,8 @@
                 </div>
             </div> -->
         </div>
-        <div class="col-lg-3 text-right">
-            <a href="<?= base_url('production/add_roll_general') ?>" class="btn btn-<?= $color ?? 'secondary' ?> btn-icon-split mb-3">
+        <div class="col-lg-3 text-right align-items-center justify-content-center mx-0 px-0">
+            <a href="<?= base_url('production/add_roll_general') ?>" class="btn btn-<?= $color ?? 'secondary' ?> btn-icon-split my-0 align-items-center ">
                 <span class="icon">
                     <i class="bi bi-arrow-right"></i>
                 </span>
@@ -55,30 +55,30 @@
 
     <div class="card shadow mb-4">
         <div class="card-body">
-            <div class="row align-items-end mb-3">
+            <div class="row align-items-end">
                 <!-- Start Date -->
-                <div class="col-md-3">
+                <div class="col-md-3 mb-3">
                     <label for="start_date">Start Date</label>
                     <input type="date" class="form-control" id="start_date" name="start_date" 
                         value="<?= date('Y-m-d', $start_date) ?>">
                 </div>
                 
                 <!-- End Date -->
-                <div class="col-md-3">
+                <div class="col-md-3 mb-3">
                     <label for="end_date">End Date</label>
                     <input type="date" class="form-control" id="end_date" name="end_date" 
                         value="<?= date('Y-m-d', $end_date) ?>">
                 </div>
                 
                 <!-- Apply Button -->
-                <div class="col-md-2">
+                <div class="col-md-2 mb-3">
                     <button type="button" class="btn btn-primary btn-block" onclick="applyDateRange()">
                         <i class="fas fa-search"></i> Apply
                     </button>
                 </div>
                 
                 <!-- Month Shortcuts Dropdown -->
-                <div class="col-md-4">
+                <div class="col-md-4 mb-3">
                     <label>Quick Select Month</label>
                     <div class="dropdown">
                         <button class="btn btn-<?= $color ?? 'secondary' ?> dropdown-toggle btn-block" 

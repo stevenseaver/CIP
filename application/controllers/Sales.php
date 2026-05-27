@@ -468,21 +468,26 @@ class Sales extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
-        // Get date parameters
-        $start_date = $this->input->get('start_date');
-        $end_date = $this->input->get('end_date');
-        
-        // If no dates provided, use current month
-        if ($start_date == null || $end_date == null) {
-            $current_time = time();
-            $year = date('Y', $current_time);
-            $month = date('n', $current_time);
-            $start_date = mktime(0, 0, 0, $month, 1, $year);
-            $end_date = mktime(23, 59, 59, $month, date('t', $start_date), $year);
+        // Sanitize inputs
+        $start_date = (int) $this->input->get('start_date');
+        $end_date   = (int) $this->input->get('end_date');
+        $periode_id = $this->input->get('name'); // optional, derived below
+
+        // If no valid dates passed, derive from current time
+        if (!$start_date || !$end_date) {
+            $periode    = getPeriodeByDate(time());
+            $start_date = $periode['start_date'];
+            $end_date   = $periode['end_date'];
+            $periode_id = $periode['id'];
         }
-        
+
+        if ($start_date > $end_date) {
+            show_error('Invalid date range.', 400);
+        }
+
         $data['start_date'] = $start_date;
-        $data['end_date'] = $end_date;
+        $data['end_date']   = $end_date;
+        $data['periode_id'] = $periode_id;
 
         //get cart database
         $this->load->model('Sales_model', 'custID');
@@ -556,21 +561,26 @@ class Sales extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
-        // Get date parameters
-        $start_date = $this->input->get('start_date');
-        $end_date = $this->input->get('end_date');
-        
-        // If no dates provided, use current month
-        if ($start_date == null || $end_date == null) {
-            $current_time = time();
-            $year = date('Y', $current_time);
-            $month = date('n', $current_time);
-            $start_date = mktime(0, 0, 0, $month, 1, $year);
-            $end_date = mktime(23, 59, 59, $month, date('t', $start_date), $year);
+        // Sanitize inputs
+        $start_date = (int) $this->input->get('start_date');
+        $end_date   = (int) $this->input->get('end_date');
+        $periode_id = $this->input->get('name'); // optional, derived below
+
+        // If no valid dates passed, derive from current time
+        if (!$start_date || !$end_date) {
+            $periode    = getPeriodeByDate(time());
+            $start_date = $periode['start_date'];
+            $end_date   = $periode['end_date'];
+            $periode_id = $periode['id'];
         }
-        
+
+        if ($start_date > $end_date) {
+            show_error('Invalid date range.', 400);
+        }
+
         $data['start_date'] = $start_date;
-        $data['end_date'] = $end_date;
+        $data['end_date']   = $end_date;
+        $data['periode_id'] = $periode_id;
         
 
         //get cart database
@@ -619,21 +629,26 @@ class Sales extends CI_Controller
         $data['title'] = 'Sales Info';
         $data['user'] = $this->db->get_where('user', ['nik' => $this->session->userdata('nik')])->row_array();
         
-        // Get date parameters
-        $start_date = $this->input->get('start_date');
-        $end_date = $this->input->get('end_date');
-        
-        // If no dates provided, use current month
-        if ($start_date == null || $end_date == null) {
-            $current_time = time();
-            $year = date('Y', $current_time);
-            $month = date('n', $current_time);
-            $start_date = mktime(0, 0, 0, $month, 1, $year);
-            $end_date = mktime(23, 59, 59, $month, date('t', $start_date), $year);
+        // Sanitize inputs
+        $start_date = (int) $this->input->get('start_date');
+        $end_date   = (int) $this->input->get('end_date');
+        $periode_id = $this->input->get('name'); // optional, derived below
+
+        // If no valid dates passed, derive from current time
+        if (!$start_date || !$end_date) {
+            $periode    = getPeriodeByDate(time());
+            $start_date = $periode['start_date'];
+            $end_date   = $periode['end_date'];
+            $periode_id = $periode['id'];
         }
-        
+
+        if ($start_date > $end_date) {
+            show_error('Invalid date range.', 400);
+        }
+
         $data['start_date'] = $start_date;
-        $data['end_date'] = $end_date;
+        $data['end_date']   = $end_date;
+        $data['periode_id'] = $periode_id;
         
         // Get cart database
         $this->load->model('Sales_model', 'custID');

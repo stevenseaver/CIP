@@ -11,30 +11,30 @@
     <!-- Page Heading -->
     <div class="card shadow mb-4">
         <div class="card-body">
-            <div class="row align-items-end mb-3">
+            <div class="row align-items-end">
                 <!-- Start Date -->
-                <div class="col-md-3">
+                <div class="col-md-3 mb-3">
                     <label for="start_date">Start Date</label>
                     <input type="date" class="form-control" id="start_date" name="start_date" 
                         value="<?= date('Y-m-d', $start_date) ?>">
                 </div>
                 
                 <!-- End Date -->
-                <div class="col-md-3">
+                <div class="col-md-3 mb-3">
                     <label for="end_date">End Date</label>
                     <input type="date" class="form-control" id="end_date" name="end_date" 
                         value="<?= date('Y-m-d', $end_date) ?>">
                 </div>
                 
                 <!-- Apply Button -->
-                <div class="col-md-2">
+                <div class="col-md-2 mb-3">
                     <button type="button" class="btn btn-primary btn-block" onclick="applyDateRange()">
                         <i class="fas fa-search"></i> Apply
                     </button>
                 </div>
                 
                 <!-- Month Shortcuts Dropdown -->
-                <div class="col-md-4">
+                <div class="col-md-4 mb-3">
                     <label>Quick Select Month</label>
                     <div class="dropdown">
                         <button class="btn btn-<?= $color ?? 'secondary' ?> dropdown-toggle btn-block" 

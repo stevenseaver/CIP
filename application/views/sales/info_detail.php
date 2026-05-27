@@ -9,28 +9,12 @@
     </div>
 
     <!-- back button -->
-    <!-- url : http://localhost/cip/sales/salesinfo?start_date=1725123600&end_date=1727715599&name=21 -->
-    <!-- <a href="<?= base_url('production/') ?>" class="btn btn-white btn-icon-split mb-3"> -->
-    <?php 
-        $date_to_check = $date;
-        // $current_month = date('m', $date_to_check);
-        $current_year = date('Y', $date_to_check);
-        $periode_count = $this->db->get_where('periode_counter', ['year =' => $current_year])->result_array();
-            
-        foreach($periode_count as $per) :
-            if ($date_to_check >= $per['start_date'] and $date_to_check <= $per['end_date']){
-                $date_ID = $per['id'];
-                $start_date = $per['start_date'];
-                $end_date = $per['end_date'];
-            };
-        endforeach;
-    ?>
-
-    <a href="<?= base_url('sales/salesinfo/index?start_date=' . $start_date . '&end_date=' . $end_date .'&name=' . $date_ID . '') ?>" class="btn btn-white btn-icon-split mb-3">
-        <span class="icon text-white-50">
-            <i class="bi bi-arrow-left"></i>
+    <?php $periode = getPeriodeByDate($date); ?>
+    <a href="<?= base_url('sales/salesinfo/index?' . http_build_query(['start_date' => $periode['start_date'], 'end_date'   => $periode['end_date'], 'name' => $periode['id'],])) ?>" class="btn btn-white btn-icon-split mb-3">
+        <span class="icon text-dark">
+            <i class="bi bi-arrow-left text-dark"></i>
         </span>
-        <span class="text">Back</span>
+        <span class="text text-dark">Back</span>
     </a>
 
     <!-- view pdf SO  -->

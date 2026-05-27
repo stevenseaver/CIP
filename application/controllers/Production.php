@@ -16,21 +16,26 @@ class Production extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
-        // Get date parameters
-        $start_date = $this->input->get('start_date');
-        $end_date = $this->input->get('end_date');
-        
-        // If no dates provided, use current month
-        if ($start_date == null || $end_date == null) {
-            $current_time = time();
-            $year = date('Y', $current_time);
-            $month = date('n', $current_time);
-            $start_date = mktime(0, 0, 0, $month, 1, $year);
-            $end_date = mktime(23, 59, 59, $month, date('t', $start_date), $year);
+        // Sanitize inputs
+        $start_date = (int) $this->input->get('start_date');
+        $end_date   = (int) $this->input->get('end_date');
+        $periode_id = $this->input->get('name'); // optional, derived below
+
+        // If no valid dates passed, derive from current time
+        if (!$start_date || !$end_date) {
+            $periode    = getPeriodeByDate(time());
+            $start_date = $periode['start_date'];
+            $end_date   = $periode['end_date'];
+            $periode_id = $periode['id'];
         }
-        
+
+        if ($start_date > $end_date) {
+            show_error('Invalid date range.', 400);
+        }
+
         $data['start_date'] = $start_date;
-        $data['end_date'] = $end_date;
+        $data['end_date']   = $end_date;
+        $data['periode_id'] = $periode_id;
 
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
@@ -593,21 +598,26 @@ class Production extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
 
-        // Get date parameters
-        $start_date = $this->input->get('start_date');
-        $end_date = $this->input->get('end_date');
-        
-        // If no dates provided, use current month
-        if ($start_date == null || $end_date == null) {
-            $current_time = time();
-            $year = date('Y', $current_time);
-            $month = date('n', $current_time);
-            $start_date = mktime(0, 0, 0, $month, 1, $year);
-            $end_date = mktime(23, 59, 59, $month, date('t', $start_date), $year);
+        // Sanitize inputs
+        $start_date = (int) $this->input->get('start_date');
+        $end_date   = (int) $this->input->get('end_date');
+        $periode_id = $this->input->get('name'); // optional, derived below
+
+        // If no valid dates passed, derive from current time
+        if (!$start_date || !$end_date) {
+            $periode    = getPeriodeByDate(time());
+            $start_date = $periode['start_date'];
+            $end_date   = $periode['end_date'];
+            $periode_id = $periode['id'];
         }
-        
+
+        if ($start_date > $end_date) {
+            show_error('Invalid date range.', 400);
+        }
+
         $data['start_date'] = $start_date;
-        $data['end_date'] = $end_date;
+        $data['end_date']   = $end_date;
+        $data['periode_id'] = $periode_id;
 
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
@@ -810,9 +820,12 @@ class Production extends CI_Controller
             $this->db->where('code', $code);
             $this->db->update('stock_roll', $data2);
 
-            $this->db->where('transaction_id', $prodID)->update('stock_material', [
-                'transaction_status' => 2
-            ]);
+            $production_status = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+            if($production_status['transaction_status'] != 2){
+                $this->db->where('transaction_id', $prodID)->update('stock_material', [
+                    'transaction_status' => 2
+                ]);
+            }
             
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Roll ' . $item . ' with amount ' . $amount . ' kg added!</div>');
             redirect('production/add_roll/' . $prodID);
@@ -831,10 +844,14 @@ class Production extends CI_Controller
         }
 
         $data['rollSelect'] = $this->db->order_by('name', 'ASC')->get_where('stock_roll', ['status' => 7])->result_array();
-        $data['rollType'] = $this->db->get_where('stock_roll', ['status' => 11])->result_array();
+        $today_start = mktime(0,  0,  0,  date('n'), date('j'), date('Y'));
+        $today_end   = mktime(23, 59, 59, date('n'), date('j'), date('Y'));
+
+        $data['rollType'] = $this->db->get_where('stock_roll', ['status' => 3,'date >=' => date($today_start), 'date <=' => date($today_end),])->result_array();
+        // $data['rollType'] = $this->db->get_where('stock_roll', ['status' => 11])->result_array(); //CHANGE INTO ONLY ASK FOR TODAY'S DATE
 
         $lastRoll = $this->db->select('name, code, weight, lipatan, price, batch, transaction_desc, date, transaction_id')
-                            ->where('status', 11)
+                            ->where('status', 3)
                             ->order_by('id', 'DESC')
                             ->limit(1)
                             ->get('stock_roll')
@@ -899,7 +916,7 @@ class Production extends CI_Controller
             'outgoing'         => 0,
             'in_stock'         => $updated_stock,
             'price'            => $price,
-            'status'           => 11,
+            'status'           => 3, //prod status
             'warehouse'        => 2,
             'transaction_id'   => $prodID,
             'batch'            => $batch,
@@ -923,9 +940,12 @@ class Production extends CI_Controller
             $this->db->where('code', $code);
             $this->db->update('stock_roll', $data2);
 
-            $this->db->where('transaction_id', $prodID)->update('stock_material', [
-                'transaction_status' => 2
-            ]);
+            $production_status = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+            if($production_status['transaction_status'] != 2){
+                $this->db->where('transaction_id', $prodID)->update('stock_material', [
+                    'transaction_status' => 2
+                ]);
+            }
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Roll <strong>' . $item . '</strong> dengan jumlah <strong>' . $amount . ' kg</strong> berhasil ditambahkan!</div>');
         } else {
@@ -1387,21 +1407,26 @@ class Production extends CI_Controller
 
         //     $data['current_periode'] = $data['selectedMonth']['period'];
         // }
-        // Get date parameters
-        $start_date = $this->input->get('start_date');
-        $end_date = $this->input->get('end_date');
-        
-        // If no dates provided, use current month
-        if ($start_date == null || $end_date == null) {
-            $current_time = time();
-            $year = date('Y', $current_time);
-            $month = date('n', $current_time);
-            $start_date = mktime(0, 0, 0, $month, 1, $year);
-            $end_date = mktime(23, 59, 59, $month, date('t', $start_date), $year);
+        // Sanitize inputs
+        $start_date = (int) $this->input->get('start_date');
+        $end_date   = (int) $this->input->get('end_date');
+        $periode_id = $this->input->get('name'); // optional, derived below
+
+        // If no valid dates passed, derive from current time
+        if (!$start_date || !$end_date) {
+            $periode    = getPeriodeByDate(time());
+            $start_date = $periode['start_date'];
+            $end_date   = $periode['end_date'];
+            $periode_id = $periode['id'];
         }
-        
+
+        if ($start_date > $end_date) {
+            show_error('Invalid date range.', 400);
+        }
+
         $data['start_date'] = $start_date;
-        $data['end_date'] = $end_date;
+        $data['end_date']   = $end_date;
+        $data['periode_id'] = $periode_id;
 
         //get inventory warehouse data
         $this->load->model('Warehouse_model', 'warehouse_id');
@@ -2426,23 +2451,26 @@ class Production extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['nik' =>
         $this->session->userdata('nik')])->row_array();
         
-        $start_date = $this->input->get('start_date');
-        $end_date = $this->input->get('end_date');
-        // Get date parameters
-        $start_date = $this->input->get('start_date');
-        $end_date = $this->input->get('end_date');
-        
-        // If no dates provided, use current month
-        if ($start_date == null || $end_date == null) {
-            $current_time = time();
-            $year = date('Y', $current_time);
-            $month = date('n', $current_time);
-            $start_date = mktime(0, 0, 0, $month, 1, $year);
-            $end_date = mktime(23, 59, 59, $month, date('t', $start_date), $year);
+        // Sanitize inputs
+        $start_date = (int) $this->input->get('start_date');
+        $end_date   = (int) $this->input->get('end_date');
+        $periode_id = $this->input->get('name'); // optional, derived below
+
+        // If no valid dates passed, derive from current time
+        if (!$start_date || !$end_date) {
+            $periode    = getPeriodeByDate(time());
+            $start_date = $periode['start_date'];
+            $end_date   = $periode['end_date'];
+            $periode_id = $periode['id'];
         }
-        
+
+        if ($start_date > $end_date) {
+            show_error('Invalid date range.', 400);
+        }
+
         $data['start_date'] = $start_date;
-        $data['end_date'] = $end_date;
+        $data['end_date']   = $end_date;
+        $data['periode_id'] = $periode_id;
 
         $status = 3; //produciton order data only
         //get materials usage data

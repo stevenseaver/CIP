@@ -75,3 +75,33 @@
         <!-- End of Main Content -->
     </div>
 </div>
+
+<script>
+$(document).ready(function () {
+    $('#auditTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: '<?= base_url('audit/trailData') ?>',
+            type: 'GET',
+        },
+        order: [[11, 'desc']],
+        pageLength: 25,
+        lengthMenu: [10, 25, 50, 100],
+        columns: [
+            { data: 'no',           orderable: false },
+            { data: 'user_id' },
+            { data: 'username' },
+            { data: 'action',       orderable: false },
+            { data: 'table_name' },
+            { data: 'row',          orderable: false },
+            { data: 'reference',    orderable: false },
+            { data: 'state_before', orderable: false },
+            { data: 'state_after',  orderable: false },
+            { data: 'diff',         orderable: false },
+            { data: 'ip_address' },
+            { data: 'created_at' },
+        ],
+    });
+});
+</script>

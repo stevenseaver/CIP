@@ -10,8 +10,9 @@
     </div>
 
     <!-- back button -->
-    <a href="<?= base_url('purchasing/purchase_return') ?>" class="btn btn-white btn-icon-split mb-3">
-        <span class="icon text-white-50">
+    <?php $periode = getPeriodeByDate($getID['date']); ?>
+    <a href="<?= base_url('purchasing/purchase_return/index?' . http_build_query(['start_date' => $periode['start_date'], 'end_date'   => $periode['end_date'], 'name' => $periode['id'],])) ?>" class="btn btn-white btn-icon-split mb-3">
+        <span class="icon text-dark">
             <i class="bi bi-arrow-left text-dark"></i>
         </span>
         <span class="text text-dark">Back</span>

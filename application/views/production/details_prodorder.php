@@ -10,25 +10,9 @@
     </div>
     
     <!-- back button -->
-    <!-- url : http://localhost/cip/production/index?start_date=1727715600&end_date=1730393999&name=22 -->
-    <!-- <a href="<?= base_url('production/') ?>" class="btn btn-white btn-icon-split mb-3"> -->
-    <?php 
-        $date_to_check = $getID['date'];
-        // $current_month = date('m', $date_to_check);
-        $current_year = date('Y', $date_to_check);
-        $periode_count = $this->db->get_where('periode_counter', ['year =' => $current_year])->result_array();
-            
-        foreach($periode_count as $per) :
-            if ($date_to_check >= $per['start_date'] and $date_to_check <= $per['end_date']){
-                $date_ID = $per['id'];
-                $start_date = $per['start_date'];
-                $end_date = $per['end_date'];
-            };
-        endforeach;
-    ?>
-
-    <a href="<?= base_url('production/index?start_date=' . $start_date . '&end_date=' . $end_date .'&name=' . $date_ID . '') ?>" class="btn btn-white btn-icon-split mb-3">
-        <span class="icon text-white-50">
+    <?php $periode = getPeriodeByDate($getID['date']); ?>
+    <a href="<?= base_url('production/index?' . http_build_query(['start_date' => $periode['start_date'], 'end_date'   => $periode['end_date'], 'name' => $periode['id'],])) ?>" class="btn btn-white btn-icon-split mb-3">
+        <span class="icon text-dark">
             <i class="bi bi-arrow-left text-dark"></i>
         </span>
         <span class="text text-dark">Back</span>
@@ -58,30 +42,51 @@
 
     <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">
-            <p class="text-dark mb-1">Prod Order Ref : </p>
-            <p class="text-dark font-weight-bold"> <?= $getID['transaction_id'] ?></p>
-            <p class="text-dark mb-1">Date : </p>
-            <p class="text-dark font-weight-bold"> <?= date('d F Y H:i:s', $getID['date']) ?></p>
-            <p class="text-dark mb-1">Product : </p>
-            <p class="text-dark font-weight-bold"> <?= $getID['product_name'] ?></p>
-            <p class="text-dark mb-1">Batch : </p>
-            <p class="text-dark font-weight-bold"> <?= $getID['description'] ?></p>
-            <p class="text-dark mb-1">Status : </p>
-            <?php if($getID['transaction_status'] == 1){ ?>
-                <td><p class="badge badge-secondary">Order dibuat</p></td>
-            <?php } else if($getID['transaction_status'] == 2){ ?>
-                <td><p class="badge badge-info">Mulai roll</p></td>
-            <?php } else if($getID['transaction_status'] == 3){ ?>
-                <td><p class="badge badge-primary">Roll selesai</p></td>   
-            <?php } else if($getID['transaction_status'] == 4){ ?>
-                <td><p class="badge badge-warning">Mulai potong</p></td>   
-            <?php } else if($getID['transaction_status'] == 5){ ?>
-                <td><p class="badge badge-success">Selesai</p></td>   
-            <?php } else if($getID['transaction_status'] == 6){ ?>
-                <td><p class="badge badge-danger">Butuh perhatian</p></td>   
-            <?php }; ?>
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="text-dark mb-1">Prod Order Ref : </p>
+                    <p class="text-dark font-weight-bold"> <?= $getID['transaction_id'] ?></p>
+                    <p class="text-dark mb-1">Date : </p>
+                    <p class="text-dark font-weight-bold"> <?= date('d F Y H:i:s', $getID['date']) ?></p>
+                    <p class="text-dark mb-1">Product : </p>
+                    <p class="text-dark font-weight-bold"> <?= $getID['product_name'] ?></p>
+                    <p class="text-dark mb-1">Batch : </p>
+                    <p class="text-dark font-weight-bold"> <?= $getID['description'] ?></p>
+                    <p class="text-dark mb-1">Status : </p>
+                    <?php if($getID['transaction_status'] == 1){ ?>
+                        <td><p class="badge badge-secondary">Order dibuat</p></td>
+                    <?php } else if($getID['transaction_status'] == 2){ ?>
+                        <td><p class="badge badge-info">Mulai roll</p></td>
+                    <?php } else if($getID['transaction_status'] == 3){ ?>
+                        <td><p class="badge badge-primary">Roll selesai</p></td>   
+                    <?php } else if($getID['transaction_status'] == 4){ ?>
+                        <td><p class="badge badge-warning">Mulai potong</p></td>   
+                    <?php } else if($getID['transaction_status'] == 5){ ?>
+                        <td><p class="badge badge-success">Selesai</p></td>   
+                    <?php } else if($getID['transaction_status'] == 6){ ?>
+                        <td><p class="badge badge-danger">Butuh perhatian</p></td>   
+                    <?php }; ?>
+                </div>
+                <div class="col-lg-6 text-lg-right">
+                    <p class="text-dark mb-1 small">Scan Roll Code</p>
+                    <div id="roll-prodID" class="d-inline-block border p-1 rounded"></div>
+                    <p class="text-muted small mt-1 mb-0"><?= $getID['transaction_id'] ?></p>
+                </div>
+            </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            new QRCode(document.getElementById('roll-prodID'), {
+                text: "<?= $getID['transaction_id'] ?>",
+                width: 100,
+                height: 100,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        });
+    </script>
 
     <div class="table-responsive my-3">
         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">

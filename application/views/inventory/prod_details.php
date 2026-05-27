@@ -33,7 +33,7 @@
                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=<?= urlencode($getID['code']) ?>" alt="QR <?= $getID['code'] ?>" class="border p-1 rounded" >
                     <p class="text-muted small mt-1 mb-0"><?= $getID['code'] ?></p>
                 </div> -->
-                <div class="col-lg-3 text-center">
+                <div class="col-lg-3 text-lg-right">
                     <p class="text-dark mb-1 small">Scan Roll Code</p>
                     <div id="roll-qrcode" class="d-inline-block border p-1 rounded"></div>
                     <p class="text-muted small mt-1 mb-0"><?= $getID['code'] ?></p>
