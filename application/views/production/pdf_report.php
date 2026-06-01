@@ -13,16 +13,23 @@ $pdf->SetFont('', 'B', 11);
 $pdf->Cell(187, 10, "Production Report", 0, 1, 'C');
 $pdf->SetAutoPageBreak(true, 0);
 
+// Capture starting Y position BEFORE drawing header cells
+$startY = $pdf->GetY();
+
 // Add Header
 $pdf->SetFont('', '', 8);
 $pdf->Cell(20, 2, 'Production ID', 0, 0, 'L');
-$pdf->Cell(257, 2, $getID['transaction_id'], 0, 1, 'L');
+$pdf->Cell(150, 2, $getID['transaction_id'], 0, 1, 'L');
 $pdf->Cell(20, 2, 'Date', 0, 0, 'L');
-$pdf->Cell(277, 2, date('d F Y H:i:s', $getID['date']), 0, 1, 'L');
+$pdf->Cell(150, 2, date('d F Y H:i:s', $getID['date']), 0, 1, 'L');
 $pdf->Cell(20, 2, 'Product', 0, 0, 'L');
-$pdf->Cell(277, 2, $getID['product_name'], 0, 1, 'L');
+$pdf->Cell(150, 2, $getID['product_name'], 0, 1, 'L');
 $pdf->Cell(20, 2, 'Batch', 0, 0, 'L');
-$pdf->Cell(277, 2, $getID['description'], 0, 1, 'L');
+$pdf->Cell(150, 2, $getID['description'], 0, 0, 'L');
+
+// Use captured Y so QR aligns with the header block
+$pdf->write2DBarcode($po_id, 'QRCODE,H', 170, $startY, 20, 20, ['border' => false, 'padding' => 1]);
+$pdf->Ln(3);
 
 //material
 $pdf->SetFont('', 'B', 8);

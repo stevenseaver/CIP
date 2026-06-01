@@ -570,6 +570,27 @@ class Purchasing extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    // accounts payable due
+    public function printPOReport()
+    {
+        // Prevent CI3 from buffering HTML output
+        $this->output->enable_profiler(false);
+        ob_end_clean(); // ← critical for TCPDF to stream correctly
+
+        $end_date = $this->input->get('end_date')
+            ? (int)$this->input->get('end_date')
+            : time();
+
+        $status = 8;
+
+        $this->load->model('Warehouse_model', 'warehouse_id');
+        $data['rows']     = $this->warehouse_id->allPurchaseOrdersSummaryUntil($status, $end_date);
+        $data['end_date'] = $end_date;
+        // var_dump($data['rows']);
+
+        $this->load->view('purchase/pdf_purchasedue', $data);
+    }
+
     //update production order product name
     public function update_purchasing_ref()
     {

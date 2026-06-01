@@ -42,7 +42,7 @@
                 </div>
                 
                 <!-- Month Shortcuts Dropdown -->
-                <div class="col-md-4 mb-3">
+                <div class="col-md-2 mb-3">
                     <label>Quick Select Month</label>
                     <div class="dropdown">
                         <button class="btn btn-<?= $color ?? 'secondary' ?> dropdown-toggle btn-block" 
@@ -107,6 +107,14 @@
                             </a>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <a class="btn btn-white btn-icon-split" data-toggle="modal" data-target="#modalPrintPO">
+                        <span class="icon text-white-50">
+                            <i class="bi bi-filetype-pdf text-dark"></i>
+                        </span>
+                        <span class="text text-dark">Print Accounts Payable</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -379,7 +387,7 @@
 </div>
 <!-- End of Main Content -->
 
-<!-- Modal For Delete Data -->
+<!-- Modal For Payment Toggle -->
 <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -406,6 +414,49 @@
         </div>
     </div>
 </div>
+
+<!-- Accounts payable modal -->
+<div class="modal fade" id="modalPrintPO" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Print Purchase Order Report</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formPrintPO">
+                    <div class="form-group">
+                        <label for="end_date">Show data up to date</label>
+                        <input type="date" class="form-control" id="end_date" name="end_date"
+                            value="<?= date('Y-m-d') ?>">
+                        <small class="form-text text-muted">Leave as today to get all records up to now.</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="printPOReport()">
+                    <i class="fas fa-file-pdf mr-1"></i> Generate PDF
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function printPOReport() {
+    const endDate = document.getElementById('end_date').value;
+    if (!endDate) {
+        alert('Please select a date.');
+        return;
+    }
+    // Convert date to unix timestamp (end of selected day)
+    const ts = Math.floor(new Date(endDate + 'T23:59:59').getTime() / 1000);
+    window.open('<?= base_url('purchasing/printPOReport') ?>?end_date=' + ts, '_blank');
+}
+</script>
 
 <script>
     var table = $('#tableInfo').DataTable({
