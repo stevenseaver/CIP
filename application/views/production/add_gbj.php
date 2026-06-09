@@ -927,6 +927,22 @@
     </div>
 </div>
 
+<div id="bulk-toast" style="
+    display: none;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    min-width: 300px;
+    max-width: 500px;
+">
+    <div id="bulk-toast-inner" class="alert mb-0 shadow-lg text-center" role="alert">
+        <i id="bulk-toast-icon" class="fas fa-exclamation-circle mr-2"></i>
+        <span id="bulk-toast-message"></span>
+    </div>
+</div>
+
 <!-- Modal for bulk cut roll items -->
 <div class="modal fade" id="cutBulk" tabindex="-1" aria-labelledby="cutBulkLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -965,8 +981,7 @@
                                         <td><?= $ms['transaction_desc']; ?></td>
                                         <td>
                                             <?php if ($ms['status'] == 9) { ?>
-                                                <!-- <input class="uncheck-bulk" type="checkbox" value="<?= $ms['incoming'];?>" checked data-id="<?= $ms['id']; ?>" data-code="<?= $ms['code']; ?>" data-trxid="<?= $ms['transaction_id']?>" data-batch="<?= $ms['batch']; ?>">    -->
-                                                <a onclick="undo_status_change()" class="badge btn btn-primary clickable" data-id="<?= $ms['id']; ?>">Undo</a>
+                                                <a onclick="undo_status_change(this)" class="badge btn btn-primary clickable" data-id="<?= $ms['id']; ?>" data-code="<?= $ms['code']; ?>" data-value="<?= $ms['incoming']; ?>" data-trxid="<?= $ms['transaction_id']; ?>" data-batch="<?= $ms['batch']; ?>">Undo</a>
                                             <?php } else { ?>
                                                 <input class="check-bulk" type="checkbox" value="<?= $ms['incoming'];?>" data-id="<?= $ms['id']; ?>" data-code="<?= $ms['code']; ?>" data-trxid="<?= $ms['transaction_id']?>" data-batch="<?= $ms['batch']; ?>">   
                                             <?php } ?>
@@ -977,6 +992,8 @@
                             </tbody>
                         </table>
                         <div class="form-group"> 
+                            <!-- hidden checked_ids -->
+                            <input type="hidden" id="checked_ids" name="checked_ids">
                             <!-- trans ID -->
                             <label for="trans_id" class="col-form-label">Transaction ID</label>
                             <input type="text" class="form-control" id="trans_id" name="trans_id" readonly >    
@@ -1006,51 +1023,143 @@
 </div>
 
 <script>
-    $('.check-bulk').click(function(e){
-        let sum = -20;
+    function showBulkAlert(message, type = 'danger'){
+        const styles = {
+            danger:  { alert: 'alert-danger',  icon: 'fa-exclamation-circle' },
+            success: { alert: 'alert-success', icon: 'fa-check-circle'       },
+            warning: { alert: 'alert-warning', icon: 'fa-exclamation-triangle'},
+        };
 
-        $(":checked").each(function(){
-            sum = sum + Number($(this).val());
+        const s = styles[type];
+        const $inner = $('#bulk-toast-inner');
+
+        // Reset classes and apply new ones
+        $inner.removeClass('alert-danger alert-success alert-warning')
+            .addClass(s.alert);
+        $('#bulk-toast-icon').attr('class', `fas ${s.icon} mr-2`);
+        $('#bulk-toast-message').text(message);
+
+        $('#bulk-toast').fadeIn(200);
+        setTimeout(function(){
+            $('#bulk-toast').fadeOut(500);
+        }, 3000);
+    }
+
+    function checkBulkHandler(){
+        const $this = $(this);
+        const currentCode = $this.data('code'); //current check item, gonna be saved for perbandingan with next checked items
+
+        // Check if any OTHER checked checkbox has a different code
+        let conflict = false;
+        $('#table4 .check-bulk:checked').each(function(){
+            if($(this).data('code') !== currentCode){ //this.data('code') is the current checked items dibandingkan dengan previous checked item
+                conflict = true;
+                return false;
+            }
         });
 
-        id = $(this).data('id');
+        if(conflict){
+            // Uncheck the one just clicked
+            $this.prop('checked', false);
+            showBulkAlert('You can only select items with the same roll item code!', 'danger');
+            return;
+        }
+
+        // Proceed normally if no conflict
+        let sum = 0;
+        const checkedIds = [];
+
+        $('#table4 .check-bulk:checked').each(function(){
+            sum += Number($(this).val());
+            checkedIds.push($(this).data('id'));
+        });
+        sum = parseFloat(sum.toFixed(2));
+
+        const $first = $('#table4 .check-bulk:checked').first();
+        document.getElementById("roll_item").value = $first.data('code');
+        document.getElementById("trans_id").value = $first.data('trxid');
+        document.getElementById("bulk_batch").value = $first.data('batch');
+        document.getElementById("cut_amount").value = sum.toFixed(2);
+        document.getElementById("checked_ids").value = JSON.stringify(checkedIds);
+    }
+
+    $('.check-bulk').on('click', checkBulkHandler);
+
+    function undo_status_change(el){
+        const id = $(el).data('id');
+        const id_check = JSON.stringify(id);
+        const $td = $(el).closest('td'); // get the parent cell
+
+        $.ajax({
+            type: 'POST',
+            url: '<?= base_url("production/change_to_cut"); ?>', 
+            data: {id_check: id_check}, 
+            success: function(resp) { 
+                // Rebuild the checkbox with the same data attributes
+                showBulkAlert('Undo successful!', 'success');
+                const $checkbox = $('<input>', {
+                    type: 'checkbox',
+                    class: 'check-bulk',
+                    value: $(el).data('value'),  // add data-value to the <a> tag (see below)
+                    'data-id': id,
+                    'data-code': $(el).data('code'),
+                    'data-trxid': $(el).data('trxid'),
+                    'data-batch': $(el).data('batch')
+                });
+
+                // Attach the click handler to the new checkbox
+                $checkbox.on('click', checkBulkHandler);
+
+                // Swap Undo button with the new checkbox
+                $td.empty().append($checkbox);
+            }
+        });
+    }
+
+    // $('.check-bulk').click(function(e){
+    //     let sum = 0;
+
+    //     $('#table4 .check-bulk:checked').each(function(){
+    //         sum += Number($(this).val());
+    //     });
+
+    //     const id = $(this).data('id');
         
-        id_check = JSON.stringify(id);
-        $.ajax({
-            type: 'POST',
-            url: '<?= base_url("production/change_to_cut"); ?>', 
-            data: {id_check: id_check}, 
-            success: function(resp) { 
+    //     const id_check = JSON.stringify(id);
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '<?= base_url("production/change_to_cut"); ?>', 
+    //         data: {id_check: id_check}, 
+    //         success: function(resp) { 
                
-            }
-        });
+    //         }
+    //     });
 
-        const code = $(this).data('code');
-        const transID = $(this).data('trxid');
-        const batch = $(this).data('batch');
+    //     const code = $(this).data('code');
+    //     const transID = $(this).data('trxid');
+    //     const batch = $(this).data('batch');
 
-        // $('#cut_amount').value("Total Amount is : "+sum+" kg");  
-        document.getElementById("roll_item").value = code;
-        document.getElementById("trans_id").value = transID;
-        document.getElementById("bulk_batch").value = batch;
-        document.getElementById("cut_amount").value = sum;
-    });
+    //     // $('#cut_amount').value("Total Amount is : "+sum+" kg");  
+    //     document.getElementById("roll_item").value = code;
+    //     document.getElementById("trans_id").value = transID;
+    //     document.getElementById("bulk_batch").value = batch;
+    //     document.getElementById("cut_amount").value = sum;
+    // });
+    // function undo_status_change(el){
+    //     // var id = $(event.relatedTarget).data('id');
+    //     let id = $(el).data('id');
+    //     const id_check = JSON.stringify(id);
 
-    function undo_status_change(){
-        // var id = $(event.relatedTarget).data('id');
-        id = $(this).data('id');
-        id_check = JSON.stringify(id);
-
-        $.ajax({
-            type: 'POST',
-            url: '<?= base_url("production/change_to_cut"); ?>', 
-            data: {id_check: id_check}, 
-            success: function(resp) { 
-               alert('Undo change status success');
-               console.log(id_check);
-            }
-        });
-    };
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '<?= base_url("production/change_to_cut"); ?>', 
+    //         data: {id_check: id_check}, 
+    //         success: function(resp) { 
+    //            alert('Undo change status success');
+    //            console.log(id_check);
+    //         }
+    //     });
+    // };
 </script>
 
 <!-- Modal For Print -->

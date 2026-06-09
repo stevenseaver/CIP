@@ -234,22 +234,22 @@ class Warehouse_model extends CI_Model
   //   return $this->db->query($query)->result_array();
   // }
   public function allPurchaseOrdersSummaryUntil($status, $end_date)
-{
-    $query = "
-        SELECT
-            sm.*,
-            w.`warehouse_name`,
-            s.`supplier_name`
-        FROM `stock_material` sm
-        JOIN `warehouse` w
-            ON sm.`warehouse` = w.`warehouse_id`
-        JOIN `supplier` s
-            ON sm.`supplier` = s.`id`
-        WHERE sm.`status` = {$status}
-          AND sm.`is_paid` = 0
-          AND sm.`date` <= {$end_date}
-        ORDER BY sm.`transaction_id` ASC, sm.`date` ASC
-    ";
-    return $this->db->query($query)->result_array();
-}
+  {
+      $query = "
+          SELECT
+              sm.*,
+              w.`warehouse_name`,
+              s.`supplier_name`
+          FROM `stock_material` sm
+          JOIN `warehouse` w
+              ON sm.`warehouse` = w.`warehouse_id`
+          JOIN `supplier` s
+              ON sm.`supplier` = s.`id`
+          WHERE sm.`status` = {$status}
+            AND sm.`is_paid` = 0
+            AND sm.`date` <= {$end_date}
+          ORDER BY sm.`date` ASC
+      ";
+      return $this->db->query($query)->result_array();
+  }
 }

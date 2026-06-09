@@ -808,7 +808,7 @@
         const gross_weight = document.getElementById('gross').value;
         const bobin_weight = document.getElementById('bobin').value;
         const net_weight = gross_weight - bobin_weight;
-        document.getElementById('amount').value = net_weight; 
+        document.getElementById('amount').value = net_weight.toFixed(2);
     }
 </script>
 

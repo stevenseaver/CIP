@@ -1783,26 +1783,72 @@ class Production extends CI_Controller
         };
     }
 
+    // public function change_to_cut(){
+    //     $id = $this->input->post('id_check');
+
+    //     //insert transaction
+    //     $data['check_status'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
+
+    //     if($data['check_status']['status'] == 9) {
+    //         $this->db->where('id', $id);    
+    //         $this->db->set('status', 3);    
+    //         if($this->db->update('stock_roll')){
+    //             $audit_id = $this->audit->log_audit('stock_roll', $id, '-', 'UPDATE', '-', 'Production Order status updated to Cut');
+    //             if (!$audit_id) {
+    //                 log_message('error', 'Audit log failed');
+    //             };
+    //         };
+    //     } else {
+    //         $this->db->where('id', $id);    
+    //         $this->db->set('status', 9);    
+    //         $this->db->update('stock_roll');
+    //     }
+    // }
     public function change_to_cut(){
         $id = $this->input->post('id_check');
 
-        //insert transaction
-        $data['check_status'] = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
+        // Get the row being undone to retrieve its incoming amount and code
+        $row = $this->db->get_where('stock_roll', ['id' => $id])->row_array();
+        $code = $row['code'];
+        $amount = $row['incoming'];
+        $transID = $row['transaction_id'];
 
-        if($data['check_status']['status'] == 9) {
-            $this->db->where('id', $id);    
-            $this->db->set('status', 3);    
-            if($this->db->update('stock_roll')){
-                $audit_id = $this->audit->log_audit('stock_roll', $id, '-', 'UPDATE', '-', 'Production Order status updated to Cut');
-                if (!$audit_id) {
-                    log_message('error', 'Audit log failed');
-                };
+        // Find the bulk cut row via transaction_id and transaction_desc pattern
+        $bulkCutId = trim(substr($row['transaction_desc'], strrpos($row['transaction_desc'], ' - ') + 3));
+
+        // Fetch and update the bulk cut row
+        $bulkRow = $this->db->get_where('stock_roll', ['id' => $bulkCutId])->row_array();
+        $updated_outgoing = $bulkRow['outgoing'] - $amount;
+
+        $this->db->where('id', $bulkCutId);
+        $this->db->set('outgoing', $updated_outgoing);
+        $this->db->update('stock_roll');
+
+        // Add the amount back to in_stock of the current stock row (status 7)
+        $current = $this->db->get_where('stock_roll', ['code' => $code, 'status' => 7])->row_array();
+        $restored_stock = $current['in_stock'] + $amount;
+
+        $this->db->where('code', $code);
+        $this->db->where('status', 7);
+        $this->db->set('in_stock', $restored_stock);
+        $this->db->update('stock_roll');
+
+        // Revert status 9 → 3
+        $this->db->where('id', $id);    
+        $this->db->set('status', 3);    
+        if($this->db->update('stock_roll')){
+            $audit_id = $this->audit->log_audit(
+                'stock_roll', 
+                $id, 
+                '-', 
+                'UPDATE', 
+                'Stock before undo: ' . $current['in_stock'], 
+                'Undo cut: ' . $row['name'] . ' amount ' . $amount . ' kg added back. Stock restored to: ' . $restored_stock . ' kg.'
+            );
+            if (!$audit_id) {
+                log_message('error', 'Audit log failed');
             };
-        } else {
-            $this->db->where('id', $id);    
-            $this->db->set('status', 9);    
-            $this->db->update('stock_roll');
-        }
+        };
     }
 
     public function cut_roll_bulk($po_id){
@@ -1818,11 +1864,20 @@ class Production extends CI_Controller
             $amount = $this->input->post('cut_amount');
             $transID = $this->input->post('trans_id');
             $batch = $this->input->post('bulk_batch');
+            $checkedIds = json_decode($this->input->post('checked_ids'), true);
             $timestamp = time();
     
             $data['material_selected'] = $this->db->get_where('stock_roll', ['code' => $code, 'status' => 7])->row_array();
-            $data['double_data'] = $this->db->get_where('stock_roll', ['transaction_id' => $transID, 'outgoing' => $amount, 'date' => $timestamp])->row_array();
-            if(!$data['double_data']){
+            // $data['double_data'] = $this->db->get_where('stock_roll', ['transaction_id' => $transID, 'outgoing' => $amount, 'date' => $timestamp])->row_array();
+            // $doubleData = $this->db->get_where('stock_roll', [ 'transaction_id' => $transID, 'code' => $code, 'outgoing' => $amount, 'status' => 9])->row_array();
+            $checkedIds = json_decode($this->input->post('checked_ids'), true);
+
+            // Check if ANY of the checked IDs already have status 9
+            $this->db->where_in('id', $checkedIds);
+            $this->db->where('status', 9);
+            $doubleData = $this->db->get('stock_roll')->result_array();
+            
+            if(!$doubleData){
                 $stock_akhir = $data['material_selected']['in_stock'];
                 $name = $data['material_selected']['name'];
                 $weight = $data['material_selected']['weight'];
@@ -1831,11 +1886,11 @@ class Production extends CI_Controller
             
                 $update_stock = $stock_akhir - $amount;
         
-                $data2 = [
+                $updateStock = [
                     'in_stock' => $update_stock
                 ];
         
-                $data = [
+                $insertData = [
                     'name' => $name,
                     'code' => $code,
                     'date' => $timestamp,
@@ -1855,15 +1910,45 @@ class Production extends CI_Controller
                 //update stock akhir
                 $this->db->where('status', '7');
                 $this->db->where('code', $code);
-                $this->db->update('stock_roll', $data2);
-        
+                $this->db->update('stock_roll', $updateStock);
+                
+                
                 //insert transaction
-                if($this->db->insert('stock_roll', $data)){
+                if($this->db->insert('stock_roll', $insertData)){
                     $inserted_id = $this->db->insert_id();
                     $audit_id = $this->audit->log_audit('stock_roll', $inserted_id, $po_id, 'CREATE', 'Initial stock of ' . $name . ': ' . $stock_akhir, 'Roll item: ' . $name . ' with amount ' . $amount . ' kg bulk cut! Stock updated to: ' . $update_stock . ' kg.');
                     if (!$audit_id) {
                         log_message('error', 'Audit log failed');
                     };
+
+                    //set status = 9 for each checked ids
+                    // foreach($checkedIds as $itemId){
+                    //     $thisdata = $this->db->get_where('stock_roll', ['id' => $itemId])->row_array();
+                    //     $this->db->where('id', $itemId);
+                    //     $this->db->update('stock_roll', [
+                    //         'status' => 9,
+                    //         'transaction_desc' => $thisdata['transaction_desc'] . ' - ' . $inserted_id
+                    //     ]); 
+                    // }
+                    foreach($checkedIds as $itemId){
+                        // Get current transaction_desc
+                        $itemRow = $this->db->get_where('stock_roll', ['id' => $itemId])->row_array();
+                        $currentDesc = $itemRow['transaction_desc'];
+
+                        // Strip any previously appended bulk cut id (everything after last ' - [number]')
+                        // e.g. '1 - 123' -> '1'
+                        if(preg_match('/^(.*?) - \d+$/', $currentDesc, $matches)){
+                            $cleanDesc = $matches[1];
+                        } else {
+                            $cleanDesc = $currentDesc;
+                        }
+
+                        $this->db->where('id', $itemId);
+                        $this->db->update('stock_roll', [
+                            'status' => 9,
+                            'transaction_desc' => $cleanDesc . ' - ' . $inserted_id
+                        ]);
+                    }
                 };
     
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Bulk cut ' . $name . ' successful with total amount ' . $amount . ' kg!</div>');
