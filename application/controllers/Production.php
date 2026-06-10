@@ -1814,7 +1814,7 @@ class Production extends CI_Controller
         $transID = $row['transaction_id'];
 
         // Find the bulk cut row via transaction_id and transaction_desc pattern
-        $bulkCutId = trim(substr($row['transaction_desc'], strrpos($row['transaction_desc'], ' - ') + 3));
+        $bulkCutId = $row['bulk_cut_id'];
 
         // Fetch and update the bulk cut row
         $bulkRow = $this->db->get_where('stock_roll', ['id' => $bulkCutId])->row_array();
@@ -1921,34 +1921,32 @@ class Production extends CI_Controller
                         log_message('error', 'Audit log failed');
                     };
 
-                    //set status = 9 for each checked ids
-                    // foreach($checkedIds as $itemId){
-                    //     $thisdata = $this->db->get_where('stock_roll', ['id' => $itemId])->row_array();
-                    //     $this->db->where('id', $itemId);
-                    //     $this->db->update('stock_roll', [
-                    //         'status' => 9,
-                    //         'transaction_desc' => $thisdata['transaction_desc'] . ' - ' . $inserted_id
-                    //     ]); 
-                    // }
                     foreach($checkedIds as $itemId){
-                        // Get current transaction_desc
-                        $itemRow = $this->db->get_where('stock_roll', ['id' => $itemId])->row_array();
-                        $currentDesc = $itemRow['transaction_desc'];
-
-                        // Strip any previously appended bulk cut id (everything after last ' - [number]')
-                        // e.g. '1 - 123' -> '1'
-                        if(preg_match('/^(.*?) - \d+$/', $currentDesc, $matches)){
-                            $cleanDesc = $matches[1];
-                        } else {
-                            $cleanDesc = $currentDesc;
-                        }
-
                         $this->db->where('id', $itemId);
                         $this->db->update('stock_roll', [
                             'status' => 9,
-                            'transaction_desc' => $cleanDesc . ' - ' . $inserted_id
+                            'bulk_cut_id' => $inserted_id  // ← new column, desc untouched
                         ]);
                     }
+                    // foreach($checkedIds as $itemId){
+                    //     // Get current transaction_desc
+                    //     $itemRow = $this->db->get_where('stock_roll', ['id' => $itemId])->row_array();
+                    //     $currentDesc = $itemRow['transaction_desc'];
+
+                    //     // Strip any previously appended bulk cut id (everything after last ' - [number]')
+                    //     // e.g. '1 - 123' -> '1'
+                    //     if(preg_match('/^(.*?) - \d+$/', $currentDesc, $matches)){
+                    //         $cleanDesc = $matches[1];
+                    //     } else {
+                    //         $cleanDesc = $currentDesc;
+                    //     }
+
+                    //     $this->db->where('id', $itemId);
+                    //     $this->db->update('stock_roll', [
+                    //         'status' => 9,
+                    //         'transaction_desc' => $cleanDesc . ' - ' . $inserted_id
+                    //     ]);
+                    // }
                 };
     
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Bulk cut ' . $name . ' successful with total amount ' . $amount . ' kg!</div>');
