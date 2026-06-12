@@ -68,7 +68,7 @@
                     <?php }; ?>
                 </div>
                 <div class="col-lg-6 text-lg-right">
-                    <p class="text-dark mb-1 small">Scan Roll Code</p>
+                    <p class="text-dark mb-1 small">Production ID QR Code</p>
                     <div id="roll-prodID" class="d-inline-block border p-1 rounded"></div>
                     <p class="text-muted small mt-1 mb-0"><?= $getID['transaction_id'] ?></p>
                 </div>
