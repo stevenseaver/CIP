@@ -66,6 +66,29 @@
         $('.sidebar').addClass('toggled');
     }
 
+
+     function showBulkAlert(message, type = 'danger'){
+        const styles = {
+            danger:  { alert: 'alert-danger',  icon: 'fa-exclamation-circle' },
+            success: { alert: 'alert-success', icon: 'fa-check-circle'       },
+            warning: { alert: 'alert-warning', icon: 'fa-exclamation-triangle'},
+        };
+
+        const s = styles[type];
+        const $inner = $('#bulk-toast-inner');
+
+        // Reset classes and apply new ones
+        $inner.removeClass('alert-danger alert-success alert-warning')
+            .addClass(s.alert);
+        $('#bulk-toast-icon').attr('class', `fas ${s.icon} mr-2`);
+        $('#bulk-toast-message').text(message);
+
+        $('#bulk-toast').fadeIn(200);
+        setTimeout(function(){
+            $('#bulk-toast').fadeOut(500);
+        }, 3000);
+    }
+
      function visibilePassword() {
          var x = document.getElementById("password1");
          var y = document.getElementById("password2");
@@ -590,27 +613,128 @@
      });
      
      //js for amount change on material mixing usage per item input on change (mixed materials aggregate)
-     $('.usage-qty').on('change', function() {
-         const id = $(this).data('id');
-         const prodID = $(this).data('prodid');
+    //  $('.usage-qty').on('change', function() {
+    //      const id = $(this).data('id');
+    //      const prodID = $(this).data('prodid');
 
-         const qtyID = document.getElementById("usageAmount-" + id).value;
+    //      const qtyID = document.getElementById("usageAmount-" + id).value;
 
-         $.ajax({
-             url: "<?= base_url('production/update_usage'); ?>",
-             type: 'post',
-             data: {
-                 id: id,
-                 qtyID: qtyID,
-                 prodID: prodID
-             },
-             success: function() {
-                $(document).ajaxStop(function(){
-                    window.location.reload();   
-                });
-             }
-         });
-     });
+    //      $.ajax({
+    //          url: "<?= base_url('production/update_usage'); ?>",
+    //          type: 'post',
+    //          data: {
+    //              id: id,
+    //              qtyID: qtyID,
+    //              prodID: prodID
+    //          },
+    //          success: function() {
+    //             $(document).ajaxStop(function(){
+    //                 window.location.reload();   
+    //             });
+    //          }
+    //      });
+    //  });
+    //js for amount change on material mixing usage per item input on change (mixed materials aggregate)
+    
+    // $('.usage-qty').on('change', function() {
+    //     const id = $(this).data('id');
+    //     const prodID = $(this).data('prodid');
+    //     const itemDesc = parseFloat($(this).data('item-desc'));
+
+    //     // parse the input value back to a float (it's formatted with , as decimal sep)
+    //     const rawValue = $(this).val().replace(/\./g, '').replace(',', '.');
+    //     const qtyID = parseFloat(rawValue) || 0;
+
+    //     // recalc remaining instantly, no reload needed
+    //     const remaining = itemDesc - qtyID;
+    //     $('#remaining-' + id).text(
+    //         remaining.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+    //     );
+
+    //     $.ajax({
+    //         url: "<?= base_url('production/update_usage'); ?>",
+    //         type: 'post',
+    //         dataType: 'json',
+    //         data: { id: id, qtyID: qtyID, prodID: prodID },
+    //         success: function(response) {
+    //             if (response.status === 'success') {
+    //                 $('#remaining-' + id).text(response.remaining);
+    //                 showBulkAlert('Update material usage successful', 'success');
+    //             } else {
+    //                 // alert('Update failed.');
+    //                 showBulkAlert('Failed to update material usage. Please try again.', 'danger');
+    //             }
+    //         },
+    //         error: function() {
+    //             showBulkAlert('Oops! Server returns error code. Please try again.', 'warning');
+    //         }
+    //     });
+    // });
+    $('.usage-qty').on('change', function() {
+        const id = $(this).data('id');
+        const prodID = $(this).data('prodid');
+        const itemDesc = parseFloat($(this).data('item-desc'));
+        const $input = $(this);
+        const $remainingCell = $('#remaining-' + id);
+
+        // keep the previous displayed value so we can roll back on error
+        const previousRemainingText = $remainingCell.text();
+
+        // parse the input value back to a float (it's formatted with , as decimal sep)
+        // const rawValue = $input.val().replace(/\./g, '').replace(',', '.');
+        const rawValue = $input.val();
+        const qtyID = parseFloat(rawValue);
+
+        // client-side validation before calling the server
+        if (isNaN(qtyID) || qtyID < 0) {
+            showBulkAlert('Usage amount must be a valid positive number.', 'warning');
+            $input.focus();
+            return;
+        }
+
+        // recalc remaining instantly, no reload needed
+        const remaining = itemDesc - qtyID;
+        $remainingCell.text(
+            remaining.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+        );
+
+        $.ajax({
+            url: "<?= base_url('production/update_usage'); ?>",
+            type: 'post',
+            dataType: 'json',
+            data: { id: id, qtyID: qtyID, prodID: prodID },
+            success: function(response) {
+                if (response.status === 'success') {
+                    $remainingCell.text(response.remaining);
+                    showBulkAlert('Update material usage successful', 'success');
+
+                    if (response.warning) {
+                        // secondary, non-fatal heads-up (e.g. audit log failure)
+                        setTimeout(function() {
+                            showBulkAlert(response.warning, 'warning');
+                        }, 3200);
+                    }
+                } else {
+                    // roll back optimistic UI update
+                    $remainingCell.text(previousRemainingText);
+                    showBulkAlert(response.message || 'Failed to update material usage. Please try again.', 'danger');
+                }
+            },
+            error: function(xhr) {
+                // roll back optimistic UI update
+                $remainingCell.text(previousRemainingText);
+
+                let msg = 'Oops! Server returned an error. Please try again.';
+                try {
+                    const res = JSON.parse(xhr.responseText);
+                    if (res && res.message) msg = res.message;
+                } catch (e) {
+                    // response wasn't JSON, keep default message
+                }
+                showBulkAlert(msg, 'danger');
+            }
+        });
+    });
 
      //js for amount change on roll item prod order quantity input on change
      $('.roll-qty').on('change', function() {

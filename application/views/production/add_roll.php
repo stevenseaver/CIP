@@ -471,6 +471,21 @@
 
     <!-- Material data -->
     <!-- Material data -->
+    <div id="bulk-toast" style="
+        display: none;
+        position: fixed;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        min-width: 300px;
+        max-width: 500px;
+    ">
+        <div id="bulk-toast-inner" class="alert mb-0 shadow-lg text-center" role="alert">
+            <i id="bulk-toast-icon" class="fas fa-exclamation-circle mr-2"></i>
+            <span id="bulk-toast-message"></span>
+        </div>
+    </div>
     <div class="table-responsive my-3">
         <table class="table table-hover" id="table0" width="100%" cellspacing="0">
             <thead>
@@ -515,8 +530,18 @@
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><?= $ms['item_desc'] ?></td>
                         <td><?= $formula ?></td>
-                        <td><input id="usageAmount-<?= $ms['id'] ?>" class="usage-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodid="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['term'], 2, ',', '.'); ?>"></td>
-                        <td><?= $remaining ?></td>
+                        <!-- <td><input id="usageAmount-<?= $ms['id'] ?>" class="usage-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodid="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['term'], 2, ',', '.'); ?>"></td>
+                        <td><?= $remaining ?></td> -->
+                        <td>
+                            <input 
+                                id="usageAmount-<?= $ms['id'] ?>" 
+                                class="usage-qty text-left form-control" 
+                                data-id="<?= $ms['id']; ?>" 
+                                data-prodid="<?= $ms['transaction_id'] ?>" 
+                                data-item-desc="<?= $ms['item_desc']; ?>"
+                                value="<?= number_format($ms['term'], 2, ',', '.'); ?>">
+                        </td>
+                        <td id="remaining-<?= $ms['id'] ?>"><?= number_format($remaining, 2, ',', '.'); ?></td>
                         <!-- Column term is used so no additional column to check the materials mixing usage -->
                     </tr>
                     <?php 

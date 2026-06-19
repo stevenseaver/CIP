@@ -335,36 +335,38 @@
                         $i++;
                 endforeach; ?>
             </tbody>
+            <?php 
+                $totalWeight = $temp2;
+                $totalValue = $temp; 
+                $totalWeightOther = $temp3;
+                $grandTotalWeight = $temp2+$temp3;
+                if ($totalWeight != 0) {
+                    $hpp = $totalValue/$grandTotalWeight;
+                } else { 
+                    $hpp = 0;
+                }; 
+            ?>
             <tfoot class="text-right">
                 <tr class="align-items-center">
-                    <td colspan="2"> </td>
+                    <td colspan="2"></td>
                     <td class="right"><strong>Main Materials</strong></td>
-                    <?php 
-                        $totalWeight = $temp2;
-                        $totalValue = $temp; 
-                        $totalWeightOther = $temp3;
-                        $grandTotalWeight = $temp2+$temp3;
-                        if ($totalWeight != 0) {
-                            $hpp = $totalValue/$grandTotalWeight;
-                        } else { 
-                            $hpp = 0;
-                        }; 
-                    ?>
-                    <td class="text-left"><?= number_format($totalWeight, '2', ',', '.'); ?> kg</td>
-                    <td class=""><strong>Total Value</strong></td>
-                    <td class="">IDR <?= number_format($totalValue, '2', ',', '.'); ?></td>
-                    <td class=""><strong>Cost of Materials</strong></td>
-                    <td class="text-left">IDR <?= number_format($hpp, '2', ',', '.'); ?></td>
+                    <td class="text-left"><?= number_format($totalWeight, 2, ',', '.'); ?> kg</td>
+                    <td><strong>Total Value</strong></td>
+                    <td class="text-right">IDR <?= number_format($totalValue, 2, ',', '.'); ?></td>
+                    <td><strong>Cost of Materials</strong></td>
+                    <td class="text-left">IDR <?= number_format($hpp, 2, ',', '.'); ?></td>
                 </tr>
                 <tr class="align-items-center">
-                    <td colspan="2"> </td>
-                    <td class=""><strong>Other Materials</strong></td>
-                    <td class="text-left"><?= number_format($totalWeightOther, '2', ',', '.'); ?> kg</td>
+                    <td colspan="2"></td>
+                    <td><strong>Other Materials</strong></td>
+                    <td class="text-left"><?= number_format($totalWeightOther, 2, ',', '.'); ?> kg</td>
+                    <td colspan="4"></td>
                 </tr>
                 <tr class="align-items-center">
-                    <td colspan="2"> </td>
-                    <td class=""><strong>Total Materials</strong></td>
-                    <td class="text-left"><?= number_format($grandTotalWeight, '2', ',', '.'); ?> kg</td>
+                    <td colspan="2"></td>
+                    <td><strong>Total Materials</strong></td>
+                    <td class="text-left"><?= number_format($grandTotalWeight, 2, ',', '.'); ?> kg</td>
+                    <td colspan="4"></td>
                 </tr>
             </tfoot>
         </table>

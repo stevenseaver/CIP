@@ -1023,27 +1023,27 @@
 </div>
 
 <script>
-    function showBulkAlert(message, type = 'danger'){
-        const styles = {
-            danger:  { alert: 'alert-danger',  icon: 'fa-exclamation-circle' },
-            success: { alert: 'alert-success', icon: 'fa-check-circle'       },
-            warning: { alert: 'alert-warning', icon: 'fa-exclamation-triangle'},
-        };
+    // function showBulkAlert(message, type = 'danger'){
+    //     const styles = {
+    //         danger:  { alert: 'alert-danger',  icon: 'fa-exclamation-circle' },
+    //         success: { alert: 'alert-success', icon: 'fa-check-circle'       },
+    //         warning: { alert: 'alert-warning', icon: 'fa-exclamation-triangle'},
+    //     };
 
-        const s = styles[type];
-        const $inner = $('#bulk-toast-inner');
+    //     const s = styles[type];
+    //     const $inner = $('#bulk-toast-inner');
 
-        // Reset classes and apply new ones
-        $inner.removeClass('alert-danger alert-success alert-warning')
-            .addClass(s.alert);
-        $('#bulk-toast-icon').attr('class', `fas ${s.icon} mr-2`);
-        $('#bulk-toast-message').text(message);
+    //     // Reset classes and apply new ones
+    //     $inner.removeClass('alert-danger alert-success alert-warning')
+    //         .addClass(s.alert);
+    //     $('#bulk-toast-icon').attr('class', `fas ${s.icon} mr-2`);
+    //     $('#bulk-toast-message').text(message);
 
-        $('#bulk-toast').fadeIn(200);
-        setTimeout(function(){
-            $('#bulk-toast').fadeOut(500);
-        }, 3000);
-    }
+    //     $('#bulk-toast').fadeIn(200);
+    //     setTimeout(function(){
+    //         $('#bulk-toast').fadeOut(500);
+    //     }, 3000);
+    // }
 
     function checkBulkHandler(){
         const $this = $(this);

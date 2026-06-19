@@ -1,5 +1,3 @@
-
-
      //  JavaScript for add item to sales order database cart
      $(".select-customer").click(function() {
          //extract data from data-* attributes of modal's add button

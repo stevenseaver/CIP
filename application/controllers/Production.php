@@ -340,30 +340,133 @@ class Production extends CI_Controller
     }
     
     //update production order material mixed usage aggregate amount
+    // public function update_usage()
+    // {
+    //     $id = $this->input->post('id');
+    //     $prodID = $this->input->post('prodID');
+    //     $amount = $this->input->post('qtyID');
+
+    //     $data['material_edited'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+    //     $old_data = [
+    //         'term' => $data['material_edited']['term']
+    //     ];
+
+    //     $data = [
+    //         'term' => $amount
+    //     ];
+
+    //     //update transaksi
+    //     $this->db->where('id', $id);
+    //     // $this->db->set('item_desc', $amount);
+    //     if($this->db->update('stock_material', $data)){
+    //         $audit_id = $this->audit->log_audit('stock_material', $id, $prodID, 'UPDATE', 'Update usage from: ' . $old_data['term'], ' to: ' . $data['term']);
+    //         if (!$audit_id) {
+    //             log_message('error', 'Audit log failed');
+    //         };
+    //     };
+    // }
+    // public function update_usage()
+    // {
+    //     $id = $this->input->post('id');
+    //     $prodID = $this->input->post('prodID');
+    //     $amount = $this->input->post('qtyID');
+
+    //     $material_edited = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+    //     $old_term = $material_edited['term'];
+
+    //     $data = ['term' => $amount];
+
+    //     $this->db->where('id', $id);
+    //     if ($this->db->update('stock_material', $data)) {
+    //         $audit_id = $this->audit->log_audit(
+    //             'stock_material', $id, $prodID, 'UPDATE',
+    //             'Update usage from: ' . $old_term, ' to: ' . $amount
+    //         );
+    //         if (!$audit_id) {
+    //             log_message('error', 'Audit log failed');
+    //         }
+
+    //         $remaining = $material_edited['item_desc'] - $amount;
+    //         echo json_encode([
+    //             'status' => 'success',
+    //             'remaining' => number_format($remaining, 2, ',', '.')
+    //         ]);
+    //     } else {
+    //         echo json_encode(['status' => 'error']);
+    //     }
+    // }
     public function update_usage()
     {
         $id = $this->input->post('id');
         $prodID = $this->input->post('prodID');
         $amount = $this->input->post('qtyID');
 
-        $data['material_edited'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
-        $old_data = [
-            'term' => $data['material_edited']['term']
-        ];
+        // --- Validation ---
+        if (empty($id) || !is_numeric($id)) {
+            return $this->_json_error('INVALID_ID', 'Invalid material id.', 400);
+        }
 
-        $data = [
-            'term' => $amount
-        ];
+        if ($amount === null || $amount === '' || !is_numeric($amount)) {
+            return $this->_json_error('INVALID_AMOUNT', 'Usage amount must be a valid number.', 400);
+        }
 
-        //update transaksi
+        if ($amount < 0) {
+            return $this->_json_error('NEGATIVE_AMOUNT', 'Usage amount cannot be negative.', 400);
+        }
+
+        // --- Fetch existing record ---
+        $material_edited = $this->db->get_where('stock_material', ['id' => $id])->row_array();
+
+        if (!$material_edited) {
+            return $this->_json_error('NOT_FOUND', 'Material record not found.', 404);
+        }
+
+        $old_term = $material_edited['term'];
+        $data = ['term' => $amount];
+
+        // --- Update ---
         $this->db->where('id', $id);
-        // $this->db->set('item_desc', $amount);
-        if($this->db->update('stock_material', $data)){
-            $audit_id = $this->audit->log_audit('stock_material', $id, $prodID, 'UPDATE', 'Update usage from: ' . $old_data['term'], ' to: ' . $data['term']);
-            if (!$audit_id) {
-                log_message('error', 'Audit log failed');
-            };
-        };
+        if (!$this->db->update('stock_material', $data)) {
+            return $this->_json_error('DB_UPDATE_FAILED', 'Failed to update usage in database.', 500);
+        }
+
+        // --- Audit log (non-fatal if it fails, but we report it) ---
+        $audit_id = $this->audit->log_audit(
+            'stock_material', $id, $prodID, 'UPDATE',
+            'Update usage from: ' . $old_term, ' to: ' . $amount
+        );
+
+        $audit_warning = null;
+        if (!$audit_id) {
+            log_message('error', 'Audit log failed for stock_material id: ' . $id);
+            $audit_warning = 'Usage updated, but audit log failed to record.';
+        }
+
+        $remaining = $material_edited['item_desc'] - $amount;
+
+        $response = [
+            'status'   => 'success',
+            'remaining' => number_format($remaining, 2, ',', '.')
+        ];
+
+        if ($audit_warning) {
+            $response['warning'] = $audit_warning;
+        }
+
+        echo json_encode($response);
+    }
+
+    /**
+     * Helper to send a consistent JSON error response with HTTP status code.
+     */
+    private function _json_error($code, $message, $http_status = 400)
+    {
+        $this->output->set_status_header($http_status);
+        echo json_encode([
+            'status'  => 'error',
+            'code'    => $code,
+            'message' => $message
+        ]);
     }
 
     //get PO details
