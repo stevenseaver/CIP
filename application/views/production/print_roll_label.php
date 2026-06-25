@@ -136,7 +136,7 @@
     <script>
         var rollId  = <?= json_encode($id) ?>;
         var poId    = <?= json_encode($po_id) ?>;
-        var apiUrl  = 'https://api.plastikrukun.com/verify-roll?id=' + encodeURIComponent(rollId) + '&po=' + encodeURIComponent(poId);
+        var apiUrl  = 'https://api.plastikrukun.com/api/verify_roll?id=' + encodeURIComponent(rollId) + '&po=' + encodeURIComponent(poId);
 
         new QRCode(document.getElementById('qrcode'), {
             text: apiUrl,

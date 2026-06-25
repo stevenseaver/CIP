@@ -46,44 +46,32 @@ class Api extends CI_Controller {
 
     public function verify_roll()
     {
-        header('Access-Control-Allow-Origin: *');
-        header('Content-Type: application/json');
+        $id    = $this->input->get('id');
+        $po    = $this->input->get('po');
+        $data  = ['roll' => null, 'error' => null];
 
-        $id     = $this->input->get('id');
-        $po_id  = $this->input->get('po');
+        if (!$id || !$po) {
+            $data['error'] = 'missing';
+        } else {
+            $roll = $this->db
+                ->select('id, transaction_id, batch, name, weight, lipatan, incoming, transaction_desc, date, status')
+                ->get_where('stock_roll', [
+                    'id'             => $id,
+                    'transaction_id' => $po
+                ])->row_array();
 
-        if (!$id || !$po_id) {
-            echo json_encode(['status' => 'error', 'message' => 'Missing parameters']);
-            return;
+            if ($roll) {
+                $data['roll'] = $roll;
+            } else {
+                $data['error'] = 'not_found';
+            }
         }
 
-        $roll = $this->db
-            ->select('sm.id, sm.transaction_id, sm.batch, sm.name, sm.weight, sm.lipatan, sm.incoming, sm.transaction_desc, sm.transaction_status, sm.created_at')
-            ->from('stock_material sm')
-            ->where('sm.id', $id)
-            ->where('sm.transaction_id', $po_id)
-            ->get()->row_array();
-
-        if (!$roll) {
-            echo json_encode(['status' => 'invalid', 'message' => 'Roll not found']);
-            return;
-        }
-
-        echo json_encode([
-            'status'  => 'valid',
-            'message' => 'Roll verified',
-            'data'    => [
-                'id'          => $roll['id'],
-                'po_id'       => $roll['transaction_id'],
-                'batch'       => $roll['batch'],
-                'name'        => $roll['name'],
-                'gram'        => $roll['weight'],
-                'guset'       => $roll['lipatan'],
-                'net_weight'  => $roll['incoming'],
-                'desc'        => $roll['transaction_desc'],
-                'status_code' => $roll['transaction_status'],
-                'created_at'  => $roll['created_at'],
-            ]
-        ]);
+        $this->load->view('verify_roll', $data);
+    }
+    
+    public function ping()
+    {
+        echo 'pong';
     }
 }
