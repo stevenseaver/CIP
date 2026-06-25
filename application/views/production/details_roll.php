@@ -195,7 +195,19 @@
                         <!-- <td><input id="materialAmount-<?= $ms['id'] ?>" class="material-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td> -->
                         <td><?= $ms['batch'] ?></td>
                         <td><?= $ms['transaction_desc'] ?></td>
-                        <td><a data-toggle="modal" data-target="#printDetails" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['weight'] ?>" data-lipatan="<?= $ms['lipatan']?>" data-desc="<?= $ms['transaction_desc']?>" class="badge badge-primary clickable">Print</a></td>
+                        <td><a data-toggle="modal" data-target="#printDetails"
+                                data-po="<?= $ms['transaction_id'] ?>"
+                                data-id="<?= $ms['id'] ?>"
+                                data-batch="<?= $ms['batch'] ?>"
+                                data-name="<?= $ms['name'] ?>"
+                                data-amount="<?= $ms['incoming'] ?>"
+                                data-weight="<?= $ms['weight'] ?>"
+                                data-lipatan="<?= $ms['lipatan'] ?>"
+                                data-desc="<?= $ms['transaction_desc'] ?>"
+                                class="badge badge-primary clickable mr-1">
+                                <i class="fas fa-print mr-1"></i>Print
+                            </a>
+                        </td>
                     </tr>
                     <?php 
                         $temp = $temp + $ms['incoming'];
@@ -259,54 +271,48 @@
 <!-- End of Main Content -->
 
 <!-- Modal For Print -->
-<div class="modal fade" id="printDetails" tabindex="-1" role="dialog" aria-labelledby="printDetailsLabel" aria-hidden="true">
+<div class="modal fade" id="printDetails" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="printDetailsLabel">Print</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <h5 class="modal-title"><i class="fas fa-print mr-2"></i>Print Label Roll</h5>
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
-            <p class="mx-3 mt-3 mb-1">Double check the details.</p>
-            <form action="<?= base_url('production/print_ticket?type=2') ?>" method="post">
+            <p class="mx-3 mt-3 mb-0 text-muted">Double check data before printing!</p>
+            <form action="<?= base_url('production/print_general_ticket') ?>" method="get">
                 <div class="modal-body">
                     <div class="form-group">
-                        <!-- prod id -->
-                        <label for="po_id" class="col-form-label">Production Order ID</label>
-                        <input type="text" class="form-control" id="po_id" name="po_id" readonly>
-                        <!-- item id -->
-                        <label for="id" class="col-form-label" style="display:none">ID</label>
-                        <input type="text" class="form-control" id="id" name="id" style="display:none" readonly>
-                        <!-- item batch ID -->
-                        <label for="batch" class="col-form-label">Batch</label>
-                        <input type="text" class="form-control" id="batch" name="batch" readonly>
-                        <!-- item name -->
-                        <label for="name" class="col-form-label">Item</label>
-                        <input type="text" class="form-control" id="name" name="name" readonly>
-                        <!-- item weight -->
-                        <label for="gram" class="col-form-label">Gramature</label>
-                        <input type="text" class="form-control" id="gram" name="gram" readonly>
-                        <!-- item lipatan -->
-                        <label for="guset" class="col-form-label">Gusset</label>
-                        <input type="text" class="form-control" id="guset" name="guset" readonly>
-                        <!-- item net amount -->
-                        <label for="amount" class="col-form-label">Net Amount</label>
+                        <label class="field-label">Production ID</label>
+                        <input type="text" class="form-control" id="po_id_print" name="po_id" readonly>
+                        <input type="hidden" id="id_print" name="id">
+
+                        <label class="field-label mt-3">Batch</label>
+                        <input type="text" class="form-control" id="print_batch" name="batch" readonly>
+
+                        <label class="field-label mt-3">Item</label>
+                        <input type="text" class="form-control" id="name_print" name="name" readonly>
+
+                        <label class="field-label mt-3">Gramatur</label>
+                        <input type="text" class="form-control" id="gram_print" name="gram" readonly>
+
+                        <label class="field-label mt-3">Gusset / Lipatan</label>
+                        <input type="text" class="form-control" id="guset_print" name="guset" readonly>
+
+                        <label class="field-label mt-3">Net Weight</label>
                         <div class="input-group">
-                        <!-- Item code -->
-                            <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" readonly>
+                            <input type="number" step=".01" class="form-control" id="amount_print" name="amount" readonly>
                             <div class="input-group-append">
                                 <span class="input-group-text">kg</span>
                             </div>
                         </div>
-                        <!-- item desc -->
-                        <label for="desc" class="col-form-label">Description</label>
-                        <input type="text" class="form-control" id="desc" name="desc" readonly>
+
+                        <label class="field-label mt-3">Description</label>
+                        <input type="text" class="form-control" id="desc_print" name="desc" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Print</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-1"></i>Tutup</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-print mr-1"></i>Print</button>
                 </div>
             </form>
         </div>
@@ -341,5 +347,31 @@
             }
         ]
 
+    });
+
+    // Override form submit — print via hidden iframe
+    $('#printDetails form').on('submit', function(e) {
+        e.preventDefault();
+
+        var formData = $(this).serialize() + '&type=2';
+        var printUrl  = '<?= base_url('production/print_general_ticket') ?>?' + formData;
+
+        var iframe = document.getElementById('print-iframe');
+        if (!iframe) {
+            iframe = document.createElement('iframe');
+            iframe.id = 'print-iframe';
+            iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:0;height:0;border:none;';
+            document.body.appendChild(iframe);
+        }
+
+        iframe.onload = function() {
+            setTimeout(function() {
+                iframe.contentWindow.focus();
+                iframe.contentWindow.print();
+            }, 500);
+        };
+
+        iframe.src = printUrl;
+        $('#printDetails').modal('hide');
     });
 </script>

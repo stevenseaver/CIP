@@ -361,7 +361,7 @@
                         </div>
                         <?= form_error('po_id', '<small class="text-danger d-block mt-1 font-weight-bold"><i class="fas fa-exclamation-circle mr-1"></i>', '</small>') ?>
                         <!-- PO Scanner -->
-                        <div id="qr-scanner-container" class="scanner-box" style="display:none; max-width:340px;">
+                        <div id="qr-scanner-container" class="scanner-box" style="display:none; max-width:25rem;">
                             <div id="qr-reader" style="width:100%;"></div>
                             <button class="btn-stop-scan" type="button" id="btn-stop-scan">
                                 <i class="fa fa-times"></i> Tutup Scanner
@@ -372,8 +372,8 @@
                     <!-- Date -->
                     <div class="col-lg-3 col-md-5 mb-3">
                         <label class="field-label" for="report_date">Tanggal Produksi</label>
-                        <input type="date" class="form-control" id="report_date" name="report_date"
-                               value="<?= isset($lastRoll['date']) ? $last_date : set_value('report_date'); ?>">
+                        <input type="datetime-local" class="form-control" id="report_date" name="report_date"
+                               value="<?= set_value('tanggal', date('Y-m-d H:i:s')) ?>">
                         <?= form_error('report_date', '<small class="text-danger d-block mt-1 font-weight-bold"><i class="fas fa-exclamation-circle mr-1"></i>', '</small>') ?>
                     </div>
                 </div>
@@ -389,7 +389,7 @@
             <div class="section-card-body">
                 <div class="row align-items-end">
                     <!-- Roll Name (readonly, filled by scan/modal) -->
-                    <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="col-lg-3 col-md-6 mb-3">
                         <label class="field-label" for="rollName">Nama Roll</label>
                         <input type="text" class="form-control" id="rollName" name="rollName" readonly
                                placeholder="Scan kode atau pilih manual"
@@ -398,7 +398,7 @@
                     </div>
 
                     <!-- Code + Scan Roll -->
-                    <div class="col-lg-2 col-md-6 mb-3">
+                    <div class="col-lg-3 col-md-6 mb-3">
                         <label class="field-label" for="code">Kode Roll</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="code" name="code" readonly
@@ -412,7 +412,7 @@
                         </div>
                         <?= form_error('code', '<small class="text-danger d-block mt-1 font-weight-bold"><i class="fas fa-exclamation-circle mr-1"></i>', '</small>') ?>
                         <!-- Roll Scanner -->
-                        <div id="qr-roll-scanner-container" class="scanner-box" style="display:none; max-width:340px;">
+                        <div id="qr-roll-scanner-container" class="scanner-box" style="display:none; max-width:25rem;">
                             <div id="qr-roll-reader" style="width:100%;"></div>
                             <button class="btn-stop-scan" type="button" id="btn-stop-scan-roll">
                                 <i class="fa fa-times"></i> Tutup Scanner
@@ -423,17 +423,13 @@
                     <!-- Gramatur -->
                     <div class="col-lg-2 col-sm-4 mb-3">
                         <label class="field-label" for="weight">Gramatur</label>
-                        <input type="text" class="form-control" id="weight" name="weight" readonly
-                               placeholder="—"
-                               value="<?= isset($lastRoll['weight']) ? $lastRoll['weight'] : set_value('weight'); ?>">
+                        <input type="text" class="form-control" id="weight" name="weight" readonly placeholder="—" value="<?= isset($lastRoll['weight']) ? $lastRoll['weight'] : set_value('weight'); ?>">
                     </div>
 
                     <!-- Lipatan -->
                     <div class="col-lg-2 col-sm-4 mb-3">
                         <label class="field-label" for="lipatan">Lipatan</label>
-                        <input type="text" class="form-control" id="lipatan" name="lipatan" readonly
-                               placeholder="—"
-                               value="<?= isset($lastRoll['lipatan']) ? $lastRoll['lipatan'] : set_value('lipatan'); ?>">
+                        <input type="text" class="form-control" id="lipatan" name="lipatan" readonly placeholder="—" value="<?= isset($lastRoll['lipatan']) ? $lastRoll['lipatan'] : set_value('lipatan'); ?>">
                     </div>
 
                     <!-- Price -->
@@ -443,10 +439,9 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text" style="border-radius: var(--radius-sm) 0 0 var(--radius-sm);">Rp</span>
                             </div>
-                            <input type="text" class="form-control" id="price_roll" name="price_roll"
-                                   placeholder="—"
-                                   value="<?= isset($lastRoll['price']) ? $lastRoll['price'] : set_value('price'); ?>">
+                            <input type="text" class="form-control" id="price_roll" name="price_roll" placeholder="—" value="<?= isset($lastRoll['price']) ? $lastRoll['price'] : set_value('price'); ?>">
                         </div>
+                        <small class="text-muted">Isi dengan harga HPP di form produksi!</small>
                     </div>
                 </div>
             </div>
@@ -497,16 +492,49 @@
                 </div>
 
                 <div class="row">
+                    <?php 
+                        if($lastRoll['batch']){
+                            $parts    = explode('-', $lastRoll['batch'], 4);
+    
+                            $batch    = $parts[0] ?? '';
+                            $machine  = $parts[1] ?? '';
+                            $shift    = $parts[2] ?? '';
+                            $operator = $parts[3] ?? '';
+                        } else {
+                            $batch    = $getID['description'];
+                            $machine  = '';
+                            $shift    = '';
+                            $operator = '';
+                        }
+                    ?>
                     <!-- Keterangan / Batch -->
-                    <div class="col-lg-6 col-md-6 mb-3">
-                        <label class="field-label" for="batch">Keterangan (Batch)</label>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <label class="field-label" for="batch">Kode Partai</label>
                         <input type="text" class="form-control" id="batch" name="batch"
-                               value="<?= isset($lastRoll['batch']) ? $lastRoll['batch'] : $getID['description'] . '-' ?>">
+                               value="<?= $batch ?>">
                         <?= form_error('batch', '<small class="text-danger d-block mt-1 font-weight-bold"><i class="fas fa-exclamation-circle mr-1"></i>', '</small>') ?>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="field-label" for="machine">Mesin</label>
+                        <input type="text" class="form-control" id="machine" name="machine"
+                               value="<?= $machine ?>">
+                        <?= form_error('machine', '<small class="text-danger d-block mt-1 font-weight-bold"><i class="fas fa-exclamation-circle mr-1"></i>', '</small>') ?>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="field-label" for="shift">Shift</label>
+                        <input type="text" class="form-control" id="shift" name="shift"
+                               value="<?= $shift ?>">
+                        <?= form_error('shift', '<small class="text-danger d-block mt-1 font-weight-bold"><i class="fas fa-exclamation-circle mr-1"></i>', '</small>') ?>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-3">
+                        <label class="field-label" for="operator">Operator</label>
+                        <input type="text" class="form-control" id="operator" name="operator"
+                               value="<?= $operator ?>">
+                        <?= form_error('operator', '<small class="text-danger d-block mt-1 font-weight-bold"><i class="fas fa-exclamation-circle mr-1"></i>', '</small>') ?>
                     </div>
 
                     <!-- Roll Number / Desc -->
-                    <div class="col-lg-6 col-md-6 mb-3">
+                    <div class="col-lg-3 col-md-6 mb-3">
                         <label class="field-label" for="roll_no">Nomor / Deskripsi Roll</label>
                         <input type="text" class="form-control" id="roll_no" name="roll_no"
                                placeholder="Contoh: 1, 2, 3 atau tipe roll..."
@@ -736,7 +764,7 @@
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
             <p class="mx-3 mt-3 mb-0 text-muted">Periksa kembali data sebelum print.</p>
-            <form action="<?= base_url('production/print_ticket?type=2') ?>" method="post">
+            <form action="<?= base_url('production/print_general_ticket') ?>" method="get">
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="field-label">ID Order Produksi</label>
@@ -775,7 +803,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- ══════════════════════════════════════════
      MODAL: Delete
@@ -875,7 +902,7 @@ document.getElementById('btn-scan').addEventListener('click', function() {
     html5QrCode = new Html5Qrcode("qr-reader");
     html5QrCode.start(
         { facingMode: "user" },
-        { fps: 10, qrbox: { width: 150, height: 150 } },
+        { fps: 10, qrbox: { width: 175, height: 175 } },
         function(decodedText) { document.getElementById('po_id').value = decodedText; checkPoId(decodedText); stopScanner(); },
         function() {}
     ).then(function() {
@@ -929,6 +956,12 @@ function checkPoId(po_id) {
                 showPoAlert('success',
                     '<i class="fas fa-check-circle mr-1"></i> ID <strong>' + po_id + '</strong> ditemukan' +
                     (res.data.product_name ? ' &mdash; ' + res.data.product_name : ''));
+                                
+                // ── Update batch input with description ──
+                if (res.data.description) {
+                    document.getElementById('batch').value = res.data.description;
+                }
+                
                 document.getElementById('btn-submit').disabled = false;
             } else {
                 document.getElementById('po_id').value = lastValidPoId;
@@ -955,7 +988,7 @@ document.getElementById('btn-scan-roll').addEventListener('click', function() {
     html5QrCodeRoll = new Html5Qrcode("qr-roll-reader");
     html5QrCodeRoll.start(
         { facingMode: "user" },
-        { fps: 10, qrbox: { width: 150, height: 150 } },
+        { fps: 10, qrbox: { width: 150, height: 150} },
         function(decodedText) { stopRollScanner(); lookupRollByCode(decodedText); },
         function() {}
     ).then(function() {
@@ -1042,16 +1075,42 @@ $(document).on('click', '.select-item-roll', function() {
 /* ══════════════════════════════
    MODAL: Print — populate fields
 ══════════════════════════════ */
-$('#printDetails').on('show.bs.modal', function(event) {
-    var btn = $(event.relatedTarget);
-    $(this).find('#po_id_print').val(btn.data('po'));
-    $(this).find('#id_print').val(btn.data('id'));
-    $(this).find('#print_batch').val(btn.data('batch'));
-    $(this).find('#name_print').val(btn.data('name'));
-    $(this).find('#amount_print').val(btn.data('amount'));
-    $(this).find('#gram_print').val(btn.data('weight'));
-    $(this).find('#guset_print').val(btn.data('lipatan'));
-    $(this).find('#desc_print').val(btn.data('desc'));
+// $('#printDetails').on('show.bs.modal', function(event) {
+//     var btn = $(event.relatedTarget);
+//     $(this).find('#po_id_print').val(btn.data('po'));
+//     $(this).find('#id_print').val(btn.data('id'));
+//     $(this).find('#print_batch').val(btn.data('batch'));
+//     $(this).find('#name_print').val(btn.data('name'));
+//     $(this).find('#amount_print').val(btn.data('amount'));
+//     $(this).find('#gram_print').val(btn.data('weight'));
+//     $(this).find('#guset_print').val(btn.data('lipatan'));
+//     $(this).find('#desc_print').val(btn.data('desc'));
+// });
+
+// Override form submit — print via hidden iframe
+$('#printDetails form').on('submit', function(e) {
+    e.preventDefault();
+
+    var formData = $(this).serialize() + '&type=2';
+    var printUrl  = '<?= base_url('production/print_general_ticket') ?>?' + formData;
+
+    var iframe = document.getElementById('print-iframe');
+    if (!iframe) {
+        iframe = document.createElement('iframe');
+        iframe.id = 'print-iframe';
+        iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:0;height:0;border:none;';
+        document.body.appendChild(iframe);
+    }
+
+    iframe.onload = function() {
+        setTimeout(function() {
+            iframe.contentWindow.focus();
+            iframe.contentWindow.print();
+        }, 500);
+    };
+
+    iframe.src = printUrl;
+    $('#printDetails').modal('hide');
 });
 
 /* ══════════════════════════════

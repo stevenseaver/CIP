@@ -338,63 +338,7 @@ class Production extends CI_Controller
             };
         };
     }
-    
-    //update production order material mixed usage aggregate amount
-    // public function update_usage()
-    // {
-    //     $id = $this->input->post('id');
-    //     $prodID = $this->input->post('prodID');
-    //     $amount = $this->input->post('qtyID');
 
-    //     $data['material_edited'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
-    //     $old_data = [
-    //         'term' => $data['material_edited']['term']
-    //     ];
-
-    //     $data = [
-    //         'term' => $amount
-    //     ];
-
-    //     //update transaksi
-    //     $this->db->where('id', $id);
-    //     // $this->db->set('item_desc', $amount);
-    //     if($this->db->update('stock_material', $data)){
-    //         $audit_id = $this->audit->log_audit('stock_material', $id, $prodID, 'UPDATE', 'Update usage from: ' . $old_data['term'], ' to: ' . $data['term']);
-    //         if (!$audit_id) {
-    //             log_message('error', 'Audit log failed');
-    //         };
-    //     };
-    // }
-    // public function update_usage()
-    // {
-    //     $id = $this->input->post('id');
-    //     $prodID = $this->input->post('prodID');
-    //     $amount = $this->input->post('qtyID');
-
-    //     $material_edited = $this->db->get_where('stock_material', ['id' => $id])->row_array();
-    //     $old_term = $material_edited['term'];
-
-    //     $data = ['term' => $amount];
-
-    //     $this->db->where('id', $id);
-    //     if ($this->db->update('stock_material', $data)) {
-    //         $audit_id = $this->audit->log_audit(
-    //             'stock_material', $id, $prodID, 'UPDATE',
-    //             'Update usage from: ' . $old_term, ' to: ' . $amount
-    //         );
-    //         if (!$audit_id) {
-    //             log_message('error', 'Audit log failed');
-    //         }
-
-    //         $remaining = $material_edited['item_desc'] - $amount;
-    //         echo json_encode([
-    //             'status' => 'success',
-    //             'remaining' => number_format($remaining, 2, ',', '.')
-    //         ]);
-    //     } else {
-    //         echo json_encode(['status' => 'error']);
-    //     }
-    // }
     public function update_usage()
     {
         $id = $this->input->post('id');
@@ -923,8 +867,17 @@ class Production extends CI_Controller
             $this->db->where('code', $code);
             $this->db->update('stock_roll', $data2);
 
-            $production_status = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
-            if($production_status['transaction_status'] != 2){
+            // $production_status = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+            // if($production_status['transaction_status'] != 2){
+            //     $this->db->where('transaction_id', $prodID)->update('stock_material', [
+            //         'transaction_status' => 2
+            //     ]);
+            // }
+            $production_status = $this->db->select('transaction_status')->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+            // Check if any row has transaction_status != 2, 2 is roll started
+            $has_non_two = array_filter($production_status, fn($row) => $row['transaction_status'] < 2);
+
+            if (!empty($has_non_two)) {
                 $this->db->where('transaction_id', $prodID)->update('stock_material', [
                     'transaction_status' => 2
                 ]);
@@ -994,7 +947,7 @@ class Production extends CI_Controller
         $date    = strtotime($this->input->post('report_date'));
         $amount  = $this->input->post('amount');
         $price   = $this->input->post('price_roll');
-        $batch   = $this->input->post('batch');
+        $batch   = $this->input->post('batch') . '-' . $this->input->post('machine') . '-' . $this->input->post('shift') . '-' . $this->input->post('operator');
         $roll_no = $this->input->post('roll_no');
         $prodID  = $this->input->post('po_id');
 
@@ -1043,8 +996,18 @@ class Production extends CI_Controller
             $this->db->where('code', $code);
             $this->db->update('stock_roll', $data2);
 
-            $production_status = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
-            if($production_status['transaction_status'] != 2){
+            // $production_status = $this->db->get_where('stock_material', ['transaction_id' => $prodID])->row_array();
+            // if($production_status['transaction_status'] != 2){
+            //     $this->db->where('transaction_id', $prodID)->update('stock_material', [
+            //         'transaction_status' => 2
+            //     ]);
+            // }
+            
+            // Check if any row has transaction_status != 2, 2 is roll started
+            $production_status = $this->db->select('transaction_status')->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+            $has_non_two = array_filter($production_status, fn($row) => $row['transaction_status'] < 2);
+
+            if (!empty($has_non_two)) {
                 $this->db->where('transaction_id', $prodID)->update('stock_material', [
                     'transaction_status' => 2
                 ]);
@@ -1057,6 +1020,24 @@ class Production extends CI_Controller
 
         $this->session->set_flashdata('last_po_id', $prodID);
         redirect('production/add_roll_general');
+    }
+
+    public function print_general_ticket()
+    {
+        $type = $this->input->get('type');
+
+        $data = [
+            'po_id'   => $this->input->get('po_id'),
+            'id'      => $this->input->get('id'),
+            'batch'   => $this->input->get('batch'),
+            'name'    => $this->input->get('name'),
+            'amount'  => $this->input->get('amount'),
+            'gram'    => $this->input->get('gram'),
+            'guset'   => $this->input->get('guset'),
+            'desc'    => $this->input->get('desc'),
+        ];
+
+        $this->load->view('production/print_roll_label', $data);
     }
 
     public function check_po_id()
@@ -1803,6 +1784,16 @@ class Production extends CI_Controller
                 $this->db->where('code', $code);
                 $this->db->update('stock_finishedgoods', $data2);
             };
+
+            $production_status_gbj = $this->db->select('transaction_status')->get_where('stock_material', ['transaction_id' => $prodID])->result_array();
+            // Check if any row has transaction_status != 4
+            $has_non_four = array_filter($production_status_gbj, fn($row) => $row['transaction_status'] < 4);
+
+            if (!empty($has_non_four)) {
+                $this->db->where('transaction_id', $prodID)->update('stock_material', [
+                    'transaction_status' => 4
+                ]);
+            }
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Finished goods ' . $item . ' with amount ' . $amount . ' kg added!</div>');
             redirect('production/add_gbj/' . $prodID);

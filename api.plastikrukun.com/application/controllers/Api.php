@@ -43,4 +43,47 @@ class Api extends CI_Controller {
                 ->set_output(json_encode(['success' => false, 'message' => 'Item not found.']));
         }
     }
+
+    public function verify_roll()
+    {
+        header('Access-Control-Allow-Origin: *');
+        header('Content-Type: application/json');
+
+        $id     = $this->input->get('id');
+        $po_id  = $this->input->get('po');
+
+        if (!$id || !$po_id) {
+            echo json_encode(['status' => 'error', 'message' => 'Missing parameters']);
+            return;
+        }
+
+        $roll = $this->db
+            ->select('sm.id, sm.transaction_id, sm.batch, sm.name, sm.weight, sm.lipatan, sm.incoming, sm.transaction_desc, sm.transaction_status, sm.created_at')
+            ->from('stock_material sm')
+            ->where('sm.id', $id)
+            ->where('sm.transaction_id', $po_id)
+            ->get()->row_array();
+
+        if (!$roll) {
+            echo json_encode(['status' => 'invalid', 'message' => 'Roll not found']);
+            return;
+        }
+
+        echo json_encode([
+            'status'  => 'valid',
+            'message' => 'Roll verified',
+            'data'    => [
+                'id'          => $roll['id'],
+                'po_id'       => $roll['transaction_id'],
+                'batch'       => $roll['batch'],
+                'name'        => $roll['name'],
+                'gram'        => $roll['weight'],
+                'guset'       => $roll['lipatan'],
+                'net_weight'  => $roll['incoming'],
+                'desc'        => $roll['transaction_desc'],
+                'status_code' => $roll['transaction_status'],
+                'created_at'  => $roll['created_at'],
+            ]
+        ]);
+    }
 }

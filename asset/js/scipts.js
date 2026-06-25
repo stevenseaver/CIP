@@ -880,26 +880,37 @@
 
 
      //  JavaScript for print roll input ticket
-     $('#printDetails').on('show.bs.modal', function(event) {
-         //extract data from data-* attributes of modal's toggle button
-         var po_id = $(event.relatedTarget).data('po');
-         var id = $(event.relatedTarget).data('id');
-         var batch = $(event.relatedTarget).data('batch');
-         var name = $(event.relatedTarget).data('name');
-         var weight = $(event.relatedTarget).data('weight');
-         var lipatan = $(event.relatedTarget).data('lipatan');
-         var amount = $(event.relatedTarget).data('amount');
-         var desc = $(event.relatedTarget).data('desc');
+    //  $('#printDetails').on('show.bs.modal', function(event) {
+    //      //extract data from data-* attributes of modal's toggle button
+    //      var po_id = $(event.relatedTarget).data('po');
+    //      var id = $(event.relatedTarget).data('id');
+    //      var batch = $(event.relatedTarget).data('batch');
+    //      var name = $(event.relatedTarget).data('name');
+    //      var weight = $(event.relatedTarget).data('weight');
+    //      var lipatan = $(event.relatedTarget).data('lipatan');
+    //      var amount = $(event.relatedTarget).data('amount');
+    //      var desc = $(event.relatedTarget).data('desc');
          
-         $(event.currentTarget).find('.modal-body input[name="po_id"]').val(po_id);
-         $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
-         $(event.currentTarget).find('.modal-body input[name="batch"]').val(batch);
-         $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
-         $(event.currentTarget).find('.modal-body input[name="gram"]').val(weight);
-         $(event.currentTarget).find('.modal-body input[name="guset"]').val(lipatan);
-         $(event.currentTarget).find('.modal-body input[name="amount"]').val(amount);
-         $(event.currentTarget).find('.modal-body input[name="desc"]').val(desc);
-     });
+    //      $(event.currentTarget).find('.modal-body input[name="po_id"]').val(po_id);
+    //      $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
+    //      $(event.currentTarget).find('.modal-body input[name="batch"]').val(batch);
+    //      $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+    //      $(event.currentTarget).find('.modal-body input[name="gram"]').val(weight);
+    //      $(event.currentTarget).find('.modal-body input[name="guset"]').val(lipatan);
+    //      $(event.currentTarget).find('.modal-body input[name="amount"]').val(amount);
+    //      $(event.currentTarget).find('.modal-body input[name="desc"]').val(desc);
+    //  });
+     $('#printDetails').on('show.bs.modal', function(event) {
+        var btn = $(event.relatedTarget);
+        $(this).find('#po_id_print').val(btn.data('po'));
+        $(this).find('#id_print').val(btn.data('id'));
+        $(this).find('#print_batch').val(btn.data('batch'));
+        $(this).find('#name_print').val(btn.data('name'));
+        $(this).find('#amount_print').val(btn.data('amount'));
+        $(this).find('#gram_print').val(btn.data('weight'));
+        $(this).find('#guset_print').val(btn.data('lipatan'));
+        $(this).find('#desc_print').val(btn.data('desc'));
+    });
 
      //  JavaScript for print roll input ticket
      $('#printDetailsGBJ').on('show.bs.modal', function(event) {
