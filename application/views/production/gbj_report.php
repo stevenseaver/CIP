@@ -1,6 +1,5 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
     <!-- Page Heading -->
     <div class="d-flex align-items-center justify-content-between mb-3">
         <div class="h3 text-gray-800"><?= $title ?></div>
@@ -27,21 +26,27 @@
                 </div>
                 
                 <!-- End Date -->
-                <div class="col-md-3 mb-3">
+                <div class="col-lg-3 mb-3">
                     <label for="end_date">End Date</label>
                     <input type="date" class="form-control" id="end_date" name="end_date" 
                         value="<?= date('Y-m-d', $end_date) ?>">
                 </div>
                 
                 <!-- Apply Button -->
-                <div class="col-md-2 mb-3">
+                <div class="col-lg-2 mb-3">
                     <button type="button" class="btn btn-primary btn-block" onclick="applyDateRange()">
-                        <i class="fas fa-search"></i> Apply
+                        <i class="bi bi-search"></i> Apply
+                    </button>
+                </div>
+
+                <div class="col-lg-2 mb-3">
+                    <button type="button" class="btn btn-warning btn-block" onclick="openScanner()">
+                        <i class="bi bi-qr-code-scan"></i> Scan QR
                     </button>
                 </div>
                 
                 <!-- Month Shortcuts Dropdown -->
-                <div class="col-md-4 mb-3">
+                <div class="col-lg-2 mb-3">
                     <label>Quick Select Month</label>
                     <div class="dropdown">
                         <button class="btn btn-<?= $color ?? 'secondary' ?> dropdown-toggle btn-block" 
@@ -159,8 +164,8 @@
                                                 <td><p class="badge badge-danger">Butuh perhatian</p></td>   
                                             <?php }; ?>
                                             <td>
-                                                <a href="<?= base_url('production/gbj_details/') . $inv['transaction_id'] ?>" class="badge badge-primary clickable"><i class="bi bi-info-circle-fill"> </i>Details</a>
-                                                <a href="<?= base_url('production/add_gbj/') . $inv['transaction_id'] ?>" class="badge badge-success clickable"><i class="bi bi-pencil-fill"> </i>Input Finished Goods</a>
+                                                <a href="<?= base_url('production/gbj_details/') . $inv['transaction_id'] ?>" class="btn btn-primary btn-sm rounded"><i class="bi bi-info-circle-fill"> </i>Details</a>
+                                                <a href="<?= base_url('production/add_gbj/') . $inv['transaction_id'] ?>" class="btn btn-success btn-sm rounded"><i class="bi bi-pencil-fill"> </i>Input Finished Goods</a>
                                             </td>
                                         </tr>
                                     <?php
@@ -180,6 +185,21 @@
         <div class="alert alert-danger" role="alert">There's no transaction! </a></div>
     <?php }
     ?>
+
+    <div class="modal fade" id="scannerModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-qrcode mr-2"></i>Scan Production Order QR</h5>
+                    <button type="button" class="close" data-dismiss="modal" onclick="stopScanner()"><span>&times;</span></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div id="reader" style="width:100%;"></div>
+                    <p class="text-muted mt-2 mb-0">Point camera at QR code</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- /.container-fluid -->
 
@@ -189,6 +209,44 @@
 <script>
     var table = $('#gbjTable').DataTable({
         order: [2, 'asc']
+    });
+
+    let html5QrCode = null;
+
+    function openScanner() {
+        $('#scannerModal').modal('show');
+
+        html5QrCode = new Html5Qrcode("reader");
+        html5QrCode.start(
+            { facingMode: "user" }, //front camera
+            { fps: 10, qrbox: { width: 250, height: 250 } },
+            function(decodedText) {
+                stopScanner();
+                $('#scannerModal').modal('hide');
+                table.search(decodedText).draw();
+                document.getElementById('gbjTable').scrollIntoView({ behavior: 'smooth' });
+            },
+            function() {}
+        ).then(function() {
+            // Apply mirror AFTER camera starts
+            var video = document.querySelector('#reader video');
+            if (video) video.style.transform = 'scaleX(-1)';
+        }).catch(function(err) {
+            console.error("Camera error:", err);
+            alert("Tidak dapat mengakses kamera. Pastikan izin kamera diberikan.");
+            stopScanner();
+        });
+    }
+
+    function stopScanner() {
+        if (html5QrCode && html5QrCode.isScanning) {
+            html5QrCode.stop().catch(() => {});
+        }
+    }
+
+    // Stop camera when modal closed
+    $('#scannerModal').on('hidden.bs.modal', function() {
+        stopScanner();
     });
 
     function applyDateRange() {

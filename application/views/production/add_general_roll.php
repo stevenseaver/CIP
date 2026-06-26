@@ -535,7 +535,7 @@
 
                     <!-- Roll Number / Desc -->
                     <div class="col-lg-3 col-md-6 mb-3">
-                        <label class="field-label" for="roll_no">Nomor / Deskripsi Roll</label>
+                        <label class="field-label" for="roll_no">Nomor Roll</label>
                         <input type="text" class="form-control" id="roll_no" name="roll_no"
                                placeholder="Contoh: 1, 2, 3 atau tipe roll..."
                                value="<?php
@@ -550,7 +550,7 @@
                                     }
                                 ?>">
                         <?= form_error('roll_no', '<small class="text-danger d-block mt-1 font-weight-bold"><i class="fas fa-exclamation-circle mr-1"></i>', '</small>') ?>
-                        <small class="text-muted">Angka atau huruf.</small>
+                        <small class="text-muted"><strong>Hanya angka!</strong></small>
                     </div>
                 </div>
             </div>
@@ -635,6 +635,7 @@
                                    data-id="<?= $ms['id'] ?>"
                                    data-batch="<?= $ms['batch'] ?>"
                                    data-name="<?= $ms['name'] ?>"
+                                   data-itemcode="<?= $ms['code'] ?>"
                                    data-amount="<?= $ms['incoming'] ?>"
                                    data-weight="<?= $ms['weight'] ?>"
                                    data-lipatan="<?= $ms['lipatan'] ?>"
@@ -776,6 +777,9 @@
 
                         <label class="field-label mt-3">Item</label>
                         <input type="text" class="form-control" id="name_print" name="name" readonly>
+
+                        <label class="field-label mt-3">Code</label>
+                        <input type="text" class="form-control" id="code_print" name="code" readonly>
 
                         <label class="field-label mt-3">Gramatur</label>
                         <input type="text" class="form-control" id="gram_print" name="gram" readonly>

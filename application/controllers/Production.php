@@ -1031,6 +1031,7 @@ class Production extends CI_Controller
             'id'      => $this->input->get('id'),
             'batch'   => $this->input->get('batch'),
             'name'    => $this->input->get('name'),
+            'code'    => $this->input->get('code'),
             'amount'  => $this->input->get('amount'),
             'gram'    => $this->input->get('gram'),
             'guset'   => $this->input->get('guset'),
@@ -1423,33 +1424,33 @@ class Production extends CI_Controller
         
     }
 
-    public function print_ticket(){
-        $data['title'] = 'Print Roll Ticket';
-        $data['user'] = $this->db->get_where('user', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
-        //get data from form
-        $data['prod_id'] = $this->input->post('po_id');
-        $data['batch'] = $this->input->post('batch');
-        $data['item'] = $this->input->post('name');
-        $data['gram'] = $this->input->post('gram');
-        $data['guset'] = $this->input->post('guset');
-        $data['net_weight'] = $this->input->post('amount');
-        $data['desc'] = $this->input->post('desc');
+    // public function print_ticket(){
+    //     $data['title'] = 'Print Roll Ticket';
+    //     $data['user'] = $this->db->get_where('user', ['nik' =>
+    //     $this->session->userdata('nik')])->row_array();
+    //     //get data from form
+    //     $data['prod_id'] = $this->input->post('po_id');
+    //     $data['batch'] = $this->input->post('batch');
+    //     $data['item'] = $this->input->post('name');
+    //     $data['gram'] = $this->input->post('gram');
+    //     $data['guset'] = $this->input->post('guset');
+    //     $data['net_weight'] = $this->input->post('amount');
+    //     $data['desc'] = $this->input->post('desc');
 
-        $type = $this->input->get('type');
-        if ($type == 1){
-            $data['roll_back'] = 'add_roll';
-        } else if ($type == 2){
-            $data['roll_back'] = 'roll_details';
-        }
+    //     $type = $this->input->get('type');
+    //     if ($type == 1){
+    //         $data['roll_back'] = 'add_roll';
+    //     } else if ($type == 2){
+    //         $data['roll_back'] = 'roll_details';
+    //     }
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('production/print_ticket_roll', $data);
-        $this->load->view('templates/footer');
-        // echo $prod_id . ' ' . $batch . ' ' . $item . ' ' . $net_weight;
-    }
+    //     $this->load->view('templates/header', $data);
+    //     $this->load->view('templates/sidebar', $data);
+    //     $this->load->view('templates/topbar', $data);
+    //     $this->load->view('production/print_ticket_roll', $data);
+    //     $this->load->view('templates/footer');
+    //     // echo $prod_id . ' ' . $batch . ' ' . $item . ' ' . $net_weight;
+    // }
 
     /** GBJ Report From */
     /** GBJ Report From */
@@ -1670,6 +1671,9 @@ class Production extends CI_Controller
         $this->form_validation->set_rules('amount', 'amount', 'trim|required');
         $this->form_validation->set_rules('price_gbj', 'price', 'trim|required');
         $this->form_validation->set_rules('batch', 'batch', 'trim|required');
+        $this->form_validation->set_rules('cutting_machine', 'cutting machine', 'trim|required|numeric');
+        $this->form_validation->set_rules('shift_prod', 'production shift', 'trim|required|numeric');
+        $this->form_validation->set_rules('operators', 'operators', 'trim|required');
         $this->form_validation->set_rules('pack_no', 'description', 'trim|required');
         $this->form_validation->set_rules('report_date', 'description', 'required');
 
@@ -1687,7 +1691,7 @@ class Production extends CI_Controller
             $price = $this->input->post('price_gbj');
             $pcsperpack = $this->input->post('pcsperpack');
             $packpersack = $this->input->post('packpersack');
-            $batch = $this->input->post('batch');
+            $batch = $this->input->post('batch') . '-' . $this->input->post('cutting_machine') . '-' .  $this->input->post('shift_prod') . '-' . $this->input->post('operators');
             $pack_no = $this->input->post('pack_no');
             $date = strtotime($this->input->post('report_date'));
             $transaction_status = 3;
@@ -1870,6 +1874,11 @@ class Production extends CI_Controller
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed');
                 };
+                
+                $this->db->where('id', $id);
+                $this->db->update('stock_roll', [
+                    'bulk_cut_id' => $inserted_id  // ← new column, desc untouched
+                ]);
             };
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Material ' . $name . ' with amount ' . $amount . '  cut!</div>');

@@ -106,6 +106,9 @@
 
                     <p class="label">Item :</p>
                     <p class="value"><?= htmlspecialchars($name) ?></p>
+
+                    <p class="label">Code :</p>
+                    <p class="value"><?= htmlspecialchars($code) ?></p>
                 </div>
 
                 <!-- MID -->

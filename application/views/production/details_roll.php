@@ -200,6 +200,7 @@
                                 data-id="<?= $ms['id'] ?>"
                                 data-batch="<?= $ms['batch'] ?>"
                                 data-name="<?= $ms['name'] ?>"
+                                data-itemcode="<?= $ms['code'] ?>"
                                 data-amount="<?= $ms['incoming'] ?>"
                                 data-weight="<?= $ms['weight'] ?>"
                                 data-lipatan="<?= $ms['lipatan'] ?>"
@@ -291,6 +292,9 @@
 
                         <label class="field-label mt-3">Item</label>
                         <input type="text" class="form-control" id="name_print" name="name" readonly>
+
+                        <label class="field-label mt-3">Code</label>
+                        <input type="text" class="form-control" id="code_print" name="code" readonly>
 
                         <label class="field-label mt-3">Gramatur</label>
                         <input type="text" class="form-control" id="gram_print" name="gram" readonly>

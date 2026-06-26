@@ -46,15 +46,40 @@ class Api extends CI_Controller {
 
     public function verify_roll()
     {
-        $id    = $this->input->get('id');
-        $po    = $this->input->get('po');
-        $data  = ['roll' => null, 'error' => null];
+        // Rate limit using session (no cache driver needed)
+        $now     = time();
+        $window  = 60; // seconds
+        $max     = 30; // max requests per window
+
+        $hits      = $this->session->userdata('rl_hits') ?: 0;
+        $window_start = $this->session->userdata('rl_start') ?: $now;
+
+        // Reset window if expired
+        if ($now - $window_start > $window) {
+            $hits         = 0;
+            $window_start = $now;
+        }
+
+        $hits++;
+        $this->session->set_userdata('rl_hits', $hits);
+        $this->session->set_userdata('rl_start', $window_start);
+
+        if ($hits > $max) {
+            $data = ['roll' => null, 'error' => '429TMR'];
+            $this->load->view('verify_roll', $data);
+            // return;
+        }
+
+        //Validate input
+        $id = (int) $this->input->get('id');
+        $po = trim($this->input->get('po', TRUE));
+        // $data = ['roll' => null, 'error' => null];
 
         if (!$id || !$po) {
             $data['error'] = 'missing';
         } else {
             $roll = $this->db
-                ->select('id, transaction_id, batch, name, weight, lipatan, incoming, transaction_desc, date, status')
+                ->select('id, transaction_id, batch, name, code, weight, lipatan, incoming, transaction_desc, date, status')
                 ->get_where('stock_roll', [
                     'id'             => $id,
                     'transaction_id' => $po
@@ -69,7 +94,7 @@ class Api extends CI_Controller {
 
         $this->load->view('verify_roll', $data);
     }
-    
+
     public function ping()
     {
         echo 'pong';

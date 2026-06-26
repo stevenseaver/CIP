@@ -27,6 +27,12 @@
             <strong>Invalid link.</strong> Missing roll ID or PO parameter.
         </div>
 
+    <?php elseif ($error === '429TMR'): ?>
+
+        <div class="alert alert-warning text-center">
+            <strong>Invalid link.</strong> Too much request!
+        </div>
+
     <?php elseif ($error === 'not_found'): ?>
 
         <div class="text-center mb-3">
@@ -101,7 +107,7 @@
                     </div>
                     <div class="text-right">
                         <p class="info-label mb-1">Tanggal Produksi</p>
-                        <p class="info-value" style="font-size:13px;"><?= htmlspecialchars($roll['created_at']) ?></p>
+                        <p class="info-value" style="font-size:13px;"><?= date('d F Y H:i:s', $roll['date']) ?></p>
                     </div>
                 </div>
 

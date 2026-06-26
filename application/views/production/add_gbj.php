@@ -306,7 +306,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="report_date" class="col-form-label">Date</label>
+                    <label for="report_date" class="col-form-label">Tanggal</label>
                     <input type="date" class="form-control" id="report_date" name="report_date" value="<?= set_value('report_date', $last_date); ?>">
                     <?= form_error('report_date', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
@@ -316,7 +316,7 @@
             <div class="col-lg-5">
                 <div class="form-group">
                     <!-- Item categories -->
-                    <label for="gbjSelect" class="col-form-label">Item Name</label>
+                    <label for="gbjSelect" class="col-form-label">Nama Item</label>
                     <input type="text" class="form-control" id="gbjSelect" name="gbjSelect" readonly value="<?= isset($last_record['name']) ? $last_record['name'] : set_value('gbjSelect'); ?>">
                     <small class="text-danger">Jangan lupa mengganti item jika item yang dimasukkan berbeda.</small>
                     <?= form_error('gbjSelect', '<small class="text-danger pl-2">', '</small>') ?>
@@ -325,21 +325,21 @@
             <div class="col-lg-3">
                 <div class="form-group">
                     <!-- GBJ code -->
-                    <label for="code" class="col-form-label">Code</label>
+                    <label for="code" class="col-form-label">Kode</label>
                     <input type="text" class="form-control" id="code" name="code" readonly value="<?= isset($last_record['code']) ? $last_record['code'] : set_value('code'); ?>">
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
                     <!-- Material in stock -->
-                    <label for="instock" class="col-form-label">In Stock</label>
+                    <label for="instock" class="col-form-label">Stock saat ini</label>
                     <input type="text" class="form-control" id="instock" name="instock" readonly value="<?= isset($last_record['in_stock']) ? $last_record['in_stock'] : set_value('instock'); ?>">
                 </div>
             </div>
             <div class="col-lg-1">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="pcsperpack" class="col-form-label">Packing</label>
+                    <label for="pcsperpack" class="col-form-label">Lembar/pack</label>
                     <input type="text" class="form-control" id="pcsperpack" name="pcsperpack" value="<?= isset($last_record['pcsperpack']) ? $last_record['pcsperpack'] : set_value('pcsperpack'); ?>" readonly>
                     <?= form_error('pcsperpack', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
@@ -347,16 +347,16 @@
             <div class="col-lg-1">
                 <div class="form-group">
                     <!-- Pack per sack -->
-                    <label for="packpersack" class="col-form-label">Pack/sack</label>
+                    <label for="packpersack" class="col-form-label">Pack/karung</label>
                     <input type="text" class="form-control" id="packpersack" name="packpersack" readonly value="<?= isset($last_record['packpersack']) ? $last_record['packpersack'] : set_value('packpersack'); ?>">
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-6">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="amount" class="col-form-label">Amount</label>
+                    <label for="amount" class="col-form-label">Jumlah Produksi</label>
                     <div class="input-group">
                         <!-- Item code -->
                         <input type="number" step=".01" class="form-control" id="amount" name="amount" value="<?= set_value('amount'); ?>" placeholder="Production amount">
@@ -367,10 +367,10 @@
                     <?= form_error('amount', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-6">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="price_gbj" class="col-form-label">Price</label>
+                    <label for="price_gbj" class="col-form-label">Harga</label>
                     <div class="input-group">
                         <!-- Item code -->
                         <div class="input-group-prepend">
@@ -378,27 +378,83 @@
                         </div>
                         <input type="text" class="form-control" id="price_gbj" name="price_gbj" value="<?= isset($last_record['price']) ? $last_record['price'] : set_value('price_gbj'); ?>" placeholder="Input COGS per kg">
                     </div>
-                    <small>Make sure this value is similar to COGS.</small>
+                    <small>Pastikan diisi dengan Cost of Materials.</small>
                     <?= form_error('price', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
-            <div class="col-lg-3">
+        </div>
+        <?php
+            // Parse batch into parts
+            $raw_batch = isset($last_record['batch']) ? $last_record['batch'] : $getRollID['batch'] . '-';
+
+            $parts      = explode('-', $raw_batch);
+            $batch_id   = $parts[0] ?? ''; // always just the UUID
+
+            // Only pre-fill if this is scenario 3 (last_record exists with full data)
+            $cut_machine = '';
+            $shift_val   = '';
+            $operator_val = '';
+
+            if (isset($last_record['batch'])) {
+                // Scenario 3: 2696eb26-2-1-PARMAN/YANUAR
+                $cut_machine  = $parts[1] ?? '';
+                $shift_val    = $parts[2] ?? '';
+                $operator_val = $parts[3] ?? '';
+            }
+            ?>
+        <div class="row">    
+            <div class="col-lg-2">
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="batch" class="col-form-label">Batch</label>
-                    <!-- <input type="text" class="form-control mb-1" id="batch" name="batch" placeholder="Product name/batch number" value="<?= $getRollID['batch'] . '-' ?>"> -->
-                    <input type="text" class="form-control mb-1" id="batch" name="batch" placeholder="Product name/batch number" value="<?= isset($last_record['batch']) ? $last_record['batch'] : $getRollID['batch'] . '-'; ?>">
+                    <!-- <input type="text" class="form-control mb-1" id="batch" name="batch" placeholder="Product name/batch number" value="<?= isset($last_record['batch']) ? $last_record['batch'] : $getRollID['batch'] . '-'; ?>"> -->
+                     <input type="text" class="form-control mb-1" id="batch" name="batch" 
+                        placeholder="Product name/batch number" 
+                        value="<?= $batch_id ?>">
                     <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Batch number YEARrandomWEEK-EL-S-Cutting Line. Mandatory to add Cutting Line (CL).</small>
+                    <small>Batch number terisi otomatis. Jangan diubah!</small>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="cutting_machine" class="col-form-label">Mesin Potong</label>
+                    <!-- <input type="number" class="form-control mb-1" id="cutting_machine" name="cutting_machine" placeholder="Mesin potong yang digunakan" value=""> -->
+                     <input type="number" class="form-control mb-1" id="cutting_machine" name="cutting_machine" 
+                        placeholder="Mesin potong yang digunakan" 
+                        value="<?= $cut_machine ?>">
+                    <?= form_error('cutting_machine', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="shift_prod" class="col-form-label">Shift</label>
+                    <!-- <input type="number" class="form-control mb-1" id="shift_prod" name="shift_prod" placeholder="Shift produksi" value=""> -->
+                     <input type="number" class="form-control mb-1" id="shift_prod" name="shift_prod" 
+                        placeholder="Shift produksi" 
+                        value="<?= $shift_val ?>">
+                    <?= form_error('shift_prod', '<small class="text-danger pl-2">', '</small>') ?>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="pack_no" class="col-form-label">Notes</label>
+                    <label for="operators" class="col-form-label">Operator</label>
+                    <!-- <input type="text" class="form-control mb-1" id="operators" name="operators" placeholder="Operator produksi" value=""> -->
+                     <input type="text" class="form-control mb-1" id="operators" name="operators" 
+                        placeholder="Operator produksi" 
+                        value="<?= $operator_val ?>">
+                    <?= form_error('operators', '<small class="text-danger pl-2">', '</small>') ?>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <!-- Item code -->
+                    <label for="pack_no" class="col-form-label">Nomor Karung</label>
                     <input type="text" class="form-control mb-1" id="pack_no" name="pack_no" placeholder="Input additional description..">
                     <?= form_error('pack_no', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Packing description, description, or else. Alpha numerical. Mandatory</small>
+                    <small>Wajib diisi. Isi dengan nomor karung saja! Misal: '1' atau '1-5' untuk 5 karung sekaligus</small>
                 </div>
             </div>
         </div>

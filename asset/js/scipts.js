@@ -906,6 +906,7 @@
         $(this).find('#id_print').val(btn.data('id'));
         $(this).find('#print_batch').val(btn.data('batch'));
         $(this).find('#name_print').val(btn.data('name'));
+        $(this).find('#code_print').val(btn.attr('data-itemcode'));
         $(this).find('#amount_print').val(btn.data('amount'));
         $(this).find('#gram_print').val(btn.data('weight'));
         $(this).find('#guset_print').val(btn.data('lipatan'));
