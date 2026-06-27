@@ -337,6 +337,20 @@ class Purchasing extends CI_Controller
         $this->load->view('purchase/receiveorder_details', $data);
         $this->load->view('templates/footer');
     }
+
+    //print received item
+    public function print_ticket_item() {
+        $data['po_id']  = $this->input->post('po_id');
+        $data['name']   = $this->input->post('name');
+        $data['code']   = $this->input->post('code');
+        $data['amount'] = $this->input->post('amount');
+        $data['price']  = $this->input->post('price');
+        $data['desc']   = $this->input->post('desc');
+        $data['unit_satuan'] = $this->input->post('unit_satuan');
+
+        $this->load->view('purchase/print_ticket_item', $data);
+    }
+
     // public function receiveItem($id, $token)
     public function receiveItem($id)
     {

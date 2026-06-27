@@ -122,7 +122,7 @@
                     <p class="label-primary">Net Amount :</p>
                     <p class="value-primary"><?= htmlspecialchars($amount) ?> kg</p>
 
-                    <p class="label">Deskripsi :</p>
+                    <p class="label">Nomor roll :</p>
                     <p class="value"><?= htmlspecialchars($desc) ?></p>
                 </div>
 

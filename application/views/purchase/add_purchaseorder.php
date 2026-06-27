@@ -182,22 +182,22 @@
                 <div class="form-group">
                     <!-- Item code -->
                     <label for="description" class="col-form-label">Reference</label>
-                    <i type="button" class="small text-primary bi bi-question-circle" data-toggle="tooltip" data-placement="right" title="Isi dengan nomor dokumen FB/PI dari Kledo/7S">
+                    <i type="button" class="small text-primary bi bi-question-circle" data-toggle="tooltip" data-placement="right" title="Isi dengan nomor dokumen pembelian dari Kledo atau 7S + '/' + nomor nota timbang.">
                     </i>
                     <input type="text" class="form-control mb-1" id="description" name="description" placeholder="Input description..">
                     <?= form_error('description', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Purchasing document reference.</small>
+                    <small>Purchasing document reference (i.e. FB-26-06-00020/AM 0090).</small>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <!-- Item code -->
-                    <label for="item_desc" class="col-form-label">Item Description</label>
-                    <i type="button" class="small text-primary bi bi-question-circle" data-toggle="tooltip" data-placement="right" title="Isi nomor AM">
+                    <label for="item_desc" class="col-form-label">Number of Sack / Jumlah Karung</label>
+                    <i type="button" class="small text-primary bi bi-question-circle" data-toggle="tooltip" data-placement="right" title="Isi jumlah karung yang sesuai dengan nominal jumlah yang diterima.">
                     </i>
                     <input type="text" class="form-control mb-1" id="item_desc" name="item_desc" placeholder="Input item description..">
                     <?= form_error('item_desc', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Weight document number.</small>
+                    <small>Jumlah sak/karung yang diterima. Pisahkan karung utuh dan yang tidak utuh.</small>
                 </div>
             </div>
         </div>

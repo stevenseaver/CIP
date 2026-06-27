@@ -37,7 +37,7 @@
     <div class="card rounded shadow border-0 mb-3">
         <div class="card-body mb-0">
             <p class="text-dark mb-1">PO Ref : </p>
-            <p class="text-dark font-weight-bold"> <?= $getID['transaction_id'] ?></p>
+            <p class="text-dark font-weight-bold"> <?= $getID['transaction_id']; ?></p>
             <p class="text-dark mb-1">Internal Ref : </p>
             <p id="ref_item" class="text-dark font-weight-bold mb-3"> 
                 <?= $getID['description']; ?>
@@ -97,9 +97,9 @@
                     <tr>
                         <td><?= $i ?></td>
                         <td><?= $ms['name'] ?></td>
-                        <td><input id="receiveAmount-<?= $ms['id'] ?>" class="receive-qty text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"></td>
+                        <td><input id="receiveAmount-<?= $ms['id'] ?>" class="receive-qty text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"> <?= $ms['unit_satuan']; ?></td>
                         <td><?= number_format($ms['price'], 2, ',', '.'); ?></td>
-                        <?php $subtotal = $ms['incoming'] * $ms['price'] ?>
+                        <?php $subtotal = $ms['incoming'] * $ms['price']; ?>
                         <td class="text-right"><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><?= $ms['item_desc'] ?></td>
                         <?php if ($ms['transaction_status'] == 1) { ?>
@@ -117,7 +117,16 @@
                             </td>
                         <?php } else if ($ms['transaction_status'] == 2) { ?>
                             <td>
-                                <!-- <a href=" <?= base_url('purchasing/receiveItem/') . $ms['id'] ?>" class="badge badge-success" style="disable:true">Confirm</a> -->
+                                <a class="badge badge-primary clickable print-item-btn"
+                                    data-po="<?= htmlspecialchars($getID['transaction_id']); ?>"
+                                    data-name="<?= htmlspecialchars($ms['name']); ?>"
+                                    data-code="<?= htmlspecialchars($ms['code']); ?>"
+                                    data-amount="<?= htmlspecialchars($ms['incoming']); ?>"
+                                    data-price="<?= htmlspecialchars($ms['price']); ?>"
+                                    data-desc="<?= htmlspecialchars($ms['item_desc']); ?>"
+                                    data-unitsatuan="<?= htmlspecialchars($ms['unit_satuan']); ?>">
+                                    <i class="bi bi-printer"></i> Print
+                                </a>
                             </td>
                         <?php } ?>
                     </tr>
@@ -197,3 +206,31 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('.print-item-btn').on('click', function() {
+        var po          = $(this).data('po');
+        var name        = $(this).data('name');
+        var code        = $(this).data('code');
+        var amount      = $(this).data('amount');
+        var price       = $(this).data('price');
+        var desc        = $(this).data('desc');
+        var unit_satuan = $(this).data('unitsatuan');
+
+        var tempForm = $('<form>', {
+            action: '<?= base_url('purchasing/print_ticket_item') ?>',
+            method: 'POST',
+            target: '_blank'
+        });
+
+        $('<input>').attr({ type: 'hidden', name: 'po_id',       value: po          }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'name',        value: name        }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'code',        value: code        }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'amount',      value: amount      }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'price',       value: price       }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'desc',        value: desc        }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'unit_satuan', value: unit_satuan }).appendTo(tempForm);
+
+        tempForm.appendTo('body').submit().remove();
+    });
+</script>

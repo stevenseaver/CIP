@@ -1024,18 +1024,18 @@ class Production extends CI_Controller
 
     public function print_general_ticket()
     {
-        $type = $this->input->get('type');
+        $type = $this->input->post('type');
 
         $data = [
-            'po_id'   => $this->input->get('po_id'),
-            'id'      => $this->input->get('id'),
-            'batch'   => $this->input->get('batch'),
-            'name'    => $this->input->get('name'),
-            'code'    => $this->input->get('code'),
-            'amount'  => $this->input->get('amount'),
-            'gram'    => $this->input->get('gram'),
-            'guset'   => $this->input->get('guset'),
-            'desc'    => $this->input->get('desc'),
+            'po_id'   => $this->input->post('po_id'),
+            'id'      => $this->input->post('id'),
+            'batch'   => $this->input->post('batch'),
+            'name'    => $this->input->post('name'),
+            'code'    => $this->input->post('code'),
+            'amount'  => $this->input->post('amount'),
+            'gram'    => $this->input->post('gram'),
+            'guset'   => $this->input->post('guset'),
+            'desc'    => $this->input->post('desc'),
         ];
 
         $this->load->view('production/print_roll_label', $data);
@@ -2225,31 +2225,26 @@ class Production extends CI_Controller
         // redirect('production/add_gbj/' . $prodID);
     }
 
-    public function print_ticket_gbj(){
-        $data['title'] = 'Print Finished Goods Ticket';
-        $data['user'] = $this->db->get_where('user', ['nik' =>
-        $this->session->userdata('nik')])->row_array();
-        //get data from form
-        $data['prod_id'] = $this->input->post('po_id');
-        $data['batch'] = $this->input->post('batch');
-        $data['item'] = $this->input->post('name');
+    public function print_ticket_gbj() {
+        $data['title']      = 'Print Finished Goods Ticket';
+        $data['user']       = $this->db->get_where('user', ['nik' => $this->session->userdata('nik')])->row_array();
+        $data['prod_id']    = $this->input->post('po_id');
+        $data['batch']      = $this->input->post('batch');
+        $data['item']       = $this->input->post('name');
+        $data['code']       = $this->input->post('itemcode');
         $data['net_weight'] = $this->input->post('weight');
-        $data['amount'] = $this->input->post('amount');
-        $data['desc'] = $this->input->post('desc');
+        $data['amount']     = $this->input->post('amount');
+        $data['desc']       = $this->input->post('desc');
+        $type               = $this->input->get('type');
 
-        $type = $this->input->get('type');
-        if ($type == 1){
+        if ($type == 1) {
             $data['roll_back'] = 'add_gbj';
-        } else if ($type == 2){
+        } else if ($type == 2) {
             $data['roll_back'] = 'gbj_details';
         }
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        // Standalone label view — no header/sidebar/footer
         $this->load->view('production/print_ticket_gbj', $data);
-        $this->load->view('templates/footer');
-        // echo $prod_id . ' ' . $batch . ' ' . $item . ' ' . $net_weight;
     }
 
     public function add_item_prod_after_gbj($id, $status)

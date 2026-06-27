@@ -207,12 +207,12 @@
                                         <td><p class="badge badge-danger">Butuh perhatian</p></td>   
                                     <?php }; ?>
                                     <td>
-                                        <a href="<?= base_url('production/prod_details/') . $inv['transaction_id'] ?>" class="btn btn-primary btn-sm rounded"><i class="bi bi-info-circle-fill"> </i>Details</a>
-                                        <a href="<?= base_url('production/edit_prod/') . $inv['transaction_id'] ?>" class="btn btn-warning btn-sm rounded"><i class="bi bi-pencil-fill"> </i>Edit</a>
+                                        <a href="<?= base_url('production/prod_details/') . $inv['transaction_id'] ?>" class="btn btn-primary btn-sm rounded mb-1"><i class="bi bi-info-circle-fill"> </i>Details</a>
+                                        <a href="<?= base_url('production/edit_prod/') . $inv['transaction_id'] ?>" class="btn btn-warning btn-sm rounded mb-1"><i class="bi bi-pencil-fill"> </i>Edit</a>
                                         <?php if ($inv['transaction_status'] == 1){ ?>
-                                            <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="btn btn-danger btn-sm rounded"><i class="bi bi-trash-fill"> </i>Delete Production Order</a>
+                                            <a data-toggle="modal" data-target="#deletePOModal" data-po="<?= $inv['transaction_id']  ?>" class="btn btn-danger btn-sm rounded mb-1"><i class="bi bi-trash-fill"> </i>Delete Production Order</a>
                                         <?php } else { ?>
-                                            <a href="" class="btn btn-secondary btn-sm rounded" disabled><i class="bi bi-trash-fill"> </i>Delete Production Order</a>
+                                            <a href="" class="btn btn-secondary btn-sm rounded mb-1" disabled><i class="bi bi-trash-fill"> </i>Delete Production Order</a>
                                         <?php }; ?>
                                     </td>
                                 </tr>

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Label GBJ</title>
+    <title>Label Item</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -74,52 +74,40 @@
 <body>
     <div id="labels-container"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
-        var desc       = <?= json_encode($desc) ?>;
-        var prod_id    = <?= json_encode($prod_id) ?>;
-        var batch      = <?= json_encode($batch) ?>;
-        var item       = <?= json_encode($item) ?>;
-        var net_weight = <?= json_encode($net_weight) ?>;
-        var amount     = <?= json_encode($amount) ?>;
+        // Declare all variables once, globally
+        var po_id  = <?= json_encode($po_id) ?>;
+        var name   = <?= json_encode($name) ?>;
+        var code   = <?= json_encode($code) ?>;
+        var amount = <?= json_encode($amount) ?>;
+        var price  = <?= json_encode($price) ?>;
+        var desc   = <?= json_encode($desc) ?>;
+        var unit_satuan   = <?= json_encode($unit_satuan) ?>;
+        var count  = 1; // global so buildLabel can access it
 
-        function parseDesc(desc) {
-            var match = desc.match(/^(\d+)-(\d+)$/);
-            if (match) {
-                var start = parseInt(match[1]);
-                var end   = parseInt(match[2]);
-                return { start: start, end: end };
-            }
-            var single = parseInt(desc);
-            if (!isNaN(single)) {
-                return { start: single, end: single };
-            }
-            return { start: null, end: null };
-        }
-
-        function buildLabel(currentDesc, w, a) {
+        function buildLabel(i, a) {
             return `
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-left">
-                                <p class="label">Prod Order Ref :</p>
-                                <p class="value">${prod_id}</p>
-                                <p class="label">Batch :</p>
-                                <p class="value">${batch}</p>
+                                <p class="label">PO Ref :</p>
+                                <p class="value">${po_id}</p>
                                 <p class="label">Item :</p>
-                                <p class="value">${item}</p>
-                            </div>
-                            <div class="col-mid">
-                                <p class="label-primary">Net Weight :</p>
-                                <p class="value-primary">${w} kg</p>
-                                <p class="label-primary">Pack Amount :</p>
-                                <p class="value-primary">${a} pack</p>
-                                <p class="label">Description :</p>
-                                <p class="value">${currentDesc}</p>
+                                <p class="value">${name}</p>
+                                <p class="label">Code :</p>
+                                <p class="value">${code}</p>
+                                </div>
+                                <div class="col-mid">
+                                <p class="label">Price :</p>
+                                <p class="value">IDR ${parseFloat(price).toLocaleString('id-ID', {minimumFractionDigits:2})}</p>
+                                <p class="label-primary">Amount :</p>
+                                <p class="value-primary">${a} ${unit_satuan}</p>
+                                <p class="label">Sack/Karung :</p>
+                                <p class="value">${i} of ${count}</p>
                             </div>
                             <div class="col-right">
-                                <div class="desc-big">${currentDesc}</div>
+                                <div class="desc-big">${i}</div>
                                 <div class="qrcode"></div>
                                 <p class="qr-label">Scan to verify</p>
                             </div>
@@ -130,29 +118,22 @@
         }
 
         window.onload = function() {
-            var parsed  = parseDesc(desc);
+            count = parseInt(desc);
+            if (isNaN(count) || count < 1) count = 1;
+
+            var amount_each = (parseFloat(amount) / count).toFixed(2);
             var labels  = '';
             var qrTexts = [];
 
-            if (parsed.start === null) {
-                // Non-numeric — single label, no division needed
-                labels += buildLabel(desc, net_weight, amount);
-                qrTexts.push(prod_id + ' | ' + batch + ' | ' + item + ' | ' + net_weight + 'kg | ' + amount + 'pack | ' + desc);
-            } else {
-                var count          = (parsed.end - parsed.start) + 1;
-                var weight_each    = (parseFloat(net_weight) / count).toFixed(2);
-                var amount_each    = (parseFloat(amount) / count).toFixed(2);
-
-                for (var i = parsed.start; i <= parsed.end; i++) {
-                    labels += buildLabel(i, weight_each, amount_each);
-                    qrTexts.push(prod_id + ' | ' + batch + ' | ' + item + ' | ' + weight_each + 'kg | ' + amount_each + 'pack | ' + i);
-                }
+            for (var i = 1; i <= count; i++) {
+                labels += buildLabel(i, amount_each);
+                qrTexts.push(code);
+                // qrTexts.push(po_id + ' | ' + name + ' | ' + amount_each + ' unit | ' + i + ' of ' + count);
             }
 
             document.getElementById('labels-container').innerHTML = labels;
 
-            var qrEls = document.querySelectorAll('.qrcode');
-            qrEls.forEach(function(el, idx) {
+            document.querySelectorAll('.qrcode').forEach(function(el, idx) {
                 new QRCode(el, {
                     text: qrTexts[idx],
                     width: 83,

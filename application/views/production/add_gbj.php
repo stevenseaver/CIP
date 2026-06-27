@@ -410,9 +410,9 @@
                     <!-- <input type="text" class="form-control mb-1" id="batch" name="batch" placeholder="Product name/batch number" value="<?= isset($last_record['batch']) ? $last_record['batch'] : $getRollID['batch'] . '-'; ?>"> -->
                      <input type="text" class="form-control mb-1" id="batch" name="batch" 
                         placeholder="Product name/batch number" 
-                        value="<?= $batch_id ?>">
+                        value="<?= $batch_id ?>" readonly>
                     <?= form_error('batch', '<small class="text-danger pl-2">', '</small>') ?>
-                    <small>Batch number terisi otomatis. Jangan diubah!</small>
+                    <small>Batch number terisi otomatis.</small>
                 </div>
             </div>
             <div class="col-lg-2">
@@ -534,6 +534,7 @@
                 $i = 1;
                 $temp = 0;
                 $temp_weight= 0;
+                $temp_unit= 0;
                 ?>
                 <?php foreach ($inventory_selected as $ms) : ?>
                     <?php
@@ -559,7 +560,7 @@
                     if($ms['unit_satuan'] == 'kg') {
                         $temp_weight = $temp_weight + $ms['outgoing'];
                     } else {
-                        
+                        $temp_unit = $temp_unit + $ms['outgoing'];
                     }
                     $i++; ?>
                 <?php endforeach; ?>
@@ -574,8 +575,14 @@
                     <?php $total = $temp; ?>
                     <td class="text-right">IDR <?= number_format($total, '2', ',', '.'); ?></td>
                     <td class="text-right"><strong>Cost of Materials</strong></td>
-                    <?php $hpp = $total/$temp_weight; ?>
-                    <td class="text-right">IDR <?= number_format($hpp, '2', ',', '.'); ?></td>
+                    <?php if($totalWeight != 0){
+                        $hpp = $total/$totalWeight;
+                    } else if($temp_unit != 0) {
+                        $hpp = $total/$temp_unit;
+                    }; ?>
+                    <td class="text-right">IDR <?= number_format($hpp, '2', ',', '.'); ?>
+                        <i class="bi bi-copy text-primary mx-1" onclick="navigator.clipboard.writeText('<?= number_format($hpp, '2', '.', '') ?>'); this.className='bi bi-check-lg text-primary'; setTimeout(() => this.className='bi bi-copy', 1500);" title="Copy HPP" style="cursor:pointer;"></i>
+                    </td>
                 </tr>
             </tfoot>
         </table>
@@ -761,10 +768,10 @@
                         <!-- <td><?= number_format($ms['pcsperpack'], 0, ',', '.'); ?> </td> -->
                         <!-- <td><?= number_format($ms['packpersack'], 0, ',', '.'); ?> </td> -->
                         <?php if($ms['transaction_status'] != 2){  ?>  
-                            <!-- IF trans status is other than 2 -->
+                            <!-- IF trans status is not 2 (not yet converted) -->
                             <td><input id="gbjAmount-<?= $ms['id'] ?>" class="gbj-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>">kg</td>
                         <?php } else { ?>
-                            <!-- IF product amount already converted into packs for product cat other than 6 or 7 -->
+                            <!-- IF product amount already converted into packs for product cat other than 6 (bulk) or 7 (weighted) -->
                             <td><input id="gbjAmount-<?= $ms['id'] ?>" class="gbj-qty text-left form-control" data-id="<?= $ms['id']; ?>" data-prodID="<?= $ms['transaction_id'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" value="<?= number_format($ms['incoming'], 2, ',', '.'); ?>"><?= $ms['unit_satuan']?></td>
                         <?php } 
                             $subtotal = $ms['price'] * $ms['incoming'];
@@ -777,25 +784,28 @@
                         <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><input id="gbjBatch-<?= $ms['id'] ?>" class="gbj-batch text-left form-control number" data-id="<?= $ms['id']; ?>" value="<?= $ms['batch'] ?>"></td>
                         <td><input id="gbjDesc-<?= $ms['id'] ?>" class="gbj-desc text-left form-control" data-id="<?= $ms['id']; ?>" value="<?= $ms['description']; ?>"></td>
-                        <?php if($ms['transaction_status'] != 2){  ?>
-                            <?php if($ms['categories'] != 6 and $ms['categories'] != 7) { ?>
-                            <td>
-                                <a data-toggle="modal" data-target="#convertPack" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code']?>" data-amount="<?= $ms['incoming'] ?>" data-price=<?= $ms['price']?>  class="badge badge-primary clickable">Convert to <?= $ms['unit_satuan']?></a>
-                                <a data-toggle="modal" data-target="#printDetailsGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['before_convert'] ?>" data-desc="<?= $ms['description']?>" class="badge badge-primary clickable">Print</a>
-                                <a data-toggle="modal" data-target="#deleteItemGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" class="badge badge-danger clickable">Delete</a>
-                            </td>
-                            <?php } else { ?>
-                                <td>
-                                    <a data-toggle="modal" data-target="#printDetailsGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['before_convert'] ?>" data-desc="<?= $ms['description']?>" class="badge badge-primary clickable">Print</a>
-                                    <a data-toggle="modal" data-target="#deleteItemGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" class="badge badge-danger clickable">Delete</a>
-                                </td>
-                            <?php }
-                        } else { ?>
-                            <td>
-                                <a data-toggle="modal" data-target="#printDetailsGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['before_convert'] ?>" data-desc="<?= $ms['description']?>" class="badge badge-primary clickable">Print</a>    
-                                <a data-toggle="modal" data-target="#deleteItemGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-cat="<?= $ms['categories']?>" data-status="<?= $ms['transaction_status']?>" class="badge badge-danger clickable">Delete</a>
-                            </td>
-                        <?php } ?>
+                        <td>
+                            <?php if($ms['transaction_status'] != 2 && $ms['categories'] != 6 && $ms['categories'] != 7): ?>
+                                <a data-toggle="modal" data-target="#convertPack"
+                                data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>"
+                                data-name="<?= $ms['name'] ?>" data-code="<?= $ms['code'] ?>"
+                                data-amount="<?= $ms['incoming'] ?>" data-price="<?= $ms['price'] ?>"
+                                class="badge badge-primary clickable">Convert to <?= $ms['unit_satuan'] ?></a>
+                            <?php endif ?>
+
+                            <a data-toggle="modal" data-target="#printDetailsGBJ"
+                            data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>"
+                            data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-itemcode="<?= $ms['code'] ?>"
+                            data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['before_convert'] ?>"
+                            data-desc="<?= $ms['description'] ?>"
+                            class="badge badge-primary clickable">Print</a>
+
+                            <a data-toggle="modal" data-target="#deleteItemGBJ"
+                            data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>"
+                            data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>"
+                            data-cat="<?= $ms['categories'] ?>" data-status="<?= $ms['transaction_status'] ?>"
+                            class="badge badge-danger clickable">Delete</a>
+                        </td>
                     </tr>
                     <?php 
                         $temp = $temp + $ms['before_convert'];
@@ -1235,15 +1245,15 @@
                         <!-- prod id -->
                         <label for="po_id" class="col-form-label">Production Order ID</label>
                         <input type="text" class="form-control" id="po_id" name="po_id" readonly>
-                        <!-- item id -->
-                        <!-- <label for="id" class="col-form-label" style="display:none">ID</label>
-                        <input type="text" class="form-control" id="id" name="id" style="display:none" readonly> -->
                         <!-- item batch ID -->
                         <label for="batch" class="col-form-label">Batch</label>
                         <input type="text" class="form-control" id="batch" name="batch" readonly>
                         <!-- item name -->
                         <label for="name" class="col-form-label">Item</label>
                         <input type="text" class="form-control" id="name" name="name" readonly>
+                        <!-- item code -->
+                        <label for="id" class="col-form-label">Code</label>
+                        <input type="text" class="form-control" id="itemcode" name="itemcode" readonly>
                         <!-- item net weight -->
                         <label for="weight" class="col-form-label">Net Weight</label>
                         <div class="input-group">
@@ -1265,7 +1275,7 @@
                         <input type="text" class="form-control" id="desc" name="desc" readonly>
                     </div>
                 </div>
-                <div class="modal-footer">
+               <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Print</button>
                 </div>
@@ -1380,5 +1390,32 @@
     var table3 = $('#table4').DataTable({
         paging: false,
         searchable: true
+    });
+
+    //print from new tab window
+    $('#printDetailsGBJ form').on('submit', function(e) {
+        e.preventDefault();
+
+        var form = $(this);
+
+        // Create a temporary hidden form
+        var tempForm = $('<form>', {
+            action: '<?= base_url('production/print_ticket_gbj') ?>?type=1',
+            method: 'POST',
+            target: '_blank'
+        });
+
+        // Copy all fields into the temp form
+        form.find('input, select, textarea').each(function() {
+            $('<input>').attr({
+                type: 'hidden',
+                name: $(this).attr('name'),
+                value: $(this).val()
+            }).appendTo(tempForm);
+        });
+
+        // Submit and remove
+        tempForm.appendTo('body').submit().remove();
+        $('#printDetailsGBJ').modal('hide');
     });
 </script>

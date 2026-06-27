@@ -41,7 +41,7 @@
 
                 <div class="col-lg-2 mb-3">
                     <button type="button" class="btn btn-warning btn-block" onclick="openScanner()">
-                        <i class="bi bi-qr-code-scan"></i> Scan QR
+                        <i class="bi bi-qr-code-scan"></i> Scan Production ID
                     </button>
                 </div>
                 
@@ -164,8 +164,8 @@
                                                 <td><p class="badge badge-danger">Butuh perhatian</p></td>   
                                             <?php }; ?>
                                             <td>
-                                                <a href="<?= base_url('production/gbj_details/') . $inv['transaction_id'] ?>" class="btn btn-primary btn-sm rounded"><i class="bi bi-info-circle-fill"> </i>Details</a>
-                                                <a href="<?= base_url('production/add_gbj/') . $inv['transaction_id'] ?>" class="btn btn-success btn-sm rounded"><i class="bi bi-pencil-fill"> </i>Input Finished Goods</a>
+                                                <a href="<?= base_url('production/gbj_details/') . $inv['transaction_id'] ?>" class="btn btn-primary btn-sm rounded mb-1"><i class="bi bi-info-circle-fill"> </i>Details</a>
+                                                <a href="<?= base_url('production/add_gbj/') . $inv['transaction_id'] ?>" class="btn btn-success btn-sm rounded mb-1"><i class="bi bi-pencil-fill"> </i>Input Finished Goods</a>
                                             </td>
                                         </tr>
                                     <?php

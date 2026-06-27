@@ -920,6 +920,7 @@
          var id = $(event.relatedTarget).data('id');
          var batch = $(event.relatedTarget).data('batch');
          var name = $(event.relatedTarget).data('name');
+         var code = $(event.relatedTarget).data('itemcode');
          var amount = $(event.relatedTarget).data('amount');
          var weight = $(event.relatedTarget).data('weight');
          var desc = $(event.relatedTarget).data('desc');
@@ -928,6 +929,7 @@
          $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
          $(event.currentTarget).find('.modal-body input[name="batch"]').val(batch);
          $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
+         $(event.currentTarget).find('.modal-body input[name="itemcode"]').val(code);
          $(event.currentTarget).find('.modal-body input[name="amount"]').val(amount);
          $(event.currentTarget).find('.modal-body input[name="weight"]').val(weight);
          $(event.currentTarget).find('.modal-body input[name="desc"]').val(desc);

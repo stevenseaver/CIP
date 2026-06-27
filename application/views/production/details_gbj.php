@@ -560,7 +560,7 @@
 <!-- End of Main Content -->
 
 <!-- Modal For Print -->
-<div class="modal fade" id="printDetailsGBJ" tabindex="-1" role="dialog" aria-labelledby="printDetailsGBJLabel" aria-hidden="true">
+<<div class="modal fade" id="printDetailsGBJ" tabindex="-1" role="dialog" aria-labelledby="printDetailsGBJLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -570,13 +570,13 @@
                 </button>
             </div>
             <p class="mx-3 mt-3 mb-1">Double check the details.</p>
-            <form action="<?= base_url('production/print_ticket_gbj?type=2') ?>" method="post">
+            <form action="<?= base_url('production/print_ticket_gbj?type=1') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- prod id -->
                         <label for="po_id" class="col-form-label">Production Order ID</label>
                         <input type="text" class="form-control" id="po_id" name="po_id" readonly>
-                        <!-- item id -->
+                        <!-- item code -->
                         <!-- <label for="id" class="col-form-label" style="display:none">ID</label>
                         <input type="text" class="form-control" id="id" name="id" style="display:none" readonly> -->
                         <!-- item batch ID -->
@@ -606,7 +606,7 @@
                         <input type="text" class="form-control" id="desc" name="desc" readonly>
                     </div>
                 </div>
-                <div class="modal-footer">
+               <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Print</button>
                 </div>
@@ -696,5 +696,32 @@
 
         // Run on page load
         calculate();
+    });
+
+    //print from new tab window
+    $('#printDetailsGBJ form').on('submit', function(e) {
+        e.preventDefault();
+
+        var form = $(this);
+
+        // Create a temporary hidden form
+        var tempForm = $('<form>', {
+            action: '<?= base_url('production/print_ticket_gbj') ?>?type=1',
+            method: 'POST',
+            target: '_blank'
+        });
+
+        // Copy all fields into the temp form
+        form.find('input, select, textarea').each(function() {
+            $('<input>').attr({
+                type: 'hidden',
+                name: $(this).attr('name'),
+                value: $(this).val()
+            }).appendTo(tempForm);
+        });
+
+        // Submit and remove
+        tempForm.appendTo('body').submit().remove();
+        $('#printDetailsGBJ').modal('hide');
     });
 </script>

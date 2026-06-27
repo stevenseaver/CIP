@@ -1091,29 +1091,31 @@ $(document).on('click', '.select-item-roll', function() {
 //     $(this).find('#desc_print').val(btn.data('desc'));
 // });
 
-// Override form submit — print via hidden iframe
+//print via new tab iframe
 $('#printDetails form').on('submit', function(e) {
     e.preventDefault();
 
-    var formData = $(this).serialize() + '&type=2';
-    var printUrl  = '<?= base_url('production/print_general_ticket') ?>?' + formData;
+    var form = $(this);
 
-    var iframe = document.getElementById('print-iframe');
-    if (!iframe) {
-        iframe = document.createElement('iframe');
-        iframe.id = 'print-iframe';
-        iframe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:0;height:0;border:none;';
-        document.body.appendChild(iframe);
-    }
+    var tempForm = $('<form>', {
+        action: '<?= base_url('production/print_general_ticket') ?>',
+        method: 'POST',
+        target: '_blank'
+    });
 
-    iframe.onload = function() {
-        setTimeout(function() {
-            iframe.contentWindow.focus();
-            iframe.contentWindow.print();
-        }, 500);
-    };
+    // Add type field
+    $('<input>').attr({ type: 'hidden', name: 'type', value: '2' }).appendTo(tempForm);
 
-    iframe.src = printUrl;
+    // Copy all fields
+    form.find('input, select, textarea').each(function() {
+        $('<input>').attr({
+            type: 'hidden',
+            name: $(this).attr('name'),
+            value: $(this).val()
+        }).appendTo(tempForm);
+    });
+
+    tempForm.appendTo('body').submit().remove();
     $('#printDetails').modal('hide');
 });
 
