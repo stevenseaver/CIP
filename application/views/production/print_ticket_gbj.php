@@ -77,6 +77,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
         var desc       = <?= json_encode($desc) ?>;
+        var trans_id   = <?= json_encode($trans_id) ?>;
         var prod_id    = <?= json_encode($prod_id) ?>;
         var batch      = <?= json_encode($batch) ?>;
         var item       = <?= json_encode($item) ?>;
@@ -115,7 +116,7 @@
                                 <p class="value-primary">${w} kg</p>
                                 <p class="label-primary">Pack Amount :</p>
                                 <p class="value-primary">${a} pack</p>
-                                <p class="label">Description :</p>
+                                <p class="label">Sack No. :</p>
                                 <p class="value">${currentDesc}</p>
                             </div>
                             <div class="col-right">
@@ -137,7 +138,8 @@
             if (parsed.start === null) {
                 // Non-numeric — single label, no division needed
                 labels += buildLabel(desc, net_weight, amount);
-                qrTexts.push(prod_id + ' | ' + batch + ' | ' + item + ' | ' + net_weight + 'kg | ' + amount + 'pack | ' + desc);
+                // qrTexts.push(prod_id + ' | ' + batch + ' | ' + item + ' | ' + net_weight + 'kg | ' + amount + 'pack | ' + desc);
+                qrTexts.push(`https://api.plastikrukun.com/api/verify_gbj?id=${encodeURIComponent(trans_id)}&po=${encodeURIComponent(prod_id)}`);
             } else {
                 var count          = (parsed.end - parsed.start) + 1;
                 var weight_each    = (parseFloat(net_weight) / count).toFixed(2);
@@ -145,7 +147,7 @@
 
                 for (var i = parsed.start; i <= parsed.end; i++) {
                     labels += buildLabel(i, weight_each, amount_each);
-                    qrTexts.push(prod_id + ' | ' + batch + ' | ' + item + ' | ' + weight_each + 'kg | ' + amount_each + 'pack | ' + i);
+                    qrTexts.push(`https://api.plastikrukun.com/api/verify_gbj?id=${encodeURIComponent(trans_id)}&po=${encodeURIComponent(prod_id)}`);
                 }
             }
 

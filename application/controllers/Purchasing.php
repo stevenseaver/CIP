@@ -591,9 +591,7 @@ class Purchasing extends CI_Controller
         $this->output->enable_profiler(false);
         ob_end_clean(); // ← critical for TCPDF to stream correctly
 
-        $end_date = $this->input->get('end_date')
-            ? (int)$this->input->get('end_date')
-            : time();
+        $end_date = strtotime($this->input->get('end_print_date'));
 
         $status = 8;
 

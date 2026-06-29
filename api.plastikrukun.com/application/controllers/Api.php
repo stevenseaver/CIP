@@ -8,8 +8,35 @@ class Api extends CI_Controller {
         $this->load->database();
     }
 
+    private function _check_rate_limit()
+    {
+        // check rate abuse
+        $now          = time();
+        $window       = 60;
+        $max          = 30;
+        $hits         = $this->session->userdata('rl_hits') ?: 0;
+        $window_start = $this->session->userdata('rl_start') ?: $now;
+
+        if ($now - $window_start > $window) {
+            $hits         = 0;
+            $window_start = $now;
+        }
+
+        $hits++;
+        $this->session->set_userdata('rl_hits', $hits);
+        $this->session->set_userdata('rl_start', $window_start);
+
+        if ($hits > $max) {
+            $data = ['roll' => null, 'error' => '429TMR'];
+            $this->load->view('verify_roll', $data);
+            exit; // stop execution
+        }
+    }
+
     // API: Get final stock by item name
     public function get_final_stock() {
+        // check rate abuse
+        $this->_check_rate_limit();
         // Get 'name' from GET request
         $name = $this->input->get('name', TRUE);
 
@@ -44,36 +71,42 @@ class Api extends CI_Controller {
         }
     }
 
-    public function verify_roll()
+    public function verify_gbj()
     {
-        // Rate limit using session (no cache driver needed)
-        $now     = time();
-        $window  = 60; // seconds
-        $max     = 30; // max requests per window
-
-        $hits      = $this->session->userdata('rl_hits') ?: 0;
-        $window_start = $this->session->userdata('rl_start') ?: $now;
-
-        // Reset window if expired
-        if ($now - $window_start > $window) {
-            $hits         = 0;
-            $window_start = $now;
-        }
-
-        $hits++;
-        $this->session->set_userdata('rl_hits', $hits);
-        $this->session->set_userdata('rl_start', $window_start);
-
-        if ($hits > $max) {
-            $data = ['roll' => null, 'error' => '429TMR'];
-            $this->load->view('verify_roll', $data);
-            // return;
-        }
+        // check rate abuse
+        $this->_check_rate_limit();
 
         //Validate input
+        $id = (int)$this->input->get('id');
+        $po = trim($this->input->get('po', TRUE));
+        $data = ['gbj' => null, 'error' => null];
+        
+        if (!$id || !$po) {
+            $data['error'] = 'missing';
+        } else {
+            $gbj = $this->db->select('id, name, code, pcsperpack, packpersack, date, incoming, unit_satuan, before_convert, transaction_id, batch, description, transaction_status, picture')
+                ->get_where('stock_finishedgoods', [
+                    'id'             => $id,
+                    'transaction_id' => $po
+                ])->row_array();
+
+            if ($gbj) {
+                $data['gbj'] = $gbj;
+            } else {
+                $data['error'] = 'not_found';
+            }
+        }
+
+        $this->load->view('verify_gbj', $data);
+    }
+
+    public function verify_roll(){
+        // check rate abuse
+        $this->_check_rate_limit();
+
         $id = (int) $this->input->get('id');
         $po = trim($this->input->get('po', TRUE));
-        // $data = ['roll' => null, 'error' => null];
+        $data = ['roll' => null, 'error' => null];
 
         if (!$id || !$po) {
             $data['error'] = 'missing';
@@ -81,7 +114,7 @@ class Api extends CI_Controller {
             $roll = $this->db
                 ->select('id, transaction_id, batch, name, code, weight, lipatan, incoming, transaction_desc, date, status')
                 ->get_where('stock_roll', [
-                    'id'             => $id,
+                     'id'             => $id,
                     'transaction_id' => $po
                 ])->row_array();
 
@@ -97,6 +130,9 @@ class Api extends CI_Controller {
 
     public function ping()
     {
+        // check rate abuse
+        $this->_check_rate_limit();
+
         echo 'pong';
     }
 }

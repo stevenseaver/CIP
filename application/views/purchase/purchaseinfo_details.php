@@ -90,6 +90,7 @@
                     <th class="text-right">Subtotal</th>
                     <th>Description</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -116,9 +117,26 @@
                             <td>
                                 <p class="badge badge-warning">Not Received</p>
                             </td>
+                            <td>
+                                <a class="badge badge-secondary clickable print-item-btn" disabled>
+                                    <i class="bi bi-printer"></i> Print
+                                </a>
+                            </td>
                         <?php } else if ($ms['transaction_status'] == 2) { ?>
                             <td>
                                 <p class="badge badge-primary">Confirmed</p>
+                            </td>
+                            <td>
+                                <a class="badge badge-primary clickable print-item-btn"
+                                    data-po="<?= htmlspecialchars($getID['transaction_id']); ?>"
+                                    data-name="<?= htmlspecialchars($ms['name']); ?>"
+                                    data-code="<?= htmlspecialchars($ms['code']); ?>"
+                                    data-amount="<?= htmlspecialchars($ms['incoming']); ?>"
+                                    data-price="<?= htmlspecialchars($ms['price']); ?>"
+                                    data-desc="<?= htmlspecialchars($ms['item_desc']); ?>"
+                                    data-unitsatuan="<?= htmlspecialchars($ms['unit_satuan']); ?>">
+                                    <i class="bi bi-printer"></i> Print
+                                </a>
                             </td>
                         <?php } else {
                         } ?>
@@ -156,3 +174,31 @@
 
 </div>
 <!-- End of Main Content -->
+
+<script>
+    $('.print-item-btn').on('click', function() {
+        var po          = $(this).data('po');
+        var name        = $(this).data('name');
+        var code        = $(this).data('code');
+        var amount      = $(this).data('amount');
+        var price       = $(this).data('price');
+        var desc        = $(this).data('desc');
+        var unit_satuan = $(this).data('unitsatuan');
+
+        var tempForm = $('<form>', {
+            action: '<?= base_url('purchasing/print_ticket_item') ?>',
+            method: 'POST',
+            target: '_blank'
+        });
+
+        $('<input>').attr({ type: 'hidden', name: 'po_id',       value: po          }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'name',        value: name        }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'code',        value: code        }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'amount',      value: amount      }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'price',       value: price       }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'desc',        value: desc        }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'unit_satuan', value: unit_satuan }).appendTo(tempForm);
+
+        tempForm.appendTo('body').submit().remove();
+    });
+</script>

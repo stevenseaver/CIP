@@ -90,6 +90,7 @@
                     <th class="text-right">Subtotal</th>
                     <th>Description</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -116,9 +117,26 @@
                             <td>
                                 <p class="badge badge-warning">Not Received</p>
                             </td>
+                            <td>
+                                <a class="badge badge-secondary clickable print-item-btn" disabled>
+                                    <i class="bi bi-printer"></i> Print
+                                </a>
+                            </td>
                         <?php } else if ($ms['transaction_status'] == 2) { ?>
                             <td>
                                 <p class="badge badge-primary">Confirmed</p>
+                            </td>
+                            <td>
+                                <a class="badge badge-primary clickable print-item-btn"
+                                    data-po="<?= htmlspecialchars($getID['transaction_id']); ?>"
+                                    data-name="<?= htmlspecialchars($ms['name']); ?>"
+                                    data-code="<?= htmlspecialchars($ms['code']); ?>"
+                                    data-amount="<?= htmlspecialchars($ms['incoming']); ?>"
+                                    data-price="<?= htmlspecialchars($ms['price']); ?>"
+                                    data-desc="<?= htmlspecialchars($ms['item_desc']); ?>"
+                                    data-unitsatuan="<?= htmlspecialchars($ms['unit_satuan']); ?>">
+                                    <i class="bi bi-printer"></i> Print
+                                </a>
                             </td>
                         <?php } else {
                         } ?>

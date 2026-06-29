@@ -428,9 +428,8 @@
             <div class="modal-body">
                 <form id="formPrintPO">
                     <div class="form-group">
-                        <label for="end_date">Show data up to date</label>
-                        <input type="date" class="form-control" id="end_date" name="end_date"
-                            value="<?= date('Y-m-d') ?>">
+                        <label for="end_print_date">Show data up to date</label>
+                        <input type="date" class="form-control" id="end_print_date" name="end_print_date" value="<?= date('Y-m-d'); ?>">
                         <small class="form-text text-muted">Leave as today to get all records up to now.</small>
                     </div>
                 </form>
@@ -446,19 +445,15 @@
 </div>
 
 <script>
-function printPOReport() {
-    const endDate = document.getElementById('end_date').value;
-    if (!endDate) {
-        alert('Please select a date.');
-        return;
+    function printPOReport() {
+        const endDate = document.getElementById('end_print_date').value;
+        if (!endDate) {
+            alert('Please select a date.');
+            return;
+        }
+        window.open('<?= base_url('purchasing/printPOReport') ?>?end_print_date=' + encodeURIComponent(endDate + ' 23:59:59'), '_blank');
     }
-    // Convert date to unix timestamp (end of selected day)
-    const ts = Math.floor(new Date(endDate + 'T23:59:59').getTime() / 1000);
-    window.open('<?= base_url('purchasing/printPOReport') ?>?end_date=' + ts, '_blank');
-}
-</script>
 
-<script>
     var table = $('#tableInfo').DataTable({
         order: [2, 'asc']
     });

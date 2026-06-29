@@ -917,7 +917,7 @@
      $('#printDetailsGBJ').on('show.bs.modal', function(event) {
          //extract data from data-* attributes of modal's toggle button
          var po_id = $(event.relatedTarget).data('po');
-         var id = $(event.relatedTarget).data('id');
+         var trans_id = $(event.relatedTarget).data('transid');
          var batch = $(event.relatedTarget).data('batch');
          var name = $(event.relatedTarget).data('name');
          var code = $(event.relatedTarget).data('itemcode');
@@ -926,7 +926,7 @@
          var desc = $(event.relatedTarget).data('desc');
 
          $(event.currentTarget).find('.modal-body input[name="po_id"]').val(po_id);
-         $(event.currentTarget).find('.modal-body input[name="id"]').val(id);
+         $(event.currentTarget).find('.modal-body input[name="print_trans_id"]').val(trans_id);
          $(event.currentTarget).find('.modal-body input[name="batch"]').val(batch);
          $(event.currentTarget).find('.modal-body input[name="name"]').val(name);
          $(event.currentTarget).find('.modal-body input[name="itemcode"]').val(code);

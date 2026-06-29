@@ -2228,6 +2228,7 @@ class Production extends CI_Controller
     public function print_ticket_gbj() {
         $data['title']      = 'Print Finished Goods Ticket';
         $data['user']       = $this->db->get_where('user', ['nik' => $this->session->userdata('nik')])->row_array();
+        $data['trans_id']   = $this->input->post('trans_id');
         $data['prod_id']    = $this->input->post('po_id');
         $data['batch']      = $this->input->post('batch');
         $data['item']       = $this->input->post('name');
@@ -2242,6 +2243,8 @@ class Production extends CI_Controller
         } else if ($type == 2) {
             $data['roll_back'] = 'gbj_details';
         }
+
+        // var_dump($data);
 
         // Standalone label view — no header/sidebar/footer
         $this->load->view('production/print_ticket_gbj', $data);

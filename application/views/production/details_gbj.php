@@ -373,7 +373,9 @@
                         <td><?= number_format($subtotal, 2, ',', '.'); ?></td>
                         <td><?= $ms['batch'] ?></td>
                         <td><?= $ms['description'] ?></td>
-                        <td><a data-toggle="modal" data-target="#printDetailsGBJ" data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['before_convert'] ?>" data-desc="<?= $ms['description']?>" class="badge badge-primary clickable">Print</a></td>
+                        <td>
+                            <a data-toggle="modal" data-target="#printDetailsGBJ" data-po="<?= $po_id ?>" data-transid="<?= $ms['id'] ?>" data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['before_convert'] ?>" data-desc="<?= $ms['description']?>" class="badge badge-primary clickable">Print</a>
+                        </td>
                     </tr>
                     <?php 
                         $temp = $temp + $ms['before_convert'];
@@ -573,12 +575,12 @@
             <form action="<?= base_url('production/print_ticket_gbj?type=1') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
+                        <!-- transaction id -->
+                        <label for="trans_id" class="col-form-label">Transaction ID</label>
+                        <input type="text" class="form-control" id="trans_id" name="trans_id" readonly>
                         <!-- prod id -->
                         <label for="po_id" class="col-form-label">Production Order ID</label>
                         <input type="text" class="form-control" id="po_id" name="po_id" readonly>
-                        <!-- item code -->
-                        <!-- <label for="id" class="col-form-label" style="display:none">ID</label>
-                        <input type="text" class="form-control" id="id" name="id" style="display:none" readonly> -->
                         <!-- item batch ID -->
                         <label for="batch" class="col-form-label">Batch</label>
                         <input type="text" class="form-control" id="batch" name="batch" readonly>

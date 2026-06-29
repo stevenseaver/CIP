@@ -794,10 +794,14 @@
                             <?php endif ?>
 
                             <a data-toggle="modal" data-target="#printDetailsGBJ"
-                            data-po="<?= $po_id ?>" data-id="<?= $ms['id'] ?>"
-                            data-batch="<?= $ms['batch'] ?>" data-name="<?= $ms['name'] ?>" data-itemcode="<?= $ms['code'] ?>"
-                            data-amount="<?= $ms['incoming'] ?>" data-weight="<?= $ms['before_convert'] ?>"
-                            data-desc="<?= $ms['description'] ?>"
+                            data-po="<?= $po_id; ?>"
+                            data-transid="<?= $ms['id']; ?>"
+                            data-batch="<?= $ms['batch']; ?>"
+                            data-name="<?= $ms['name']; ?>"
+                            data-itemcode="<?= $ms['code']; ?>"
+                            data-amount="<?= $ms['incoming']; ?>"
+                            data-weight="<?= $ms['before_convert']; ?>"
+                            data-desc="<?= $ms['description']; ?>"
                             class="badge badge-primary clickable">Print</a>
 
                             <a data-toggle="modal" data-target="#deleteItemGBJ"
@@ -1242,6 +1246,9 @@
             <form action="<?= base_url('production/print_ticket_gbj?type=1') ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
+                        <!-- transaction id -->
+                        <label for="print_trans_id" class="col-form-label">Transaction ID</label>
+                        <input type="text" class="form-control" id="print_trans_id" name="print_trans_id" readonly>
                         <!-- prod id -->
                         <label for="po_id" class="col-form-label">Production Order ID</label>
                         <input type="text" class="form-control" id="po_id" name="po_id" readonly>
