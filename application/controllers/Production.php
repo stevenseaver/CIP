@@ -2228,7 +2228,7 @@ class Production extends CI_Controller
     public function print_ticket_gbj() {
         $data['title']      = 'Print Finished Goods Ticket';
         $data['user']       = $this->db->get_where('user', ['nik' => $this->session->userdata('nik')])->row_array();
-        $data['trans_id']   = $this->input->post('trans_id');
+        $data['trans_id']   = $this->input->post('print_trans_id');
         $data['prod_id']    = $this->input->post('po_id');
         $data['batch']      = $this->input->post('batch');
         $data['item']       = $this->input->post('name');
@@ -2247,7 +2247,7 @@ class Production extends CI_Controller
         // var_dump($data);
 
         // Standalone label view — no header/sidebar/footer
-        $this->load->view('production/print_ticket_gbj', $data);
+        $this->load->view('production/print_gbj_label', $data);
     }
 
     public function add_item_prod_after_gbj($id, $status)

@@ -576,8 +576,8 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <!-- transaction id -->
-                        <label for="trans_id" class="col-form-label">Transaction ID</label>
-                        <input type="text" class="form-control" id="trans_id" name="trans_id" readonly>
+                        <label for="print_trans_id" class="col-form-label">Transaction ID</label>
+                        <input type="text" class="form-control" id="print_trans_id" name="print_trans_id" readonly>
                         <!-- prod id -->
                         <label for="po_id" class="col-form-label">Production Order ID</label>
                         <input type="text" class="form-control" id="po_id" name="po_id" readonly>

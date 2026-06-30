@@ -304,6 +304,22 @@
 </style>
 
 <div class="container-fluid pb-5">
+    <!-- toast -->
+    <div id="bulk-toast" style="
+        display: none;
+        position: fixed;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        min-width: 300px;
+        max-width: 500px;
+    ">
+        <div id="bulk-toast-inner" class="alert mb-0 shadow-lg text-center" role="alert">
+            <i id="bulk-toast-icon" class="fas fa-exclamation-circle mr-2"></i>
+            <span id="bulk-toast-message"></span>
+        </div>
+    </div>
 
     <!-- ── Page Header ── -->
     <div class="d-flex align-items-center justify-content-between flex-wrap mb-3 pt-2">
@@ -847,294 +863,302 @@
      SCRIPTS
 ══════════════════════════════════════════ -->
 <script>
-/* ── Berat calculation ── */
-function calculate() {
-    const gross  = parseFloat(document.getElementById('gross').value)  || 0;
-    const bobin  = parseFloat(document.getElementById('bobin').value)  || 0;
-    const net    = (gross * 1000) - bobin;
-    document.getElementById('amount').value = (net / 1000).toFixed(2);
-}
-
-/* ── DataTable ── */
-var table1 = $('#table1').DataTable({
-    paging: false,
-    columnDefs: [{ targets: [0, 1, 2, 3], orderable: true, searchable: true }]
-});
-
-// Prevent double-submit: disable button immediately on first submit
-document.getElementById('main-roll-form').addEventListener('submit', function(e) {
-    var gross  = parseFloat(document.getElementById('gross').value)  || 0;
-    var amount = parseFloat(document.getElementById('amount').value) || 0;
-
-    if (gross <= 0 || amount <= 0) {
-        e.preventDefault();
-        var msg = gross <= 0
-            ? 'Berat Total (Kotor) tidak boleh 0 atau kosong.'
-            : 'Berat Neto tidak boleh 0. Periksa isian Berat Total dan Berat Bobin.';
-        var el = document.getElementById('roll-alert');
-        el.className = 'alert alert-danger alert-dismissible fade show mb-2';
-        el.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i><strong>Tidak dapat menyimpan:</strong> ' + msg +
-            '<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>';
-        document.getElementById('gross').focus();
-        return;
-    }  
-    
-    var btn = document.getElementById('btn-submit');
-
-    // If already submitted, block the second submit entirely
-    if (btn.getAttribute('data-submitted') === 'true') {
-        e.preventDefault();
-        return;
+    /* ── Berat calculation ── */
+    function calculate() {
+        const gross  = parseFloat(document.getElementById('gross').value)  || 0;
+        const bobin  = parseFloat(document.getElementById('bobin').value)  || 0;
+        const net    = (gross * 1000) - bobin;
+        document.getElementById('amount').value = (net / 1000).toFixed(2);
     }
 
-    // Mark as submitted and update button appearance
-    btn.setAttribute('data-submitted', 'true');
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
-});
-
-
-/* ══════════════════════════════
-   PO ID SCANNER
-══════════════════════════════ */
-let html5QrCode = null;
-
-document.getElementById('btn-scan').addEventListener('click', function() {
-    const container = document.getElementById('qr-scanner-container');
-    container.style.display = 'block';
-    this.disabled = true;
-    html5QrCode = new Html5Qrcode("qr-reader");
-    html5QrCode.start(
-        { facingMode: "user" },
-        { fps: 10, qrbox: { width: 175, height: 175 } },
-        function(decodedText) { document.getElementById('po_id').value = decodedText; checkPoId(decodedText); stopScanner(); },
-        function() {}
-    ).then(function() {
-        var video = document.querySelector('#qr-reader video');
-        if (video) video.style.transform = 'scaleX(-1)';
-    }).catch(function(err) {
-        console.error("Camera error:", err);
-        alert("Tidak dapat mengakses kamera. Pastikan izin kamera diberikan.");
-        stopScanner();
+    /* ── DataTable ── */
+    var table1 = $('#table1').DataTable({
+        paging: false,
+        columnDefs: [{ targets: [0, 1, 2, 3], orderable: true, searchable: true }]
     });
-});
 
-document.getElementById('btn-stop-scan').addEventListener('click', stopScanner);
+    // Prevent double-submit: disable button immediately on first submit
+    document.getElementById('main-roll-form').addEventListener('submit', function(e) {
+        var gross  = parseFloat(document.getElementById('gross').value)  || 0;
+        var amount = parseFloat(document.getElementById('amount').value) || 0;
 
-function stopScanner() {
-    if (html5QrCode && html5QrCode.isScanning) {
-        html5QrCode.stop().then(function() {
-            html5QrCode.clear();
+        if (gross <= 0 || amount <= 0) {
+            e.preventDefault();
+            var msg = gross <= 0
+                ? 'Berat Total (Kotor) tidak boleh 0 atau kosong.'
+                : 'Berat Neto tidak boleh 0. Periksa isian Berat Total dan Berat Bobin.';
+            var el = document.getElementById('roll-alert');
+            el.className = 'alert alert-danger alert-dismissible fade show mb-2';
+            el.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i><strong>Tidak dapat menyimpan:</strong> ' + msg +
+                '<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>';
+            document.getElementById('gross').focus();
+            return;
+        }  
+        
+        var btn = document.getElementById('btn-submit');
+
+        // If already submitted, block the second submit entirely
+        if (btn.getAttribute('data-submitted') === 'true') {
+            e.preventDefault();
+            return;
+        }
+
+        // Mark as submitted and update button appearance
+        btn.setAttribute('data-submitted', 'true');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+    });
+
+
+    /* ══════════════════════════════
+    PO ID SCANNER
+    ══════════════════════════════ */
+    let html5QrCode = null;
+
+    document.getElementById('btn-scan').addEventListener('click', function() {
+        const container = document.getElementById('qr-scanner-container');
+        container.style.display = 'block';
+        this.disabled = true;
+        html5QrCode = new Html5Qrcode("qr-reader");
+        html5QrCode.start(
+            { facingMode: "user" },
+            { fps: 10, qrbox: { width: 175, height: 175 } },
+            function(decodedText) { document.getElementById('po_id').value = decodedText; checkPoId(decodedText); stopScanner(); },
+            function() {}
+        ).then(function() {
+            var video = document.querySelector('#qr-reader video');
+            if (video) video.style.transform = 'scaleX(-1)';
+        }).catch(function(err) {
+            console.error("Camera error:", err);
+            alert("Tidak dapat mengakses kamera. Pastikan izin kamera diberikan.");
+            stopScanner();
+        });
+    });
+
+    document.getElementById('btn-stop-scan').addEventListener('click', stopScanner);
+
+    function stopScanner() {
+        if (html5QrCode && html5QrCode.isScanning) {
+            html5QrCode.stop().then(function() {
+                html5QrCode.clear();
+                document.getElementById('qr-scanner-container').style.display = 'none';
+                document.getElementById('btn-scan').disabled = false;
+            }).catch(function(err) { console.error("Stop error:", err); });
+        } else {
             document.getElementById('qr-scanner-container').style.display = 'none';
             document.getElementById('btn-scan').disabled = false;
-        }).catch(function(err) { console.error("Stop error:", err); });
-    } else {
-        document.getElementById('qr-scanner-container').style.display = 'none';
-        document.getElementById('btn-scan').disabled = false;
+        }
     }
-}
 
-/* ── PO Validation ── */
-function showPoAlert(type, message) {
-    var el = document.getElementById('po-alert');
-    el.className = 'alert alert-' + type + ' alert-dismissible fade show mb-2';
-    el.innerHTML = message + '<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>';
-}
+    /* ── PO Validation ── */
+    function showPoAlert(type, message) {
+        var el = document.getElementById('po-alert');
+        el.className = 'alert alert-' + type + ' alert-dismissible fade show mb-2';
+        el.innerHTML = message + '<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>';
+    }
 
-let lastValidPoId = '';
+    let lastValidPoId = '';
 
-document.addEventListener('DOMContentLoaded', function() {
-    var poInput = document.getElementById('po_id');
-    lastValidPoId = poInput.value;
-    if (poInput.value) checkPoId(poInput.value);
-});
-
-function checkPoId(po_id) {
-    if (!po_id) return;
-    showPoAlert('secondary', '<i class="fas fa-spinner fa-spin mr-1"></i> Memeriksa ID <strong>' + po_id + '</strong>...');
-    fetch('<?= base_url('production/check_po_id') ?>?po_id=' + encodeURIComponent(po_id))
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.status === 'found') {
-                lastValidPoId = po_id;
-                showPoAlert('success',
-                    '<i class="fas fa-check-circle mr-1"></i> ID <strong>' + po_id + '</strong> ditemukan' +
-                    (res.data.product_name ? ' &mdash; ' + res.data.product_name : ''));
-                                
-                // ── Update batch input with description ──
-                if (res.data.description) {
-                    document.getElementById('batch').value = res.data.description;
-                }
-                
-                document.getElementById('btn-submit').disabled = false;
-            } else {
-                document.getElementById('po_id').value = lastValidPoId;
-                showPoAlert('danger', '<i class="fas fa-times-circle mr-1"></i> ID <strong>"' + po_id + '"</strong> tidak ditemukan.');
-                document.getElementById('btn-submit').disabled = true;
-            }
-        })
-        .catch(function(err) {
-            console.error('Check PO error:', err);
-            document.getElementById('po_id').value = lastValidPoId;
-            showPoAlert('warning', '<i class="fas fa-exclamation-triangle mr-1"></i> Gagal memeriksa ID. Periksa koneksi.');
-        });
-}
-
-/* ══════════════════════════════
-   ROLL ITEM SCANNER
-══════════════════════════════ */
-let html5QrCodeRoll = null;
-
-document.getElementById('btn-scan-roll').addEventListener('click', function() {
-    const container = document.getElementById('qr-roll-scanner-container');
-    container.style.display = 'block';
-    this.disabled = true;
-    html5QrCodeRoll = new Html5Qrcode("qr-roll-reader");
-    html5QrCodeRoll.start(
-        { facingMode: "user" },
-        { fps: 10, qrbox: { width: 150, height: 150} },
-        function(decodedText) { stopRollScanner(); lookupRollByCode(decodedText); },
-        function() {}
-    ).then(function() {
-        var video = document.querySelector('#qr-roll-reader video');
-        if (video) video.style.transform = 'scaleX(-1)';
-    }).catch(function(err) {
-        console.error("Camera error:", err);
-        alert("Tidak dapat mengakses kamera. Pastikan izin kamera diberikan.");
-        stopRollScanner();
+    document.addEventListener('DOMContentLoaded', function() {
+        var poInput = document.getElementById('po_id');
+        lastValidPoId = poInput.value;
+        if (poInput.value) checkPoId(poInput.value);
     });
-});
 
-document.getElementById('btn-stop-scan-roll').addEventListener('click', stopRollScanner);
+    function checkPoId(po_id) {
+        if (!po_id) return;
+        showPoAlert('secondary', '<i class="fas fa-spinner fa-spin mr-1"></i> Memeriksa ID <strong>' + po_id + '</strong>...');
+        fetch('<?= base_url('production/check_po_id') ?>?po_id=' + encodeURIComponent(po_id))
+            .then(function(r) { return r.json(); })
+            .then(function(res) {
+                if (res.status === 'found') {
+                    lastValidPoId = po_id;
+                    showPoAlert('success',
+                        '<i class="fas fa-check-circle mr-1"></i> ID <strong>' + po_id + '</strong> ditemukan' +
+                        (res.data.product_name ? ' &mdash; ' + res.data.product_name : ''));
+                    showBulkAlert('ID ' + po_id + ' ditemukan.', 'success');
+                                    
+                    // ── Update batch input with description ──
+                    if (res.data.description) {
+                        document.getElementById('batch').value = res.data.description;
+                    }
+                    
+                    document.getElementById('btn-submit').disabled = false;
+                } else {
+                    document.getElementById('po_id').value = lastValidPoId;
+                    showPoAlert('danger', '<i class="fas fa-times-circle mr-1"></i> ID <strong>"' + po_id + '"</strong> tidak ditemukan.');
+                    showBulkAlert('ID ' + po_id + ' tidak ditemukan.', 'danger');
+                    document.getElementById('btn-submit').disabled = true;
+                }
+            })
+            .catch(function(err) {
+                console.error('Check PO error:', err);
+                document.getElementById('po_id').value = lastValidPoId;
+                showPoAlert('warning', '<i class="fas fa-exclamation-triangle mr-1"></i> Gagal memeriksa ID. Periksa koneksi.');
+                showBulkAlert('Gagal memeriksa ID. Periksa koneksi.', 'warning');
+            });
+    }
 
-function stopRollScanner() {
-    if (html5QrCodeRoll && html5QrCodeRoll.isScanning) {
-        html5QrCodeRoll.stop().then(function() {
-            html5QrCodeRoll.clear();
+    /* ══════════════════════════════
+    ROLL ITEM SCANNER
+    ══════════════════════════════ */
+    let html5QrCodeRoll = null;
+
+    document.getElementById('btn-scan-roll').addEventListener('click', function() {
+        const container = document.getElementById('qr-roll-scanner-container');
+        container.style.display = 'block';
+        this.disabled = true;
+        html5QrCodeRoll = new Html5Qrcode("qr-roll-reader");
+        html5QrCodeRoll.start(
+            { facingMode: "user" },
+            { fps: 10, qrbox: { width: 150, height: 150} },
+            function(decodedText) { stopRollScanner(); lookupRollByCode(decodedText); },
+            function() {}
+        ).then(function() {
+            var video = document.querySelector('#qr-roll-reader video');
+            if (video) video.style.transform = 'scaleX(-1)';
+        }).catch(function(err) {
+            console.error("Camera error:", err);
+            // alert("Tidak dapat mengakses kamera. Pastikan izin kamera diberikan.");
+            showBulkAlert('Tidak dapat mengakses kamera. Pastikan izin kamera diberikan.', 'warning');
+            stopRollScanner();
+        });
+    });
+
+    document.getElementById('btn-stop-scan-roll').addEventListener('click', stopRollScanner);
+
+    function stopRollScanner() {
+        if (html5QrCodeRoll && html5QrCodeRoll.isScanning) {
+            html5QrCodeRoll.stop().then(function() {
+                html5QrCodeRoll.clear();
+                document.getElementById('qr-roll-scanner-container').style.display = 'none';
+                document.getElementById('btn-scan-roll').disabled = false;
+            }).catch(function(err) { console.error("Stop error:", err); });
+        } else {
             document.getElementById('qr-roll-scanner-container').style.display = 'none';
             document.getElementById('btn-scan-roll').disabled = false;
-        }).catch(function(err) { console.error("Stop error:", err); });
-    } else {
-        document.getElementById('qr-roll-scanner-container').style.display = 'none';
-        document.getElementById('btn-scan-roll').disabled = false;
+        }
     }
-}
 
-/* ── Roll lookup ── */
-function showRollAlert(type, message) {
-    var el = document.getElementById('roll-alert');
-    el.className = 'alert alert-' + type + ' alert-dismissible fade show mb-2';
-    el.innerHTML = message + '<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>';
-}
+    /* ── Roll lookup ── */
+    function showRollAlert(type, message) {
+        var el = document.getElementById('roll-alert');
+        el.className = 'alert alert-' + type + ' alert-dismissible fade show mb-2';
+        el.innerHTML = message + '<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>';
+    }
 
-function lookupRollByCode(code) {
-    fetch('<?= base_url('production/get_roll_by_code') ?>?code=' + encodeURIComponent(code))
-        .then(function(r) { return r.json(); })
-        .then(function(res) {
-            if (res.status === 'found') {
-                var roll = res.data;
-                document.getElementById('rollName').value   = roll.name    || '';
-                document.getElementById('code').value       = roll.code    || '';
-                document.getElementById('weight').value     = roll.weight  || '';
-                document.getElementById('lipatan').value    = roll.lipatan || '';
-                document.getElementById('price_roll').value = roll.price   || '';
-                showRollAlert('success',
-                    '<i class="fas fa-check-circle mr-1"></i><strong>' + roll.name + '</strong> ditemukan — Kode: <strong>' + roll.code + '</strong>');
-            } else {
-                document.getElementById('rollName').value   = '';
-                document.getElementById('code').value       = '';
-                document.getElementById('weight').value     = '';
-                document.getElementById('lipatan').value    = '';
-                document.getElementById('price_roll').value = '';
-                showRollAlert('danger', '<i class="fas fa-times-circle mr-1"></i>Roll kode <strong>"' + code + '"</strong> tidak ditemukan.');
-            }
-        })
-        .catch(function(err) {
-            console.error('Lookup error:', err);
-            showRollAlert('warning', '<i class="fas fa-exclamation-triangle mr-1"></i>Gagal mengambil data roll. Periksa koneksi.');
+    function lookupRollByCode(code) {
+        fetch('<?= base_url('production/get_roll_by_code') ?>?code=' + encodeURIComponent(code))
+            .then(function(r) { return r.json(); })
+            .then(function(res) {
+                if (res.status === 'found') {
+                    var roll = res.data;
+                    document.getElementById('rollName').value   = roll.name    || '';
+                    document.getElementById('code').value       = roll.code    || '';
+                    document.getElementById('weight').value     = roll.weight  || '';
+                    document.getElementById('lipatan').value    = roll.lipatan || '';
+                    document.getElementById('price_roll').value = roll.price   || '';
+                    showRollAlert('success',
+                        '<i class="fas fa-check-circle mr-1"></i><strong>' + roll.name + '</strong> ditemukan — Kode: <strong>' + roll.code + '</strong>');
+                    showBulkAlert(roll.name + ' ditemukan.', 'success');
+                } else {
+                    document.getElementById('rollName').value   = '';
+                    document.getElementById('code').value       = '';
+                    document.getElementById('weight').value     = '';
+                    document.getElementById('lipatan').value    = '';
+                    document.getElementById('price_roll').value = '';
+                    showRollAlert('danger', '<i class="fas fa-times-circle mr-1"></i>Kode roll  <strong>"' + code + '"</strong> tidak ditemukan.');
+                    showBulkAlert('Kode roll ' + code + ' tidak ditemukan!', 'danger');
+                }
+            })
+            .catch(function(err) {
+                console.error('Lookup error:', err);
+                showRollAlert('warning', '<i class="fas fa-exclamation-triangle mr-1"></i>Gagal mengambil data roll. Periksa koneksi.');
+                showBulkAlert('Gagal mengambil data roll. Periksa koneksi.', 'danger');
+            });
+    }
+
+    /* ══════════════════════════════
+    MODAL: Select Roll from table
+    ══════════════════════════════ */
+    $(document).on('click', '.select-item-roll', function() {
+        var row = $(this).closest('tr');
+        var name    = row.find('.name').text().trim();
+        var code    = row.find('.code').text().trim();
+        var weight  = row.find('.weight').text().trim();
+        var lipatan = row.find('.lipatan').text().trim();
+        var price   = row.find('.price').text().trim();
+
+        $('#rollName').val(name);
+        $('#code').val(code);
+        $('#weight').val(weight);
+        $('#lipatan').val(lipatan);
+        $('#price_roll').val(price);
+
+        // showRollAlert('success',
+        //     '<i class="fas fa-check-circle mr-1"></i><strong>' + name + '</strong> dipilih — Kode: <strong>' + code + '</strong>');
+        showBulkAlert('Roll '  + name +  ' dipilih. Kode : ' + code + '', 'success');
+    });
+
+    /* ══════════════════════════════
+    MODAL: Print — populate fields
+    ══════════════════════════════ */
+    // $('#printDetails').on('show.bs.modal', function(event) {
+    //     var btn = $(event.relatedTarget);
+    //     $(this).find('#po_id_print').val(btn.data('po'));
+    //     $(this).find('#id_print').val(btn.data('id'));
+    //     $(this).find('#print_batch').val(btn.data('batch'));
+    //     $(this).find('#name_print').val(btn.data('name'));
+    //     $(this).find('#amount_print').val(btn.data('amount'));
+    //     $(this).find('#gram_print').val(btn.data('weight'));
+    //     $(this).find('#guset_print').val(btn.data('lipatan'));
+    //     $(this).find('#desc_print').val(btn.data('desc'));
+    // });
+
+    //print via new tab iframe
+    $('#printDetails form').on('submit', function(e) {
+        e.preventDefault();
+
+        var form = $(this);
+
+        var tempForm = $('<form>', {
+            action: '<?= base_url('production/print_general_ticket') ?>',
+            method: 'POST',
+            target: '_blank'
         });
-}
 
-/* ══════════════════════════════
-   MODAL: Select Roll from table
-══════════════════════════════ */
-$(document).on('click', '.select-item-roll', function() {
-    var row = $(this).closest('tr');
-    var name    = row.find('.name').text().trim();
-    var code    = row.find('.code').text().trim();
-    var weight  = row.find('.weight').text().trim();
-    var lipatan = row.find('.lipatan').text().trim();
-    var price   = row.find('.price').text().trim();
+        // Add type field
+        $('<input>').attr({ type: 'hidden', name: 'type', value: '2' }).appendTo(tempForm);
 
-    $('#rollName').val(name);
-    $('#code').val(code);
-    $('#weight').val(weight);
-    $('#lipatan').val(lipatan);
-    $('#price_roll').val(price);
+        // Copy all fields
+        form.find('input, select, textarea').each(function() {
+            $('<input>').attr({
+                type: 'hidden',
+                name: $(this).attr('name'),
+                value: $(this).val()
+            }).appendTo(tempForm);
+        });
 
-    showRollAlert('success',
-        '<i class="fas fa-check-circle mr-1"></i><strong>' + name + '</strong> dipilih — Kode: <strong>' + code + '</strong>');
-});
-
-/* ══════════════════════════════
-   MODAL: Print — populate fields
-══════════════════════════════ */
-// $('#printDetails').on('show.bs.modal', function(event) {
-//     var btn = $(event.relatedTarget);
-//     $(this).find('#po_id_print').val(btn.data('po'));
-//     $(this).find('#id_print').val(btn.data('id'));
-//     $(this).find('#print_batch').val(btn.data('batch'));
-//     $(this).find('#name_print').val(btn.data('name'));
-//     $(this).find('#amount_print').val(btn.data('amount'));
-//     $(this).find('#gram_print').val(btn.data('weight'));
-//     $(this).find('#guset_print').val(btn.data('lipatan'));
-//     $(this).find('#desc_print').val(btn.data('desc'));
-// });
-
-//print via new tab iframe
-$('#printDetails form').on('submit', function(e) {
-    e.preventDefault();
-
-    var form = $(this);
-
-    var tempForm = $('<form>', {
-        action: '<?= base_url('production/print_general_ticket') ?>',
-        method: 'POST',
-        target: '_blank'
+        tempForm.appendTo('body').submit().remove();
+        $('#printDetails').modal('hide');
     });
 
-    // Add type field
-    $('<input>').attr({ type: 'hidden', name: 'type', value: '2' }).appendTo(tempForm);
-
-    // Copy all fields
-    form.find('input, select, textarea').each(function() {
-        $('<input>').attr({
-            type: 'hidden',
-            name: $(this).attr('name'),
-            value: $(this).val()
-        }).appendTo(tempForm);
+    /* ══════════════════════════════
+    MODAL: Delete — populate fields
+    ══════════════════════════════ */
+    $('#deleteItemProdOrder').on('show.bs.modal', function(event) {
+        var btn = $(event.relatedTarget);
+        $(this).find('#delete_po_id').val(btn.data('po'));
+        $(this).find('#delete_id').val(btn.data('id'));
+        $(this).find('#delete_name').val(btn.data('name'));
+        $(this).find('#delete_amount').val(btn.data('amount'));
     });
 
-    tempForm.appendTo('body').submit().remove();
-    $('#printDetails').modal('hide');
-});
-
-/* ══════════════════════════════
-   MODAL: Delete — populate fields
-══════════════════════════════ */
-$('#deleteItemProdOrder').on('show.bs.modal', function(event) {
-    var btn = $(event.relatedTarget);
-    $(this).find('#delete_po_id').val(btn.data('po'));
-    $(this).find('#delete_id').val(btn.data('id'));
-    $(this).find('#delete_name').val(btn.data('name'));
-    $(this).find('#delete_amount').val(btn.data('amount'));
-});
-
-/* ══════════════════════════════
-   Also check PO on DOMContentLoaded (persisted via flashdata)
-══════════════════════════════ */
-document.addEventListener('DOMContentLoaded', function() {
-    var existingPoId = document.getElementById('po_id').value;
-    if (existingPoId) checkPoId(existingPoId);
-});
+    /* ══════════════════════════════
+    Also check PO on DOMContentLoaded (persisted via flashdata)
+    ══════════════════════════════ */
+    document.addEventListener('DOMContentLoaded', function() {
+        var existingPoId = document.getElementById('po_id').value;
+        if (existingPoId) checkPoId(existingPoId);
+    });
 </script>

@@ -1025,6 +1025,16 @@
             </div>
             <form action="<?= base_url('production/cut_roll_bulk/' . $po_id) ?>" method="post">
                 <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-form-label">
+                            <i class="bi bi-qr-code-scan"></i> Scan QR Code
+                        </label>
+                        <div id="qr-reader" style="width: 100%; max-width: 400px;"></div>
+                        <button type="button" class="btn btn-sm btn-secondary mt-2" id="qr-toggle-btn">
+                            <i class="bi bi-camera-video"></i> Start Scanner
+                        </button>
+                        <div id="qr-result-text" class="text-muted mt-1" style="font-size: 0.85em;"></div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-hover" id="table4" width="100%" cellspacing="0">
                             <thead>
@@ -1093,28 +1103,6 @@
 </div>
 
 <script>
-    // function showBulkAlert(message, type = 'danger'){
-    //     const styles = {
-    //         danger:  { alert: 'alert-danger',  icon: 'fa-exclamation-circle' },
-    //         success: { alert: 'alert-success', icon: 'fa-check-circle'       },
-    //         warning: { alert: 'alert-warning', icon: 'fa-exclamation-triangle'},
-    //     };
-
-    //     const s = styles[type];
-    //     const $inner = $('#bulk-toast-inner');
-
-    //     // Reset classes and apply new ones
-    //     $inner.removeClass('alert-danger alert-success alert-warning')
-    //         .addClass(s.alert);
-    //     $('#bulk-toast-icon').attr('class', `fas ${s.icon} mr-2`);
-    //     $('#bulk-toast-message').text(message);
-
-    //     $('#bulk-toast').fadeIn(200);
-    //     setTimeout(function(){
-    //         $('#bulk-toast').fadeOut(500);
-    //     }, 3000);
-    // }
-
     function checkBulkHandler(){
         const $this = $(this);
         const currentCode = $this.data('code'); //current check item, gonna be saved for perbandingan with next checked items
@@ -1155,6 +1143,151 @@
 
     $('.check-bulk').on('click', checkBulkHandler);
 
+    let html5QrCode = null;
+    let qrScannerRunning = false;
+    let lastScanTime = 0;
+
+    function startQrScanner(){
+        if (qrScannerRunning) return;
+
+        html5QrCode = new Html5Qrcode("qr-reader");
+
+        const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
+        html5QrCode.start(
+            { facingMode: "environment" },
+            config,
+            onQrScanSuccess,
+            () => {}
+        ).then(() => {
+            qrScannerRunning = true;
+            $('#qr-toggle-btn').html('<i class="bi bi-camera-video-off"></i> Stop Scanner');
+
+            // Mirror the preview if using the front-facing camera
+            const video = document.querySelector('#qr-reader video');
+            if (video) video.style.transform = 'scaleX(-1)';
+        }).catch(err => {
+            showBulkAlert('Unable to start camera: ' + err, 'danger');
+        });
+    }
+
+    function stopQrScanner(){
+        if (!qrScannerRunning || !html5QrCode) return;
+        html5QrCode.stop().then(() => {
+            html5QrCode.clear();
+            qrScannerRunning = false;
+            $('#qr-toggle-btn').html('<i class="bi bi-camera-video"></i> Start Scanner');
+            // console.log('Camera stopped successfully');
+        }).catch(err => {
+            console.error('Error stopping camera:', err);
+            // Force-release the stream as a fallback even if stop() failed
+            forceStopCamera();
+        });
+    }
+
+    function forceStopCamera(){
+        const video = document.querySelector('#qr-reader video');
+        if (video && video.srcObject) {
+            video.srcObject.getTracks().forEach(track => track.stop());
+            video.srcObject = null;
+        }
+        qrScannerRunning = false;
+        $('#qr-toggle-btn').html('<i class="bi bi-camera-video"></i> Start Scanner');
+    }
+
+    function onQrScanSuccess(decodedText){
+        // Debounce: ignore repeat scans of the same/blurry frame within 1.5s
+        const now = Date.now();
+        if (now - lastScanTime < 1500) return;
+        lastScanTime = now;
+
+        handleScannedCode(decodedText);
+    }
+
+    function handleScannedCode(raw){
+        raw = raw.trim();
+        if (!raw) return;
+
+        const parts = raw.split('&');
+        if (parts.length !== 3) {
+            showBulkAlert('Invalid QR format!', 'danger');
+            return;
+        }
+
+        const [scannedRowId, scannedTransId, scannedCode] = parts.map(p => p.trim());
+        // console.log('Scanned:', { scannedRowId, scannedTransId, scannedCode });
+
+        function rowMatches($el){
+            return String($el.data('id')) === String(scannedRowId) &&
+                String($el.data('trxid')) === String(scannedTransId) &&
+                String($el.data('code')) === String(scannedCode);
+        }
+
+        // 1. Look for an eligible (uncut, unchecked) checkbox
+        let $match = null;
+        $('#table4 .check-bulk').each(function(){
+            const $cb = $(this);
+            if ($cb.prop('checked')) return;
+            if (rowMatches($cb)) {
+                $match = $cb;
+                return false;
+            }
+        });
+
+        if ($match) {
+            $match.prop('checked', true);
+            checkBulkHandler.call($match[0]);
+            $('#qr-result-text').html('<i class="bi bi-check-circle text-success"></i> Last added: ' + scannedCode);
+            showBulkAlert('Item added: ' + scannedCode, 'success');
+            return;
+        }
+
+        // 2. Not eligible — check if it's already checked
+        let $alreadyChecked = null;
+        $('#table4 .check-bulk:checked').each(function(){
+            if (rowMatches($(this))) {
+                $alreadyChecked = $(this);
+                return false;
+            }
+        });
+        if ($alreadyChecked) {
+            showBulkAlert('Item already selected!', 'warning');
+            $('#qr-result-text').html('<i class="bi bi-info-circle text-warning"></i> Already selected: ' + scannedCode + '. Row number: ' + scannedRowId);
+            return;
+        }
+
+        // 3. Not in the checkbox pool — check if it's already cut (rendered as "Undo")
+        let alreadyCut = false;
+        $('#table4 a.clickable').each(function(){
+            if (rowMatches($(this))) {
+                alreadyCut = true;
+                return false;
+            }
+        });
+        if (alreadyCut) {
+            showBulkAlert('This item has already been cut!', 'danger');
+            $('#qr-result-text').html('<i class="bi bi-x-circle text-danger"></i> Already cut: ' + scannedCode + '. Row number: ' + scannedRowId);
+            return;
+        }
+
+        // 4. Not found anywhere in this production's table at all
+        showBulkAlert('This item does not belong to the current production!', 'danger');
+        $('#qr-result-text').html('<i class="bi bi-exclamation-triangle text-danger"></i> Not found in this PO: ' + scannedCode + '. Row number: ' + scannedRowId);
+    }
+
+    $('#qr-toggle-btn').on('click', function(){
+        if (qrScannerRunning) {
+            stopQrScanner();
+        } else {
+            startQrScanner();
+        }
+    });
+
+
+    $('#cutBulk .close[data-dismiss="modal"]').on('click', function(){
+        stopQrScanner();
+    });
+
     function undo_status_change(el){
         const id = $(el).data('id');
         const id_check = JSON.stringify(id);
@@ -1185,51 +1318,6 @@
             }
         });
     }
-
-    // $('.check-bulk').click(function(e){
-    //     let sum = 0;
-
-    //     $('#table4 .check-bulk:checked').each(function(){
-    //         sum += Number($(this).val());
-    //     });
-
-    //     const id = $(this).data('id');
-        
-    //     const id_check = JSON.stringify(id);
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: '<?= base_url("production/change_to_cut"); ?>', 
-    //         data: {id_check: id_check}, 
-    //         success: function(resp) { 
-               
-    //         }
-    //     });
-
-    //     const code = $(this).data('code');
-    //     const transID = $(this).data('trxid');
-    //     const batch = $(this).data('batch');
-
-    //     // $('#cut_amount').value("Total Amount is : "+sum+" kg");  
-    //     document.getElementById("roll_item").value = code;
-    //     document.getElementById("trans_id").value = transID;
-    //     document.getElementById("bulk_batch").value = batch;
-    //     document.getElementById("cut_amount").value = sum;
-    // });
-    // function undo_status_change(el){
-    //     // var id = $(event.relatedTarget).data('id');
-    //     let id = $(el).data('id');
-    //     const id_check = JSON.stringify(id);
-
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: '<?= base_url("production/change_to_cut"); ?>', 
-    //         data: {id_check: id_check}, 
-    //         success: function(resp) { 
-    //            alert('Undo change status success');
-    //            console.log(id_check);
-    //         }
-    //     });
-    // };
 </script>
 
 <!-- Modal For Print -->
@@ -1394,7 +1482,8 @@
         ]
 
     });
-    var table3 = $('#table4').DataTable({
+
+    var table4 = $('#table4').DataTable({
         paging: false,
         searchable: true
     });

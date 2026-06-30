@@ -140,10 +140,10 @@
         var rollId  = <?= json_encode($id) ?>;
         var poId    = <?= json_encode($po_id) ?>;
         var code    = <?= json_encode($code) ?>;
-        var apiUrl  = encodeURIComponent(rollId) + '&' + encodeURIComponent(poId) + '&' + encodeURIComponent(code);
+        var qrContent  = encodeURIComponent(rollId) + '&' + encodeURIComponent(poId) + '&' + encodeURIComponent(code);
 
         new QRCode(document.getElementById('qrcode'), {
-            text: apiUrl,
+            text: qrContent,
             width: 83,   // ~22mm at 96dpi
             height: 83,
             colorDark: '#000000',

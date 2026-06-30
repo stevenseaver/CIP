@@ -111,7 +111,7 @@
 
                 <p class="field-label">Picture (if exist)</p>
                 <p class="field-value mb-3" style="font-size:13px;font-weight:400;color:#495057;">
-                    <img class="img-fluid rounded" src="<?= 'https://plastikrukun.com/' . htmlspecialchars($gbj['picture']) ?>" alt="Product Image" style="width: 15rem;"><?= htmlspecialchars($gbj['picture'])?>
+                    <img class="img-fluid rounded" src="<?= 'https://plastikrukun.com/' . htmlspecialchars($gbj['picture']) ?>" alt="Product Image" style="width: 15rem;">
                 </p>
 
                 <hr class="my-3">
