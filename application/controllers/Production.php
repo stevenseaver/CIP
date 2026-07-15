@@ -211,7 +211,7 @@ class Production extends CI_Controller
 
             if($this->db->insert('stock_material', $data)){
                 $inserted_id = $this->db->insert_id();
-                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'CREATE', 'Initial stock of ' . $materialName . ': ' . $stock_old, 'Production order material added: ' . $materialName . ' with amount ' . $amount. ' ' . $unit . '. Updated stock: ' . $updated_stock);
+                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'CREATE', 'Initial stock of ' . $materialName . ': ' . $stock_old . ' ' . $unit, 'Production order material added: ' . $materialName . ' with amount ' . $amount. ' ' . $unit . '. Updated stock: ' . $updated_stock);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed');
                 };
@@ -1191,7 +1191,7 @@ class Production extends CI_Controller
 
             if($this->db->insert('stock_material', $data)){
                 $inserted_id = $this->db->insert_id();
-                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'CREATE', 'Initial stock of ' . $materialName . ': '  . $stock_old . ' kg', 'Production order material added: ' . $materialName . ' with amount ' . $amount. ' ' . $unit . '. Updated stock: ' . $updated_stock . ' ' . $unit);
+                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'CREATE', 'Initial stock of ' . $materialName . ': '  . $stock_old . ' ' . $unit, 'Production order material added: ' . $materialName . ' with amount ' . $amount. ' ' . $unit . '. Updated stock: ' . $updated_stock . ' ' . $unit);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed');
                 };
@@ -2342,7 +2342,7 @@ class Production extends CI_Controller
 
             if($this->db->insert('stock_material', $data)){
                 $inserted_id = $this->db->insert_id();
-                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'CREATE', 'Initial stock of ' . $materialName . ': '  . $stock_old . ' kg', 'Production order material added: ' . $materialName . ' with amount ' . $amount. ' ' . $unit . '. Updated stock: ' . $updated_stock . ' ' . $unit);
+                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'CREATE', 'Initial stock of ' . $materialName . ': '  . $stock_old . ' ' . $unit, 'Production order material added: ' . $materialName . ' with amount ' . $amount. ' ' . $unit . '. Updated stock: ' . $updated_stock . ' ' . $unit);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed');
                 };
