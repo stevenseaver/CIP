@@ -298,6 +298,16 @@
                         <td style="width: 200px"><input id="editDESCrder-<?= $ms['id'] ?>" class="edit-pur-desc text-left form-control" data-id="<?= $ms['id']; ?>" data-transID="<?= $ms['transaction_id']; ?>" value="<?= $ms['item_desc']; ?>"></td>
                         <!-- <td><?= $ms['item_desc']; ?></td> -->
                         <td>
+                            <a class="badge badge-primary clickable print-item-btn"
+                                data-po="<?= htmlspecialchars($po_id); ?>"
+                                data-name="<?= htmlspecialchars($ms['name']); ?>"
+                                data-code="<?= htmlspecialchars($ms['code']); ?>"
+                                data-amount="<?= htmlspecialchars($ms['incoming']); ?>"
+                                data-price="<?= htmlspecialchars($ms['price']); ?>"
+                                data-desc="<?= htmlspecialchars($ms['item_desc']); ?>"
+                                data-unitsatuan="<?= htmlspecialchars($ms['unit_satuan']); ?>">
+                                <i class="bi bi-printer"></i> Print
+                            </a>
                             <a data-toggle="modal" data-target="#deleteItemPOModal" data-po="<?= $po_id ?>" data-id="<?= $ms['id']; ?>" data-name="<?= $ms['name']; ?>" data-amount="<?= $ms['incoming']; ?>" class="badge badge-danger clickable"><i class="bi bi-trash-fill"> </i>Delete</a>
                         </td>
                     </tr>
@@ -485,5 +495,31 @@
             }
         ]
 
+    });
+
+    $('.print-item-btn').on('click', function() {
+        var po          = $(this).data('po');
+        var name        = $(this).data('name');
+        var code        = $(this).data('code');
+        var amount      = $(this).data('amount');
+        var price       = $(this).data('price');
+        var desc        = $(this).data('desc');
+        var unit_satuan = $(this).data('unitsatuan');
+
+        var tempForm = $('<form>', {
+            action: '<?= base_url('purchasing/print_ticket_item') ?>',
+            method: 'POST',
+            target: '_blank'
+        });
+
+        $('<input>').attr({ type: 'hidden', name: 'po_id',       value: po          }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'name',        value: name        }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'code',        value: code        }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'amount',      value: amount      }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'price',       value: price       }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'desc',        value: desc        }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'unit_satuan', value: unit_satuan }).appendTo(tempForm);
+
+        tempForm.appendTo('body').submit().remove();
     });
 </script>

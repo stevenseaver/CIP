@@ -1026,6 +1026,22 @@ class Production extends CI_Controller
     {
         $type = $this->input->post('type');
 
+        if ($type == 3) {
+            // Bulk print — items posted as a JSON string
+            $itemsRaw = $this->input->post('items');
+            $items    = json_decode($itemsRaw, true);
+
+            if (!is_array($items) || empty($items)) {
+                show_error('No items to print.', 400);
+                return;
+            }
+
+            $data = ['items' => $items];
+            $this->load->view('production/print_general_roll_ticket', $data);
+            return;
+        }
+
+        // Existing single-row flow — unchanged type = 2
         $data = [
             'po_id'   => $this->input->post('po_id'),
             'id'      => $this->input->post('id'),
@@ -2199,7 +2215,7 @@ class Production extends CI_Controller
                 $this->db->set('price', $update_price);
             };
             if($this->db->update('stock_finishedgoods')){
-                $audit_id = $this->audit->log_audit('stock_finishedgoods', $id, $prodID, 'UPDATE', 'FG item: ' . $name . ' amount: ' . $adjust_old . ' with initial stock ' . $stock_akhir, 'FG item: ' . $name . '  edited to: ' . $amount . ' pack. Stock updated to: ' . $update_stock);
+                $audit_id = $this->audit->log_audit('stock_finishedgoods', $id, $prodID, 'UPDATE', 'FG item: ' . $name . ' amount: ' . $adjust_old . ' ' . $unit_satuan . ' with initial stock ' . $stock_akhir, 'FG item: ' . $name . '  edited to: ' . $amount . ' ' . $unit_satuan .'. Stock updated to: ' . $update_stock);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed');
                 };
@@ -2214,7 +2230,7 @@ class Production extends CI_Controller
             $this->db->set('incoming', $amount);
             $this->db->set('before_convert', $amount);
             if($this->db->update('stock_finishedgoods')){
-                $audit_id = $this->audit->log_audit('stock_finishedgoods', $id, $prodID, 'UPDATE', 'FG item: ' . $name . ' amount: ' . $adjust_old . ' with initial stock ' . $stock_akhir, 'FG item: ' . $name . '  edited to: ' . $amount . ' pack. Stock not updated because changes made before converting to packs.');
+                $audit_id = $this->audit->log_audit('stock_finishedgoods', $id, $prodID, 'UPDATE', 'FG item: ' . $name . ' amount: ' . $adjust_old . ' ' . $unit_satuan . ' with initial stock ' . $stock_akhir, 'FG item: ' . $name . '  edited to: ' . $amount . ' pack. Stock not updated because changes made before converting to packs.');
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed');
                 };

@@ -164,11 +164,14 @@ class Purchasing extends CI_Controller
                 'is_paid' => $is_paid,
                 'term' => $term
             ];
+
+            $decimals = 2;
+            $amountFormatted   = number_format((float) $amount, $decimals, ',', '.');
             
             if($this->db->insert('stock_material', $data)){
                 $inserted_id = $this->db->insert_id();
                 $this->load->model('Audit_model', 'audit');
-                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'CREATE', '-', $materialName);
+                $audit_id = $this->audit->log_audit('stock_material', $inserted_id, $po_id, 'CREATE', '-', 'Purchase order item added: ' . $materialName . ' with amount: ' . $amountFormatted . ' ' . $unit);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed on Purchasing/add_item_po()');
                     $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
@@ -216,7 +219,7 @@ class Purchasing extends CI_Controller
         $this->db->where('id', $id);
         if($this->db->delete('stock_material')){
             $this->load->model('Audit_model', 'audit');
-            $audit_id = $this->audit->log_audit('stock_material', $id, $po_id, 'DELETE', 'Existed item: ' . $name, 'Deleted item: ' . $name);
+            $audit_id = $this->audit->log_audit('stock_material', $id, $po_id, 'DELETE', 'Existed prod. order item: ' . $name, 'Deleted prod. order item: ' . $name);
             if (!$audit_id) {
                 log_message('error', 'Audit log failed on Purchasing/delete_item()');
                 $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
@@ -358,17 +361,24 @@ class Purchasing extends CI_Controller
         $data['inventory_selected'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
 
         $poID = $data['inventory_selected']['transaction_id'];
+        $name = $data['inventory_selected']['name'];
         $amount = $data['inventory_selected']['incoming'];
         $date = time();
         $code = $data['inventory_selected']['code'];
         $supplier_id = $data['inventory_selected']['supplier'];
         $price = $data['inventory_selected']['price'];
+        $unit = $data['inventory_selected']['unit_satuan'];
 
         if($data['inventory_selected']['transaction_status'] == 1){
             //get stock akhir data
             $data['getID'] = $this->db->get_where('stock_material', ['code' => $code, 'status' => '7'])->row_array();
             $in_stockOld = $data['getID']['in_stock'];
             $receivedStock = $in_stockOld + $amount;
+
+            $decimals = 2;
+            $in_stockOldFormatted   = number_format((float) $in_stockOld, $decimals, ',', '.');
+            $receivedStockFormatted = number_format((float) $receivedStock, $decimals, ',', '.');
+
             $data = [
                 'transaction_status' => 2,
                 'in_stock' => $receivedStock
@@ -388,7 +398,7 @@ class Purchasing extends CI_Controller
             $this->db->where('code', $code);
             if($this->db->update('stock_material', $data2)){
                 $this->load->model('Audit_model', 'audit');
-                $audit_id = $this->audit->log_audit('stock_material', $id, $poID, 'UPDATE', $in_stockOld, 'Updated stock:' . $receivedStock);
+                $audit_id = $this->audit->log_audit('stock_material', $id, $poID, 'UPDATE', $name . ' stock before: ' . $in_stockOldFormatted . ' ' . $unit, 'Updated stock after receiving: ' . $receivedStockFormatted . ' ' . $unit);
                 if (!$audit_id) {
                     log_message('error', 'Audit log failed on Purchasing/delete_item()');
                     $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');
@@ -410,15 +420,21 @@ class Purchasing extends CI_Controller
     {
         $id = $this->input->post('id');
         $data['before'] = $this->db->get_where('stock_material', ['id' => $id])->row_array();
-        $before_value = $data['before']['incoming'];
         $po_id = $data['before']['transaction_id'];
+        $name = $data['before']['name'];
+        $before_value = $data['before']['incoming'];
+        $unit = $data['before']['unit_satuan'];
         $amount = $this->input->post('qtyID');
+
+        $decimals = 2;
+        $before_valueFormatted = number_format((float) $before_value, $decimals, ',', '.');
+        $amountFormatted = number_format((float) $amount, $decimals, ',', '.');
 
         $this->db->where('id', $id);
         $this->db->set('incoming', $amount);
         if($this->db->update('stock_material')){
             $this->load->model('Audit_model', 'audit');
-            $audit_id = $this->audit->log_audit('stock_material', $id, $po_id, 'UPDATE', $before_value, 'Update amount: ' . $amount);
+            $audit_id = $this->audit->log_audit('stock_material', $id, $po_id, 'UPDATE', '(Before) purchase amount of item ' . $name . ': ' . $before_valueFormatted . ' ' . $unit, 'Updated amount after receive: ' . $amountFormatted . ' ' . $unit);
             if (!$audit_id) {
                 log_message('error', 'Audit log failed');
                 $this->session->set_flashdata('audit_message', '<div class="alert alert-danger" role="alert">Log failed!</div>');

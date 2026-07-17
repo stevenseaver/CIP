@@ -1,6 +1,20 @@
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
+    <div id="bulk-toast" style="
+        display: none;
+        position: fixed;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        min-width: 300px;
+        max-width: 500px;
+    ">
+        <div id="bulk-toast-inner" class="alert mb-0 shadow-lg text-center" role="alert">
+            <i id="bulk-toast-icon" class="fas fa-exclamation-circle mr-2"></i>
+            <span id="bulk-toast-message"></span>
+        </div>
+    </div>
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title ?></h1>
     <div class="row">
@@ -576,10 +590,18 @@
     <!-- Roll data -->
     <!-- Roll data -->
     <div class="table-responsive my-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <div class="h5 text-primary mb-0">Rolls</div>
+            <a href="javascript:void(0)" id="printAllRollsBtn" class="btn btn-primary btn-icon-split">
+                <span class="icon text-white-70">
+                    <i class="fas fa-print"></i>
+                </span>
+                <span class="text">Print All Rolls</span>
+            </a>
+        </div>
         <table class="table table-hover" id="table3" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <div class="h5 text-primary">Rolls</div>
                     <th>No</th>
                     <th>Date</th>
                     <th>Item</th>
@@ -647,7 +669,7 @@
                                 data-weight="<?= $ms['weight'] ?>"
                                 data-lipatan="<?= $ms['lipatan'] ?>"
                                 data-desc="<?= $ms['transaction_desc'] ?>"
-                                class="badge badge-primary clickable mr-1">
+                                class="badge badge-primary clickable mr-1 printLabelLink">
                                 <i class="fas fa-print mr-1"></i>Print
                             </a>
                             <?php if ($ms['status'] != 9){ ?>
@@ -923,5 +945,55 @@
 
         tempForm.appendTo('body').submit().remove();
         $('#printDetails').modal('hide');
+    });
+
+    $('#printAllRollsBtn').on('click', function () {
+        var items = [];
+
+        $('#table3 tbody tr').each(function () {
+            var $link = $(this).find('a.printLabelLink');
+            if ($link.length === 0) return;
+
+            var name = ($link.data('name') || '').toString().toUpperCase();
+            var desc = ($link.data('desc') || '').toString().toLowerCase();
+
+            // Exclude AVALAN / PRONGKOLAN / BULK CUT rows
+            var isExcluded =
+                name === 'AVALAN ROLL' ||
+                name === 'PRONGKOLAN ROLL' ||
+                desc.indexOf('avalan') !== -1 ||
+                desc.indexOf('prongkolan') !== -1 ||
+                desc === 'bulk cut';
+
+            if (isExcluded) return;
+
+            items.push({
+                id:     $link.data('id'),
+                po_id:  $link.data('po'),
+                batch:  $link.data('batch'),
+                name:   $link.data('name'),
+                code:   $link.data('itemcode'),
+                amount: $link.data('amount'),
+                gram:   $link.data('weight'),
+                guset:  $link.data('lipatan'),
+                desc:   $link.data('desc')
+            });
+        });
+
+        if (items.length === 0) {
+            alert('No printable rolls found (all rows are Avalan, Prongkolan, or Bulk cut).');
+            return;
+        }
+
+        var tempForm = $('<form>', {
+            action: '<?= base_url('production/print_general_ticket') ?>',
+            method: 'POST',
+            target: '_blank'
+        });
+
+        $('<input>').attr({ type: 'hidden', name: 'type', value: '3' }).appendTo(tempForm);
+        $('<input>').attr({ type: 'hidden', name: 'items', value: JSON.stringify(items) }).appendTo(tempForm);
+
+        tempForm.appendTo('body').submit().remove();
     });
 </script>

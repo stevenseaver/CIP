@@ -8,12 +8,12 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         @page {
-            size: 100mm 80mm;
+            size: 80mm 50mm;
             margin: 3mm;
         }
 
         body {
-            width: 100mm;
+            width: 80mm;
             font-family: Arial, sans-serif;
             font-size: 10px;
             padding: 3mm;
@@ -109,7 +109,7 @@
                             <div class="col-right">
                                 <div class="desc-big">${i}</div>
                                 <div class="qrcode"></div>
-                                <p class="qr-label">Scan to verify</p>
+                                <p class="qr-label">Scan to see item code</p>
                             </div>
                         </div>
                     </div>
